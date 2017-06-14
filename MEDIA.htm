@@ -1,0 +1,96 @@
+﻿<!DOCTYPE HTML>
+<html lang="es" dir="ltr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+        <meta name="description" content="MULTIMEDIA"/>
+        <title>Vídeo y Audio en HTML5</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="estilo.css" />                     
+    </head>
+    <body style="background-color:black">
+        <script>
+                //PARA EL ÍCONO DE MENÚ
+                function myFunction(x) {
+                    x.classList.toggle("change");
+                }
+        </script>
+        <div class="caja">
+            <div class="container" onclick="myFunction(this)">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+            </div>
+            <div class="navbar">
+                <a href="INDEX.htm">VOLVER AL INICIO</a>
+            </div>
+        </div>
+            <div class="main">
+                <h1 class="letramorada">MULTIMEDIA</h1>
+                <h2 class="letramorada">IMAGEN, AUDIO Y VÍDEO EN HTML5</h2>
+                <section>
+                    <article class="clasemultimedia">
+                        <!--Probando img-->
+                        <h2>Imágenes HTML5</h2>
+                        <p>Próximamente...</p>                        
+                    </article>                    
+                    <article class="clasemultimedia">
+                        <!--Probando audio-->
+                        <h2>Audio HTML5</h2>
+                        <audio controls="controls">
+                            <source src="VIVALDI - LA PRIMAVERA.mp3" type="audio/mp3" />
+                            <source src="VIVALDI - LA PRIMAVERA.ogg" type="audio/ogg" />
+                            <source src="VIVALDI - LA PRIMAVERA.wav" type="audio/vnd.wave" />
+                            <!--para los navegadores que no soporten audio -->Tu navegador no soporta la etiqueta AUDIO
+                        </audio>
+                        <h2>Vivaldi: "La Primavera" (Fragmento)</h2>
+                    </article>
+                    <article class="clasemultimedia">
+                        <!--Probando videos-->
+                        <h2>Video HTML5</h2>
+                        <video controls="controls" width="640" height="480">
+                            <source src="TE QUIERO.mp4" type="video/mp4" />
+                            <source src="TE QUIERO.webm" type="video/webm" />
+                            <!--para los navegadores que no soporten el video -->Tu navegador no soporta vídeo MP4 ni WEBM sobre HTML5
+                        </video>
+                        <h2>Elvia Charris: "Te quiero"</h2>
+                    </article>
+                </section>
+                <footer>
+                    <p>Coded by @deiner_db</p>
+                    <a href="https://www.facebook.com/deinerdb" target="_blank" class="fa fa-facebook"></a>
+                    <a href="https://twitter.com/deiner_db" target="_blank" class="fa fa-twitter"></a>
+                    <a href="https://www.instagram.com/deiner_db/" target="_blank" class="fa fa-instagram"></a>
+                    <a href="https://plus.google.com/+DeinerDom%C3%ADnguezBola%C3%B1o" target="_blank" class="fa fa-google-plus"></a>
+                    <a href="https://www.youtube.com/user/deinerdominguez" target="_blank" class="fa fa-youtube"></a>
+                    <a href="skype:live:deiner_db?call" class="fa fa-skype"></a>
+                </footer>
+            </div>
+            <button onclick="topFunction()" id="BtnTop" title="Subir">⇧</button>
+        <script>
+            var btnInterval;
+            // MUESTRA EL BOTÓN CUANDO HACE SCROLL MÁS DE 20 PX
+            window.onscroll = function () { scrollFunction() };
+
+            function scrollFunction() {
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    document.getElementById("BtnTop").style.display = "block";
+                    clearTimeout(btnInterval);
+                    btnInterval = setTimeout("ocultarbtn()", 2000);
+                } else {
+                    document.getElementById("BtnTop").style.display = "none";
+                }
+            }
+            function ocultarbtn(){
+                document.getElementById("BtnTop").style.display = "none";
+            }
+
+            // CUANDO EL USUARIO HACE CLICK, HACE SCROLL HASTA EL INICIO DEL DOCUMENTO
+            function topFunction() {
+                document.body.scrollTop = 0; // For Chrome, Safari and Opera
+                document.documentElement.scrollTop = 0; // For IE and Firefox
+            }
+        </script> 
+</body>
+</html>
+

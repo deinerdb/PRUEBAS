@@ -1,0 +1,92 @@
+﻿<!DOCTYPE HTML>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <meta name="description" content="Dibujando con SVG"/>
+    <title>Dibujo con SVG</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="estilo.css" />
+</head>
+<body>
+    <script>
+                //PARA EL ÍCONO DE MENÚ
+                function myFunction(x) {
+                    x.classList.toggle("change");
+                }
+    </script>
+    <div class="caja">
+        <div class="container" onclick="myFunction(this)">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+        <div class="navbar">
+            <a href="INDEX.htm">VOLVER AL INICIO</a>
+        </div>
+    </div>
+        <div class="main">
+            <h1 class="letramorada">Utilizando SVG (Scalable Vector Graphics)</h1>
+            <!--Comienza-->
+            <svg height="100" width="100">
+                <circle cx="50" cy="50" r="50" fill="red" />
+            </svg>
+            <br />
+            <!--otro-->
+            <svg id="círculo" height="200" width="200" xmlns="http://www.w3.org/2000/svg" version="1.1">
+                <circle cx="100" cy="100" r="100" fill="red" />
+            </svg>
+            <br />
+            <!--otro-->
+            <svg id="cuadro1" height="200" width="200" xmlns="http://www.w3.org/2000/svg" version="1.1">
+                <rect x="10" y="20" width="180" height="120" stroke="red" fill="#ccc" />
+            </svg>
+            <br />
+            <!--otro-->
+            <svg id="cuadro2" height="250" width="250" xmlns="http://www.w3.org/2000/svg" version="1.1">
+                <rect x="50" y="20" rx="20" ry="20" width="150" height="100"
+                      style="fill:red; stroke:black; stroke-width:5; opacity:0.5" />
+                <polygon fill="lime" stroke="blue" stroke-width="2"
+                         points="85,7.5  95.8,13.75 95.8,26.25
+                    85,32.5 74.2,26.26 74.2,13.75" />
+            </svg>
+
+            <!--Firma-->
+            <footer>
+                <p>Coded by @deiner_db</p>
+                <a href="https://www.facebook.com/deinerdb" target="_blank" class="fa fa-facebook"></a>
+                <a href="https://twitter.com/deiner_db" target="_blank" class="fa fa-twitter"></a>
+                <a href="https://www.instagram.com/deiner_db/" target="_blank" class="fa fa-instagram"></a>
+                <a href="https://plus.google.com/+DeinerDom%C3%ADnguezBola%C3%B1o" target="_blank" class="fa fa-google-plus"></a>
+                <a href="https://www.youtube.com/user/deinerdominguez" target="_blank" class="fa fa-youtube"></a>
+                <a href="skype:live:deiner_db?call" class="fa fa-skype"></a>
+            </footer>
+        </div>
+        <button onclick="topFunction()" id="BtnTop" title="Subir">⇧</button>
+    <script>
+            var btnInterval;
+            // MUESTRA EL BOTÓN CUANDO HACE SCROLL MÁS DE 20 PX
+            window.onscroll = function () { scrollFunction() };
+
+            function scrollFunction() {
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    document.getElementById("BtnTop").style.display = "block";
+                    clearTimeout(btnInterval);
+                    btnInterval = setTimeout("ocultarbtn()", 2000);
+                } else {
+                    document.getElementById("BtnTop").style.display = "none";
+                }
+            }
+            function ocultarbtn(){
+                document.getElementById("BtnTop").style.display = "none";
+            }
+
+            // CUANDO EL USUARIO HACE CLICK, HACE SCROLL HASTA EL INICIO DEL DOCUMENTO
+            function topFunction() {
+                document.body.scrollTop = 0; // For Chrome, Safari and Opera
+                document.documentElement.scrollTop = 0; // For IE and Firefox
+            }
+    </script> 
+</body>
+</html>
+

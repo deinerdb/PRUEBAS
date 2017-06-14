@@ -1,0 +1,141 @@
+﻿<!DOCTYPE HTML>
+<html lang="es" dir="ltr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+        <meta name="description" content="FORMULARIOS"/>
+        <title>FORMULARIOS HTML</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="estilo.css" />                     
+    </head>
+    <body>
+        <script>
+                //PARA EL ÍCONO DE MENÚ
+                function myFunction(x) {
+                    x.classList.toggle("change");
+                }
+        </script>
+        <div class="caja">
+            <div class="container" onclick="myFunction(this)">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+            </div>
+            <div class="navbar">
+                <a href="INDEX.htm">VOLVER AL INICIO</a>
+            </div>
+        </div>
+            <div class="main">
+                <h1 class="letramorada">FORMULARIOS</h1>
+                <section>
+                    <h3>Ejemplo de formulario en HTML</h3>
+                    <form name="cuestionario" method="get" autocomplete="on" target="_self">
+                        <br />
+                        <h3>CUESTIONARIO</h3>
+                        <label for="nombre">Nombre:</label><br />
+                        <input type="text" name="nombre" id="nombre" required /><br />
+                        <label for="apellido">Apellido:</label> <br />
+                        <input type="text" name="apellido" id="apellido" /><br />
+                        <label>Sexo:</label> <br />
+                        <input type="radio" name="sexo" id="masculino" value="masculino" />
+                        <label for="masculino">Masculino</label><br />
+                        <input type="radio" name="sexo" id="femenino" value="femenino" />
+                        <label for="femenino">Femenino</label> <br />
+                        <label for="correo">Correo:</label> <br />
+                        <input type="email" name="correo" id="correo" placeholder="Ingrese un e-mail válido" /><br />
+                        <label for="url">Página web:</label> <br />
+                        <input type="url" name="url" id="url" /><br />
+                        <label for="nacimiento">Fecha de nacimiento:</label> <br />
+                        <input type="date" name="nacimiento" id="nacimiento" /><br />
+                        <label for="estrato">Estrato:</label> <br />
+                        <input type="number" name="estrato" id="estrato" value="2" min="0" max="6" /><br />
+                        <label>Servicio a Jehová</label><br />
+                        <select name="servicio">
+                            <optgroup label="NO BAUTIZADO">
+                                <option value="incrédulo">Aún no soy estudiante</option>
+                                <option value="estudiante">Soy estudiante</option>
+                                <option value="publicadornobautizado">Soy publicador no bautizado</option>
+                            </optgroup>
+                            <optgroup label="BAUTIZADO">
+                                <option value="publicadorbautizado" selected>Soy publicador bautizado</option>
+                                <option value="auxiliar">Soy precursor auxiliar</option>
+                                <option value="regular">Soy precursor regular</option>
+                                <option value="especial">Soy precursor especial</option>
+                            </optgroup>
+                        </select>
+                        <br />
+                        <label for="contraseña">Contraseña de prueba:</label> <br />
+                        <input type="password" name="contraseña" id="contraseña" /><br />
+                        <label>Información sobre vehículo:</label> <br />
+                        <input type="checkbox" name="vehículo" value="carro" id="carro" />
+                        <label for="carro">Tengo carro</label><br />
+                        <input type="checkbox" name="vehículo" value="moto" id="moto" />
+                        <label for="moto">Tengo moto</label><br />
+                        <input type="checkbox" name="vehículo" value="bicicleta" id="bicicleta" />
+                        <label for="bicicleta">Tengo bicicleta</label><br />
+                        <label for="colorfavorito">Color favorito:</label> <br />
+                        <input type="color" name="colorfavorito" id="colorfavorito" /><br />
+                        <label for="país">País de destino:</label> <br />
+                        <input list="destinos" name="país" id="país" /><br />
+                        <datalist id="destinos">
+                            <option value="Colombia"></option>
+                            <option value="España"></option>
+                            <option value="Estados Unidos"></option>
+                            <option value="Venezuela"></option>
+                        </datalist>
+                        <label for="mes">Mes de preferencia del viaje:</label> <br />
+                        <input type="month" name="mes" id="mes" /><br />
+                        <label>Nivel de inglés:</label><br />
+                        <select name="nivel">
+                            <option value="nulo">Nulo</option>
+                            <option value="bajo">Bajo</option>
+                            <option value="medio" selected>Medio</option>
+                            <option value="alto">Alto</option>
+                        </select>
+                        <br />
+                        <label for="comentarios">Comentarios adicionales:</label><br />
+                        <textarea rows="7" cols="40" id="comentarios" name="comentarios"></textarea>
+                        <br />
+                        <br />
+                        <input type="submit" value="Enviar" name="enviar" title="Enviar datos..." />
+                        <input type="reset" value="Restablecer" name="reset" title="Restablecer todos los campos del formulario" /><br /><br />
+                    </form>
+                </section>
+                <footer>
+                    <p>Coded by @deiner_db</p>
+                    <a href="https://www.facebook.com/deinerdb" target="_blank" class="fa fa-facebook"></a>
+                    <a href="https://twitter.com/deiner_db" target="_blank" class="fa fa-twitter"></a>
+                    <a href="https://www.instagram.com/deiner_db/" target="_blank" class="fa fa-instagram"></a>
+                    <a href="https://plus.google.com/+DeinerDom%C3%ADnguezBola%C3%B1o" target="_blank" class="fa fa-google-plus"></a>
+                    <a href="https://www.youtube.com/user/deinerdominguez" target="_blank" class="fa fa-youtube"></a>
+                    <a href="skype:live:deiner_db?call" class="fa fa-skype"></a>
+                </footer> 
+            </div>
+            <button onclick="topFunction()" id="BtnTop" title="Subir">⇧</button>
+        <script>
+            var btnInterval;
+            // MUESTRA EL BOTÓN CUANDO HACE SCROLL MÁS DE 20 PX
+            window.onscroll = function () { scrollFunction() };
+
+            function scrollFunction() {
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    document.getElementById("BtnTop").style.display = "block";
+                    clearTimeout(btnInterval);
+                    btnInterval = setTimeout("ocultarbtn()", 2000);
+                } else {
+                    document.getElementById("BtnTop").style.display = "none";
+                }
+            }
+            function ocultarbtn(){
+                document.getElementById("BtnTop").style.display = "none";
+            }
+
+            // CUANDO EL USUARIO HACE CLICK, HACE SCROLL HASTA EL INICIO DEL DOCUMENTO
+            function topFunction() {
+                document.body.scrollTop = 0; // For Chrome, Safari and Opera
+                document.documentElement.scrollTop = 0; // For IE and Firefox
+            }
+        </script> 
+</body>
+</html>
+

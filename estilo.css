@@ -1,0 +1,1106 @@
+
+body{
+
+    font-size:100%;
+    margin:0;
+
+}
+.selected{
+    /*para menú*/
+    /*gradiente lineal*/
+     background-color:purple;/*fondo púrpura. For browsers that do not support gradients */
+     background: -webkit-linear-gradient(purple, mediumpurple); /* For Safari 5.1 to 6.0 */
+     background: -o-linear-gradient(purple, mediumpurple); /* For Opera 11.1 to 12.0 */
+     background: -moz-linear-gradient(purple, mediumpurple); /* For Firefox 3.6 to 15 */
+     background: linear-gradient(purple,mediumpurple); /* Standard syntax (must be last) */ 
+
+}
+/*MARQUESINA*/
+.marquee {
+	width: 100%;
+	height: 40px;
+	margin: 10px auto;
+	overflow: hidden;
+	position: relative;	
+}
+.marquee h3 {
+	font-family: Tahoma, Arial, sans-serif;
+    position: absolute;	
+
+	width: 100%;
+	height: 100%;
+
+	margin: 0;
+	line-height: 40px;
+	text-align: center;
+    
+	-ms-transform:translateX(100%);
+    -o-transform:translateX(100%);
+	-moz-transform:translateX(100%);
+	-webkit-transform:translateX(100%);
+    transform:translateX(100%);
+}
+.marquee h3:nth-child(1) {	
+	-o-animation: left-one 15s ease infinite normal ;
+    -moz-animation: left-one 15s ease infinite normal;
+	-webkit-animation: left-one 15s ease infinite normal;
+    animation: left-one 15s ease infinite normal;
+}
+.marquee h3:nth-child(2) {
+	-o-animation: left-two 15s ease infinite normal;
+	-moz-animation: left-two 15s ease infinite normal;
+	-webkit-animation: left-two 15s ease infinite normal;
+    animation: left-two 15s ease infinite normal;
+}
+
+/*================================
+	Move the Marquee to the Left
+==================================*/
+/** Opera y Safari Keyframes **/
+@-o-keyframes left-one {
+	0%	{
+		-o-transform:translateX(100%);
+	}
+	10% {
+		-o-transform:translateX(0);
+	}
+	40% {
+		-o-transform:translateX(0);
+	}
+	50% {
+		-o-transform:translateX(-100%);
+	}
+	100%{
+		-o-transform:translateX(-100%);
+	}
+}
+@-o-keyframes left-two {
+	0% {
+		-o-transform:translateX(100%);
+	}
+	50% {
+		-o-transform:translateX(100%);
+	}
+	60% {
+		-o-transform:translateX(0);		
+	}
+	90% {
+		-o-transform:translateX(0);		
+	}
+	100%{
+		-o-transform:translateX(-100%);
+	}
+}
+/** Mozilla Firefox Keyframes **/
+@-moz-keyframes left-one {
+	0%	{
+		-moz-transform:translateX(100%);
+	}
+	10% {
+		-moz-transform:translateX(0);
+	}
+	40% {
+		-moz-transform:translateX(0);
+	}
+	50% {
+		-moz-transform:translateX(-100%);
+	}
+	100%{
+		-moz-transform:translateX(-100%);
+	}
+}
+@-moz-keyframes left-two {
+	0% {
+		-moz-transform:translateX(100%);
+	}
+	50% {
+		-moz-transform:translateX(100%);
+	}
+	60% {
+		-moz-transform:translateX(0);		
+	}
+	90% {
+		-moz-transform:translateX(0);		
+	}
+	100%{
+		-moz-transform:translateX(-100%);
+	}
+}
+/** Webkit Keyframes **/
+@-webkit-keyframes left-one {
+	0% {
+		-webkit-transform:translateX(100%);
+	}
+	10% {
+		-webkit-transform:translateX(0);
+	}
+	40% {
+		-webkit-transform:translateX(0);
+	}
+	50% {
+		-webkit-transform:translateX(-100%);
+	}
+	100%{
+		-webkit-transform:translateX(-100%);
+	}
+}
+@-webkit-keyframes left-two {
+	0% {
+		-webkit-transform:translateX(100%);
+	}
+	50% {
+		-webkit-transform:translateX(100%);
+	}
+	60% {
+		-webkit-transform:translateX(0);		
+	}
+	90% {
+		-webkit-transform:translateX(0);		
+	}
+	100%{
+		-webkit-transform:translateX(-100%);
+	}
+}
+/** ms Keyframes **/
+@-ms-keyframes left-one {
+	0% {
+		-ms-transform:translateX(100%);
+	}
+	10% {
+		-ms-transform:translateX(0);
+	}
+	40% {
+		-ms-transform:translateX(0);
+	}
+	50% {
+		-ms-transform:translateX(-100%);
+	}
+	100%{
+		-ms-transform:translateX(-100%);
+	}
+}
+@-ms-keyframes left-two {
+	0% {
+		-ms-transform:translateX(100%);
+	}
+	50% {
+		-ms-transform:translateX(100%);
+	}
+	60% {
+		-ms-transform:translateX(0);		
+	}
+	90% {
+		-ms-transform:translateX(0);		
+	}
+	100%{
+		-ms-transform:translateX(-100%);
+	}
+}
+/** standard Keyframes **/
+@keyframes left-one {
+	0% {
+		transform:translateX(100%);
+	}
+	10% {
+		transform:translateX(0);
+	}
+	40% {
+		transform:translateX(0);
+	}
+	50% {
+		transform:translateX(-100%);
+	}
+	100%{
+		transform:translateX(-100%);
+	}
+}
+@keyframes left-two {
+	0% {
+		transform:translateX(100%);
+	}
+	50% {
+		transform:translateX(100%);
+	}
+	60% {
+		transform:translateX(0);		
+	}
+	90% {
+		transform:translateX(0);		
+	}
+	100%{
+		transform:translateX(-100%);
+	}
+}
+
+/*redes sociales*/
+footer .fa {
+  padding: 15px;
+  font-size: 2em;
+  width: 30px;
+  text-align: center;
+  text-decoration: none;
+  margin: 2px 2px;
+  -moz-border-radius: 7%;
+  -webkit-border-radius: 7%;
+  border-radius: 7%;
+}
+footer a:last-child{
+    /*no queremos el último pegado al borde*/
+  margin-right:8px;   
+}
+footer .fa:hover {
+    opacity: 0.7;
+    filter: Alpha(opacity=70);/* IE8 and earlier */
+}
+footer .fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+footer .fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+footer .fa-instagram {
+    background: #cc2366; /*para los que no soporten el gradiente*/
+    background: -webkit-radial-gradient(circle at 33% 100%, #fed373 4%, #f15245 30%, #d92e7f 62%, #9b36b7 85%, #515ecf);
+    background: -o-radial-gradient(circle at 33% 100%, #fed373 4%, #f15245 30%, #d92e7f 62%, #9b36b7 85%, #515ecf);
+    background: -moz-radial-gradient(circle at 33% 100%, #fed373 4%, #f15245 30%, #d92e7f 62%, #9b36b7 85%, #515ecf);
+    background: radial-gradient(circle at 33% 100%, #fed373 4%, #f15245 30%, #d92e7f 62%, #9b36b7 85%, #515ecf);
+    color: white;
+}
+footer .fa-google-plus {
+  background: #dd4b39;
+  color: white;
+}
+footer .fa-youtube {
+  background: #bb0000;
+  color: white;
+}
+footer .fa-skype {
+  background: #00aff0;
+  color: white;  
+}
+/*fin redes*/
+
+#BtnTop {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 20px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: rebeccapurple; /* Set a background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 7px 12px; /* Some padding */
+    
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px; /* Rounded corners */
+
+    font-size:1.7em;
+    font-weight:bold;
+    /*no se puede seleccionar el texto*/
+    -webkit-user-select: none; /* Chrome, Opera, Safari */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */ 
+}
+
+#BtnTop:hover {
+    background-color:purple; /* Add a purple background on hover */
+}
+/*LA CAJA SUPERIOR*/
+.caja{
+
+    background-color:rebeccapurple;
+    /*
+    border-left-style:solid;
+    border-right-style:solid;
+    border-left-width:5px;
+    border-right-width:5px;
+    border-left-color:indigo;
+    border-right-color:indigo;
+    */
+    z-index:999;
+    white-space: nowrap;
+    overflow:visible;
+    display:inline-flex;
+    position:fixed;
+    margin:0;
+    padding:0;
+    top:0;
+    left:0;
+    right:0;
+    /*no se puede seleccionar el texto*/
+    -webkit-user-select: none; /* Chrome, Opera, Safari */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */ 
+    
+}
+/*PARA EL ÍCONO DE MENÚ*/
+.container {
+    white-space: nowrap;    
+    background-color: rebeccapurple;
+    position: relative;
+    display: inline-block;
+    cursor: pointer; 
+    top:0;
+    z-index:999;
+    margin:0;
+    padding-bottom:3px;
+    padding-left:8px;
+    padding-right:8px;
+    padding-top:4px;
+        
+    /*  
+    border-left-style:solid;
+    border-right-style:solid;
+    border-left-width:5px;
+    border-right-width:3px;
+    border-color:indigo;
+    */
+             
+}
+.container:hover{
+    background-color:purple;
+}
+
+.bar1, .bar2, .bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: white;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+.change .bar1 {
+    -webkit-transform: rotate(-45deg) translate(-9px, 6px) ;
+    transform: rotate(-45deg) translate(-9px, 6px) ;
+}
+
+.change .bar2 {opacity: 0;}
+
+.change .bar3 {
+    -webkit-transform: rotate(45deg) translate(-8px, -8px) ;
+    transform: rotate(45deg) translate(-8px, -8px) ;
+}
+/*FIN ÍCONO MENÚ*/
+
+/*íconos de la barra superior*/
+.navbar .fa{
+    /*van antes del texto del botón...*/
+    padding-right:4px;
+}
+.navbar {
+  
+  overflow: auto;
+  white-space: nowrap;    
+  background-color: rebeccapurple;
+  position: relative;
+  top: 0;   
+  z-index:999;  
+  
+}
+.main{
+
+    padding:8px;
+    margin-top:45px;
+
+}
+.navbar a {
+
+    font-family: Tahoma, Arial, sans-serif;
+    display:inline-block;
+    color:white;
+    text-align:center;
+    padding:14px;
+    text-decoration:none;
+
+    -moz-border-radius:15px;
+    -webkit-border-radius:15px;
+    border-radius:15px;
+}
+
+.navbar a:hover{
+
+    background-color:purple;
+    
+}
+/*el prímero y el último elemento tienen un borde especial*/
+.navbar a:first-child{
+    border-left-style:solid;
+    border-left-color:indigo;
+    border-left-width:2px;
+    /*border-bottom-left-radius:15px;
+    border-top-left-radius:15px;*/
+}
+.navbar a:last-child{
+    border-right-style:solid;
+    border-right-color:indigo;
+    border-right-width:2px;
+    /*border-bottom-right-radius:15px;
+    border-top-right-radius:15px;*/    
+}
+/*SOLO PARA ALGUNOS TÍTULOS*/
+.letramorada{
+    
+    color:purple;
+
+}
+/*para el de sitios recomendados*/
+.sitios{
+    display:block;
+    color:purple;
+    text-align:center;
+    padding:14px 16px;
+    text-decoration:none;
+    background-color:darkgray;
+}
+.sitios:hover{
+
+    background-color:#555;   
+    color:#dcccff;
+}
+.textohover{
+
+    font-size:x-large;
+    color:purple;
+
+}
+/*fin de sitios recomendados*/
+
+.claserojo{
+    
+      /*Fondo amarillo y letra roja*/
+     color:red;
+     background-color:lightyellow
+
+}
+ h4.claserojo{
+	 
+     /*solo a los h4 que sean claserojo*/
+     background-color:greenyellow
+
+ }
+ h1.cambio{
+
+     color:mediumpurple;
+     font-size:6em;
+     text-align:center;
+     width:70%;
+     margin:auto;
+     padding:15px;
+     border:15px solid transparent;
+     /*borde con imagen*/
+     -moz-border-image:url("border.png") 30 round; /* Old firefox */
+     -webkit-border-image: url("border.png") 30 round; /* Safari 3.1-5 */
+     -o-border-image: url("border.png") 30 round; /* Opera 11-12.1 */
+     border-image: url("border.png") 30 round; /*estándar*/
+     
+     /*sombra en el texto*/
+     text-shadow: 6px 6px 10px purple; /*estándar*/
+     
+     /*sombra en la caja*/
+     -moz-box-shadow: 10px 10px 5px purple;
+     -webkit-box-shadow: 10px 10px 5px purple;
+     box-shadow: 10px 10px 5px purple; /*estándar*/
+    
+      /*animar color de fondo*/
+	-webkit-animation-name: colorfondo;
+    -webkit-animation-duration: 7s; 
+	-webkit-animation-delay: 2s; 
+    -webkit-animation-iteration-count: infinite; 
+    
+	-moz-animation-name: colorfondo; 
+    -moz-animation-duration: 7s; 
+	-moz-animation-delay: 2s; 
+    -moz-animation-iteration-count: infinite; 
+	
+	-o-animation-name: colorfondo; 
+    -o-animation-duration: 7s; 
+	-o-animation-delay: 2s; 
+    -o-animation-iteration-count: infinite; 
+	
+	/*estándar*/
+	animation-name: colorfondo;
+    animation-duration: 6s;
+	animation-delay: 2s;
+    animation-iteration-count: infinite;
+ }
+ /* Safari 4.0 - 8.0 */
+@-webkit-keyframes colorfondo {
+    5%  {background-color: white;}    
+    70%  {background-color: plum;}	
+    100% {background-color: white;}
+}
+ /* moz */
+@-moz-keyframes colorfondo {
+    5%  {background-color: white;}    
+    70%  {background-color: plum;}	
+    100% {background-color: white;}
+}
+/* o */
+@-o-keyframes colorfondo {
+    5%  {background-color: white;}    
+    70%  {background-color: plum;}	
+    100% {background-color: white;}
+}
+/* Standard syntax */
+@keyframes colorfondo {
+    
+    5%  {background-color: white;}    
+    70%  {background-color: plum;}	
+    100% {background-color: white;}
+    
+}
+
+ /*comienzan por rojo*/
+ p[name^="rojo"]{
+
+     color:red; 
+
+ }
+ /*terminan en grande*/
+ p[name$="grande"]{
+
+     color:blue;
+
+ }
+ /*contiene nia*/
+ p[name*="nia"]{
+
+     font-size:2em;
+     color:blue;
+
+ }
+ #columnas{
+
+     /*párrafo en columnas*/
+     -moz-column-count:2; /*Chrome, Safari, Opera*/
+     -moz-column-gap:20px;
+     -moz-column-rule:outset 3px purple;
+     
+     -webkit-column-count:2; /*Firefox*/
+     -webkit-column-gap:20px;
+     -webkit-column-rule:outset 3px purple;
+
+     column-count:2;
+     column-gap:20px;
+     column-rule:outset 3px purple;
+         
+     /*opacidad*/
+     -webkit-filter: opacity(80%); /* Safari 6.0 - 9.0 */     
+     filter: opacity(80%);
+
+     /*gradiente lineal*/
+     background-color:#f3e6ff;/*fondo púrpura claro. For browsers that do not support gradients */
+     background: -webkit-linear-gradient(#f3e6ff, #b566ff); /* For Safari 5.1 to 6.0 */
+     background: -o-linear-gradient(#f3e6ff, #b566ff); /* For Opera 11.1 to 12.0 */
+     background: -moz-linear-gradient(#f3e6ff, #b566ff); /* For Firefox 3.6 to 15 */
+     background: linear-gradient(#f3e6ff,#b566ff); /* Standard syntax (must be last) */         
+     padding:10px;
+     font-size:larger;
+     
+ }
+ #columnas:hover{
+
+      /*opacidad*/
+     -webkit-filter: opacity(100%); /* Safari 6.0 - 9.0 */     
+     filter: opacity(100%);
+     /*gradiente radial*/
+     background: #b566ff; /* For browsers that do not support gradients */    
+     background: -webkit-radial-gradient(white, #b566ff); /* Safari 5.1 to 6.0 */
+     background: -o-radial-gradient(white, #b566ff); /* For Opera 11.6 to 12.0 */
+     background: -moz-radial-gradient(white, #b566ff); /* For Firefox 3.6 to 15 */
+     background: radial-gradient(white, #b566ff); /* Standard syntax (must be last) */
+     
+ }
+ #multicolor{
+	 
+	 text-align:center;	 
+	 width:95%;
+	 margin:auto;
+	 color:#888888;
+	 font-size:x-large;
+	 font-weight:bold;
+	 height: 55px;
+	 padding:10px;
+	 /*centrar verticalmente*/
+	 display: flex;
+     justify-content: center;
+     align-content: center;
+     flex-direction: column;
+	 
+	 /*gradiente*/
+	background: -webkit-linear-gradient(left, red, orange, yellow, green, blue, indigo, violet); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(left, red, orange, yellow, green, blue, indigo, violet); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(left, red, orange, yellow, green, blue, indigo, violet); /* For Fx 3.6 to 15 */
+    background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); /* Standard syntax (must be last) */
+	 
+ }
+ #animado{
+	 
+	 text-align:center;	 
+	 width:95%;
+	 margin:auto;
+	 color:#888888;
+	 font-size:x-large;
+	 font-weight:bold;
+	 height: 55px;
+	 padding:10px;
+	 background-color:red;
+	 /*centrar verticalmente*/
+	 display: flex;
+     justify-content: center;
+     align-content: center;
+     flex-direction: column;	
+	
+	/*animar*/
+	-webkit-animation-name: example;
+    -webkit-animation-duration: 7s; 
+	-webkit-animation-delay: 2s; 
+    -webkit-animation-iteration-count: infinite; 
+    
+	-moz-animation-name: example; 
+    -moz-animation-duration: 7s; 
+	-moz-animation-delay: 2s; 
+    -moz-animation-iteration-count: infinite; 
+	
+	-o-animation-name: example; 
+    -o-animation-duration: 7s; 
+	-o-animation-delay: 2s; 
+    -o-animation-iteration-count: infinite; 
+	
+	/*est�ndar*/
+	animation-name: example;
+    animation-duration: 7s;
+	animation-delay: 2s;
+    animation-iteration-count: infinite;
+	
+ }
+ /* Safari 4.0 - 8.0 */
+@-webkit-keyframes example {
+    10%  {background-color: red;}
+    25%  {background-color: yellow;}
+    50%  {background-color: blue;}
+	75%  {background-color: indigo;}
+    100% {background-color: green;}
+}
+ /* moz */
+@-moz-keyframes example {
+    10%  {background-color: red;}
+    25%  {background-color: yellow;}
+    50%  {background-color: blue;}
+	75%  {background-color: indigo;}
+    100% {background-color: green;}
+}
+/* o */
+@-o-keyframes example {
+    10%  {background-color: red;}
+    25%  {background-color: yellow;}
+    50%  {background-color: blue;}
+	75%  {background-color: indigo;}
+    100% {background-color: green;}
+}
+/* Standard syntax */
+@keyframes example {
+    10%   {background-color: red;}
+    25%  {background-color: yellow;}
+    50%  {background-color: blue;}
+	75%  {background-color: indigo;}
+    100% {background-color: green;}
+}
+ #pruebahover{
+
+     padding:0px;
+     margin:0px;
+
+ }
+ #contenedorhover{
+
+     text-align:center;
+     padding:10px;
+     border-width: 5px;
+     border-style:inset;
+     
+     -moz-border-radius:25px; /*borde redondeado*/
+     -webkit-border-radius:25px; /*borde redondeado*/
+     border-radius:25px; /*borde redondeado*/ 
+        
+     /*width:400px;*/
+     width:65%;
+     margin:auto;
+     background-color:lightgray;
+     /*cambio gradual de tamaño*/
+     -webkit-transition: width 2s;
+     -moz-transition: width 2s;
+     -o-transition: width 2s;
+     transition: width 2s;
+
+ }
+ #contenedorhover:hover{
+
+     /*se coloca letra blanca sobre fondo negro con borde gris*/
+     background-color:black;
+     color: white;     
+     border-color:darkgray;
+     border-style:outset;
+     border-width:5px;
+     /*width:800px;*/
+     -moz-box-shadow: 10px 10px 5px #8c8c8c;
+     -webkit-box-shadow: 10px 10px 5px #8c8c8c;
+     box-shadow: 10px 10px 5px #8c8c8c;/*sombra gris en la caja*/
+     /*crece*/
+     width:80%;
+
+ }
+ .texto{
+     
+     font-size:20px;
+
+ }
+.claseazul{
+    
+    /*Fondo gris y letra azul*/
+    color:blue;
+    background-color:gainsboro
+
+}
+.clasemorada{
+    
+    /*Parecido a JW
+        letra blanca sobre fondo púrpura
+    */
+    color:white;             
+    background-color:rebeccapurple
+
+}
+.clasemultimedia{
+
+    /*fondo negro y letra medio púrpura
+    */
+    color:mediumpurple;
+    background-color:black
+
+}
+#script{
+
+    /*lo escrito desde JavaScript*/
+    background-color:aliceblue;
+    color:darkblue;
+    font-size:larger;
+    border-style:solid;
+    border-color:midnightblue;
+    padding:10px;
+    border-width: 2px;
+
+}
+.clasehumo{
+    
+    /*fondo blanco humo*/
+    background-color:whitesmoke
+
+}
+#cambiocolor{
+    
+    /*cambio color de una etiqueta span específica con id*/
+    background-color:#2c2c2c; /*fondo gris oscuro*/
+    color:cornflowerblue;
+    font-family:Arial;
+    font-style:italic;    
+    font:x-large
+        
+}   
+
+#filtro{
+
+    font-size:larger;
+    max-width:100%;
+
+}
+figcaption{
+
+    text-align:center;
+    color:purple; 
+    font-weight:bold;   
+    padding:11px;   
+
+}
+#marcofiltros{
+
+    border-style:double;
+    border-width:5px;
+    border-color:purple;
+    margin:3px;
+    padding:10px;
+
+}
+#timeout{
+
+    color:darkred;
+    font-weight:bold;
+    font-size:larger;
+
+}
+/*para las fuentes del reloj digital*/
+@font-face {
+
+         font-family: dream;
+         src: url("digitaldream.ttf");
+        
+}
+
+@font-face {
+
+         font-family: digital;
+         src: url("ds-digi.ttf");
+        
+}
+
+ @font-face {
+
+        font-family: digital;
+        src: url("ds-digib.ttf");
+        font-weight: bold;
+
+}
+ @font-face {
+
+        font-family: digital;
+        src: url("ds-digii.ttf");
+        font-style: italic;
+
+}
+ @font-face {
+
+        font-family: digital;
+        src: url("ds-digit.ttf");
+        font-weight:bold;
+        font-style:italic;
+
+}
+#interval{
+
+       color:green;
+       border-style:inset;
+       border-width:2px;
+       border-color:dimgray;
+       font-size:xx-large;
+       background-color:black;
+       /*digital para todos, dream para IE*/
+       font-family:digital,dream,'Courier New';
+       font-weight:bold;
+       padding:5px;
+       margin:auto;
+       width:70%;
+       text-align:center;
+
+}
+#location{
+    
+    border-style:inset;
+    border-width:2px;
+    border-color:red;
+    max-width:100%;
+    overflow:auto;
+    padding:5px;
+
+}
+#eventos{
+
+    border-style:inset;
+    border-width:2px;
+    border-color:darkgreen;
+    color:darkgreen;
+    max-width:90%;
+    max-height:700px;
+	margin:auto;
+    overflow:auto;
+    padding:5px;
+
+}     
+#editable{
+
+    overflow:auto;
+    font-size:large;
+    padding:8px;
+    border-style:solid;
+    border-width:2px;
+    border-color:dodgerblue;
+    margin:3px;
+}
+#divlogocanvas{
+
+    width:282px;
+    height:382px;
+    border: 1px solid #000000;
+    text-align:center;
+    
+}                
+.centrar{
+
+    text-align:center; /*para centrar imágenes dentro de un div*/
+
+}
+
+img {
+    /*todas las imágenes*/
+    max-width: 100%;
+    height: auto;
+    
+}
+#treslogos{
+    margin-bottom:2px;
+    margin-top:10px;    
+    
+    /*animar opacidad*/
+	-webkit-animation-name: animaropacidad;
+    -webkit-animation-duration: 6s; 
+	-webkit-animation-delay: 0s; 
+    -webkit-animation-iteration-count: 1; 
+    
+	-moz-animation-name: animaropacidad; 
+    -moz-animation-duration: 6s; 
+	-moz-animation-delay: 0s; 
+    -moz-animation-iteration-count: 1; 
+	
+	-o-animation-name: animaropacidad; 
+    -o-animation-duration: 6s; 
+	-o-animation-delay: 0s; 
+    -o-animation-iteration-count: 1; 
+	
+	/*estándar*/
+	animation-name: animaropacidad;
+    animation-duration: 6s;
+	animation-delay: 0s;
+    animation-iteration-count: 1;
+ }
+ /* Safari 4.0 - 8.0 */
+@-webkit-keyframes animaropacidad {
+    from  {
+            opacity: 0;
+            filter: Alpha(opacity=0);/* IE8 and earlier */                
+    } 
+    to {
+            opacity: 1;
+            filter: Alpha(opacity=100);/* IE8 and earlier */
+    }  
+}
+ /* moz */
+@-moz-keyframes animaropacidad {
+    from  {
+            opacity: 0;
+            filter: Alpha(opacity=0);/* IE8 and earlier */                
+    } 
+    to {
+            opacity: 1;
+            filter: Alpha(opacity=100);/* IE8 and earlier */
+    }  
+}
+/* o */
+@-o-keyframes animaropacidad {
+    from  {
+            opacity: 0;
+            filter: Alpha(opacity=0);/* IE8 and earlier */                
+    } 
+    to {
+            opacity: 1;
+            filter: Alpha(opacity=100);/* IE8 and earlier */
+    }  
+}
+/* Standard syntax */
+@keyframes animaropacidad {
+    
+    from  {
+            opacity: 0;
+            filter: Alpha(opacity=0);/* IE8 and earlier */                
+    } 
+    to {
+            opacity: 1;
+            filter: Alpha(opacity=100);/* IE8 and earlier */
+    }     
+}
+
+video{
+    
+    /*Responsive*/
+    max-width:100%;
+    height:auto
+
+}
+audio{
+    
+    /*Responsive*/
+    max-width:100%   
+                 
+}
+textarea{
+    
+    /*Responsive*/
+    max-width:100%   
+                 
+}
+form{
+    
+    /*Formularios con borde superior e inferior gris*/
+    border-bottom-style:solid;
+    border-top-style:solid;
+    border-color:lightslategray;
+    margin:8px;
+
+}
+header{
+
+    color:white;    
+    padding:8px;
+    -moz-border-radius:7px; /*borde redondeado*/
+     -webkit-border-radius:7px; /*borde redondeado*/
+     border-radius:7px; /*borde redondeado*/
+
+     /*gradiente lineal*/
+     background-color:mediumpurple;/*fondo púrpura. For browsers that do not support gradients */
+     background: -webkit-linear-gradient(rebeccapurple, mediumpurple); /* For Safari 5.1 to 6.0 */
+     background: -o-linear-gradient(rebeccapurple, mediumpurple); /* For Opera 11.1 to 12.0 */
+     background: -moz-linear-gradient(rebeccapurple, mediumpurple); /* For Firefox 3.6 to 15 */
+     background: linear-gradient(rebeccapurple,mediumpurple); /* Standard syntax (must be last) */ 
+
+}
+aside{
+    background-color:#555; /*un gris oscuro*/
+    color:white;
+    padding:8px;
+}
+footer{
+
+    /*Letra blanca sobre fondo púrpura*/
+    color:white;
+    font-weight:bold;    
+    margin-top:8px;
+    padding-top:2px;
+    padding-left:8px;
+    padding-right:8px;
+    padding-bottom:12px;
+    /*no se puede seleccionar el texto*/
+    -webkit-user-select: none; /* Chrome, Opera, Safari */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */
+    /*no aumentan las filas*/
+    overflow: auto;
+    white-space: nowrap;
+     /*gradiente lineal*/
+     background-color:mediumpurple;/*fondo púrpura. For browsers that do not support gradients */
+     background: -webkit-linear-gradient(mediumpurple, white); /* For Safari 5.1 to 6.0 */
+     background: -o-linear-gradient(mediumpurple, white); /* For Opera 11.1 to 12.0 */
+     background: -moz-linear-gradient(mediumpurple, white); /* For Firefox 3.6 to 15 */
+     background: linear-gradient(mediumpurple,white); /* Standard syntax (must be last) */ 
+
+     -moz-border-radius:7px; /*borde redondeado*/
+     -webkit-border-radius:7px; /*borde redondeado*/
+     border-radius:7px; /*borde redondeado*/
+}   

@@ -1,0 +1,110 @@
+﻿<!DOCTYPE HTML>
+<html lang="es" dir="ltr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+        <meta name="description" content="Ejemplos CSS"/>
+        <title>CSS</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="estilo.css" />                     
+    </head>
+    <body>
+        <script>
+                //PARA EL ÍCONO DE MENÚ
+                function myFunction(x) {
+                    x.classList.toggle("change");
+                }
+        </script>
+        <div class="caja">
+            <div class="container" onclick="myFunction(this)">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+            </div>
+            <div class="navbar">
+                <a href="INDEX.htm">VOLVER AL INICIO</a>
+            </div>
+        </div>
+            <div class="main">
+                <h1 class="letramorada">CSS</h1>
+                <section>
+                    <article>
+                        <h1>Probando clases CSS</h1>
+                        <p class="claserojo">Esto es un texto en rojo, etiqueta 'p', método class.</p>
+                        <p class="claseazul">Esto es azul, método class, etiqueta 'p'.</p>
+                        <h4 class="claserojo">Otro texto en rojo, aplicado a elementos 'h4' de la clase rojo</h4>
+                        <!--Usando selectores con expresiones regulares-->
+                        <h1>Usando selectores CSS con expresiones regulares</h1>
+                        <h1 class="cambio">CSS3</h1> <!--Y le colocamos de todo con CSS3-->
+                        <p name="rojo">Esto es solo un párrafo llamado rojo</p>
+                        <p name="rojomini">Esto es solo un párrafo llamado rojomini</p>
+                        <p name="azulgrande">Esto es solo un párrafo llamado azulgrande</p>
+                        <p name="miniazul">Esto es solo un párrafo llamado miniazul</p>
+                        <br />
+                        <!--aplicando estilo directamente en la etiqueta y con font-->
+                        <p style="background-color:lightgray;color:forestgreen"><font size="2em"> Otro estilo, desde la etiqueta y con 'font', no es recomendable.</font></p>
+                        <p style="background-color:lightgray;color:forestgreen"><font size="2em"> Otro párrafo con el mismo estilo, desde la etiqueta y con 'font', código sucio y repetitivo.</font></p>
+                        <br />
+                        <p title="Texto editable" id="editable" class="claseazul" contenteditable="true">Este párrafo es editable. Haga click para modificar este texto.</p>
+                        <h3>El siguiente párrafo tiene estilo de columnas, cambio de opacidad y de gradiente de fondo en el evento hover:</h3>
+                        <p id="columnas">
+                            Dios desea que los seres humanos disfruten de la vida. Por amor a la humanidad, creó la Tierra y todo lo que hay en ella. Pronto eliminará las causas del sufrimiento para que personas de todas partes tengan un futuro mejor. (Lea Jeremías 29:11.)
+                            <br />
+                            Ningún gobierno ha podido acabar con la violencia, las enfermedades ni la muerte. Pero hay buenas noticias: dentro de poco, Dios pondrá fin a todos los gobiernos humanos y establecerá su propio gobierno. Su pueblo disfrutará de paz y de buena salud. (Lea Isaías 25:8; 33:24, y Daniel 2:44.)
+                        </p>
+                        <br />
+                        <div id="multicolor">
+                            GRADIENTE CON MÚLTIPLES COLORES
+                        </div>
+                    </article>
+
+                    <article id="pruebahover">
+                        <!--Evento hover-->
+                        <h1>Evento 'hover', pase el puntero sobre el recuadro...</h1>
+                        <div id="contenedorhover">
+                            <p class="texto">Probando 'transition' y evento 'hover'</p>
+                        </div>
+                        <br />
+                        <div id="animado">
+                            ANIMACIÓN CSS3
+                        </div>
+                    </article>
+                </section>
+                <footer>
+                    <p>Coded by @deiner_db</p>
+                    <a href="https://www.facebook.com/deinerdb" target="_blank" class="fa fa-facebook"></a>
+                    <a href="https://twitter.com/deiner_db" target="_blank" class="fa fa-twitter"></a>
+                    <a href="https://www.instagram.com/deiner_db/" target="_blank" class="fa fa-instagram"></a>
+                    <a href="https://plus.google.com/+DeinerDom%C3%ADnguezBola%C3%B1o" target="_blank" class="fa fa-google-plus"></a>
+                    <a href="https://www.youtube.com/user/deinerdominguez" target="_blank" class="fa fa-youtube"></a>
+                    <a href="skype:live:deiner_db?call" class="fa fa-skype"></a>
+                </footer>
+            </div>
+            <button onclick="topFunction()" id="BtnTop" title="Subir">⇧</button>
+        <script>
+            var btnInterval;
+            // MUESTRA EL BOTÓN CUANDO HACE SCROLL MÁS DE 20 PX
+            window.onscroll = function () { scrollFunction() };
+
+            function scrollFunction() {
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    document.getElementById("BtnTop").style.display = "block";
+                    clearTimeout(btnInterval);
+                    btnInterval = setTimeout("ocultarbtn()", 2000);
+                } else {
+                    document.getElementById("BtnTop").style.display = "none";
+                }
+            }
+            function ocultarbtn(){
+                document.getElementById("BtnTop").style.display = "none";
+            }
+
+            // CUANDO EL USUARIO HACE CLICK, HACE SCROLL HASTA EL INICIO DEL DOCUMENTO
+            function topFunction() {
+                document.body.scrollTop = 0; // For Chrome, Safari and Opera
+                document.documentElement.scrollTop = 0; // For IE and Firefox
+            }
+        </script> 
+</body>
+</html>
+

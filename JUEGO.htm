@@ -1,0 +1,232 @@
+﻿<!DOCTYPE HTML>
+<html lang="es" dir="ltr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+        <meta name="description" content="JUEGO HTML"/>
+        <title>JUEGO HTML - CANVAS</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="estilo.css" />
+        <style>
+            canvas {                
+                
+                background-color: lightskyblue;                               
+                
+                /*RESPONSIVE GAME*/
+                width:100%;
+                height:auto;                                               
+
+            }
+            
+            #mainjuego{
+
+                background-color:lightskyblue;
+                border-style:solid;
+                border-width:2px;
+                border-color:mediumblue;                                
+                text-align:center;               
+                
+                        
+            }
+            
+            .button {
+                                          
+                display:inline; /* by default */  
+                border-radius: 4px;
+                background-color: dodgerblue;
+                border: none;
+                color: #FFFFFF;
+                text-align: center;
+                font-size: 1em;
+                padding: 8px;
+                width: 130px;
+                -webkit-transition: all 0.5s;
+                -moz-transition: all 0.5s;
+                -o-transition: all 0.5s;
+                transition: all 0.5s;
+                cursor: pointer;
+                margin:4px;               
+                /*no se puede seleccionar el texto*/
+                -webkit-user-select: none; /* Chrome, Opera, Safari */
+                -moz-user-select: none; /* Firefox 2+ */
+                -ms-user-select: none; /* IE 10+ */
+                user-select: none; /* Standard syntax */
+            }
+
+            .button span {
+                  cursor: pointer;
+                  display: inline-block;
+                  position: relative;
+                  -moz-transition: 0.5s;
+                  -o-transition: 0.5s;
+                  -webkit-transition: 0.5s;
+                  transition: 0.5s;
+            }
+
+            .button span:after {
+                  content: '\00bb';
+                  position: absolute;
+                  opacity: 0;
+                  filter: Alpha(opacity=0);/* IE8 and earlier */
+                  top: 0;
+                  right: -20px;
+                  -moz-transition: 0.5s;
+                  -o-transition: 0.5s;
+                  -webkit-transition: 0.5s;
+                  transition: 0.5s;
+            }
+
+            .button:hover span {
+                padding-right: 15px;
+            }
+
+            .button:hover span:after {
+                  opacity: 1;
+                  filter: Alpha(opacity=100);/* IE8 and earlier */
+                  right: 0;
+            }
+        </style>                     
+    </head>
+    <body onload="startGame()">
+        <script>
+                //PARA EL ÍCONO DE MENÚ
+                function myFunction(x) {
+                    x.classList.toggle("change");
+                }
+        </script>
+        <div class="caja">
+            <div class="container" onclick="myFunction(this)">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+            </div>
+            <div class="navbar">
+                <a href="INDEX.htm">VOLVER AL INICIO</a>
+            </div>
+        </div>
+            <div class="main">
+                <script>
+
+                    var myMusic;
+					var myGamePiece;
+					var interval;
+
+                    function startGame() {                                                                        
+                        myGamePiece = new component(30 * 180 / 270, 30 * 180 / 270, "blue", 10, 75);
+                        myGameArea.start();						
+                    }
+
+                    var myGameArea = {
+                        canvas : document.createElement("canvas"),
+                        start : function() {
+                            this.canvas.width = 480;
+                            this.canvas.height = 180;
+                            this.context = this.canvas.getContext("2d");
+                            //document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+                            var midiv = document.getElementById("mainjuego");
+                            midiv.insertBefore(this.canvas, midiv.childNodes[0]);
+                            myMusic = new sound("gametheme.mp3", "true");
+                            //una sola vez
+                            updateGameArea();
+                            //this.interval = setInterval(updateGameArea, 20);
+                        },
+                        clear: function () {
+                            this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                        }
+                       
+                    }
+					
+                    function component(width, height, color, x, y) {                        
+						this.width = width;
+						this.height = height;
+						this.x = x;
+						this.y = y;
+						this.update = function () {
+						    ctx = myGameArea.context;
+						    ctx.fillStyle = color;
+						    ctx.fillRect(this.x, this.y, this.width, this.height);
+						}
+                    }
+
+                    function updateGameArea() {
+                        myGameArea.clear();
+                        myGamePiece.x += 1;
+                        myGamePiece.update();
+                    }
+                    
+                    function sound(src, repetir) {
+                        this.sound = document.createElement("audio");
+                        this.sound.setAttribute("type", "audio/mpeg");
+                        this.sound.src = src;
+                        this.sound.setAttribute("preload", "auto");
+                        this.sound.setAttribute("controls", "none");
+                        if (repetir == "true") {
+                            this.sound.setAttribute("loop", "loop");
+                        }                        
+                        this.sound.style.display = "none";
+                        document.body.appendChild(this.sound);
+                        this.play = function () {
+                            this.sound.play();
+                        }
+                        this.stop = function () {
+                            this.sound.pause();
+                        }
+                    }
+                    function Jugar() {                        
+                        myMusic.play();
+                        document.getElementById("iniciar").style.display = "none";
+                        topFunction();
+                        interval = setInterval(updateGameArea, 20);
+                    }
+                    function Parar() {
+                        myMusic.stop();
+                        document.getElementById("iniciar").style.display = "inline";
+                        clearInterval(interval);
+                    }
+                    
+
+                </script>                
+
+                <div id="mainjuego">                    
+                        <button id="iniciar" class="button" onclick="Jugar()"><span>Iniciar </span></button>                    
+                </div>
+
+                <footer>
+                    <p>Coded by @deiner_db</p>
+                    <a href="https://www.facebook.com/deinerdb" target="_blank" class="fa fa-facebook"></a>
+                    <a href="https://twitter.com/deiner_db" target="_blank" class="fa fa-twitter"></a>
+                    <a href="https://www.instagram.com/deiner_db/" target="_blank" class="fa fa-instagram"></a>
+                    <a href="https://plus.google.com/+DeinerDom%C3%ADnguezBola%C3%B1o" target="_blank" class="fa fa-google-plus"></a>
+                    <a href="https://www.youtube.com/user/deinerdominguez" target="_blank" class="fa fa-youtube"></a>
+                    <a href="skype:live:deiner_db?call" class="fa fa-skype"></a>
+                </footer>
+
+            </div>
+            <button onclick="topFunction()" id="BtnTop" title="Subir">⇧</button>
+        <script>
+            var btnInterval;
+            // MUESTRA EL BOTÓN CUANDO HACE SCROLL MÁS DE 20 PX
+            window.onscroll = function () { scrollFunction() };
+
+            function scrollFunction() {
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    document.getElementById("BtnTop").style.display = "block";
+                    clearTimeout(btnInterval);
+                    btnInterval = setTimeout("ocultarbtn()", 2000);
+                } else {
+                    document.getElementById("BtnTop").style.display = "none";
+                }
+            }
+            function ocultarbtn(){
+                document.getElementById("BtnTop").style.display = "none";
+            }
+
+            // CUANDO EL USUARIO HACE CLICK, HACE SCROLL HASTA EL INICIO DEL DOCUMENTO
+            function topFunction() {
+                document.body.scrollTop = 0; // For Chrome, Safari and Opera
+                document.documentElement.scrollTop = 0; // For IE and Firefox
+            }
+        </script>
+</body>
+</html>
+

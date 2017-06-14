@@ -1,0 +1,98 @@
+﻿<!DOCTYPE HTML>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <meta name="description" content="Enlaces a sitios de los Testigos de Jehová"/>
+    <title>Sitios Oficiales</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="estilo.css" />
+</head>
+<body onload="mostrarpárrafo('señale')">
+    <script>
+                //PARA EL ÍCONO DE MENÚ
+                function myFunction(x) {
+                    x.classList.toggle("change");
+                }
+    </script>
+    <div class="caja">
+        <div class="container" onclick="myFunction(this)">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+        <div class="navbar">
+            <a href="INDEX.htm">VOLVER AL INICIO</a>
+        </div>
+    </div>
+        <div class="main">
+            <h1 class="letramorada">SITIOS</h1>
+            <header>
+                <h1>Páginas recomendadas:</h1>
+            </header>
+            <section style="background-color:lightgrey">
+                <br />
+
+                <a onmouseover="mostrarpárrafo('jw')" onmouseout="mostrarpárrafo('señale')" class="sitios" href="http://www.jw.org/es/" target="_blank">Sitio oficial de los Testigos de Jehová</a>
+
+                <a onmouseover="mostrarpárrafo('wol')" onmouseout="mostrarpárrafo('señale')" class="sitios" href="http://wol.jw.org/es/" target="_blank">Biblioteca en Línea</a>
+
+                <a onmouseover="mostrarpárrafo('tv')" onmouseout="mostrarpárrafo('señale')" class="sitios" href="http://tv.jw.org/#es/home" target="_blank">JW Broadcasting Televisión por Internet</a>
+
+                <br />
+                <div class="textohover">
+                    <p id="señale">Señale un elemento para ver la dirección.</p>
+                    <p id="jw">http://www.jw.org/es/</p>
+                    <p id="wol">http://wol.jw.org/es/</p>
+                    <p id="tv">http://tv.jw.org/#es/home</p>
+                </div>
+            </section>
+            <footer>
+                <p>Coded by @deiner_db</p>
+                <a href="https://www.facebook.com/deinerdb" target="_blank" class="fa fa-facebook"></a>
+                <a href="https://twitter.com/deiner_db" target="_blank" class="fa fa-twitter"></a>
+                <a href="https://www.instagram.com/deiner_db/" target="_blank" class="fa fa-instagram"></a>
+                <a href="https://plus.google.com/+DeinerDom%C3%ADnguezBola%C3%B1o" target="_blank" class="fa fa-google-plus"></a>
+                <a href="https://www.youtube.com/user/deinerdominguez" target="_blank" class="fa fa-youtube"></a>
+                <a href="skype:live:deiner_db?call" class="fa fa-skype"></a>
+            </footer> 
+
+            <script>
+                function mostrarpárrafo(miID) {
+                    var x = document.getElementsByTagName("P");
+                    var i;
+                    for (i = 0; i < x.length - 1; i++) {
+                        x[i].hidden = true;
+                    }
+                    document.getElementById(miID).hidden = false;
+                }
+            </script>
+        </div>
+        <button onclick="topFunction()" id="BtnTop" title="Subir">⇧</button>
+    <script>
+            var btnInterval;
+            // MUESTRA EL BOTÓN CUANDO HACE SCROLL MÁS DE 20 PX
+            window.onscroll = function () { scrollFunction() };
+
+            function scrollFunction() {
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    document.getElementById("BtnTop").style.display = "block";
+                    clearTimeout(btnInterval);
+                    btnInterval = setTimeout("ocultarbtn()", 2000);
+                } else {
+                    document.getElementById("BtnTop").style.display = "none";
+                }
+            }
+            function ocultarbtn(){
+                document.getElementById("BtnTop").style.display = "none";
+            }
+
+            // CUANDO EL USUARIO HACE CLICK, HACE SCROLL HASTA EL INICIO DEL DOCUMENTO
+            function topFunction() {
+                document.body.scrollTop = 0; // For Chrome, Safari and Opera
+                document.documentElement.scrollTop = 0; // For IE and Firefox
+            }
+    </script> 
+</body>
+</html>
+

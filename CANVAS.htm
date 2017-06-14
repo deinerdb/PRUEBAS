@@ -1,0 +1,404 @@
+﻿<!DOCTYPE HTML>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <meta name="description" content="Utilizando la etiqueta Canvas"/>
+    <title>Etiqueta Canvas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="estilo.css" />
+    <script>
+        var ctx;
+        //var factorvalue = 1;
+        function init() {
+            ctx = document.getElementById("canvaslogo").getContext("2d");            
+            dologo();
+        }
+        function dologo() {
+            var offsety = 10;
+            ctx.translate(0, offsety);
+            //escudo de fondo naranja
+            ctx.fillStyle = "#E34C26";
+            ctx.beginPath();
+            ctx.moveTo(39, 250);
+            ctx.lineTo(17, 0);
+            ctx.lineTo(262, 0);
+            ctx.lineTo(239, 250);
+            ctx.lineTo(139, 278);
+            ctx.closePath();
+            ctx.fill();
+            //iluminado el naranja a la derecha
+            ctx.fillStyle = "#F06529";
+            ctx.moveTo(139, 257);
+            ctx.lineTo(220, 234);
+            ctx.lineTo(239, 20);
+            ctx.lineTo(139, 20);
+            ctx.closePath();
+            ctx.fill();
+            // Gris claro del 5 en su parte izquierda
+            ctx.fillStyle = "#EBEBEB";
+            ctx.beginPath();
+            ctx.moveTo(139, 113);
+            ctx.lineTo(98, 113);
+            ctx.lineTo(96, 82);
+            ctx.lineTo(139, 82);
+            ctx.lineTo(139, 51);
+            ctx.lineTo(62, 51);
+            ctx.lineTo(70, 144);
+            ctx.lineTo(139, 144);
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.moveTo(139, 193);
+            ctx.lineTo(105, 184);
+            ctx.lineTo(103, 159);
+            ctx.lineTo(72, 159);
+            ctx.lineTo(76, 207);
+            ctx.lineTo(139, 225);
+            ctx.closePath();
+            ctx.fill();
+
+            // el 5 del lado derecho
+            ctx.fillStyle = "#FFFFFF";
+            ctx.beginPath();
+            ctx.moveTo(139, 113);
+            ctx.lineTo(139, 144);
+            ctx.lineTo(177, 144);
+            ctx.lineTo(173, 184);
+            ctx.lineTo(139, 193);
+            ctx.lineTo(139, 225);
+            ctx.lineTo(202, 207);
+            ctx.lineTo(210, 113);
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.moveTo(139, 51);
+            ctx.lineTo(139, 82);
+            ctx.lineTo(213, 82);
+            ctx.lineTo(216, 51);
+            ctx.closePath();
+            ctx.fill();
+        }
+    </script>
+</head>
+<body onload="init();">
+    <script>
+                //PARA EL ÍCONO DE MENÚ
+                function myFunction(x) {
+                    x.classList.toggle("change");
+                }
+    </script>
+    <div class="caja">
+        <div class="container" onclick="myFunction(this)">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+        <div class="navbar">
+            <a href="INDEX.htm">VOLVER AL INICIO</a>
+        </div>
+    </div>
+        <div class="main">
+            <h1 class="letramorada">Utilizando Canvas y JavaScript</h1>
+            <h2 style="color:darkblue">Escribiendo desde CANVAS</h2>
+            <!--Comienza el lienzo Canvas-->
+            <canvas id="holasimple" width="200" height="100" style="border:1px solid #d3d3d3;">
+                Lo siento, tu navegador no soporta la etiqueta Canvas.
+            </canvas>
+            <script>
+                var c = document.getElementById("holasimple");
+                var ctx = c.getContext("2d");
+                ctx.font = "30px Arial";
+                ctx.textAlign = "center";
+                ctx.fillText("¡Hola Mundo!", c.width / 2, c.height / 2);
+            </script>
+            <br/>
+            <!--Finaliza el Canvas-->
+            <!--Comienza el lienzo Canvas-->
+            <canvas id="holastroke" width="200" height="100" style="border:1px solid #d3d3d3;">
+                Lo siento, tu navegador no soporta la etiqueta Canvas.
+            </canvas>
+            <script>
+                var c = document.getElementById("holastroke");
+                var ctx = c.getContext("2d");
+                ctx.font = "30px Comic Sans MS";
+                ctx.strokeStyle = "red";
+                ctx.textAlign = "center";
+                ctx.strokeText("¡Hola Mundo!", c.width / 2, c.height / 2);
+            </script>
+            <!--Finaliza el Canvas-->
+            <br/>
+            <!--Comienza el lienzo Canvas-->
+            <canvas id="holagradiente" width="300" height="150" style="border:1px solid #d3d3d3;">
+                Lo siento, tu navegador no soporta la etiqueta Canvas.
+            </canvas>
+            <script>
+                var c = document.getElementById("holagradiente");
+                var ctx = c.getContext("2d");
+
+                ctx.font = "20px Georgia";
+                ctx.strokeText("Coded by:", 10, 50);
+
+                ctx.font = "30px Verdana";
+
+                // Create gradient
+                var gradient = ctx.createLinearGradient(0, 0, c.width, 0);
+                gradient.addColorStop("0", "magenta");
+                gradient.addColorStop("0.5", "blue");
+                gradient.addColorStop("1.0", "red");
+
+                // Fill with gradient
+                ctx.strokeStyle = gradient;
+                ctx.strokeText("DEINER D.B.", 10, 90);
+            </script>
+            <!--Finaliza el Canvas-->
+            <!--Comienza el lienzo Canvas-->
+            <h2 style="color:darkblue">Dibujando el logo de HTML5 con Canvas y JavaScript</h2>                        
+            <div id="divlogocanvas">
+                <img title="A diferencia del logo, esto es una imagen. Fuente no compatible con todos los navegadores." alt="HTML" src="HTML GILSANUB.jpg" width="280" height:"auto" />
+                <!--Comienza el lienzo Canvas LOGO-->
+                <canvas id="canvaslogo" width="280" height="300">
+                    Lo siento, tu navegador no soporta la etiqueta Canvas.
+                </canvas>             
+            </div>
+            <!--Finaliza el Canvas logo-->
+
+            <h2 style="color:darkblue">Reloj hecho en Canvas</h2>
+            <!--Comienza el  Canvas reloj-->
+            <canvas id="reloj" width="280" height="280" style="background-color:indigo">
+                Lo siento, tu navegador no soporta la etiqueta Canvas.
+            </canvas>
+            <script>
+                var canvas = document.getElementById("reloj");
+                var ctxreloj = canvas.getContext("2d");
+                var radius = canvas.height / 2;
+                ctxreloj.translate(radius, radius);
+                radius = radius * 0.90
+                setInterval(drawClock, 1000);
+
+                function drawClock() {
+                    drawFace(ctxreloj, radius);
+                    drawNumbers(ctxreloj, radius);
+                    drawTime(ctxreloj, radius);
+                }
+
+                function drawFace(ctxreloj, radius) {
+                  var grad;
+                  ctxreloj.beginPath();
+                  ctxreloj.arc(0, 0, radius, 0, 2 * Math.PI);
+                  ctxreloj.fillStyle = 'white';
+                  ctxreloj.fill();
+                  grad = ctxreloj.createRadialGradient(0, 0, radius * 0.95, 0, 0, radius * 1.05);
+                  grad.addColorStop(0, 'rebeccapurple');
+                  grad.addColorStop(0.5, 'white');
+                  grad.addColorStop(1, 'rebeccapurple');
+                  ctxreloj.strokeStyle = grad;
+                  ctxreloj.lineWidth = radius * 0.1;
+                  ctxreloj.stroke();
+                  ctxreloj.beginPath();
+                  ctxreloj.arc(0, 0, radius * 0.1, 0, 2 * Math.PI);
+                  ctxreloj.fillStyle = 'rebeccapurple';
+                  ctxreloj.fill(); 
+                }
+
+                function drawNumbers(ctxreloj, radius) {
+                  var ang;
+                  var num;
+                  ctxreloj.font = radius * 0.15 + "px arial";
+                  ctxreloj.textBaseline = "middle";
+                  ctxreloj.textAlign = "center";
+                  for(num = 1; num < 13; num++){
+                    ang = num * Math.PI / 6;
+                    ctxreloj.rotate(ang);
+                    ctxreloj.translate(0, -radius * 0.85);
+                    ctxreloj.rotate(-ang);
+                    ctxreloj.fillText(num.toString(), 0, 0);
+                    ctxreloj.rotate(ang);
+                    ctxreloj.translate(0, radius * 0.85);
+                    ctxreloj.rotate(-ang);
+                     }
+                    
+                }
+
+                function drawTime(ctxreloj, radius) {
+                    var now = new Date();
+                    var hour = now.getHours();
+                    var minute = now.getMinutes();
+                    var second = now.getSeconds();
+                    //hour
+                    hour=hour%12;
+                    hour=(hour*Math.PI/6)+
+                    (minute*Math.PI/(6*60))+
+                    (second*Math.PI/(360*60));
+                    drawHand(ctxreloj, hour, radius * 0.5, radius * 0.07);
+                    //minute
+                    minute=(minute*Math.PI/30)+(second*Math.PI/(30*60));
+                    drawHand(ctxreloj, minute, radius * 0.8, radius * 0.07);
+                    // second
+                    second=(second*Math.PI/30);
+                    drawHand(ctxreloj, second, radius * 0.9, radius * 0.02);
+                }
+
+                function drawHand(ctxreloj, pos, length, width) {
+                    ctxreloj.beginPath();
+                    ctxreloj.lineWidth = width;
+                    ctxreloj.lineCap = "round";
+                    ctxreloj.moveTo(0, 0);
+                    ctxreloj.rotate(pos);
+                    ctxreloj.lineTo(0, -length);
+                    ctxreloj.stroke();
+                    ctxreloj.rotate(-pos);
+                }
+            </script>
+            <!--Finaliza el Canvas reloj-->
+            
+            <h2 style="color:darkblue">Bandera de Colombia</h2>
+            <!--Comienza el lienzo Canvas-->
+            <canvas title="Bandera de Colombia (Proporciones oficiales)" id="bandera" width="150" height="200" style="border: 1px solid #000000;">
+                Lo siento, tu navegador no soporta la etiqueta Canvas.
+            </canvas>
+            <!--Finaliza el Canvas-->
+            <!--Inicia un script para configurar el Canvas-->
+            <script type="text/javascript">
+                var c = document.getElementById("bandera");
+                var cxt = c.getContext("2d");
+                //tres rectángulos
+                cxt.fillStyle = "yellow";
+                cxt.fillRect(10, 10, 120, 40);
+                cxt.fillStyle = "blue";
+                cxt.fillRect(10, 50, 120, 20);
+                cxt.fillStyle = "red";
+                cxt.fillRect(10, 70, 120, 20);
+                //agrega texto
+                cxt.fillStyle = "black";
+                cxt.font = "30px Arial";
+                cxt.strokeText("Colombia", 10, 140, 120);
+            </script>
+            <br />
+            <h2 style="color:darkblue">Rectángulos</h2>
+            <!--otro Canvas, rectángulos-->
+            <canvas id="rect" width="150" height="150" style="border: 2px solid #000000;">
+                Lo siento, tu navegador no soporta la etiqueta Canvas.
+            </canvas>
+            <script type="text/javascript">
+                var c = document.getElementById("rect");
+                var ctx = c.getContext("2d");
+
+                // Formas rectangulares
+                ctx.fillRect(25, 25, 100, 100);
+                ctx.clearRect(45, 45, 60, 60);
+                ctx.strokeRect(55, 55, 40, 40);
+
+            </script>
+            <h2 style="color:darkblue">Línea</h2>
+            <!--otro Canvas, línea-->
+            <canvas id="línea" width="150" height="120" style="border: 1px solid #ccc;">
+                Lo siento, tu navegador no soporta la etiqueta Canvas.
+            </canvas>
+            <script type="text/javascript">
+                var c = document.getElementById("línea");
+                var cxt = c.getContext("2d");
+
+                cxt.moveTo(20, 10);
+                cxt.lineTo(130, 100);
+                cxt.lineWidth = 7;
+                cxt.strokeStyle = "blue";
+                cxt.stroke();
+            </script>
+            <h2 style="color:darkblue">Curva de Bézier</h2>
+            <!--otro Canvas, curva bézier-->
+            <canvas id="Bézier" width="250" height="125" style="border:1px solid black;">
+                Lo siento, tu navegador no soporta la etiqueta Canvas.
+            </canvas>
+            <script type="text/javascript">
+
+                var c = document.getElementById("Bézier");
+                var cxt = c.getContext("2d");
+
+                cxt.lineWidth = 5;
+                cxt.strokeStyle = "purple";
+                cxt.moveTo(90, 65);
+
+                cxt.bezierCurveTo(75, 5, 210, 5, 210, 90);
+                cxt.stroke();
+            </script>
+            <h2 style="color:darkblue">Círculo</h2>
+            <!--otro Canvas, círculo-->
+            <canvas id="círculo" width="120" height="120" style="border: 1px solid gray;">
+                Lo siento, tu navegador no soporta la etiqueta Canvas.
+            </canvas>
+            <script type="text/javascript">
+                var c = document.getElementById("círculo");
+                var cxt = c.getContext("2d");
+
+                cxt.fillStyle = "red";
+                cxt.beginPath();
+                cxt.arc(60, 60, 50, 0, Math.PI * 2, true);
+                cxt.closePath();
+                cxt.fill();
+            </script>
+            <h2 style="color:darkblue">Triángulos</h2>
+            <!--otro Canvas, triángulos-->
+            <canvas id="triángulo" width="150" height="150" style="border: 1px solid gray;">
+                Lo siento, tu navegador no soporta la etiqueta Canvas.
+            </canvas>
+            <script type="text/javascript">
+                var c = document.getElementById("triángulo");
+                var ctx = c.getContext("2d");
+                // Filled triangle
+                ctx.beginPath();
+                ctx.moveTo(25, 25);
+                ctx.lineTo(105, 25);
+                ctx.lineTo(25, 105);
+                ctx.fill();
+
+                // Stroked triangle
+                ctx.beginPath();
+                ctx.moveTo(125, 125);
+                ctx.lineTo(125, 45);
+                ctx.lineTo(45, 125);
+                ctx.closePath();
+                ctx.stroke();
+            </script>
+
+            <!--Firma-->
+            <footer>
+                <p>Coded by @deiner_db</p>
+                <a href="https://www.facebook.com/deinerdb" target="_blank" class="fa fa-facebook"></a>
+                <a href="https://twitter.com/deiner_db" target="_blank" class="fa fa-twitter"></a>
+                <a href="https://www.instagram.com/deiner_db/" target="_blank" class="fa fa-instagram"></a>
+                <a href="https://plus.google.com/+DeinerDom%C3%ADnguezBola%C3%B1o" target="_blank" class="fa fa-google-plus"></a>
+                <a href="https://www.youtube.com/user/deinerdominguez" target="_blank" class="fa fa-youtube"></a>
+                <a href="skype:live:deiner_db?call" class="fa fa-skype"></a>
+            </footer>
+        </div>
+        <button onclick="topFunction()" id="BtnTop" title="Subir">⇧</button>
+    <script>
+            var btnInterval;
+            // MUESTRA EL BOTÓN CUANDO HACE SCROLL MÁS DE 20 PX
+            window.onscroll = function () { scrollFunction() };
+
+            function scrollFunction() {
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    document.getElementById("BtnTop").style.display = "block";
+                    clearTimeout(btnInterval);
+                    btnInterval = setTimeout("ocultarbtn()", 2000);
+                } else {
+                    document.getElementById("BtnTop").style.display = "none";
+                }
+            }
+            function ocultarbtn(){
+                document.getElementById("BtnTop").style.display = "none";
+            }
+
+            // CUANDO EL USUARIO HACE CLICK, HACE SCROLL HASTA EL INICIO DEL DOCUMENTO
+            function topFunction() {
+                document.body.scrollTop = 0; // For Chrome, Safari and Opera
+                document.documentElement.scrollTop = 0; // For IE and Firefox
+            }
+    </script> 
+</body>
+</html>
+

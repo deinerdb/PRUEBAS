@@ -1,0 +1,169 @@
+﻿<!DOCTYPE HTML>
+<html lang="es" dir="ltr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+        <meta name="description" content="Ejemplos HTML"/>
+        <title>HTML</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="estilo.css" />        
+    </head>
+    <body onload="sumar()">
+            <script>
+                //PARA EL ÍCONO DE MENÚ
+                function myFunction(x) {
+                    x.classList.toggle("change");
+                }
+            </script>
+        <div class="caja">
+            <div class="container" onclick="myFunction(this)">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+            </div>            
+            <div class="navbar">                              
+                <a href="INDEX.htm">VOLVER AL INICIO</a> 
+            </div>       
+        </div>
+            <div class="main">                
+                <div class="letramorada">
+                    <h1>HTML</h1>
+                    <h2>En esta página se muestran algunas etiquetas HTML</h2>                    
+                </div>
+                <section>
+                    <article class="clasehumo">
+                        <p dir="ltr">Esto aparece de izquierda a derecha</p>
+                        <p dir="rtl">Esto aparece de derecha a izquierda</p>
+                        <hr />
+                        <h2 title="Este es el atributo title">Coloque el puntero sobre este texto  o sobre la sigla HTML de abajo para ver tooltip</h2>
+                        <p>
+                            Estamos aprendiendo <abbr title="HTML: sigla en inglés de HyperText Markup Language (lenguaje de marcas de hipertexto)">HTML</abbr>. Aquí usamos las etiquetas 'abbr' y 'title'.
+                        </p>
+                        <p>Este texto no tiene ningún estilo. <span id="cambiocolor">Pero este sí podría tener, con la etiqueta 'span'.</span></p>
+                        <blockquote>Este texto es una cita, como un bloque, etiqueta 'blockquote'. La sangría se aumenta de ambos lados para diferenciarlo.</blockquote>
+                        <p>En este párrafo usamos la etiqueta "cite" para citar una película llamada <cite>La Era de Hielo</cite></p>
+                        <p>Aquí usamos la etiqueta 'q' para mencionar al autor de este documento: <q>Deiner Domínguez</q></p>
+                        <p>Aquí usamos la etiqueta 'figure' para marcar una imagen dentro del documento y 'figcaption' para colocarle leyenda:</p>
+                        <figure>
+                            <div class="centrar">
+                                <img id="carita" onclick="alternarcarita()" alt="Carita feliz" src="smile.jpg" width="120" height="120" />
+                            </div>
+                            <figcaption id="captioncarita">Fig. 1 - Carita feliz</figcaption>
+                        </figure>
+                        <script>
+                            var micarita = 0;
+                            function alternarcarita() {
+                                if (micarita == 0) {
+                                    document.getElementById("carita").alt = "Carita enamorada"
+                                    document.getElementById("captioncarita").innerHTML = "Fig. 1 - Carita enamorada"
+                                    document.getElementById("carita").src = "inlove.jpg"
+                                    micarita = 1;
+                                }
+                                else {
+                                    document.getElementById("carita").alt = "Carita feliz"
+                                    document.getElementById("captioncarita").innerHTML = "Fig. 1 - Carita feliz"
+                                    document.getElementById("carita").src = "smile.jpg"
+                                    micarita = 0;
+                                }
+                            }
+                        </script>
+                        <p>
+                            Podemos usar la etiqueta 'mark' para resaltar algo <mark>importante</mark> en el documento.
+                        </p>
+                        <p>
+                            Una información de <small>Copyright</small> se puede mostrar con la etiqueta 'small'.
+                            <br />
+                            <em>Este texto está en medio de la etiqueta 'em'...</em>
+                            <br />
+                            <strong>Y este en la etiqueta 'strong'.</strong>
+                            <br />
+                            Aún se puede usar la etiqueta 'b', para colocar <b>texto en negrita</b>, pero su uso no se recomienda en HTML5.
+                            <br />
+                            Lo mismo sucede con la etiqueta 'i', que sirve para dar formato al <i>texto en itálica</i>.
+                        </p>
+                        <details>
+                            <summary>Haga clic aquí para expandir y ver la nota.</summary>
+                            <p>
+                                Nota: Para lograr mostrar y ocultar esta nota combinamos las etiquetas 'details' y 'summary'. No funciona en todos los navegadores.
+                            </p>
+                        </details>
+                        <h4>Etiquetas 'time' y 'data'...</h4>
+                        <p>Comentario sobre la fecha y hora al escribir este código:</p>
+                        <time datetime="2016-10-30R15:30">La tarde del domingo 30 de octubre de 2016</time>
+                        <p>Representando un valor con 'data':</p>
+                        <data value="9">Nueve</data>
+                        <p>La dirección en una etiqueta 'address':</p>
+                        <address>
+                            Calle 2 # 7-42, Palmar de Varela, Atlántico.
+                        </address>
+                    </article>                    
+                    <br />                    
+                    <article>
+                        
+                        <!--un formulario para probar output-->
+                        <form oninput="sumar()">
+                            <br />
+                            <h3>Probando la etiqueta 'ouput'</h3>
+                            <p>Deslice el control para realizar el cálculo:</p>
+                            0
+                            <input type="range" id="sumando1" value="50">
+                            100 + <input type="number" id="sumando2" value="50">
+                            = <output id="x" name="x" for="sumando1 sumando2"></output>
+                            <br /><br />
+                        </form>
+                        <script type="text/javascript">
+                            function sumar() {
+                                x.value = Number(sumando1.value) + Number(sumando2.value);
+                                if (Number(sumando2.value) == 0 && sumando2.value == "") {
+                                    x.value = "Ingrese un número válido";
+                                }
+                            }
+                        </script>
+                        <script type="text/javascript">
+                            function toTop() {
+                                window.scrollTo(0, 0)
+                            }
+                        </script>                        
+                    </article>                    
+                </section>                
+                <aside>
+                    <p>Aquí va información complementaria de la página, etiqueta aside.</p>
+                </aside>
+                <footer>
+                    <p>Coded by @deiner_db</p>
+                    <a href="https://www.facebook.com/deinerdb" target="_blank" class="fa fa-facebook"></a>
+                    <a href="https://twitter.com/deiner_db" target="_blank" class="fa fa-twitter"></a>
+                    <a href="https://www.instagram.com/deiner_db/" target="_blank" class="fa fa-instagram"></a>
+                    <a href="https://plus.google.com/+DeinerDom%C3%ADnguezBola%C3%B1o" target="_blank" class="fa fa-google-plus"></a>  
+                    <a href="https://www.youtube.com/user/deinerdominguez" target="_blank" class="fa fa-youtube"></a>
+                    <a href="skype:live:deiner_db?call" class="fa fa-skype"></a>                                        
+                </footer>                
+            </div>
+        <button onclick="topFunction()" id="BtnTop" title="Subir">⇧</button>
+        <script>
+            var btnInterval;
+            // MUESTRA EL BOTÓN CUANDO HACE SCROLL MÁS DE 20 PX
+            window.onscroll = function () { scrollFunction() };
+
+            function scrollFunction() {
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    document.getElementById("BtnTop").style.display = "block";
+                    clearTimeout(btnInterval);
+                    btnInterval = setTimeout("ocultarbtn()", 2000);
+                } else {
+                    document.getElementById("BtnTop").style.display = "none";
+                }
+            }
+            function ocultarbtn(){
+                document.getElementById("BtnTop").style.display = "none";
+            }
+
+            // CUANDO EL USUARIO HACE CLICK, HACE SCROLL HASTA EL INICIO DEL DOCUMENTO
+            function topFunction() {
+                document.body.scrollTop = 0; // For Chrome, Safari and Opera 
+                document.documentElement.scrollTop = 0; // For IE and Firefox
+            }
+        </script> 
+</body>
+</html>
+
