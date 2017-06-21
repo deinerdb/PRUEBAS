@@ -394,7 +394,8 @@ footer .fa-skype {
 /*íconos de la barra superior*/
 .navbar .fa{
     /*van antes del texto del botón...*/
-    padding-right:4px;
+    padding-right:5px;
+    font-size:1.2em;
 }
 .navbar {
   
