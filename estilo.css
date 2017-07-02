@@ -303,6 +303,12 @@ footer .fa-skype {
 
     font-size:1.7em;
     font-weight:bold;
+        
+    /*SOMBRA*/
+    -moz-box-shadow: 5px 5px 3px MediumPurple;
+    -webkit-box-shadow: 5px 5px 3px MediumPurple;
+    box-shadow: 5px 5px 3px MediumPurple;
+    
     /*no se puede seleccionar el texto*/
     -webkit-user-select: none; /* Chrome, Opera, Safari */
     -moz-user-select: none; /* Firefox 2+ */
