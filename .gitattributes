@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+AddType video/ogg .ogv
+AddType video/mp4 .mp4
+AddType video/webm .webm
