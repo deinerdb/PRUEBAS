@@ -39,26 +39,58 @@
                     <article class="clasemultimedia">
                         <!--Probando audio-->
                         <h2>Audio HTML5</h2>
-                        <audio controls="controls">
-                            <source src="VIVALDI - LA PRIMAVERA.mp3" type="audio/mp3" />
-                            <source src="VIVALDI - LA PRIMAVERA.ogg" type="audio/ogg" />
-                            <source src="VIVALDI - LA PRIMAVERA.wav" type="audio/vnd.wave" />
-                            <!--para los navegadores que no soporten audio -->Tu navegador no soporta la etiqueta AUDIO
-                        </audio>
+                        <div class="centrar">
+                            <img id="mediaimg" onclick="playorpauseaudio()" alt="Imagen de Vivaldi" title="Haga clic para reproducir o pausar el audio" src="Vivaldi.jpg" width="1284" height="1533" />
+                            <br/>
+                            <audio id="mediaaudio" controls="controls">
+                                <source src="VIVALDI - LA PRIMAVERA.mp3" type="audio/mp3" />
+                                <source src="VIVALDI - LA PRIMAVERA.ogg" type="audio/ogg" />
+                                <source src="VIVALDI - LA PRIMAVERA.wav" type="audio/vnd.wave" />
+                                <!--para los navegadores que no soporten audio -->Tu navegador no soporta la etiqueta AUDIO
+                            </audio>
+                        </div>
+                        <script>
+                            var aud = document.getElementById("mediaaudio");
+                            function playorpauseaudio() {                                
+                                //alternar play/pause
+                                if (aud.paused) {
+                                    aud.play();
+                                }
+                                else
+                                {
+                                    aud.pause();                                    
+                                }
+                            }
+                        </script>
                         <h2>Vivaldi: "La Primavera" (Fragmento)</h2>
                     </article>
                     <article class="clasemultimedia">
                         <!--Probando videos-->
                         <h2>Video HTML5</h2>
-                        <video controls="controls" width="1280" height="720" preload="none" poster="NOTICIASPOSTER.jpg">
-                            <source src="NOTICIAS.mp4" type='video/mp4; codecs="avc1.42E03.1, mp4a.40.2"'/>
-                            <source src="NOTICIAS.webm" type="video/webm"/>
-                            <source src="NOTICIAS.ogv" type="video/ogg"/>                            
-                            <!--para los navegadores que no soporten el video -->Tu navegador no soporta vídeo sobre HTML5
-                        </video>
+                        <div class="centrar">
+                            <video id="mediavideo" onclick="playorpausevideo()" controls="controls" width="1280" height="720" preload="none" poster="NOTICIASPOSTER.jpg">
+                                <source src="NOTICIAS.mp4" type='video/mp4; codecs="avc1.42E03.1, mp4a.40.2"' />
+                                <source src="NOTICIAS.webm" type="video/webm" />
+                                <source src="NOTICIAS.ogv" type="video/ogg" />
+                                <!--para los navegadores que no soporten el video -->Tu navegador no soporta vídeo sobre HTML5
+                            </video>
+                        </div>
                         <h2>JW: "¿Le gustaría oír buenas noticias?"</h2>
                         <h3>Este video fue obtenido del sitio oficial de los testigos de Jehová.</h3>
                         <h3>Puede verlo o descargarlo <a href="https://www.jw.org/finder?wtlocale=S&docid=1102017417&srcid=share" target="_blank">aquí</a></h3>                                              
+                        <script>
+                            var vid = document.getElementById("mediavideo");
+                            function playorpausevideo() {
+                                //alternar play/pause
+                                if (vid.paused) {
+                                    vid.play();
+                                }
+                                else {
+                                    vid.pause();
+                                }
+                            }
+                        </script>
+
                     </article>
                 </section>
                 <footer>

@@ -1043,8 +1043,22 @@ video{
 audio{
     
     /*Responsive*/
-    max-width:100%   
+    width:100%;
+    max-width:500px;
                  
+}
+#mediaimg {
+   
+    /*Responsive*/
+    width: 100%;
+    max-width: 500px;
+    cursor:pointer;
+
+}
+#mediavideo{
+
+    cursor:pointer;
+
 }
 textarea{
     
