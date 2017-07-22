@@ -8,7 +8,60 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="estilo.css" />
         <link rel="icon" href="favicon.ico" type="image/x-icon" />
-        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />                     
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        
+        <style>
+            .button {
+                padding: 12px 20px;
+                margin: 6px;
+                font-size: 16px;
+                text-align: center;
+                cursor: pointer;
+                outline: none;
+                color: white;
+                background-color: rebeccapurple;
+                border: none;
+
+                -moz-border-radius: 9px;
+                -webkit-border-radius: 9px;
+                border-radius: 9px;
+
+                -moz-box-shadow: 0 5px MediumPurple;
+                -webkit-box-shadow: 0 5px MediumPurple;
+                box-shadow: 0 5px MediumPurple;
+                /*no se puede seleccionar el texto*/
+                -webkit-user-select: none; /* Chrome, Opera, Safari */
+                -moz-user-select: none; /* Firefox 2+ */
+                -ms-user-select: none; /* IE 10+ */
+                user-select: none; /* Standard syntax */
+            }
+
+            .button:hover {
+                background-color: purple;
+            }
+
+                .button:active {
+                    background-color: purple;
+                    -moz-box-shadow: 0 3px DarkSlateBlue;
+                    -webkit-box-shadow: 0 3px DarkSlateBlue;
+                    box-shadow: 0 3px DarkSlateBlue;
+                    -o-transform: translateY(3px);
+                    -webkit-transform: translateY(3px);
+                    -ms-transform: translateY(3px);
+                    -moz-transform: translateY(3px);
+                    transform: translateY(3px);
+                }
+
+            #icopause{
+                /*oculto por defecto*/
+                display:none;
+            }
+            #icoplay {
+                /*visible por defecto*/
+                display: block;
+            }
+        </style>
+
     </head>
     <body style="background-color:black">
         <script>
@@ -68,6 +121,7 @@
                         <!--Probando videos-->
                         <h2>Video HTML5</h2>
                         <div class="centrar">
+                            <button title="Play/Pause" class="button" onclick="playorpausevideo()"><i id="icopause" class="fa fa-pause" aria-hidden="true"></i><i id="icoplay" class="fa fa-play" aria-hidden="true"></i></button><br/>
                             <video id="mediavideo" controls="controls" width="1280" height="720" preload="none" poster="NOTICIASPOSTER.jpg">
                                 <source src="NOTICIAS.mp4" type='video/mp4; codecs="avc1.42E03.1, mp4a.40.2"' />
                                 <source src="NOTICIAS.webm" type="video/webm" />
@@ -78,6 +132,29 @@
                         <h2>JW: "¿Le gustaría oír buenas noticias?"</h2>
                         <h3>Este video fue obtenido del sitio oficial de los testigos de Jehová.</h3>
                         <h3>Puede verlo o descargarlo <a href="https://www.jw.org/finder?wtlocale=S&docid=1102017417&srcid=share" target="_blank">aquí</a></h3>                                                                      
+                        <script>
+                            var vid = document.getElementById("mediavideo");
+
+                            function playorpausevideo() {
+                                //alternar play/pause
+                                if (vid.paused) {
+                                    vid.play();
+                                }
+                                else {
+                                    vid.pause();
+                                }
+                            }
+
+                            vid.onplay = function () {
+                                document.getElementById("icoplay").style.display = "none";
+                                document.getElementById("icopause").style.display = "block";
+                            };
+
+                            vid.onpause = function () {
+                                document.getElementById("icopause").style.display = "none";
+                                document.getElementById("icoplay").style.display = "block";
+                            };                            
+                        </script>
                     </article>
                 </section>
                 <footer>
