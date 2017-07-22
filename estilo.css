@@ -854,6 +854,15 @@ figcaption{
     font-size:larger;
 
 }
+/*para la fuente TRANSFORMERS*/
+@font-face {
+    font-family: 'transformersregular';
+    src: url('transformers-webfont.woff2') format('woff2'),
+         url('transformers-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
 /*para las fuentes del reloj digital*/
 @font-face {
 
