@@ -8,7 +8,21 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="estilo.css" />
         <link rel="icon" href="favicon.ico" type="image/x-icon" />
-        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />                     
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <style>
+            #primero {
+               font-family: transformersregular;
+               color:blue;
+               font-size:4em;
+               text-align:center;
+            }
+            #segundo {
+               font-family: transformersregular;
+               color:red;
+               font-size:4em;
+               text-align:center;
+            }
+        </style>
     </head>
     <body>
         <script>
@@ -46,6 +60,13 @@
                         <!--aplicando estilo directamente en la etiqueta y con font-->
                         <p style="background-color:lightgray;color:forestgreen"><font size="2em"> Otro estilo, desde la etiqueta y con 'font', no es recomendable.</font></p>
                         <p style="background-color:lightgray;color:forestgreen"><font size="2em"> Otro párrafo con el mismo estilo, desde la etiqueta y con 'font', código sucio y repetitivo.</font></p>
+                        <br />
+                        <div id="primero">
+                            transformers autobots
+                        </div>
+                        <div id="segundo">
+                            TRANSFORMERS AUTOBOTS
+                        </div>
                         <br />
                         <p title="Texto editable" id="editable" class="claseazul" contenteditable="true">Este párrafo es editable. Haga click para modificar este texto.</p>
                         <h3>El siguiente párrafo tiene estilo de columnas, cambio de opacidad y de gradiente de fondo en el evento hover:</h3>
