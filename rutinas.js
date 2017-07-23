@@ -33,7 +33,7 @@ function manejarbtn() {
             break;
         case btnContador >= 100:
             //lo hace cada vez más opaco
-            document.getElementById("BtnTop").style.opacity = 300/btnContador-2;
+            document.getElementById("BtnTop").style.opacity = 500/btnContador-4;
     }
 
     
