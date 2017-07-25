@@ -5,7 +5,7 @@
 //***********************************
 
 var mostrado = false;
-var timeoculto;
+
 function myFunction(x) {
     x.classList.toggle("change");
     if (mostrado == true) {
@@ -19,20 +19,19 @@ function myFunction(x) {
 /* Set the width of the side navigation to 250px */
 function openNav() {
     mostrado = true;
-    clearTimeout(timeoculto);
-    document.getElementById("mySidenav").style.display = "block";
     document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("mySidenav").style.overflowY = "auto";
+    //document.getElementById("mySidenav").style.height = screen.availHeight;
+    
 }
 
 /* Set the width of the side navigation to 0 */
 function closeNav() {
     mostrado = false;
     document.getElementById("mySidenav").style.width = "0";
-    timeoculto = setTimeout("ocultarNav()", 400);        
+    document.getElementById("mySidenav").style.overflowY = "hidden";
 }
-function ocultarNav() {    
-    document.getElementById("mySidenav").style.display = "none";
-}       
+     
 //***********************************
 //script para el botón "top"
 //***********************************
