@@ -5,44 +5,71 @@ body{
     margin:0;
 
 }
-.selected{
+.selected {
     /*para menú*/
+    color: white;
     /*gradiente lineal*/
-     background-color:purple;/*fondo púrpura. For browsers that do not support gradients */
-     background: -webkit-linear-gradient(purple, mediumpurple); /* For Safari 5.1 to 6.0 */
-     background: -o-linear-gradient(purple, mediumpurple); /* For Opera 11.1 to 12.0 */
-     background: -moz-linear-gradient(purple, mediumpurple); /* For Firefox 3.6 to 15 */
-     background: linear-gradient(purple,mediumpurple); /* Standard syntax (must be last) */ 
-
+    background-color: purple; /*fondo púrpura. For browsers that do not support gradients */
+    background: -webkit-linear-gradient(purple, mediumpurple); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(purple, mediumpurple); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(purple, mediumpurple); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(purple,mediumpurple); /* Standard syntax (must be last) */
 }
 /*MENÚ LATERAL DE NAVEGACIÓN*/
 .sidenav {
-    height:250px; /*height */
-    width: 0; /* 0 width - change this with JavaScript */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Stay on top */    
+    position: absolute; /* para poder verlo todo */
+    height: 100%;
+    min-height: 100%; /*height */
     top: 0;
     left: 0;
-    background-color: #111; /* Black*/
+    bottom: 0;
+    width: 0; /* 0 width - change this with JavaScript */
+    max-width: 90%;
+    margin-left: 0;
+    margin-bottom: 0;
+    margin-top: 45px;
+    z-index: 300; /*según el orden de esta web*/
+    background-color: white; /* blanco*/
+    color:white;
+    white-space: nowrap; /*solo una línea cada link*/
     overflow-x: hidden; /* Disable horizontal scroll */
-    overflow-y:hidden;
-    padding-top: 80px; /* Place content 60px from the top */
-    padding-bottom: 80px;
-    transition: width  0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    overflow-y: hidden; /*para que IE no muestre la barra cuando el ancho es 0*/
+    padding-top: 60px; /* Place content 60px from the top */
+    padding-bottom: 0px; /* Place content 60px from the bottom USO AFTER PARA AGREGARLO */
+    -moz-transition: width 0.5s;
+    -o-transition: width 0.5s;
+    -webkit-transition: width 0.5s;
+    transition: width 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 }
+    .sidenav:after {
+        content: "";
+        height: 60px; /*padding-bottom: ESTO PARA QUE SE VEA EN IE Y FIREFOX*/
+        display: block;
+    }
     /* The navigation menu links */
     .sidenav a {
         padding: 8px 8px 8px 32px;
         text-decoration: none;
-        font-size: 25px;
-        color: #818181;
+        font-family:Tahoma;
+        font-size: 1em;
+        color:purple;
         display: block;
         transition: 0.3s
     }
+   #selected{
+       color:white; /*forzar letra blanca*/
+   }
     /* When you mouse over the navigation links, change their color */
     .sidenav a:hover, .offcanvas a:focus {
-        color: #f1f1f1;
+        background-color:rebeccapurple;
+        color:white;
     }
+/*íconos del menú*/
+.sidenav .fa {
+    /*van antes del texto del botón...*/
+    padding-right: 5px;
+    font-size: 1.2em;
+}
 
 /*MARQUESINA*/
 .marquee {
@@ -318,7 +345,7 @@ footer .fa-skype {
     position: fixed; /* Fixed/sticky position */
     bottom: 20px; /* Place the button at the bottom of the page */
     right: 30px; /* Place the button 30px from the right */
-    z-index: 99; /* Make sure it does not overlap */
+    z-index: 100; /* Make sure it does not overlap */
     border: none; /* Remove borders */
     outline: none; /* Remove outline */
     background-color: rebeccapurple; /* Set a background color */
@@ -360,7 +387,7 @@ footer .fa-skype {
     border-left-color:indigo;
     border-right-color:indigo;
     */
-    z-index:999;
+    z-index:400;
     white-space: nowrap;
     overflow:visible;
     display:inline-flex;
@@ -385,7 +412,7 @@ footer .fa-skype {
     display: inline-block;
     cursor: pointer; 
     top:0;
-    z-index:999;
+    z-index:400;
     margin:0;
     padding-bottom:3px;
     padding-left:8px;
@@ -449,7 +476,7 @@ footer .fa-skype {
   background-color: rebeccapurple;
   position: relative;
   top: 0;   
-  z-index:999;  
+  z-index:400;  
   
 }
 .main{

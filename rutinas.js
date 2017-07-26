@@ -21,7 +21,7 @@ function openNav() {
     mostrado = true;
     document.getElementById("mySidenav").style.width = "250px";
     document.getElementById("mySidenav").style.overflowY = "auto";
-    //document.getElementById("mySidenav").style.height = screen.availHeight;
+    
     
 }
 
