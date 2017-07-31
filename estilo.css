@@ -5,6 +5,11 @@ body{
     margin:0;
 
 }
+/*Stack Overflow: se sugiere para que las alturas funcionen*/
+html, body {
+    height: 100%;
+    min-height: 100%;
+}
 .selected {
     /*para menú*/
     color: white;
@@ -16,45 +21,70 @@ body{
     background: linear-gradient(purple,mediumpurple); /* Standard syntax (must be last) */
 }
 /*MENÚ LATERAL DE NAVEGACIÓN*/
-.sidenav {
-    position: absolute; /* para poder verlo todo */
-    height: 100%;
+.sidenav {    
+    position:absolute; /* para poder verlo todo */
+    height:100%;
     min-height: 100%; /*height */
     top: 0;
     left: 0;
-    bottom: 0;
+    bottom:0;
     width: 0; /* 0 width - change this with JavaScript */
     max-width: 90%;
     margin-left: 0;
-    margin-bottom: 0;
-    margin-top: 45px;
     z-index: 300; /*según el orden de esta web*/
     background-color: white; /* blanco*/
-    color:white;
+    color: white;
     white-space: nowrap; /*solo una línea cada link*/
     overflow-x: hidden; /* Disable horizontal scroll */
     overflow-y: hidden; /*para que IE no muestre la barra cuando el ancho es 0*/
-    padding-top: 60px; /* Place content 60px from the top */
-    padding-bottom: 0px; /* Place content 60px from the bottom USO AFTER PARA AGREGARLO */
+    padding-top: 80px; /* Place content 60px from the top */
+    padding-bottom: 0; /*USO AFTER PARA AGREGARLO */    
     -moz-transition: width 0.5s;
     -o-transition: width 0.5s;
     -webkit-transition: width 0.5s;
     transition: width 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    /*no se puede seleccionar el texto*/
+    -webkit-user-select: none; /* Chrome, Opera, Safari */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */
+}
+#relleno {
+    background-color: white;
+    position: fixed;
+    top: 25%;
+    left:0;
+    height: 100%;
+    min-height: 100%; /*height */
+    overflow: hidden;
+    width: 0;
+    color: white;
+    z-index: 250; /*según el orden de esta web*/
+    -moz-transition: width 0.5s;
+    -o-transition: width 0.5s;
+    -webkit-transition: width 0.5s;
+    transition: width 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    /*no se puede seleccionar el texto*/
+    -webkit-user-select: none; /* Chrome, Opera, Safari */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */
 }
     .sidenav:after {
         content: "";
         height: 60px; /*padding-bottom: ESTO PARA QUE SE VEA EN IE Y FIREFOX*/
-        display: block;
+        display: block;        
     }
     /* The navigation menu links */
     .sidenav a {
-        padding: 8px 8px 8px 32px;
+        padding: 10px 8px 10px 24px;
         text-decoration: none;
         font-family:Tahoma;
-        font-size: 1em;
+        font-size: 1.1em;
         color:purple;
         display: block;
-        transition: 0.3s
+        transition: 0.3s;
+        text-align:left;
     }
    #selected{
        color:white; /*forzar letra blanca*/
@@ -67,13 +97,16 @@ body{
 /*íconos del menú*/
 .sidenav .fa {
     /*van antes del texto del botón...*/
-    padding-right: 5px;
+    padding-right: 24px;
     font-size: 1.2em;
+    text-align:center;
+    width:32px;
 }
 
 /*MARQUESINA*/
 .marquee {
 	width: 100%;
+    max-width:100%;
 	height: 40px;
 	margin: 10px auto;
 	overflow: hidden;

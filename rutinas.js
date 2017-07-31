@@ -20,16 +20,16 @@ function myFunction(x) {
 function openNav() {
     mostrado = true;
     document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("relleno").style.width = "250px"; 
     document.getElementById("mySidenav").style.overflowY = "auto";
-    
-    
 }
 
 /* Set the width of the side navigation to 0 */
 function closeNav() {
     mostrado = false;
     document.getElementById("mySidenav").style.width = "0";
-    document.getElementById("mySidenav").style.overflowY = "hidden";
+    document.getElementById("relleno").style.width = "0";
+    document.getElementById("mySidenav").style.overflowY = "hidden";  
 }
      
 //***********************************
