@@ -76,24 +76,42 @@ html, body {
         display: block;        
     }
     /* The navigation menu links */
-    .sidenav a {
-        padding: 10px 8px 10px 24px;
-        text-decoration: none;
-        font-family:Tahoma;
-        font-size: 1.1em;
-        color:purple;
-        display: block;
-        transition: 0.3s;
-        text-align:left;
-    }
+.sidenav a {
+    padding: 10px 8px 10px 24px;
+    text-decoration: none;
+    font-family: Tahoma;
+    font-size: 1.1em;
+    color: purple;
+    display: block;
+    -o-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    text-align: left;
+    /*BORDE REDONDEADO*/
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    border-radius: 15px;
+}
    #selected{
        color:white; /*forzar letra blanca*/
    }
-    /* When you mouse over the navigation links, change their color */
-    .sidenav a:hover, .offcanvas a:focus {
-        background-color:rebeccapurple;
-        color:white;
-    }
+/*el prímero y el último elemento tienen un borde especial*/
+.sidenav a:first-child {
+    border-top-style: solid;
+    border-top-color: indigo;
+    border-top-width: 2px;
+}
+.sidenav a:last-child {
+    border-bottom-style: solid;
+    border-bottom-color: indigo;
+    border-bottom-width: 2px;   
+}
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover{
+    background-color:rebeccapurple;
+    color:white;
+}
 /*íconos del menú*/
 .sidenav .fa {
     /*van antes del texto del botón...*/
