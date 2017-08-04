@@ -75,6 +75,25 @@ html, body {
         height: 60px; /*padding-bottom: ESTO PARA QUE SE VEA EN IE Y FIREFOX*/
         display: block;        
     }
+#overlay {
+    position: fixed;
+    visibility: hidden;
+    opacity: 0;
+    overflow: hidden;
+    display: block;
+    width: 0;
+    height: 100%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgb(0,0,0);
+    z-index: 200;
+    cursor: pointer;
+    -moz-transition: 0.4s;
+    -o-transition: 0.4s;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+}
     /* The navigation menu links */
 .sidenav a {
     padding: 10px 8px 10px 24px;

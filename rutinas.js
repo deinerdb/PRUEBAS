@@ -10,11 +10,20 @@ function myFunction(x) {
     x.classList.toggle("change");
     if (mostrado == true) {
         closeNav();
+        overlayOff();
     }
     else {
         openNav();
+        overlayOn();
     }
     
+}
+function soloCerrar() {
+    if (mostrado == true) {
+        document.getElementById("container").classList.toggle("change");
+        closeNav();
+        overlayOff();
+    }  
 }
 /* Set the width of the side navigation to 250px */
 function openNav() {
@@ -31,7 +40,17 @@ function closeNav() {
     document.getElementById("relleno").style.width = "0";
     document.getElementById("mySidenav").style.overflowY = "hidden";  
 }
-     
+
+function overlayOn() {
+    document.getElementById("overlay").style.width = "100%";
+    document.getElementById("overlay").style.visibility = "visible";
+    document.getElementById("overlay").style.opacity = "0.5";
+}
+function overlayOff() {
+    document.getElementById("overlay").style.width = "0";
+    document.getElementById("overlay").style.visibility = "hidden";
+    document.getElementById("overlay").style.opacity = "0";
+}     
 //***********************************
 //script para el botón "top"
 //***********************************
