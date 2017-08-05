@@ -5,6 +5,7 @@
 //***********************************
 
 var mostrado = false;
+var timerOverlay;
 
 function myFunction(x) {
     x.classList.toggle("change");
@@ -42,12 +43,13 @@ function closeNav() {
 }
 
 function overlayOn() {
+    clearTimeout(timerOverlay);
     document.getElementById("overlay").style.width = "100%";
     document.getElementById("overlay").style.visibility = "visible";
     document.getElementById("overlay").style.opacity = "0.5";
 }
 function overlayOff() {
-    document.getElementById("overlay").style.width = "0";
+    timerOverlay = setTimeout(function(){ document.getElementById("overlay").style.width = "0"; }, 400);
     document.getElementById("overlay").style.visibility = "hidden";
     document.getElementById("overlay").style.opacity = "0";
 }     
