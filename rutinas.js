@@ -12,10 +12,12 @@ function myFunction(x) {
     if (mostrado == true) {
         closeNav();
         overlayOff();
+        navbarOn();
     }
     else {
         openNav();
         overlayOn();
+        navbarOff();
     }
     
 }
@@ -24,6 +26,7 @@ function soloCerrar() {
         document.getElementById("container").classList.toggle("change");
         closeNav();
         overlayOff();
+        navbarOn()
     }  
 }
 /* Set the width of the side navigation to 250px */
@@ -48,11 +51,37 @@ function overlayOn() {
     document.getElementById("overlay").style.visibility = "visible";
     document.getElementById("overlay").style.opacity = "0.5";
 }
+
 function overlayOff() {
     timerOverlay = setTimeout(function(){ document.getElementById("overlay").style.width = "0"; }, 400);
     document.getElementById("overlay").style.visibility = "hidden";
     document.getElementById("overlay").style.opacity = "0";
-}     
+}
+
+function navbarOn() {    
+    var c;
+    var i;    
+    c = document.getElementById("navbar").children;
+    for (i = 0; i < c.length; i++) {
+        c[i].style.visibility = "visible";
+        c[i].style.opacity = "1";
+    }
+    document.getElementById("navbar").style.cursor = "auto";    
+    document.getElementById("navbar").style.backgroundColor = "rebeccapurple";
+}
+
+function navbarOff() {
+    var c;
+    var i;
+    c = document.getElementById("navbar").children;
+    for (i = 0; i < c.length; i++) {
+        c[i].style.visibility = "hidden";
+        c[i].style.opacity = "0";
+    }
+    document.getElementById("navbar").style.cursor = "pointer";
+    document.getElementById("navbar").style.backgroundColor = "rgba(0,0,0,0.5)";
+}
+
 //***********************************
 //script para el botón "top"
 //***********************************

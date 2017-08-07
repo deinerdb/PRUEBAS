@@ -540,14 +540,17 @@ footer .fa-skype {
     font-size:1.2em;
 }
 .navbar {
-  
-  overflow: auto;
-  white-space: nowrap;    
-  background-color: rebeccapurple;
-  position: relative;
-  top: 0;   
-  z-index:400;  
-  
+    overflow: auto;
+    white-space: nowrap;
+    background-color: rebeccapurple;
+    position: relative;
+    top: 0;
+    width: 100%; /*extraño, pero ocupa el espacio disponible*/
+    z-index: 400;
+    -moz-transition: background-color 0.4s;
+    -o-transition: background-color 0.4s;
+    -webkit-transition: background-color 0.4s;
+    transition: background-color 0.4s;
 }
 .main{
 
@@ -556,17 +559,22 @@ footer .fa-skype {
 
 }
 .navbar a {
-
     font-family: Tahoma, Arial, sans-serif;
-    display:inline-block;
-    color:white;
-    text-align:center;
-    padding:14px;
-    text-decoration:none;
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    border-radius: 15px;
+    opacity: 1;
+    visibility: visible;
+    -moz-transition: opacity 0.4s, visibility 0.4s;
+    -o-transition: opacity 0.4s, visibility 0.4s;
+    -webkit-transition: opacity 0.4s, visibility 0.4s;
+    transition: opacity 0.4s, visibility 0.4s;
 
-    -moz-border-radius:15px;
-    -webkit-border-radius:15px;
-    border-radius:15px;
 }
 
 .navbar a:hover{
