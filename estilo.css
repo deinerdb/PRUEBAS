@@ -1,9 +1,22 @@
+/*
+    z-index
 
-body{
+    sidenav 300
+    relleno 250
+    overlay 200
+    navbar 400
+    BtnTop 400
+    caja 400
+    container 400
 
-    font-size:100%;
-    margin:0;
-
+*/
+body {
+    font-size: 100%;
+    margin: 0;
+    -moz-transition: background-color 0.4s;
+    -o-transition: background-color 0.4s;
+    -webkit-transition: background-color 0.4s;
+    transition: background-color 0.4s;
 }
 /*Stack Overflow: se sugiere para que las alturas funcionen*/
 html, body {
@@ -85,14 +98,10 @@ html, body {
     height: 100%;
     top: 0;
     left: 0;
-    bottom: 0;
-    background-color: rgb(0,0,0);
+    bottom: 0;    
     z-index: 200;
     cursor: pointer;
-    -moz-transition: opacity 0.4s, visibility 0.4s;
-    -o-transition: opacity 0.4s, visibility 0.4s;
-    -webkit-transition: opacity 0.4s, visibility 0.4s;
-    transition:  opacity 0.4s, visibility 0.4s;
+    
 }
     /* The navigation menu links */
 .sidenav a {
@@ -102,10 +111,10 @@ html, body {
     font-size: 1.1em;
     color: purple;
     display: block;
-    -o-transition: 0.3s;
-    -moz-transition: 0.3s;
-    -webkit-transition: 0.3s;
-    transition: 0.3s;
+    -o-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
     text-align: left;
     /*BORDE REDONDEADO*/
     -moz-border-radius: 15px;
@@ -415,7 +424,7 @@ footer .fa-skype {
     position: fixed; /* Fixed/sticky position */
     bottom: 20px; /* Place the button at the bottom of the page */
     right: 30px; /* Place the button 30px from the right */
-    z-index: 100; /* Make sure it does not overlap */
+    z-index: 400; /* Make sure it does not overlap */
     border: none; /* Remove borders */
     outline: none; /* Remove outline */
     background-color: rebeccapurple; /* Set a background color */
@@ -443,7 +452,11 @@ footer .fa-skype {
 }
 
 #BtnTop:hover {
-    background-color:purple; /* Add a purple background on hover */
+    background: #8c53c6; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(left, #8c53c6, rebeccapurple); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right, #8c53c6, rebeccapurple); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right, #8c53c6, rebeccapurple); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right, #8c53c6, rebeccapurple); /* Standard syntax (must be last) */
 }
 /*LA CAJA SUPERIOR*/
 .caja{
@@ -498,8 +511,12 @@ footer .fa-skype {
     */
              
 }
-.container:hover{
-    background-color:purple;
+.container:hover {
+    background: #8c53c6; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(left, #8c53c6, rebeccapurple); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right, #8c53c6, rebeccapurple); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right, #8c53c6, rebeccapurple); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right, #8c53c6, rebeccapurple); /* Standard syntax (must be last) */
 }
 
 .bar1, .bar2, .bar3 {
@@ -547,16 +564,12 @@ footer .fa-skype {
     top: 0;
     width: 100%; /*extraño, pero ocupa el espacio disponible*/
     z-index: 400;
-    -moz-transition: background-color 0.4s;
-    -o-transition: background-color 0.4s;
-    -webkit-transition: background-color 0.4s;
-    transition: background-color 0.4s;
+    
 }
-.main{
-
-    padding:8px;
-    margin-top:45px;
-
+.main {
+    padding: 8px;
+    margin-top: 45px;
+    
 }
 .navbar a {
     font-family: Tahoma, Arial, sans-serif;

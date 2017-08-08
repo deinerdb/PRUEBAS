@@ -49,13 +49,13 @@ function overlayOn() {
     clearTimeout(timerOverlay);
     document.getElementById("overlay").style.width = "100%";
     document.getElementById("overlay").style.visibility = "visible";
-    document.getElementById("overlay").style.opacity = "0.5";
+    document.body.style.backgroundColor = "rgba(0,0,0,0.5)";
 }
 
 function overlayOff() {
     timerOverlay = setTimeout(function(){ document.getElementById("overlay").style.width = "0"; }, 400);
     document.getElementById("overlay").style.visibility = "hidden";
-    document.getElementById("overlay").style.opacity = "0";
+    document.body.style.backgroundColor = "initial";
 }
 
 function navbarOn() {    
@@ -66,8 +66,7 @@ function navbarOn() {
         c[i].style.visibility = "visible";
         c[i].style.opacity = "1";
     }
-    document.getElementById("navbar").style.cursor = "auto";    
-    document.getElementById("navbar").style.backgroundColor = "rebeccapurple";
+    document.getElementById("navbar").style.cursor = "auto";
 }
 
 function navbarOff() {
@@ -78,8 +77,7 @@ function navbarOff() {
         c[i].style.visibility = "hidden";
         c[i].style.opacity = "0";
     }
-    document.getElementById("navbar").style.cursor = "pointer";
-    document.getElementById("navbar").style.backgroundColor = "rgba(0,0,0,0.5)";
+    document.getElementById("navbar").style.cursor = "pointer";    
 }
 
 //***********************************
