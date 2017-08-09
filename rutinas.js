@@ -50,12 +50,14 @@ function overlayOn() {
     document.getElementById("overlay").style.width = "100%";
     document.getElementById("overlay").style.visibility = "visible";
     document.body.style.backgroundColor = "rgba(0,0,0,0.5)";
+    document.getElementById("main").style.opacity = "0.5";
 }
 
 function overlayOff() {
     timerOverlay = setTimeout(function(){ document.getElementById("overlay").style.width = "0"; }, 400);
     document.getElementById("overlay").style.visibility = "hidden";
     document.body.style.backgroundColor = "initial";
+    document.getElementById("main").style.opacity = "initial";
 }
 
 function navbarOn() {    

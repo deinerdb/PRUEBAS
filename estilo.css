@@ -569,7 +569,10 @@ footer .fa-skype {
 .main {
     padding: 8px;
     margin-top: 45px;
-    
+    -moz-transition: opacity 0.4s;
+    -o-transition: opacity 0.4s;
+    -webkit-transition: opacity 0.4s;
+    transition: opacity 0.4s;
 }
 .navbar a {
     font-family: Tahoma, Arial, sans-serif;
