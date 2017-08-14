@@ -4,6 +4,10 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">  
         <meta name="description" content="Ejemplos HTML"/>
+        <!-- Chrome, Firefox, OS y Opera -->
+        <meta name="theme-color" content="#663399" />
+        <!-- Windows Phone -->
+        <meta name="msapplication-navbutton-color" content="#663399" />
         <title>HTML</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="estilo.css" />
@@ -11,26 +15,45 @@
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />        
     </head>
     <body onload="sumar()">
-            <script>
-                //PARA EL ÍCONO DE MENÚ
-                function myFunction(x) {
-                    x.classList.toggle("change");
-                }
-            </script>
+        <div id="mySidenav" class="sidenav">
+            <a href="INDEX.htm"><i class="fa fa-home"></i>INICIO</a>
+            <a class="selected" id="selected" href="HTML.htm"><i class="fa fa-html5"></i>HTML</a>
+            <a href="CSS.htm"><i class="fa fa-css3"></i>CSS</a>
+            <a href="JAVASCRIPT.htm"><i class="fa fa-code"></i>JAVASCRIPT</a>
+            <a href="MEDIA.htm"><i class="fa fa-play"></i>MULTIMEDIA</a>
+            <a href="FILTROS.htm"><i class="fa fa-paint-brush"></i>FILTROS</a>
+            <a href="CANVAS.htm"><i class="fa fa-file-image-o"></i>CANVAS</a>
+            <a href="JUEGO.htm"><i class="fa fa-gamepad"></i>JUEGO</a>
+            <a href="SVG.htm"><i class="fa fa-picture-o"></i>SVG</a>
+            <a href="SITIOS.htm"><i class="fa fa-globe"></i>SITIOS</a>
+            <a href="FORM.htm"><i class="fa fa-file-text-o"></i>FORMULARIOS</a>
+
+        </div>
+        <div id="relleno">
+            relleno
+        </div>
+        <div id="overlay" onclick="soloCerrar()">
+        </div>
         <div class="caja">
-            <div class="container" onclick="myFunction(this)">
+            <div class="container" id="container" onclick="myFunction(this)">
                 <div class="bar1"></div>
                 <div class="bar2"></div>
                 <div class="bar3"></div>
             </div>            
-            <div class="navbar">                              
+            <div class="navbar" id="navbar" onclick="soloCerrar()">                              
                 <a href="INDEX.htm"><i class="fa fa-home"></i>VOLVER AL INICIO</a> 
             </div>       
         </div>
-            <div class="main">                
+            <div class="main" id="main">                
                 <div class="letramorada">
                     <h1>HTML</h1>
-                    <h2>En esta página se muestran algunas etiquetas HTML</h2>                    
+                    <h3>
+                        HTML: sigla en inglés de HyperText Markup Language (lenguaje de marcas de hipertexto).
+                        <br />
+                        Es el elemento de construcción más básico de una página web y se usa para crear y representar visualmente una página web. Determina el contenido de la página web, pero no su funcionalidad. Otras tecnologías distintas de HTML son usadas generalmente para describir la apariencia/presentación de una página web (CSS) o su funcionalidad (JavaScript).
+                        <br />
+                        En esta página se muestran algunas etiquetas HTML
+                    </h3>                    
                 </div>
                 <section>
                     <article class="clasehumo">
@@ -120,12 +143,7 @@
                                     x.value = "Ingrese un número válido";
                                 }
                             }
-                        </script>
-                        <script type="text/javascript">
-                            function toTop() {
-                                window.scrollTo(0, 0)
-                            }
-                        </script>                        
+                        </script>                                                
                     </article>                    
                 </section>                
                 <aside>
