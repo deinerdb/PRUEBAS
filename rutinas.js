@@ -1,6 +1,28 @@
 ﻿//Rutinas
 
 //***********************************
+//PARA EL ACORDEÓN
+//***********************************
+var acc = document.getElementById("accordion");
+var accAbierta = false;
+acc.onclick = function () {
+    this.classList.toggle("active");
+    var panel = document.getElementById("panel");
+    if (panel.style.maxHeight) {
+        panel.style.maxHeight = null;
+        accAbierta = false;
+    } else {
+        panel.style.maxHeight = panel.scrollHeight + "px";
+        accAbierta = true;
+    }
+}
+window.onresize = function () {    
+    if (accAbierta == true) {
+        var panel = document.getElementById("panel");
+        panel.style.maxHeight = panel.scrollHeight + "px";
+    }
+}
+//***********************************
 //PARA EL ÍCONO DE MENÚ Y EL MENÚ LATERAL SIDENAV
 //***********************************
 
