@@ -16,7 +16,11 @@ acc.onclick = function () {
         accAbierta = true;
     }
 }
-window.onresize = function () {    
+window.onresize = function () {   
+    //if (mostrado == true) {
+        //alto del sidenav es el alto del documento menos el padding
+        document.getElementById("mySidenav").style.minHeight = (document.body.scrollHeight - 80) + "px";
+    //}
     if (accAbierta == true) {
         var panel = document.getElementById("panel");
         panel.style.maxHeight = panel.scrollHeight + "px";
@@ -57,6 +61,8 @@ function openNav() {
     document.getElementById("mySidenav").style.width = "250px";
     document.getElementById("relleno").style.width = "250px"; 
     document.getElementById("mySidenav").style.overflowY = "auto";
+    //alto del sidenav es el alto del documento menos el padding
+    document.getElementById("mySidenav").style.minHeight = (document.body.scrollHeight - 80) + "px";
 }
 
 /* Set the width of the side navigation to 0 */

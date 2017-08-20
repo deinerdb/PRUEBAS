@@ -96,8 +96,7 @@ div.panel {
     height:100%;
     min-height: 100%; /*height */
     top: 0;
-    left: 0;
-    bottom:0;
+    left: 0;    
     width: 0; /* 0 width - change this with JavaScript */
     max-width: 90%;
     margin-left: 0;
@@ -120,6 +119,7 @@ div.panel {
     user-select: none; /* Standard syntax */
 }
 #relleno {
+    /*poco probable que sea visible este relleno*/
     background-color: white;
     position: fixed;
     top: 0;
@@ -140,11 +140,11 @@ div.panel {
     -ms-user-select: none; /* IE 10+ */
     user-select: none; /* Standard syntax */
 }
-    .sidenav:after {
-        content: "";
-        height: 60px; /*padding-bottom: ESTO PARA QUE SE VEA EN IE Y FIREFOX*/
-        display: block;        
-    }
+.sidenav:after {
+    content: "";
+    height: 60px; /*padding-bottom: ESTO PARA QUE SE VEA EN IE Y FIREFOX*/
+    display: block;
+}
 #overlay {
     position: fixed;
     visibility: hidden;
