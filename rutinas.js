@@ -32,6 +32,9 @@ window.onresize = function () {
 
 var mostrado = false;
 var timerOverlay;
+var miOpacidad;
+var miColorfondo;
+
 
 function myFunction(x) {
     x.classList.toggle("change");
@@ -77,15 +80,17 @@ function overlayOn() {
     clearTimeout(timerOverlay);
     document.getElementById("overlay").style.width = "100%";
     document.getElementById("overlay").style.visibility = "visible";
+    miColorfondo = document.body.style.backgroundColor; //lo guarda, porque old IE no soporta initial
     document.body.style.backgroundColor = "rgba(0,0,0,0.5)";
+    miOpacidad = document.getElementById("main").style.opacity; //lo guarda, porque old IE no soporta initial
     document.getElementById("main").style.opacity = "0.5";
 }
 
 function overlayOff() {
     timerOverlay = setTimeout(function(){ document.getElementById("overlay").style.width = "0"; }, 400);
     document.getElementById("overlay").style.visibility = "hidden";
-    document.body.style.backgroundColor = "initial";
-    document.getElementById("main").style.opacity = "initial";
+    document.body.style.backgroundColor = miColorfondo;
+    document.getElementById("main").style.opacity = miOpacidad;
 }
 
 function navbarOn() {    
