@@ -5,8 +5,11 @@
 //***********************************
 var acc = document.getElementById("accordion");
 var accAbierta = false;
-acc.onclick = function () {
-    this.classList.toggle("active");
+
+acc.onclick = function () { alternarAcc() };
+
+function alternarAcc() {
+    acc.classList.toggle("active");
     var panel = document.getElementById("panel");
     if (panel.style.maxHeight) {
         panel.style.maxHeight = null;
@@ -16,16 +19,19 @@ acc.onclick = function () {
         accAbierta = true;
     }
 }
-window.onresize = function () {   
-    //if (mostrado == true) {
-        //alto del sidenav es el alto del documento menos el padding
-        document.getElementById("mySidenav").style.minHeight = (document.body.scrollHeight - 80) + "px";
-    //}
+
+window.onresize = function () { ajustesResize() };
+
+function ajustesResize() {    
+    //altura del acordeón
     if (accAbierta == true) {
         var panel = document.getElementById("panel");
         panel.style.maxHeight = panel.scrollHeight + "px";
     }
+    //altura sidenav
+    alturaNav();
 }
+
 //***********************************
 //PARA EL ÍCONO DE MENÚ Y EL MENÚ LATERAL SIDENAV
 //***********************************
@@ -55,7 +61,7 @@ function soloCerrar() {
         document.getElementById("container").classList.toggle("change");
         closeNav();
         overlayOff();
-        navbarOn()
+        navbarOn();
     }  
 }
 /* Set the width of the side navigation to 250px */
@@ -64,16 +70,20 @@ function openNav() {
     document.getElementById("mySidenav").style.width = "250px";
     document.getElementById("relleno").style.width = "250px"; 
     document.getElementById("mySidenav").style.overflowY = "auto";
-    //alto del sidenav es el alto del documento menos el padding
-    document.getElementById("mySidenav").style.minHeight = (document.body.scrollHeight - 80) + "px";
+    alturaNav();    
 }
-
+function alturaNav() {    
+    //alto del sidenav es el alto del documento menos el padding
+    document.getElementById("mySidenav").style.height = document.body.scrollHeight/2 + "px";
+    document.getElementById("mySidenav").style.height = document.body.scrollHeight + "px";    
+}
 /* Set the width of the side navigation to 0 */
 function closeNav() {
     mostrado = false;
     document.getElementById("mySidenav").style.width = "0";
     document.getElementById("relleno").style.width = "0";
-    document.getElementById("mySidenav").style.overflowY = "hidden";  
+    document.getElementById("mySidenav").style.overflowY = "hidden";
+    //alturaNav();
 }
 
 function overlayOn() {
