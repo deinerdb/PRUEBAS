@@ -1,4 +1,17 @@
 ﻿//Rutinas
+//***********************************
+//PARA IMPRESIÓN
+//***********************************
+function imprimir() {
+    //el sidenav no debe salir
+    soloCerrar();
+    //para permitir transiciones espera un poco...
+    setTimeout(nowImprime, 500);    
+}
+function nowImprime() {
+    window.print();
+}
+
 
 //***********************************
 //PARA EL ACORDEÓN
@@ -40,6 +53,8 @@ var mostrado = false;
 var timerOverlay;
 var miOpacidad;
 var miColorfondo;
+var miBodyScroll;
+var miDocumentScroll;
 
 
 function myFunction(x) {
@@ -70,10 +85,15 @@ function openNav() {
     document.getElementById("mySidenav").style.width = "250px";
     document.getElementById("relleno").style.width = "250px"; 
     document.getElementById("mySidenav").style.overflowY = "auto";
-    alturaNav();    
+    alturaNav();
+    //guarda el scroll y se mueve al top
+    miBodyScroll = document.body.scrollTop; // For Chrome, Safari and Opera
+    miDocumentScroll = document.documentElement.scrollTop; // For IE and Firefox
+    topFunction();        
 }
 function alturaNav() {    
-    //alto del sidenav es el alto del documento menos el padding
+    //alto del sidenav es el alto del documento
+    //una asignación previa corrige ciertos bugs
     document.getElementById("mySidenav").style.height = document.body.scrollHeight/2 + "px";
     document.getElementById("mySidenav").style.height = document.body.scrollHeight + "px";    
 }
@@ -84,6 +104,9 @@ function closeNav() {
     document.getElementById("relleno").style.width = "0";
     document.getElementById("mySidenav").style.overflowY = "hidden";
     //alturaNav();
+    //restaura el scroll
+    document.body.scrollTop = miBodyScroll; // For Chrome, Safari and Opera
+    document.documentElement.scrollTop = miDocumentScroll; // For IE and Firefox
 }
 
 function overlayOn() {
@@ -165,7 +188,7 @@ function manejarbtn() {
     
 }
 
-// CUANDO EL USUARIO HACE CLICK, HACE SCROLL HASTA EL INICIO DEL DOCUMENTO
+// FUNCIÓN QUE HACE SCROLL HASTA EL INICIO DEL DOCUMENTO
 function topFunction() {
     document.body.scrollTop = 0; // For Chrome, Safari and Opera
     document.documentElement.scrollTop = 0; // For IE and Firefox
