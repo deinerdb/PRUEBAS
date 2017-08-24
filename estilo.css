@@ -21,10 +21,23 @@ body {
 /*Stack Overflow: se sugiere para que las alturas funcionen*/
 html, body {
     height: 100%;
-    min-height: 100%;
+    min-height: 100%;    
+}
+/*lo que se oculta al imprimir*/
+@media print {
+    footer, .sidenav, .caja , .navbar , #relleno , #BtnTop , #overlay {
+        display:none;
+    }
 }
 hr{
     border-color:mediumpurple;
+}
+/*como un hr vertical*/
+#separador {
+    color: mediumpurple;
+    font-weight: bold;
+    font-size: 1.3em;
+    text-shadow: 2px 0px;
 }
 /*quitar puntos en botones Firefox*/
 button::-moz-focus-inner,
@@ -196,12 +209,12 @@ div.panel {
 /*el prímero y el último elemento tienen un borde especial*/
 .sidenav a:first-child {
     border-top-style: solid;
-    border-top-color: indigo;
+    border-top-color: mediumpurple;
     border-top-width: 2px;
 }
 .sidenav a:last-child {
     border-bottom-style: solid;
-    border-bottom-color: indigo;
+    border-bottom-color: mediumpurple;
     border-bottom-width: 2px;   
 }
 /* When you mouse over the navigation links, change their color */
@@ -670,14 +683,14 @@ footer .fa-skype {
 /*el prímero y el último elemento tienen un borde especial*/
 .navbar a:first-child{
     border-left-style:solid;
-    border-left-color:indigo;
+    border-left-color:mediumpurple;
     border-left-width:2px;
     /*border-bottom-left-radius:15px;
     border-top-left-radius:15px;*/
 }
 .navbar a:last-child{
     border-right-style:solid;
-    border-right-color:indigo;
+    border-right-color:mediumpurple;
     border-right-width:2px;
     /*border-bottom-right-radius:15px;
     border-top-right-radius:15px;*/    
