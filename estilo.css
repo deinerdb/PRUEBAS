@@ -25,7 +25,7 @@ html, body {
 }
 /*lo que se oculta al imprimir*/
 @media print {
-    footer, .sidenav, .caja , .navbar , #relleno , #BtnTop , #overlay {
+    footer, .sidenav, .caja , .navbar , #relleno , #BtnTop , #overlay , .container {
         display:none;
     }
 }
