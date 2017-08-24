@@ -37,7 +37,7 @@ hr{
     color: mediumpurple;
     font-weight: bold;
     font-size: 1.3em;
-    text-shadow: 2px 0px;
+    text-shadow: 2.5px 0px;
 }
 /*quitar puntos en botones Firefox*/
 button::-moz-focus-inner,
