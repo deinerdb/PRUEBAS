@@ -122,7 +122,7 @@ div.panel {
     max-width: 90%;
     margin-left: 0;
     z-index: 300; /*según el orden de esta web*/
-    background-color: white; /* blanco*/
+    background-color: lavender; /* casi blanco*/
     color: white;
     white-space: nowrap; /*solo una línea cada link*/
     overflow-x: hidden; /* Disable horizontal scroll */
@@ -152,7 +152,7 @@ div.panel {
     }
 #relleno {
     /*poco probable que sea visible este relleno*/
-    background-color: white;
+    background-color: lavender;
     position: fixed;
     top: 0;
     left:0;
