@@ -25,9 +25,13 @@ html, body {
 }
 /*lo que se oculta al imprimir*/
 @media print {
-    footer, .sidenav, .caja , .navbar , #relleno , #BtnTop , #overlay , .container , .bar1 , .bar2 , .bar3 {
-        display:none;
+    * {
+        -webkit-transition: none !important;
+        transition: none !important;
     }
+    footer, .sidenav, .caja, .navbar, #relleno, #BtnTop, #overlay, .container, .bar1, .bar2, .bar3 {
+        display: none !important;
+    }   
 }
 hr{
     border-color:mediumpurple;
@@ -37,7 +41,7 @@ hr{
     color: mediumpurple;
     font-weight: bold;
     font-size: 1.3em;
-    text-shadow: 2.5px 0px;
+    text-shadow: 3px 0px;
 }
 /*quitar puntos en botones Firefox*/
 button::-moz-focus-inner,
@@ -99,12 +103,11 @@ div.panel {
 .selected {
     /*para menú*/
     color: white;
-    /*gradiente lineal*/
-    background-color: purple; /*fondo púrpura. For browsers that do not support gradients */
-    background: -webkit-linear-gradient(purple, mediumpurple); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(purple, mediumpurple); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(purple, mediumpurple); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(purple,mediumpurple); /* Standard syntax (must be last) */
+    background: #b38cd9; /* For browsers that do not support gradients */
+    background: -webkit-radial-gradient(RebeccaPurple, #b38cd9); /* Safari 5.1 to 6.0 */
+    background: -o-radial-gradient(RebeccaPurple, #b38cd9); /* For Opera 11.6 to 12.0 */
+    background: -moz-radial-gradient(RebeccaPurple, #b38cd9); /* For Firefox 3.6 to 15 */
+    background: radial-gradient(RebeccaPurple, #b38cd9); /* Standard syntax */
 }
 /*MENÚ LATERAL DE NAVEGACIÓN*/
 .sidenav {
@@ -668,16 +671,16 @@ footer .fa-skype {
     border-radius: 15px;
     opacity: 1;
     visibility: visible;
-    -moz-transition: opacity 0.4s, visibility 0.4s;
-    -o-transition: opacity 0.4s, visibility 0.4s;
-    -webkit-transition: opacity 0.4s, visibility 0.4s;
-    transition: opacity 0.4s, visibility 0.4s;
-
+    -moz-transition: opacity 0.4s, visibility 0.4s, background-color 0.4s;
+    -o-transition: opacity 0.4s, visibility 0.4s, background-color 0.4s;
+    -webkit-transition: opacity 0.4s, visibility 0.4s, background-color 0.4s;
+    transition: opacity 0.4s, visibility 0.4s, background-color 0.4s;
 }
 
 .navbar a:hover{
 
-    background-color:purple;
+    background-color:lavender;
+    color:purple;
     
 }
 /*el prímero y el último elemento tienen un borde especial*/
