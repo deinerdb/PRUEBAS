@@ -45,7 +45,7 @@ hr{
 }
 .link {
 	font-style: italic;
-	font-size: 1.5em;
+	font-size: 1.3em;
 }
 /*quitar puntos en botones Firefox*/
 button::-moz-focus-inner,
