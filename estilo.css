@@ -31,7 +31,10 @@ html, body {
     }
     footer, .sidenav, .caja, .navbar, #relleno, #BtnTop, #overlay, .container, .bar1, .bar2, .bar3 {
         display: none !important;
-    }   
+    }
+    .clasemultimedia{
+        background-color:transparent !important;
+    }
 }
 hr{
     border-color:mediumpurple;
@@ -101,6 +104,22 @@ div.panel {
     color: purple;
     font-size: 1.2em;
     text-align: justify;
+}
+div.panel .fa {
+    color: rebeccapurple;
+    font-size: 2em;
+    float: left;
+    margin: 0 6px 4px 0;
+}
+div.panel textarea {
+    width: 100%;    
+    background-color: #f2ecf9;
+    overflow:auto;
+    white-space:pre !important;
+    padding: 12px;    
+    margin-bottom:8px;
+    box-sizing:border-box;
+    border-color:mediumpurple;
 }
 /*fin acordeón*/
 
