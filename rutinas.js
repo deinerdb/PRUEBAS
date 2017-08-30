@@ -34,6 +34,16 @@ function alternarAcc() {
 }
 
 window.onresize = function () { ajustesResize() };
+function openfolder() {
+    var a;
+    a = document.getElementById("folder");
+    a.innerHTML = "&#xf114;";
+    setTimeout(function () {
+        a.innerHTML = "&#xf115;";
+    }, 1000);
+}
+openfolder();
+setInterval(openfolder, 2000);
 
 function ajustesResize() {    
     //altura del acordeón

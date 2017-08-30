@@ -79,19 +79,13 @@ button.accordion {
     button.accordion.active, button.accordion:hover {
         background-color: #e6d9f2;
     }
-
-    button.accordion:after {
-        content: '\002B';
-        color: purple;
-        font-weight: bold;
-        float: right;
-        margin-left: 5px;
-    }
-
-    button.accordion.active:after {
-        content: "\2212";
-    }
-
+#folder {
+    float: right;
+    font-size: 1.4em;
+    margin-left: 8px;
+    margin-right: -8px;
+}
+       
 div.panel {
     padding: 0 18px;
     background-color: #f2ecf9;
@@ -107,9 +101,9 @@ div.panel {
 }
 div.panel .fa {
     color: rebeccapurple;
-    font-size: 2em;
+    font-size: 3em;
     float: left;
-    margin: 0 6px 4px 0;
+    margin: 0 8px 4px 0;
 }
 div.panel textarea {
     width: 100%;    
@@ -120,6 +114,7 @@ div.panel textarea {
     margin-bottom:8px;
     box-sizing:border-box;
     border-color:mediumpurple;
+    font-size:1em;
 }
 /*fin acordeón*/
 
@@ -676,12 +671,13 @@ footer .fa-skype {
 }
 .main {
     padding: 8px;
-    margin-top: 45px;
+    margin-top: 60px;
     -moz-transition: opacity 0.4s;
     -o-transition: opacity 0.4s;
     -webkit-transition: opacity 0.4s;
     transition: opacity 0.4s;
 }
+
 .navbar a {
     font-family: Tahoma, Arial, sans-serif;
     display: inline-block;
