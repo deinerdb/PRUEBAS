@@ -85,7 +85,21 @@ button.accordion {
     margin-left: 8px;
     margin-right: -8px;
 }
-       
+#arrow {
+    position: relative;
+    font-size: 1.4em;
+    left: 50%;
+    -ms-transform: translate(-50%, 0);
+    -webkit-transform: translate(-50%, 0);
+    -o-transform: translate(-50%, 0);
+    -moz-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
+    display: none;
+    cursor:pointer;
+}
+#arrow:hover {
+    font-weight:bold;
+}
 div.panel {
     padding: 0 18px;
     background-color: #f2ecf9;

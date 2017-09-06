@@ -72,6 +72,25 @@
                 /*visible por defecto*/
                 display: block;
             }
+            /*el play/pause en la imagen*/
+            .contenedor {
+                position: relative;
+                text-align: center;                
+            }
+            #imgplaypause:hover {
+                color: LightGray;
+            }
+
+            #imgplaypause {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                cursor: pointer;
+                font-size: 6em;
+                color: DarkGray;
+                opacity:0.6;
+            }
         </style>
 
     </head>
@@ -104,26 +123,33 @@
                     <article class="clasemultimedia">
                         <!--Probando audio-->
                         <h2>Audio HTML5</h2>
-                        <div class="centrar">
+                        <div class="contenedor">
                             <img id="mediaimg" onclick="playorpauseaudio()" alt="Imagen de Vivaldi" title="Haga clic para reproducir o pausar el audio" src="Vivaldi.jpg" width="1284" height="1533" />
+                            <i id="imgplaypause" class="fa" onclick="playorpauseaudio()" aria-hidden="true"></i>
                             <br/>
                             <audio id="mediaaudio" controls="controls">
                                 <source src="VIVALDI - LA PRIMAVERA.mp3" type="audio/mp3" />
                                 <source src="VIVALDI - LA PRIMAVERA.ogg" type="audio/ogg" />
                                 <source src="VIVALDI - LA PRIMAVERA.wav" type="audio/vnd.wave" />
                                 <!--para los navegadores que no soporten audio -->Tu navegador no soporta la etiqueta AUDIO
-                            </audio>
+                            </audio>                            
                         </div>
                         <script>
                             var aud = document.getElementById("mediaaudio");
+                            imgIco = document.getElementById("imgplaypause");
+                            imgIco.innerHTML = "&#xf01d;"; //play ico 
+                            
                             function playorpauseaudio() {                                
                                 //alternar play/pause
                                 if (aud.paused) {
                                     aud.play();
+                                    imgIco.innerHTML = "&#xf28c;"; //pause ico
+
                                 }
                                 else
                                 {
-                                    aud.pause();                                    
+                                    aud.pause();
+                                    imgIco.innerHTML = "&#xf01d;"; //play ico
                                 }
                             }
                         </script>
@@ -145,8 +171,7 @@
                         <h3>Este video fue obtenido del sitio oficial de los testigos de Jehová.</h3>
                         <h3>Puede verlo o descargarlo en este <a class="link" href="https://www.jw.org/finder?wtlocale=S&docid=1102017417&srcid=share" target="_blank">ENLACE</a></h3>                                                                      
                         <script>
-                            var vid = document.getElementById("mediavideo");
-
+                            var vid = document.getElementById("mediavideo");                            
                             function playorpausevideo() {
                                 //alternar play/pause
                                 if (vid.paused) {

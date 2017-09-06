@@ -17,17 +17,20 @@ function nowImprime() {
 //PARA EL ACORDEÓN
 //***********************************
 var acc = document.getElementById("accordion");
+var arr = document.getElementById("arrow");
 var accAbierta = false;
 
 acc.onclick = function () { alternarAcc() };
-
+arr.onclick = alternarAcc;
 function alternarAcc() {
     acc.classList.toggle("active");
     var panel = document.getElementById("panel");
     if (panel.style.maxHeight) {
         panel.style.maxHeight = null;
+        arr.style.display = "none";
         accAbierta = false;
     } else {
+        arr.style.display = "block";
         panel.style.maxHeight = panel.scrollHeight + "px";
         accAbierta = true;
     }
