@@ -12,6 +12,15 @@ function nowImprime() {
     window.print();
 }
 
+//NAVBAR SE DESPLAZA AL ELEMENTO ACTUAL
+var barra = document.getElementById("navbar");
+var actual = document.getElementById("selectednavbar");
+window.onload = function () {
+    barra.scrollLeft = actual.offsetLeft;
+    //solo existe en HTML
+    sumar();
+};
+
 
 //***********************************
 //PARA EL ACORDEÓN
@@ -21,7 +30,7 @@ var arr = document.getElementById("arrow");
 var accAbierta = false;
 
 acc.onclick = function () { alternarAcc() };
-arr.onclick = alternarAcc;
+arr.onclick = arrClick;
 function alternarAcc() {
     acc.classList.toggle("active");
     var panel = document.getElementById("panel");
@@ -35,8 +44,14 @@ function alternarAcc() {
         accAbierta = true;
     }
 }
-
+function arrClick() {
+    //para que se cierre
+    alternarAcc();
+    //ahora un scroll
+    window.scrollTo(acc.offsetLeft, acc.offsetTop - 70);    
+}
 window.onresize = function () { ajustesResize() };
+
 function openfolder() {
     var a;
     a = document.getElementById("folder");
