@@ -16,9 +16,25 @@ function nowImprime() {
 var barra = document.getElementById("navbar");
 var actual = document.getElementById("selectednavbar");
 window.onload = function () {
+    //HACE VISIBLE EN EL NAVBAR EL ELEMENTO ACTUAL
     barra.scrollLeft = actual.offsetLeft;
-    //solo existe en HTML
-    sumar();
+    //FUNCIONES DE CADA PÁGINA, BODY ONLOAD
+    //HTML
+    if (typeof sumar == 'function') {
+        sumar();        
+    } 
+    //SITIOS
+    if (typeof mostrarpárrafo == 'function') {
+        mostrarpárrafo('señale');
+    } 
+    //JUEGO
+    if (typeof startGame == 'function') {
+        startGame();
+    } 
+    //CANVAS
+    if (typeof init == 'function') {
+        init();
+    } 
 };
 
 
