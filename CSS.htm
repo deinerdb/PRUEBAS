@@ -4,6 +4,10 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">  
         <meta name="description" content="Ejemplos CSS"/>
+        <!-- Chrome, Firefox, OS y Opera -->
+        <meta name="theme-color" content="#663399" />
+        <!-- Windows Phone -->
+        <meta name="msapplication-navbutton-color" content="#663399" />
         <title>CSS</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="estilo.css" />
@@ -29,24 +33,73 @@
         </style>
     </head>
     <body>
-        <script>
-                //PARA EL ÍCONO DE MENÚ
-                function myFunction(x) {
-                    x.classList.toggle("change");
-                }
-        </script>
+        <div id="mySidenav" class="sidenav">
+            <a href="INDEX.htm"><i class="fa fa-home"></i>INICIO</a>
+            <a href="HTML.htm"><i class="fa fa-html5"></i>HTML</a>
+            <a class="selected" id="selectedsidenav" href="CSS.htm"><i class="fa fa-css3"></i>CSS</a>
+            <a href="JAVASCRIPT.htm"><i class="fa fa-code"></i>JAVASCRIPT</a>
+            <a href="MEDIA.htm"><i class="fa fa-play"></i>MULTIMEDIA</a>
+            <a href="FILTROS.htm"><i class="fa fa-paint-brush"></i>FILTROS</a>
+            <a href="CANVAS.htm"><i class="fa fa-file-image-o"></i>CANVAS</a>
+            <a href="JUEGO.htm"><i class="fa fa-gamepad"></i>JUEGO</a>
+            <a href="SVG.htm"><i class="fa fa-picture-o"></i>SVG</a>
+            <a href="SITIOS.htm"><i class="fa fa-globe"></i>SITIOS</a>
+            <a href="FORM.htm"><i class="fa fa-file-text-o"></i>FORMULARIOS</a>
+            <hr />
+            <a href="#" onclick="imprimir()"><i class="fa fa-print"></i>IMPRIMIR</a>
+        </div>
+        <div id="relleno">
+            relleno
+        </div>
+        <div id="overlay" onclick="soloCerrar()">
+        </div>
         <div class="caja">
-            <div class="container" onclick="myFunction(this)">
+            <div class="container" id="container" onclick="myFunction(this)">
                 <div class="bar1"></div>
                 <div class="bar2"></div>
                 <div class="bar3"></div>
             </div>
-            <div class="navbar">
+            <div class="navbar" id="navbar" onclick="soloCerrar()">
                 <a href="INDEX.htm"><i class="fa fa-home"></i>VOLVER AL INICIO</a>
+                <a href="HTML.htm"><i class="fa fa-html5"></i>HTML</a>
+                <a class="selected" id="selectednavbar" href="CSS.htm"><i class="fa fa-css3"></i>CSS</a>
+                <a href="JAVASCRIPT.htm"><i class="fa fa-code"></i>JAVASCRIPT</a>
+                <a href="MEDIA.htm"><i class="fa fa-play"></i>MULTIMEDIA</a>
+                <a href="FILTROS.htm"><i class="fa fa-paint-brush"></i>FILTROS</a>
+                <a href="CANVAS.htm"><i class="fa fa-file-image-o"></i>CANVAS</a>
+                <a href="JUEGO.htm"><i class="fa fa-gamepad"></i>JUEGO</a>
+                <a href="SVG.htm"><i class="fa fa-picture-o"></i>SVG</a>
+                <a href="SITIOS.htm"><i class="fa fa-globe"></i>SITIOS</a>
+                <a href="FORM.htm"><i class="fa fa-file-text-o"></i>FORMULARIOS</a>
+                <span id="separador">|</span>
+                <a href="#" onclick="imprimir()"><i class="fa fa-print"></i>IMPRIMIR</a>
+
             </div>
         </div>
-            <div class="main">
-                <h1 class="letramorada">CSS</h1>
+            <div class="main" id="main">
+                <button class="accordion" id="accordion">CSS<i id="folder" class="fa" aria-hidden="true"></i></button>
+                <div class="panel" id="panel">
+                    <p>
+                        <i class="fa fa-css3" aria-hidden="true"></i>
+                        CSS es la sigla en inglés de Cascading Style Sheets (Hojas de Estilo en Cascada) es un lenguaje de diseño gráfico usado para definir la presentación y el estilo de un documento web.
+                        Esta página es una pequeña muestra de lo que se puede hacer con CSS.
+                        <br />
+                        <br />
+                        <strong style="clear:left">Ejemplo de código CSS:</strong><br />
+                    </p>
+
+<textarea readonly rows="8">
+... 
+figcaption {
+    text-align: center;
+    color: purple; 
+    font-weight: bold;   
+    padding: 11px;
+} 
+...
+</textarea>
+                    <i id="arrow" class="fa fa-angle-double-up" aria-hidden="true"></i>
+                </div>
                 <section>
                     <article>
                         <h1>Probando clases CSS</h1>
