@@ -112,6 +112,7 @@ div.panel {
     color: purple;
     font-size: 1.2em;
     text-align: justify;
+    margin-bottom: 12px;
 }
 div.panel .fa {
     color: rebeccapurple;

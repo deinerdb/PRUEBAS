@@ -4,6 +4,10 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">  
         <meta name="description" content="JAVASCRIPT"/>
+        <!-- Chrome, Firefox, OS y Opera -->
+        <meta name="theme-color" content="#663399" />
+        <!-- Windows Phone -->
+        <meta name="msapplication-navbutton-color" content="#663399" />
         <title>JavaScript</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="estilo.css" />
@@ -11,24 +15,80 @@
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />                     
     </head>
     <body>
-        <script>
-                //PARA EL ÍCONO DE MENÚ
-                function myFunction(x) {
-                    x.classList.toggle("change");
-                }
-        </script>
+        <div id="mySidenav" class="sidenav">
+            <a href="INDEX.htm"><i class="fa fa-home"></i>INICIO</a>
+            <a href="HTML.htm"><i class="fa fa-html5"></i>HTML</a>
+            <a href="CSS.htm"><i class="fa fa-css3"></i>CSS</a>
+            <a class="selected" id="selectedsidenav" href="JAVASCRIPT.htm"><i class="fa fa-code"></i>JAVASCRIPT</a>
+            <a href="MEDIA.htm"><i class="fa fa-play"></i>MULTIMEDIA</a>
+            <a href="FILTROS.htm"><i class="fa fa-paint-brush"></i>FILTROS</a>
+            <a href="CANVAS.htm"><i class="fa fa-file-image-o"></i>CANVAS</a>
+            <a href="JUEGO.htm"><i class="fa fa-gamepad"></i>JUEGO</a>
+            <a href="SVG.htm"><i class="fa fa-picture-o"></i>SVG</a>
+            <a href="SITIOS.htm"><i class="fa fa-globe"></i>SITIOS</a>
+            <a href="FORM.htm"><i class="fa fa-file-text-o"></i>FORMULARIOS</a>
+            <hr />
+            <a href="#" onclick="imprimir()"><i class="fa fa-print"></i>IMPRIMIR</a>
+        </div>
+        <div id="relleno">
+            relleno
+        </div>
+        <div id="overlay" onclick="soloCerrar()">
+        </div>
         <div class="caja">
-            <div class="container" onclick="myFunction(this)">
+            <div class="container" id="container" onclick="myFunction(this)">
                 <div class="bar1"></div>
                 <div class="bar2"></div>
                 <div class="bar3"></div>
             </div>
-            <div class="navbar">
+            <div class="navbar" id="navbar" onclick="soloCerrar()">
                 <a href="INDEX.htm"><i class="fa fa-home"></i>VOLVER AL INICIO</a>
+                <a href="HTML.htm"><i class="fa fa-html5"></i>HTML</a>
+                <a href="CSS.htm"><i class="fa fa-css3"></i>CSS</a>
+                <a class="selected" id="selectednavbar" href="JAVASCRIPT.htm"><i class="fa fa-code"></i>JAVASCRIPT</a>
+                <a href="MEDIA.htm"><i class="fa fa-play"></i>MULTIMEDIA</a>
+                <a href="FILTROS.htm"><i class="fa fa-paint-brush"></i>FILTROS</a>
+                <a href="CANVAS.htm"><i class="fa fa-file-image-o"></i>CANVAS</a>
+                <a href="JUEGO.htm"><i class="fa fa-gamepad"></i>JUEGO</a>
+                <a href="SVG.htm"><i class="fa fa-picture-o"></i>SVG</a>
+                <a href="SITIOS.htm"><i class="fa fa-globe"></i>SITIOS</a>
+                <a href="FORM.htm"><i class="fa fa-file-text-o"></i>FORMULARIOS</a>
+                <span id="separador">|</span>
+                <a href="#" onclick="imprimir()"><i class="fa fa-print"></i>IMPRIMIR</a>
+
             </div>
         </div>
-            <div class="main">
-                <h1 class="letramorada">JAVASCRIPT</h1>
+            <div class="main" id="main">
+                <button class="accordion" id="accordion">JAVASCRIPT<i id="folder" class="fa" aria-hidden="true"></i></button>
+                <div class="panel" id="panel">
+                    <p>
+                        <i class="fa fa-code" aria-hidden="true"></i>
+                        JavaScript es uno de los tres lenguajes que debe aprender el desarrollador (junto con HTML y CSS), sirve para programar el comportamiento de las páginas web. JavaScript (abreviado comúnmente JS) es un lenguaje de programación interpretado, dialecto del estándar ECMAScript. Se define como orientado a objetos, ligero, basado en prototipos, imperativo, multi-paradigma, débilmente tipado y dinámico. 
+                        Se utiliza principalmente en su forma del lado del cliente (client-side), implementado como parte de un navegador web permitiendo mejoras en la interfaz de usuario y páginas web dinámicas. 
+                        JavaScript no debe ser confundido con el lenguaje de programación Java. Java es una marca registrada de Oracle en Estados Unidos y otros países. Los dos lenguajes de programación tienen muchas diferencias en las sintaxis, semántica y usos. 
+                        <br />
+                        <br />
+                        <strong style="clear:left">Ejemplo de código JavaScript usado en esta página:</strong><br />
+                    </p>
+
+<textarea readonly rows="14">
+... 
+var arr = document.getElementById("arrow");
+var accAbierta = false;
+arr.onclick = arrClick;
+function arrClick() {
+    //para que se cierre
+    alternarAcc();
+    //ahora un scroll
+    window.scrollTo(acc.offsetLeft, acc.offsetTop - 70);    
+}
+function nowImprime() {
+    window.print();
+} 
+...
+</textarea>
+                    <i id="arrow" class="fa fa-angle-double-up" aria-hidden="true"></i>
+                </div>
                 <section>
                     <!--JavaScript-->
                     <section id="script">
