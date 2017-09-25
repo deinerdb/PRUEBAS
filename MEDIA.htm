@@ -156,6 +156,13 @@
                                     imgIco.innerHTML = "&#xf01d;"; //play ico
                                 }
                             }
+                            aud.onplay = function () {
+                                imgIco.innerHTML = "&#xf28c;"; //pause ico
+                            };
+
+                            aud.onpause = function () {
+                                imgIco.innerHTML = "&#xf01d;"; //play ico
+                            };     
                         </script>
                         <h2>Vivaldi: "La Primavera" (Fragmento)</h2>
                     </article>
