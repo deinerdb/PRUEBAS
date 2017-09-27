@@ -3,7 +3,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-        <meta name="description" content="MULTIMEDIA"/>
+        <meta name="description" content="MULTIMEDIA EN HTML5"/>
+        <!-- Chrome, Firefox, OS y Opera -->
+        <meta name="theme-color" content="#663399" />
+        <!-- Windows Phone -->
+        <meta name="msapplication-navbutton-color" content="#663399" />
         <title>Imagen, Audio y Video en HTML5</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="estilo.css" />
@@ -99,25 +103,82 @@
 
     </head>
     <body style="background-color:black">
-        <script>
-                //PARA EL ÍCONO DE MENÚ
-                function myFunction(x) {
-                    x.classList.toggle("change");
-                }
-        </script>
+        <div id="mySidenav" class="sidenav">
+            <a href="INDEX.htm"><i class="fa fa-home"></i>INICIO</a>
+            <a href="HTML.htm"><i class="fa fa-html5"></i>HTML</a>
+            <a href="CSS.htm"><i class="fa fa-css3"></i>CSS</a>
+            <a href="JAVASCRIPT.htm"><i class="fa fa-code"></i>JAVASCRIPT</a>
+            <a class="selected" id="selectedsidenav" href="MEDIA.htm"><i class="fa fa-play"></i>MULTIMEDIA</a>
+            <a href="FILTROS.htm"><i class="fa fa-paint-brush"></i>FILTROS</a>
+            <a href="CANVAS.htm"><i class="fa fa-file-image-o"></i>CANVAS</a>
+            <a href="JUEGO.htm"><i class="fa fa-gamepad"></i>JUEGO</a>
+            <a href="SVG.htm"><i class="fa fa-picture-o"></i>SVG</a>
+            <a href="SITIOS.htm"><i class="fa fa-globe"></i>SITIOS</a>
+            <a href="FORM.htm"><i class="fa fa-file-text-o"></i>FORMULARIOS</a>
+            <hr />
+            <a href="#" onclick="imprimir()"><i class="fa fa-print"></i>IMPRIMIR</a>
+        </div>
+        <div id="relleno">
+            relleno
+        </div>
+        <div id="overlay" onclick="soloCerrar()">
+        </div>
         <div class="caja">
-            <div class="container" onclick="myFunction(this)">
+            <div class="container" id="container" onclick="myFunction(this)">
                 <div class="bar1"></div>
                 <div class="bar2"></div>
                 <div class="bar3"></div>
             </div>
-            <div class="navbar">
+            <div class="navbar" id="navbar" onclick="soloCerrar()">
                 <a href="INDEX.htm"><i class="fa fa-home"></i>VOLVER AL INICIO</a>
+                <a href="HTML.htm"><i class="fa fa-html5"></i>HTML</a>
+                <a href="CSS.htm"><i class="fa fa-css3"></i>CSS</a>
+                <a href="JAVASCRIPT.htm"><i class="fa fa-code"></i>JAVASCRIPT</a>
+                <a class="selected" id="selectednavbar" href="MEDIA.htm"><i class="fa fa-play"></i>MULTIMEDIA</a>
+                <a href="FILTROS.htm"><i class="fa fa-paint-brush"></i>FILTROS</a>
+                <a href="CANVAS.htm"><i class="fa fa-file-image-o"></i>CANVAS</a>
+                <a href="JUEGO.htm"><i class="fa fa-gamepad"></i>JUEGO</a>
+                <a href="SVG.htm"><i class="fa fa-picture-o"></i>SVG</a>
+                <a href="SITIOS.htm"><i class="fa fa-globe"></i>SITIOS</a>
+                <a href="FORM.htm"><i class="fa fa-file-text-o"></i>FORMULARIOS</a>
+                <span id="separador">|</span>
+                <a href="#" onclick="imprimir()"><i class="fa fa-print"></i>IMPRIMIR</a>
+
             </div>
         </div>
-            <div class="main">
-                <h1 class="letramorada">MULTIMEDIA</h1>
-                <h2 class="letramorada">IMAGEN, AUDIO Y VÍDEO EN HTML5</h2>
+            <div class="main" id="main">
+                <button class="accordion" id="accordion">MULTIMEDIA<i id="folder" class="fa" aria-hidden="true"></i></button>
+                <div class="panel" id="panel">
+                    <p>
+                        <i class="fa fa-play-circle-o" aria-hidden="true"></i>
+                        Multimedia incluye imagen, audio y video. La etiqueta &#60;img&#62; se usa para incrustar imágenes, por ejemplo jpg.
+                        La etiqueta &#60;audio&#62; se usa para incrustar audio, por ejemplo mp3.
+                        La etiqueta &#60;video&#62; se usa para incrustar videos, por ejemplo mp4.
+                        Esta página contiene ejemplos de estos elementos.
+                        <br />
+                        <br />
+                        <strong style="clear:left">Fragmentos de código usados en esta página:</strong><br />
+                    </p>
+
+<textarea readonly rows="15">
+...
+<img id="mediaimg" onclick="playorpauseaudio()" alt="Imagen de Vivaldi" title="Haga clic para reproducir o pausar el audio" src="Vivaldi.jpg" width="1284" height="1533" />
+<audio id="mediaaudio" controls="controls">
+    <source src="VIVALDI - LA PRIMAVERA.mp3" type="audio/mp3" />
+    <source src="VIVALDI - LA PRIMAVERA.ogg" type="audio/ogg" />
+    <source src="VIVALDI - LA PRIMAVERA.wav" type="audio/vnd.wave" />
+    <!--para los navegadores que no soporten audio -->Tu navegador no soporta la etiqueta AUDIO
+</audio>
+<video id="mediavideo" controls="controls" width="1280" height="720" preload="none" poster="NOTICIASPOSTER.jpg">
+    <source src="NOTICIAS.mp4" type='video/mp4; codecs="avc1.42E03.1, mp4a.40.2"' />
+    <source src="NOTICIAS.webm" type="video/webm" />
+    <source src="NOTICIAS.ogv" type="video/ogg" />
+    <!--para los navegadores que no soporten el video -->Tu navegador no soporta vídeo sobre HTML5
+</video>   
+...
+</textarea>
+                    <i id="arrow" class="fa fa-angle-double-up" aria-hidden="true"></i>
+                </div>
                 <section>
                     <article class="clasemultimedia">
                         <!--Probando img-->
