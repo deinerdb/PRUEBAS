@@ -50,6 +50,9 @@ hr{
 	font-style: italic;
 	font-size: 1.3em;
 }
+.youtube{
+    max-width:100%;
+}
 /*quitar puntos en botones Firefox*/
 button::-moz-focus-inner,
 input[type="reset"]::-moz-focus-inner,
