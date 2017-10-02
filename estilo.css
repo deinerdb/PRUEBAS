@@ -63,7 +63,7 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
 }
 /*Para la acordeón*/
 button.accordion {
-    background-color: #f2ecf9;
+    background-color: #d9c7eb;
     color: purple;
     cursor: pointer;
     padding: 18px;
@@ -80,7 +80,7 @@ button.accordion {
 }
 
     button.accordion.active, button.accordion:hover {
-        background-color: #e6d9f2;
+        background-color: #cdb4e4;
     }
 #folder {
     float: right;
@@ -105,7 +105,7 @@ button.accordion {
 }
 div.panel {
     padding: 0 18px;
-    background-color: #f2ecf9;
+    background-color: #d9c7eb;
     max-height: 0;
     overflow: hidden;
     -o-transition: max-height 0.2s ease-out;
@@ -123,17 +123,17 @@ div.panel .fa {
     float: left;
     margin: 0 12px 4px 0;
 }
-div.panel textarea {
-    width: 100%;    
-    background-color: #f2ecf9;
-    overflow:auto;
-    white-space:pre !important;
-    padding: 12px;    
-    margin-bottom:8px;
-    box-sizing:border-box;
-    border-color:mediumpurple;
-    font-size:1em;
-}
+    div.panel textarea {
+        width: 100%;
+        background-color: #e6daf1;
+        overflow: auto;
+        white-space: pre !important;
+        padding: 12px;
+        margin-bottom: 8px;
+        box-sizing: border-box;
+        border-color: mediumpurple;
+        font-size: 1em;
+    }
 /*fin acordeón*/
 
 .selected {
