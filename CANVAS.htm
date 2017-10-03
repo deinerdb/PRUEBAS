@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <meta name="description" content="Utilizando la etiqueta Canvas"/>
+    <!-- Chrome, Firefox, OS y Opera -->
+    <meta name="theme-color" content="#663399" />
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#663399" />
     <title>Etiqueta Canvas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="estilo.css" />
@@ -85,20 +89,34 @@
         }
     </script>
 </head>
-<body onload="init();">
-    <script>
-                //PARA EL ÍCONO DE MENÚ
-                function myFunction(x) {
-                    x.classList.toggle("change");
-                }
-    </script>
+<body>
+    <div id="mySidenav" class="sidenav">
+        <a href="INDEX.htm"><i class="fa fa-home"></i>INICIO</a>
+        <a href="HTML.htm"><i class="fa fa-html5"></i>HTML</a>
+        <a href="CSS.htm"><i class="fa fa-css3"></i>CSS</a>
+        <a href="JAVASCRIPT.htm"><i class="fa fa-code"></i>JAVASCRIPT</a>
+        <a href="MEDIA.htm"><i class="fa fa-play"></i>MULTIMEDIA</a>
+        <a href="FILTROS.htm"><i class="fa fa-paint-brush"></i>FILTROS</a>
+        <a class="selected" id="selectedsidenav" href="CANVAS.htm"><i class="fa fa-file-image-o"></i>CANVAS</a>
+        <a href="JUEGO.htm"><i class="fa fa-gamepad"></i>JUEGO</a>
+        <a href="SVG.htm"><i class="fa fa-picture-o"></i>SVG</a>
+        <a href="SITIOS.htm"><i class="fa fa-globe"></i>SITIOS</a>
+        <a href="FORM.htm"><i class="fa fa-file-text-o"></i>FORMULARIOS</a>
+        <hr />
+        <a href="#" onclick="imprimir()"><i class="fa fa-print"></i>IMPRIMIR</a>
+    </div>
+    <div id="relleno">
+        relleno
+    </div>
+    <div id="overlay" onclick="soloCerrar()">
+    </div>
     <div class="caja">
-        <div class="container" onclick="myFunction(this)">
+        <div class="container" id="container" onclick="myFunction(this)">
             <div class="bar1"></div>
             <div class="bar2"></div>
             <div class="bar3"></div>
         </div>
-        <div class="navbar" id="navbar">
+        <div class="navbar" id="navbar" onclick="soloCerrar()">
             <a href="INDEX.htm"><i class="fa fa-home"></i>VOLVER AL INICIO</a>
             <a href="HTML.htm"><i class="fa fa-html5"></i>HTML</a>
             <a href="CSS.htm"><i class="fa fa-css3"></i>CSS</a>
@@ -113,10 +131,39 @@
             <span id="separador">|</span>
             <a href="#" onclick="imprimir()"><i class="fa fa-print"></i>IMPRIMIR</a>
 
-        </div>
+        </div>  
     </div>
-        <div class="main">
-            <h1 class="letramorada">Utilizando Canvas y JavaScript</h1>
+        <div class="main" id="main">
+            <button class="accordion" id="accordion">CANVAS<i id="folder" class="fa" aria-hidden="true"></i></button>
+            <div class="panel" id="panel">
+                <p>
+                    <i class="fa fa-file-image-o" aria-hidden="true"></i>
+                    El elemento HTML &#60;canvas&#62; (lienzo), se usa para dibujar gráficas, al vuelo, vía JavaScript. 
+                    Canvas es solo un contenedor para gráficas. Debes usar JavaScript para realmente dibujar sobre el “lienzo”. 
+                    Canvas representa solo un área rectangular en la página web, por defecto no tiene bordes ni contenido. 
+                    Canvas tiene varios métodos para el dibujo de trazos, cajas, círculos, texto y adición de imágenes. 
+                    En esta página se dibujan varios ejemplos utilizando Canvas y JavaScript.
+                        <br />
+                        <br />
+                        <strong style="clear:left">Fragmento de código usado en esta página:</strong><br />
+</p>
+
+<textarea readonly rows="12">
+... 
+<canvas id="holasimple" width="200" height="100" style="border:1px solid #d3d3d3;">
+    Lo siento, tu navegador no soporta la etiqueta Canvas.
+</canvas>
+<script>
+    var c = document.getElementById("holasimple");
+    var ctx = c.getContext("2d");
+    ctx.font = "30px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText("¡Hola Mundo!", c.width / 2, c.height / 2);
+</script>
+...
+</textarea>
+                <i id="arrow" class="fa fa-angle-double-up" aria-hidden="true"></i>
+            </div>
             <h2 style="color:darkblue">Escribiendo desde CANVAS</h2>
             <!--Comienza el lienzo Canvas-->
             <canvas id="holasimple" width="200" height="100" style="border:1px solid #d3d3d3;">
