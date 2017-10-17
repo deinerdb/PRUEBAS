@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <meta name="description" content="Dibujando con SVG"/>
+    <meta name="description" content="Gráficos SVG"/>
+    <!-- Chrome, Firefox, OS y Opera -->
+    <meta name="theme-color" content="#663399" />
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#663399" />
     <title>Dibujo con SVG</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="estilo.css" />
@@ -11,23 +15,73 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 </head>
 <body>
-    <script>
-                //PARA EL ÍCONO DE MENÚ
-                function myFunction(x) {
-                    x.classList.toggle("change");
-                }
-    </script>
+    <div id="mySidenav" class="sidenav">
+        <a href="INDEX.htm"><i class="fa fa-home"></i>INICIO</a>
+        <a href="HTML.htm"><i class="fa fa-html5"></i>HTML</a>
+        <a href="CSS.htm"><i class="fa fa-css3"></i>CSS</a>
+        <a href="JAVASCRIPT.htm"><i class="fa fa-code"></i>JAVASCRIPT</a>
+        <a href="MEDIA.htm"><i class="fa fa-play"></i>MULTIMEDIA</a>
+        <a href="FILTROS.htm"><i class="fa fa-paint-brush"></i>FILTROS</a>
+        <a href="CANVAS.htm"><i class="fa fa-file-image-o"></i>CANVAS</a>
+        <a href="JUEGO.htm"><i class="fa fa-gamepad"></i>JUEGO</a>
+        <a class="selected" id="selectedsidenav" href="SVG.htm"><i class="fa fa-picture-o"></i>SVG</a>
+        <a href="SITIOS.htm"><i class="fa fa-globe"></i>SITIOS</a>
+        <a href="FORM.htm"><i class="fa fa-file-text-o"></i>FORMULARIOS</a>
+        <hr />
+        <a href="#" onclick="imprimir()"><i class="fa fa-print"></i>IMPRIMIR</a>
+    </div>
+    <div id="relleno">
+        relleno
+    </div>
+    <div id="overlay" onclick="soloCerrar()">
+    </div>
     <div class="caja">
-        <div class="container" onclick="myFunction(this)">
+        <div class="container" id="container" onclick="myFunction(this)">
             <div class="bar1"></div>
             <div class="bar2"></div>
             <div class="bar3"></div>
         </div>
-        <div class="navbar">
+        <div class="navbar" id="navbar" onclick="soloCerrar()">
             <a href="INDEX.htm"><i class="fa fa-home"></i>VOLVER AL INICIO</a>
-        </div>
+            <a href="HTML.htm"><i class="fa fa-html5"></i>HTML</a>
+            <a href="CSS.htm"><i class="fa fa-css3"></i>CSS</a>
+            <a href="JAVASCRIPT.htm"><i class="fa fa-code"></i>JAVASCRIPT</a>
+            <a href="MEDIA.htm"><i class="fa fa-play"></i>MULTIMEDIA</a>
+            <a href="FILTROS.htm"><i class="fa fa-paint-brush"></i>FILTROS</a>
+            <a href="CANVAS.htm"><i class="fa fa-file-image-o"></i>CANVAS</a>
+            <a href="JUEGO.htm"><i class="fa fa-gamepad"></i>JUEGO</a>
+            <a class="selected" id="selectednavbar" href="SVG.htm"><i class="fa fa-picture-o"></i>SVG</a>
+            <a href="SITIOS.htm"><i class="fa fa-globe"></i>SITIOS</a>
+            <a href="FORM.htm"><i class="fa fa-file-text-o"></i>FORMULARIOS</a>
+            <span id="separador">|</span>
+            <a href="#" onclick="imprimir()"><i class="fa fa-print"></i>IMPRIMIR</a>
+
+        </div>    
     </div>
-        <div class="main">
+        <div class="main" id="main">
+            <button class="accordion" id="accordion">SVG<i id="folder" class="fa" aria-hidden="true"></i></button>
+            <div class="panel" id="panel">
+                <p>
+                    <i class="fa fa-picture-o" aria-hidden="true"></i>
+                    SVG es la sigla en inglés de Scalable Vector Graphics (Gráficos Vectoriales Escalables). 
+                    Se definen como imágenes vectoriales en formato XML. 
+                    Su uso es muy común en las páginas web. Los gráficos SVG no pierden calidad al hacer zoom o cambiar su tamaño. 
+                    Cada elemento o atributo de un gráfico SVG puede ser animado. 
+                    SVG es un recurso abierto y una recomendación de la W3C que se integra con otros estándares como DOM y XSL.
+                    <br />
+                    <br />
+                    <strong style="clear:left">Código usado en esta página para dibujar un círculo rojo:</strong><br />
+                </p>
+
+<textarea readonly rows="5">
+... 
+<svg height="100" width="100">
+    <circle cx="50" cy="50" r="50" fill="red" />
+</svg>
+...
+</textarea>
+                <i id="arrow" class="fa fa-angle-double-up" aria-hidden="true"></i>
+            </div>
             <h1 class="letramorada">Utilizando SVG (Scalable Vector Graphics)</h1>
             <!--Comienza-->
             <svg height="100" width="100">
