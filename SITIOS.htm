@@ -3,27 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <meta name="description" content="Enlaces a sitios de los Testigos de Jehová"/>
-    <title>Sitios Oficiales</title>
+    <meta name="description" content="Etiqueta &#60;a&#62; - Enlaces a sitios de los Testigos de Jehová"/>
+    <!-- Chrome, Firefox, OS y Opera -->
+    <meta name="theme-color" content="#663399" />
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#663399" />
+    <title>ENLACE A SITIOS: Etiqueta &#60;a&#62;</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="estilo.css" />
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 </head>
 <body>
-    <script>
-                //PARA EL ÍCONO DE MENÚ
-                function myFunction(x) {
-                    x.classList.toggle("change");
-                }
-    </script>
+    <div id="mySidenav" class="sidenav">
+        <a href="INDEX.htm"><i class="fa fa-home"></i>INICIO</a>
+        <a href="HTML.htm"><i class="fa fa-html5"></i>HTML</a>
+        <a href="CSS.htm"><i class="fa fa-css3"></i>CSS</a>
+        <a href="JAVASCRIPT.htm"><i class="fa fa-code"></i>JAVASCRIPT</a>
+        <a href="MEDIA.htm"><i class="fa fa-play"></i>MULTIMEDIA</a>
+        <a href="FILTROS.htm"><i class="fa fa-paint-brush"></i>FILTROS</a>
+        <a href="CANVAS.htm"><i class="fa fa-file-image-o"></i>CANVAS</a>
+        <a href="JUEGO.htm"><i class="fa fa-gamepad"></i>JUEGO</a>
+        <a href="SVG.htm"><i class="fa fa-picture-o"></i>SVG</a>
+        <a class="selected" id="selectedsidenav" href="SITIOS.htm"><i class="fa fa-globe"></i>SITIOS</a>
+        <a href="FORM.htm"><i class="fa fa-file-text-o"></i>FORMULARIOS</a>
+        <hr />
+        <a href="#" onclick="imprimir()"><i class="fa fa-print"></i>IMPRIMIR</a>
+    </div>
+    <div id="relleno">
+        relleno
+    </div>
+    <div id="overlay" onclick="soloCerrar()">
+    </div>
     <div class="caja">
-        <div class="container" onclick="myFunction(this)">
+        <div class="container" id="container" onclick="myFunction(this)">
             <div class="bar1"></div>
             <div class="bar2"></div>
             <div class="bar3"></div>
         </div>
-        <div class="navbar" id="navbar">
+        <div class="navbar" id="navbar" onclick="soloCerrar()">
             <a href="INDEX.htm"><i class="fa fa-home"></i>VOLVER AL INICIO</a>
             <a href="HTML.htm"><i class="fa fa-html5"></i>HTML</a>
             <a href="CSS.htm"><i class="fa fa-css3"></i>CSS</a>
@@ -39,8 +57,31 @@
             <a href="#" onclick="imprimir()"><i class="fa fa-print"></i>IMPRIMIR</a>
         </div>
     </div>
-        <div class="main">
-            <h1 class="letramorada">SITIOS</h1>
+        <div class="main" id="main">
+            <button class="accordion" id="accordion">ENLACE A SITIOS: Etiqueta &#60;a&#62;<i id="folder" class="fa" aria-hidden="true"></i></button>
+            <div class="panel" id="panel">
+                <p id="describe">
+                    <i class="fa fa-globe" aria-hidden="true"></i>
+                    La etiqueta &#60;a&#62; define un hipervínculo, el cual es usado como un enlace de una página a otra.
+                    El atributo más importante de la etiqueta &#60;a&#62; es href, que indica el destino del vínculo. 
+                    En esta página se usa la etiqueta &#60;a&#62; para mostrar enlaces a tres web oficiales de los testigos de Jehová: 
+                    Sitio oficial de los Testigos de Jehová, Biblioteca en Línea y JW Broadcasting Televisión por Internet.
+                                <br />
+                                <br />
+                                <strong style="clear:left">Fragmento de código usado en esta página:</strong><br />
+                </p>
+
+<textarea readonly rows="5">
+... 
+<a onmouseover="mostrarpárrafo('jw')" onmouseout="mostrarpárrafo('señale')" class="sitios" href="http://www.jw.org/es/" target="_blank">Sitio oficial de los Testigos de Jehová</a>
+
+<a onmouseover="mostrarpárrafo('wol')" onmouseout="mostrarpárrafo('señale')" class="sitios" href="http://wol.jw.org/es/" target="_blank">Biblioteca en Línea</a>
+
+<a onmouseover="mostrarpárrafo('tv')" onmouseout="mostrarpárrafo('señale')" class="sitios" href="http://tv.jw.org/#es/home" target="_blank">JW Broadcasting Televisión por Internet</a>
+...
+</textarea>
+                <i id="arrow" class="fa fa-angle-double-up" aria-hidden="true"></i>
+            </div>
             <header>
                 <h1>Páginas recomendadas:</h1>
             </header>
@@ -79,6 +120,7 @@
                         x[i].hidden = true;
                     }
                     document.getElementById(miID).hidden = false;
+                    document.getElementById('describe').hidden = false;
                 }
             </script>
         </div>
