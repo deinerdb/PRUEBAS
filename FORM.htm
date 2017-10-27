@@ -86,77 +86,79 @@
                 </div>
                 <section>
                     <h3>Ejemplo de formulario en HTML</h3>
-                    <form name="cuestionario" method="get" autocomplete="on" target="_self">
-                        <br />
-                        <h3>CUESTIONARIO</h3>
-                        <label for="nombre">Nombre:</label><br />
-                        <input type="text" name="nombre" id="nombre" required /><br />
-                        <label for="apellido">Apellido:</label> <br />
-                        <input type="text" name="apellido" id="apellido" /><br />
-                        <label>Sexo:</label> <br />
-                        <input type="radio" name="sexo" id="masculino" value="masculino" />
-                        <label for="masculino">Masculino</label><br />
-                        <input type="radio" name="sexo" id="femenino" value="femenino" />
-                        <label for="femenino">Femenino</label> <br />
-                        <label for="correo">Correo:</label> <br />
-                        <input type="email" name="correo" id="correo" placeholder="Ingrese un e-mail válido" /><br />
-                        <label for="url">Página web:</label> <br />
-                        <input type="url" name="url" id="url" /><br />
-                        <label for="nacimiento">Fecha de nacimiento:</label> <br />
-                        <input type="date" name="nacimiento" id="nacimiento" /><br />
-                        <label for="estrato">Estrato:</label> <br />
-                        <input type="number" name="estrato" id="estrato" value="2" min="0" max="6" /><br />
-                        <label>Servicio a Jehová</label><br />
-                        <select name="servicio">
-                            <optgroup label="NO BAUTIZADO">
-                                <option value="incrédulo">Aún no soy estudiante</option>
-                                <option value="estudiante">Soy estudiante</option>
-                                <option value="publicadornobautizado">Soy publicador no bautizado</option>
-                            </optgroup>
-                            <optgroup label="BAUTIZADO">
-                                <option value="publicadorbautizado" selected>Soy publicador bautizado</option>
-                                <option value="auxiliar">Soy precursor auxiliar</option>
-                                <option value="regular">Soy precursor regular</option>
-                                <option value="especial">Soy precursor especial</option>
-                            </optgroup>
-                        </select>
-                        <br />
-                        <label for="contraseña">Contraseña de prueba:</label> <br />
-                        <input type="password" name="contraseña" id="contraseña" /><br />
-                        <label>Información sobre vehículo:</label> <br />
-                        <input type="checkbox" name="vehículo" value="carro" id="carro" />
-                        <label for="carro">Tengo carro</label><br />
-                        <input type="checkbox" name="vehículo" value="moto" id="moto" />
-                        <label for="moto">Tengo moto</label><br />
-                        <input type="checkbox" name="vehículo" value="bicicleta" id="bicicleta" />
-                        <label for="bicicleta">Tengo bicicleta</label><br />
-                        <label for="colorfavorito">Color favorito:</label> <br />
-                        <input type="color" name="colorfavorito" id="colorfavorito" /><br />
-                        <label for="país">País de destino:</label> <br />
-                        <input list="destinos" name="país" id="país" /><br />
-                        <datalist id="destinos">
-                            <option value="Colombia"></option>
-                            <option value="España"></option>
-                            <option value="Estados Unidos"></option>
-                            <option value="Venezuela"></option>
-                        </datalist>
-                        <label for="mes">Mes de preferencia del viaje:</label> <br />
-                        <input type="month" name="mes" id="mes" /><br />
-                        <label>Nivel de inglés:</label><br />
-                        <select name="nivel">
-                            <option value="nulo">Nulo</option>
-                            <option value="bajo">Bajo</option>
-                            <option value="medio" selected>Medio</option>
-                            <option value="alto">Alto</option>
-                        </select>
-                        <br />
-                        <label for="comentarios">Comentarios adicionales:</label><br />
-                        <textarea rows="7" cols="40" id="comentarios" name="comentarios"></textarea>
-                        <br />
-                        <br />
-                        <input type="submit" value="Enviar" name="enviar" title="Enviar datos..." />
-                        <input type="reset" value="Restablecer" name="reset" title="Restablecer todos los campos del formulario" /><br /><br />
-                    </form>
+                    <div class="divform">
+                        <form name="cuestionario" class="formulario" method="get" autocomplete="on" target="_self">
+                            <br />
+                            <h3>CUESTIONARIO</h3>
+                            <label for="nombre">Nombre:</label><br />
+                            <input type="text" name="nombre" id="nombre" required /><br />
+                            <label for="apellido">Apellido:</label> <br />
+                            <input type="text" name="apellido" id="apellido" /><br />
+                            <label>Sexo:</label> <br />
+                            <input type="radio" name="sexo" id="masculino" value="masculino" />
+                            <label for="masculino">Masculino</label><br />
+                            <input type="radio" name="sexo" id="femenino" value="femenino" />
+                            <label for="femenino">Femenino</label> <br />
+                            <label for="correo">Correo:</label> <br />
+                            <input type="email" name="correo" id="correo" placeholder="Ingrese un e-mail válido" /><br />
+                            <label for="url">Página web:</label> <br />
+                            <input type="url" name="url" id="url" /><br />
+                            <label for="nacimiento">Fecha de nacimiento:</label> <br />
+                            <input type="date" name="nacimiento" id="nacimiento" /><br />
+                            <label for="estrato">Estrato:</label> <br />
+                            <input type="number" name="estrato" id="estrato" value="2" min="0" max="6" /><br />
+                            <label>Servicio a Jehová</label><br />
+                            <select name="servicio">
+                                <optgroup label="NO BAUTIZADO">
+                                    <option value="incrédulo">Aún no soy estudiante</option>
+                                    <option value="estudiante">Soy estudiante</option>
+                                    <option value="publicadornobautizado">Soy publicador no bautizado</option>
+                                </optgroup>
+                                <optgroup label="BAUTIZADO">
+                                    <option value="publicadorbautizado" selected>Soy publicador bautizado</option>
+                                    <option value="auxiliar">Soy precursor auxiliar</option>
+                                    <option value="regular">Soy precursor regular</option>
+                                    <option value="especial">Soy precursor especial</option>
+                                </optgroup>
+                            </select>
+                            <br />
+                            <label for="contraseña">Contraseña de prueba:</label> <br />
+                            <input type="password" name="contraseña" id="contraseña" /><br />
+                            <label>Información sobre vehículo:</label> <br />
+                            <input type="checkbox" name="vehículo" value="carro" id="carro" />
+                            <label for="carro">Tengo carro</label><br />
+                            <input type="checkbox" name="vehículo" value="moto" id="moto" />
+                            <label for="moto">Tengo moto</label><br />
+                            <input type="checkbox" name="vehículo" value="bicicleta" id="bicicleta" />
+                            <label for="bicicleta">Tengo bicicleta</label><br />
+                            <label for="colorfavorito">Color favorito:</label> <br />
+                            <input type="color" name="colorfavorito" id="colorfavorito" /><br />
+                            <label for="país">País de destino:</label> <br />
+                            <input list="destinos" name="país" id="país" /><br />
+                            <datalist id="destinos">
+                                <option value="Colombia"></option>
+                                <option value="España"></option>
+                                <option value="Estados Unidos"></option>
+                                <option value="Venezuela"></option>
+                            </datalist>
+                            <label for="mes">Mes de preferencia del viaje:</label> <br />
+                            <input type="month" name="mes" id="mes" /><br />
+                            <label>Nivel de inglés:</label><br />
+                            <select name="nivel">
+                                <option value="nulo">Nulo</option>
+                                <option value="bajo">Bajo</option>
+                                <option value="medio" selected>Medio</option>
+                                <option value="alto">Alto</option>
+                            </select>
+                            <br />
+                            <label for="comentarios">Comentarios adicionales:</label><br />
+                            <textarea rows="7" cols="40" id="comentarios" name="comentarios"></textarea>
+                            <br />
+                            <br />
+                            <input type="submit" value="Enviar" name="enviar" title="Enviar datos..." />
+                            <input type="reset" value="Restablecer" name="reset" title="Restablecer todos los campos del formulario" /><br /><br />
+                        </form>
+                    </div>
                 </section>
                 <footer>
                     <p>Coded by @deiner_db</p>
