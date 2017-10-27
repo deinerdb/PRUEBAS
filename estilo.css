@@ -1420,6 +1420,7 @@ form {
     background: -o-linear-gradient(right, #8c53c6, rebeccapurple); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(right, #8c53c6, rebeccapurple); /* For Firefox 3.6 to 15 */
     background: linear-gradient(to right, #8c53c6, rebeccapurple); /* Standard syntax (must be last) */
+	color: white !important;
 }
 .formulario input[type=button]:focus, .formulario input[type=submit]:focus, .formulario input[type=reset]:focus {
     color: purple;
