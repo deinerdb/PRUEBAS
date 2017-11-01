@@ -87,7 +87,7 @@
                 <section>
                     <h3>Ejemplo de formulario en HTML</h3>
                     <div class="divform">
-                        <form  name="cuestionario" class="formulario"action="mailto:deiner_db@hotmail.com?subject=Contacto%20desde%20WEB%20DE%20PRUEBAS" method="post" enctype="text/plain" autocomplete="on">
+                        <form  name="cuestionario" class="formulario" action="mailto:deiner_db@hotmail.com?subject=Contacto%20desde%20WEB%20DE%20PRUEBAS;" method="post" enctype="text/plain" autocomplete="on" accept-charset="UTF-8" target="_top">
                             <br />
                             <h3>CUESTIONARIO</h3>
                             <label for="nombre">Nombre:</label><br />
@@ -157,6 +157,10 @@
                             <br />
                             <input type="submit" value="Enviar" name="enviar" title="Enviar datos..." />
                             <input type="reset" value="Restablecer" name="reset" title="Restablecer todos los campos del formulario" /><br /><br />
+                            <p class="letramorada"><strong>Nota:</strong> Por limitaciones técnicas esta página no usa un script de correo en PHP o ASP, sino la instrucción 'mailto' para enviar los datos por correo.
+                            El protocolo 'mailto' es un tanto obsoleto, no todos los navegadores y sistemas operativos lo procesan correctamente.
+                            Por ejemplo, no funciona en algunas versiones de Chrome para Android.
+                            </p>                            
                         </form>
                     </div>
                 </section>
