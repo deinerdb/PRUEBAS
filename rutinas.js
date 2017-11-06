@@ -11,7 +11,55 @@ function imprimir() {
 function nowImprime() {
     window.print();
 }
+//****************************************
+// COPIAR
+//****************************************
 
+//pasa el contenido de cada campo a una cadena
+function copiarFormulario() {    
+    //aquí guardamos una referencia a cada control a copiar
+    var copyCampo;
+    //aquí vamos guardando la cadena total a copiar
+    var copyText = "Ejemplo de Formulario " + "\r\n" + "--- CUESTIONARIO --- " + "\r\n";
+    //nombre
+    copyCampo = document.getElementById("nombre"); 
+    copyText = copyText + 'Nombre: ' + copyCampo.value;
+    //apellido
+
+    //finalmente copiamos la cadena completa...
+    copyToClipboard(copyText); 
+    alert("Formulario copiado al portapapeles...");
+}
+// Copies a string to the clipboard. Must be called from within an 
+// event handler such as click. May return false if it failed, but
+// this is not always possible. Browser support for Chrome 43+, 
+// Firefox 42+, Safari 10+, Edge and IE 10+.
+// IE: The clipboard feature may be disabled by an administrator. By
+// default a prompt is shown the first time the clipboard is 
+// used (per session).
+function copyToClipboard(text) {
+    if (window.clipboardData && window.clipboardData.setData) {
+        // IE specific code path to prevent textarea being shown while dialog is visible.
+        return clipboardData.setData("Text", text);
+
+    } else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = text;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+            return document.execCommand("copy");  // Security exception may be thrown by some browsers.
+        } catch (ex) {
+            console.warn("Copia al portapapeles ha fallado.", ex);
+            return false;
+        } finally {
+            document.body.removeChild(textarea);
+        }
+    }
+}
+
+//*******************************************
 //NAVBAR SE DESPLAZA AL ELEMENTO ACTUAL
 var barra = document.getElementById("navbar");
 var actual = document.getElementById("selectednavbar");
