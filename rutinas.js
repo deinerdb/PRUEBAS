@@ -20,11 +20,76 @@ function copiarFormulario() {
     //aquí guardamos una referencia a cada control a copiar
     var copyCampo;
     //aquí vamos guardando la cadena total a copiar
-    var copyText = "Ejemplo de Formulario " + "\r\n" + "--- CUESTIONARIO --- " + "\r\n";
+    var copyText = "Ejemplo de Formulario " + "\r\n" + "--- CUESTIONARIO --- ";
     //nombre
     copyCampo = document.getElementById("nombre"); 
-    copyText = copyText + 'Nombre: ' + copyCampo.value;
+    copyText = copyText + "\r\n" + 'Nombre: ' + copyCampo.value;
     //apellido
+    copyCampo = document.getElementById("apellido");
+    copyText = copyText + "\r\n" + 'Apellido: ' + copyCampo.value;
+    //sexo, si no ha seleccionado no coloca nada
+    copyCampo = document.getElementById("masculino");
+    if (copyCampo.checked) {
+        copyText = copyText + "\r\n" + 'Sexo: Masculino';
+    }
+    copyCampo = document.getElementById("femenino");
+    if (copyCampo.checked) {
+        copyText = copyText + "\r\n" + 'Sexo: Femenino';
+    }
+    //correo
+    copyCampo = document.getElementById("correo");
+    copyText = copyText + "\r\n" + 'Correo: ' + copyCampo.value;
+    //url
+    copyCampo = document.getElementById("url");
+    copyText = copyText + "\r\n" + 'URL: ' + copyCampo.value;
+    //fecha de nacimiento
+    copyCampo = document.getElementById("nacimiento");
+    copyText = copyText + "\r\n" + 'Fecha de nacimiento: ' + copyCampo.value;
+    //estrato
+    copyCampo = document.getElementById("estrato");
+    copyText = copyText + "\r\n" + 'Estrato: ' + copyCampo.value;
+    //servicio
+    copyCampo = document.getElementById("servicio");
+    copyText = copyText + "\r\n" + 'Servicio a Jehová: ' + copyCampo.options.item(copyCampo.options.selectedIndex).innerHTML;
+    //contraseña
+    copyCampo = document.getElementById("contraseña");
+    copyText = copyText + "\r\n" + 'Contraseña: ' + copyCampo.value;
+    //vehículo, las opciones seleccionadas aparecen o se informa si no hay ninguna
+    copyText = copyText + "\r\n" + 'Información sobre vehículos: ';
+    var tienetransporte = false;
+    copyCampo = document.getElementById("carro");    
+    if (copyCampo.checked) {
+        copyText = copyText + "\r\n" + 'Tengo carro';
+        tienetransporte = true;
+    }
+    copyCampo = document.getElementById("moto");
+    if (copyCampo.checked) {
+        copyText = copyText + "\r\n" + 'Tengo moto';
+        tienetransporte = true;
+    }
+    copyCampo = document.getElementById("bicicleta");
+    if (copyCampo.checked) {
+        copyText = copyText + "\r\n" + 'Tengo bicicleta';
+        tienetransporte = true;
+    }
+    if (!tienetransporte) {
+        copyText = copyText + 'No seleccionó ningún vehículo';        
+    }
+    //contraseña
+    copyCampo = document.getElementById("colorfavorito");
+    copyText = copyText + "\r\n" + 'Color favorito: ' + copyCampo.value;
+    //país de destino
+    copyCampo = document.getElementById("país");
+    copyText = copyText + "\r\n" + 'País de destino: ' + copyCampo.value;
+    //mes de viaje
+    copyCampo = document.getElementById("mes");
+    copyText = copyText + "\r\n" + 'Mes de preferencia del viaje: ' + copyCampo.value;
+    //nivel de inglés
+    copyCampo = document.getElementById("nivel");
+    copyText = copyText + "\r\n" + 'Nivel de inglés: ' + copyCampo.options.item(copyCampo.options.selectedIndex).innerHTML;
+    //comentarios adicionales
+    copyCampo = document.getElementById("comentarios");
+    copyText = copyText + "\r\n" + 'Comentarios adicionales: ' + copyCampo.value;
 
     //finalmente copiamos la cadena completa...
     copyToClipboard(copyText); 
