@@ -99,16 +99,19 @@
                 color: DarkGray;
                 opacity: 0.6;
             }
+            /***************************/
             /*para el slide de imágenes*/
             body {
                 font-family: Verdana,sans-serif;
-                margin: 0
+                margin: 0;
             }
-            .clasemultimedia {
-                box-sizing: border-box
+            #articleImg {
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
             }
             .mySlides {
-                display: none
+                display: none;
             }
             /* Slideshow container */
             .slideshow-container {
@@ -127,13 +130,22 @@
                 color: white;
                 font-weight: bold;
                 font-size: 18px;
+
+                -webkit-transition: 0.6s ease;
+                -moz-transition: 0.6s ease;
+                -o-transition: 0.6s ease;
                 transition: 0.6s ease;
+
+                -webkit-border-radius: 0 3px 3px 0;
+                -moz-border-radius: 0 3px 3px 0;
                 border-radius: 0 3px 3px 0;
             }
 
             /* Position the "next button" to the right */
             .next {
                 right: 0;
+                -moz-border-radius: 3px 0 0 3px;
+                -webkit-border-radius: 3px 0 0 3px;
                 border-radius: 3px 0 0 3px;
             }
 
@@ -169,20 +181,35 @@
                 width: 15px;
                 margin: 0 2px;
                 background-color: #bbb;
+
+                -moz-border-radius: 50%;
+                -webkit-border-radius: 50%;
                 border-radius: 50%;
+
                 display: inline-block;
+                
+                -o-transition: background-color 0.6s ease;
+                -moz-transition: background-color 0.6s ease;
+                -webkit-transition: background-color 0.6s ease;
                 transition: background-color 0.6s ease;
             }
 
-                .active, .dot:hover {
-                    background-color: #717171;
+                .active {
+                    background-color: rebeccapurple;
                 }
-
+                .dot:hover {
+                    background-color: mediumpurple;
+                }
             /* Fading animation */
             .fade {
-                -webkit-animation-name: fade;
-                -webkit-animation-duration: 1.5s;
+                -o-animation-name: fade;
+                -moz-animation-name: fade;
+                -webkit-animation-name: fade;                
                 animation-name: fade;
+
+                -o-animation-duration: 1.5s;
+                -moz-animation-duration: 1.5s;
+                -webkit-animation-duration: 1.5s;
                 animation-duration: 1.5s;
             }
 
@@ -195,7 +222,35 @@
                     opacity: 1
                 }
             }
+            @-moz-keyframes fade {
+                from {
+                    opacity: .4
+                }
 
+                to {
+                    opacity: 1
+                }
+            }
+            @-o-keyframes fade {
+                from {
+                    opacity: .4
+                }
+
+                to {
+                    opacity: 1
+                }
+            }
+            @-ms-keyframes fade {
+                from {
+                    opacity: .4; 
+                    filter: Alpha(opacity=40); /* IE8 and earlier */
+                }
+
+                to {
+                    opacity: 1; 
+                    filter: Alpha(opacity=100); /* IE8 and earlier */
+                }
+            }
             @keyframes fade {
                 from {
                     opacity: .4
@@ -294,7 +349,7 @@
                 </div>
                 <hr />
                 <section>
-                    <article class="clasemultimedia">
+                    <article class="clasemultimedia" id="articleImg">
                         <!--Probando img-->
                         <h2>IMÁGENES EN HTML5</h2>
                         
@@ -334,6 +389,7 @@
                     <script>
                         //PARA EL SLIDE DE IMÁGENES
                         var slideIndex = 1;
+                        var cambiar;
                         showSlides(slideIndex);
 
                         function plusSlides(n) {
@@ -358,6 +414,13 @@
                             }
                             slides[slideIndex - 1].style.display = "block";
                             dots[slideIndex - 1].className += " active";
+                            //para que cambie automáticamente
+                            funcCambiar();
+                        }
+                        function funcCambiar() {
+                            //cambia la imagen
+                            clearTimeout(cambiar);
+                            cambiar = setTimeout("plusSlides(1)", 5000); // Change image every 3
                         }
                     </script>
                     <hr />
