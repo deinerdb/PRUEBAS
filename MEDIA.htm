@@ -267,6 +267,205 @@
                     font-size: 11px
                 }
             }
+            /*Para la acordeón*/
+            /*es diferente de las demás páginas, por el fondo negro*/
+            /*se usan grises oscuros*/
+            button.accordion {
+                background-color: #0d0d0d !important;
+                color: MediumSlateBlue !important;
+            }
+
+                button.accordion.active, button.accordion:hover {
+                    background-color: #1a1a1a !important;
+                }
+
+            div.panel {
+                background-color: #0d0d0d !important;
+                color: MediumSlateBlue !important;
+            }
+
+                div.panel .fa {
+                    color: MediumSlateBlue !important;
+                }
+
+                div.panel textarea {
+                    background-color: #1a1a1a !important;
+                    border-color: MediumSlateBlue !important;
+                    color: white !important;
+                }
+            /*fin acordeón*/
+
+            /*para el modal*/
+            /*--------------*/
+            #myImg01 {
+                -moz-border-radius: 5px;
+                -webkit-border-radius: 5px;
+                border-radius: 5px;
+                cursor: pointer;
+                -o-transition: 0.3s;
+                -moz-transition: 0.3s;
+                -webkit-transition: 0.3s;
+                transition: 0.3s;
+            }
+            #myImg02 {
+                -moz-border-radius: 5px;
+                -webkit-border-radius: 5px;
+                border-radius: 5px;
+                cursor: pointer;
+                -o-transition: 0.3s;
+                -moz-transition: 0.3s;
+                -webkit-transition: 0.3s;
+                transition: 0.3s;
+            }
+            #myImg03 {
+                -moz-border-radius: 5px;
+                -webkit-border-radius: 5px;
+                border-radius: 5px;
+                cursor: pointer;
+                -o-transition: 0.3s;
+                -moz-transition: 0.3s;
+                -webkit-transition: 0.3s;
+                transition: 0.3s;
+            }
+
+            #myImg01:hover {
+                opacity: 0.7;
+            }
+            #myImg02:hover {
+                opacity: 0.7;
+            }
+            #myImg03:hover {
+                opacity: 0.7;
+            }
+
+            /* The Modal (background) */
+            .modal {
+                display: none; /* Hidden by default */
+                position: fixed; /* Stay in place */
+                z-index: 450; /* Sit on top. ver orden en archivo css */
+                padding-top: 100px; /* Location of the box */
+                left: 0;
+                top: 0;
+                width: 100%; /* Full width */
+                height: 100%; /* Full height */
+                overflow: auto; /* Enable scroll if needed */
+                background-color: rgb(0,0,0); /* Fallback color */
+                background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+            }
+
+            /* Modal Content (image) */
+            .modal-content {
+                margin: auto;
+                display: block;
+                width: 80%;
+                max-width: 1000px;
+            }
+
+            /* Caption of Modal Image */
+            #caption {
+                margin: auto;
+                display: block;
+                width: 80%;
+                max-width: 1000px;
+                text-align: center;
+                color: #ccc;
+                padding: 10px 0;
+                height: 150px;
+            }
+
+            /* Add Animation for modal*/
+            .modal-content, #caption {
+                -o-animation-name: zoom;
+                -o-animation-duration: 0.6s;
+
+                -moz-animation-name: zoom;
+                -moz-animation-duration: 0.6s;
+
+                -webkit-animation-name: zoom;
+                -webkit-animation-duration: 0.6s;
+
+                animation-name: zoom;
+                animation-duration: 0.6s;
+                
+            }
+
+            @-webkit-keyframes zoom {
+                from {
+                    -webkit-transform: scale(0)
+                }
+
+                to {
+                    -webkit-transform: scale(1)
+                }
+            }
+            @-moz-keyframes zoom {
+                from {
+                    -moz-transform: scale(0)
+                }
+
+                to {
+                    -moz-transform: scale(1)
+                }
+            }
+            @-ms-keyframes zoom {
+                from {
+                    -ms-transform: scale(0)
+                }
+
+                to {
+                    -ms-transform: scale(1)
+                }
+            }
+            @-o-keyframes zoom {
+                from {
+                    -o-transform: scale(0)
+                }
+
+                to {
+                    -o-transform: scale(1)
+                }
+            }
+
+            @keyframes zoom {
+                from {
+                    transform: scale(0)
+                }
+
+                to {
+                    transform: scale(1)
+                }
+            }
+
+            /* The Close Button */
+            .close {
+                position: absolute;
+                top: 15px;
+                right: 35px;
+                color: #f1f1f1;
+                font-size: 40px;
+                font-weight: bold;
+                
+                -o-transition: 0.3s;
+                -moz-transition: 0.3s;
+                -webkit-transition: 0.3s;
+                transition: 0.3s;
+            }
+
+                .close:hover,
+                .close:focus {
+                    color: #bbb;
+                    text-decoration: none;
+                    cursor: pointer;
+                }
+
+            /* 100% Image Width on Smaller Screens */
+            @media only screen and (max-width: 1000px) {
+                .modal-content {
+                    width: 100%;
+                }
+            }
+            /*fin modal*/
+            /*----------*/
         </style>
 
     </head>
@@ -315,6 +514,15 @@
             </div>
         </div>
             <div class="main" id="main">
+                <!-- The Modal -->
+                <div id="myModal" class="modal">
+                    <span class="close">&times;</span>
+                    <img class="modal-content" id="img01">
+                    <img class="modal-content" id="img02">
+                    <img class="modal-content" id="img03">
+                    <div id="caption"></div>
+                </div>
+                <!-- end -The Modal -->
                 <button class="accordion" id="accordion">MULTIMEDIA<i id="folder" class="fa" aria-hidden="true"></i></button>
                 <div class="panel" id="panel">
                     <p>
@@ -357,19 +565,19 @@
 
                             <div class="mySlides fade">
                                 <div class="numbertext">1 / 3</div>
-                                <img src="WIDE1.jpg" style="width:100%">
+                                <img src="WIDE1.jpg" style="width:100%" alt="Imagen 1" id="myImg01">
                                 <div class="text">Imagen 1</div>
                             </div>
 
                             <div class="mySlides fade">
                                 <div class="numbertext">2 / 3</div>
-                                <img src="WIDE2.jpg" style="width:100%">
+                                <img src="WIDE2.jpg" style="width:100%" alt="Imagen 2" id="myImg02">
                                 <div class="text">Imagen 2</div>
                             </div>
 
                             <div class="mySlides fade">
                                 <div class="numbertext">3 / 3</div>
-                                <img src="WIDE3.jpg" style="width:100%">
+                                <img src="WIDE3.jpg" style="width:100%" alt="Imagen 3" id="myImg03">
                                 <div class="text">Imagen 3</div>
                             </div>
 
@@ -386,6 +594,61 @@
                         </div>
 
                     </article>
+                    <script>
+                        // PARA EL MODAL
+                        // Get the modal
+                        var modal = document.getElementById('myModal');
+
+                        // Get the image and insert it inside the modal - use its "alt" text as a caption
+                        // EN MI VERSIÓN SON VARIAS
+                        var img1 = document.getElementById('myImg01');
+                        var img2 = document.getElementById('myImg02');
+                        var img3 = document.getElementById('myImg03');
+
+                        var modalImg1 = document.getElementById("img01");
+                        var modalImg2 = document.getElementById("img02");
+                        var modalImg3 = document.getElementById("img03");
+
+                        var captionText = document.getElementById("caption");
+                        img1.onclick = function () {
+                            clearTimeout(cambiar);
+                            modalImg1.style.display = "block";
+                            modalImg2.style.display = "none";
+                            modalImg3.style.display = "none";
+
+                            modal.style.display = "block";
+                            modalImg1.src = this.src;
+                            captionText.innerHTML = this.alt;
+                        }
+                        img2.onclick = function () {
+                            clearTimeout(cambiar);
+                            modalImg1.style.display = "none";
+                            modalImg2.style.display = "block";
+                            modalImg3.style.display = "none";
+
+                            modal.style.display = "block";
+                            modalImg2.src = this.src;
+                            captionText.innerHTML = this.alt;
+                        }
+                        img3.onclick = function () {
+                            clearTimeout(cambiar);
+                            modalImg1.style.display = "none";
+                            modalImg2.style.display = "none";
+                            modalImg3.style.display = "block";
+
+                            modal.style.display = "block";
+                            modalImg3.src = this.src;
+                            captionText.innerHTML = this.alt;
+                        }
+                        // Get the <span> element that closes the modal
+                        var span = document.getElementsByClassName("close")[0];
+
+                        // When the user clicks on <span> (x), close the modal
+                        span.onclick = function () {
+                            modal.style.display = "none";
+                            funcCambiar();
+                        }
+                    </script>
                     <script>
                         //PARA EL SLIDE DE IMÁGENES
                         var slideIndex = 1;
