@@ -540,9 +540,9 @@
             <div class="main" id="main">
                 <!-- The Modal -->
                 <div id="myModal" class="modal">
-                    <span id="imgIzquierda" class="botones">&#8592;</span><!--0 flecha izquierda -->
-                    <span id="imgDerecha" class="botones">&#8594;</span><!--1 flecha derecha -->
-                    <span id="imgCerrar" class="botones">&times;</span><!--2 cerrar, una x -->
+                    <span id="imgIzquierda" class="botones">&#8592;</span><!-- flecha izquierda -->
+                    <span id="imgDerecha" class="botones">&#8594;</span><!-- flecha derecha -->
+                    <span id="imgCerrar" class="botones">&times;</span><!-- cerrar, una x -->
                     <img class="modal-content" id="img01">
                     <img class="modal-content" id="img02">
                     <img class="modal-content" id="img03">
@@ -701,18 +701,74 @@
 
                         izquierda.onclick = function () {                            
                             plusSlides(-1);
+                            clearTimeout(cambiar);
+                            sincronizar();
                         }
                         
                         derecha.onclick = function () {
                             plusSlides(1);
+                            clearTimeout(cambiar);
+                            sincronizar();
                         } 
+                        //información de herramientas
+                        izquierda.title = "Imagen anterior";
+                        derecha.title = "Imagen siguiente";
+                        cerrar.title = "Cerrar imagen";
 
                         // When the user clicks on <span> (x), close the modal
                         cerrar.onclick = function () {
                             modal.style.display = "none";
                             funcCambiar();
                         }                        
-
+                        //el modal debe ser igual al slide
+                        function sincronizar() {
+                            switch (slideIndex) {
+                                case 1:
+                                    //imagen 1
+                                    modalImg1.style.display = "block";
+                                    modalImg2.style.display = "none";
+                                    modalImg3.style.display = "none";
+                                    modalImg4.style.display = "none";
+                                    //ya debe ser visible
+                                    //modal.style.display = "block";
+                                    modalImg1.src = "WIDE1.jpg";
+                                    captionText.innerHTML = "Imagen 1";
+                                    break;
+                                case 2:
+                                    //imagen 2
+                                    modalImg1.style.display = "none";
+                                    modalImg2.style.display = "block";
+                                    modalImg3.style.display = "none";
+                                    modalImg4.style.display = "none";
+                                    //ya debe ser visible
+                                    //modal.style.display = "block";
+                                    modalImg2.src = "WIDE2.jpg";
+                                    captionText.innerHTML = "Imagen 2";
+                                    break;
+                                case 3:
+                                    //imagen 3
+                                    modalImg1.style.display = "none";
+                                    modalImg2.style.display = "none";
+                                    modalImg3.style.display = "block";
+                                    modalImg4.style.display = "none";
+                                    //ya debe ser visible
+                                    //modal.style.display = "block";
+                                    modalImg3.src = "WIDE3.jpg";
+                                    captionText.innerHTML = "Imagen 3";
+                                    break;    
+                                case 4:
+                                    //imagen 4
+                                    modalImg1.style.display = "none";
+                                    modalImg2.style.display = "none";
+                                    modalImg3.style.display = "none";
+                                    modalImg4.style.display = "block";
+                                    //ya debe ser visible
+                                    //modal.style.display = "block";
+                                    modalImg4.src = "WIDE4.jpg";
+                                    captionText.innerHTML = "Imagen 4";
+                                    break;    
+                            }
+                        }
                     </script>
                     <script>
                         //PARA EL SLIDE DE IMÁGENES
@@ -743,7 +799,9 @@
                             }
                             slides[slideIndex - 1].style.display = "block";
                             dots[slideIndex - 1].className += " active";
-                            
+                            //guarda el actual
+                            //slideIndex lo contiene
+
                             //para que cambie automáticamente
                             funcCambiar();
                         }
