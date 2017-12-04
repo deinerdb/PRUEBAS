@@ -637,11 +637,7 @@
                         // PARA EL MODAL
                         // Get the modal
                         var modal = document.getElementById('myModal');
-                        //para el táctil
-                        var receptor1 = document.getElementById("img01");                        
-                        var receptor2 = document.getElementById("img02");
-                        var receptor3 = document.getElementById("img03");
-                        var receptor4 = document.getElementById("img04");
+                        
 
                         // Get the image and insert it inside the modal - use its "alt" text as a caption
                         // EN MI VERSIÓN SON VARIAS
@@ -792,10 +788,16 @@
                                     captionText.innerHTML = "Imagen 4";                                    
                                     break;    
                             }
-                        }
-
+                        }                        
+                    </script>
+                    <script>
                         //manejo de eventos táctiles para receptores modales                        
                         function inicia() {
+                            //para el táctil
+                            var receptor1 = document.getElementById("img01");
+                            var receptor2 = document.getElementById("img02");
+                            var receptor3 = document.getElementById("img03");
+                            var receptor4 = document.getElementById("img04");
                             var xIni;
                             var yIni;
                             //receptor 1
