@@ -149,7 +149,7 @@ window.onload = function () {
         init();
     }
     //MEDIA
-    if (typeof startGame == 'function') {
+    if (typeof inicia == 'function') {
         inicia();
     } 
 };
