@@ -637,6 +637,11 @@
                         // PARA EL MODAL
                         // Get the modal
                         var modal = document.getElementById('myModal');
+                        //para el táctil
+                        var receptor1 = document.getElementById("img01");                        
+                        var receptor2 = document.getElementById("img02");
+                        var receptor3 = document.getElementById("img03");
+                        var receptor4 = document.getElementById("img04");
 
                         // Get the image and insert it inside the modal - use its "alt" text as a caption
                         // EN MI VERSIÓN SON VARIAS
@@ -649,8 +654,9 @@
                         var modalImg2 = document.getElementById("img02");
                         var modalImg3 = document.getElementById("img03");
                         var modalImg4 = document.getElementById("img04");
-
+                        
                         var captionText = document.getElementById("caption");
+                        
                         img1.onclick = function () {
                             clearTimeout(cambiar);
                             modalImg1.style.display = "block";
@@ -661,6 +667,7 @@
                             modal.style.display = "block";
                             modalImg1.src = this.src;
                             captionText.innerHTML = this.alt;
+                            
                         }
                         img2.onclick = function () {
                             clearTimeout(cambiar);
@@ -672,6 +679,7 @@
                             modal.style.display = "block";
                             modalImg2.src = this.src;
                             captionText.innerHTML = this.alt;
+                            
                         }
                         img3.onclick = function () {
                             clearTimeout(cambiar);
@@ -683,6 +691,7 @@
                             modal.style.display = "block";
                             modalImg3.src = this.src;
                             captionText.innerHTML = this.alt;
+                            
                         }
                         img4.onclick = function () {
                             clearTimeout(cambiar);
@@ -694,6 +703,7 @@
                             modal.style.display = "block";
                             modalImg4.src = this.src;
                             captionText.innerHTML = this.alt;
+                            
                         }
                         // Get the <span> element flecha izquierda
                         var izquierda = document.getElementById("imgIzquierda");
@@ -701,30 +711,39 @@
                         var derecha = document.getElementById("imgDerecha");
                         // Get the <span> element x de cerrar
                         var cerrar = document.getElementById("imgCerrar");
-
-                        // click en las flechas
+                                                
+                        // click en las flechas izquierda y derecha ... llama funciones
 
                         izquierda.onclick = function () {                            
+                            imagenIzquierda();
+                        }
+                        
+                        derecha.onclick = function () {
+                            imagenDerecha();
+                        } 
+                        //funciones para ir a la imagen izquierda o derecha
+                        function imagenIzquierda() {
                             plusSlides(-1);
                             clearTimeout(cambiar);
                             sincronizar();
                         }
-                        
-                        derecha.onclick = function () {
+                        function imagenDerecha() {
                             plusSlides(1);
                             clearTimeout(cambiar);
                             sincronizar();
                         } 
-                        //información de herramientas
+
+                        //información de herramientas agregada
                         izquierda.title = "Imagen anterior";
                         derecha.title = "Imagen siguiente";
                         cerrar.title = "Cerrar imagen";
-
+                        
                         // When the user clicks on <span> (x), close the modal
                         cerrar.onclick = function () {
                             modal.style.display = "none";
                             funcCambiar();
-                        }                        
+                        } 
+                        
                         //el modal debe ser igual al slide
                         function sincronizar() {
                             switch (slideIndex) {
@@ -737,7 +756,7 @@
                                     //ya debe ser visible
                                     //modal.style.display = "block";
                                     modalImg1.src = "WIDE1.jpg";
-                                    captionText.innerHTML = "Imagen 1";
+                                    captionText.innerHTML = "Imagen 1";                                    
                                     break;
                                 case 2:
                                     //imagen 2
@@ -759,7 +778,7 @@
                                     //ya debe ser visible
                                     //modal.style.display = "block";
                                     modalImg3.src = "WIDE3.jpg";
-                                    captionText.innerHTML = "Imagen 3";
+                                    captionText.innerHTML = "Imagen 3";                                    
                                     break;    
                                 case 4:
                                     //imagen 4
@@ -770,10 +789,110 @@
                                     //ya debe ser visible
                                     //modal.style.display = "block";
                                     modalImg4.src = "WIDE4.jpg";
-                                    captionText.innerHTML = "Imagen 4";
+                                    captionText.innerHTML = "Imagen 4";                                    
                                     break;    
                             }
                         }
+
+                        //manejo de eventos táctiles para receptores modales                        
+                        function inicia() {
+                            var xIni;
+                            var yIni;
+                            //receptor 1
+                            receptor1.addEventListener('touchstart', function (e) {
+                                if (e.targetTouches.length == 1) {
+                                    var touch = e.targetTouches[0];
+                                    xIni = touch.pageX;
+                                    yIni = touch.pageY;
+                                }
+                            }, false);
+
+                            receptor1.addEventListener('touchmove', function (e) {
+                                if (e.targetTouches.length == 1) {
+                                    var touch = e.targetTouches[0];
+                                    if ((touch.pageX > xIni + 20) && (touch.pageY > yIni - 5) && (touch.pageY < yIni + 5)) {
+                                        //alert("el swipe se genera hacia la izquierda");
+                                        imagenIzquierda();
+                                    }
+
+                                    if ((touch.pageX < xIni - 20) && (touch.pageY > yIni - 5) && (touch.pageY < yIni + 5)) {
+                                        //alert("el swipe se genera hacia la derecha");
+                                        imagenDerecha();
+                                    }
+                                }
+                            }, false);
+                            //receptor 2
+                            receptor2.addEventListener('touchstart', function (e) {
+                                if (e.targetTouches.length == 1) {
+                                    var touch = e.targetTouches[0];
+                                    xIni = touch.pageX;
+                                    yIni = touch.pageY;
+                                }
+                            }, false);
+
+                            receptor2.addEventListener('touchmove', function (e) {
+                                if (e.targetTouches.length == 1) {
+                                    var touch = e.targetTouches[0];
+                                    if ((touch.pageX > xIni + 20) && (touch.pageY > yIni - 5) && (touch.pageY < yIni + 5)) {
+                                        //alert("el swipe se genera hacia la izquierda");
+                                        imagenIzquierda();
+                                    }
+
+                                    if ((touch.pageX < xIni - 20) && (touch.pageY > yIni - 5) && (touch.pageY < yIni + 5)) {
+                                        //alert("el swipe se genera hacia la derecha");
+                                        imagenDerecha();
+                                    }
+                                }
+                            }, false);
+                            //receptor 3
+                            receptor3.addEventListener('touchstart', function (e) {
+                                if (e.targetTouches.length == 1) {
+                                    var touch = e.targetTouches[0];
+                                    xIni = touch.pageX;
+                                    yIni = touch.pageY;
+                                }
+                            }, false);
+
+                            receptor3.addEventListener('touchmove', function (e) {
+                                if (e.targetTouches.length == 1) {
+                                    var touch = e.targetTouches[0];
+                                    if ((touch.pageX > xIni + 20) && (touch.pageY > yIni - 5) && (touch.pageY < yIni + 5)) {
+                                        //alert("el swipe se genera hacia la izquierda");
+                                        imagenIzquierda();
+                                    }
+
+                                    if ((touch.pageX < xIni - 20) && (touch.pageY > yIni - 5) && (touch.pageY < yIni + 5)) {
+                                        //alert("el swipe se genera hacia la derecha");
+                                        imagenDerecha();
+                                    }
+                                }
+                            }, false);
+
+                            //receptor 4
+                            receptor4.addEventListener('touchstart', function (e) {
+                                if (e.targetTouches.length == 1) {
+                                    var touch = e.targetTouches[0];
+                                    xIni = touch.pageX;
+                                    yIni = touch.pageY;
+                                }
+                            }, false);
+
+                            receptor4.addEventListener('touchmove', function (e) {
+                                if (e.targetTouches.length == 1) {
+                                    var touch = e.targetTouches[0];
+                                    if ((touch.pageX > xIni + 20) && (touch.pageY > yIni - 5) && (touch.pageY < yIni + 5)) {
+                                        //alert("el swipe se genera hacia la izquierda");
+                                        imagenIzquierda();
+                                    }
+
+                                    if ((touch.pageX < xIni - 20) && (touch.pageY > yIni - 5) && (touch.pageY < yIni + 5)) {
+                                        //alert("el swipe se genera hacia la derecha");
+                                        imagenDerecha();
+                                    }
+                                }
+                            }, false);
+
+                        } //fin rutina "inicia"
                     </script>
                     <script>
                         //PARA EL SLIDE DE IMÁGENES

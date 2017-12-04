@@ -147,6 +147,10 @@ window.onload = function () {
     //CANVAS
     if (typeof init == 'function') {
         init();
+    }
+    //MEDIA
+    if (typeof startGame == 'function') {
+        inicia();
     } 
 };
 
