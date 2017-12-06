@@ -707,27 +707,40 @@
                         var derecha = document.getElementById("imgDerecha");
                         // Get the <span> element x de cerrar
                         var cerrar = document.getElementById("imgCerrar");
+                        // guarda la dirección del movimiento en modal
+                        var movimiento = "prohibido";
                                                 
                         // click en las flechas izquierda y derecha ... llama funciones
 
                         izquierda.onclick = function () {                            
-                            imagenIzquierda();
+                            movimiento = "izquierda";
+                            decidirMovimiento();
                         }
                         
                         derecha.onclick = function () {
-                            imagenDerecha();
+                            movimiento = "derecha";
+                            decidirMovimiento();
                         } 
-                        //funciones para ir a la imagen izquierda o derecha
-                        function imagenIzquierda() {
-                            plusSlides(-1);
-                            clearTimeout(cambiar);
-                            sincronizar();
+                        
+                        //función para decidir ir a la imagen izquierda o derecha o no moverse
+                        function decidirMovimiento() {
+                            //toma el caso de la variable global movimiento
+                            switch (movimiento) {
+                                case "prohibido":
+                                    //no se mueve                                    
+                                    break; 
+                                case "derecha":
+                                    plusSlides(1);
+                                    clearTimeout(cambiar);
+                                    sincronizar();
+                                    break;
+                                case "izquierda": 
+                                    plusSlides(-1);
+                                    clearTimeout(cambiar);
+                                    sincronizar();
+                                    break;                               
+                            }
                         }
-                        function imagenDerecha() {
-                            plusSlides(1);
-                            clearTimeout(cambiar);
-                            sincronizar();
-                        } 
 
                         //información de herramientas agregada
                         izquierda.title = "Imagen anterior";
@@ -791,7 +804,7 @@
                         }                        
                     </script>
                     <script>
-                        //manejo de eventos táctiles para receptores modales                        
+                        //manejo de eventos táctiles para receptores del modal
                         function inicia() {
                             //para el táctil
                             var receptor1 = document.getElementById("img01");
@@ -806,6 +819,8 @@
                                     var touch = e.targetTouches[0];
                                     xIni = touch.pageX;
                                     yIni = touch.pageY;
+                                    //si no desliza no se mueve, hasta aquí solo es un toque
+                                    movimiento = "prohibido";
                                 }
                             }, false);
 
@@ -814,21 +829,30 @@
                                     var touch = e.targetTouches[0];
                                     if ((touch.pageX > xIni + 20) && (touch.pageY > yIni - 5) && (touch.pageY < yIni + 5)) {
                                         //alert("el swipe se genera hacia la izquierda");
-                                        imagenIzquierda();
+                                        movimiento="izquierda";
                                     }
 
                                     if ((touch.pageX < xIni - 20) && (touch.pageY > yIni - 5) && (touch.pageY < yIni + 5)) {
                                         //alert("el swipe se genera hacia la derecha");
-                                        imagenDerecha();
+                                        movimiento = "derecha";
                                     }
                                 }
                             }, false);
+                            //se mueve al quitar el dedo
+                            receptor1.addEventListener('touchend', function (e) {                                
+                                if (e.targetTouches.length == 1) {
+                                    decidirMovimiento();
+                                }
+                            }, false);
+
                             //receptor 2
                             receptor2.addEventListener('touchstart', function (e) {
                                 if (e.targetTouches.length == 1) {
                                     var touch = e.targetTouches[0];
                                     xIni = touch.pageX;
                                     yIni = touch.pageY;
+                                    //si no desliza no se mueve, hasta aquí solo es un toque
+                                    movimiento = "prohibido";
                                 }
                             }, false);
 
@@ -837,13 +861,19 @@
                                     var touch = e.targetTouches[0];
                                     if ((touch.pageX > xIni + 20) && (touch.pageY > yIni - 5) && (touch.pageY < yIni + 5)) {
                                         //alert("el swipe se genera hacia la izquierda");
-                                        imagenIzquierda();
+                                        movimiento = "izquierda";
                                     }
 
                                     if ((touch.pageX < xIni - 20) && (touch.pageY > yIni - 5) && (touch.pageY < yIni + 5)) {
                                         //alert("el swipe se genera hacia la derecha");
-                                        imagenDerecha();
+                                        movimiento = "derecha";
                                     }
+                                }
+                            }, false);
+                            //se mueve al quitar el dedo
+                            receptor2.addEventListener('touchend', function (e) {
+                                if (e.targetTouches.length == 1) {
+                                    decidirMovimiento();
                                 }
                             }, false);
                             //receptor 3
@@ -852,6 +882,8 @@
                                     var touch = e.targetTouches[0];
                                     xIni = touch.pageX;
                                     yIni = touch.pageY;
+                                    //si no desliza no se mueve, hasta aquí solo es un toque
+                                    movimiento = "prohibido";
                                 }
                             }, false);
 
@@ -860,22 +892,29 @@
                                     var touch = e.targetTouches[0];
                                     if ((touch.pageX > xIni + 20) && (touch.pageY > yIni - 5) && (touch.pageY < yIni + 5)) {
                                         //alert("el swipe se genera hacia la izquierda");
-                                        imagenIzquierda();
+                                        movimiento = "izquierda";
                                     }
 
                                     if ((touch.pageX < xIni - 20) && (touch.pageY > yIni - 5) && (touch.pageY < yIni + 5)) {
                                         //alert("el swipe se genera hacia la derecha");
-                                        imagenDerecha();
+                                        movimiento = "derecha";
                                     }
                                 }
                             }, false);
-
+                            //se mueve al quitar el dedo
+                            receptor3.addEventListener('touchend', function (e) {
+                                if (e.targetTouches.length == 1) {
+                                    decidirMovimiento();
+                                }
+                            }, false);
                             //receptor 4
                             receptor4.addEventListener('touchstart', function (e) {
                                 if (e.targetTouches.length == 1) {
                                     var touch = e.targetTouches[0];
                                     xIni = touch.pageX;
                                     yIni = touch.pageY;
+                                    //si no desliza no se mueve, hasta aquí solo es un toque
+                                    movimiento = "prohibido";
                                 }
                             }, false);
 
@@ -884,13 +923,19 @@
                                     var touch = e.targetTouches[0];
                                     if ((touch.pageX > xIni + 20) && (touch.pageY > yIni - 5) && (touch.pageY < yIni + 5)) {
                                         //alert("el swipe se genera hacia la izquierda");
-                                        imagenIzquierda();
+                                        movimiento = "izquierda";
                                     }
 
                                     if ((touch.pageX < xIni - 20) && (touch.pageY > yIni - 5) && (touch.pageY < yIni + 5)) {
                                         //alert("el swipe se genera hacia la derecha");
-                                        imagenDerecha();
+                                        movimiento = "derecha";
                                     }
+                                }
+                            }, false);
+                            //se mueve al quitar el dedo
+                            receptor4.addEventListener('touchend', function (e) {
+                                if (e.targetTouches.length == 1) {
+                                    decidirMovimiento();
                                 }
                             }, false);
 
