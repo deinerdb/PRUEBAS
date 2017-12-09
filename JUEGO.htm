@@ -19,9 +19,24 @@
                 background-color: lightskyblue;                               
                 
                 /*RESPONSIVE GAME*/
-                width:100%;
+                width:80%;
                 height:auto;                                               
 
+            }
+            #controles {
+                text-align: center;
+                width:100px;
+                font-weight: bold;
+                background-color:darkslategrey;    
+                position:absolute;
+                top:120px;
+                right:30px;
+                
+                /*no se puede seleccionar el texto*/
+                -webkit-user-select: none; /* Chrome, Opera, Safari */
+                -moz-user-select: none; /* Firefox 2+ */
+                -ms-user-select: none; /* IE 10+ */
+                user-select: none; /* Standard syntax */
             }
             
             #mainjuego{
@@ -31,7 +46,9 @@
                 border-width:2px;
                 border-color:mediumblue;                                
                 text-align:center;               
-                margin-bottom: 18px;
+                margin-bottom: 18px;                
+                width:100%;
+                /*background-color:yellow;*/
                         
             }
             
@@ -178,22 +195,49 @@
 					
                     function component(width, height, color, x, y) {                        
 						this.width = width;
-						this.height = height;
+                        this.height = height;
+                        this.speedX = 0;
+                        this.speedY = 0;
 						this.x = x;
 						this.y = y;
 						this.update = function () {
 						    ctx = myGameArea.context;
 						    ctx.fillStyle = color;
 						    ctx.fillRect(this.x, this.y, this.width, this.height);
-						}
+                        }
+                        this.newPos = function () {
+                            this.x += this.speedX;
+                            this.y += this.speedY;
+                        } 
                     }
 
                     function updateGameArea() {
                         myGameArea.clear();
-                        myGamePiece.x += 1;
+                        myGamePiece.newPos();
                         myGamePiece.update();
                     }
-                    
+
+                    function moveup() {
+                        myGamePiece.speedY = -1;
+                    }
+
+                    function movedown() {
+                        myGamePiece.speedY = 1;
+                    }
+
+                    function moveleft() {
+                        myGamePiece.speedX = -1;
+                    }
+
+                    function moveright() {
+                        myGamePiece.speedX = 1;
+                    }
+
+                    function clearmove() {
+                        myGamePiece.speedX = 0;
+                        myGamePiece.speedY = 0;
+                    }
+
                     function sound(src, repetir) {
                         this.sound = document.createElement("audio");
                         this.sound.setAttribute("type", "audio/mpeg");
@@ -227,8 +271,15 @@
 
                 </script>                
 
-                <div id="mainjuego">                    
-                        <button id="iniciar" class="button" onclick="Jugar()"><span>Iniciar </span></button>                    
+                <div id="mainjuego">   
+                    <div id="controles">
+                        <button onmousedown="moveup()" onmouseup="clearmove()" ontouchstart="moveup()" ontouchend="clearmove()">&#8593;</button><br><br>
+                        <button onmousedown="moveleft()" onmouseup="clearmove()" ontouchstart="moveleft()" ontouchend="clearmove()">&#8592;</button>
+                        <button onmousedown="moveright()" onmouseup="clearmove()" ontouchstart="moveright()" ontouchend="clearmove()">&#8594;</button><br><br>
+                        <button onmousedown="movedown()" onmouseup="clearmove()" ontouchstart="movedown()" ontouchend="clearmove()">&#8595;</button>
+                    </div>
+                    <br />
+                    <button id="iniciar" class="button" onclick="Jugar()"><span>Iniciar </span></button>
                 </div>
                 <button class="accordion" id="accordion">JUEGO HTML<i id="folder" class="fa" aria-hidden="true"></i></button>
                 <div class="panel" id="panel">
