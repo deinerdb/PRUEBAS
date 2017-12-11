@@ -14,29 +14,36 @@
         <link rel="icon" href="favicon.ico" type="image/x-icon" />
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
         <style>
-            canvas {                
-                
-                background-color: lightskyblue;                               
-                
-                /*RESPONSIVE GAME*/
-                width:80%;
-                height:auto;                                               
+            .clearfix::after {
+                content: "";
+                clear: both;
+                display: table;
+            }
 
+            canvas {
+                background-color: lightskyblue;
+                /*RESPONSIVE GAME*/
+                width: 92%;
+                height: auto;
+                background-color: lightskyblue;
+                float: right;
             }
             #controles {
                 text-align: center;
-                width:100px;
-                font-weight: bold;
-                background-color:darkslategrey;    
-                position:absolute;
-                top:120px;
-                right:30px;
-                
+                width: 8%;      
+                background-color: lightskyblue;
+                float: left;
                 /*no se puede seleccionar el texto*/
                 -webkit-user-select: none; /* Chrome, Opera, Safari */
                 -moz-user-select: none; /* Firefox 2+ */
                 -ms-user-select: none; /* IE 10+ */
                 user-select: none; /* Standard syntax */
+            }
+            .btnControles {
+                width: 100%;
+                cursor: no-drop;
+                font-size: 2em;
+                font-weight: bold;
             }
             
             #mainjuego{
@@ -47,8 +54,7 @@
                 border-color:mediumblue;                                
                 text-align:center;               
                 margin-bottom: 18px;                
-                width:100%;
-                /*background-color:yellow;*/
+                width:100%;               
                         
             }
             
@@ -162,15 +168,33 @@
             </div>
         </div>
             <div class="main" id="main">
+                <div id="mainjuego" class="clearfix">
+                    <div id="controles">
+                        <button disabled="disabled" class="btnControles" id="btnUp" onmousedown="moveup()" onmouseup="clearmove()" ontouchstart="moveup()" ontouchend="clearmove()">&#8593;</button>
+                        <!--
+                        <button onmousedown="moveleft()" onmouseup="clearmove()" ontouchstart="moveleft()" ontouchend="clearmove()">&#8592;</button>
+                        <button onmousedown="moveright()" onmouseup="clearmove()" ontouchstart="moveright()" ontouchend="clearmove()">&#8594;</button><br><br>
+                        -->
+                        <button disabled="disabled" class="btnControles" id="btnDown" onmousedown="movedown()" onmouseup="clearmove()" ontouchstart="movedown()" ontouchend="clearmove()">&#8595;</button>
+                    </div>
+                    <br />
+                    <button id="iniciar" class="button" onclick="Jugar()"><span>Iniciar </span></button>
+                </div>
                 <script>
 
                     var myMusic;
 					var myGamePiece;
 					var interval;
+                    function alturaBotones() {
+                        document.getElementById("btnUp").style.height = myGameArea.canvas.scrollHeight / 2 + "px";
+                        document.getElementById("btnDown").style.height = myGameArea.canvas.scrollHeight / 2 + "px";
+                    }
+
 
                     function startGame() {                                                                        
-                        myGamePiece = new component(30 * 180 / 270, 30 * 180 / 270, "blue", 10, 75);
-                        myGameArea.start();						
+                        myGamePiece = new component(30 * 180 / 270, 30 * 180 / 270, "blue", 75, 75);
+                        myGameArea.start();
+                        
                     }
 
                     var myGameArea = {
@@ -181,10 +205,11 @@
                             this.context = this.canvas.getContext("2d");
                             //document.body.insertBefore(this.canvas, document.body.childNodes[0]);
                             var midiv = document.getElementById("mainjuego");
-                            midiv.insertBefore(this.canvas, midiv.childNodes[0]);
+                            midiv.insertBefore(this.canvas, midiv.childNodes[2]);
                             myMusic = new sound("gametheme.mp3", "true");
                             //una sola vez
                             updateGameArea();
+                            alturaBotones();
                             //this.interval = setInterval(updateGameArea, 20);
                         },
                         clear: function () {
@@ -224,15 +249,15 @@
                     function movedown() {
                         myGamePiece.speedY = 1;
                     }
-
+                    /*
                     function moveleft() {
                         myGamePiece.speedX = -1;
                     }
-
+                    
                     function moveright() {
                         myGamePiece.speedX = 1;
                     }
-
+                    */
                     function clearmove() {
                         myGamePiece.speedX = 0;
                         myGamePiece.speedY = 0;
@@ -261,26 +286,30 @@
                         document.getElementById("iniciar").style.display = "none";
                         topFunction();
                         interval = setInterval(updateGameArea, 20);
+
+                        document.getElementById("btnUp").style.cursor = "pointer";
+                        document.getElementById("btnDown").style.cursor= "pointer";
+
+                        document.getElementById("btnUp").removeAttribute("disabled");
+                        document.getElementById("btnDown").removeAttribute("disabled");
+                        
                     }
                     function Parar() {
                         myMusic.stop();
                         document.getElementById("iniciar").style.display = "inline";
                         clearInterval(interval);
+
+                        document.getElementById("btnUp").setAttribute("disabled", "disabled");
+                        document.getElementById("btnDown").setAttribute("disabled", "disabled");
+
+                        document.getElementById("btnUp").style.cursor = "no-drop";
+                        document.getElementById("btnDown").style.cursor = "no-drop";
                     }
                     
 
                 </script>                
 
-                <div id="mainjuego">   
-                    <div id="controles">
-                        <button onmousedown="moveup()" onmouseup="clearmove()" ontouchstart="moveup()" ontouchend="clearmove()">&#8593;</button><br><br>
-                        <button onmousedown="moveleft()" onmouseup="clearmove()" ontouchstart="moveleft()" ontouchend="clearmove()">&#8592;</button>
-                        <button onmousedown="moveright()" onmouseup="clearmove()" ontouchstart="moveright()" ontouchend="clearmove()">&#8594;</button><br><br>
-                        <button onmousedown="movedown()" onmouseup="clearmove()" ontouchstart="movedown()" ontouchend="clearmove()">&#8595;</button>
-                    </div>
-                    <br />
-                    <button id="iniciar" class="button" onclick="Jugar()"><span>Iniciar </span></button>
-                </div>
+                
                 <button class="accordion" id="accordion">JUEGO HTML<i id="folder" class="fa" aria-hidden="true"></i></button>
                 <div class="panel" id="panel">
                     <p>

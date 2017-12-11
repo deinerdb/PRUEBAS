@@ -204,6 +204,11 @@ function ajustesResize() {
     }
     //altura sidenav
     alturaNav();
+
+    //para el juego, altura botones
+    if (typeof alturaBotones == 'function') {
+        alturaBotones();
+    } 
 }
 
 //***********************************
