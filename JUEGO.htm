@@ -27,10 +27,13 @@
                 height: auto;
                 background-color: lightskyblue;
                 float: right;
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
             }
             #controles {
                 text-align: center;
-                width: 8%;      
+                width: 8%;
                 background-color: lightskyblue;
                 float: left;
                 /*no se puede seleccionar el texto*/
@@ -38,30 +41,55 @@
                 -moz-user-select: none; /* Firefox 2+ */
                 -ms-user-select: none; /* IE 10+ */
                 user-select: none; /* Standard syntax */
+
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
             }
             .btnControles {
                 width: 100%;
                 cursor: no-drop;
-                font-size: 1.2em;
-                font-weight: bold;
+                font-size: 2em;
+                font-weight:bold;
                 font-family: Arial;
+                -moz-border-radius: 4px;
+                -webkit-border-radius: 4px;
+                border-radius: 4px;
+                background-color: dodgerblue;
+                color: #FFFFFF;
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
             }
-            
-            #mainjuego{
+            .btnControles:hover, .btnControles:focus{
+                opacity: 0.8;
+            }
+            .btnControles:active {
+                color:darkblue;
+            }
+            /* On smaller screens, decrease text size of btn*/
+            @media only screen and (max-width: 400px) {
+                .btnControles {
+                    font-size: 1.2em;                    
+                }
+            }
+            #mainjuego {
+                background-color: lightskyblue;
+                border-style: solid;
+                border-width: 2px;
+                border-color: mediumblue;
+                text-align: center;
+                margin-bottom: 18px;
+                width: 100%;
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+            }
 
-                background-color:lightskyblue;
-                border-style:solid;
-                border-width:2px;
-                border-color:mediumblue;                                
-                text-align:center;               
-                margin-bottom: 18px;                
-                width:100%;               
-                        
-            }
-            
             .button {
-                                          
-                display:inline; /* by default */  
+                display: inline; /* by default */
+                -moz-border-radius: 4px;
+                -webkit-border-radius: 4px;
                 border-radius: 4px;
                 background-color: dodgerblue;
                 border: none;
@@ -75,7 +103,7 @@
                 -o-transition: all 0.5s;
                 transition: all 0.5s;
                 cursor: pointer;
-                margin:4px;               
+                margin: 4px;
                 /*no se puede seleccionar el texto*/
                 -webkit-user-select: none; /* Chrome, Opera, Safari */
                 -moz-user-select: none; /* Firefox 2+ */
