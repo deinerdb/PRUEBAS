@@ -199,12 +199,12 @@
             <div class="main" id="main">
                 <div id="mainjuego" class="clearfix">
                     <div id="controles">
-                        <button disabled="disabled" class="btnControles" id="btnUp" onmousedown="moveup()" onmouseup="clearmove()" ontouchstart="moveup()" ontouchend="clearmove()">&#8593;</button>
+                        <button disabled="disabled" class="btnControles" id="btnUp" title="Subir (tecla -)" onmousedown="moveup()" onmouseup="clearmove()" ontouchstart="moveup()" ontouchend="clearmove()">&#8593;</button>
                         <!--
                         <button onmousedown="moveleft()" onmouseup="clearmove()" ontouchstart="moveleft()" ontouchend="clearmove()">&#8592;</button>
                         <button onmousedown="moveright()" onmouseup="clearmove()" ontouchstart="moveright()" ontouchend="clearmove()">&#8594;</button><br><br>
                         -->
-                        <button disabled="disabled" class="btnControles" id="btnDown" onmousedown="movedown()" onmouseup="clearmove()" ontouchstart="movedown()" ontouchend="clearmove()">&#8595;</button>
+                        <button disabled="disabled" class="btnControles" id="btnDown" title="Bajar (tecla +)" onmousedown="movedown()" onmouseup="clearmove()" ontouchstart="movedown()" ontouchend="clearmove()">&#8595;</button>
                     </div>
                     <br />
                     <button id="iniciar" class="button" onclick="Jugar()"><span>Iniciar </span></button>
@@ -213,7 +213,8 @@
 
                     var myMusic;
 					var myGamePiece;
-					var interval;
+                    var interval;
+                    
                     function alturaBotones() {
                         document.getElementById("btnUp").style.height = myGameArea.canvas.scrollHeight / 2 + "px";
                         document.getElementById("btnDown").style.height = myGameArea.canvas.scrollHeight / 2 + "px";
@@ -235,9 +236,20 @@
                             //document.body.insertBefore(this.canvas, document.body.childNodes[0]);
                             var midiv = document.getElementById("mainjuego");
                             midiv.insertBefore(this.canvas, midiv.childNodes[2]);
+
                             myMusic = new sound("gametheme.mp3", "true");
                             //una sola vez
                             updateGameArea();
+                            //eventos de teclado
+                            window.addEventListener('keydown', function (e) {
+                                myGameArea.key = e.keyCode;
+                            })
+                            window.addEventListener('keyup', function (e) {
+                                //alert("up");
+                                myGameArea.key = false;
+                                //deja de moverse al soltar cualquiera
+                                myGamePiece.speedY = 0; 
+                            })
                             alturaBotones();
                             //this.interval = setInterval(updateGameArea, 20);
                         },
@@ -266,17 +278,24 @@
                     }
 
                     function updateGameArea() {
-                        myGameArea.clear();
+                        myGameArea.clear(); 
+                                                        
+                        if (myGameArea.key && myGameArea.key == 109) { myGamePiece.speedY = -1; }
+                        if (myGameArea.key && myGameArea.key == 107) { myGamePiece.speedY = 1; }
+
+                       
                         myGamePiece.newPos();
                         myGamePiece.update();
                     }
 
                     function moveup() {
                         myGamePiece.speedY = -1;
+                        
                     }
 
                     function movedown() {
                         myGamePiece.speedY = 1;
+                        
                     }
                     /*
                     function moveleft() {
@@ -290,6 +309,7 @@
                     function clearmove() {
                         myGamePiece.speedX = 0;
                         myGamePiece.speedY = 0;
+                        
                     }
 
                     function sound(src, repetir) {
