@@ -248,7 +248,7 @@
                                 //alert("up");
                                 myGameArea.key = false;
                                 //deja de moverse al soltar cualquiera
-                                myGamePiece.speedY = 0; 
+                                clearmove(); 
                             })
                             alturaBotones();
                             //this.interval = setInterval(updateGameArea, 20);
@@ -268,20 +268,24 @@
 						this.y = y;
 						this.update = function () {
 						    ctx = myGameArea.context;
-						    ctx.fillStyle = color;
-						    ctx.fillRect(this.x, this.y, this.width, this.height);
+                            ctx.fillStyle = color;
+                            //no pasa del área de juego
+                            if (this.y < 0) { this.y = 0; }
+                            if (this.y > 180 - height) { this.y = 180 - height; }
+                            //dibuja
+                            ctx.fillRect(this.x, this.y, this.width, this.height);
                         }
                         this.newPos = function () {
                             this.x += this.speedX;
-                            this.y += this.speedY;
+                            this.y += this.speedY;                            
                         } 
                     }
 
                     function updateGameArea() {
                         myGameArea.clear(); 
                                                         
-                        if (myGameArea.key && myGameArea.key == 109) { myGamePiece.speedY = -1; }
-                        if (myGameArea.key && myGameArea.key == 107) { myGamePiece.speedY = 1; }
+                        if (myGameArea.key && myGameArea.key == 109) { moveup(); }
+                        if (myGameArea.key && myGameArea.key == 107) { movedown(); }
 
                        
                         myGamePiece.newPos();
@@ -290,12 +294,10 @@
 
                     function moveup() {
                         myGamePiece.speedY = -1;
-                        
                     }
 
                     function movedown() {
-                        myGamePiece.speedY = 1;
-                        
+                        myGamePiece.speedY = 1;                        
                     }
                     /*
                     function moveleft() {
