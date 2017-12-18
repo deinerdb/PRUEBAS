@@ -21,11 +21,10 @@
             }
 
             canvas {
-                background-color: lightskyblue;
+                background-color: black;
                 /*RESPONSIVE GAME*/
                 width: 92%;
                 height: auto;
-                background-color: lightskyblue;
                 float: right;
                 -moz-box-sizing: border-box;
                 -webkit-box-sizing: border-box;
@@ -212,7 +211,8 @@
                 <script>
 
                     var myMusic;
-					var myGamePiece;
+                    var myGamePiece;
+                    var myBackground;
                     var interval;
                     
                     function alturaBotones() {
@@ -222,7 +222,8 @@
 
 
                     function startGame() {                                                                        
-                        myGamePiece = new component(30 * 180 / 270, 30 * 180 / 270, "blue", 75, 75);
+                        myGamePiece = new component(30 * 180 / 270, 30 * 180 / 270, "nave.png", 75, 75, "image");
+                        myBackground = new component(600, 220, "fondojuego.jpg", 0, 0, "background");
                         myGameArea.start();
                         
                     }
@@ -259,7 +260,12 @@
                        
                     }
 					
-                    function component(width, height, color, x, y) {                        
+                    function component(width, height, color, x, y, type) {
+                        this.type = type;
+                        if (type == "image" || type == "background") {
+                            this.image = new Image();
+                            this.image.src = color;
+                        }
 						this.width = width;
                         this.height = height;
                         this.speedX = 0;
@@ -267,22 +273,44 @@
 						this.x = x;
 						this.y = y;
 						this.update = function () {
-						    ctx = myGameArea.context;
-                            ctx.fillStyle = color;
+						    ctx = myGameArea.context;                            
                             //no pasa del área de juego
                             if (this.y < 0) { this.y = 0; }
                             if (this.y > 180 - height) { this.y = 180 - height; }
-                            //dibuja
-                            ctx.fillRect(this.x, this.y, this.width, this.height);
+                            //si es un fondo se dibuja dos veces
+                            if (type == "image" || type == "background") {
+                                ctx.drawImage(this.image,
+                                    this.x,
+                                    this.y,
+                                    this.width, this.height);
+                                //si es un fondo se dibuja dos veces
+                                if (type == "background") {
+                                    ctx.drawImage(this.image,
+                                        this.x + this.width, this.y, this.width, this.height);
+                                }
+                            } else {
+                                //dibuja
+                                ctx.fillStyle = color;
+                                ctx.fillRect(this.x, this.y, this.width, this.height);
+                            }
                         }
                         this.newPos = function () {
                             this.x += this.speedX;
-                            this.y += this.speedY;                            
+                            this.y += this.speedY;
+                            if (this.type == "background") {
+                                if (this.x == -(this.width)) {
+                                    this.x = 0;
+                                }
+                            }
                         } 
                     }
 
                     function updateGameArea() {
-                        myGameArea.clear(); 
+                        myGameArea.clear();
+
+                        myBackground.speedX = -1; 
+                        myBackground.newPos();
+                        myBackground.update();
                                                         
                         if (myGameArea.key && myGameArea.key == 109) { moveup(); }
                         if (myGameArea.key && myGameArea.key == 107) { movedown(); }
@@ -293,10 +321,12 @@
                     }
 
                     function moveup() {
+                        myGamePiece.image.src = "navemov.png";
                         myGamePiece.speedY = -1;
                     }
 
                     function movedown() {
+                        myGamePiece.image.src = "navemov.png";
                         myGamePiece.speedY = 1;                        
                     }
                     /*
@@ -309,6 +339,7 @@
                     }
                     */
                     function clearmove() {
+                        myGamePiece.image.src = "nave.png";
                         myGamePiece.speedX = 0;
                         myGamePiece.speedY = 0;
                         
