@@ -33,7 +33,7 @@
             #controles {
                 text-align: center;
                 width: 8%;
-                background-color: lightskyblue;
+                
                 float: left;
                 /*no se puede seleccionar el texto*/
                 -webkit-user-select: none; /* Chrome, Opera, Safari */
@@ -49,22 +49,29 @@
                 width: 100%;
                 cursor: no-drop;
                 font-size: 2em;
-                font-weight:bold;
+                font-weight: bold;
                 font-family: Arial;
+                
                 -moz-border-radius: 4px;
                 -webkit-border-radius: 4px;
                 border-radius: 4px;
-                background-color: dodgerblue;
-                color: #FFFFFF;
+                
                 -moz-box-sizing: border-box;
                 -webkit-box-sizing: border-box;
                 box-sizing: border-box;
+                
+                color: white;
+                background: #b38cd9; /* For browsers that do not support gradients */
+                background: -webkit-radial-gradient(RebeccaPurple, #b38cd9); /* Safari 5.1 to 6.0 */
+                background: -o-radial-gradient(RebeccaPurple, #b38cd9); /* For Opera 11.6 to 12.0 */
+                background: -moz-radial-gradient(RebeccaPurple, #b38cd9); /* For Firefox 3.6 to 15 */
+                background: radial-gradient(RebeccaPurple, #b38cd9); /* Standard syntax */
             }
             .btnControles:hover, .btnControles:focus{
                 opacity: 0.8;
             }
             .btnControles:active {
-                color:darkblue;
+                color:purple;
             }
             /* On smaller screens, decrease text size of btn*/
             @media only screen and (max-width: 400px) {
@@ -73,7 +80,6 @@
                 }
             }
             #mainjuego {
-                background-color: lightskyblue;
                 border-style: solid;
                 border-width: 2px;
                 border-color: mediumblue;
@@ -83,6 +89,12 @@
                 -moz-box-sizing: border-box;
                 -webkit-box-sizing: border-box;
                 box-sizing: border-box;
+                /*gradiente de fondo*/
+                background: mediumpurple; /* For browsers that do not support gradients */
+                background: -webkit-linear-gradient(to right, rebeccapurple, mediumpurple); /* For Safari 5.1 to 6.0 */
+                background: -o-linear-gradient(to right, rebeccapurple, mediumpurple); /* For Opera 11.1 to 12.0 */
+                background: -moz-linear-gradient(to right, rebeccapurple, mediumpurple); /* For Firefox 3.6 to 15 */
+                background: linear-gradient(to right, rebeccapurple, mediumpurple); /* Standard syntax (must be last) */
             }
 
             .button {
@@ -90,9 +102,7 @@
                 -moz-border-radius: 4px;
                 -webkit-border-radius: 4px;
                 border-radius: 4px;
-                background-color: dodgerblue;
                 border: none;
-                color: #FFFFFF;
                 text-align: center;
                 font-size: 1em;
                 padding: 8px;
@@ -108,6 +118,13 @@
                 -moz-user-select: none; /* Firefox 2+ */
                 -ms-user-select: none; /* IE 10+ */
                 user-select: none; /* Standard syntax */
+                /*fondo*/
+                color: #FFFFFF;
+                background: #b38cd9; /* For browsers that do not support gradients */
+                background: -webkit-radial-gradient(RebeccaPurple, #b38cd9); /* Safari 5.1 to 6.0 */
+                background: -o-radial-gradient(RebeccaPurple, #b38cd9); /* For Opera 11.6 to 12.0 */
+                background: -moz-radial-gradient(RebeccaPurple, #b38cd9); /* For Firefox 3.6 to 15 */
+                background: radial-gradient(RebeccaPurple, #b38cd9); /* Standard syntax */
             }
 
             .button span {
@@ -216,6 +233,9 @@
                     var interval;
                     var primeraVez = true;
                     var intervalRedibujar;
+                    var img1;
+                    var img2;
+                    var img3;                    
                     
                     function alturaBotones() {
                         document.getElementById("btnUp").style.height = myGameArea.canvas.scrollHeight / 2 + "px";
@@ -291,10 +311,18 @@
                                         this.x + this.width, this.y, this.width, this.height);
                                 }
                                 if (primeraVez == true) {
-                                    alert("primera = " + primeraVez);
-                                    alert("imagen = " + this.image.src);
+                                                                        
                                     primeraVez = false;
-                                    intervalRedibujar = setInterval(this.reDibujar, 20);
+                                    
+                                    img1 = new Image();
+                                    img2 = new Image();
+                                    img3 = new Image();
+
+                                    img1.src = "fondojuego.jpg";
+                                    img2.src = "nave.png";
+                                    img3.src = "navemov.png";
+                                    
+                                    intervalRedibujar = setInterval(this.reDibujar, 40);
                                 }
                             } else {
                                 //dibuja
@@ -303,17 +331,27 @@
                             }
                         }
                         this.reDibujar = function () {
+                                   
                             //fondo
-                            ctx.drawImage(this.image,
-                                this.x,
-                                this.y,
-                                this.width, this.height);
-                            //si es un fondo se dibuja dos veces
-                            if (type == "background") {
-                                ctx.drawImage(this.image,
-                                    this.x + this.width, this.y, this.width, this.height);
-                            }
+                            ctx.drawImage(img1,
+                                0,
+                                0,
+                                600, 220);
+                            //fondo se dibuja dos veces                            
+                            ctx.drawImage(img1,
+                                600, 0, 600, 220);
+                            
                             //nave
+                            ctx.drawImage(img2,
+                                75,
+                                75,
+                                30 * 180 / 270, 30 * 180 / 270);
+                            //navemov
+                            ctx.drawImage(img3,
+                                75,
+                                75,
+                                30 * 180 / 270, 30 * 180 / 270);
+
                         } 
                         this.newPos = function () {
                             this.x += this.speedX;
@@ -343,7 +381,7 @@
 
                     function moveup() {
                         myGamePiece.image.src = "navemov.png";
-                        myGamePiece.speedY = -1;
+                        myGamePiece.speedY = -1;                        
                     }
 
                     function movedown() {
