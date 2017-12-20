@@ -230,13 +230,14 @@
                     var myMusic;
                     var myGamePiece;
                     var myBackground;
+                    var myScore;
                     var interval;
                     var primeraVez = true;
                     var intervalRedibujar;
                     var img1;
                     var img2;
-                    var img3;                    
-                    
+                    var img3;
+                                        
                     function alturaBotones() {
                         document.getElementById("btnUp").style.height = myGameArea.canvas.scrollHeight / 2 + "px";
                         document.getElementById("btnDown").style.height = myGameArea.canvas.scrollHeight / 2 + "px";
@@ -245,6 +246,7 @@
 
                     function startGame() {                                                                        
                         myGamePiece = new component(30 * 180 / 270, 30 * 180 / 270, "nave.png", 75, 75, "image");
+                        myScore = new component("20px", "Consolas", "white", 310, 30, "text");
                         myBackground = new component(600, 220, "fondojuego.jpg", 0, 0, "background");
                         myGameArea.start();
                         
@@ -259,7 +261,9 @@
                             //document.body.insertBefore(this.canvas, document.body.childNodes[0]);
                             var midiv = document.getElementById("mainjuego");
                             midiv.insertBefore(this.canvas, midiv.childNodes[2]);
-
+                            //CONTADOR
+                            this.frameNo = 0; 
+                            //LA CANCIÓN
                             myMusic = new sound("gametheme.mp3", "true");
                             //una sola vez
                             updateGameArea();
@@ -299,6 +303,12 @@
                             //no pasa del área de juego
                             if (this.y < 0) { this.y = 0; }
                             if (this.y > 180 - height) { this.y = 180 - height; }
+                            //marcador
+                            if (this.type == "text") {
+                                ctx.font = this.width + " " + this.height;
+                                ctx.fillStyle = color;
+                                ctx.fillText(this.text, this.x, this.y);
+                            }
                             //si es un fondo se dibuja dos veces
                             if (type == "image" || type == "background") {
                                 ctx.drawImage(this.image,
@@ -365,28 +375,34 @@
                     }
 
                     function updateGameArea() {
+                        //BORRA TODO
                         myGameArea.clear();
-
+                        //CONTADOR
+                        myGameArea.frameNo += 1;
+                        //EL FONDO SE MUEVE
                         myBackground.speedX = -1; 
                         myBackground.newPos();
                         myBackground.update();
-                                                        
+                        //SE MUEVE CON LAS TECLAS + Y -             
                         if (myGameArea.key && myGameArea.key == 109) { moveup(); }
                         if (myGameArea.key && myGameArea.key == 107) { movedown(); }
 
-                       
+                        //PUNTAJE AUMENTA
+                        myScore.text = "PUNTAJE: " + myGameArea.frameNo;
+                        myScore.update();
+
                         myGamePiece.newPos();
                         myGamePiece.update();
                     }
 
                     function moveup() {
                         myGamePiece.image.src = "navemov.png";
-                        myGamePiece.speedY = -1;                        
+                        myGamePiece.speedY = -2;                        
                     }
 
                     function movedown() {
                         myGamePiece.image.src = "navemov.png";
-                        myGamePiece.speedY = 1;                        
+                        myGamePiece.speedY = 2;                        
                     }
                     /*
                     function moveleft() {
