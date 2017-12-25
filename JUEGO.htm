@@ -18,6 +18,11 @@
                 content: "";
                 clear: both;
                 display: table;
+                /*no se puede seleccionar el texto*/
+                -webkit-user-select: none; /* Chrome, Opera, Safari */
+                -moz-user-select: none; /* Firefox 2+ */
+                -ms-user-select: none; /* IE 10+ */
+                user-select: none; /* Standard syntax */
             }
 
             canvas {
@@ -29,6 +34,11 @@
                 -moz-box-sizing: border-box;
                 -webkit-box-sizing: border-box;
                 box-sizing: border-box;
+                /*no se puede seleccionar el texto*/
+                -webkit-user-select: none; /* Chrome, Opera, Safari */
+                -moz-user-select: none; /* Firefox 2+ */
+                -ms-user-select: none; /* IE 10+ */
+                user-select: none; /* Standard syntax */
             }
             #controles {
                 text-align: center;
@@ -51,21 +61,23 @@
                 font-size: 2em;
                 font-weight: bold;
                 font-family: Arial;
-                
                 -moz-border-radius: 4px;
                 -webkit-border-radius: 4px;
                 border-radius: 4px;
-                
                 -moz-box-sizing: border-box;
                 -webkit-box-sizing: border-box;
                 box-sizing: border-box;
-                
                 color: white;
                 background: #b38cd9; /* For browsers that do not support gradients */
                 background: -webkit-radial-gradient(RebeccaPurple, #b38cd9); /* Safari 5.1 to 6.0 */
                 background: -o-radial-gradient(RebeccaPurple, #b38cd9); /* For Opera 11.6 to 12.0 */
                 background: -moz-radial-gradient(RebeccaPurple, #b38cd9); /* For Firefox 3.6 to 15 */
                 background: radial-gradient(RebeccaPurple, #b38cd9); /* Standard syntax */
+                /*no se puede seleccionar el texto*/
+                -webkit-user-select: none; /* Chrome, Opera, Safari */
+                -moz-user-select: none; /* Firefox 2+ */
+                -ms-user-select: none; /* IE 10+ */
+                user-select: none; /* Standard syntax */
             }
             .btnControles:hover, .btnControles:focus{
                 opacity: 0.8;
@@ -95,6 +107,11 @@
                 background: -o-linear-gradient(to right, rebeccapurple, mediumpurple); /* For Opera 11.1 to 12.0 */
                 background: -moz-linear-gradient(to right, rebeccapurple, mediumpurple); /* For Firefox 3.6 to 15 */
                 background: linear-gradient(to right, rebeccapurple, mediumpurple); /* Standard syntax (must be last) */
+                /*no se puede seleccionar el texto*/
+                -webkit-user-select: none; /* Chrome, Opera, Safari */
+                -moz-user-select: none; /* Firefox 2+ */
+                -ms-user-select: none; /* IE 10+ */
+                user-select: none; /* Standard syntax */
             }
 
             .button {
@@ -223,20 +240,26 @@
                         <button disabled="disabled" class="btnControles" id="btnDown" title="Bajar (tecla +)" onmousedown="movedown()" onmouseup="clearmove()" ontouchstart="movedown()" ontouchend="clearmove()">&#8595;</button>
                     </div>
                     <br />
-                    <button id="iniciar" class="button" onclick="Jugar()"><span>Iniciar </span></button>
+                    <button id="iniciar" title="Iniciar juego (tecla ENTER)" class="button" onclick="Jugar()"><span>Iniciar </span></button>
                 </div>
                 <script>
 
                     var myMusic;
+                    var myBang;
                     var myGamePiece;
                     var myBackground;
+                    var myObstacles = [];
                     var myScore;
                     var interval;
                     var primeraVez = true;
                     var intervalRedibujar;
-                    var img1;
-                    var img2;
-                    var img3;
+                    var img1; //fondo
+                    var img2; //nave
+                    var img3; //nave en movimiento
+                    var img4; //nave explota
+                    var jugando = false;
+                    var colorObst = "#004d00"; //color por defecto
+                    aceleraX = -1;
                                         
                     function alturaBotones() {
                         document.getElementById("btnUp").style.height = myGameArea.canvas.scrollHeight / 2 + "px";
@@ -265,17 +288,27 @@
                             this.frameNo = 0; 
                             //LA CANCIÓN
                             myMusic = new sound("gametheme.mp3", "true");
+                            //SONIDO CUANDO CHOCA
+                            myBang = new sound("bang.mp3", "false");
                             //una sola vez
                             updateGameArea();
                             //eventos de teclado
                             window.addEventListener('keydown', function (e) {
+                                //si presiona enter y no está jugando... juega
+                                if (e.keyCode == 13 && jugando == false) {                                    
+                                    Jugar();
+                                }
+                            })
+                            window.addEventListener('keydown', function (e) {
                                 myGameArea.key = e.keyCode;
                             })
                             window.addEventListener('keyup', function (e) {
-                                //alert("up");
-                                myGameArea.key = false;
-                                //deja de moverse al soltar cualquiera
-                                clearmove(); 
+                                if (e.keyCode != 13) {
+                                    //alert("up");
+                                    myGameArea.key = false;
+                                    //deja de moverse al soltar cualquiera
+                                    clearmove();
+                                }
                             })
                             alturaBotones();
                             //this.interval = setInterval(updateGameArea, 20);
@@ -300,9 +333,11 @@
 						this.y = y;
 						this.update = function () {
 						    ctx = myGameArea.context;                            
-                            //no pasa del área de juego
-                            if (this.y < 0) { this.y = 0; }
-                            if (this.y > 180 - height) { this.y = 180 - height; }
+                            //nave no pasa del área de juego
+                            if (this.type == "image") {
+                                if (this.y < 0) { this.y = 0; }
+                                if (this.y > 180 - height) { this.y = 180 - height; }
+                            }
                             //marcador
                             if (this.type == "text") {
                                 ctx.font = this.width + " " + this.height;
@@ -327,10 +362,12 @@
                                     img1 = new Image();
                                     img2 = new Image();
                                     img3 = new Image();
+                                    img4 = new Image();
 
                                     img1.src = "fondojuego.jpg";
                                     img2.src = "nave.png";
                                     img3.src = "navemov.png";
+                                    img4.src = "boom.png";
                                     
                                     intervalRedibujar = setInterval(this.reDibujar, 40);
                                 }
@@ -372,9 +409,32 @@
                                 }
                             }
                         } 
+                        this.crashWith = function (otherobj) {
+                            var myleft = this.x;
+                            var myright = this.x + (this.width);
+                            var mytop = this.y;
+                            var mybottom = this.y + (this.height);
+                            var otherleft = otherobj.x;
+                            var otherright = otherobj.x + (otherobj.width);
+                            var othertop = otherobj.y;
+                            var otherbottom = otherobj.y + (otherobj.height);
+                            var crash = true;
+                            if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright)) {
+                                crash = false;
+                            }
+                            return crash;
+                        }
                     }
 
                     function updateGameArea() {
+                        var x, height, gap, minHeight, maxHeight, minGap, maxGap;
+                        for (i = 0; i < myObstacles.length; i += 1) {
+                            if (myGamePiece.crashWith(myObstacles[i])) {
+                                //myGameArea.stop();
+                                Parar();
+                                return;
+                            }
+                        }
                         //BORRA TODO
                         myGameArea.clear();
                         //CONTADOR
@@ -386,13 +446,81 @@
                         //SE MUEVE CON LAS TECLAS + Y -             
                         if (myGameArea.key && myGameArea.key == 109) { moveup(); }
                         if (myGameArea.key && myGameArea.key == 107) { movedown(); }
-
+                        //VAN APARECIENDO OBSTÁCULOS
+                        if (myGameArea.frameNo == 1 || everyinterval(150)) {
+                            x = myGameArea.canvas.width;
+                            minHeight = 10 ;
+                            maxHeight = 110 ;
+                            height = Math.floor(Math.random() * (maxHeight - minHeight + 1) + minHeight);
+                            minGap = 50;
+                            maxGap = 100;
+                            gap = Math.floor(Math.random() * (maxGap - minGap + 1) + minGap);
+                            generarColor();
+                            myObstacles.push(new component(10, height, colorObst, x, 0, "obstacle"));
+                            myObstacles.push(new component(10, x - height - gap, colorObst, x, height + gap, "obstacle"));
+                        }
+                        //cada cierto número de puntos se hace más rápido
+                        if (everyinterval(1000)) {
+                            aceleraX = aceleraX - 1;
+                        }
+                        for (i = 0; i < myObstacles.length; i += 1) {
+                            //myObstacles[i].x += -1;
+                            myObstacles[i].speedX = aceleraX;
+                            myObstacles[i].newPos();
+                            myObstacles[i].update();
+                        }
                         //PUNTAJE AUMENTA
                         myScore.text = "PUNTAJE: " + myGameArea.frameNo;
                         myScore.update();
 
                         myGamePiece.newPos();
                         myGamePiece.update();
+                    }
+
+                    function everyinterval(n) {
+                        if ((myGameArea.frameNo / n) % 1 == 0) { return true; }
+                        return false;
+                    }
+
+                    function generarColor() {
+                        //un entero de 1 a 10, ambos inclusive
+                        var rnd = Math.floor(Math.random() * 10) + 1;
+                        //escoge aleatoriamente un color de la lista
+                        switch (rnd) {
+                            case 1:
+                                colorObst = "#39FF14"; //verde neón
+                                break;
+                            case 2:
+                                colorObst = "#0000ff"; //blue
+                                break;
+                            case 3:
+                                colorObst = "#ff00ff"; //Fuchsia
+                                break;   
+                            case 4:
+                                colorObst = "#ff0000"; //red
+                                break;   
+                            case 5:
+                                colorObst = "#ffff00"; //yellow
+                                break;   
+                            case 6:
+                                colorObst = "#ff3300"; //naranja
+                                break;   
+                            case 7:
+                                colorObst = "#6600ff"; //morado
+                                break;   
+                            case 8:
+                                colorObst = "#99cc00"; //otro verde
+                                break;   
+                            case 9:
+                                colorObst = "#00ccff"; //otro azul, más claro
+                                break;   
+                            case 10:
+                                colorObst = "#ff0066"; //parecido al fuchsia
+                                break;   
+                        }
+                        
+
+
                     }
 
                     function moveup() {
@@ -435,25 +563,55 @@
                             this.sound.play();
                         }
                         this.stop = function () {
-                            this.sound.pause();
+                            this.sound.pause();                            
+                        }
+                        this.load = function () {
+                            this.sound.load();
                         }
                     }
                     function Jugar() {
                         clearInterval(intervalRedibujar);
+                        jugando = true;
+                        if (myGameArea.frameNo > 1) {
+                            myMusic.load();
+                        }
                         myMusic.play();
+                        
                         document.getElementById("iniciar").style.display = "none";
                         topFunction();
-                        interval = setInterval(updateGameArea, 20);
+                        //inicializa algunas variables para jugar de nuevo                        
+                        myGameArea.frameNo = 0;
+                        myObstacles.length = 0;
+                        myGamePiece.x = 75;
+                        myGamePiece.y = 75;
+                        myBackground.x = 0;
+                        myBackground.y = 0;
+                        aceleraX = -1;
+                        
 
                         document.getElementById("btnUp").style.cursor = "pointer";
                         document.getElementById("btnDown").style.cursor= "pointer";
 
                         document.getElementById("btnUp").removeAttribute("disabled");
                         document.getElementById("btnDown").removeAttribute("disabled");
+
+                        //inicia la actualización del canvas
+                        interval = setInterval(updateGameArea, 20);
                         
                     }
                     function Parar() {
+                        jugando = false;
+                        //para la música y suena la explosión
                         myMusic.stop();
+                        myBang.play();
+
+                        //explota, imagen de nave cambia                        
+                        ctx.drawImage(img4,
+                            myGamePiece.x ,
+                            myGamePiece.y ,
+                            myGamePiece.width , myGamePiece.height);
+
+                        //muestra el botón para jugar y ajusta los controles
                         document.getElementById("iniciar").style.display = "inline";
                         clearInterval(interval);
 
@@ -473,9 +631,9 @@
                     <p>
                         <i class="fa fa-gamepad" aria-hidden="true"></i>
                         Este es un juego hecho con HTML, CSS y JAVASCRIPT.
-                        Utilice los controles para mover la nave y evitar chocar con los obtáculos mientras disfruta la música de fondo.
-                        El puntaje aumenta a medida que avanza.
-                        Haga clic en "Iniciar" y diviértase.
+                        Utilice los controles o las teclas "+" y "-" para subir y bajar la nave, evitando chocar con los obtáculos. Disfrute la música de fondo.
+                        El puntaje aumenta a medida que avanza. Los obstáculos irán cada vez más rápido.
+                        Haga clic en "Iniciar" o presione "ENTER" y diviértase.
                         <br />
                         <br />
                         <strong style="clear:left">Fragmentos del código de este juego:</strong><br />
