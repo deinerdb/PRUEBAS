@@ -176,6 +176,30 @@
                   filter: Alpha(opacity=100);/* IE8 and earlier */
                   right: 0;
             }
+            .info {
+                display: none;
+                -moz-border-radius: 4px;
+                -webkit-border-radius: 4px;
+                border-radius: 4px;
+                border: none;
+                text-align: center;
+                font-size: 1em;
+                padding: 8px;
+                margin-left: 4px;
+                cursor: help;
+                /*no se puede seleccionar el texto*/
+                -webkit-user-select: none; /* Chrome, Opera, Safari */
+                -moz-user-select: none; /* Firefox 2+ */
+                -ms-user-select: none; /* IE 10+ */
+                user-select: none; /* Standard syntax */
+                /*fondo*/
+                color: #FFFFFF;
+                background: #b38cd9; /* For browsers that do not support gradients */
+                background: -webkit-radial-gradient(RebeccaPurple, #b38cd9); /* Safari 5.1 to 6.0 */
+                background: -o-radial-gradient(RebeccaPurple, #b38cd9); /* For Opera 11.6 to 12.0 */
+                background: -moz-radial-gradient(RebeccaPurple, #b38cd9); /* For Firefox 3.6 to 15 */
+                background: radial-gradient(RebeccaPurple, #b38cd9); /* Standard syntax */
+            }
             #accordion, #panel, textarea {
                 /*no se puede seleccionar el texto*/
                 -webkit-user-select: none !important; /* Chrome, Opera, Safari */
@@ -241,6 +265,7 @@
                     </div>
                     <br />
                     <button id="iniciar" title="Iniciar juego (tecla ENTER)" class="button" onclick="Jugar()"><span>Iniciar </span></button>
+                    <span id="info" title="El mayor puntaje obtenido (no se guarda)" class="info" >¡ Nuevo récord !</span>
                 </div>
                 <script>
 
@@ -258,8 +283,9 @@
                     var img3; //nave en movimiento
                     var img4; //nave explota
                     var jugando = false;
-                    var colorObst = "#004d00"; //color por defecto
-                    aceleraX = -1;
+                    var colorObst = "#004d00"; //color por defecto es un verde obscuro
+                    var aceleraX = -1;
+                    var puntajeMayor = 0;
                                         
                     function alturaBotones() {
                         document.getElementById("btnUp").style.height = myGameArea.canvas.scrollHeight / 2 + "px";
@@ -471,6 +497,9 @@
                         }
                         //PUNTAJE AUMENTA
                         myScore.text = "PUNTAJE: " + myGameArea.frameNo;
+                        if (myGameArea.frameNo > puntajeMayor) {
+                            puntajeMayor = myGameArea.frameNo;
+                        }
                         myScore.update();
 
                         myGamePiece.newPos();
@@ -598,6 +627,8 @@
 
                         document.getElementById("btnUp").removeAttribute("disabled");
                         document.getElementById("btnDown").removeAttribute("disabled");
+                        //oculta info sobre puntaje mayor
+                        document.getElementById("info").style.display = "none";
 
                         //inicia la actualización del canvas
                         interval = setInterval(updateGameArea, 20);
@@ -624,6 +655,11 @@
 
                         document.getElementById("btnUp").style.cursor = "no-drop";
                         document.getElementById("btnDown").style.cursor = "no-drop";
+
+                        //actualiza info sobre puntaje mayor
+                        document.getElementById("info").style.display = "inline-block";                        
+                        document.getElementById("info").innerHTML = "Su récord es: " + puntajeMayor;
+
                     }
                     
 
