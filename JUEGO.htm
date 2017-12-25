@@ -572,6 +572,10 @@
                     function Jugar() {
                         clearInterval(intervalRedibujar);
                         jugando = true;
+                        //inicia y pausa el sonido de choque, para móviles.
+                        myBang.play();
+                        myBang.stop();
+                        //para que la canción se reinicie
                         if (myGameArea.frameNo > 1) {
                             myMusic.load();
                         }
