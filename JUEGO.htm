@@ -639,6 +639,8 @@
                         //para la música y suena la explosión
                         myMusic.stop();
                         myBang.play();
+                        //DEBE DETENER TODO MOVIMIENTO
+                        clearmove();
 
                         //explota, imagen de nave cambia                        
                         ctx.drawImage(img4,
