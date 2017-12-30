@@ -1236,13 +1236,17 @@ figcaption{
     margin:3px;
 }
 #divlogocanvas{
-
+/*
     width:282px;
     height:382px;
+  */
     border: 1px solid #000000;
-    text-align:center;
     
-}                
+}
+#canvaslogo{
+    /*nada*/
+    
+}
 .centrar{
 
     text-align:center; /*para centrar imágenes dentro de un div*/
