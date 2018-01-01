@@ -1247,6 +1247,11 @@ figcaption{
     /*nada*/
     
 }
+#divSVG {
+    /*responsive*/
+    max-width:100%;
+    overflow:auto;
+}
 .centrar{
 
     text-align:center; /*para centrar imágenes dentro de un div*/
