@@ -1235,13 +1235,15 @@ figcaption{
     border-color:dodgerblue;
     margin:3px;
 }
-#divlogocanvas{
-/*
+#divlogocanvas {
+    /*
     width:282px;
     height:382px;
   */
     border: 1px solid #000000;
-    
+    /*responsive*/
+    max-width: 100%;
+    overflow: auto;
 }
 #canvaslogo{
     /*nada*/
@@ -1468,7 +1470,7 @@ footer{
     padding-top:2px;
     padding-left:8px;
     padding-right:8px;
-    padding-bottom:12px;
+    /*padding-bottom:16px; lo coloco con after*/
     /*no se puede seleccionar el texto*/
     -webkit-user-select: none; /* Chrome, Opera, Safari */
     -moz-user-select: none; /* Firefox 2+ */
@@ -1487,4 +1489,38 @@ footer{
      -moz-border-radius:7px; /*borde redondeado*/
      -webkit-border-radius:7px; /*borde redondeado*/
      border-radius:7px; /*borde redondeado*/
-}   
+
+     text-align:center;
+}
+    footer::after {
+        content: "";
+        height: 16px; /*padding-bottom: ESTO PARA QUE SE VEA EN IE Y FIREFOX*/
+        display: block;
+        /*no se puede seleccionar el texto*/
+        -webkit-user-select: none; /* Chrome, Opera, Safari */
+        -moz-user-select: none; /* Firefox 2+ */
+        -ms-user-select: none; /* IE 10+ */
+        user-select: none; /* Standard syntax */
+    }
+    footer p {
+        font-size: 1.3em;
+        font-family: Courier New, Courier, monospace, Tahoma;        
+    }
+    footer img {
+        width: 30%;
+        height: auto;
+        /*espacio para sombra y redes*/
+        margin-bottom: 8px;
+        /*responsive*/
+        max-width: 100%;
+        /*sombra a mi foto*/
+        -webkit-box-shadow: 0 4px 8px 0 purple, 0 6px 20px 0 blue;
+        -moz-box-shadow: 0 4px 8px 0 purple, 0 6px 20px 0 blue;
+        box-shadow: 0 4px 8px 0 purple, 0 6px 20px 0 blue;
+    }
+/* On smaller screens, foto más grande  */
+@media only screen and (max-width: 400px) {
+    footer img {
+        width:60%;
+    }
+}
