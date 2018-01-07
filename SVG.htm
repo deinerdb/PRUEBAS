@@ -13,6 +13,30 @@
     <link rel="stylesheet" href="estilo.css" />
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <style>
+        #textoArriba {
+            text-shadow: 
+                0 0 10px #fff, 
+                0 0 20px #fff, 
+                0 0 30px #fff, 
+                0 0 40px red, 
+                0 0 70px red, 
+                0 0 80px red, 
+                0 0 100px red, 
+                0 0 150px red;
+        }
+        #textoAbajo {
+            text-shadow: 
+                0 0 10px #fff, 
+                0 0 20px #fff, 
+                0 0 30px #fff, 
+                0 0 40px blue, 
+                0 0 70px blue, 
+                0 0 80px blue, 
+                0 0 100px blue, 
+                0 0 150px blue;
+        }        
+    </style>
 </head>
 <body>
     <div id="mySidenav" class="sidenav">
@@ -201,14 +225,14 @@
                 <h2 class="letramorada">"Drop Shadows"</h2> 
                 <svg height="140" width="140">
                     <defs>
-                        <filter id="f1" x="0" y="0" width="200%" height="200%">
+                        <filter id="miBlur" x="0" y="0" width="200%" height="200%">
                             <feOffset result="offOut" in="SourceGraphic" dx="20" dy="20" />
                             <feColorMatrix result="matrixOut" in="offOut" type="matrix" values="0.2 0 0 0 0 0 0.2 0 0 0 0 0 0.2 0 0 0 0 0 1 0" />
                             <feGaussianBlur result="blurOut" in="matrixOut" stdDeviation="10" />
                             <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
                         </filter>
                     </defs>
-                    <rect width="90" height="90" stroke="green" stroke-width="3" fill="yellow" filter="url(#f1)" />
+                    <rect width="90" height="90" stroke="green" stroke-width="3" fill="yellow" filter="url(#miBlur)" />
                     Lo siento, tu navegador no soporta SVG.
                 </svg>
                 <br />
@@ -230,24 +254,34 @@
                 <br />
                 <h2 class="letramorada">Logo Autobots &#174;</h2>
                 <h4 class="letramorada">(En construcción...)</h4>
-                <h1 style="font-family:transformersregular; color:#ff1a1a; max-width:100%; overflow:auto;">transformers</h1>
-                <h1 style="font-family:transformersregular;color:#990000; max-width:100%; overflow:auto;">autobots</h1>
-                <svg id="autobots" height="400" width="400" style="background-color:white">
-                    <!--definiciones-->
-                    <defs>
-                        <!--gradiente de rojo claro a rojo obscuro-->
-                        <linearGradient id="rojos" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" style="stop-color:#ff1a1a;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#990000;stop-opacity:1" />
-                        </linearGradient>
-                    </defs>
-                    
-                    <!--figuras-->
-                    <path d="M 2.5 25 L 27.5 142 L 88 185 L 162 197.5 L 150 120 L 72.5 68 L 65 30 Z" fill="url(#rojos)" />
-                    <path d="M 35 65 L 37.5 78 L 125.5 137 L 123 124 Z" fill="white" />
-                    <path d="M 42.5 100 L 45 113 L 132.5 172 L 130 159 Z" fill="white" />
-                    Lo siento, tu navegador no soporta SVG.
-                </svg>
+                <div style= "background-color:black;" class="centrar">                    
+                    <svg id="textoArriba" height="150" width="400" style="background-color:black">
+                        <!--definiciones-->
+                        <defs>
+                            <!--gradiente de rojo a azul-->
+                            <linearGradient id="miGradiente" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:red;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:blue;stop-opacity:1" />
+                            </linearGradient>
+                            <!--efecto blur ya fue definido en esta página, más arriba-->                           
+                        </defs>
+                        <!--texto de arriba-->
+                        <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle"  fill="url(#miGradiente)" style="font-family:transformersregular; font-size:2em;">transformers</text>
+                    </svg>
+                    <br />
+                    <svg id="autobots" height="400" width="400" style="background-color:black">                        
+                        <!--figuras-->
+                        <path d="M 2.5 25 L 27.5 142 L 88 185 L 162 197.5 L 150 120 L 72.5 68 L 65 30 Z" fill="url(#miGradiente)" filter="url(#miBlur)" />
+                        <path d="M 35 65 L 37.5 78 L 125.5 137 L 123 124 Z" fill="black" />
+                        <path d="M 42.5 100 L 45 113 L 132.5 172 L 130 159 Z" fill="black" />
+                        Lo siento, tu navegador no soporta SVG.
+                    </svg>
+                    <br />
+                    <svg id="textoAbajo" height="150" width="400" style="background-color:black">                      
+                        <!--texto de abajo-->
+                        <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle"  fill="url(#miGradiente)" style="font-family:transformersregular; font-size:2em;">autobots</text>
+                    </svg>
+                </div>
                 <!--Fin de los SVG, todo dentro de un div para centrarlo-->
             </div>
             <!--Firma-->
