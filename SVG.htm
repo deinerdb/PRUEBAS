@@ -15,7 +15,7 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <style>
         #textoArriba {
-            text-shadow: 
+            text-shadow:  
                 0 0 10px #fff, 
                 0 0 20px #fff, 
                 0 0 30px #fff, 
@@ -23,7 +23,8 @@
                 0 0 70px red, 
                 0 0 80px red, 
                 0 0 100px red, 
-                0 0 150px red;
+                0 0 150px red; 
+             
         }
         #textoAbajo {
             text-shadow: 
@@ -35,7 +36,93 @@
                 0 0 80px blue, 
                 0 0 100px blue, 
                 0 0 150px blue;
-        }        
+             
+        }
+        #divTransf {
+            width:100% !important;
+            max-width:100%;
+            background-color:black !important;
+            overflow:auto;
+        }
+        #autobots {
+            /*o*/
+            -o-animation-name: rotar;
+            -o-animation-duration: 12s;
+            -o-animation-iteration-count: infinite;
+            -o-animation-timing-function: linear;
+            /*moz*/
+            -moz-animation-name: rotar;
+            -moz-animation-duration: 12s;
+            -moz-animation-iteration-count: infinite;
+            -moz-animation-timing-function: linear;
+            /*webkit*/
+            -webkit-animation-name: rotar; /* Safari 4.0 - 8.0 */
+            -webkit-animation-duration: 12s; /* Safari 4.0 - 8.0 */
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-timing-function: linear;
+            /*std*/
+            animation-name: rotar;
+            animation-duration: 12s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+        /* o syntax */
+        @-o-keyframes rotar {
+            0% {
+                -o-transform: rotateY(0deg); 
+            }
+
+            50% {
+                -o-transform: rotateY(180deg); 
+            }
+
+            100% {
+                -o-transform: rotateY(360deg); 
+            }
+        }
+        /* moz syntax */
+        @-moz-keyframes rotar {
+            0% {
+                -moz-transform: rotateY(0deg); 
+            }
+
+            50% {
+                -moz-transform: rotateY(180deg);
+            }
+
+            100% {
+                -moz-transform: rotateY(360deg); 
+            }
+        }
+        /* Safari 4.0 - 8.0 */
+        @-webkit-keyframes rotar {
+            0% {
+                -webkit-transform: rotateY(0deg); 
+            }
+               
+            50% {
+                -webkit-transform: rotateY(180deg); 
+            }
+
+            100% {
+                -webkit-transform: rotateY(360deg); 
+            }            
+        }
+
+        /* Standard syntax */
+        @keyframes rotar {
+            0% {
+                transform: rotateY(0deg); 
+            }
+
+            50% {
+                transform: rotateY(180deg); 
+            }
+
+            100% {
+                transform: rotateY(360deg); 
+            }     
+        }
     </style>
 </head>
 <body>
@@ -254,8 +341,8 @@
                 <br />
                 <h2 class="letramorada">Logo Autobots &#174;</h2>
                 <h4 class="letramorada">(En construcción...)</h4>
-                <div style= "background-color:black;" class="centrar">                    
-                    <svg id="textoArriba" height="150" width="400" style="background-color:black">
+                <div id="divTransf" class="centrar">                    
+                    <svg id="textoArriba" height="150" width="430" style="background-color:black">
                         <!--definiciones-->
                         <defs>
                             <!--gradiente de rojo a azul-->
@@ -266,20 +353,37 @@
                             <!--efecto blur ya fue definido en esta página, más arriba-->                           
                         </defs>
                         <!--texto de arriba-->
-                        <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle"  fill="url(#miGradiente)" style="font-family:transformersregular; font-size:2em;">transformers</text>
+                        <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle"  fill="red" style="font-family:transformersregular; font-size:2em;">transformers</text>
                     </svg>
                     <br />
-                    <svg id="autobots" height="400" width="400" style="background-color:black">                        
-                        <!--figuras-->
+                    <svg id="autobots" height="400" width="430" style="background-color:black">                        
+                        <!--figura 1-->
                         <path d="M 2.5 25 L 27.5 142 L 88 185 L 162 197.5 L 150 120 L 72.5 68 L 65 30 Z" fill="url(#miGradiente)" filter="url(#miBlur)" />
-                        <path d="M 35 65 L 37.5 78 L 125.5 137 L 123 124 Z" fill="black" />
-                        <path d="M 42.5 100 L 45 113 L 132.5 172 L 130 159 Z" fill="black" />
+                        <path d="M 35 65 L 37.5 78 L 125.5 137 L 123 124 Z" fill="rgba(0,0,0,0.7)" />
+                        <path d="M 42.5 100 L 45 113 L 132.5 172 L 130 159 Z" fill="rgba(0,0,0,0.7)" />
+                        <!--figura 2-->
+                        <path d="M 80 31 Q 200,-21 320,31 L 312.5 62.5 L 200 137 L 87.5 62.5 Z" fill="url(#miGradiente)" filter="url(#miBlur)" />
+                        <path d="M 135 47.5 L 200 90 L 265 47.5 Z" fill="rgba(0,0,0,0.7)" />
+                        <!--figura 3-->
+                        <path d="M 250 120 L 238 197.5 L 312 185 L 372.5 142 L 397.5 25 L 335 30 L 327.5 68 Z" fill="url(#miGradiente)" filter="url(#miBlur)" />
+                        <path d="M 277 124 L 274.5 137 L 362.5 78 L 365 65 Z" fill="rgba(0,0,0,0.7)" />
+                        <path d="M 270 159 L 267.5 172 L 355 113 L 357.5 100 Z" fill="rgba(0,0,0,0.7)" />
+                        <!--figura 4-->
+                        <path d="M 162.5 127.5 L 175 200 L 175 295 L 225 295 L 225 200 L 237.5 127.5 L 200 152.5 Z" fill="url(#miGradiente)" filter="url(#miBlur)" />
+                        <!--figura 5-->
+                        <path d="M 37.5 165 L 76 192.5 L 76 212.5 L 105 232.5 L 105 357.5 L 47.5 307.5 Z" fill="url(#miGradiente)" filter="url(#miBlur)" />
+                        <!--figura 6-->
+                        <path d="M 120 232.5 L 162.5 212.5 L 162.5 307.5 L 237.5 307.5 L 237.5 212.5 L 280 232.5 L 280 367.5 L 260 392.5 L 237.5 330 L 162.5 330 L 140 385 L 120 367.5 Z" fill="url(#miGradiente)" filter="url(#miBlur)" />
+                        <!--figura 7-->
+                        <path d="M 295 232.5 L 324 212.5 L 324 192.5 L 362.5 165 L 352.5 307.5 L 295 357.5 Z" fill="url(#miGradiente)" filter="url(#miBlur)" />
+                        <!--figura 8-->
+                        <path d="M 170 345 L 230 345 L 247.5 392.5 L 152.5 392.5 Z" fill="url(#miGradiente)" filter="url(#miBlur)" />
                         Lo siento, tu navegador no soporta SVG.
                     </svg>
                     <br />
-                    <svg id="textoAbajo" height="150" width="400" style="background-color:black">                      
-                        <!--texto de abajo-->
-                        <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle"  fill="url(#miGradiente)" style="font-family:transformersregular; font-size:2em;">autobots</text>
+                    <!--texto de abajo-->
+                    <svg id="textoAbajo" height="150" width="430" style="background-color:black">
+                        <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle"  style="font-family:transformersregular; font-size:2em;" fill="blue">autobots</text>
                     </svg>
                 </div>
                 <!--Fin de los SVG, todo dentro de un div para centrarlo-->
