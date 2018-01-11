@@ -3,12 +3,12 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-        <meta name="description" content="FILTROS DE IMÁGENES"/>
+        <meta name="description" content="APLICANDO ESTILOS DE FUENTE"/>
         <!-- Chrome, Firefox, OS y Opera -->
         <meta name="theme-color" content="#663399" />
         <!-- Windows Phone -->
         <meta name="msapplication-navbutton-color" content="#663399" />
-        <title>Filtros aplicados a imágenes</title>
+        <title>Estilos aplicados a fuentes</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="estilo.css" />
         <link rel="icon" href="favicon.ico" type="image/x-icon" />
@@ -19,15 +19,15 @@
             <a href="INDEX.htm"><i class="fa fa-home"></i>INICIO</a>
             <a href="HTML.htm"><i class="fa fa-html5"></i>HTML</a>
             <a href="CSS.htm"><i class="fa fa-css3"></i>CSS</a>
-            <a href="JAVASCRIPT.htm"><i class="fa fa-code"></i>JAVASCRIPT</a>
+            <a href="JAVASCRIPT.htm"><i class="fa fa-code"></i>JAVASCRIPT</a>            
             <a href="MEDIA.htm"><i class="fa fa-play"></i>MULTIMEDIA</a>
-            <a class="selected" id="selectedsidenav" href="FILTROS.htm"><i class="fa fa-paint-brush"></i>FILTROS</a>
+            <a href="FILTROS.htm"><i class="fa fa-paint-brush"></i>FILTROS</a>
             <a href="CANVAS.htm"><i class="fa fa-file-image-o"></i>CANVAS</a>
             <a href="JUEGO.htm"><i class="fa fa-gamepad"></i>JUEGO</a>
             <a href="SVG.htm"><i class="fa fa-picture-o"></i>SVG</a>
             <a href="SITIOS.htm"><i class="fa fa-globe"></i>SITIOS</a>
             <a href="FORM.htm"><i class="fa fa-file-text-o"></i>FORMULARIOS</a>
-            <a href="FUENTE.htm"><i class="fa fa-font"></i>FUENTES</a>
+            <a class="selected" id="selectedsidenav" href="FUENTE.htm"><i class="fa fa-font"></i>FUENTES</a>
             <hr />
             <a href="#" onclick="imprimir()"><i class="fa fa-print"></i>IMPRIMIR</a>
         </div>
@@ -48,82 +48,41 @@
                 <a href="CSS.htm"><i class="fa fa-css3"></i>CSS</a>
                 <a href="JAVASCRIPT.htm"><i class="fa fa-code"></i>JAVASCRIPT</a>
                 <a href="MEDIA.htm"><i class="fa fa-play"></i>MULTIMEDIA</a>
-                <a class="selected" id="selectednavbar" href="FILTROS.htm"><i class="fa fa-paint-brush"></i>FILTROS</a>
+                <a href="FILTROS.htm"><i class="fa fa-paint-brush"></i>FILTROS</a>
                 <a href="CANVAS.htm"><i class="fa fa-file-image-o"></i>CANVAS</a>
                 <a href="JUEGO.htm"><i class="fa fa-gamepad"></i>JUEGO</a>
                 <a href="SVG.htm"><i class="fa fa-picture-o"></i>SVG</a>
                 <a href="SITIOS.htm"><i class="fa fa-globe"></i>SITIOS</a>
                 <a href="FORM.htm"><i class="fa fa-file-text-o"></i>FORMULARIOS</a>
-                <a href="FUENTE.htm"><i class="fa fa-font"></i>FUENTES</a>
+                <a class="selected" id="selectednavbar" href="FUENTE.htm"><i class="fa fa-font"></i>FUENTES</a>
                 <span id="separador">|</span>
                 <a href="#" onclick="imprimir()"><i class="fa fa-print"></i>IMPRIMIR</a>
 
             </div>
         </div>
             <div class="main" id="main">
-                <button class="accordion" id="accordion">FILTROS<i id="folder" class="fa" aria-hidden="true"></i></button>
+                <button class="accordion" id="accordion">FUENTES<i id="folder" class="fa" aria-hidden="true"></i></button>
                 <div class="panel" id="panel">
                     <p>
-                        <i class="fa fa-paint-brush" aria-hidden="true"></i>
-                        La propiedad filter (filtro) de CSS3, define efectos visuales aplicados a un elemento, generalmente una imagen. 
-                        Algunos filtros son: brillo, contraste, escala de grises, sepia, opacidad, saturación, etc. 
-                        En esta página se usa una interfaz sencilla para aplicar diferentes filtros a una imagen.
+                        <i class="fa fa-font" aria-hidden="true"></i>
+                        Mediante CSS se pueden aplicar diferentes estilos al texto. Algunos ejemplos son: negrita, cursiva, tachado...  
+                        En esta página se usa una interfaz sencilla para aplicar diferentes estilos a un cuadro de texto.
                         <br />
                         <br />
                         <strong style="clear:left">Fragmento de código usado en esta página:</strong><br />
                     </p>
 
-<textarea readonly rows="9">
+<textarea readonly rows="6">
 ... 
-<option value="brightness(200%)">Brightness (200%)</option> 
-var x = document.getElementById("filtro").selectedIndex;
-var y = document.getElementById("filtro").options;
-// sintaxis estándar
-document.getElementById("myImg").style.filter = y[x].value;
-// Safari 6.0 - 9.0
-document.getElementById("myImg").style.WebkitFilter = y[x].value; 
+
 ...
 </textarea>
                     <i id="arrow" class="fa fa-angle-double-up" aria-hidden="true"></i>
                 </div>
-                <section>
-                    <article id="marcofiltros">
-                        <!--aplicando filtros-->
-                        <h2>Seleccione un filtro para aplicarlo a la imagen:</h2>
-                        <select id="filtro" onchange="AplicarFiltro()">
-                            <option value="none" selected>Ninguno</option>
-                            <option value="blur(5px)">Blur (5px)</option>
-                            <option value="brightness(200%)">Brightness (200%)</option>
-                            <option value="contrast(200%)">Contrast (200%)</option>
-                            <option value="drop-shadow(8px 8px 10px red)">Drop-Shadow (8px 8px 10px red)</option>
-                            <option value="grayscale(100%)">Grayscale (100%)</option>
-                            <option value="hue-rotate(90deg)">Hue-Rotate (90deg)</option>
-                            <option value="invert(100%)">Invert (100%)</option>
-                            <option value="opacity(30%)">Opacity (30%)</option>
-                            <option value="saturate(8)">Saturate (8)</option>
-                            <option value="sepia(100%)">Sepia (100%)</option>
-                            <option value="contrast(200%) brightness(150%)">Contrast (200%) Brightness (150%)</option>
-                        </select>
-                        <figure>
-                            <div class="centrar">
-                                <img alt="piña.jpg" src="piña.jpg" id="myImg" width="300" height="300" />
-                            </div>
-                            <figcaption>Imagen: piña.jpg</figcaption>
-                        </figure>
-                        <p><b>Nota:</b> Los filtros no son soportados en Internet Explorer, Edge 12, o Safari 5.1 y versiones anteriores.</p>
-                        <!--aplicar filtro al cambiar la selección-->
-                        <script type="text/javascript">
-                            function AplicarFiltro() {
-                                var x = document.getElementById("filtro").selectedIndex;
-                                var y = document.getElementById("filtro").options;
-                                // sintaxis estándar
-                                document.getElementById("myImg").style.filter = y[x].value;
-                                // Safari 6.0 - 9.0
-                                document.getElementById("myImg").style.WebkitFilter = y[x].value;
-                            }
-                        </script>
-                    </article>
-                </section>
+                
+                <!--FUENTES-->
+
+
                 <footer>
                     <p>Coded by @deiner_db</p>
                     <img id="miFoto" title="Deiner Domínguez" alt="Foto Deiner Domínguez" src="miFoto.jpg" width="1280" height="893" />
