@@ -12,7 +12,29 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="estilo.css" />
         <link rel="icon" href="favicon.ico" type="image/x-icon" />
-        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />                     
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <style>
+            .main{
+                height:100%;
+            }
+            .contenedor{                
+                overflow:auto;
+                max-height:60%;
+            }
+            .mitad {
+                height:50%;
+                min-height:100px;                 
+                max-height:400px;
+                margin:0;
+                overflow:auto;
+            }            
+            #mitadArriba{
+                background-color:lightskyblue;
+            }
+            #mitadAbajo {
+                background-color:lightgreen;
+            }
+        </style>
     </head>
     <body>
         <div id="mySidenav" class="sidenav">
@@ -79,10 +101,37 @@
 </textarea>
                     <i id="arrow" class="fa fa-angle-double-up" aria-hidden="true"></i>
                 </div>
-                
-                <!--FUENTES-->
-
-
+                <div class="contenedor">
+                    <!--Resultados-->
+                    <div class="mitad" id="mitadArriba">
+                        arriba
+                        <h1>This is a Heading</h1>
+                        <p>This is a paragraph.</p>
+                        <p>This is a paragraph.</p>
+                        <p>This is a paragraph.</p>
+                        <p>This is a paragraph.</p>
+                        <p>This is a paragraph.</p>
+                        <p>This is a paragraph.</p>
+                        <p>This is a paragraph.</p>
+                        <p>This is a paragraph.</p>
+                        <p>This is a paragraph.</p>
+                    </div>
+                    <!--Opciones-->
+                    <div class="mitad" id="mitadAbajo">
+                        abajo
+                        <h1>This is a Heading</h1>
+                        <p>This is a paragraph.</p>
+                        <p>This is a paragraph.</p>
+                        <p>This is a paragraph.</p>
+                        <p>This is a paragraph.</p>
+                        <p>This is a paragraph.</p>
+                        <p>This is a paragraph.</p>
+                        <p>This is a paragraph.</p>
+                        <p>This is a paragraph.</p>
+                        <p>This is a paragraph.</p>
+                        <p>This is a paragraph.</p>
+                    </div>
+                </div>
                 <footer>
                     <p>Coded by @deiner_db</p>
                     <img id="miFoto" title="Deiner Domínguez" alt="Foto Deiner Domínguez" src="miFoto.jpg" width="1280" height="893" />
