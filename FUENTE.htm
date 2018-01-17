@@ -37,12 +37,16 @@
             #mitadArriba {
                 max-height: 200px;
                 margin-bottom:2px;
+                margin-top:8px;
                                
             }
             #mitadAbajo {
                 background-color: lavender;
                 max-height: 250px;
                 margin-bottom:12px;
+            }
+            #mitadAbajo h2 {
+                margin: 2px;
             }
         </style>
     </head>
@@ -94,26 +98,48 @@
         </div>
             <div class="main" id="main">
 
-                <div class="contenedor">
+                <div class="contenedor">                    
                     <!--Resultados-->
-                    <div class="mitad" id="mitadArriba">
+                    <div id="mitadArriba" class="mitad" >
                         Esto es solo un texto de muestra: 
                         ¿Sabías que el número de permutaciones en el Cubo de Rubik 3x3 es de más de 43 trillones?
                     </div>
                     <!--Opciones-->
                     <div class="mitad" id="mitadAbajo">
-                        Aquí irán las opciones de estilo para el párrafo de arriba...
-                        <p>Opción</p>
-                        <p>Opción</p>
-                        <p>Opción</p>
-                        <p>Opción</p>
-                        <p>Opción</p>
-                        <p>Opción</p>
-                        <p>Opción</p>
-                        <p>Opción... etc</p>
+                        <h2>Seleccione las opciones de estilo:</h2>                        
+                        <form class="formulario">
+                            <input type="checkbox" name="negrita" value="negrita" id="negrita" onclick="alternarNegrita()" />
+                            <label for="negrita">Negrita</label><br />
+                            <input type="checkbox" name="cursiva" value="cursiva" id="cursiva" onclick="alternarCursiva()"/>
+                            <label for="cursiva">Cursiva</label><br />
+                        </form>
                     </div>
                 </div>
+                <!--cambios de estilo-->
+                <script>
 
+                    var miTexto = document.getElementById("mitadArriba");
+
+                    function alternarNegrita() {   
+                        if (document.getElementById("negrita").checked == true) {                                                      
+                            miTexto.style.fontWeight = "bold";                            
+                        }
+                        else {                            
+                            miTexto.style.fontWeight = "normal";
+                        }
+                    }
+
+                    function alternarCursiva() {
+                        if (document.getElementById("cursiva").checked == true) {
+                            miTexto.style.fontStyle = "italic";
+                        }
+                        else {
+                            miTexto.style.fontStyle = "normal";
+                        }
+                    }
+
+
+                </script>
                 <button class="accordion" id="accordion">FUENTES<i id="folder" class="fa" aria-hidden="true"></i></button>
                 <div class="panel" id="panel">
                     <p>
