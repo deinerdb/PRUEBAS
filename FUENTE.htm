@@ -29,24 +29,46 @@
                 margin: 0;
                 padding: 12px 10px;
                 overflow: auto;
+                
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
+                border-radius: 5px;
+
                 border-style: solid;
-                border-color: mediumpurple;
-                border-width: 1px;
+                border-color: purple;
+                border-width: 1.2px;
                 box-sizing: border-box;
             }
+            
             #mitadArriba {
                 max-height: 200px;
                 margin-bottom:2px;
                 margin-top:8px;
                                
             }
+
             #mitadAbajo {
-                background-color: lavender;
+                
+                background-color: #f2f2f2; /*gris para el fondo de form*/
+                padding: 20px 12px;
                 max-height: 250px;
-                margin-bottom:12px;
+                margin-bottom: 12px;
+
+                /*no se puede seleccionar el texto*/
+                -webkit-user-select: none; /* Chrome, Opera, Safari */
+                -moz-user-select: none; /* Firefox 2+ */
+                -ms-user-select: none; /* IE 10+ */
+                user-select: none; /* Standard syntax */
             }
+            
             #mitadAbajo h2 {
                 margin: 2px;
+                color:purple;
+            }
+            
+            .formulario {
+                font-size: 1.1em;
+                padding: 10px 8px;
             }
         </style>
     </head>
@@ -111,7 +133,18 @@
                             <input type="checkbox" name="negrita" value="negrita" id="negrita" onclick="alternarNegrita()" />
                             <label for="negrita">Negrita</label><br />
                             <input type="checkbox" name="cursiva" value="cursiva" id="cursiva" onclick="alternarCursiva()"/>
-                            <label for="cursiva">Cursiva</label><br />
+                            <label for="cursiva">Cursiva</label><br />                            
+                            <fieldset>
+                                <legend>Línea de decoracón de texto: </legend>                                
+                                <select name="decorar" id="decorar" onchange="decoraTexto()">
+                                    <option value="ninguna" selected>Ninguna</option>
+                                    <option value="subrayar">Subrayar</option>
+                                    <option value="tachar">Tachar</option>
+                                    <option value="arriba">Línea Arriba</option>
+                                </select>
+                            </fieldset>
+                            <input type="checkbox" name="indentar" value="indentar" id="indentar" onclick="alternarIndentar()" />
+                            <label for="indentar">Indentar (50 px)</label><br />
                         </form>
                     </div>
                 </div>
@@ -138,6 +171,34 @@
                         }
                     }
 
+                    function alternarIndentar() {
+                        if (document.getElementById("indentar").checked == true) {
+                            miTexto.style.textIndent = "50px";
+                        }
+                        else {
+                            miTexto.style.textIndent = "0";
+                        }
+                    }
+
+                    function decoraTexto() {
+                        var miDecorar = document.getElementById("decorar");
+                        switch (miDecorar.options.item(miDecorar.options.selectedIndex).value) {
+                            case "ninguna":
+                                miTexto.style.textDecoration = "none";
+                                break;
+                            case "subrayar":
+                                miTexto.style.textDecoration = "underline";
+                                break;
+                            case "tachar":
+                                miTexto.style.textDecoration = "line-through";
+                                break;
+                            case "arriba":
+                                miTexto.style.textDecoration = "overline";
+                                break;
+                        }
+
+                    }
+                    
 
                 </script>
                 <button class="accordion" id="accordion">FUENTES<i id="folder" class="fa" aria-hidden="true"></i></button>

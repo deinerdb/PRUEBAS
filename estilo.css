@@ -1395,7 +1395,7 @@ form {
 .formulario input:focus, #país:focus, .formulario select:focus, .formulario textarea:focus, #copyForm:focus {
     background-color: lavender !important;
 }
-.formulario input, #país, .formulario select, .formulario textarea, #copyForm {
+.formulario input, #país, .formulario select, .formulario textarea, #copyForm, .formulario fieldset {
     margin: 8px 0;
     /*para que el ancho sea real*/
     -moz-box-sizing: border-box;
@@ -1412,10 +1412,16 @@ form {
     padding: 12px 20px;
 }
 
-.formulario input[type=date], .formulario input[type=month] {
-    padding: 12px 20px;
-}
+    .formulario input[type=date], .formulario input[type=month] {
+        padding: 12px 20px;
+        min-width: 250px;
+        max-width: 100%;        
+    }
 
+    .formulario input[type=color] {
+        min-width: 100px;
+        max-width: 100%;
+    }
 .formulario select {
     border: none;
     background-color: #ffe6ff;
