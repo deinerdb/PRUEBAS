@@ -145,6 +145,24 @@
                             </fieldset>
                             <input type="checkbox" name="indentar" value="indentar" id="indentar" onclick="alternarIndentar()" />
                             <label for="indentar">Indentar (50 px)</label><br />
+                            <fieldset>
+                                <legend>Alineación del texto: </legend>
+                                <select name="alinear" id="alinear" onchange="alineaTexto()">
+                                    <option value="izquierda" selected>Alinear a la izquierda</option>
+                                    <option value="derecha">Alinear a la derecha</option>
+                                    <option value="centrar">Centrar</option>
+                                    <option value="justificar">Justificar</option>
+                                </select>
+                            </fieldset>
+                            <fieldset>
+                                <legend>Transformar (Mayúsculas): </legend>
+                                <select name="transformar" id="transformar" onchange="transformaTexto()">
+                                    <option value="ninguna" selected>No transformar</option>
+                                    <option value="mayúsculas">Mayúsculas</option>
+                                    <option value="minúsculas">Minúsculas</option>
+                                    <option value="capital">Mayúscula inicial</option>
+                                </select>
+                            </fieldset>
                         </form>
                     </div>
                 </div>
@@ -198,7 +216,44 @@
                         }
 
                     }
+
+                    function alineaTexto() {
+                        var miAlinear = document.getElementById("alinear");
+                        switch (miAlinear.options.item(miAlinear.options.selectedIndex).value) {
+                            case "izquierda":
+                                miTexto.style.textAlign = "left";
+                                break;
+                            case "derecha":
+                                miTexto.style.textAlign = "right";
+                                break;
+                            case "centrar":
+                                miTexto.style.textAlign = "center";
+                                break;
+                            case "justificar":
+                                miTexto.style.textAlign = "justify";
+                                break;
+                        }
+
+                    }
                     
+                    function transformaTexto() {
+                        var miTransforma = document.getElementById("transformar");
+                        switch (miTransforma.options.item(miTransforma.options.selectedIndex).value) {
+                            case "ninguna":
+                                miTexto.style.textTransform = "none";
+                                break;
+                            case "mayúsculas":
+                                miTexto.style.textTransform = "uppercase";
+                                break;
+                            case "minúsculas":
+                                miTexto.style.textTransform = "lowercase";
+                                break;
+                            case "capital":
+                                miTexto.style.textTransform = "capitalize";
+                                break;
+                        }
+
+                    }
 
                 </script>
                 <button class="accordion" id="accordion">FUENTES<i id="folder" class="fa" aria-hidden="true"></i></button>
@@ -212,9 +267,17 @@
                         <strong style="clear:left">Fragmento de código usado en esta página:</strong><br />
                     </p>
 
-<textarea readonly rows="6">
+<textarea readonly rows="11">
 ... 
-
+<input type="checkbox" name="negrita" value="negrita" id="negrita" onclick="alternarNegrita()" />
+function alternarNegrita() {   
+    if (document.getElementById("negrita").checked == true) {                                                      
+        miTexto.style.fontWeight = "bold";                            
+    }
+    else {                            
+        miTexto.style.fontWeight = "normal";
+    }
+}
 ...
 </textarea>
                     <i id="arrow" class="fa fa-angle-double-up" aria-hidden="true"></i>
