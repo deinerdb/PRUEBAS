@@ -48,12 +48,10 @@
             }
 
             #mitadAbajo {
-                
                 background-color: #f2f2f2; /*gris para el fondo de form*/
                 padding: 20px 12px;
-                max-height: 250px;
+                max-height: 280px;
                 margin-bottom: 12px;
-
                 /*no se puede seleccionar el texto*/
                 -webkit-user-select: none; /* Chrome, Opera, Safari */
                 -moz-user-select: none; /* Firefox 2+ */
@@ -133,7 +131,17 @@
                             <input type="checkbox" name="negrita" value="negrita" id="negrita" onclick="alternarNegrita()" />
                             <label for="negrita">Negrita</label><br />
                             <input type="checkbox" name="cursiva" value="cursiva" id="cursiva" onclick="alternarCursiva()"/>
-                            <label for="cursiva">Cursiva</label><br />                            
+                            <label for="cursiva">Cursiva</label><br />
+                            <input type="checkbox" name="indentar" value="indentar" id="indentar" onclick="alternarIndentar()" />
+                            <label for="indentar">Indentar (50 px)</label><br />
+                            <fieldset>
+                                <legend>Color de letra: </legend>
+                                <input type="color" name="colorletra" id="colorletra" onchange="colorTexto()"/><br />
+                            </fieldset>
+                            <fieldset>
+                                <legend>Color de fondo: </legend>
+                                <input type="color" name="colorfondo" id="colorfondo" value="#ffffff" onchange="colorearFondo()" /><br />
+                            </fieldset>
                             <fieldset>
                                 <legend>Línea de decoración de texto: </legend>                                
                                 <select name="decorar" id="decorar" onchange="decoraTexto()">
@@ -142,9 +150,7 @@
                                     <option value="tachar">Tachar</option>
                                     <option value="arriba">Línea Arriba</option>
                                 </select>
-                            </fieldset>
-                            <input type="checkbox" name="indentar" value="indentar" id="indentar" onclick="alternarIndentar()" />
-                            <label for="indentar">Indentar (50 px)</label><br />
+                            </fieldset>                            
                             <fieldset>
                                 <legend>Alineación del texto: </legend>
                                 <select name="alinear" id="alinear" onchange="alineaTexto()">
@@ -196,6 +202,18 @@
                         else {
                             miTexto.style.textIndent = "0";
                         }
+                    }
+
+                    function colorTexto() {
+                        
+                        miTexto.style.color = document.getElementById("colorletra").value;
+                        
+                    }
+
+                    function colorearFondo() {
+                                                
+                        miTexto.style.backgroundColor = document.getElementById("colorfondo").value;
+
                     }
 
                     function decoraTexto() {
