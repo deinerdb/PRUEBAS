@@ -39,12 +39,14 @@
                 border-width: 1.2px;
                 box-sizing: border-box;
             }
-            
+
             #mitadArriba {
                 max-height: 200px;
-                margin-bottom:2px;
-                margin-top:8px;
-                               
+                margin-bottom: 2px;
+                margin-top: 8px;
+                color: #000000;
+                background-color: #ffffff;
+                font-family: Arial, Helvetica, sans-serif;
             }
 
             #mitadAbajo {
@@ -136,11 +138,30 @@
                             <label for="indentar">Indentar (50 px)</label><br />
                             <fieldset>
                                 <legend>Color de letra: </legend>
-                                <input type="color" name="colorletra" id="colorletra" onchange="colorTexto()"/><br />
+                                <input type="color" name="colorletra" id="colorletra" value="#000000" onchange="colorTexto()"/><br />
                             </fieldset>
                             <fieldset>
                                 <legend>Color de fondo: </legend>
                                 <input type="color" name="colorfondo" id="colorfondo" value="#ffffff" onchange="colorearFondo()" /><br />
+                            </fieldset>
+                            <fieldset>
+                                <legend>Fuente: </legend>
+                                <select name="fuente" id="fuente" onchange="cambiaFuente()">
+                                    <option value="arial" style="font-family:Arial, Helvetica, sans-serif  ;" selected>Arial</option>
+                                    <option value="black" style="font-family:'Arial Black', Gadget, sans-serif  ;">Arial Black</option>
+                                    <option value="comic" style="font-family:'Comic Sans MS', cursive, sans-serif  ;">Comic Sans MS</option>
+                                    <option value="impact" style="font-family:Impact, Charcoal, sans-serif  ;">Impact</option>
+                                    <option value="sans" style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif  ;">Lucida Sans Unicode</option>
+                                    <option value="tahoma" style="font-family:Tahoma, Geneva, sans-serif  ;">Tahoma</option>
+                                    <option value="trebuchet" style="font-family:'Trebuchet MS', Helvetica, sans-serif  ;">Trebuchet MS</option>
+                                    <option value="verdana" style="font-family: Verdana, Geneva, sans-serif ;">Verdana</option>
+                                    <option value="courrier" style="font-family:'Courier New', Courier, monospace  ;">Courier New</option>
+                                    <option value="console" style="font-family:'Lucida Console', Monaco, monospace  ;">Lucida Console</option>
+                                    <option value="georgia" style="font-family:Georgia, serif  ;">Georgia</option>
+                                    <option value="palatino" style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, serif  ;">Palatino Linotype</option>
+                                    <option value="times" style="font-family:'Times New Roman', Times, serif  ;">Times New Roman</option>
+                                    <option value="transformers" style="font-family:transformersregular  ;">Transformers</option>
+                                </select>
                             </fieldset>
                             <fieldset>
                                 <legend>Línea de decoración de texto: </legend>                                
@@ -176,7 +197,7 @@
                 <script>
 
                     var miTexto = document.getElementById("mitadArriba");
-
+                                       
                     function alternarNegrita() {   
                         if (document.getElementById("negrita").checked == true) {                                                      
                             miTexto.style.fontWeight = "bold";                            
@@ -271,6 +292,56 @@
                                 break;
                         }
 
+                    }
+
+                    function cambiaFuente() {
+                        var miFuente = document.getElementById("fuente");
+                        switch (miFuente.options.item(miFuente.options.selectedIndex).value) {
+                            case "arial":
+                                miTexto.style.fontFamily = "Arial, Helvetica, sans-serif";
+                                break;
+                            case "black":
+                                miTexto.style.fontFamily = "'Arial Black', Gadget, sans-serif";
+                                break;
+                            case "comic":
+                                miTexto.style.fontFamily = "'Comic Sans MS', cursive, sans-serif";
+                                break;
+                            case "impact":
+                                miTexto.style.fontFamily = "Impact, Charcoal, sans-serif";
+                                break;
+                            case "sans":
+                                miTexto.style.fontFamily = "'Lucida Sans Unicode', 'Lucida Grande', sans-serif";
+                                break;
+                            case "tahoma":
+                                miTexto.style.fontFamily = "Tahoma, Geneva, sans-serif";
+                                break;
+                            case "trebuchet":
+                                miTexto.style.fontFamily = "'Trebuchet MS', Helvetica, sans-serif";
+                                break;
+                            case "verdana":
+                                miTexto.style.fontFamily = "Verdana, Geneva, sans-serif";
+                                break;
+                            case "courrier":
+                                miTexto.style.fontFamily = "'Courier New', Courier, monospace";
+                                break;
+                            case "console":
+                                miTexto.style.fontFamily = "'Lucida Console', Monaco, monospace";
+                                break;
+                            case "georgia":
+                                miTexto.style.fontFamily = "Georgia, serif";
+                                break;
+                            case "palatino":
+                                miTexto.style.fontFamily = "'Palatino Linotype', 'Book Antiqua', Palatino, serif";
+                                break;
+                            case "times":
+                                miTexto.style.fontFamily = "'Times New Roman', Times, serif";
+                                break;
+                            case "transformers":
+                                miTexto.style.fontFamily = "transformersregular";
+                                break;
+
+                        }
+                       
                     }
 
                 </script>
