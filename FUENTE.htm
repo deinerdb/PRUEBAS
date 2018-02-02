@@ -93,6 +93,11 @@
                 font-size: 1.1em;
                 padding: 10px 8px;
             }
+            #pFuente {
+                font-size: 1.1em;
+                font-family: 'Abel';
+                padding: 1px 1px 1px 12px;                
+            }
             #fuente {
                 font-size:1.2em;
                 font-family: 'Abel';
@@ -173,6 +178,10 @@
                             </fieldset>
                             <fieldset>
                                 <legend>Fuente (Google Fonts): </legend>
+                                <p id="pFuente" class="letramorada">
+                                    Abel
+                                </p>
+                                <button type="button" id="btnElegir">Elegir</button>
                                 <select name="fuente" id="fuente" onchange="cambiaFuente()">
                                     <option value="abel" style="font-family:'Abel';" selected>Abel</option>
                                     <option value="aclonica" style="font-family:'Aclonica';">Aclonica</option>
