@@ -102,10 +102,178 @@
                 max-width: 98%;
                 white-space: nowrap;
             }
+            /*
             #fuente {
                 font-size:1.2em;
                 font-family: 'Abel';
             }
+                */
+
+
+
+            /* The Modal (background) */
+            .modal {
+                display: none; /* Hidden by default */
+                position: fixed; /* Stay in place */
+                z-index: 450; /* Sit on top. ver la tabla de valores en el css */
+                padding-top: 100px; /* Location of the box */
+                left: 0;
+                top: 0;
+                width: 100%; /* Full width */
+                height: 100%; /* Full height */
+                overflow: auto; /* Enable scroll if needed */
+                background-color: rgb(0,0,0); /* Fallback color */
+                background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            }
+
+            /* Modal Content */
+            .modal-content {
+                position: relative;
+                background-color: white;
+                margin: auto;
+                padding: 0;
+                border: 1px solid #888;
+                width: 95%;
+                
+                -moz-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+                -webkit-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+                box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+                
+                -webkit-animation-name: animatetop;
+                -webkit-animation-duration: 0.4s;
+
+                -moz-animation-name: animatetop;
+                -moz-animation-duration: 0.4s;
+
+                -o-animation-name: animatetop;
+                -o-animation-duration: 0.4s;
+
+                animation-name: animatetop;
+                animation-duration: 0.4s;
+            }
+
+            /* Add Animation */
+            @-webkit-keyframes animatetop {
+                from {
+                    top: -300px;
+                    opacity: 0
+                }
+
+                to {
+                    top: 0;
+                    opacity: 1
+                }
+            }
+            @-moz-keyframes animatetop {
+                from {
+                    top: -300px;
+                    opacity: 0
+                }
+
+                to {
+                    top: 0;
+                    opacity: 1
+                }
+            }
+            @-o-keyframes animatetop {
+                from {
+                    top: -300px;
+                    opacity: 0
+                }
+
+                to {
+                    top: 0;
+                    opacity: 1
+                }
+            }
+            @keyframes animatetop {
+                from {
+                    top: -300px;
+                    opacity: 0
+                }
+
+                to {
+                    top: 0;
+                    opacity: 1
+                }
+            }
+
+            /* The Close Button */
+            .close {
+                color: white;
+                float: right;
+                font-size: 28px;                
+            }
+
+                .close:hover,
+                .close:focus {
+                    color: lavender;
+                    text-decoration: none;
+                    cursor: pointer;
+                    font-weight:bold;
+                    font-size:30px;
+                }
+
+            .modal-header {
+                padding: 2px 16px;
+                background-color: indigo;
+                color: white;
+            }
+
+            .modal-body {
+                padding: 2px 16px;
+                background-color: lavender; /* casi blanco*/
+                color: white;
+
+                white-space: nowrap; /*solo una línea cada link*/
+                max-width:100%;
+                overflow:auto;                
+                max-height:150px; /*puede ajustarse con javascript*/
+
+                -moz-transition: width 0.5s;
+                -o-transition: width 0.5s;
+                -webkit-transition: width 0.5s;
+                transition: width 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+                /*no se puede seleccionar el texto*/
+                -webkit-user-select: none; /* Chrome, Opera, Safari */
+                -moz-user-select: none; /* Firefox 2+ */
+                -ms-user-select: none; /* IE 10+ */
+                user-select: none; /* Standard syntax */
+            }
+
+                .modal-body a {
+                    padding: 10px 8px 10px 24px;
+                    text-decoration: none;
+                    cursor:pointer;
+                    font-size: 1.2em;
+                    color: purple;
+                    /*el seleccionado debe ser letra blanca siempre*/
+                    display: block;
+                    -o-transition: 0.2s;
+                    -moz-transition: 0.2s;
+                    -webkit-transition: 0.2s;
+                    transition: 0.2s;
+                    text-align: left;
+                    /*BORDE REDONDEADO*/
+                    -moz-border-radius: 15px;
+                    -webkit-border-radius: 15px;
+                    border-radius: 15px;
+                }
+                    .modal-body a:hover {
+                        background-color: rebeccapurple;
+                        color: white;
+                        /*el seleccionado debe ser letra blanca siempre*/
+                    }
+
+            .modal-footer {
+                padding: 2px 16px;
+                background-color: indigo;
+                color: white;
+            }
+                .modal-footer h4, .modal-header h2 {
+                    margin-top: 0.4em;
+                    margin-bottom: 0.4em;
+                }
         </style>
     </head>
     <body>
@@ -154,6 +322,46 @@
 
             </div>
         </div>
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <h2>Elegir fuente</h2>
+                </div>
+                <div class="modal-body">
+                    <a id="abel" onclick="cambiaFuente(this);"  style="font-family:'Abel';">Abel</a>
+                    <a id="aclonica" onclick="cambiaFuente(this);" style="font-family:'Aclonica';">Aclonica</a>
+                    <a id="akronim" onclick="cambiaFuente(this);"  style="font-family:'Akronim';">Akronim</a>
+                    <a id="amaranth" onclick="cambiaFuente(this);"  style="font-family:'Amaranth';">Amaranth</a>
+                    <a id="asset" onclick="cambiaFuente(this);"  style="font-family:'Asset';">Asset</a>
+                    <a id="bungee" onclick="cambiaFuente(this);"  style="font-family:'Bungee Shade';">Bungee Shade</a>
+                    <a id="cedarville" onclick="cambiaFuente(this);"  style="font-family:'Cedarville Cursive';">Cedarville Cursive</a>
+                    <a id="coming" onclick="cambiaFuente(this);"  style="font-family: 'Coming Soon';">Coming Soon</a>
+                    <a id="cookie" onclick="cambiaFuente(this);"  style="font-family:'Cookie';">Cookie</a>
+                    <a id="cutive" onclick="cambiaFuente(this);"  style="font-family:'Cutive Mono';">Cutive Mono</a>
+                    <a id="space" onclick="cambiaFuente(this);"  style="font-family:'Space Mono';">Space Mono</a>
+                    <a id="diplomata" onclick="cambiaFuente(this);"  style="font-family:'Diplomata';">Diplomata</a>
+                    <a id="eater" onclick="cambiaFuente(this);"  style="font-family:'Eater';">Eater</a>
+                    <a id="fascinate" onclick="cambiaFuente(this);"  style="font-family:'Fascinate Inline';">Fascinate Inline</a>
+                    <a id="geostar" onclick="cambiaFuente(this);"  style="font-family:'Geostar';">Geostar</a>
+                    <a id="judson" onclick="cambiaFuente(this);"  style="font-family:'Judson';">Judson</a>
+                    <a id="kumar" onclick="cambiaFuente(this);"  style="font-family:'Kumar One';">Kumar One</a>
+                    <a id="sofia" onclick="cambiaFuente(this);"  style="font-family:'Sofia';">Sofia</a>
+                    <a id="sedgwick" onclick="cambiaFuente(this);"  style="font-family:'Sedgwick Ave';">Sedgwick Ave</a>
+                    <a id="sriracha" onclick="cambiaFuente(this);"  style="font-family:'Sriracha';">Sriracha</a>
+                    <a id="girl" onclick="cambiaFuente(this);"  style="font-family:'The Girl Next Door';">The Girl Next Door</a>
+                    <a id="wallpoet" onclick="cambiaFuente(this);"  style="font-family:'Wallpoet';">Wallpoet</a>
+                    <a id="handlee" onclick="cambiaFuente(this);"  style="font-family:'Handlee';">Handlee</a>
+                </div>
+                <div class="modal-footer">
+                    <h4>Todas gratis en Google Fonts</h4>
+                </div>
+            </div>
+
+        </div>
             <div class="main" id="main">
 
                 <div class="contenedor">                    
@@ -186,6 +394,7 @@
                                     Abel
                                 </p>
                                 <button type="button" id="btnElegir">Elegir</button>
+                                <!--
                                 <select name="fuente" id="fuente" onchange="cambiaFuente()">
                                     <option value="abel" style="font-family:'Abel';" selected>Abel</option>
                                     <option value="aclonica" style="font-family:'Aclonica';">Aclonica</option>
@@ -211,6 +420,7 @@
                                     <option value="wallpoet" style="font-family:'Wallpoet';">Wallpoet</option>
                                     <option value="handlee" style="font-family:'Handlee';">Handlee</option>
                                 </select>
+                                    -->
                             </fieldset>
                             <fieldset>
                                 <legend>Línea de decoración de texto: </legend>                                
@@ -342,12 +552,40 @@
                         }
 
                     }
+                    //para el modal
+                    // Get the modal
+                    var modal = document.getElementById('myModal');
 
-                    function cambiaFuente() {
+                    // Get the button that opens the modal
+                    var btn = document.getElementById("btnElegir");
 
-                        var miFuente = document.getElementById("fuente");
+                    // Get the <span> element that closes the modal
+                    var span = document.getElementsByClassName("close")[0];
+
+                    // When the user clicks the button, open the modal 
+                    btn.onclick = function () {
+
+                        modal.style.display = "block";
+                    }
+
+                    // When the user clicks on <span> (x), close the modal
+                    span.onclick = function () {
+                        modal.style.display = "none";
+                    }
+
+                    // When the user clicks anywhere outside of the modal, close it
+                    window.onclick = function (event) {
+                        if (event.target == modal) {
+                            modal.style.display = "none";
+                        }
+                    }
+
+                    function cambiaFuente(actual) {
                         
-                        switch (miFuente.options.item(miFuente.options.selectedIndex).value) {
+                        var miFuente = document.getElementById("pFuente");
+                        
+                        //switch (miFuente.options.item(miFuente.options.selectedIndex).value) {
+                        switch (actual.id) {
                             case "abel":
                                 miTexto.style.fontFamily = "Abel";
                                 miFuente.style.fontFamily = "Abel";
@@ -443,9 +681,12 @@
 
 
                         }
-                       
+                        //muestra el nombre de la seleccionada
+                        miFuente.innerHTML = actual.innerHTML;
+                        //cierra cuando se selecciona una fuente
+                        modal.style.display = "none";
                     }
-
+                    
                 </script>
                 <button class="accordion" id="accordion">FUENTES<i id="folder" class="fa" aria-hidden="true"></i></button>
                 <div class="panel" id="panel">
