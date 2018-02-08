@@ -62,6 +62,11 @@
                 border-width: 1.2px;
                 box-sizing: border-box;
             }
+            
+            .modal-body .selected{
+                /*en  las demás se hace con el id*/
+                color:white !important;
+            }
 
             #mitadArriba {
                 /*max-height: 200px;*/
@@ -331,7 +336,7 @@
                     <h2>Elegir fuente</h2>
                 </div>
                 <div class="modal-body" id="modalBody">
-                    <a id="abel" onclick="cambiaFuente(this);"  style="font-family:'Abel';">Abel</a>
+                    <a class="selected" id="abel" onclick="cambiaFuente(this);"  style="font-family:'Abel';">Abel</a>
                     <a id="aclonica" onclick="cambiaFuente(this);" style="font-family:'Aclonica';">Aclonica</a>
                     <a id="akronim" onclick="cambiaFuente(this);"  style="font-family:'Akronim';">Akronim</a>
                     <a id="amaranth" onclick="cambiaFuente(this);"  style="font-family:'Amaranth';">Amaranth</a>
@@ -455,6 +460,7 @@
                 <script>
 
                     var miTexto = document.getElementById("mitadArriba");
+                    var fuenteActual = "abel";
                                        
                     function alternarNegrita() {   
                         if (document.getElementById("negrita").checked == true) {                                                      
@@ -607,14 +613,31 @@
                         h = 1 * (h - 18 - box.scrollHeight);
                         
                         arriba.style.height = h * 0.25 + "px";
-                        abajo.style.height = h * 0.75 + "px";
+                        abajo.style.height = h * 0.74 + "px";
                         
                     }
 
                     function cambiaFuente(actual) {
                         
                         var miFuente = document.getElementById("pFuente");
-                        
+
+                        //elimina la clase selected del anterior
+                        var element = document.getElementById(fuenteActual);
+                        element.className = element.className.replace(/\bselected\b/g, "");
+
+                        //hay una nueva fuente actual
+                        fuenteActual = actual.id;
+
+                        //agrega la clase selected al actual
+                        var name, arr;
+                        //element ya fue definido, ahora se refiere a la nueva
+                        element = document.getElementById(fuenteActual);
+                        name = "selected";
+                        arr = element.className.split(" ");
+                        if (arr.indexOf(name) == -1) {
+                            element.className += " " + name;
+                        }
+
                         //switch (miFuente.options.item(miFuente.options.selectedIndex).value) {
                         switch (actual.id) {
                             case "abel":
