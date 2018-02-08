@@ -42,16 +42,16 @@
             }
             .contenedor{                
                 overflow:auto;
-                max-height:70%;
+                /* max-height:70%;*/
             }
 
             .mitad {
-                height: 50%;
-                min-height: 80px;
+                /*height: 50%;*/
+                /*min-height: 80px;*/
                 max-width: 100%;
                 margin: 0;
                 padding: 12px 10px;
-                overflow: auto;
+                overflow: auto !important;
                 
                 -webkit-border-radius: 5px;
                 -moz-border-radius: 5px;
@@ -64,18 +64,18 @@
             }
 
             #mitadArriba {
-                max-height: 200px;
+                /*max-height: 200px;*/
                 margin-bottom: 2px;
                 margin-top: 8px;
                 color: #000000;
                 background-color: #ffffff;
-                font-family: 'Abel';
+                font-family: 'Abel';                
             }
 
             #mitadAbajo {
                 background-color: #f2f2f2; /*gris para el fondo de form*/
                 padding: 20px 12px;
-                max-height: 280px;
+                /*max-height: 280px;*/
                 margin-bottom: 12px;
                 /*no se puede seleccionar el texto*/
                 -webkit-user-select: none; /* Chrome, Opera, Safari */
@@ -591,6 +591,24 @@
                         // mejor define altura descontando título y footer.
                         h = 0.8 * (h - 30 - hd.scrollHeight - ft.scrollHeight);
                         bd.style.height = h + "px";
+                    }
+
+                    function alturaMitades() {
+                        var h = window.innerHeight
+                            || document.documentElement.clientHeight
+                            || document.body.clientHeight;
+                        //los dos div
+                        var arriba = document.getElementById("mitadArriba");
+                        var abajo = document.getElementById("mitadAbajo");
+                        // caja contenedora del navbar
+                        var box = document.getElementsByClassName("caja")[0];
+                        
+                        // mejor define altura descontando título y footer.
+                        h = 1 * (h - 18 - box.scrollHeight);
+                        
+                        arriba.style.height = h * 0.25 + "px";
+                        abajo.style.height = h * 0.75 + "px";
+                        
                     }
 
                     function cambiaFuente(actual) {

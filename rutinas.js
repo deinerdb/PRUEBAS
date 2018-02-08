@@ -151,7 +151,12 @@ window.onload = function () {
     //MEDIA
     if (typeof inicia == 'function') {
         inicia();
-    } 
+    }
+    //FUENTES
+    if (typeof alturaMitades == 'function') {
+        alturaMitades();
+    }
+    
 };
 
 
@@ -213,6 +218,7 @@ function ajustesResize() {
     //FUENTES
     if (typeof alturaModal == 'function') {
         alturaModal();
+        alturaMitades();
     } 
 }
 
