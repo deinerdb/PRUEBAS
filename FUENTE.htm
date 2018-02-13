@@ -74,7 +74,8 @@
                 margin-top: 8px;
                 color: #000000;
                 background-color: #ffffff;
-                font-family: 'Abel';                
+                font-family: 'Abel';
+                font-size:16px;
             }
 
             #mitadAbajo {
@@ -279,6 +280,42 @@
                     margin-bottom: 0.4em;
                 }
 
+            #rangoFuente {
+                border: none;
+            }
+
+            #aIzquierda {
+                font-size: 1.5em;
+                color: purple;
+                vertical-align: auto;                
+                min-width: 50%;
+                text-align: left;
+                display: inline-block;
+            }
+
+            #aDerecha {
+                font-size: 3em;
+                color: purple;
+                vertical-align: auto;
+                min-width: 50%;
+                text-align: right;
+                display:inline-block;
+            }
+            #divA {
+                width:100%;
+                white-space:nowrap;
+            }
+            #pPixeles {
+                font-size: 1.2em;
+                font-family: Tahoma, Arial, sans-serif;
+                padding: 1px 1px 1px 12px;
+                margin: 0px 0px 2px 0px;
+                overflow: auto;
+                max-width: 98%;
+                white-space: nowrap;
+                color:purple;
+            }
+
             /* INICIO CSS PARA INPUT RANGE PERSONALIZADO*/
             input[type=range] {
                 -webkit-appearance: none;
@@ -296,7 +333,7 @@
                     cursor: pointer;
                     animate: 0.2s;
                     box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
-                    background: #ac51b5;
+                    background: #9370DB;
                     border-radius: 25px;
                     border: 0px solid #000101;
                 }
@@ -307,14 +344,14 @@
                     height: 20px;
                     width: 39px;
                     border-radius: 7px;
-                    background: #65001c;
+                    background: #4B0082;
                     cursor: pointer;
                     -webkit-appearance: none;
                     margin-top: -3.6px;
                 }
 
                 input[type=range]:focus::-webkit-slider-runnable-track {
-                    background: #ac51b5;
+                    background: #7B68EE;
                 }
 
                 input[type=range]::-moz-range-track {
@@ -323,7 +360,7 @@
                     cursor: pointer;
                     animate: 0.2s;
                     box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
-                    background: #ac51b5;
+                    background: #9370DB;
                     border-radius: 25px;
                     border: 0px solid #000101;
                 }
@@ -334,7 +371,7 @@
                     height: 20px;
                     width: 39px;
                     border-radius: 7px;
-                    background: #65001c;
+                    background: #4B0082;
                     cursor: pointer;
                 }
 
@@ -350,14 +387,14 @@
                 }
 
                 input[type=range]::-ms-fill-lower {
-                    background: #ac51b5;
+                    background: #9370DB;
                     border: 0px solid #000101;
                     border-radius: 50px;
                     box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
                 }
 
                 input[type=range]::-ms-fill-upper {
-                    background: #ac51b5;
+                    background: #9370DB;
                     border: 0px solid #000101;
                     border-radius: 50px;
                     box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
@@ -369,16 +406,16 @@
                     height: 20px;
                     width: 39px;
                     border-radius: 7px;
-                    background: #65001c;
+                    background: #4B0082;
                     cursor: pointer;
                 }
 
                 input[type=range]:focus::-ms-fill-lower {
-                    background: #ac51b5;
+                    background: #7B68EE;
                 }
 
                 input[type=range]:focus::-ms-fill-upper {
-                    background: #ac51b5;
+                    background: #7B68EE;
                 }
                 /* FIN CSS PARA INPUT RANGE PERSONALIZADO*/
         </style>
@@ -528,10 +565,14 @@
                                     <option value="handlee" style="font-family:'Handlee';">Handlee</option>
                                 </select>
                                     -->
-                            </fieldset>
+                            </fieldset>                            
                             <fieldset>
                                 <legend>Tamaño del texto: </legend>
-                                
+                                <div id="divA">
+                                    <span id="aIzquierda">A</span><span id="aDerecha">A</span>
+                                </div>                               
+                                <input id="rangoFuente" type="range" min="8" max="48" value="16" />
+                                <p id="pPixeles">16 píxeles</p>
                             </fieldset> 
                             <fieldset>
                                 <legend>Línea de decoración de texto: </legend>                                
@@ -565,9 +606,24 @@
                 </div>
                 <!--cambios de estilo-->
                 <script>
-
+                    //el texto de ejemplo
                     var miTexto = document.getElementById("mitadArriba");
+                    //la fuente predeterminada
                     var fuenteActual = "abel";
+                    //el input range
+                    var slider = document.getElementById("rangoFuente");
+
+                    //tamaño cambia dinámicamente con el slider
+                    //input y change, redundantes por un bug en IE
+
+                    slider.oninput = function () {
+                        miTexto.style.fontSize = this.value + "px";
+                        document.getElementById("pPixeles").innerHTML = this.value + " píxeles";
+                    }
+                    slider.onchange = function () {
+                        miTexto.style.fontSize = this.value + "px";
+                        document.getElementById("pPixeles").innerHTML = this.value + " píxeles";
+                    }
                                        
                     function alternarNegrita() {   
                         if (document.getElementById("negrita").checked == true) {                                                      

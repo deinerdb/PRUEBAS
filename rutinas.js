@@ -154,7 +154,10 @@ window.onload = function () {
     }
     //FUENTES
     if (typeof alturaMitades == 'function') {
+        //se ajusta a la pantalla
         alturaMitades();
+        //forza el valor por defecto
+        document.getElementById("rangoFuente").value = 16;
     }
     
 };
