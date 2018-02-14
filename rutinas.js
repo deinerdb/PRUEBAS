@@ -221,6 +221,7 @@ function ajustesResize() {
     //FUENTES
     if (typeof alturaModal == 'function') {
         alturaModal();
+        alturaModalTexto();
         alturaMitades();
     } 
 }

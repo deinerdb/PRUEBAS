@@ -43,20 +43,20 @@
             .contenedor{                
                 overflow:auto;
                 /* max-height:70%;*/
+                position:relative;
             }
-
-            .mitad {
+            #modalBodyTexto {
+                margin:4px !important;
+            }
+            .mitad, #modalBodyTexto {
                 /*height: 50%;*/
                 /*min-height: 80px;*/
                 max-width: 100%;
                 margin: 0;
-                padding: 12px 10px;
                 overflow: auto !important;
-                
                 -webkit-border-radius: 5px;
                 -moz-border-radius: 5px;
                 border-radius: 5px;
-
                 border-style: solid;
                 border-color: purple;
                 border-width: 1.2px;
@@ -68,14 +68,21 @@
                 color:white !important;
             }
 
-            #mitadArriba {
+            #mitadArriba, #modalBodyTexto {
                 /*max-height: 200px;*/
                 margin-bottom: 2px;
-                margin-top: 8px;
+                margin-top: 16px;
                 color: #000000;
                 background-color: #ffffff;
                 font-family: 'Abel';
-                font-size:16px;
+                font-size: 16px;
+                padding: 12px 10px 12px 10px;
+                
+            }
+            
+            .contenedor h2 {
+                margin-left:12px;
+                color:purple;
             }
 
             #mitadAbajo {
@@ -203,7 +210,27 @@
                     opacity: 1
                 }
             }
-
+            #openFull {
+                position: absolute;
+                top: 8px;
+                right: 12px;                
+                background-color: rebeccapurple;
+                padding: 2px 6px;
+                font-size: 24px;
+                color: white;                
+                text-align: center;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+            }
+                #openFull:hover,
+                #openFull:focus {
+                    text-decoration: none;
+                    cursor: pointer;                    
+                    background: #8c53c6; /* For browsers that do not support gradients */
+                    background: -webkit-linear-gradient(left, #8c53c6, rebeccapurple); /* For Safari 5.1 to 6.0 */
+                    background: -o-linear-gradient(right, #8c53c6, rebeccapurple); /* For Opera 11.1 to 12.0 */
+                    background: -moz-linear-gradient(right, #8c53c6, rebeccapurple); /* For Firefox 3.6 to 15 */
+                    background: linear-gradient(to right, #8c53c6, rebeccapurple); /* Standard syntax (must be last) */
+                }
             /* The Close Button */
             .close {
                 color: white;
@@ -226,12 +253,13 @@
                 background-color: indigo;
                 color: white;
             }
-
+            #modalBody {
+                white-space: nowrap; /*solo una línea cada link*/
+                color: white;
+                background-color: lavender; /* casi blanco*/
+            }
             .modal-body {
                 padding: 2px 12px;
-                background-color: lavender; /* casi blanco*/
-                color: white;
-                white-space: nowrap; /*solo una línea cada link*/
                 max-width: 100%;
                 overflow: auto;
                 /*max-height:150px; puede ajustarse con javascript*/
@@ -275,7 +303,7 @@
                 background-color: indigo;
                 color: white;
             }
-                .modal-footer h4, .modal-header h2 {
+                .modal-footer h4, .modal-header h2, .contenedor h2 {
                     margin-top: 0.4em;
                     margin-bottom: 0.4em;
                 }
@@ -309,7 +337,7 @@
                 font-size: 1.2em;
                 font-family: Tahoma, Arial, sans-serif;
                 padding: 1px 1px 1px 12px;
-                margin: 0px 0px 2px 0px;
+                margin: 6px 0px 4px 0px;
                 overflow: auto;
                 max-width: 98%;
                 white-space: nowrap;
@@ -506,14 +534,33 @@
             </div>
 
         </div>
+        <!-- Texto de muestra en pantalla completa -->
+        <div id="myModalTexto" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content" id="modalContentTexto">
+                <div class="modal-header" id="modalHeaderTexto">
+                    <span class="close">&times;</span>
+                    <h2>Texto de muestra:</h2>
+                </div>
+                <div class="modal-body" id="modalBodyTexto">
+                    El Cubo de Rubik es un rompecabezas mecánico tridimensional inventado por el escultor y profesor de arquitectura húngaro Erno Rubik en 1974.
+                    El número de estados en un cubo 3x3 es de más de 43 trillones.
+                </div>                
+            </div>
+
+        </div>
             <div class="main" id="main">
 
-                <div class="contenedor">                    
+                <div class="contenedor">
+                    <h2>Texto de muestra:</h2> 
+                    <span id="openFull" title="Maximixar"><i class="fa fa-window-maximize" aria-hidden="true"></i></span>
                     <!--Resultados-->
-                    <div id="mitadArriba" class="mitad" >
-                        Esto es solo un texto de muestra: 
-                        ¿Sabías que el número de permutaciones en el Cubo de Rubik 3x3 es de más de 43 trillones?
+                    <div id="mitadArriba" class="mitad" >                        
+                        El Cubo de Rubik es un rompecabezas mecánico tridimensional inventado por el escultor y profesor de arquitectura húngaro Erno Rubik en 1974.
+                        El número de estados en un cubo 3x3 es de más de 43 trillones.
                     </div>
+                    
                     <!--Opciones-->
                     <div class="mitad" id="mitadAbajo">
                         <h2>Seleccione las opciones de estilo:</h2>                        
@@ -608,6 +655,9 @@
                 <script>
                     //el texto de ejemplo
                     var miTexto = document.getElementById("mitadArriba");
+                    //el texto de ejemplo en modal
+                    var miTextoFull = document.getElementById("modalBodyTexto");
+
                     //la fuente predeterminada
                     var fuenteActual = "abel";
                     //el input range
@@ -618,49 +668,58 @@
 
                     slider.oninput = function () {
                         miTexto.style.fontSize = this.value + "px";
+                        miTextoFull.style.fontSize = this.value + "px";
                         document.getElementById("pPixeles").innerHTML = this.value + " píxeles";
                     }
                     slider.onchange = function () {
                         miTexto.style.fontSize = this.value + "px";
+                        miTextoFull.style.fontSize = this.value + "px";
                         document.getElementById("pPixeles").innerHTML = this.value + " píxeles";
                     }
                                        
                     function alternarNegrita() {   
                         if (document.getElementById("negrita").checked == true) {                                                      
-                            miTexto.style.fontWeight = "bold";                            
+                            miTexto.style.fontWeight = "bold";
+                            miTextoFull.style.fontWeight = "bold";
                         }
                         else {                            
                             miTexto.style.fontWeight = "normal";
+                            miTextoFull.style.fontWeight = "normal";
                         }
                     }
 
                     function alternarCursiva() {
                         if (document.getElementById("cursiva").checked == true) {
                             miTexto.style.fontStyle = "italic";
+                            miTextoFull.style.fontStyle = "italic";
                         }
                         else {
                             miTexto.style.fontStyle = "normal";
+                            miTextoFull.style.fontStyle = "normal";
                         }
                     }
 
                     function alternarIndentar() {
                         if (document.getElementById("indentar").checked == true) {
                             miTexto.style.textIndent = "50px";
+                            miTextoFull.style.textIndent = "50px";
                         }
                         else {
                             miTexto.style.textIndent = "0";
+                            miTextoFull.style.textIndent = "0";
                         }
                     }
 
                     function colorTexto() {
                         
                         miTexto.style.color = document.getElementById("colorletra").value;
-                        
+                        miTextoFull.style.color = document.getElementById("colorletra").value;
                     }
 
                     function colorearFondo() {
                                                 
                         miTexto.style.backgroundColor = document.getElementById("colorfondo").value;
+                        miTextoFull.style.backgroundColor = document.getElementById("colorfondo").value;
 
                     }
 
@@ -669,15 +728,19 @@
                         switch (miDecorar.options.item(miDecorar.options.selectedIndex).value) {
                             case "ninguna":
                                 miTexto.style.textDecoration = "none";
+                                miTextoFull.style.textDecoration = "none";
                                 break;
                             case "subrayar":
                                 miTexto.style.textDecoration = "underline";
+                                miTextoFull.style.textDecoration = "underline";
                                 break;
                             case "tachar":
                                 miTexto.style.textDecoration = "line-through";
+                                miTextoFull.style.textDecoration = "line-through";
                                 break;
                             case "arriba":
                                 miTexto.style.textDecoration = "overline";
+                                miTextoFull.style.textDecoration = "overline";
                                 break;
                         }
 
@@ -688,15 +751,19 @@
                         switch (miAlinear.options.item(miAlinear.options.selectedIndex).value) {
                             case "izquierda":
                                 miTexto.style.textAlign = "left";
+                                miTextoFull.style.textAlign = "left";
                                 break;
                             case "derecha":
                                 miTexto.style.textAlign = "right";
+                                miTextoFull.style.textAlign = "right";
                                 break;
                             case "centrar":
                                 miTexto.style.textAlign = "center";
+                                miTextoFull.style.textAlign = "center";
                                 break;
                             case "justificar":
                                 miTexto.style.textAlign = "justify";
+                                miTextoFull.style.textAlign = "justify";
                                 break;
                         }
 
@@ -707,46 +774,75 @@
                         switch (miTransforma.options.item(miTransforma.options.selectedIndex).value) {
                             case "ninguna":
                                 miTexto.style.textTransform = "none";
+                                miTextoFull.style.textTransform = "none";
                                 break;
                             case "mayúsculas":
                                 miTexto.style.textTransform = "uppercase";
+                                miTextoFull.style.textTransform = "uppercase";
                                 break;
                             case "minúsculas":
                                 miTexto.style.textTransform = "lowercase";
+                                miTextoFull.style.textTransform = "lowercase";
                                 break;
                             case "capital":
                                 miTexto.style.textTransform = "capitalize";
+                                miTextoFull.style.textTransform = "capitalize";
                                 break;
                         }
 
                     }
                     //para el modal
+
                     // Get the modal
                     var modal = document.getElementById('myModal');
+                    // Get the modal texto
+                    var modalTexto = document.getElementById('myModalTexto');
 
                     // Get the button that opens the modal
                     var btn = document.getElementById("btnElegir");
+                    // Get the button that opens the modal Texto
+                    var btnTexto = document.getElementById("openFull");
+                    
 
                     // Get the <span> element that closes the modal
                     var span = document.getElementsByClassName("close")[0];
+                    // Get the <span> element that closes the modal
+                    var spanTexto = document.getElementsByClassName("close")[1];
 
-                    // When the user clicks the button, open the modal 
+
+                    // When the user clicks the button, open the modal
                     btn.onclick = function () {
                                                 
                         modal.style.display = "block";
                         alturaModal();
                         
                     }
+                    // When the user clicks the button Texto, open the modal Texto
+                    btnTexto.onclick = function () {
+
+                        modalTexto.style.display = "block";
+                        alturaModalTexto();
+
+                    }
+
 
                     // When the user clicks on <span> (x), close the modal
                     span.onclick = function () {
                         modal.style.display = "none";
                     }
+                    // When the user clicks on <span> (x), close the modal Texto
+                    spanTexto.onclick = function () {
+                        modalTexto.style.display = "none";
+                    }
+
 
                     // When the user clicks anywhere outside of the modal, close it
                     window.onclick = function (event) {
                         if (event.target == modal) {
                             modal.style.display = "none";
+                        }
+                        if (event.target == modalTexto) {
+                            modalTexto.style.display = "none";
                         }
                     }
 
@@ -762,6 +858,17 @@
                         bd.style.height = h + "px";
                     }
 
+                    function alturaModalTexto() {
+                        var h = window.innerHeight
+                            || document.documentElement.clientHeight
+                            || document.body.clientHeight;
+                        var bd = document.getElementById("modalBodyTexto");                        
+                        var hd = document.getElementById("modalHeaderTexto");
+                        // mejor define altura descontando título.
+                        h = 0.75 * (h - 40 - hd.scrollHeight);
+                        bd.style.height = h + "px";
+                    }
+
                     function alturaMitades() {
                         var h = window.innerHeight
                             || document.documentElement.clientHeight
@@ -773,10 +880,10 @@
                         var box = document.getElementsByClassName("caja")[0];
                         
                         // mejor define altura descontando otros elementos.
-                        h = 1 * (h - 20 - box.scrollHeight);
+                        h = 1 * (h - 46 - box.scrollHeight);
                         
-                        arriba.style.height = h * 0.25 + "px";
-                        abajo.style.height = h * 0.73 + "px";
+                        arriba.style.height = h * 0.28 + "px";
+                        abajo.style.height = h * 0.68 + "px";
                         
                     }
 
@@ -898,6 +1005,8 @@
 
 
                         }
+                        //el clon modal también cambia
+                        miTextoFull.style.fontFamily = miTexto.style.fontFamily;
                         //muestra el nombre de la seleccionada
                         miFuente.innerHTML = actual.innerHTML;
                         //cierra cuando se selecciona una fuente
