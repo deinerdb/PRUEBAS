@@ -640,12 +640,13 @@
                                 </select>
                             </fieldset>
                             <fieldset>
-                                <legend>Transformar (Mayúsculas): </legend>
+                                <legend>Mayúsculas: </legend>
                                 <select name="transformar" id="transformar" onchange="transformaTexto()">
-                                    <option value="ninguna" selected>No transformar</option>
+                                    <option value="ninguna" selected>Texto normal</option>
                                     <option value="mayúsculas">Mayúsculas</option>
                                     <option value="minúsculas">Minúsculas</option>
                                     <option value="capital">Mayúscula inicial</option>
+                                    <option value="versalitas">Versalitas</option>
                                 </select>
                             </fieldset>
                         </form>
@@ -775,18 +776,32 @@
                             case "ninguna":
                                 miTexto.style.textTransform = "none";
                                 miTextoFull.style.textTransform = "none";
+                                miTexto.style.fontVariant = "normal";
+                                miTextoFull.style.fontVariant = "normal";
                                 break;
                             case "mayúsculas":
                                 miTexto.style.textTransform = "uppercase";
                                 miTextoFull.style.textTransform = "uppercase";
+                                miTexto.style.fontVariant = "normal";
+                                miTextoFull.style.fontVariant = "normal";
                                 break;
                             case "minúsculas":
                                 miTexto.style.textTransform = "lowercase";
                                 miTextoFull.style.textTransform = "lowercase";
+                                miTexto.style.fontVariant = "normal";
+                                miTextoFull.style.fontVariant = "normal";
                                 break;
                             case "capital":
                                 miTexto.style.textTransform = "capitalize";
                                 miTextoFull.style.textTransform = "capitalize";
+                                miTexto.style.fontVariant = "normal";
+                                miTextoFull.style.fontVariant = "normal";
+                                break;
+                            case "versalitas":                                
+                                miTexto.style.fontVariant = "small-caps";
+                                miTextoFull.style.fontVariant = "small-caps";
+                                miTexto.style.textTransform = "none";
+                                miTextoFull.style.textTransform = "none";
                                 break;
                         }
 
