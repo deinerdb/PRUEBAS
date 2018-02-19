@@ -156,8 +156,17 @@ window.onload = function () {
     if (typeof alturaMitades == 'function') {
         //se ajusta a la pantalla
         alturaMitades();
-        //forza el valor por defecto
+        //forza el valor por defecto fuente rango
         document.getElementById("rangoFuente").value = 16;
+        //forza los demás valores
+        document.getElementById("negrita").checked = false;
+        document.getElementById("cursiva").checked = false;
+        document.getElementById("indentar").checked = false;
+        document.getElementById("colorletra").value = "#000000";
+        document.getElementById("colorfondo").value = "#ffffff";
+        document.getElementById("decorar").value = "ninguna";
+        document.getElementById("alinear").value = "izquierda";
+        document.getElementById("transformar").value = "ninguna";
     }
     
 };
