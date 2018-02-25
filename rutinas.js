@@ -167,6 +167,8 @@ window.onload = function () {
         document.getElementById("decorar").value = "ninguna";
         document.getElementById("alinear").value = "izquierda";
         document.getElementById("transformar").value = "ninguna";
+        document.getElementById("sinsombra").checked = true;        
+        document.getElementById("divsombra").style.display = "none";
     }
     
 };

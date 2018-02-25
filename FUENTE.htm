@@ -84,6 +84,7 @@
                 text-align: left;
                 text-transform: none;
                 font-variant: normal;
+                text-shadow : none;
                 
             }
             
@@ -122,6 +123,17 @@
                 max-width: 98%;
                 white-space: nowrap;
             }
+            #colorsombra{
+                margin-left:18px;
+            }
+            .pSombra {
+                padding: 1px 1px 1px 18px;
+                margin: 3px 0px 3px 0px;
+                overflow: auto;
+                max-width: 98%;
+                white-space: nowrap;
+            }
+            
             /*
             #fuente {
                 font-size:1.2em;
@@ -591,34 +603,7 @@
                                 <p id="pFuente" class="letramorada">
                                     Abel
                                 </p>
-                                <button type="button" id="btnElegir" title="Presione para elegir fuente">Elegir</button>
-                                <!--
-                                <select name="fuente" id="fuente" onchange="cambiaFuente()">
-                                    <option value="abel" style="font-family:'Abel';" selected>Abel</option>
-                                    <option value="aclonica" style="font-family:'Aclonica';">Aclonica</option>
-                                    <option value="akronim" style="font-family:'Akronim';">Akronim</option>
-                                    <option value="amaranth" style="font-family:'Amaranth';">Amaranth</option>
-                                    <option value="asset" style="font-family:'Asset';">Asset</option>
-                                    <option value="bungee" style="font-family:'Bungee Shade';">Bungee Shade</option>
-                                    <option value="cedarville" style="font-family:'Cedarville Cursive';">Cedarville Cursive</option>
-                                    <option value="coming" style="font-family: 'Coming Soon';">Coming Soon</option>
-                                    <option value="cookie" style="font-family:'Cookie';">Cookie</option>
-                                    <option value="cutive" style="font-family:'Cutive Mono';">Cutive Mono</option>
-                                    <option value="space" style="font-family:'Space Mono';">Space Mono</option>
-                                    <option value="diplomata" style="font-family:'Diplomata';">Diplomata</option>
-                                    <option value="eater" style="font-family:'Eater';">Eater</option>
-                                    <option value="fascinate" style="font-family:'Fascinate Inline';">Fascinate Inline</option>
-                                    <option value="geostar" style="font-family:'Geostar';">Geostar</option>
-                                    <option value="judson" style="font-family:'Judson';">Judson</option>
-                                    <option value="kumar" style="font-family:'Kumar One';">Kumar One</option>
-                                    <option value="sofia" style="font-family:'Sofia';">Sofia</option>
-                                    <option value="sedgwick" style="font-family:'Sedgwick Ave';">Sedgwick Ave</option>
-                                    <option value="sriracha" style="font-family:'Sriracha';">Sriracha</option>
-                                    <option value="girl" style="font-family:'The Girl Next Door';">The Girl Next Door</option>
-                                    <option value="wallpoet" style="font-family:'Wallpoet';">Wallpoet</option>
-                                    <option value="handlee" style="font-family:'Handlee';">Handlee</option>
-                                </select>
-                                    -->
+                                <button type="button" id="btnElegir" title="Presione para elegir fuente">Elegir</button>                                
                             </fieldset>                            
                             <fieldset>
                                 <legend>Tamaño del texto: </legend>
@@ -656,6 +641,20 @@
                                     <option value="versalitas">Versalitas</option>
                                 </select>
                             </fieldset>
+                            <fieldset>
+                                <legend>Sombra del texto: </legend>
+                                <input type="radio" name="sombra" id="sinsombra" value="sinsombra" />
+                                <label for="sinsombra">Ninguna</label><br />
+                                <input type="radio" name="sombra" id="consombra" value="consombra" />
+                                <label for="consombra">Personalizada</label> <br />                                
+                                <div id="divsombra">
+                                    <p class="pSombra">Color de sombra:</p>
+                                    <input type="color" name="colorsombra" id="colorsombra" value="#000000" onchange="definirSombra()" /><br />
+                                    <p class="pSombra">Posición horizontal:</p>
+                                    <p class="pSombra">Posición vertical:</p>
+                                    <p class="pSombra">Difuminado (blur):</p>
+                                </div>
+                            </fieldset>
                         </form>
                     </div>
                 </div>
@@ -670,6 +669,18 @@
                     var fuenteActual = "abel";
                     //el input range
                     var slider = document.getElementById("rangoFuente");
+                    
+                    // SOMBRA
+
+                    // X
+                    var xSombra = 0;
+                    //Y
+                    var ySombra = 0;
+                    // Blur
+                    var blurSombra = 0;
+                    var optionSinSombra = document.getElementById("sinsombra");
+                    var optionConSombra = document.getElementById("consombra");
+                   
 
                     //tamaño cambia dinámicamente con el slider
                     //input y change, redundantes por un bug en IE
@@ -684,7 +695,47 @@
                         miTextoFull.style.fontSize = this.value + "px";
                         document.getElementById("pPixeles").innerHTML = this.value + " píxeles";
                     }
-                                       
+
+                    optionSinSombra.onclick = function () {                                               
+                        if (optionSinSombra.checked == true) {
+                            //desactiva todo
+                            definirActivo(false);
+                        }
+                        else {
+                            //activa todo
+                            definirActivo(true);
+                            definirSombra;
+                        }
+                    }
+                    optionConSombra.onclick = function () {                        
+                        if (optionSinSombra.checked == true) {
+                            //desactiva todo
+                            definirActivo(false);
+                        }
+                        else {
+                            //activa todo
+                            definirActivo(true);
+                            //definirSombra;
+                        }
+                    }
+                    function definirActivo(activo) {
+                       
+                        if (activo == true) {
+                            document.getElementById("divsombra").style.display = "block";                            
+                        }
+                        else {                           
+                            document.getElementById("divsombra").style.display = "none";                            
+                        }
+                    }
+
+                    function definirSombra() {
+                        var miSombra;
+                        miSombra = xSombra + "px " + ySombra + "px " + blurSombra + "px " + document.getElementById("colorsombra").value
+                        //alert(miSombra);
+                        miTexto.style.textShadow = miSombra;
+                        miTextoFull.style.textShadow = miSombra;
+                    }  
+                    
                     function alternarNegrita() {   
                         if (document.getElementById("negrita").checked == true) {                                                      
                             miTexto.style.fontWeight = "bold";
