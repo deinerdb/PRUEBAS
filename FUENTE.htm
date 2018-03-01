@@ -327,7 +327,7 @@
                     margin-bottom: 0.4em;
                 }
 
-            #rangoFuente {
+            #rangoFuente, #rangoxsombra, #rangoysombra, #rangoblursombra {
                 border: none;
             }
 
@@ -649,11 +649,15 @@
                                 <label for="consombra">Personalizada</label> <br />                                
                                 <div id="divsombra">
                                     <p class="pSombra">Color de sombra:</p>
-                                    <input type="color" name="colorsombra" id="colorsombra" value="#000000" onchange="definirSombra()" /><br />
+                                    <input type="color" name="colorsombra" id="colorsombra" value="#000000"/><br />
                                     <p class="pSombra">Posición horizontal:</p>
+                                    <input id="rangoxsombra" type="range" min="-48" max="48" value="0" />
                                     <p class="pSombra">Posición vertical:</p>
+                                    <input id="rangoysombra" type="range" min="-48" max="48" value="0" />
                                     <p class="pSombra">Difuminado (blur):</p>
+                                    <input id="rangoblursombra" type="range" min="0" max="48" value="0" />
                                 </div>
+                                <p><b>Nota:</b> Internet Explorer 9 y versiones anteriores no soportan sombra de texto.</p>
                             </fieldset>
                         </form>
                     </div>
@@ -667,9 +671,19 @@
 
                     //la fuente predeterminada
                     var fuenteActual = "abel";
-                    //el input range
+                    //el input range fuente
                     var slider = document.getElementById("rangoFuente");
-                    
+
+                    //el input range sombra x
+                    var sliderxsombra = document.getElementById("rangoxsombra");
+                    //el input range sombra y
+                    var sliderysombra = document.getElementById("rangoysombra");
+                    //el input range sombra blur
+                    var sliderblursombra = document.getElementById("rangoblursombra");
+
+                    var micolorsombra = document.getElementById("colorsombra");
+
+
                     // SOMBRA
 
                     // X
@@ -680,6 +694,7 @@
                     var blurSombra = 0;
                     var optionSinSombra = document.getElementById("sinsombra");
                     var optionConSombra = document.getElementById("consombra");
+                    var movido = false;
                    
 
                     //tamaño cambia dinámicamente con el slider
@@ -696,6 +711,48 @@
                         document.getElementById("pPixeles").innerHTML = this.value + " píxeles";
                     }
 
+                    //sombra cambia dinámicamente con los sliders
+                    //input y change, redundantes por un bug en IE
+                    micolorsombra.oninput = function () {
+                        definirSombra(true);
+                        document.getElementsByClassName("pSombra")[0].innerHTML = "Color de sombra: " + micolorsombra.value;
+                    }
+                    micolorsombra.onchange = function () {
+                        definirSombra(true);
+                        document.getElementsByClassName("pSombra")[0].innerHTML = "Color de sombra: " + micolorsombra.value;
+                    }
+
+                    sliderxsombra.oninput = function () {
+                        definirSombra(true);
+                        document.getElementsByClassName("pSombra")[1].innerHTML = "Posición horizontal: " + sliderxsombra.value + " px";
+                    }
+                    sliderxsombra.onchange = function () {
+                        definirSombra(true);
+                        document.getElementsByClassName("pSombra")[1].innerHTML = "Posición horizontal: " + sliderxsombra.value + " px";
+                    }
+
+
+                    sliderysombra.oninput = function () {
+                        definirSombra(true);
+                        document.getElementsByClassName("pSombra")[2].innerHTML = "Posición vertical: " + sliderysombra.value + " px";
+                    }
+                    sliderysombra.onchange = function () {
+                        definirSombra(true);
+                        document.getElementsByClassName("pSombra")[2].innerHTML = "Posición vertical: " + sliderysombra.value + " px";
+                    }
+
+
+                    sliderblursombra.oninput = function () {
+                        definirSombra(true);
+                        document.getElementsByClassName("pSombra")[3].innerHTML = "Difuminado (blur): " + sliderblursombra.value + " px";
+                    }
+                    sliderblursombra.onchange = function () {
+                        definirSombra(true);
+                        document.getElementsByClassName("pSombra")[3].innerHTML = "Difuminado (blur): " + sliderblursombra.value + " px";
+                    }
+
+
+
                     optionSinSombra.onclick = function () {                                               
                         if (optionSinSombra.checked == true) {
                             //desactiva todo
@@ -703,8 +760,7 @@
                         }
                         else {
                             //activa todo
-                            definirActivo(true);
-                            definirSombra;
+                            definirActivo(true);                            
                         }
                     }
                     optionConSombra.onclick = function () {                        
@@ -714,23 +770,42 @@
                         }
                         else {
                             //activa todo
-                            definirActivo(true);
-                            //definirSombra;
+                            definirActivo(true); 
+                              
                         }
                     }
                     function definirActivo(activo) {
                        
                         if (activo == true) {
-                            document.getElementById("divsombra").style.display = "block";                            
+                            document.getElementById("divsombra").style.display = "block";
+                            definirSombra(true);                            
+                            //para que vea un poco más de las opciones
+                            if (movido == false) {
+                                var abajo = document.getElementById("mitadAbajo");
+                                abajo.scrollTop = abajo.scrollTop + 100;
+                                movido = true;
+                            }
                         }
                         else {                           
-                            document.getElementById("divsombra").style.display = "none";                            
+                            document.getElementById("divsombra").style.display = "none";
+                            definirSombra(false);
+                            movido = false;
+                            
                         }
                     }
 
-                    function definirSombra() {
+                    function definirSombra(consombra) {
                         var miSombra;
-                        miSombra = xSombra + "px " + ySombra + "px " + blurSombra + "px " + document.getElementById("colorsombra").value
+                        xSombra = document.getElementById("rangoxsombra").value;
+                        ySombra = document.getElementById("rangoysombra").value;
+                        blurSombra = document.getElementById("rangoblursombra").value;
+
+                        if (consombra == true) {
+                            miSombra = xSombra + "px " + ySombra + "px " + blurSombra + "px " + document.getElementById("colorsombra").value
+                        } else {
+                            miSombra = "none";
+                        }
+                        
                         //alert(miSombra);
                         miTexto.style.textShadow = miSombra;
                         miTextoFull.style.textShadow = miSombra;

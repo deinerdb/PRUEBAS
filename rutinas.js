@@ -169,6 +169,15 @@ window.onload = function () {
         document.getElementById("transformar").value = "ninguna";
         document.getElementById("sinsombra").checked = true;        
         document.getElementById("divsombra").style.display = "none";
+        document.getElementById("colorsombra").value = "#000000";
+        document.getElementById("rangoxsombra").value = 0;
+        document.getElementById("rangoysombra").value = 0;
+        document.getElementById("rangoblursombra").value = 0;
+        document.getElementsByClassName("pSombra")[0].innerHTML = "Color de sombra: #000000";
+        document.getElementsByClassName("pSombra")[1].innerHTML = "Posición horizontal: 0 px";
+        document.getElementsByClassName("pSombra")[2].innerHTML = "Posición vertical: 0 px";
+        document.getElementsByClassName("pSombra")[3].innerHTML = "Difuminado (blur): 0 px";
+
     }
     
 };
