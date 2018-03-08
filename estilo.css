@@ -1380,7 +1380,7 @@ form {
     border-color: lightslategray;
     margin: 8px;    
 }
-#copyForm, #btnElegir {
+#copyForm, #btnElegir, #btnCopiar, #btnCalcular {
     margin-left: 12px !important;
 }
 
@@ -1392,10 +1392,10 @@ form {
     padding: 20px;
 }
 
-.formulario input:focus, #país:focus, .formulario select:focus, .formulario textarea:focus, #copyForm:focus, #btnElegir:focus {
+.formulario input:focus, #país:focus, .formulario select:focus, .formulario textarea:focus, #copyForm:focus, #btnElegir:focus, #btnCopiar:focus, #btnCalcular:focus {
     background-color: lavender !important;
 }
-.formulario input, #país, .formulario select, .formulario textarea, #copyForm, .formulario fieldset, #btnElegir {
+.formulario input, #país, .formulario select, .formulario textarea, #copyForm, .formulario fieldset, #btnElegir , #btnCopiar , #btnCalcular {
     margin: 8px 0;
     /*para que el ancho sea real*/
     -moz-box-sizing: border-box;
@@ -1428,7 +1428,7 @@ form {
     background-color: #ffe6ff;
 }
 
-.formulario input[type=button], .formulario input[type=submit], .formulario input[type=reset], #copyForm, #btnElegir {
+.formulario input[type=button], .formulario input[type=submit], .formulario input[type=reset], #copyForm, #btnElegir, #btnCopiar, #btnCalcular {
     background-color: rebeccapurple;
     border: none;
     color: white;
@@ -1437,7 +1437,7 @@ form {
     margin: 4px 2px;
     cursor: pointer;
 }
-    .formulario input[type=button]:hover, .formulario input[type=submit]:hover, .formulario input[type=reset]:hover, #copyForm:hover, #btnElegir:hover {
+    .formulario input[type=button]:hover, .formulario input[type=submit]:hover, .formulario input[type=reset]:hover, #copyForm:hover, #btnElegir:hover, #btnCopiar:hover, #btnCalcular:hover {
         background: #8c53c6; /* For browsers that do not support gradients */
         background: -webkit-linear-gradient(left, #8c53c6, rebeccapurple); /* For Safari 5.1 to 6.0 */
         background: -o-linear-gradient(right, #8c53c6, rebeccapurple); /* For Opera 11.1 to 12.0 */
@@ -1445,7 +1445,7 @@ form {
         background: linear-gradient(to right, #8c53c6, rebeccapurple); /* Standard syntax (must be last) */
         color: white !important;
     }
-    .formulario input[type=button]:focus, .formulario input[type=submit]:focus, .formulario input[type=reset]:focus, #copyForm:focus, #btnElegir:focus {
+    .formulario input[type=button]:focus, .formulario input[type=submit]:focus, .formulario input[type=reset]:focus, #copyForm:focus, #btnElegir:focus, #btnCopiar:focus, #btnCalcular:focus {
         color: purple;
     }
 

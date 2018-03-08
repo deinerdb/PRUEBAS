@@ -8,7 +8,7 @@
         <meta name="theme-color" content="#663399" />
         <!-- Windows Phone -->
         <meta name="msapplication-navbutton-color" content="#663399" />
-        <title>IMC (ÍNDICE DE MASA CORPORAL)</title>
+        <title>IMC - ÍNDICE DE MASA CORPORAL</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="estilo.css" />
         
@@ -113,8 +113,19 @@
                     </fieldset>
                     <fieldset>
                         <legend>Resultados: </legend>
-                        
+                        <label for="imc">IMC:</label> <br />
+                        <input type="text" name="imc" id="imc" disabled /><br />
+                        <label for="valoración">Valoración:</label> <br />
+                        <input type="text" name="valoración" id="valoración" disabled /><br />
+                        <label for="min">Peso Ideal Mínimo (Kg):</label> <br />
+                        <input type="text" name="min" id="min" disabled /><br />
+                        <label for="promedio">Peso Ideal Promedio (Kg):</label> <br />
+                        <input type="text" name="promedio" id="promedio" disabled /><br />
+                        <label for="max">Peso Ideal Máximo (Kg):</label> <br />
+                        <input type="text" name="max" id="max" disabled /><br />
                     </fieldset>
+                    <button type="button" id="btnCopiar" title="Copiar resultados">Copiar</button>
+                    <button type="button" id="btnCalcular" title="Calcular IMC">Calcular</button>
                 </form>
 
 
