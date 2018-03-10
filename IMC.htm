@@ -111,6 +111,8 @@
                         <label for="estatura">Estatura (Metros):</label> <br />
                         <input type="number" name="estatura" id="estatura" placeholder="Ingrese su estatura" min="0" max="3" maxlength="4" step="0.01" /><br />
                     </fieldset>
+                    <button type="button" id="btnCopiar" title="Copiar resultados">Copiar</button>
+                    <button type="button" id="btnCalcular" title="Calcular IMC">Calcular</button>
                     <fieldset>
                         <legend>Resultados: </legend>
                         <label for="imc">IMC:</label> <br />
@@ -124,14 +126,45 @@
                         <label for="max">Peso Ideal Máximo (Kg):</label> <br />
                         <input type="text" name="max" id="max" disabled /><br />
                     </fieldset>
-                    <button type="button" id="btnCopiar" title="Copiar resultados">Copiar</button>
-                    <button type="button" id="btnCalcular" title="Calcular IMC">Calcular</button>
+                    
                 </form>
 
 
                     <!--CÁLCULOS-->
                     <script>
+                        //obtiene referencias
 
+                        var imputPeso = document.getElementById("peso");
+                        var imputEstatura = document.getElementById("estatura");
+
+                        var imputIMC = document.getElementById("imc");
+                        var imputValoración = document.getElementById("valoración");
+                        var imputMin = document.getElementById("min");
+                        var imputPromedio = document.getElementById("promedio");
+                        var imputMax = document.getElementById("max");
+
+                        //borra todo
+                        function borrarResultados() {
+                            imputIMC.value = "";
+                            imputValoración.value = "";
+                            imputMin.value = "";
+                            imputPromedio.value = "";
+                            imputMax.value = "";
+                            
+                        }
+
+                        imputPeso.oninput = function () {
+                            borrarResultados();
+                        }
+                        imputPeso.onchange = function () {
+                            borrarResultados();
+                        }
+                        imputEstatura.oninput = function () {
+                            borrarResultados();
+                        }
+                        imputEstatura.onchange = function () {
+                            borrarResultados();                            
+                        }
                     </script>
 
 
