@@ -107,9 +107,9 @@
                     <fieldset>
                         <legend>Parámetros: </legend>
                         <label for="peso">Peso (Kilogramos):</label> <br />
-                        <input type="number" name="peso" id="peso" placeholder="Ingrese su peso" min="0" max="300" maxlength="7" step="0.01" autofocus /><br />
+                        <input type="number" name="peso" id="peso" placeholder="Ingrese su peso" autocomplete="off" min="0" max="300" maxlength="7" step="0.01" autofocus /><br />
                         <label for="estatura">Estatura (Metros):</label> <br />
-                        <input type="number" name="estatura" id="estatura" placeholder="Ingrese su estatura" min="0" max="3" maxlength="4" step="0.01" /><br />
+                        <input type="number" name="estatura" id="estatura" placeholder="Ingrese su estatura" autocomplete="off" min="0" max="3" maxlength="4" step="0.01" /><br />
                     </fieldset>
                     <button type="button" id="btnCalcular" title="Calcular IMC">Calcular IMC</button>
                     <button type="button" id="btnCopiar" title="Copiar resultados">Copiar Resultados</button>                    
@@ -157,21 +157,25 @@
 
                         //parámetros deben ser correctos
                         function validarParámetros() {
-                            alert("peso " + Number(imputPeso.value));
-                            alert("estatura " + Number(imputEstatura.value));
+                            //alert("peso " + Number(imputPeso.value));
+                            //alert("estatura " + Number(imputEstatura.value));
 
                             if (Number(imputPeso.value) == 0 && imputPeso.value == "") {
+                                imputPeso.focus();
                                 return false;
                             }
                             if (Number(imputEstatura.value) == 0 && imputEstatura.value == "") {
+                                imputEstatura.focus();
                                 return false;
                             }
 
                             if (Number(imputPeso.value) < 0 || Number(imputPeso.value) > 300) {
+                                imputPeso.focus();
                                 return false;
                             }
 
                             if (Number(imputEstatura.value) < 0 || Number(imputEstatura.value) > 3) {
+                                imputEstatura.focus();
                                 return false;
                             }
 
@@ -182,15 +186,34 @@
                         function calcularIMC() {
                             //valida
                             if (validarParámetros() == false) {
-                                alert("Parámetros incorrectos. Escriba un peso válido entre 0 y 300 kilogramos y una estatura válida entre 0 y 3 metros.");
+                                alert("Parámetros incorrectos. Escriba un peso válido entre 0 y 300 kilogramos y una estatura válida entre 0 y 3 metros.");                                
                                 return;
                             }
+                            //ahora sí trabaja con los datos validados...
 
                         }
                         //copia resultados al portapapeles
                         function copiarResultados() {
                             //copia
                             
+                        }
+
+                        imputEstatura.onkeypress = function (event) {
+                            var x = event.which || event.keyCode;
+                            if (x == 13) {
+                                imputEstatura.blur();
+                                getbtnCalcular.focus();
+                                calcularIMC();
+                            }
+                           
+                        }
+
+                        imputPeso.onkeypress = function (event) {
+                            var x = event.which || event.keyCode;
+                            if (x == 13) {
+                                imputEstatura.focus();
+                            }
+
                         }
 
                         getbtnCalcular.onclick = function () {
@@ -200,6 +223,7 @@
                         getbtnCopiar.onclick = function () {
                             copiarResultados();
                         }
+
                         imputPeso.oninput = function () {
                             borrarResultados();
                         }
