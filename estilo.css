@@ -1380,7 +1380,7 @@ form {
     border-color: lightslategray;
     margin: 8px;    
 }
-#copyForm, #btnElegir, #btnCopiar, #btnCalcular {
+.formulario input[type=button], .formulario input[type=submit], .formulario input[type=reset], #copyForm, #btnElegir, #btnCopiar, #btnCalcular {
     margin-left: 12px !important;
 }
 
