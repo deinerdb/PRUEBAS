@@ -125,19 +125,19 @@
                         </p>
                     </fieldset>
                     <button type="button" id="btnCalcular" title="Calcular IMC">Calcular IMC</button>
-                    <button type="button" id="btnCopiar" title="Copiar resultados">Copiar Resultados</button>                    
+                    <button type="button" id="btnCopiar" disabled title="Copiar resultados">Copiar Resultados</button>                    
                     <fieldset>
                         <legend>Resultados: </legend>
                         <label for="imc">IMC:</label> <br />
-                        <input type="text" name="imc" id="imc" disabled /><br />
+                        <input type="text" name="imc" id="imc" readonly /><br />
                         <label for="valoración">Valoración:</label> <br />
-                        <input type="text" name="valoración" id="valoración" disabled /><br />
+                        <input type="text" name="valoración" id="valoración" readonly /><br />
                         <label for="min">Peso Ideal Mínimo (Kg):</label> <br />
-                        <input type="text" name="min" id="min" disabled /><br />
+                        <input type="text" name="min" id="min" readonly /><br />
                         <label for="promedio">Peso Ideal Promedio (Kg):</label> <br />
-                        <input type="text" name="promedio" id="promedio" disabled /><br />
+                        <input type="text" name="promedio" id="promedio" readonly /><br />
                         <label for="max">Peso Ideal Máximo (Kg):</label> <br />
-                        <input type="text" name="max" id="max" disabled /><br />
+                        <input type="text" name="max" id="max" readonly /><br />
                     </fieldset>
                     
                 </form>
@@ -167,6 +167,9 @@
                             imputMax.value = "";
                             //no hay error aún
                             document.getElementById("errorimc").style.display = "none";
+                            //nada que copiar
+                            getbtnCopiar.setAttribute("disabled", "disabled");
+                            
                         }
 
                         //parámetros deben ser correctos
@@ -204,10 +207,63 @@
                                 return;
                             }
                             //ahora sí trabaja con los datos validados...
+                            //declara variables para cálculos
+                            var resultadoIMC;
+                            var pesoMax;
+                            var pesoPromedio;
+                            var pesoMin;
+                            var valorar;
+                            var cuadradoEstatura;
+                            
+                            //calcula
+                            cuadradoEstatura = Math.pow(Number(imputEstatura.value), 2);
+                            resultadoIMC = Number(imputPeso.value) / cuadradoEstatura;
+                            valorar = "No disponible";
+                            switch (true) {
+                                case resultadoIMC <= 16:
+                                    valorar = "Delgadez Grado III, severa";
+                                    break;
+                                case resultadoIMC <= 17:
+                                    valorar = "Delgadez Grado II, moderada";
+                                    break;
+                                case resultadoIMC <= 18.5:
+                                    valorar = "Delgadez Grado I, leve";
+                                    break;
+                                case resultadoIMC < 20:
+                                    valorar = "Bajo peso, normal";
+                                    break;
+                                case resultadoIMC <= 25:
+                                    valorar = "Normal";
+                                    break;
+                                case resultadoIMC <= 30:
+                                    valorar = "Obesidad Grado I, leve";
+                                    break;
+                                case resultadoIMC <= 40:
+                                    valorar = "Obesidad Grado II, media";
+                                    break;
+                                case resultadoIMC > 40:
+                                    valorar = "Obesidad Grado III, mórbida";
+                                    break;
+                            }
+
+                            pesoMin = 20 * cuadradoEstatura;
+                            pesoPromedio = 22.5 * cuadradoEstatura;
+                            pesoMax = 25 * cuadradoEstatura;
+
+                            //escribe resultados
+                            imputIMC.value = resultadoIMC.toFixed(2);
+                            imputValoración.value = valorar;
+                            imputMin.value = pesoMin.toFixed(2);
+                            imputPromedio.value = pesoPromedio.toFixed(2);
+                            imputMax.value = pesoMax.toFixed(2);
+
+                            //ya hay algo que copiar
+                            getbtnCopiar.removeAttribute("disabled");
 
                         }
                         //copia resultados al portapapeles
                         function copiarResultados() {
+                            alert("Función en construcción... vuelva pronto.");
                             //copia
                             
                         }
