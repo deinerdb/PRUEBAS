@@ -2,7 +2,7 @@
 <html lang="es" dir="ltr">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">   
         <meta name="description" content="MULTIMEDIA EN HTML5"/>
         <!-- Chrome, Firefox, OS y Opera -->
         <meta name="theme-color" content="#663399" />
@@ -79,7 +79,8 @@
             /*el play/pause en la imagen*/
             .contenedor {
                 position: relative;
-                text-align: center;                
+                text-align: center;
+                max-width:100%;
             }
             #imgplaypause:hover {
                 color: LightGray;
@@ -103,13 +104,17 @@
             /*para el slide de imágenes*/
             body {
                 font-family: Verdana,sans-serif;
-                margin: 0;
+                /* ya esto está en el CSS principal
+                margin: 0;*/                
+                
             }
-            #articleImg {
+            #articleImg {                
                 -moz-box-sizing: border-box;
                 -webkit-box-sizing: border-box;
                 box-sizing: border-box;
+                max-width:95%;
             }
+            
             .mySlides {
                 display: none;
             }
@@ -495,6 +500,7 @@
             }
             /*fin modal*/
             /*----------*/
+            
         </style>
 
     </head>

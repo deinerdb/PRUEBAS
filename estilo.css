@@ -1077,7 +1077,9 @@ footer .fa-skype {
     /*fondo negro y letra medio púrpura
     */
     color:mediumpurple;
-    background-color:black
+    background-color:black;
+    max-width:100%;
+        
 
 }
 #script{
@@ -1258,6 +1260,7 @@ figcaption{
 .centrar{
 
     text-align:center; /*para centrar imágenes dentro de un div*/
+    max-width:100%;
 
 }
 
