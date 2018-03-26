@@ -269,14 +269,19 @@
                             pesoMin = 20 * cuadradoEstatura;
                             pesoPromedio = 22.5 * cuadradoEstatura;
                             pesoMax = 25 * cuadradoEstatura;
-                            
+
+                            //formatea resultados: 2 decimales y configuración local
+                            resultadoIMC = Number(resultadoIMC.toFixed(2)).toLocaleString();
+                            pesoMin = Number(pesoMin.toFixed(2)).toLocaleString();
+                            pesoPromedio = Number(pesoPromedio.toFixed(2)).toLocaleString();
+                            pesoMax = Number(pesoMax.toFixed(2)).toLocaleString();
+
                             //escribe resultados                            
-                            
-                            imputIMC.value = resultadoIMC.toFixed(2);  
+                            imputIMC.value = resultadoIMC;  
                             imputValoración.value = valorar;
-                            imputMin.value = pesoMin.toFixed(2);
-                            imputPromedio.value = pesoPromedio.toFixed(2);
-                            imputMax.value = pesoMax.toFixed(2);
+                            imputMin.value = pesoMin;
+                            imputPromedio.value = pesoPromedio;
+                            imputMax.value = pesoMax;
                             
                                                         
                             //informa éxito en cálculo
