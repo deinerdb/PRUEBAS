@@ -290,11 +290,50 @@
                             getbtnCopiar.removeAttribute("disabled");
 
                         }
+                        
+                        //****************************************
+                        // COPIAR
                         //copia resultados al portapapeles
+                        //****************************************
+
+                        //pasa el contenido de cada campo a una cadena
                         function copiarResultados() {
-                            alert("Función en construcción... vuelva pronto.");
-                            //copia
-                            
+                            //aquí guardamos una referencia a cada control a copiar
+                            var copyCampo;
+                            //aquí vamos guardando la cadena total a copiar
+                            var copyText = "*** IMC ***" + "\r\n" + "*** ÍNDICE DE MASA CORPORAL *** ";
+                            //PARÁMETROS                            
+                            copyText = copyText + "\r\n" + "PARÁMETROS:";
+                            //PESO
+                            copyCampo = imputPeso;
+                            copyText = copyText + "\r\n" + 'PESO (KILOGRAMOS) = ' + copyCampo.value;
+                            //ESTATURA
+                            copyCampo = imputEstatura;
+                            copyText = copyText + "\r\n" + 'ESTATURA (METROS) = ' + copyCampo.value;
+                            //RESULTADOS                            
+                            copyText = copyText + "\r\n" + "RESULTADOS:";
+                            //IMC
+                            copyCampo = imputIMC;
+                            copyText = copyText + "\r\n" + 'IMC = ' + copyCampo.value;
+                            //VALORACIÓN
+                            copyCampo = imputValoración;
+                            copyText = copyText + "\r\n" + 'VALORACIÓN = ' + copyCampo.value;
+                            //MIN
+                            copyCampo = imputMin;
+                            copyText = copyText + "\r\n" + 'PESO IDEAL MÍNIMO (Kg) = ' + copyCampo.value;
+                            //PROMEDIO
+                            copyCampo = imputPromedio;
+                            copyText = copyText + "\r\n" + 'PESO IDEAL PROMEDIO (Kg) = ' + copyCampo.value;
+                            //MAX
+                            copyCampo = imputMax;
+                            copyText = copyText + "\r\n" + 'PESO IDEAL MÁXIMO = ' + copyCampo.value;
+                            //FECHA DE GENERACIÓN
+                            var d = new Date();
+                            copyText = copyText + "\r\n" + '********';
+                            copyText = copyText + "\r\n" + 'GENERADO: ';
+                            copyText = copyText + "\r\n" + d.toLocaleString();
+                            //finalmente copiamos la cadena completa...
+                            copyToClipboard(copyText);                            
                         }
 
                         imputEstatura.onkeypress = function (event) {
@@ -303,10 +342,9 @@
                                 imputEstatura.blur();
                                 getbtnCalcular.focus();
                                 calcularIMC();
-                            }
-                           
+                            }                            
                         }
-
+                                            
                         imputPeso.onkeypress = function (event) {
                             var x = event.which || event.keyCode;
                             if (x == 13) {
