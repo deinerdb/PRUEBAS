@@ -134,7 +134,7 @@
                         <p id="errorimc">
                             <strong>Error: </strong>Parámetros incorrectos. 
                             Escriba un peso válido entre 0 y 300 kilogramos y una estatura válida entre 0 y 3 metros. 
-                            Tenga en cuenta el separador decimal según la configuración de su dispositivo o navegador.
+                            Puede que deba usar otro separador decimal (coma, punto, etc...) según la configuración de su dispositivo o navegador.
                         </p>
                     </fieldset>
                     <p id="calculadoimc">
@@ -306,10 +306,10 @@
                             copyText = copyText + "\r\n" + "PARÁMETROS:";
                             //PESO
                             copyCampo = imputPeso;
-                            copyText = copyText + "\r\n" + 'PESO (KILOGRAMOS) = ' + copyCampo.value;
+                            copyText = copyText + "\r\n" + 'PESO (KILOGRAMOS) = ' + Number(copyCampo.value).toLocaleString();
                             //ESTATURA
                             copyCampo = imputEstatura;
-                            copyText = copyText + "\r\n" + 'ESTATURA (METROS) = ' + copyCampo.value;
+                            copyText = copyText + "\r\n" + 'ESTATURA (METROS) = ' + Number(copyCampo.value).toLocaleString();
                             //RESULTADOS                            
                             copyText = copyText + "\r\n" + "RESULTADOS:";
                             //IMC
@@ -326,7 +326,7 @@
                             copyText = copyText + "\r\n" + 'PESO IDEAL PROMEDIO (Kg) = ' + copyCampo.value;
                             //MAX
                             copyCampo = imputMax;
-                            copyText = copyText + "\r\n" + 'PESO IDEAL MÁXIMO = ' + copyCampo.value;
+                            copyText = copyText + "\r\n" + 'PESO IDEAL MÁXIMO (Kg) = ' + copyCampo.value;
                             //FECHA DE GENERACIÓN
                             var d = new Date();
                             copyText = copyText + "\r\n" + '********';
