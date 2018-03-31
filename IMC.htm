@@ -224,6 +224,8 @@
                             if (validarParámetros() == false) { 
                                 //informa del error
                                 document.getElementById("errorimc").style.display = "block";
+                                myError.load();
+                                myError.play();
                                 return;
                             }
                             //ahora sí trabaja con los datos validados...
@@ -286,6 +288,8 @@
                                                         
                             //informa éxito en cálculo
                             document.getElementById("calculadoimc").style.display = "block";
+                            myCalculado.load();
+                            myCalculado.play();
                             //ya hay algo que copiar
                             getbtnCopiar.removeAttribute("disabled");
 
@@ -359,6 +363,9 @@
 
                         getbtnCopiar.onclick = function () {
                             copiarResultados();
+                            //informa que copió solo por audio
+                            myCopiado.load();
+                            myCopiado.play();
                         }
 
                         imputPeso.oninput = function () {
@@ -373,6 +380,36 @@
                         imputEstatura.onchange = function () {
                             borrarResultados();                            
                         }
+
+                        //SONIDO CUANDO CALCULA
+                        myCalculado = new sound("calculado.mp3", "false");
+                        //SONIDO CUANDO HAY ERROR
+                        myError = new sound("error.mp3", "false");
+                        //SONIDO CUANDO COPIA
+                        myCopiado = new sound("copiado.mp3", "false");
+
+                        function sound(src, repetir) {
+                            this.sound = document.createElement("audio");
+                            this.sound.setAttribute("type", "audio/mpeg");
+                            this.sound.src = src;
+                            this.sound.setAttribute("preload", "auto");
+                            this.sound.setAttribute("controls", "none");
+                            if (repetir == "true") {
+                                this.sound.setAttribute("loop", "loop");
+                            }
+                            this.sound.style.display = "none";
+                            document.body.appendChild(this.sound);
+                            this.play = function () {
+                                this.sound.play();
+                            }
+                            this.stop = function () {
+                                this.sound.pause();
+                            }
+                            this.load = function () {
+                                this.sound.load();
+                            }
+                        }
+
                     </script>
 
 
