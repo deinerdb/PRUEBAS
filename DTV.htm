@@ -16,7 +16,30 @@
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
         <style>
-                        
+            .logo {
+                background-color: black;
+                height: 100px;
+                width: 100px;
+                position: absolute;
+                right: 0;
+                bottom: 0;
+            }
+
+            .cont {
+                position: relative;
+                /* Full height */
+                height: 100%;
+                width: 100%;
+                overflow: auto;
+                background-color: black;                
+                min-height: 100%;
+            }
+            
+            #btnparar {
+                position: absolute;
+                left: 0;
+                top:0;
+            }
 
         </style>
 
@@ -95,19 +118,75 @@
 
                 
                     <button type="button" id="btnCalcular" title="Iniciar emulador">Iniciar</button>
-                    
+
+                <br />
+                
+                <div class="cont" id="cont">
+
+                    <button id="btnparar" title="Detener Emulador"> Parar </button>
+                    <img class="logo" alt="Logo DirecTV" src="logodirectv.png" height="970" width="1280"/> 
+
+                </div>
 
                     <!--cálculos de movimiento y otras rutinas-->
                     <script>
                         //Referencias
                         var getbtnCalcular = document.getElementById("btnCalcular");
+                        var getbtnParar = document.getElementById("btnparar");
                         //inicia
                         function iniciarEmulador() {
                             alert("Página en construcción... vuelva pronto");
+                            launchFullScreen();
 
                         }
+
+                        function pararEmulador() {
+                            
+                            cancelFullScreen();
+
+                        }
+
                         getbtnCalcular.onclick = function () {
                             iniciarEmulador();
+                        }
+
+                        getbtnParar.onclick = function () {
+                            pararEmulador();
+                        }
+
+
+                        // Lanza en pantalla completa en navegadores que lo soporten
+                        function launchFullScreen() {
+
+                            element = document.getElementById("cont");
+
+                            if (element.requestFullScreen) {
+                                element.requestFullScreen();
+                            } else if (element.mozRequestFullScreen) {
+                                element.mozRequestFullScreen();
+                            } else if (element.webkitRequestFullScreen) {
+                                element.webkitRequestFullScreen();
+                            } else if (element.msRequestFullscreen) {
+                                element.msRequestFullscreen();
+                            }
+                        }
+
+                        function cancelFullScreen() {
+
+                            if (document.cancelFullScreen) {
+                                document.cancelFullScreen();
+                            } else if (document.exitFullscreen) {
+                                document.exitFullscreen();
+                            } else if (document.mozCancelFullScreen) {
+                                document.mozCancelFullScreen();
+                            } else if (document.webkitCancelFullScreen) {
+                                document.webkitCancelFullScreen();
+                            } else if (document.msCancelFullScreen) {
+                                document.msCancelFullScreen();
+                            } else if (document.msExitFullscreen) {
+                                document.msExitFullscreen();
+                            }
+
                         }
                     </script>
 

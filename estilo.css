@@ -30,10 +30,10 @@ html, body {
         -webkit-transition: none !important;
         transition: none !important;
     }
-    footer, .sidenav, .caja, .navbar, #relleno, #BtnTop, #overlay, .container, .bar1, .bar2, .bar3, input[type=button], input[type=reset], input[type=submit], .formulario button, .clasemultimedia button  {
+    footer, .sidenav, .caja, .navbar, #folder, #relleno, #BtnTop, #overlay, .container, .bar1, .bar2, .bar3, input[type=button], input[type=reset], input[type=submit], .formulario button, .clasemultimedia button, #btnCalcular {
         display: none !important;
     }
-    .clasemultimedia{
+    .clasemultimedia, .accordion{
         background-color:transparent !important;
     }
 }
