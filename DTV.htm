@@ -31,14 +31,34 @@
                 height: 100%;
                 width: 100%;
                 overflow: auto;
-                background-color: black;                
+                background-color: black;
                 min-height: 100%;
+                /*no se puede seleccionar el texto*/
+                -webkit-user-select: none; /* Chrome, Opera, Safari */
+                -moz-user-select: none; /* Firefox 2+ */
+                -ms-user-select: none; /* IE 10+ */
+                user-select: none; /* Standard syntax */
             }
-            
+
             #btnparar {
                 position: absolute;
-                left: 0;
-                top:0;
+                left: 12px;
+                top: 12px;
+                font-size: 1.3em;
+                color: white;
+                background-color: black;
+                padding:4px;
+                /*no se puede seleccionar el texto*/
+                -webkit-user-select: none; /* Chrome, Opera, Safari */
+                -moz-user-select: none; /* Firefox 2+ */
+                -ms-user-select: none; /* IE 10+ */
+                user-select: none; /* Standard syntax */
+                cursor: pointer;
+            }
+
+            #btnparar:hover, #btnparar:active {
+                color: white;
+                background-color: red;
             }
 
         </style>
@@ -97,19 +117,22 @@
  
            
             <div class="main" id="main">                
-                    <button class="accordion" id="accordion">Protector DirecTV <sup>&#174;</sup><i id="folder" class="fa" aria-hidden="true"></i></button>
+                    <button class="accordion" id="accordion">Protector DirecTV&#160;<sup>&#174;</sup><i id="folder" class="fa" aria-hidden="true"></i></button>
                     <div class="panel" id="panel">
                         <p>
                             <i class="fa fa-television" aria-hidden="true"></i>
-                            Emulador del protector de pantalla de DirecTV <sup>&#174;</sup>, usando JavaScript, HTML y CSS.
+                            Emulador del protector de pantalla de DirecTV&#160;<sup>&#174;</sup>, usando JavaScript, HTML y CSS.
                             <br />
                             <br />
                             <strong style="clear:left">Fragmento de código usado en esta página:</strong><br />
                         </p>
 
-<textarea readonly rows="9">
+<textarea readonly rows="6">
 ... 
-
+<div class="cont" id="cont">
+<button type="button" id="btnparar" title="Detener Emulador"> <i class="fa fa-hand-paper-o" aria-hidden="true"> </i> </button>
+<img class="logo" alt="Logo DirecTV" src="logodirectv.png" height="970" width="1280" />
+</div>
 ...
 </textarea>
                         <i id="arrow" class="fa fa-angle-double-up" aria-hidden="true"></i>
@@ -123,19 +146,60 @@
                 
                 <div class="cont" id="cont">
 
-                    <button id="btnparar" title="Detener Emulador"> Parar </button>
+                    <button type="button" id="btnparar" title="Detener Emulador"> <i class="fa fa-hand-paper-o" aria-hidden="true"> </i> </button>
                     <img class="logo" alt="Logo DirecTV" src="logodirectv.png" height="970" width="1280"/> 
 
                 </div>
 
                     <!--cálculos de movimiento y otras rutinas-->
                     <script>
+
+                        // Lanza en pantalla completa en navegadores que lo soporten
+                        function launchFullScreen() {
+
+                            element = document.getElementById("cont");
+
+                            if (element.requestFullScreen) {
+                                element.requestFullScreen();
+                            } else if (element.requestFullscreen) {
+                                element.requestFullscreen();
+                            } else if (element.mozRequestFullScreen) {
+                                element.mozRequestFullScreen();
+                            } else if (element.webkitRequestFullScreen) {
+                                element.webkitRequestFullScreen();
+                            } else if (element.webkitRequestFullscreen) {
+                                element.webkitRequestFullscreen();
+                            } else if (element.msRequestFullscreen) {
+                                element.msRequestFullscreen();
+                            }
+                        }
+
+                        function cancelFullScreen() {
+
+                            if (document.cancelFullScreen) {
+                                document.cancelFullScreen();
+                            } else if (document.exitFullscreen) {
+                                document.exitFullscreen();
+                            } else if (document.mozCancelFullScreen) {
+                                document.mozCancelFullScreen();
+                            } else if (document.webkitCancelFullScreen) {
+                                document.webkitCancelFullScreen();
+                            } else if (document.webkitExitFullscreen) {
+                                document.webkitExitFullscreen();
+                            } else if (document.msCancelFullScreen) {
+                                document.msCancelFullScreen();
+                            } else if (document.msExitFullscreen) {
+                                document.msExitFullscreen();
+                            }
+
+                        }
+                        alert("Página en construcción... vuelva pronto");
                         //Referencias
                         var getbtnCalcular = document.getElementById("btnCalcular");
                         var getbtnParar = document.getElementById("btnparar");
                         //inicia
                         function iniciarEmulador() {
-                            alert("Página en construcción... vuelva pronto");
+                            
                             launchFullScreen();
 
                         }
@@ -155,39 +219,6 @@
                         }
 
 
-                        // Lanza en pantalla completa en navegadores que lo soporten
-                        function launchFullScreen() {
-
-                            element = document.getElementById("cont");
-
-                            if (element.requestFullScreen) {
-                                element.requestFullScreen();
-                            } else if (element.mozRequestFullScreen) {
-                                element.mozRequestFullScreen();
-                            } else if (element.webkitRequestFullScreen) {
-                                element.webkitRequestFullScreen();
-                            } else if (element.msRequestFullscreen) {
-                                element.msRequestFullscreen();
-                            }
-                        }
-
-                        function cancelFullScreen() {
-
-                            if (document.cancelFullScreen) {
-                                document.cancelFullScreen();
-                            } else if (document.exitFullscreen) {
-                                document.exitFullscreen();
-                            } else if (document.mozCancelFullScreen) {
-                                document.mozCancelFullScreen();
-                            } else if (document.webkitCancelFullScreen) {
-                                document.webkitCancelFullScreen();
-                            } else if (document.msCancelFullScreen) {
-                                document.msCancelFullScreen();
-                            } else if (document.msExitFullscreen) {
-                                document.msExitFullscreen();
-                            }
-
-                        }
                     </script>
 
 
