@@ -147,12 +147,18 @@
                 <div class="cont" id="cont">
 
                     <button type="button" id="btnparar" title="Detener Emulador"> <i class="fa fa-hand-paper-o" aria-hidden="true"> </i> </button>
-                    <img class="logo" alt="Logo DirecTV" src="logodirectv.png" height="970" width="1280"/> 
+                    <img class="logo" id="logo" alt="Logo DirecTV" src="logodirectv.png" height="970" width="1280"/> 
 
                 </div>
 
                     <!--cálculos de movimiento y otras rutinas-->
                     <script>
+
+                        //Referencias
+                        var getLogo = document.getElementById("logo");
+
+                        var getbtnCalcular = document.getElementById("btnCalcular");
+                        var getbtnParar = document.getElementById("btnparar");
 
                         // Lanza en pantalla completa en navegadores que lo soporten
                         function launchFullScreen() {
@@ -193,10 +199,31 @@
                             }
 
                         }
+                        
+                        function sizeLogo() {
+                            
+                            var w = window.innerWidth
+                                || document.documentElement.clientWidth
+                                || document.body.clientWidth;
+
+                            var h = window.innerHeight
+                                || document.documentElement.clientHeight
+                                || document.body.clientHeight;
+                            //logo es 3% del área disponible de la pantalla
+                            var areaTotal = w * h;
+                            var areaLogo = 0.03 * areaTotal;
+                            var ladoLogo = Math.sqrt(areaLogo);
+
+                            getLogo.style.width = ladoLogo + "px";
+                            getLogo.style.height = ladoLogo + "px";
+                            //pero no debe sobrepasar la pantalla
+                            getLogo.style.maxWidth = w + "px";
+                            getLogo.style.maxHeight = h + "px";
+
+                        }
+                        sizeLogo();
                         alert("Página en construcción... vuelva pronto");
-                        //Referencias
-                        var getbtnCalcular = document.getElementById("btnCalcular");
-                        var getbtnParar = document.getElementById("btnparar");
+
                         //inicia
                         function iniciarEmulador() {
                             

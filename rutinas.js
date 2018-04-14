@@ -238,6 +238,11 @@ function ajustesResize() {
         alturaBotones();
     }
 
+    //para DTV
+    if (typeof sizeLogo == 'function') {
+        sizeLogo();
+    }
+
     //FUENTES
     if (typeof alturaModal == 'function') {
         alturaModal();
