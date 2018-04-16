@@ -23,6 +23,8 @@
                 position: absolute;
                 right: 0;
                 bottom: 0;
+                margin: 0;
+                padding: 0;
             }
 
             .cont {
@@ -30,7 +32,9 @@
                 /* Full height */
                 height: 100%;
                 width: 100%;
-                overflow: auto;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
                 background-color: black;
                 min-height: 100%;
                 /*no se puede seleccionar el texto*/
@@ -38,6 +42,8 @@
                 -moz-user-select: none; /* Firefox 2+ */
                 -ms-user-select: none; /* IE 10+ */
                 user-select: none; /* Standard syntax */
+                /*por defecto oculto*/
+                display: none;
             }
 
             #btnparar {
@@ -60,7 +66,7 @@
                 color: white;
                 background-color: red;
             }
-
+            
         </style>
 
     </head>
@@ -88,7 +94,7 @@
         </div>
         <div id="overlay" onclick="soloCerrar()">
         </div>
-        <div class="caja">
+        <div class="caja" id="caja">
             <div class="container" id="container" onclick="myFunction(this)">
                 <div class="bar1"></div>
                 <div class="bar2"></div>
@@ -115,7 +121,13 @@
             </div>
         </div>
  
-           
+        <!--por fuera del main, para que quede a nivel body-->
+        <div class="cont" id="cont">            
+            <button type="button" id="btnparar" title="Detener Emulador"> <i class="fa fa-hand-paper-o" aria-hidden="true"> </i> </button>            
+            <img class="logo" id="logo" alt="Logo DirecTV" src="logodirectv.png" height="970" width="1280" />
+
+        </div>   
+
             <div class="main" id="main">                
                     <button class="accordion" id="accordion">Protector DirecTV&#160;<sup>&#174;</sup><i id="folder" class="fa" aria-hidden="true"></i></button>
                     <div class="panel" id="panel">
@@ -144,21 +156,27 @@
 
                 <br />
                 
-                <div class="cont" id="cont">
-
-                    <button type="button" id="btnparar" title="Detener Emulador"> <i class="fa fa-hand-paper-o" aria-hidden="true"> </i> </button>
-                    <img class="logo" id="logo" alt="Logo DirecTV" src="logodirectv.png" height="970" width="1280"/> 
-
-                </div>
-
+                
                     <!--cálculos de movimiento y otras rutinas-->
                     <script>
-
+                        var timer;
+                        //distancia de logo al borde izquierdo
+                        var izquierda;
+                        var arriba;
+                        var topeIzquierda;
+                        var topeArriba;
+                        var anchoLogo;
+                        var altoLogo;
+                        var aumentaH = true; // true mueve a la derecha
+                        var aumentaV =  true; // true mueve hacia abajo
                         //Referencias
                         var getLogo = document.getElementById("logo");
 
                         var getbtnCalcular = document.getElementById("btnCalcular");
                         var getbtnParar = document.getElementById("btnparar");
+                        var getMain = document.getElementById("main");
+                        var getCaja = document.getElementById("caja");
+                        var getCont = document.getElementById("cont");
 
                         // Lanza en pantalla completa en navegadores que lo soporten
                         function launchFullScreen() {
@@ -213,28 +231,49 @@
                             var areaTotal = w * h;
                             var areaLogo = 0.03 * areaTotal;
                             var ladoLogo = Math.sqrt(areaLogo);
-
+                            //asigna medidas conservando relación de aspecto                            
                             getLogo.style.width = ladoLogo + "px";
-                            getLogo.style.height = ladoLogo + "px";
+                            getLogo.style.height = (970 / 1280) * ladoLogo + "px";
                             //pero no debe sobrepasar la pantalla
-                            getLogo.style.maxWidth = w + "px";
+                            getLogo.style.maxWidth = w + "px";                            
                             getLogo.style.maxHeight = h + "px";
 
+                            //lo posiciona y direcciona
+                            izquierda = 0;
+                            arriba = 0;
+                            aumentaH = true;
+                            aumentaV = true;
                         }
-                        sizeLogo();
-                        alert("Página en construcción... vuelva pronto");
+
+                        sizeLogo();                       
 
                         //inicia
                         function iniciarEmulador() {
-                            
+
+                            getMain.style.display = "none";
+                            getCaja.style.display = "none";
+                            getCont.style.display = "block";
+
+                            izquierda = 0;
+                            arriba = 0;
+                            aumentaH = true;
+                            aumentaV = true;
+                            timer = setInterval(moverLogo, 20);
+
                             launchFullScreen();
 
                         }
 
                         function pararEmulador() {
-                            
-                            cancelFullScreen();
 
+                            getMain.style.display = "block";
+                            getCaja.style.display = "inline-flex";
+                            getCont.style.display = "none";
+
+                            clearInterval(timer);
+
+                            cancelFullScreen();
+                            
                         }
 
                         getbtnCalcular.onclick = function () {
@@ -245,6 +284,46 @@
                             pararEmulador();
                         }
 
+                             
+                        function moverLogo() {
+                            
+                            if (aumentaH == true) {
+                                izquierda++;
+                            } else {
+                                izquierda--;
+                            }
+
+                            if (aumentaV == true) {
+                                arriba++;
+                            } else {
+                                arriba--;
+                            }
+
+                            getLogo.style.left = izquierda + "px";
+                            getLogo.style.top = arriba + "px";
+
+                            anchoLogo = getLogo.clientWidth;
+                            altoLogo = getLogo.clientHeight;
+                            topeIzquierda = getCont.clientWidth - anchoLogo;
+                            topeArriba = getCont.clientHeight - altoLogo;
+
+                            if (izquierda >= topeIzquierda) {
+                                aumentaH = false;
+                            }
+
+                            if (izquierda <= 0) {
+                                aumentaH = true;
+                            }
+
+                            if (arriba >= topeArriba) {
+                                aumentaV = false;
+                            }
+
+                            if (arriba <= 0) {
+                                aumentaV = true;
+                            }
+                                                        
+                        }
 
                     </script>
 
@@ -261,6 +340,7 @@
                         <a href="skype:live:deiner_db?call" class="fa fa-skype"></a>
                     </footer>
 </div>
+        
             <button onclick="topFunction()" id="BtnTop" title="Subir">⇧</button>
             <script type="text/javascript" charset="utf-8" src="rutinas.js"></script>
 </body>
