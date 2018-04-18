@@ -1,0 +1,266 @@
+﻿<!DOCTYPE HTML>
+<html lang="es" dir="ltr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+        <meta name="description" content="Colección de loaders"/>
+        <!-- Chrome, Firefox, OS y Opera -->
+        <meta name="theme-color" content="#663399" />
+        <!-- Windows Phone -->
+        <meta name="msapplication-navbutton-color" content="#663399" />
+        <title>Colección de loaders</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="estilo.css" />
+        
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+
+        <style>
+            /*el fondo negro no debe imprimirse...
+                otras configuraciones de impresión están en el archivo CSS
+            */
+            @media print {
+                body {
+                    background-color: transparent !important;
+                }
+            }
+            .cont {
+                overflow: auto;                
+                margin: 8px;
+                padding:16px;
+            }
+                .cont div {
+                    /*hijos div centrados*/
+                    margin-left:auto;
+                    margin-right:auto;
+                    margin-top: 24px;
+                    margin-bottom: 24px;
+
+                }
+                
+
+            /*Para la acordeón*/
+            /*es diferente de las demás páginas, por el fondo negro*/
+            /*se usan grises oscuros*/
+            button.accordion {
+                background-color: #0d0d0d !important;
+                color: MediumSlateBlue !important;
+            }
+
+                button.accordion.active, button.accordion:hover {
+                    background-color: #1a1a1a !important;
+                }
+
+            div.panel {
+                background-color: #0d0d0d !important;
+                color: MediumSlateBlue !important;
+            }
+
+                div.panel .fa {
+                    color: MediumSlateBlue !important;
+                }
+
+                div.panel textarea {
+                    background-color: #1a1a1a !important;
+                    border-color: MediumSlateBlue !important;
+                    color: white !important;
+                }
+            /*fin acordeón*/
+
+            /*EL FOOTER TAMBIÉN ES DIFERENTE, POR EL FONDO NEGRO DE LA PÁGINA*/
+            footer {
+                /*gradiente lineal*/
+                background-color: #0d0d0d !important; /*fondo púrpura. For browsers that do not support gradients */
+                background: -webkit-linear-gradient(#0d0d0d, #1a1a1a) !important; /* For Safari 5.1 to 6.0 */
+                background: -o-linear-gradient(#0d0d0d, #1a1a1a) !important; /* For Opera 11.1 to 12.0 */
+                background: -moz-linear-gradient(#0d0d0d, #1a1a1a) !important; /* For Firefox 3.6 to 15 */
+                background: linear-gradient(#0d0d0d,#1a1a1a) !important; /* Standard syntax (must be last) */
+            }
+                footer img {
+                    /*sombra a mi foto*/
+                    -webkit-box-shadow: 0 4px 8px 0 white, 0 6px 20px 0 #1a1a1a !important;
+                    -moz-box-shadow: 0 4px 8px 0 white, 0 6px 20px 0 #1a1a1a !important;
+                    box-shadow: 0 4px 8px 0 white, 0 6px 20px 0 #1a1a1a !important;
+                }
+
+                
+                /*loader 1*/
+
+            .loader1 {
+                border: 16px solid #f3f3f3;
+                /*BORDE REDONDEADO*/
+                -moz-border-radius: 50%;
+                -webkit-border-radius: 50%;
+                border-radius: 50%;
+
+                border-top: 16px solid #3498db;
+                width: 120px;
+                height: 120px;
+                /*animar*/
+                -webkit-animation-name: spin;
+                -webkit-animation-duration: 2s;
+                -webkit-animation-timing-function: linear;
+                -webkit-animation-iteration-count: infinite;
+
+                -moz-animation-name: spin;
+                -moz-animation-duration: 2s;
+                -moz-animation-timing-function: linear;
+                -moz-animation-iteration-count: infinite;
+
+                -o-animation-name: spin;
+                -o-animation-duration: 2s;
+                -o-animation-timing-function: linear;
+                -o-animation-iteration-count: infinite;
+
+                /*estándar*/
+                animation-name: spin;
+                animation-duration: 2s;
+                animation-timing-function: linear;
+                animation-iteration-count: infinite;
+            }
+
+            /* Safari */
+            @-webkit-keyframes spin {
+                0% {
+                    -webkit-transform: rotate(0deg);
+                }
+
+                100% {
+                    -webkit-transform: rotate(360deg);
+                }
+            }
+            @-moz-keyframes spin {
+                0% {
+                    -moz-transform: rotate(0deg);
+                }
+
+                100% {
+                    -moz-transform: rotate(360deg);
+                }
+            }
+            @-o-keyframes spin {
+                0% {
+                    -o-transform: rotate(0deg);
+                }
+
+                100% {
+                    -o-transform: rotate(360deg);
+                }
+            }
+            @keyframes spin {
+                0% {
+                    transform: rotate(0deg);
+                }
+
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+
+        </style>
+
+    </head>
+    <body style="background-color:black">
+        <div id="mySidenav" class="sidenav">
+            <a href="INDEX.htm"><i class="fa fa-home"></i>INICIO</a>
+            <a href="HTML.htm"><i class="fa fa-html5"></i>HTML</a>
+            <a href="CSS.htm"><i class="fa fa-css3"></i>CSS</a>
+            <a href="JAVASCRIPT.htm"><i class="fa fa-code"></i>JAVASCRIPT</a>            
+            <a href="MEDIA.htm"><i class="fa fa-play"></i>MULTIMEDIA</a>
+            <a href="FILTROS.htm"><i class="fa fa-paint-brush"></i>FILTROS</a>
+            <a href="CANVAS.htm"><i class="fa fa-file-image-o"></i>CANVAS</a>
+            <a href="JUEGO.htm"><i class="fa fa-gamepad"></i>JUEGO</a>
+            <a href="SVG.htm"><i class="fa fa-picture-o"></i>SVG</a>
+            <a href="SITIOS.htm"><i class="fa fa-globe"></i>SITIOS</a>
+            <a href="FORM.htm"><i class="fa fa-file-text-o"></i>FORMULARIOS</a>
+            <a href="FUENTE.htm"><i class="fa fa-font"></i>FUENTES</a>
+            <a href="IMC.htm"><i class="fa fa-calculator"></i>IMC</a>
+            <a href="DTV.htm"><i class="fa fa-television"></i>DirecTV <sup>&#174;</sup></a>
+            <a class="selected" id="selectedsidenav" href="LOADERS.htm"><i class="fa fa-spinner"></i>LOADERS</a>
+            <hr />
+            <a href="#" onclick="imprimir()"><i class="fa fa-print"></i>IMPRIMIR</a>
+        </div>
+        <div id="relleno">
+            relleno
+        </div>
+        <div id="overlay" onclick="soloCerrar()">
+        </div>
+        <div class="caja" id="caja">
+            <div class="container" id="container" onclick="myFunction(this)">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+            </div>
+            <div class="navbar" id="navbar" onclick="soloCerrar()">
+                <a href="INDEX.htm"><i class="fa fa-home"></i>VOLVER AL INICIO</a>
+                <a href="HTML.htm"><i class="fa fa-html5"></i>HTML</a>
+                <a href="CSS.htm"><i class="fa fa-css3"></i>CSS</a>
+                <a href="JAVASCRIPT.htm"><i class="fa fa-code"></i>JAVASCRIPT</a>
+                <a href="MEDIA.htm"><i class="fa fa-play"></i>MULTIMEDIA</a>
+                <a href="FILTROS.htm"><i class="fa fa-paint-brush"></i>FILTROS</a>
+                <a href="CANVAS.htm"><i class="fa fa-file-image-o"></i>CANVAS</a>
+                <a href="JUEGO.htm"><i class="fa fa-gamepad"></i>JUEGO</a>
+                <a href="SVG.htm"><i class="fa fa-picture-o"></i>SVG</a>
+                <a href="SITIOS.htm"><i class="fa fa-globe"></i>SITIOS</a>
+                <a href="FORM.htm"><i class="fa fa-file-text-o"></i>FORMULARIOS</a>
+                <a href="FUENTE.htm"><i class="fa fa-font"></i>FUENTES</a>
+                <a href="IMC.htm"><i class="fa fa-calculator"></i>IMC</a>
+                <a href="DTV.htm"><i class="fa fa-television"></i>DirecTV <sup>&#174;</sup></a>
+                <a class="selected" id="selectednavbar" href="LOADERS.htm"><i class="fa fa-spinner"></i>LOADERS</a>
+                <span id="separador">|</span>
+                <a href="#" onclick="imprimir()"><i class="fa fa-print"></i>IMPRIMIR</a>
+
+            </div>
+        </div>
+
+            <div class="main" id="main">    
+                <h2 style="color:red">Página en construcción, vuelve pronto...</h2>
+                    <button class="accordion" id="accordion">Colección de loaders<i id="folder" class="fa" aria-hidden="true"></i></button>
+                    <div class="panel" id="panel">
+                        <p>
+                            <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+                            Una colección de loaders (spinners) hechos con CSS.<br />
+                            Los loaders son mostrados normalmente para informar al usuario que una página u otro elemento está cargando.
+                            <br />
+                            <br />
+                            <strong style="clear:left">Fragmento de código usado en esta página:</strong><br />
+                        </p>
+
+<textarea readonly rows="7">
+...
+<i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+animation-name: spin;
+animation-duration: 2s;
+animation-timing-function: linear;
+animation-iteration-count: infinite;
+...
+</textarea>
+                        <i id="arrow" class="fa fa-angle-double-up" aria-hidden="true"></i>
+                    </div>
+
+                <div class="cont">
+                    <hr />
+                    <div class="loader1"></div>
+                    <hr />
+                </div>
+                
+                
+
+                    <footer>
+                        <p>Coded by @deiner_db</p>
+                        <img id="miFoto" title="Deiner Domínguez" alt="Foto Deiner Domínguez" src="miFoto.jpg" width="1280" height="893" />
+                        <br />
+                        <a href="https://www.facebook.com/deinerdb" target="_blank" class="fa fa-facebook"></a>
+                        <a href="https://twitter.com/deiner_db" target="_blank" class="fa fa-twitter"></a>
+                        <a href="https://www.instagram.com/deiner_db/" target="_blank" class="fa fa-instagram"></a>
+                        <a href="https://plus.google.com/+DeinerDom%C3%ADnguezBola%C3%B1o" target="_blank" class="fa fa-google-plus"></a>
+                        <a href="https://www.youtube.com/user/deinerdominguez" target="_blank" class="fa fa-youtube"></a>
+                        <a href="skype:live:deiner_db?call" class="fa fa-skype"></a>
+                    </footer>
+</div>
+        
+            <button onclick="topFunction()" id="BtnTop" title="Subir">⇧</button>
+            <script type="text/javascript" charset="utf-8" src="rutinas.js"></script>
+</body>
+</html>
+

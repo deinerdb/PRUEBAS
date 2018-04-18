@@ -300,6 +300,22 @@
                     color: white !important;
                 }
             /*fin acordeón*/
+            /*EL FOOTER TAMBIÉN ES DIFERENTE, POR EL FONDO NEGRO DE LA PÁGINA*/
+            footer {
+                /*gradiente lineal*/
+                background-color: #0d0d0d !important; /*fondo púrpura. For browsers that do not support gradients */
+                background: -webkit-linear-gradient(#0d0d0d, #1a1a1a) !important; /* For Safari 5.1 to 6.0 */
+                background: -o-linear-gradient(#0d0d0d, #1a1a1a) !important; /* For Opera 11.1 to 12.0 */
+                background: -moz-linear-gradient(#0d0d0d, #1a1a1a) !important; /* For Firefox 3.6 to 15 */
+                background: linear-gradient(#0d0d0d,#1a1a1a) !important; /* Standard syntax (must be last) */
+            }
+
+                footer img {
+                    /*sombra a mi foto*/
+                    -webkit-box-shadow: 0 4px 8px 0 white, 0 6px 20px 0 #1a1a1a !important;
+                    -moz-box-shadow: 0 4px 8px 0 white, 0 6px 20px 0 #1a1a1a !important;
+                    box-shadow: 0 4px 8px 0 white, 0 6px 20px 0 #1a1a1a !important;
+                }
 
             /*para el modal*/
             /*--------------*/
@@ -521,6 +537,7 @@
             <a href="FUENTE.htm"><i class="fa fa-font"></i>FUENTES</a>
             <a href="IMC.htm"><i class="fa fa-calculator"></i>IMC</a>
             <a href="DTV.htm"><i class="fa fa-television"></i>DirecTV <sup>&#174;</sup></a>
+            <a href="LOADERS.htm"><i class="fa fa-spinner"></i>LOADERS</a>
             <hr />
             <a href="#" onclick="imprimir()"><i class="fa fa-print"></i>IMPRIMIR</a>
         </div>
@@ -550,6 +567,7 @@
                 <a href="FUENTE.htm"><i class="fa fa-font"></i>FUENTES</a>
                 <a href="IMC.htm"><i class="fa fa-calculator"></i>IMC</a>
                 <a href="DTV.htm"><i class="fa fa-television"></i>DirecTV <sup>&#174;</sup></a>
+                <a href="LOADERS.htm"><i class="fa fa-spinner"></i>LOADERS</a>
                 <span id="separador">|</span>
                 <a href="#" onclick="imprimir()"><i class="fa fa-print"></i>IMPRIMIR</a>
 
