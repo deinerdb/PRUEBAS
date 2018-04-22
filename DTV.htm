@@ -26,6 +26,15 @@
                 margin: 0;
                 padding: 0;
                 z-index: 2;
+                /*no se puede seleccionar el texto*/
+                -webkit-user-select: none; /* Chrome, Opera, Safari */
+                -moz-user-select: none; /* Firefox 2+ */
+                -ms-user-select: none; /* IE 10+ */
+                user-select: none; /* Standard syntax */
+                /*sombra*/
+                -webkit-box-shadow: 0 0 3vw #003d99, 0 0 6vw #0066ff, 0 0 10vw #66a3ff;
+                -moz-box-shadow: 0 0 3vw #003d99, 0 0 6vw #0066ff, 0 0 10vw #66a3ff;
+                box-shadow: 0 0 3vw #003d99, 0 0 6vw #0066ff, 0 0 10vw #66a3ff;
             }
 
             .cont {
@@ -45,7 +54,7 @@
                 user-select: none; /* Standard syntax */
                 /*por defecto oculto*/
                 display: none;
-                z-index: 1;
+                z-index: 1;                
             }
 
             #btnparar {
@@ -55,7 +64,7 @@
                 font-size: 1.3em;
                 color: white;
                 background-color: black;
-                padding:4px;
+                padding: 4px;
                 /*no se puede seleccionar el texto*/
                 -webkit-user-select: none; /* Chrome, Opera, Safari */
                 -moz-user-select: none; /* Firefox 2+ */
@@ -63,12 +72,20 @@
                 user-select: none; /* Standard syntax */
                 cursor: pointer;
                 z-index: 3;
+                /*sombra*/
+                -webkit-box-shadow: 0 0 8px gray, 0 0 16px white;
+                -moz-box-shadow: 0 0 8px gray, 0 0 16px white;
+                box-shadow: 0 0 8px gray, 0 0 16px white;
             }
 
-            #btnparar:hover, #btnparar:active {
-                color: white;
-                background-color: red;
-            }
+                #btnparar:hover, #btnparar:active {
+                    color: white;
+                    background-color: red;
+                    /*sombra*/
+                    -webkit-box-shadow: 0 0 8px red, 0 0 16px white;
+                    -moz-box-shadow: 0 0 8px red, 0 0 16px white;
+                    box-shadow: 0 0 8px red, 0 0 16px white;
+                }
             
         </style>
 
@@ -173,7 +190,8 @@
                         var anchoLogo;
                         var altoLogo;
                         var aumentaH = true; // true mueve a la derecha
-                        var aumentaV =  true; // true mueve hacia abajo
+                        var aumentaV = true; // true mueve hacia abajo
+                        var timerCursor;
                         //Referencias
                         var getLogo = document.getElementById("logo");
 
@@ -182,6 +200,18 @@
                         var getMain = document.getElementById("main");
                         var getCaja = document.getElementById("caja");
                         var getCont = document.getElementById("cont");
+                        //mueve el puntero y aparece
+                        getCont.onmousemove = function () { mostrarPuntero() };
+
+                        function mostrarPuntero() {
+                            getCont.style.cursor = "default";
+                            clearTimeout(timerCursor);
+                            timerCursor = setTimeout(ocultarPuntero, 3000);
+                        }
+
+                        function ocultarPuntero() {
+                            getCont.style.cursor = "none";                           
+                        }
 
                         // Lanza en pantalla completa en navegadores que lo soporten
                         function launchFullScreen() {
@@ -239,9 +269,9 @@
                             //asigna medidas conservando relación de aspecto                            
                             getLogo.style.width = ladoLogo + "px";
                             getLogo.style.height = (970 / 1280) * ladoLogo + "px";
-                            //pero no debe sobrepasar la pantalla
-                            getLogo.style.maxWidth = w + "px";                            
-                            getLogo.style.maxHeight = h + "px";
+                            //pero no debe sobrepasar la pantalla, descontando la sombra
+                            getLogo.style.maxWidth = (w * 0.9) + "px";                            
+                            getLogo.style.maxHeight = h - (w * 0.1) + "px";
 
                             //lo posiciona y direcciona
                             izquierda = 0;
@@ -307,16 +337,18 @@
                             getLogo.style.left = izquierda + "px";
                             getLogo.style.top = arriba + "px";
 
+                            //el tamaño actual del logo
                             anchoLogo = getLogo.clientWidth;
                             altoLogo = getLogo.clientHeight;
-                            topeIzquierda = getCont.clientWidth - anchoLogo;
-                            topeArriba = getCont.clientHeight - altoLogo;
+                            // los topes toman en cuenta el ancho de la ventana y del logo con su sombra                            
+                            topeIzquierda = getCont.clientWidth - anchoLogo - (getCont.clientWidth * 0.05);
+                            topeArriba = getCont.clientHeight - altoLogo - (getCont.clientWidth * 0.05);
 
                             if (izquierda >= topeIzquierda) {
                                 aumentaH = false;
                             }
 
-                            if (izquierda <= 0) {
+                            if (izquierda <= getCont.clientWidth * 0.05) {
                                 aumentaH = true;
                             }
 
@@ -324,7 +356,7 @@
                                 aumentaV = false;
                             }
 
-                            if (arriba <= 0) {
+                            if (arriba <= getCont.clientWidth * 0.05) {
                                 aumentaV = true;
                             }
                                                         
