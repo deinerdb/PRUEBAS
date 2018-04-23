@@ -295,7 +295,7 @@
                             arriba = 0;
                             aumentaH = true;
                             aumentaV = true;
-                            timer = setInterval(moverLogo, 22);
+                            timer = setInterval(moverLogo, 50);
 
                             launchFullScreen();
 
@@ -325,15 +325,15 @@
                         function moverLogo() {
                             
                             if (aumentaH == true) {
-                                izquierda++;
+                                izquierda = izquierda + 2;
                             } else {
-                                izquierda--;
+                                izquierda = izquierda - 2;
                             }
 
                             if (aumentaV == true) {
-                                arriba++;
+                                arriba = arriba + 2;
                             } else {
-                                arriba--;
+                                arriba = arriba - 2;
                             }
 
                             getLogo.style.left = izquierda + "px";
