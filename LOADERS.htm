@@ -85,6 +85,19 @@
 
                 
                 /*loader 1*/
+            #loader1Primero {
+                border-top: 16px solid #3498db;
+            }
+            #loader1Segundo {
+                border-top: 16px solid #9900ff;
+                border-bottom: 16px solid #9900ff;
+            }
+            #loader1Tercero {
+                border-top: 16px solid blue;
+                border-right: 16px solid green;
+                border-bottom: 16px solid red;
+                border-left: 16px solid yellow;
+            }
 
             .loader1 {
                 border: 16px solid #f3f3f3;
@@ -92,8 +105,7 @@
                 -moz-border-radius: 50%;
                 -webkit-border-radius: 50%;
                 border-radius: 50%;
-
-                border-top: 16px solid #3498db;
+                
                 width: 120px;
                 height: 120px;
                 /*animar*/
@@ -101,17 +113,14 @@
                 -webkit-animation-duration: 2s;
                 -webkit-animation-timing-function: linear;
                 -webkit-animation-iteration-count: infinite;
-
                 -moz-animation-name: spin;
                 -moz-animation-duration: 2s;
                 -moz-animation-timing-function: linear;
                 -moz-animation-iteration-count: infinite;
-
                 -o-animation-name: spin;
                 -o-animation-duration: 2s;
                 -o-animation-timing-function: linear;
                 -o-animation-iteration-count: infinite;
-
                 /*estándar*/
                 animation-name: spin;
                 animation-duration: 2s;
@@ -240,7 +249,9 @@ animation-iteration-count: infinite;
 
                 <div class="cont">
                     <hr />
-                    <div class="loader1"></div>
+                    <div class="loader1" id="loader1Primero"></div>
+                    <div class="loader1" id="loader1Segundo"></div>
+                    <div class="loader1" id="loader1Tercero"></div>
                     <hr />
                 </div>
                 
