@@ -37,7 +37,12 @@
                     margin-bottom: 24px;
 
                 }
-                
+            #contLoader2 {
+                height: 6.2em;
+                margin-top: 24px;
+                margin-bottom: 24px;                
+                display: flex;
+            }
 
             /*Para la acordeón*/
             /*es diferente de las demás páginas, por el fondo negro*/
@@ -165,6 +170,70 @@
                     transform: rotate(360deg);
                 }
             }
+            /*loader 2*/
+            .loader2,
+            .loader2:before,
+            .loader2:after {
+                background: #0066ff;
+                -webkit-animation: load1 1s infinite ease-in-out;
+                animation: load1 1s infinite ease-in-out;
+                width: 1em;
+                height: 4em;
+            }
+
+            .loader2 {
+                color: #0066ff;
+                text-indent: -9999em;
+                margin: 88px auto;
+                position: relative;
+                font-size: 11px;
+                -webkit-transform: translateZ(0);
+                -ms-transform: translateZ(0);
+                transform: translateZ(0);
+                -webkit-animation-delay: -0.16s;
+                animation-delay: -0.16s;
+            }
+
+                .loader2:before,
+                .loader2:after {
+                    position: absolute;
+                    top: 0;
+                    content: '';
+                }
+
+                .loader2:before {
+                    left: -1.5em;
+                    -webkit-animation-delay: -0.32s;
+                    animation-delay: -0.32s;
+                }
+
+                .loader2:after {
+                    left: 1.5em;
+                }
+
+            @-webkit-keyframes load1 {
+                0%, 80%, 100% {
+                    box-shadow: 0 0;
+                    height: 4em;
+                }
+
+                40% {
+                    box-shadow: 0 -2em;
+                    height: 5em;
+                }
+            }
+
+            @keyframes load1 {
+                0%, 80%, 100% {
+                    box-shadow: 0 0;
+                    height: 4em;
+                }
+
+                40% {
+                    box-shadow: 0 -2em;
+                    height: 5em;
+                }
+            }
 
         </style>
 
@@ -252,6 +321,10 @@ animation-iteration-count: infinite;
                     <div class="loader1" id="loader1Primero"></div>
                     <div class="loader1" id="loader1Segundo"></div>
                     <div class="loader1" id="loader1Tercero"></div>
+                    <hr />
+                    <div id="contLoader2">
+                        <div class="loader2"></div>
+                    </div>
                     <hr />
                 </div>
                 
