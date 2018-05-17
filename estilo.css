@@ -217,19 +217,21 @@ div.panel .fa {
     float: left;
     margin: 0 12px 4px 0;
 }
-div.panel textarea {
-    width: 100%;
-    background-color: #e6daf1;
-    overflow: auto;
-    white-space: pre !important;
-    padding: 12px;
-    margin-bottom: 8px;
-    box-sizing: border-box;
-    border-color: mediumpurple;
-    font-size: 1em;
-    -moz-resize: none;
-    resize: none;
-}
+    div.panel textarea {
+        width: 100%;
+        background-color: #e6daf1;
+        overflow: auto;
+        white-space: pre !important;
+        padding: 12px;
+        margin-bottom: 8px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        border-color: mediumpurple;
+        font-size: 1em;
+        -moz-resize: none;
+        resize: none;
+    }
 /*fin acordeón*/
 
 .selected {

@@ -24,29 +24,55 @@
                     background-color: transparent !important;
                 }
             }
+            hr {
+                margin-top: 34px;
+                margin-bottom:34px;
+            }
             .cont {
-                overflow: auto;                
-                margin: 8px;
-                padding:16px;
+                overflow:hidden;
+                margin: 8px auto;
+                padding: 16px;
+                width: 100%;
+                max-width: 100%;
+                /*para que el ancho sea real*/
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                
             }
                 .cont div {
                     /*hijos div centrados*/
-                    margin-left:auto;
-                    margin-right:auto;
+                    margin-left: auto;
+                    margin-right: auto;
                     margin-top: 24px;
                     margin-bottom: 24px;
-
+                    max-width: 95%;
+                    /*para que el ancho sea real*/
+                    -moz-box-sizing: border-box;
+                    -webkit-box-sizing: border-box;
+                    box-sizing: border-box;
                 }
             .contLoaderFlex {
-                height: 6.2em;  
+                height: 6.2em;
                 margin-top: 24px;
-                margin-bottom: 24px;                
+                margin-bottom: 24px;
+                /*centrar verticalmente*/
                 display: flex;
+                justify-content: center;
+                align-content: center;
+                flex-direction: column;
+                /*para que el ancho sea real*/
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                
             }
+
+            #espFlex1, #espFlex2 {
+                height: 10em;
+            }
+                                             
             
-            #espFlex1 {                
-                height:10em;
-            }
             /*Para la acordeón*/
             /*es diferente de las demás páginas, por el fondo negro*/
             /*se usan grises oscuros*/
@@ -641,7 +667,118 @@
                     transform: rotate(360deg);
                 }
             }
+            /*LOADER 6*/
+            .loader6 {
+                font-size: 10px;
+                margin: 50px auto;
+                text-indent: -9999em;
+                width: 11em;
+                height: 11em;
+                /*BORDE REDONDEADO*/
+                -moz-border-radius: 50%;
+                -webkit-border-radius: 50%;
+                border-radius: 50%;
+                background: black;
+                background: -moz-linear-gradient(left, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
+                background: -webkit-linear-gradient(left, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
+                background: -o-linear-gradient(left, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
+                background: -ms-linear-gradient(left, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
+                background: linear-gradient(to right, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
+                position: relative;
+                /*animado*/
+                -webkit-animation-name: load3;
+                -webkit-animation-duration: 1.4s;
+                -webkit-animation-timing-function: linear;
+                -webkit-animation-iteration-count: infinite;
+                -moz-animation-name: load3;
+                -moz-animation-duration: 1.4s;
+                -moz-animation-timing-function: linear;
+                -moz-animation-iteration-count: infinite;
+                -o-animation-name: load3;
+                -o-animation-duration: 1.4s;
+                -o-animation-timing-function: linear;
+                -o-animation-iteration-count: infinite;
+                /*estándar*/
+                animation-name: load3;
+                animation-duration: 1.4s;
+                animation-timing-function: linear;
+                animation-iteration-count: infinite;
+                /*TRANSFORM*/
+                -moz-transform: translateZ(0);
+                -o-transform: translateZ(0);
+                -webkit-transform: translateZ(0);
+                -ms-transform: translateZ(0);
+                transform: translateZ(0);
+            }
 
+                .loader6:before {
+                    width: 50%;
+                    height: 50%;
+                    background: #ffffff;
+                    /*borde redondo*/
+                    -moz-border-radius: 100% 0 0 0;
+                    -webkit-border-radius: 100% 0 0 0;
+                    border-radius: 100% 0 0 0;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    content: '';
+                }
+
+                .loader6:after {
+                    background: black;
+                    width: 75%;
+                    height: 75%;
+                    /*BORDE REDONDEADO*/
+                    -moz-border-radius: 50%;
+                    -webkit-border-radius: 50%;
+                    border-radius: 50%;
+                    content: '';
+                    margin: auto;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    bottom: 0;
+                    right: 0;
+                }
+
+            @-webkit-keyframes load3 {
+                0% {
+                    -webkit-transform: rotate(0deg);                   
+                }
+
+                100% {
+                    -webkit-transform: rotate(360deg);                    
+                }
+            }
+            @-o-keyframes load3 {
+                0% {
+                    -o-transform: rotate(0deg);                    
+                }
+
+                100% {
+                    -o-transform: rotate(360deg);                    
+                }
+            }
+            @-moz-keyframes load3 {
+                0% {
+                    -moz-transform: rotate(0deg);                    
+                }
+
+                100% {
+                    -moz-transform: rotate(360deg);                    
+                }
+            }
+
+            @keyframes load3 {
+                0% {                    
+                    transform: rotate(0deg);
+                }
+
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
 
         </style>
 
@@ -749,7 +886,11 @@ animation-iteration-count: infinite;
                     <div class="contLoaderFlex" id="espFlex1">
                         <div class="loader5">Loading...</div>
                     </div>
+                    <div class="contLoaderFlex" id="espFlex2">
+                        <div class="loader6">Loading...</div>
+                    </div>                    
                     <hr />
+                    
                 </div>
                 
                 
