@@ -40,6 +40,17 @@
             .main{
                 height:100%;
             }
+            /*  para que se vea todo...
+                otras configuraciones de impresión están en el archivo CSS
+            */
+            @media print {
+
+                .contenedor, #modalBodyTexto, .mitad , .modal-body {
+                   height:auto !important;
+                   min-height:unset !important;
+                }   
+               
+            }
             .contenedor{                
                 overflow:auto;
                 /* max-height:70%;*/
