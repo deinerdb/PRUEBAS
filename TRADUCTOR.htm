@@ -17,8 +17,33 @@
 
         <style>
             /*de esta página, adicional al archivo CSS*/
+            .caja {
+                /*menú abajo para no cruzarlo con la barra de traducción*/
+                top:unset;
+                bottom : 0;
+            }
 
-            
+            /*after y before son diferentes por la posición de la caja menú */
+
+            .sidenav:after {
+                
+                height: 80px; /*padding-bottom: ESTO PARA QUE SE VEA EN IE Y FIREFOX*/
+                
+            }
+
+            .sidenav:before {
+                
+                height: 80px; /*padding-TOP: ESTO PARA QUE SE VEA EN IE Y FIREFOX*/
+                
+            }
+
+           /*el btntop debe reubicarse también */
+            #BtnTop {
+               
+                bottom: unset; /* Place the button at the top of the page */
+                top: 20px;
+                
+            }
         </style>
 
     </head>
@@ -95,7 +120,10 @@
 
 <textarea readonly rows="6">
 ...
-4
+<div id="google_translate_element"></div>
+function googleTranslateElementInit() {
+new google.translate.TranslateElement({ pageLanguage: 'es' }, 'google_translate_element');
+}
 ...
 </textarea>
                         <i id="arrow" class="fa fa-angle-double-up" aria-hidden="true"></i>
@@ -105,7 +133,9 @@
 
                 <p>¡Hola amigos!</p>
 
-                <p>Traducir esta página.</p>
+                <p>Este es solo un texto de ejemplo para traducir.</p>
+                <p>Seleccione un idioma y Google traducirá la página web.</p>
+
                 <!--EL ELEMENTO TRADUCTOR-->
                 <div id="google_translate_element"></div>         
                 
