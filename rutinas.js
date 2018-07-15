@@ -1,4 +1,8 @@
 ﻿//Rutinas
+
+//QUITEMOS EL TEXTO DEL RELLENO
+document.getElementById("relleno").innerHTML = "";
+
 //***********************************
 //PARA IMPRESIÓN
 //***********************************
