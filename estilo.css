@@ -294,7 +294,7 @@ div.panel .fa {
     min-height: 100%; /*height */
     overflow: hidden;
     width: 0;
-    color: white;
+    color: lavender;
     z-index: 250; /*según el orden de esta web*/
     -moz-transition: width 0.5s;
     -o-transition: width 0.5s;
