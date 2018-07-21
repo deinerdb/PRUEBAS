@@ -17,7 +17,147 @@
 
         <style>
             /*de esta página, adicional al archivo CSS*/
-            
+            .formulario {
+                font-size: 1.1em;
+                padding: 10px 8px;
+            }
+            #pTV {
+                font-size: 1.2em;
+                font-family: Tahoma;
+                padding: 1px 1px 1px 12px;
+                margin: 0px 0px 2px 0px;
+                overflow: auto;
+                max-width: 98%;
+                white-space: nowrap;
+                color: purple;
+            }
+            #rangoTV {
+                border: none;
+            }
+            #aIzquierda {
+                font-size: 1.5em;
+                color: purple;
+                vertical-align: auto;
+                min-width: 50%;
+                text-align: left;
+                display: inline-block;
+            }
+
+            #aDerecha {
+                font-size: 3em;
+                color: purple;
+                vertical-align: auto;
+                min-width: 50%;
+                text-align: right;
+                display: inline-block;
+            }
+
+            #divA {
+                width: 100%;
+                white-space: nowrap;
+            }
+            /* INICIO CSS PARA INPUT RANGE PERSONALIZADO*/
+            input[type=range] {
+                -webkit-appearance: none;
+                margin: 10px 0;
+                width: 100%;
+            }
+
+                input[type=range]:focus {
+                    outline: none;
+                }
+
+                input[type=range]::-webkit-slider-runnable-track {
+                    width: 100%;
+                    height: 12.8px;
+                    cursor: pointer;
+                    animate: 0.2s;
+                    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+                    background: #9370DB;
+                    border-radius: 25px;
+                    border: 0px solid #000101;
+                }
+
+                input[type=range]::-webkit-slider-thumb {
+                    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+                    border: 0px solid #000000;
+                    height: 20px;
+                    width: 39px;
+                    border-radius: 7px;
+                    background: #4B0082;
+                    cursor: pointer;
+                    -webkit-appearance: none;
+                    margin-top: -3.6px;
+                }
+
+                input[type=range]:focus::-webkit-slider-runnable-track {
+                    background: #7B68EE;
+                }
+
+                input[type=range]::-moz-range-track {
+                    width: 100%;
+                    height: 12.8px;
+                    cursor: pointer;
+                    animate: 0.2s;
+                    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+                    background: #9370DB;
+                    border-radius: 25px;
+                    border: 0px solid #000101;
+                }
+
+                input[type=range]::-moz-range-thumb {
+                    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+                    border: 0px solid #000000;
+                    height: 20px;
+                    width: 39px;
+                    border-radius: 7px;
+                    background: #4B0082;
+                    cursor: pointer;
+                }
+
+                input[type=range]::-ms-track {
+                    width: 100%;
+                    height: 12.8px;
+                    cursor: pointer;
+                    animate: 0.2s;
+                    background: transparent;
+                    border-color: transparent;
+                    border-width: 39px 0;
+                    color: transparent;
+                }
+
+                input[type=range]::-ms-fill-lower {
+                    background: #9370DB;
+                    border: 0px solid #000101;
+                    border-radius: 50px;
+                    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+                }
+
+                input[type=range]::-ms-fill-upper {
+                    background: #9370DB;
+                    border: 0px solid #000101;
+                    border-radius: 50px;
+                    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+                }
+
+                input[type=range]::-ms-thumb {
+                    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+                    border: 0px solid #000000;
+                    height: 20px;
+                    width: 39px;
+                    border-radius: 7px;
+                    background: #4B0082;
+                    cursor: pointer;
+                }
+
+                input[type=range]:focus::-ms-fill-lower {
+                    background: #7B68EE;
+                }
+
+                input[type=range]:focus::-ms-fill-upper {
+                    background: #7B68EE;
+                }
+            /* FIN CSS PARA INPUT RANGE PERSONALIZADO*/
 
         </style>
 
@@ -97,20 +237,95 @@
 
 <textarea readonly rows="6">
 ...
-
-
-
-
+google.charts.load('current', { 'packages': ['corechart'] });
+google.charts.setOnLoadCallback(drawChart);
+var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+chart.draw(data, options);
 ...
 </textarea>
                         <i id="arrow" class="fa fa-angle-double-up" aria-hidden="true"></i>
                     </div>
 
-                <h2 style="color:red" class="parpadea">Página en construcción, vuelve pronto...</h2>
-
                 
+                <div id="piechart"></div>
 
-               
+                <form class="formulario">
+                    <fieldset>
+                        <legend>¿Cuánta televisión?: </legend>
+                        <div id="divA">
+                            <span id="aIzquierda">-</span><span id="aDerecha">+</span>
+                        </div>
+                        <input id="rangoTV" type="range" min="0" max="6" value="4" />
+                        <p id="pTV">4 horas</p>
+                    </fieldset>
+                 </form>
+
+
+                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js">
+                    </script>
+
+                    <script type="text/javascript">
+
+                        var timeTV = 4;
+                        var timeOtras = 2;
+                        var slider = document.getElementById("rangoTV");
+
+                        // Load google charts
+                        google.charts.load('current', { 'packages': ['corechart'] });
+                        google.charts.setOnLoadCallback(drawChart);
+
+                        // Draw the chart and set the chart values
+                        function drawChart() {
+                            var data = google.visualization.arrayToDataTable([
+                                ['Actividad', 'Horas al día'],
+                                ['Trabajar', 8],
+                                ['Comer', 2],
+                                ['TV', timeTV],
+                                ['Otras actividades', timeOtras],
+                                ['Dormir', 8]
+                            ]);
+
+                            // Optional; add a title and set the width and height of the chart
+                            var options = {
+                                'title': 'Un Día Típico',
+                                'width': 550,
+                                'height': 400,
+                                'is3D': true
+                            };
+
+                            // Display the chart inside the <div> element with id="piechart"
+                            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                            chart.draw(data, options);
+                        }
+
+                        //tiempo TV cambia dinámicamente con el slider
+                        //input y change, eventos redundantes por un bug en IE
+
+                        slider.oninput = function () {
+                            timeTV = Number(this.value);
+                            timeOtras = Number(6 - timeTV);
+                            document.getElementById("pTV").innerHTML = this.value + " horas";
+                            drawChart();
+                        }
+                        slider.onchange = function () {                            
+                            timeTV = Number(this.value);
+                            timeOtras = Number(6 - this.value);
+                            document.getElementById("pTV").innerHTML = this.value + " horas";
+                            drawChart();
+                        }
+
+                    </script>
+
+
+                    <h3>Sobre el gráfico...</h3>
+                    <p>
+                        El gráfico muestra la distribución del tiempo en un día típico.
+                        Al permitir cambiar con el control deslizante el tiempo que se dedica a la televisión, muestro que un gráfico de Google
+                        puede ser modificado dinámicamente en la página web.
+                        Este ejercicio también nos permite meditar en que cuanto más tiempo gastamos viendo televisión,
+                        menos tiempo tendremos para otras actividades, como leer o estudiar.
+                    </p>
+
                     <footer>
                         <p>Coded by @deiner_db</p>
                         <img id="miFoto" title="Deiner Domínguez" alt="Foto Deiner Domínguez" src="miFoto.jpg" width="1280" height="893" />

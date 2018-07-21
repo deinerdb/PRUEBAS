@@ -183,6 +183,11 @@ window.onload = function () {
         document.getElementsByClassName("pSombra")[3].innerHTML = "Difuminado (blur): 0 px";
 
     }
+    //GRAFICAR
+    if (typeof drawChart == 'function') {
+        //forza el valor por defecto timeTV rango
+        document.getElementById("rangoTV").value = 4;
+    }
     
 };
 
