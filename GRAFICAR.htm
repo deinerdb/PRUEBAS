@@ -19,9 +19,8 @@
             /*de esta página, adicional al archivo CSS*/
             #piechart {
                 /*RESPONSIVE*/
-                max-width: 100%;
+                max-width: 98%;
                 overflow: auto;
-
             }
 
             .formulario {
@@ -38,6 +37,15 @@
                 white-space: nowrap;
                 color: purple;
             }
+            #contMsj {
+                color: green;
+                background-color: #d3f8d3;                
+                margin: 6px;
+                padding: 8px 8px 8px 12px;
+                border-left-style: solid;
+                border-left-color: green;
+                border-left-width: 4px;
+            }
             #rangoTV {
                 border: none;
             }
@@ -48,6 +56,7 @@
                 min-width: 50%;
                 text-align: left;
                 display: inline-block;
+                font-weight:bold;
             }
 
             #aDerecha {
@@ -57,6 +66,7 @@
                 min-width: 50%;
                 text-align: right;
                 display: inline-block;
+                font-weight: bold;
             }
 
             #divA {
@@ -253,17 +263,17 @@ chart.draw(data, options);
                         <i id="arrow" class="fa fa-angle-double-up" aria-hidden="true"></i>
                     </div>
 
-                
+                <br />
                 <div id="piechart"></div>
-
+                <br />
                 <form class="formulario">
                     <fieldset>
                         <legend>¿Cuánta televisión?: </legend>
                         <div id="divA">
                             <span id="aIzquierda">-</span><span id="aDerecha">+</span>
                         </div>
-                        <input id="rangoTV" type="range" min="0" max="6" value="4" />
-                        <p id="pTV">4 horas</p>
+                        <input id="rangoTV" type="range" min="0" max="4" value="2" step="0.1" />
+                        <p id="pTV">2 horas</p>
                     </fieldset>
                  </form>
 
@@ -273,7 +283,7 @@ chart.draw(data, options);
 
                     <script type="text/javascript">
 
-                        var timeTV = 4;
+                        var timeTV = 2;
                         var timeOtras = 2;
                         var slider = document.getElementById("rangoTV");
 
@@ -286,6 +296,7 @@ chart.draw(data, options);
                             var data = google.visualization.arrayToDataTable([
                                 ['Actividad', 'Horas al día'],
                                 ['Trabajar', 8],
+                                ['Transporte', 2],
                                 ['Comer', 2],
                                 ['TV', timeTV],
                                 ['Otras actividades', timeOtras],
@@ -310,20 +321,21 @@ chart.draw(data, options);
 
                         slider.oninput = function () {
                             timeTV = Number(this.value);
-                            timeOtras = Number(6 - timeTV);
+                            timeOtras = Number(4 - timeTV);
                             document.getElementById("pTV").innerHTML = this.value + " horas";
                             drawChart();
                         }
                         slider.onchange = function () {                            
                             timeTV = Number(this.value);
-                            timeOtras = Number(6 - this.value);
+                            timeOtras = Number(4 - this.value);
                             document.getElementById("pTV").innerHTML = this.value + " horas";
                             drawChart();
                         }
 
                     </script>
-
-
+                
+                <br />
+                <div id="contMsj">
                     <h3>Sobre el gráfico...</h3>
                     <p>
                         El gráfico muestra la distribución del tiempo en un día típico.
@@ -332,7 +344,7 @@ chart.draw(data, options);
                         Este ejercicio también nos permite meditar en que cuanto más tiempo gastamos viendo televisión,
                         menos tiempo tendremos para otras actividades, como leer o estudiar.
                     </p>
-
+                </div>
                     <footer>
                         <p>Coded by @deiner_db</p>
                         <img id="miFoto" title="Deiner Domínguez" alt="Foto Deiner Domínguez" src="miFoto.jpg" width="1280" height="893" />

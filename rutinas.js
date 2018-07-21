@@ -186,7 +186,7 @@ window.onload = function () {
     //GRAFICAR
     if (typeof drawChart == 'function') {
         //forza el valor por defecto timeTV rango
-        document.getElementById("rangoTV").value = 4;
+        document.getElementById("rangoTV").value = 2;
     }
     
 };
