@@ -19,8 +19,9 @@
             /*de esta página, adicional al archivo CSS*/
             #piechart {
                 /*RESPONSIVE*/
-                max-width: 98%;
+                max-width: 100%;
                 overflow: auto;
+                margin: 24px 4px;
             }
 
             .formulario {
@@ -40,7 +41,7 @@
             #contMsj {
                 color: green;
                 background-color: #d3f8d3;                
-                margin: 6px;
+                margin: 24px 12px;
                 padding: 8px 8px 8px 12px;
                 border-left-style: solid;
                 border-left-color: green;
@@ -200,6 +201,7 @@
             <a href="MAP.htm"><i class="fa fa-map-marker"></i>MAPA</a>            
             <a href="TRADUCTOR.htm"><i class="fa fa-google"></i>TRADUCIR</a>
             <a class="selected" id="selectedsidenav" href="GRAFICAR.htm"><i class="fa fa-pie-chart"></i>GRAFICAR</a>
+            <a href="FRASES.htm"><i class="fa fa-book"></i>FRASES</a>
             <hr />
             <a href="#" onclick="imprimir()"><i class="fa fa-print"></i>IMPRIMIR</a>
         </div>
@@ -233,6 +235,7 @@
                 <a href="MAP.htm"><i class="fa fa-map-marker"></i>MAPA</a>
                 <a href="TRADUCTOR.htm"><i class="fa fa-google"></i>TRADUCIR</a>
                 <a class="selected" id="selectednavbar" href="GRAFICAR.htm"><i class="fa fa-pie-chart"></i>GRAFICAR</a>
+                <a href="FRASES.htm"><i class="fa fa-book"></i>FRASES</a>
                 <span id="separador">|</span>
                 <a href="#" onclick="imprimir()"><i class="fa fa-print"></i>IMPRIMIR</a>
 
@@ -262,10 +265,9 @@ chart.draw(data, options);
 </textarea>
                         <i id="arrow" class="fa fa-angle-double-up" aria-hidden="true"></i>
                     </div>
-
-                <br />
+                                
                 <div id="piechart"></div>
-                <br />
+                
                 <form class="formulario">
                     <fieldset>
                         <legend>¿Cuánta televisión?: </legend>
@@ -333,8 +335,7 @@ chart.draw(data, options);
                         }
 
                     </script>
-                
-                <br />
+                               
                 <div id="contMsj">
                     <h3>Sobre el gráfico...</h3>
                     <p>

@@ -3,12 +3,12 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-        <meta name="description" content="Google Maps - El Rancho de Juan"/>
+        <meta name="description" content="Visor de Frases Sabias"/>
         <!-- Chrome, Firefox, OS y Opera -->
         <meta name="theme-color" content="#663399" />
         <!-- Windows Phone -->
         <meta name="msapplication-navbutton-color" content="#663399" />
-        <title>Google Maps</title>
+        <title>Frases Sabias</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="estilo.css" />
         
@@ -17,11 +17,13 @@
 
         <style>
             /*de esta página, adicional al archivo CSS*/
+
             
         </style>
 
     </head>
     <body>
+
         <div id="mySidenav" class="sidenav">
             <a href="INDEX.htm"><i class="fa fa-home"></i>INICIO</a>
             <a href="HTML.htm"><i class="fa fa-html5"></i>HTML</a>
@@ -38,10 +40,10 @@
             <a href="IMC.htm"><i class="fa fa-calculator"></i>IMC</a>
             <a href="DTV.htm"><i class="fa fa-television"></i>DirecTV <sup>&#174;</sup></a>
             <a href="LOADERS.htm"><i class="fa fa-spinner"></i>LOADERS</a>
-            <a class="selected" id="selectedsidenav" href="MAP.htm"><i class="fa fa-map-marker"></i>MAPA</a>
+            <a href="MAP.htm"><i class="fa fa-map-marker"></i>MAPA</a>            
             <a href="TRADUCTOR.htm"><i class="fa fa-google"></i>TRADUCIR</a>
             <a href="GRAFICAR.htm"><i class="fa fa-pie-chart"></i>GRAFICAR</a>
-            <a href="FRASES.htm"><i class="fa fa-book"></i>FRASES</a>
+            <a class="selected" id="selectedsidenav" href="FRASES.htm"><i class="fa fa-book"></i>FRASES</a>
             <hr />
             <a href="#" onclick="imprimir()"><i class="fa fa-print"></i>IMPRIMIR</a>
         </div>
@@ -72,10 +74,10 @@
                 <a href="IMC.htm"><i class="fa fa-calculator"></i>IMC</a>
                 <a href="DTV.htm"><i class="fa fa-television"></i>DirecTV <sup>&#174;</sup></a>
                 <a href="LOADERS.htm"><i class="fa fa-spinner"></i>LOADERS</a>
-                <a class="selected" id="selectednavbar" href="MAP.htm"><i class="fa fa-map-marker"></i>MAPA</a>
+                <a href="MAP.htm"><i class="fa fa-map-marker"></i>MAPA</a>
                 <a href="TRADUCTOR.htm"><i class="fa fa-google"></i>TRADUCIR</a>
                 <a href="GRAFICAR.htm"><i class="fa fa-pie-chart"></i>GRAFICAR</a>
-                <a href="FRASES.htm"><i class="fa fa-book"></i>FRASES</a>
+                <a class="selected" id="selectednavbar" href="FRASES.htm"><i class="fa fa-book"></i>FRASES</a>
                 <span id="separador">|</span>
                 <a href="#" onclick="imprimir()"><i class="fa fa-print"></i>IMPRIMIR</a>
 
@@ -83,13 +85,12 @@
         </div>
 
             <div class="main" id="main"> 
-                    <button class="accordion" id="accordion">Google Maps<i id="folder" class="fa" aria-hidden="true"></i></button>
+                    <button class="accordion" id="accordion">Colección de Frases<i id="folder" class="fa" aria-hidden="true"></i></button>
                     <div class="panel" id="panel">
                         <p>
-                            <i class="fa fa-map-marker" aria-hidden="true"></i>
-                            Se muestra un mapa con la ubicación de un lugar (El Rancho de Juan), usando la API de Google Maps. <br />
-                            Una API (Application Programming Interface) es un conjunto de métodos y herramientas que puede ser utilizado para construir software de aplicaciones.<br />
-                            La API de Google Maps te permite mostrar mapas en tu sitio web.
+                            <i class="fa fa-book" aria-hidden="true"></i>
+                            Colección de frases sabias, son como alguien las llamó "gotitas de sabiduría", a menudo condensan verdades simples y en ocasiones profundas. 
+                            No se incluyen los autores. Algunas son bíblicas.
                             <br />
                             <br />
                             <strong style="clear:left">Fragmento de código usado en esta página:</strong><br />
@@ -97,37 +98,17 @@
 
 <textarea readonly rows="6">
 ...
-var mapCanvas = document.getElementById("googleMap");
-var myCenter = new google.maps.LatLng(10.7411197, -74.7485825);
-var mapOptions = { center: myCenter, zoom: 18 };
-var map = new google.maps.Map(mapCanvas, mapOptions);
+-
+-
+-
+-
 ...
 </textarea>
                         <i id="arrow" class="fa fa-angle-double-up" aria-hidden="true"></i>
                     </div>
-                                                
-                <div id="googleMap" style="width:100%;height:400px;"></div>
-                
-                <script>
-                    function myMap() {
-                        var mapCanvas = document.getElementById("googleMap");
-                        var myCenter = new google.maps.LatLng(10.7411197, -74.7485825);
-                        var mapOptions = { center: myCenter, zoom: 18, mapTypeId: google.maps.MapTypeId.HYBRID };
-                        var map = new google.maps.Map(mapCanvas, mapOptions);
-                        var marker = new google.maps.Marker({
-                            position: myCenter,
-                            animation: google.maps.Animation.BOUNCE
-                        });
-                        marker.setMap(map);
-                        //leyenda
-                        var infowindow = new google.maps.InfoWindow({
-                            content: "El Rancho de Juan"
-                        });
-                        infowindow.open(map, marker);
-                    }
-                </script>
+                                
+                <h2 style="color:red" class="parpadea">Página en construcción, vuelve pronto...</h2>
 
-                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxGhc4cU5pmjZhGRXAOrsuq1bIwbIiWO4&callback=myMap"></script>
 
                     <footer>
                         <p>Coded by @deiner_db</p>
