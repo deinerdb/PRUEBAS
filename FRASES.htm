@@ -14,11 +14,77 @@
         
         <link rel="icon" href="favicon.ico" type="image/x-icon" />
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <!-- fuente para las frases -->
+        <link href='https://fonts.googleapis.com/css?family=Flamenco' rel='stylesheet'>
 
         <style>
             /*de esta página, adicional al archivo CSS*/
+            /*LA CAJA SUPERIOR*/
+            .cajaFrases {
+                background-color: rebeccapurple;    
+                z-index: 400;
+                white-space: nowrap;
+                overflow: visible;
+                display: inline-flex;
+                position: fixed;
+                margin: 0;
+                padding: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                /*no se puede seleccionar el texto*/
+                -webkit-user-select: none; /* Chrome, Opera, Safari */
+                -moz-user-select: none; /* Firefox 2+ */
+                -ms-user-select: none; /* IE 10+ */
+                user-select: none; /* Standard syntax */
+            }
+            #BtnTop {
+               
+                bottom: 50% !important; /* Place the button at the middle of the page */
+                
+            }
+           
+            /* before diferente por la barra de menú de abajo */
 
-            
+            .sidenav:after {
+                height: 80px !important; /*padding-bottom: ESTO PARA QUE SE VEA EN IE Y FIREFOX*/
+            }
+            .main {               
+                margin-bottom: 62px !important;
+            }
+            /*íconos de la barra inferior*/
+            .cajaFrases .fa {
+                /* no llevan texto ...*/
+                
+                font-size: 1.2em;
+            }
+
+            .cajaFrases button {
+                cursor: pointer;
+                font-family: Tahoma, Arial, sans-serif;
+                display: inline-block;
+                color: white;
+                background-color: rebeccapurple;
+                text-align: center;
+                padding: 12px;
+                margin: 4px 2px;
+                opacity: 1;
+                visibility: visible;
+                -moz-transition: opacity 0.4s, visibility 0.4s, background-color 0.4s;
+                -o-transition: opacity 0.4s, visibility 0.4s, background-color 0.4s;
+                -webkit-transition: opacity 0.4s, visibility 0.4s, background-color 0.4s;
+                transition: opacity 0.4s, visibility 0.4s, background-color 0.4s;
+            }
+
+            .cajaFrases button:hover {
+                background-color: lavender;
+                color: purple;
+            }
+            .parpadea {
+                font-family : 'Flamenco', Verdana, Geneva, Tahoma, sans-serif;
+                font-size: 6vw;
+            }
+
         </style>
 
     </head>
@@ -109,7 +175,12 @@
                                 
                 <h2 style="color:red" class="parpadea">Página en construcción, vuelve pronto...</h2>
 
-
+                <div class="cajaFrases" id="cajaFrases">
+                    <button id="BtnPrimeraFrase" title="Ir a la primera frase"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+                    <button id="BtnFraseAnterior" title="Ir a la frase anterior"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+                    <button id="BtnFraseSiguiente" title="Ir a la frase siguiente"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                    <button id="BtnUltimaFrase" title="Ir a la última frase"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                </div>
                     <footer>
                         <p>Coded by @deiner_db</p>
                         <img id="miFoto" title="Deiner Domínguez" alt="Foto Deiner Domínguez" src="miFoto.jpg" width="1280" height="893" />
