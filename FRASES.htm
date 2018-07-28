@@ -24,7 +24,7 @@
                 background-color: rebeccapurple;    
                 z-index: 400;
                 white-space: nowrap;
-                overflow: visible;
+                overflow: auto;
                 display: inline-flex;
                 position: fixed;
                 margin: 0;
@@ -80,9 +80,12 @@
                 background-color: lavender;
                 color: purple;
             }
+            .cajaFrases button:first-child {
+                margin-left: 6px;
+            }
             .parpadea {
                 font-family : 'Flamenco', Verdana, Geneva, Tahoma, sans-serif;
-                font-size: 6vw;
+                font-size: 10vh;
             }
 
         </style>
@@ -176,10 +179,15 @@
                 <h2 style="color:red" class="parpadea">Página en construcción, vuelve pronto...</h2>
 
                 <div class="cajaFrases" id="cajaFrases">
+                    <button id="BtnBuscar" title="Buscar frases"><i class="fa fa-search" aria-hidden="true"></i></button>
                     <button id="BtnPrimeraFrase" title="Ir a la primera frase"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
                     <button id="BtnFraseAnterior" title="Ir a la frase anterior"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
                     <button id="BtnFraseSiguiente" title="Ir a la frase siguiente"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
                     <button id="BtnUltimaFrase" title="Ir a la última frase"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                    <button id="BtnFraseAleatoria" title="Mostrar frase al azar"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                    <button id="BtnFraseSolicitada" title="Mostrar la frase número..."><i class="fa fa-hashtag" aria-hidden="true"></i></button>
+                    <button id="BtnCopiar" title="Copiar frase(s)"><i class="fa fa-files-o" aria-hidden="true"></i></button>
+                                        
                 </div>
                     <footer>
                         <p>Coded by @deiner_db</p>
