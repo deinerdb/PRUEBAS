@@ -40,7 +40,7 @@
             }
             #BtnTop {
                
-                bottom: 50% !important; /* Place the button at the middle of the page */
+                bottom: 80px !important; /* Place the button at the middle of the page */
                 
             }
            
@@ -55,8 +55,7 @@
             /*íconos de la barra inferior*/
             .cajaFrases .fa {
                 /* no llevan texto ...*/
-                
-                font-size: 1.2em;
+                font-size: 1.2em;                
             }
 
             .cajaFrases button {
@@ -64,10 +63,10 @@
                 font-family: Tahoma, Arial, sans-serif;
                 display: inline-block;
                 color: white;
-                background-color: rebeccapurple;
-                text-align: center;
+                background-color: rebeccapurple;                
                 padding: 12px;
-                margin: 4px 2px;
+                margin: 8px 2px;
+                text-align: center;                
                 opacity: 1;
                 visibility: visible;
                 -moz-transition: opacity 0.4s, visibility 0.4s, background-color 0.4s;
@@ -76,12 +75,16 @@
                 transition: opacity 0.4s, visibility 0.4s, background-color 0.4s;
             }
 
-            .cajaFrases button:hover {
-                background-color: lavender;
-                color: purple;
-            }
+                .cajaFrases button:active, .cajaFrases button:hover {
+                    background-color: lavender;
+                    color: purple;
+                }
+                
             .cajaFrases button:first-child {
                 margin-left: 6px;
+            }
+            .cajaFrases button:last-child {
+                margin-right: 6px;
             }
             .parpadea {
                 font-family : 'Flamenco', Verdana, Geneva, Tahoma, sans-serif;
@@ -176,7 +179,7 @@
                         <i id="arrow" class="fa fa-angle-double-up" aria-hidden="true"></i>
                     </div>
                                 
-                <h2 style="color:red" class="parpadea">Página en construcción, vuelve pronto...</h2>
+                <h2 id="parpadea" style="color:red" class="parpadea">Página en construcción, vuelve pronto...</h2>
 
                 <div class="cajaFrases" id="cajaFrases">
                     <button id="BtnBuscar" title="Buscar frases"><i class="fa fa-search" aria-hidden="true"></i></button>
@@ -186,9 +189,60 @@
                     <button id="BtnUltimaFrase" title="Ir a la última frase"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
                     <button id="BtnFraseAleatoria" title="Mostrar frase al azar"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                     <button id="BtnFraseSolicitada" title="Mostrar la frase número..."><i class="fa fa-hashtag" aria-hidden="true"></i></button>
+                    <button id="BtnCerrar" title="Cerrar modo búsqueda"><i class="fa fa-times" aria-hidden="true"></i></button>
                     <button id="BtnCopiar" title="Copiar frase(s)"><i class="fa fa-files-o" aria-hidden="true"></i></button>
-                                        
+                    <button id="BtnAyuda" title="Información sobre estos botones"><i class="fa fa-question" aria-hidden="true"></i></button>                                        
                 </div>
+                <script type="text/javascript">
+                    var modoBuscar = false;
+                    DefinirModoBuscar(false);
+
+                    function DefinirModoBuscar(activo) {
+
+                        if (activo == true) {
+                            document.getElementById("BtnCerrar").style.display = "block"; 
+                            document.getElementById("BtnBuscar").style.display = "none";
+                            document.getElementById("BtnPrimeraFrase").style.display = "none";
+                            document.getElementById("BtnFraseAnterior").style.display = "none";
+                            document.getElementById("BtnFraseSiguiente").style.display = "none";
+                            document.getElementById("BtnUltimaFrase").style.display = "none";
+                            document.getElementById("BtnFraseAleatoria").style.display = "none";
+                            document.getElementById("BtnFraseSolicitada").style.display = "none";
+                            document.getElementById("BtnAyuda").style.display = "none";
+
+                            document.getElementById("parpadea").style.fontSize = "1.2em";
+                            modoBuscar = true;
+                        }
+                        else {
+                            document.getElementById("BtnCerrar").style.display = "none";
+                            document.getElementById("BtnBuscar").style.display = "block";
+                            document.getElementById("BtnPrimeraFrase").style.display = "block";
+                            document.getElementById("BtnFraseAnterior").style.display = "block";
+                            document.getElementById("BtnFraseSiguiente").style.display = "block";
+                            document.getElementById("BtnUltimaFrase").style.display = "block";
+                            document.getElementById("BtnFraseAleatoria").style.display = "block";
+                            document.getElementById("BtnFraseSolicitada").style.display = "block";
+                            document.getElementById("BtnAyuda").style.display = "block";
+
+                            document.getElementById("parpadea").style.fontSize = "10vh";
+                            modoBuscar = false;
+                            
+
+                        }
+                    }
+                    // entra al modo búsqueda
+                    document.getElementById("BtnBuscar").onclick = function () {
+
+                        DefinirModoBuscar(true);
+
+                    }
+                    // sale del modo búsqueda
+                    document.getElementById("BtnCerrar").onclick = function () {
+
+                        DefinirModoBuscar(false);
+
+                    }
+                </script>
                     <footer>
                         <p>Coded by @deiner_db</p>
                         <img id="miFoto" title="Deiner Domínguez" alt="Foto Deiner Domínguez" src="miFoto.jpg" width="1280" height="893" />
