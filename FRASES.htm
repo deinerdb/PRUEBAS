@@ -86,9 +86,15 @@
             .cajaFrases button:last-child {
                 margin-right: 6px;
             }
-            .parpadea {
+            #contFrases {
                 font-family : 'Flamenco', Verdana, Geneva, Tahoma, sans-serif;
                 font-size: 10vh;
+            }
+            .fraseBiblia {
+                color: darkred;
+            }
+            .fraseSeglar {
+                color: midnightblue;
             }
 
         </style>
@@ -165,6 +171,9 @@
                             No se incluyen los autores. Algunas son bíblicas.
                             <br />
                             <br />
+                            <strong>Nota: </strong> <span class="fraseBiblia">Las frases bíblicas aparecen en rojo </span><span class="fraseSeglar">y las frases seglares aparecen en azul.</span>
+                            <br />
+                            <br />
                             <strong style="clear:left">Fragmento de código usado en esta página:</strong><br />
                         </p>
 
@@ -179,7 +188,12 @@
                         <i id="arrow" class="fa fa-angle-double-up" aria-hidden="true"></i>
                     </div>
                                 
-                <h2 id="parpadea" style="color:red" class="parpadea">Página en construcción, vuelve pronto...</h2>
+                <h3 style="color:red" class="parpadea">Página en construcción, vuelve pronto...</h3>
+                <h3 class="letramorada" id="infoEncontradas">Frases encontradas:</h3>
+                <div id="contFrases">
+                    <p class="fraseSeglar">Texto de ejemplo seglar</p>
+                    <p class="fraseBiblia">Texto de ejemplo bíblica</p>
+                </div>
 
                 <div class="cajaFrases" id="cajaFrases">
                     <button id="BtnBuscar" title="Buscar frases"><i class="fa fa-search" aria-hidden="true"></i></button>
@@ -209,8 +223,9 @@
                             document.getElementById("BtnFraseAleatoria").style.display = "none";
                             document.getElementById("BtnFraseSolicitada").style.display = "none";
                             document.getElementById("BtnAyuda").style.display = "none";
+                            document.getElementById("infoEncontradas").style.display = "block";
 
-                            document.getElementById("parpadea").style.fontSize = "1.2em";
+                            document.getElementById("contFrases").style.fontSize = "1.2em";
                             modoBuscar = true;
                         }
                         else {
@@ -223,8 +238,9 @@
                             document.getElementById("BtnFraseAleatoria").style.display = "block";
                             document.getElementById("BtnFraseSolicitada").style.display = "block";
                             document.getElementById("BtnAyuda").style.display = "block";
+                            document.getElementById("infoEncontradas").style.display = "none";
 
-                            document.getElementById("parpadea").style.fontSize = "10vh";
+                            document.getElementById("contFrases").style.fontSize = "10vh";
                             modoBuscar = false;
                             
 
