@@ -14,8 +14,24 @@
         
         <link rel="icon" href="favicon.ico" type="image/x-icon" />
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <!--*jQuery CDN
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        este es más nuevo, pero usamos la versión vieja
+    -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
         <style>
+            .loader {
+                position: fixed;
+                left: 0px;
+                top: 0px;
+                width: 100%;
+                height: 100%;
+                z-index: 9999;
+                background: url('pageLoader.gif') 50% 50% no-repeat rgb(249,249,249);
+                opacity: 0.8;
+                filter: Alpha(opacity=80); /* IE8 and earlier */
+            }
             /*el fondo negro no debe imprimirse...
                 otras configuraciones de impresión están en el archivo CSS
             */
@@ -2163,7 +2179,16 @@
         </style>
 
     </head>
+
     <body style="background-color:black">
+
+        <div class="loader"></div>
+        <script type="text/javascript">
+            $(window).load(function () {
+                $(".loader").fadeOut("slow");
+            });
+        </script>
+
         <div id="mySidenav" class="sidenav">
             <a href="INDEX.htm"><i class="fa fa-home"></i>INICIO</a>
             <a href="HTML.htm"><i class="fa fa-html5"></i>HTML</a>
