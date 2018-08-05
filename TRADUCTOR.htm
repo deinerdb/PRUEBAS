@@ -35,8 +35,8 @@
             /*de esta página, adicional al archivo CSS*/
             .caja {
                 /*menú abajo para no cruzarlo con la barra de traducción*/
-                top:unset;
-                bottom : 0;
+                top: auto !important;
+                bottom : 0 !important;
             }
 
             /*after y before son diferentes por la posición de la caja menú */
@@ -49,16 +49,13 @@
 
             .sidenav:before {
                 
-                height: 80px; /*padding-TOP: ESTO PARA QUE SE VEA EN IE Y FIREFOX*/
+                height: 50px; /*padding-TOP: ESTO PARA QUE SE VEA EN IE Y FIREFOX*/
                 
             }
 
            /*el btntop debe reubicarse también */
             #BtnTop {
-               
-                bottom: unset; /* Place the button at the top of the page */
-                top: 100px !important;
-                
+                bottom: 80px !important; /* Place the button at the middle of the page */
             }
             .main {
                 margin-top: 35px !important;

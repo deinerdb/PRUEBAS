@@ -36,7 +36,7 @@
                 filter: Alpha(opacity=80); /* IE8 and earlier */
             }
             /*de esta página, adicional al archivo CSS*/
-            /*LA CAJA SUPERIOR*/
+            /*LA BARRA DE NAVEGACIÓN DE FRASES*/
             .cajaFrases {
                 background-color: rebeccapurple;
                 z-index: 400;
@@ -45,7 +45,7 @@
                 display: inline-flex;
                 position: fixed;
                 margin: 0;
-                padding: 0;
+                padding: 0;                
                 bottom: 0;
                 left: 0;
                 right: 0;
@@ -101,15 +101,15 @@
             #txtBuscar {
                 font-family: Tahoma, Arial, sans-serif;
                 display: inline-block;
-                margin: 8px 2px;
+                margin: 8px 2px 8px 6px;
                 text-align: left;
                 padding: 6px;
                 border: none;
                 font-size: 17px;
-                -moz-transition: width 0.4s ease-in-out;
-                -o-transition: width 0.4s ease-in-out;
-                -webkit-transition: width 0.4s ease-in-out;
-                transition: width 0.4s ease-in-out;
+                -moz-transition: width 0.5s ease-in-out;
+                -o-transition: width 0.5s ease-in-out;
+                -webkit-transition: width 0.5s ease-in-out;
+                transition: width 0.5s ease-in-out;
                 width: 0;
                 -webkit-box-sizing: border-box;
                 -moz-box-sizing: border-box;
@@ -128,6 +128,7 @@
             .cajaFrases button:last-child {
                 margin-right: 6px;
             }
+           
             #contFrases {
                 font-family : 'Flamenco', Verdana, Geneva, Tahoma, sans-serif;
                 font-size: 10vh;
@@ -277,6 +278,8 @@
                             document.getElementById("txtBuscar").style.display = "block";
                             document.getElementById("txtBuscar").style.width = "100%";
                             document.getElementById("contFrases").style.fontSize = "1.2em";
+                            //dirige el foco al cuador de búsqueda
+                            document.getElementById("txtBuscar").focus();
                             modoBuscar = true;
                         }
                         else {
