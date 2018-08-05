@@ -38,7 +38,7 @@
             /*de esta página, adicional al archivo CSS*/
             /*LA CAJA SUPERIOR*/
             .cajaFrases {
-                background-color: rebeccapurple;    
+                background-color: rebeccapurple;
                 z-index: 400;
                 white-space: nowrap;
                 overflow: auto;
@@ -54,6 +54,10 @@
                 -moz-user-select: none; /* Firefox 2+ */
                 -ms-user-select: none; /* IE 10+ */
                 user-select: none; /* Standard syntax */
+                
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
             }
             #BtnTop {
                
@@ -80,16 +84,37 @@
                 font-family: Tahoma, Arial, sans-serif;
                 display: inline-block;
                 color: white;
-                background-color: rebeccapurple;                
+                background-color: rebeccapurple;
                 padding: 12px;
                 margin: 8px 2px;
-                text-align: center;                
+                text-align: center;
                 opacity: 1;
                 visibility: visible;
                 -moz-transition: opacity 0.4s, visibility 0.4s, background-color 0.4s;
                 -o-transition: opacity 0.4s, visibility 0.4s, background-color 0.4s;
                 -webkit-transition: opacity 0.4s, visibility 0.4s, background-color 0.4s;
                 transition: opacity 0.4s, visibility 0.4s, background-color 0.4s;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+            }
+            #txtBuscar {
+                font-family: Tahoma, Arial, sans-serif;
+                display: inline-block;
+                margin: 8px 2px;
+                text-align: left;
+                padding: 6px;
+                border: none;
+                font-size: 17px;
+                -moz-transition: width 0.4s ease-in-out;
+                -o-transition: width 0.4s ease-in-out;
+                -webkit-transition: width 0.4s ease-in-out;
+                transition: width 0.4s ease-in-out;
+                width: 0;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                max-width: 600px;
             }
 
                 .cajaFrases button:active, .cajaFrases button:hover {
@@ -220,6 +245,7 @@
                 </div>
 
                 <div class="cajaFrases" id="cajaFrases">
+                    <input type="search" placeholder="Buscar..." id="txtBuscar" maxlength="50" autocomplete="on" name="q">
                     <button id="BtnBuscar" title="Buscar frases"><i class="fa fa-search" aria-hidden="true"></i></button>
                     <button id="BtnPrimeraFrase" title="Ir a la primera frase"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
                     <button id="BtnFraseAnterior" title="Ir a la frase anterior"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
@@ -248,7 +274,8 @@
                             document.getElementById("BtnFraseSolicitada").style.display = "none";
                             document.getElementById("BtnAyuda").style.display = "none";
                             document.getElementById("infoEncontradas").style.display = "block";
-
+                            document.getElementById("txtBuscar").style.display = "block";
+                            document.getElementById("txtBuscar").style.width = "100%";
                             document.getElementById("contFrases").style.fontSize = "1.2em";
                             modoBuscar = true;
                         }
@@ -262,8 +289,9 @@
                             document.getElementById("BtnFraseAleatoria").style.display = "block";
                             document.getElementById("BtnFraseSolicitada").style.display = "block";
                             document.getElementById("BtnAyuda").style.display = "block";
-                            document.getElementById("infoEncontradas").style.display = "none";
-
+                            document.getElementById("infoEncontradas").style.display = "none";                            
+                            document.getElementById("txtBuscar").style.display = "none"; 
+                            document.getElementById("txtBuscar").style.width = "0";
                             document.getElementById("contFrases").style.fontSize = "10vh";
                             modoBuscar = false;
                             
