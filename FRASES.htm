@@ -222,17 +222,21 @@
                             <br />
                             <br />
                             <strong>Nota: </strong> <span class="fraseBiblia">Las frases bíblicas aparecen en rojo </span><span class="fraseSeglar">y las frases seglares aparecen en azul.</span>
+                            <br />    
+                            <br />
+                            <strong>Haga clic en el botón de ayuda (ubicado al final de la barra, en la parte inferior de la pantalla), para obtener información sobre las demás herramientas.</strong>                             
                             <br />
                             <br />
+
                             <strong style="clear:left">Fragmento de código usado en esta página:</strong><br />
                         </p>
 
 <textarea readonly rows="6">
 ...
--
--
--
--
+// entra al modo búsqueda
+document.getElementById("BtnBuscar").onclick = function () {
+DefinirModoBuscar(true);
+}
 ...
 </textarea>
                         <i id="arrow" class="fa fa-angle-double-up" aria-hidden="true"></i>
@@ -278,7 +282,7 @@
                             document.getElementById("txtBuscar").style.display = "block";
                             document.getElementById("txtBuscar").style.width = "100%";
                             document.getElementById("contFrases").style.fontSize = "1.2em";
-                            //dirige el foco al cuador de búsqueda
+                            //dirige el foco al cuadro de búsqueda
                             document.getElementById("txtBuscar").focus();
                             modoBuscar = true;
                         }
