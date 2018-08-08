@@ -139,7 +139,166 @@
             .fraseSeglar {
                 color: midnightblue;
             }
+            
+            /*PARA LAS VENTANAS MODALES*/
+            /***************************/
+            .formulario {
+                font-size: 1.1em;
+                padding: 10px 8px;
+            }
+            #modalBodyTexto {
+                max-width: 100%;
+                /*margin: 16px 0px 2px 0px;*/
+                margin: 4px;
+                overflow: auto !important;
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
+                border-radius: 5px;
+                border-style: solid;
+                border-color: purple;
+                border-width: 1.2px;
+                box-sizing: border-box;
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+                padding: 12px 10px 12px 10px;
+            }
+            /* The Modal (background) */
+            .modal {
+                display: none; /* Hidden by default */
+                position: fixed; /* Stay in place */
+                z-index: 450; /* Sit on top. ver la tabla de valores en el css */
+                padding-top: 30px; /* Location of the box */
+                left: 0;
+                top: 0;
+                width: 100%; /* Full width */
+                height: 100%; /* Full height */
+                overflow: auto; /* Enable scroll if needed */
+                background-color: rgb(0,0,0); /* Fallback color */
+                background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            }
 
+            /* Modal Content */
+            .modal-content {
+                position: relative;
+                background-color: white;
+                margin: auto;
+                padding: 0;
+                border: 1px solid #888;
+                width: 95%;
+                -moz-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+                -webkit-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+                box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+                -webkit-animation-name: animatetop;
+                -webkit-animation-duration: 0.4s;
+                -moz-animation-name: animatetop;
+                -moz-animation-duration: 0.4s;
+                -o-animation-name: animatetop;
+                -o-animation-duration: 0.4s;
+                animation-name: animatetop;
+                animation-duration: 0.4s;
+            }
+
+            /* Add Animation */
+            @-webkit-keyframes animatetop {
+                from {
+                    top: -300px;
+                    opacity: 0
+                }
+
+                to {
+                    top: 0;
+                    opacity: 1
+                }
+            }
+
+            @-moz-keyframes animatetop {
+                from {
+                    top: -300px;
+                    opacity: 0
+                }
+
+                to {
+                    top: 0;
+                    opacity: 1
+                }
+            }
+
+            @-o-keyframes animatetop {
+                from {
+                    top: -300px;
+                    opacity: 0
+                }
+
+                to {
+                    top: 0;
+                    opacity: 1
+                }
+            }
+
+            @keyframes animatetop {
+                from {
+                    top: -300px;
+                    opacity: 0
+                }
+
+                to {
+                    top: 0;
+                    opacity: 1
+                }
+            }
+            /* The Close Button */
+            .close {
+                color: white;
+                float: right;
+                font-size: 28px;
+            }
+
+                .close:hover,
+                .close:focus {
+                    color: lavender;
+                    text-decoration: none;
+                    cursor: pointer;
+                    font-weight: bold;
+                    font-size: 30px;
+                }
+
+            .modal-header {
+                padding: 2px 16px;
+                background-color: indigo;
+                color: white;
+            }
+
+            #modalBody {
+                /*white-space: nowrap; solo una línea cada link si los hay*/
+                /*Interfaz para ingresar número de frase*/
+            }
+
+            .modal-body {
+                padding: 2px 12px;
+                max-width: 100%;
+                overflow: auto;
+                /*max-height:150px; puede ajustarse con javascript*/
+                -moz-transition: width 0.5s;
+                -o-transition: width 0.5s;
+                -webkit-transition: width 0.5s;
+                transition: width 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+                /*no se puede seleccionar el texto*/
+                -webkit-user-select: none; /* Chrome, Opera, Safari */
+                -moz-user-select: none; /* Firefox 2+ */
+                -ms-user-select: none; /* IE 10+ */
+                user-select: none; /* Standard syntax */
+            }
+              
+            .modal-footer {
+                padding: 2px 16px;
+                background-color: indigo;
+                color: white;
+            }
+
+            /*REVISAR EN CASO DE USAR OTROS HEADERS*/   
+            .modal-footer h4, .modal-header h2 {
+                    margin-top: 0.4em;
+                    margin-bottom: 0.4em;
+                }
         </style>
 
     </head>
@@ -211,13 +370,45 @@
 
             </div>
         </div>
+        <!-- La ventana modal para elegir número de frase, modal input -->
+        <div id="myModal" class="modal">
 
+            <!-- Modal content -->
+            <div class="modal-content" id="modalContent">
+                <div class="modal-header" id="modalHeader">
+                    <span class="close">&times;</span>
+                    <h2>Ir a frase...</h2>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <p>Aquí va una interfaz para ingresar un número de frase</p>
+                </div>
+                <div class="modal-footer" id="modalFooter">
+                    <h4>Aquí va un botón aceptar</h4>
+                </div>
+            </div>
+
+        </div>
+        <!-- La ventana modal con texto de ayuda sobre herramientas -->
+        <div id="myModalTexto" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content" id="modalContentTexto">
+                <div class="modal-header" id="modalHeaderTexto">
+                    <span class="close">&times;</span>
+                    <h2>Información sobre herramientas</h2>
+                </div>
+                <div class="modal-body" id="modalBodyTexto">
+                    Aquí van los íconos y la explicación sobre cada herramienta.
+                </div>
+            </div>
+
+        </div>
             <div class="main" id="main"> 
                     <button class="accordion" id="accordion">Colección de Frases<i id="folder" class="fa" aria-hidden="true"></i></button>
                     <div class="panel" id="panel">
                         <p>
                             <i class="fa fa-book" aria-hidden="true"></i>
-                            Colección de frases sabias, son como alguien las llamó "gotitas de sabiduría", a menudo condensan verdades simples y en ocasiones profundas. 
+                            Colección de frases sabias... Sentencias que, como "gotitas de sabiduría", condensan verdades simples y profundas. 
                             No se incluyen los autores. Algunas son bíblicas.
                             <br />
                             <br />
@@ -262,10 +453,91 @@ DefinirModoBuscar(true);
                     <button id="BtnCopiar" title="Copiar frase(s)"><i class="fa fa-files-o" aria-hidden="true"></i></button>
                     <button id="BtnAyuda" title="Información sobre estos botones"><i class="fa fa-question" aria-hidden="true"></i></button>                                        
                 </div>
+                <!--El script principal de esta página-->
                 <script type="text/javascript">
+                    // modal de información completa sobre herramientas
+                    var miTextoFull = document.getElementById("modalBodyTexto");
+                    //para el modal
+
+                    // Get the modal , input frase
+                    var modal = document.getElementById('myModal');
+                    // Get the modal texto
+                    var modalTexto = document.getElementById('myModalTexto');
+
+                    // Get the button that opens the modal input frase
+                    var btn = document.getElementById("BtnFraseSolicitada");
+                    // Get the button that opens the modal texto full sobre herramientas
+                    var btnTexto = document.getElementById("BtnAyuda");
+
+
+                    // Get the <span> element that closes the modal input frase
+                    var span = document.getElementsByClassName("close")[0];
+                    // Get the <span> element that closes the modal texto herramientas
+                    var spanTexto = document.getElementsByClassName("close")[1]; 
+
+
+                    // When the user clicks the button, open the modal input frase
+                    btn.onclick = function () {
+
+                        modal.style.display = "block";
+                        alturaModal();
+
+                    }
+                    // When the user clicks the button Texto, open the modal Texto herramientas
+                    btnTexto.onclick = function () {
+
+                        modalTexto.style.display = "block";
+                        alturaModalTexto();
+
+                    }
+
+
+                    // When the user clicks on <span> (x), close the modal input frase
+                    span.onclick = function () {
+                        modal.style.display = "none";
+                    }
+                    // When the user clicks on <span> (x), close the modal Texto herramientas
+                    spanTexto.onclick = function () {
+                        modalTexto.style.display = "none";
+                    }
+
+
+                    // When the user clicks anywhere outside of the modal (both), close it
+                    window.onclick = function (event) {
+                        if (event.target == modal) {
+                            modal.style.display = "none";
+                        }
+                        if (event.target == modalTexto) {
+                            modalTexto.style.display = "none";
+                        }
+                    }
+
+                    function alturaModal() {
+                        var h = window.innerHeight
+                            || document.documentElement.clientHeight
+                            || document.body.clientHeight;
+                        var bd = document.getElementById("modalBody");
+                        var ft = document.getElementById("modalFooter");
+                        var hd = document.getElementById("modalHeader");
+                        // mejor define altura descontando título y footer.
+                        h = 0.8 * (h - 30 - hd.scrollHeight - ft.scrollHeight);
+                        bd.style.height = h + "px";
+                    }
+
+                    function alturaModalTexto() {
+                        var h = window.innerHeight
+                            || document.documentElement.clientHeight
+                            || document.body.clientHeight;
+                        var bd = document.getElementById("modalBodyTexto");
+                        var hd = document.getElementById("modalHeaderTexto");
+                        // mejor define altura descontando título.
+                        h = 0.75 * (h - 40 - hd.scrollHeight);
+                        bd.style.height = h + "px";
+                    }
+
                     var modoBuscar = false;
                     DefinirModoBuscar(false);
-
+                    
                     function DefinirModoBuscar(activo) {
 
                         if (activo == true) {
