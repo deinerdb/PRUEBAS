@@ -128,11 +128,47 @@
             .cajaFrases button:last-child {
                 margin-right: 6px;
             }
-           
+
             #contFrases {
-                font-family : 'Flamenco', Verdana, Geneva, Tahoma, sans-serif;
+                font-family: 'Flamenco', Verdana, Geneva, Tahoma, sans-serif;
                 font-size: 10vh;
+                text-align: left;
+                padding: 10px;
+                border-width: 5px;
+                border-style: outset;
+                border-color: indigo;
+                -moz-border-radius: 24px; /*borde redondeado*/
+                -webkit-border-radius: 24px; /*borde redondeado*/
+                border-radius: 24px; /*borde redondeado*/
+                width: 90%;
+                margin: 24px auto 32px auto;
+                background-color: lightgray;
+                /*SOMBRA*/
+                -moz-box-shadow: 10px 10px 5px MediumPurple;
+                -webkit-box-shadow: 10px 10px 5px MediumPurple;
+                box-shadow: 10px 10px 5px MediumPurple; /*sombra gris en la caja*/
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
             }
+            #contFrases::after {
+                content: "";
+                clear: both;                
+                display: table;
+                    
+            }
+                #icoPen {                    
+                    color: rebeccapurple;                    
+                    float: right;
+                    margin: 6px 0 0 6px;
+                    
+                }   
+            #infoEncontradas {
+                color:purple;
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+                margin: 5px 0px;
+            }
+
             .fraseBiblia {
                 color: darkred;
             }
@@ -434,10 +470,16 @@ DefinirModoBuscar(true);
                     </div>
                                 
                 <h3 style="color:red" class="parpadea">Página en construcción, vuelve pronto...</h3>
-                <h3 class="letramorada" id="infoEncontradas">Frases encontradas:</h3>
+                
                 <div id="contFrases">
+
+                    <h3 id="infoEncontradas" class="parpadea">Frases encontradas:</h3>
+                    
                     <p class="fraseSeglar">Texto de ejemplo seglar</p>
                     <p class="fraseBiblia">Texto de ejemplo bíblica</p>
+
+                    <!--al final un ícono de lápiz-->
+                    <i id="icoPen" class="fa fa-pencil" aria-hidden="true"></i>
                 </div>
 
                 <div class="cajaFrases" id="cajaFrases">
@@ -550,6 +592,7 @@ DefinirModoBuscar(true);
                             document.getElementById("BtnFraseAleatoria").style.display = "none";
                             document.getElementById("BtnFraseSolicitada").style.display = "none";
                             document.getElementById("BtnAyuda").style.display = "none";
+                            document.getElementById("icoPen").style.display = "none";
                             document.getElementById("infoEncontradas").style.display = "block";
                             document.getElementById("txtBuscar").style.display = "block";
                             document.getElementById("txtBuscar").style.width = "100%";
@@ -568,6 +611,7 @@ DefinirModoBuscar(true);
                             document.getElementById("BtnFraseAleatoria").style.display = "block";
                             document.getElementById("BtnFraseSolicitada").style.display = "block";
                             document.getElementById("BtnAyuda").style.display = "block";
+                            document.getElementById("icoPen").style.display = "block";
                             document.getElementById("infoEncontradas").style.display = "none";                            
                             document.getElementById("txtBuscar").style.display = "none"; 
                             document.getElementById("txtBuscar").style.width = "0";
