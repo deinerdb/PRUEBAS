@@ -347,6 +347,9 @@
             });
         </script>
 
+        <!-- The actual snackbar -->
+        <div id="snackbar">Realizado</div>
+
         <div id="mySidenav" class="sidenav">
             <a href="INDEX.htm"><i class="fa fa-home"></i>INICIO</a>
             <a href="HTML.htm"><i class="fa fa-html5"></i>HTML</a>
@@ -598,7 +601,7 @@ DefinirModoBuscar(true);
                             document.getElementById("txtBuscar").style.width = "100%";
                             document.getElementById("contFrases").style.fontSize = "1.2em";
                             //dirige el foco al cuadro de búsqueda
-                            document.getElementById("txtBuscar").focus();
+                            document.getElementById("txtBuscar").focus();                                                      
                             modoBuscar = true;
                         }
                         else {
@@ -616,22 +619,24 @@ DefinirModoBuscar(true);
                             document.getElementById("txtBuscar").style.display = "none"; 
                             document.getElementById("txtBuscar").style.width = "0";
                             document.getElementById("contFrases").style.fontSize = "10vh";
+                            
                             modoBuscar = false;
                             
-
                         }
                     }
                     // entra al modo búsqueda
                     document.getElementById("BtnBuscar").onclick = function () {
 
                         DefinirModoBuscar(true);
-
+                        //mensaje
+                        showSnackbar("Modo búsqueda activado"); 
                     }
                     // sale del modo búsqueda
                     document.getElementById("BtnCerrar").onclick = function () {
 
                         DefinirModoBuscar(false);
-
+                        //mensaje
+                        showSnackbar("Modo búsqueda desactivado");
                     }
                 </script>
                     <footer>
@@ -648,7 +653,7 @@ DefinirModoBuscar(true);
 </div>
         
             <button onclick="topFunction()" id="BtnTop" title="Subir">⇧</button>
-            <script type="text/javascript" charset="utf-8" src="rutinas.js"></script>
+            <script type="text/javascript" charset="utf-8" src="rutinas.js"></script>            
 </body>
 </html>
 
