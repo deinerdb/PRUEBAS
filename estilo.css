@@ -60,14 +60,18 @@ hr{
     color: white; /* White text color */
     text-align: center; /* Centered text */
     font-family: Verdana, Geneva, Tahoma, sans-serif; /*fuente*/
-    -moz-border-radius: 2px; /*borde redondeado*/
-    -webkit-border-radius: 2px; /*borde redondeado*/
-    border-radius: 2px; /*borde redondeado*/
+    -moz-border-radius: 10px; /*borde redondeado*/
+    -webkit-border-radius: 10px; /*borde redondeado*/
+    border-radius: 10px; /*borde redondeado*/
     padding: 16px; /* Padding */
     position: fixed; /* Sit on top of the screen */
     z-index: 500; /* ver cabeza de este CSS */
     left: 50%; /* Center the snackbar */
     bottom: 30px; /* 30px from the bottom */
+    /*SOMBRA*/
+    -moz-box-shadow: 5px 5px 3px indigo;
+    -webkit-box-shadow: 5px 5px 3px indigo;
+    box-shadow: 5px 5px 3px indigo;
 }
 
     /* Show the snackbar when clicking on a button (class added with JavaScript) */
