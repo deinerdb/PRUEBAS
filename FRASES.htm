@@ -78,7 +78,40 @@
                 /* no llevan texto ...*/
                 font-size: 1.2em;                
             }
+            /*íconos en los títulos de las ventanas modales*/
+            .modal-header .fa {
+                /* van con texto a la derecha ...*/
+                margin-right: 6px;
+                border-style:solid;
+                border-color:lavender;
+                border-width: 1px;
+                padding: 2px 6px ;
+                font-size: 0.85em;
 
+            }
+            /*íconos en la ventana modal de información sobre herramientas*/
+            #modalBodyTexto .fa {
+                /* van con texto a la derecha ...*/
+                color: rebeccapurple;
+                font-size: 2em;
+                float: left;
+                margin: 0 12px 4px 0;
+                
+            }
+            #modalBodyTexto hr {
+                /* no deben flotar */
+                clear:left;
+                margin-bottom: 16px;
+                margin-top: 24px;
+
+            }
+            #modalBodyTexto hr:first-child {
+               
+                margin-top: 2px;
+            }
+            #modalBodyTexto hr:last-child {
+                margin-bottom: 8px;
+            }
             .cajaFrases button {
                 cursor: pointer;
                 font-family: Tahoma, Arial, sans-serif;
@@ -196,6 +229,8 @@
                 box-sizing: border-box;
                 font-family: Verdana, Geneva, Tahoma, sans-serif;
                 padding: 12px 10px 12px 10px;
+                color: #1a0033; /*un púrpura casi negro*/
+                background-color: white;
             }
             /* The Modal (background) */
             .modal {
@@ -416,7 +451,7 @@
             <div class="modal-content" id="modalContent">
                 <div class="modal-header" id="modalHeader">
                     <span class="close">&times;</span>
-                    <h2>Ir a frase...</h2>
+                    <h2><i class="fa fa-hashtag" aria-hidden="true"></i>Ir a frase...</h2>
                 </div>
                 <div class="modal-body" id="modalBody">
                     <p>Aquí va una interfaz para ingresar un número de frase</p>
@@ -434,10 +469,50 @@
             <div class="modal-content" id="modalContentTexto">
                 <div class="modal-header" id="modalHeaderTexto">
                     <span class="close">&times;</span>
-                    <h2>Información sobre herramientas</h2>
+                    <h2><i class="fa fa-question" aria-hidden="true"></i>Información sobre herramientas</h2>
                 </div>
                 <div class="modal-body" id="modalBodyTexto">
-                    Aquí van los íconos y la explicación sobre cada herramienta.
+                    <hr />
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                    Activa el modo búsqueda. Muestra un cuadro de texto para ingresar la búsqueda.
+                    Al buscar, se muestran las frases que contengan la expresión ingresada.
+                    <hr />
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                    Se desplaza a la primera frase de la colección. 
+                    No está disponible en el modo búsqueda.
+                    <hr />
+                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                    Se desplaza a la frase anterior de la colección. 
+                    No está disponible en el modo búsqueda.
+                    <hr />
+                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                    Se desplaza a la frase siguiente de la colección. 
+                    No está disponible en el modo búsqueda.
+                    <hr />
+                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                    Se desplaza a la última frase de la colección. 
+                    No está disponible en el modo búsqueda.
+                    <hr />
+                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                    Se desplaza a una frase aleatoria (al azar) de la colección. 
+                    No está disponible en el modo búsqueda.
+                    <hr />
+                    <i class="fa fa-hashtag" aria-hidden="true"></i>
+                    Permite ir a una frase específica de la colección. 
+                    Se muestra una interfaz para ingresar el número de la frase que se mostrará. 
+                    No está disponible en el modo búsqueda.
+                    <hr />
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                    Desactiva el modo búsqueda. Solo está disponible en el modo búsqueda.
+                    <hr />
+                    <i class="fa fa-files-o" aria-hidden="true"></i>
+                    Copia al portapapeles la frase actual de la colección. 
+                    En el modo búsqueda, copia todas las frases encontradas.
+                    <hr />
+                    <i class="fa fa-question" aria-hidden="true"></i>
+                    Como es obvio, muestra esta ventana con información sobre la barra de herramientas. 
+                    No está disponible en el modo búsqueda.
+                    <hr />
                 </div>
             </div>
 
