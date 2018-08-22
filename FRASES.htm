@@ -112,6 +112,92 @@
             #modalBodyTexto hr:last-child {
                 margin-bottom: 8px;
             }
+
+            /*interfaz ingresar número de frase*/
+            #preguntaFrase {
+                color: purple;
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+            }
+            .input-container {
+                display: -ms-flexbox; /* IE10 */                
+                display: -webkit-box;
+                display: flex;
+                width: 100%;
+                margin-bottom: 30px;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+            }
+            form {
+                /*Formularios con borde superior e inferior diferente*/
+                
+                border-color: mediumpurple !important;
+                
+               
+            }
+            .icon {
+                padding: 10px;
+                background: indigo;
+                color: white;
+                min-width: 50px;
+                text-align: center;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+            }
+
+            .input-field {
+                width: 100%;
+                padding: 10px;
+                outline: none;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+            }
+
+                .input-field:focus {
+                    border: 2px solid indigo;
+                    background-color: lavender !important;
+                }
+
+            /* Set a style for the submit button */
+            .btn {
+                color: white;
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
+                border-radius: 5px;
+                padding: 15px 20px;
+                border: none;
+                cursor: pointer;
+                width: 100%;
+                text-decoration: none;
+                background: indigo; /* For browsers that do not support gradients */
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                margin: 0;
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+            }
+
+                .btn:hover {
+                    background: rebeccapurple; /* For browsers that do not support gradients */
+                    background-image: -webkit-radial-gradient(#2d004d, #3b0066, indigo);
+                    background-image: -moz-radial-gradient(#2d004d, #3b0066, indigo);
+                    background-image: -o-radial-gradient(#2d004d, #3b0066, indigo);
+                    background-image: radial-gradient(#2d004d, #3b0066, indigo);
+                }
+                /*mensaje de validación*/
+            #esperado {
+                color: green;
+                background-color: #d3f8d3;                
+                margin: 24px 6px ;
+                padding: 8px 8px 8px 12px;
+                border-left-style: solid;
+                border-left-color: green;
+                border-left-width: 4px;
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+            }
+                /*botones de barra de herramientas*/
             .cajaFrases button {
                 cursor: pointer;
                 font-family: Tahoma, Arial, sans-serif;
@@ -360,7 +446,7 @@
             }
               
             .modal-footer {
-                padding: 2px 16px;
+                padding: 0;
                 background-color: indigo;
                 color: white;
             }
@@ -454,10 +540,24 @@
                     <h2><i class="fa fa-hashtag" aria-hidden="true"></i>Ir a frase...</h2>
                 </div>
                 <div class="modal-body" id="modalBody">
-                    <p>Aquí va una interfaz para ingresar un número de frase</p>
+
+                    <form >
+
+                        <h3 id="preguntaFrase">¿Cuál frase desea ver?</h3>
+                        <div class="input-container">
+                            <i class="fa fa-hashtag icon"></i>
+                            <input class="input-field" id="txtNumFrase" type="number" placeholder="Número de frase" name="numfrase" step="1" min="1" max="2000" maxlength="6">
+                        </div>                   
+                    </form>
+
+                    <p id="esperado">
+                        <strong>Nota: </strong>
+                        Se espera un número entre 1 y 1153
+                    </p>
+
                 </div>
                 <div class="modal-footer" id="modalFooter">
-                    <h4>Aquí va un botón aceptar</h4>
+                    <button type="button" class="btn" id="btnNumFrase">Aceptar</button>
                 </div>
             </div>
 
