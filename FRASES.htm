@@ -177,6 +177,7 @@
                 box-sizing: border-box;
                 margin: 0;
                 font-family: Verdana, Geneva, Tahoma, sans-serif;
+                font-size: 1.1em;
             }
 
                 .btn:hover {
@@ -541,23 +542,23 @@
                 </div>
                 <div class="modal-body" id="modalBody">
 
-                    <form >
+                    <form id="formIr" name="formIr" onsubmit="return validateForm()" method="get" target="_self" >
 
                         <h3 id="preguntaFrase">¿Cuál frase desea ver?</h3>
                         <div class="input-container">
                             <i class="fa fa-hashtag icon"></i>
-                            <input class="input-field" id="txtNumFrase" type="number" placeholder="Número de frase" name="numfrase" step="1" min="1" max="2000" maxlength="6">
+                            <input class="input-field" id="txtNumFrase" autocomplete="off" type="number" placeholder="Número de frase" name="numfrase" step="1" min="1" maxlength="6" required autofocus value="1">
                         </div>                   
                     </form>
 
                     <p id="esperado">
                         <strong>Nota: </strong>
-                        Se espera un número entre 1 y 1153
+                        Se espera un número entre 1 y <span id="topeEsperado"></span>
                     </p>
 
                 </div>
                 <div class="modal-footer" id="modalFooter">
-                    <button type="button" class="btn" id="btnNumFrase">Aceptar</button>
+                    <button type="button" class="btn" id="btnNumFrase" >Aceptar</button>
                 </div>
             </div>
 
@@ -618,7 +619,7 @@
 
         </div>
             <div class="main" id="main"> 
-                    <button class="accordion" id="accordion">Colección de Frases<i id="folder" class="fa" aria-hidden="true"></i></button>
+                    <button class="accordion" id="accordion">Colección de <span id="topeAcordion"></span> Frases<i id="folder" class="fa" aria-hidden="true"></i></button>
                     <div class="panel" id="panel">
                         <p>
                             <i class="fa fa-book" aria-hidden="true"></i>
@@ -653,15 +654,18 @@ DefinirModoBuscar(true);
 
                     <h3 id="infoEncontradas" class="parpadea">Frases encontradas:</h3>
                     
-                    <p class="fraseSeglar">Texto de ejemplo seglar</p>
-                    <p class="fraseBiblia">Texto de ejemplo bíblica</p>
+                    <p id="f1" class="fraseSeglar" style="display:block;">Esta sería la primera, frase 1...</p>
+                    
+                    <p id="f2" class="fraseBiblia" style="display:none;">Ejemplo, frase 2</p>
+
+                    <p id="f3" class="fraseBiblia" style="display:none;">Esta sería la última, frase 3...</p>
 
                     <!--al final un ícono de lápiz-->
                     <i id="icoPen" class="fa fa-pencil" aria-hidden="true"></i>
                 </div>
 
                 <div class="cajaFrases" id="cajaFrases">
-                    <input type="search" placeholder="Buscar..." id="txtBuscar" maxlength="50" autocomplete="on" name="q">
+                    <input type="search" placeholder="Buscar..." id="txtBuscar" maxlength="50" autocomplete="on" name="q" >
                     <button id="BtnBuscar" title="Buscar frases"><i class="fa fa-search" aria-hidden="true"></i></button>
                     <button id="BtnPrimeraFrase" title="Ir a la primera frase"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
                     <button id="BtnFraseAnterior" title="Ir a la frase anterior"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
@@ -675,6 +679,14 @@ DefinirModoBuscar(true);
                 </div>
                 <!--El script principal de esta página-->
                 <script type="text/javascript">
+
+                    //*** IMPORTANTE ***
+                    //NÚMERO MÁXIMO DE FRASE
+                    //var maxNumFrase = "1153";
+                    var maxNumFrase = "3"
+                    //*********************
+                    var fraseActual = 1;
+
                     // modal de información completa sobre herramientas
                     var miTextoFull = document.getElementById("modalBodyTexto");
                     //para el modal
@@ -698,7 +710,11 @@ DefinirModoBuscar(true);
 
                     // When the user clicks the button, open the modal input frase
                     btn.onclick = function () {
-
+                        //valores ajustados                    
+                        document.getElementById("txtNumFrase").value = "1";
+                        document.getElementById("topeEsperado").innerHTML = "" + maxNumFrase;
+                        document.getElementById("txtNumFrase").setAttribute("max", maxNumFrase);
+                        
                         modal.style.display = "block";
                         alturaModal();
 
@@ -813,6 +829,101 @@ DefinirModoBuscar(true);
                         //mensaje
                         showSnackbar("Modo búsqueda desactivado");
                     }
+                    // aceptar en #Ir a frase...
+                    document.getElementById("btnNumFrase").onclick = function () {
+                        if (validateForm() == true) {
+                            //envía por get
+                            document.getElementById("formIr").submit();
+                        } else {
+                            //error. El mensaje está en la validación                            
+                        }
+                    }
+                    function validateForm() {
+                        //solo valido que la frase exista...
+                        var x = document.forms["formIr"]["numfrase"].value;
+                        if (existeFrase("f" + x) == true) {
+                            //valida
+                            return true;
+                        } else {
+                            //error
+                            showSnackbar("¡Esa frase no existe!");
+                            document.getElementById("txtNumFrase").focus();
+                            return false;
+                        }
+                    }
+                    function existeFrase(idFrase) {
+                        if (! document.getElementById(idFrase)) {
+                            //no existe
+                            return false;
+                        } else {
+                            //sí existe
+                            return true;
+                        }
+                    }
+
+                    function ocultarFrase(idFrase) {
+                        document.getElementById("f" + idFrase).style.display = "none";                         
+                    }
+                    function mostrarFrase(idFrase) {
+                        document.getElementById("f" + idFrase).style.display = "block";
+                    }
+                    // Ir a primera frase...
+                    document.getElementById("BtnPrimeraFrase").onclick = function () {
+                        //oculta la actual
+                        ocultarFrase(fraseActual);
+                        //nueva actual
+                        fraseActual = 1;
+                        //va a la 1
+                        mostrarFrase(fraseActual);
+                        //mensaje
+                        showSnackbar("Frase número " + fraseActual);
+                    }
+                    // Ir a última frase...
+                    document.getElementById("BtnUltimaFrase").onclick = function () {
+                        //oculta la actual
+                        ocultarFrase(fraseActual);
+                        //nueva actual
+                        fraseActual = maxNumFrase;
+                        //va a la máxima
+                        mostrarFrase(fraseActual);
+                        //mensaje
+                        showSnackbar("Frase número " + fraseActual);
+                    }
+                    // Ir a siguiente frase...
+                    document.getElementById("BtnFraseSiguiente").onclick = function () {
+                        //si está en la última no hace nada
+                        if ( Number(fraseActual) == Number(maxNumFrase) ) {
+                            return;
+                        }
+                        //oculta la actual
+                        ocultarFrase(fraseActual);
+                        //nueva actual
+                        fraseActual = Number(fraseActual) + 1;
+                        //va a la siguiente
+                        mostrarFrase(fraseActual);
+                        //mensaje
+                        showSnackbar("Frase número " + fraseActual);
+                    }
+                    // Ir a anterior frase...
+                    document.getElementById("BtnFraseAnterior").onclick = function () {
+                        //si está en la primera no hace nada
+                        if (Number(fraseActual) == 1) {
+                            return;
+                        }
+                        //oculta la actual
+                        ocultarFrase(fraseActual);
+                        //nueva actual
+                        fraseActual = Number(fraseActual) - 1;
+                        //va a la anterior
+                        mostrarFrase(fraseActual);
+                        //mensaje
+                        showSnackbar("Frase número " + fraseActual);
+                    }
+
+                    // tamaño de la colección en el acordeón
+                    document.getElementById("topeAcordion").innerHTML = "" + maxNumFrase;
+
+
                 </script>
                     <footer>
                         <p>Coded by @deiner_db</p>
