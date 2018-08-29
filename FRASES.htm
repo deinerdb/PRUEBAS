@@ -547,13 +547,13 @@
                         <h3 id="preguntaFrase">¿Cuál frase desea ver?</h3>
                         <div class="input-container">
                             <i class="fa fa-hashtag icon"></i>
-                            <input class="input-field" id="txtNumFrase" autocomplete="off" type="number" placeholder="Número de frase" name="numfrase" step="1" min="1" maxlength="6" required autofocus value="1">
+                            <input class="input-field" id="txtNumFrase" autocomplete="off" type="number" placeholder="Número de frase" name="numfrase" step="1" min="1" maxlength="6" required autofocus >
                         </div>                   
                     </form>
 
                     <p id="esperado">
                         <strong>Nota: </strong>
-                        Se espera un número entre 1 y <span id="topeEsperado"></span>
+                        Se espera un número entero entre 1 y <span id="topeEsperado"></span>
                     </p>
 
                 </div>
@@ -609,6 +609,11 @@
                     <i class="fa fa-files-o" aria-hidden="true"></i>
                     Copia al portapapeles la frase actual de la colección. 
                     En el modo búsqueda, copia todas las frases encontradas.
+                    <hr />                    
+                    <i class="fa fa-link" aria-hidden="true"></i>
+                    Copia al portapapeles un enlace web a la frase actual de la colección. 
+                    Puede usar este enlace para compartir la frase actual.
+                    No está disponible en el modo búsqueda.
                     <hr />
                     <i class="fa fa-question" aria-hidden="true"></i>
                     Como es obvio, muestra esta ventana con información sobre la barra de herramientas. 
@@ -675,6 +680,7 @@ DefinirModoBuscar(true);
                     <button id="BtnFraseSolicitada" title="Mostrar la frase número..."><i class="fa fa-hashtag" aria-hidden="true"></i></button>
                     <button id="BtnCerrar" title="Cerrar modo búsqueda"><i class="fa fa-times" aria-hidden="true"></i></button>
                     <button id="BtnCopiar" title="Copiar frase(s)"><i class="fa fa-files-o" aria-hidden="true"></i></button>
+                    <button id="BtnEnlace" title="Copiar enlace a frase"><i class="fa fa-link" aria-hidden="true"></i></button>
                     <button id="BtnAyuda" title="Información sobre estos botones"><i class="fa fa-question" aria-hidden="true"></i></button>                                        
                 </div>
                 <!--El script principal de esta página-->
@@ -711,7 +717,7 @@ DefinirModoBuscar(true);
                     // When the user clicks the button, open the modal input frase
                     btn.onclick = function () {
                         //valores ajustados                    
-                        document.getElementById("txtNumFrase").value = "1";
+                        document.getElementById("txtNumFrase").value = "";
                         document.getElementById("topeEsperado").innerHTML = "" + maxNumFrase;
                         document.getElementById("txtNumFrase").setAttribute("max", maxNumFrase);
                         
@@ -787,6 +793,7 @@ DefinirModoBuscar(true);
                             document.getElementById("BtnFraseSolicitada").style.display = "none";
                             document.getElementById("BtnAyuda").style.display = "none";
                             document.getElementById("icoPen").style.display = "none";
+                            document.getElementById("BtnEnlace").style.display = "none";
                             document.getElementById("infoEncontradas").style.display = "block";
                             document.getElementById("txtBuscar").style.display = "block";
                             document.getElementById("txtBuscar").style.width = "100%";
@@ -806,6 +813,7 @@ DefinirModoBuscar(true);
                             document.getElementById("BtnFraseSolicitada").style.display = "block";
                             document.getElementById("BtnAyuda").style.display = "block";
                             document.getElementById("icoPen").style.display = "block";
+                            document.getElementById("BtnEnlace").style.display = "block";
                             document.getElementById("infoEncontradas").style.display = "none";                            
                             document.getElementById("txtBuscar").style.display = "none"; 
                             document.getElementById("txtBuscar").style.width = "0";

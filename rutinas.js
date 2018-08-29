@@ -17,8 +17,11 @@ function nowImprime() {
 }
 // PARA EL SNACKBAR
 //****************
-
+var tSnackBar = 0;
 function showSnackbar(msj) {
+    //cancela el timer anterior
+    clearTimeout(tSnackBar);
+
     // Get the snackbar DIV
     var x = document.getElementById("snackbar");
 
@@ -27,9 +30,9 @@ function showSnackbar(msj) {
 
     // Add the "show" class to DIV
     x.className = "show";
-
+    
     // After 3 seconds, remove the show class from DIV
-    setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+    tSnackBar = setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
 }
 
 
