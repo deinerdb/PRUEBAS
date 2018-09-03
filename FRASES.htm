@@ -464,9 +464,66 @@
 
         <div class="loader"></div>
         <script type="text/javascript">
+            /**
+            * Función que captura las variables pasados por GET
+            * Devuelve un array de clave=>valor
+            */
+            function getGET() {
+                // capturamos la url
+                var loc = document.location.href;
+                // si existe el interrogante
+                if (loc.indexOf('?') > 0) {
+                    // cogemos la parte de la url que hay despues del interrogante
+                    var getString = loc.split('?')[1];
+                    // obtenemos un array con cada clave=valor
+                    var GET = getString.split('&');
+                    var get = {};
+                    // recorremos todo el array de valores
+                    for (var i = 0, l = GET.length; i < l; i++) {
+                        var tmp = GET[i].split('=');
+                        get[tmp[0]] = unescape(decodeURI(tmp[1]));
+                    }
+                    return get;
+                }
+            }
+            function procesaGET() {
+                // captura los valores pasados por get
+                var valores = getGET();
+                if (valores) {
+                    //recogemos los valores que nos envía la URL en variables para trabajar con ellas
+                    var getnumfrase = valores['numfrase'];
+                    //valida que exista esa frase:
+                    if (existeFrase("f" + getnumfrase) == true) {
+                        //valida
+                        //la frase actual debe ser la recibida
+                        fraseActual = getnumfrase;
+
+                    } else {
+                        //error, la frase no existe
+                        //debe ir a la primera frase
+                        fraseActual = 1;
+                    }
+
+                    
+                    
+                } else {
+                    // no se ha recibido ningún parámetro por GET
+                    //debe ir a la primera frase
+                    fraseActual = 1;
+                }
+
+                //se mueve a la frase
+                mostrarFrase(fraseActual);
+            }
+
+           
+
+            //cuando termina de cargar la página procesa el get y quita el loader
             $(window).load(function () {
+                procesaGET();
                 $(".loader").fadeOut("slow");
             });
+
         </script>
 
         <!-- The actual snackbar -->
@@ -659,7 +716,7 @@ DefinirModoBuscar(true);
 
                     <h3 id="infoEncontradas" class="parpadea">Frases encontradas:</h3>
                     
-                    <p id="f1" class="fraseSeglar" style="display:block;">Esta sería la primera, frase 1...</p>
+                    <p id="f1" class="fraseSeglar" style="display:none;">Esta sería la primera, frase 1...</p>
                     
                     <p id="f2" class="fraseBiblia" style="display:none;">Ejemplo, frase 2</p>
 
@@ -884,7 +941,7 @@ DefinirModoBuscar(true);
                         //va a la 1
                         mostrarFrase(fraseActual);
                         //mensaje
-                        showSnackbar("Frase número " + fraseActual);
+                        showSnackbar("Primera frase: Número " + fraseActual);
                     }
                     // Ir a última frase...
                     document.getElementById("BtnUltimaFrase").onclick = function () {
@@ -895,7 +952,7 @@ DefinirModoBuscar(true);
                         //va a la máxima
                         mostrarFrase(fraseActual);
                         //mensaje
-                        showSnackbar("Frase número " + fraseActual);
+                        showSnackbar("Última frase: Número " + fraseActual);
                     }
                     // Ir a siguiente frase...
                     document.getElementById("BtnFraseSiguiente").onclick = function () {
@@ -910,7 +967,7 @@ DefinirModoBuscar(true);
                         //va a la siguiente
                         mostrarFrase(fraseActual);
                         //mensaje
-                        showSnackbar("Frase número " + fraseActual);
+                        showSnackbar("Siguiente frase: Número " + fraseActual);
                     }
                     // Ir a anterior frase...
                     document.getElementById("BtnFraseAnterior").onclick = function () {
@@ -925,9 +982,22 @@ DefinirModoBuscar(true);
                         //va a la anterior
                         mostrarFrase(fraseActual);
                         //mensaje
-                        showSnackbar("Frase número " + fraseActual);
+                        showSnackbar("Frase anterior: Número " + fraseActual);
                     }
-
+                    // Ir a frase al azar...
+                    document.getElementById("BtnFraseAleatoria").onclick = function () {
+                        var rand;
+                        //genera un número entero aleatorio entre 1 y el total de frases
+                        rand = Math.floor(Math.random() * Number(maxNumFrase)) + 1;
+                        //oculta la actual
+                        ocultarFrase(fraseActual);
+                        //nueva actual
+                        fraseActual = rand;
+                        //va a la frase aleatoria
+                        mostrarFrase(fraseActual);
+                        //mensaje
+                        showSnackbar("Saltó a frase número " + fraseActual);
+                    }
                     // tamaño de la colección en el acordeón
                     document.getElementById("topeAcordion").innerHTML = "" + maxNumFrase;
 
