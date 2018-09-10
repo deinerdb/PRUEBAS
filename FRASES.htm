@@ -634,7 +634,7 @@
                         <h3 id="preguntaFrase">¿Cuál frase desea ver?</h3>
                         <div class="input-container">
                             <i class="fa fa-hashtag icon"></i>
-                            <input class="input-field" id="txtNumFrase" autocomplete="off" type="number" placeholder="Número de frase" name="numfrase" step="1" min="1" maxlength="6" required autofocus >
+                            <input class="input-field" id="txtNumFrase" autocomplete="off" type="number" placeholder="Número de frase" name="numfrase" step="1" min="1" maxlength="6" required="required" autofocus="autofocus" >
                         </div>                   
                     </form>
 
@@ -765,7 +765,7 @@ DefinirModoBuscar(true);
                 </div>
                 <h3 style="color:red" class="parpadea">Página en construcción, vuelve pronto...</h3>
                 <div class="cajaFrases" id="cajaFrases">
-                    <input type="search" placeholder="Buscar..." id="txtBuscar" maxlength="50" autocomplete="on" name="q" autosave="FRASES.htm" results="4" >
+                    <input type="search" placeholder="Buscar..." id="txtBuscar" maxlength="50" autocomplete="off" >
                     <button id="BtnBuscar" title="Buscar frases"><i class="fa fa-search" aria-hidden="true"></i></button>
                     <button id="BtnPrimeraFrase" title="Ir a la primera frase"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
                     <button id="BtnFraseAnterior" title="Ir a la frase anterior"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
@@ -787,6 +787,7 @@ DefinirModoBuscar(true);
                     var maxNumFrase = "3"
                     //*********************
                     var fraseActual = 1;
+                    var buscado = "";
 
                     // modal de información completa sobre herramientas
                     var miTextoFull = document.getElementById("modalBodyTexto");
@@ -818,7 +819,7 @@ DefinirModoBuscar(true);
                         
                         modal.style.display = "block";
                         alturaModal();
-
+                        document.getElementById("txtNumFrase").focus();
                     }
                     // When the user clicks the button Texto, open the modal Texto herramientas
                     btnTexto.onclick = function () {
@@ -895,6 +896,7 @@ DefinirModoBuscar(true);
                             document.getElementById("ingresando").style.display = "block";
                             document.getElementById("contFrases").style.fontSize = "1.2em"; 
                             document.getElementById("contFrases").style.display = "none";
+                            document.getElementById("txtBuscar").value = "";
                             //oculta la actual
                             ocultarFrase(fraseActual);
                             //dirige el foco al cuadro de búsqueda
@@ -902,28 +904,32 @@ DefinirModoBuscar(true);
                             modoBuscar = true;
                         }
                         else {
-                            document.getElementById("BtnCerrar").style.display = "none";
-                            document.getElementById("BtnBuscar").style.display = "block";
-                            document.getElementById("BtnPrimeraFrase").style.display = "block";
-                            document.getElementById("BtnFraseAnterior").style.display = "block";
-                            document.getElementById("BtnFraseSiguiente").style.display = "block";
-                            document.getElementById("BtnUltimaFrase").style.display = "block";
-                            document.getElementById("BtnFraseAleatoria").style.display = "block";
-                            document.getElementById("BtnFraseSolicitada").style.display = "block";
-                            document.getElementById("BtnAyuda").style.display = "block";
-                            document.getElementById("icoPen").style.display = "block";
-                            document.getElementById("BtnEnlace").style.display = "block";
-                            document.getElementById("infoEncontradas").style.display = "none";                            
-                            document.getElementById("txtBuscar").style.display = "none"; 
-                            document.getElementById("txtBuscar").style.width = "0";
-                            document.getElementById("ingresando").style.display = "none";
-                            document.getElementById("contFrases").style.display = "block";
-                            document.getElementById("contFrases").style.fontSize = "10vh";
-                            //muestra la frase actual: la que estaba o la que eligió de los resultados
-                            mostrarFrase(fraseActual);
+                                                         
+                            document.getElementById("txtBuscar").style.width = "0"; 
+                            //para permitir transiciones espera un poco...                            
+                            setTimeout(function () {
 
-                            modoBuscar = false;
-                            
+                                document.getElementById("txtBuscar").style.display = "none";
+                                document.getElementById("BtnCerrar").style.display = "none";
+                                document.getElementById("BtnBuscar").style.display = "block";
+                                document.getElementById("BtnPrimeraFrase").style.display = "block";
+                                document.getElementById("BtnFraseAnterior").style.display = "block";
+                                document.getElementById("BtnFraseSiguiente").style.display = "block";
+                                document.getElementById("BtnUltimaFrase").style.display = "block";
+                                document.getElementById("BtnFraseAleatoria").style.display = "block";
+                                document.getElementById("BtnFraseSolicitada").style.display = "block";
+                                document.getElementById("BtnAyuda").style.display = "block";
+                                document.getElementById("icoPen").style.display = "block";
+                                document.getElementById("BtnEnlace").style.display = "block";
+                                document.getElementById("infoEncontradas").style.display = "none";
+                                document.getElementById("ingresando").style.display = "none";
+                                document.getElementById("contFrases").style.display = "block";
+                                document.getElementById("contFrases").style.fontSize = "10vh";
+                                
+                                modoBuscar = false;
+
+                            }, 500);     
+                                      
                         }
                     }
                     // entra al modo búsqueda
@@ -934,12 +940,22 @@ DefinirModoBuscar(true);
                         showSnackbar("Modo búsqueda activado"); 
                     }
                     // sale del modo búsqueda
-                    document.getElementById("BtnCerrar").onclick = function () {
-
+                    function salirBuscar() {
                         DefinirModoBuscar(false);
+                        //muestra la frase actual: la que estaba o la que eligió de los resultados
+                        mostrarFrase(fraseActual);
                         //mensaje
                         showSnackbar("Modo búsqueda desactivado");
                     }
+                    // una forma de salir es en la X: el btn cerrar
+                    document.getElementById("BtnCerrar").onclick = function () {
+                        
+                        salirBuscar();
+                    }
+                    // otra forma de salir es haciendo clic en una frase de los resultados
+
+
+
                     // aceptar en #Ir a frase...
                     document.getElementById("btnNumFrase").onclick = function () {
                         if (validateForm() == true) {
@@ -1050,40 +1066,66 @@ DefinirModoBuscar(true);
                     // tamaño de la colección en el acordeón
                     document.getElementById("topeAcordion").innerHTML = "" + maxNumFrase;
 
-                    //input y change, eventos redundantes por un bug en IE
                     //cuando digita muestra el modo de ingreso...
-                    document.getElementById("txtBuscar").oninput = function () {                        
-                        document.getElementById("ingresando").style.display = "block";                        
-                        document.getElementById("contFrases").style.display = "none";
-                    }
-                    document.getElementById("txtBuscar").onchange = function () {
+                    function modoIngreso() {
+                        //verifica si realmente hubo un cambio
+                        if (buscado == document.getElementById("txtBuscar").value) {                            
+                            return;
+                        } 
+                        //el nuevo valor en el input
+                        buscado = document.getElementById("txtBuscar").value;
+                        //ahora sí puede proceder...
                         document.getElementById("ingresando").style.display = "block";
                         document.getElementById("contFrases").style.display = "none";
+                       
                     }
-                   
-                   
+                    //input y onchange... para estar seguros
+                    document.getElementById("txtBuscar").onchange = function () {
+                        modoIngreso();
+                    }
+                    document.getElementById("txtBuscar").oninput = function () {
+                        modoIngreso();
+                    }
+
+                    //global de búsqueda
                     function buscar() {
-                        alert("search");
+                        
                         //sale si no hay nada
                         if (document.getElementById("txtBuscar").value.length == 0) {
+                            //mensaje
+                            showSnackbar("Ingrese texto de búsqueda");
                             return;
                         } 
                         //muestra resultados
                         document.getElementById("ingresando").style.display = "none";
                         document.getElementById("contFrases").style.display = "block";
 
-                        //busca
+                        //algoritmo de búsqueda:
+
                     }
 
-                    //evento search
-                    document.getElementById("txtBuscar").onsearch = function () {
-                        buscar();
-                    }
-                    //pulsa enter
-                    document.getElementById("txtBuscar").onkeydown = function (e) {
-                        if ( e.keyCode == 13 ) {
+                    
+                    //capturando pulsación de teclado en cuadro de búsqueda...
+                    document.getElementById("txtBuscar").onkeydown = function (e) {                        
+                        var characterCode;
+                        // e.key es la recomendación actual
+                        if (e.key != undefined) {                            
+                            if (e.key.toLowerCase() == "enter") {
+                                characterCode = 13;
+                            }
+                            else {
+                                characterCode = 0;                                
+                            }
+                        } else {
+                            /* navegadores antiguos...  */
+                            characterCode = e.which || e.charCode || e.keyCode || e.keyIdentifier || 0;
+                        }
+
+                        //busca solo si presionó Enter
+                        if (characterCode == 13) {
                             buscar();
-                        }                        
+                        }  
+                        
                     }
 
                 </script>
