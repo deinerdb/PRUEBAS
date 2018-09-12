@@ -262,6 +262,8 @@
                 -webkit-box-sizing: border-box;
                 -moz-box-sizing: border-box;
                 box-sizing: border-box;
+                /*oculto por defecto*/
+                display: none;
             }
 
                 #ingresando img {
@@ -788,6 +790,8 @@ DefinirModoBuscar(true);
                     //*********************
                     var fraseActual = 1;
                     var buscado = "";
+                    //algunas tareas no se hacen cuando está buscando...
+                    var buscando = false;
 
                     // modal de información completa sobre herramientas
                     var miTextoFull = document.getElementById("modalBodyTexto");
@@ -872,10 +876,17 @@ DefinirModoBuscar(true);
                         h = 0.75 * (h - 40 - hd.scrollHeight);
                         bd.style.height = h + "px";
                     }
-
+                    var tMonitor = 0;
+                    //activa monitor de cambios
+                    function activaMonitor() {
+                        tMonitor = setInterval(modoIngreso, 2000);
+                    }
+                    //desactiva monitor de cambios
+                    function desactivaMonitor() {
+                        clearInterval(tMonitor);
+                    }
                     var modoBuscar = false;
-                    DefinirModoBuscar(false);
-                    
+                                        
                     function DefinirModoBuscar(activo) {
 
                         if (activo == true) {
@@ -899,6 +910,8 @@ DefinirModoBuscar(true);
                             document.getElementById("txtBuscar").value = "";
                             //oculta la actual
                             ocultarFrase(fraseActual);
+                            //monitor
+                            activaMonitor();
                             //dirige el foco al cuadro de búsqueda
                             document.getElementById("txtBuscar").focus();                                                      
                             modoBuscar = true;
@@ -925,13 +938,17 @@ DefinirModoBuscar(true);
                                 document.getElementById("ingresando").style.display = "none";
                                 document.getElementById("contFrases").style.display = "block";
                                 document.getElementById("contFrases").style.fontSize = "10vh";
-                                
+                                //monitor
+                                desactivaMonitor();
                                 modoBuscar = false;
 
                             }, 500);     
                                       
                         }
                     }
+                    //esto se llama al cargar este script
+                    DefinirModoBuscar(false);
+
                     // entra al modo búsqueda
                     document.getElementById("BtnBuscar").onclick = function () {
 
@@ -949,7 +966,11 @@ DefinirModoBuscar(true);
                     }
                     // una forma de salir es en la X: el btn cerrar
                     document.getElementById("BtnCerrar").onclick = function () {
-                        
+                        // no sale si está ocupado buscando...
+                        if (buscando == true) {
+                            return;
+                        }
+                        //sale
                         salirBuscar();
                     }
                     // otra forma de salir es haciendo clic en una frase de los resultados
@@ -1086,24 +1107,42 @@ DefinirModoBuscar(true);
                     document.getElementById("txtBuscar").oninput = function () {
                         modoIngreso();
                     }
+                    
+                    //************
+                    //Global de búsqueda
+                    //************
 
-                    //global de búsqueda
                     function buscar() {
-                        
+                        buscando = true;
+                        //desactiva el cuadro de texto
+                        document.getElementById("txtBuscar").disabled = true;
                         //sale si no hay nada
                         if (document.getElementById("txtBuscar").value.length == 0) {
                             //mensaje
                             showSnackbar("Ingrese texto de búsqueda");
+                            buscando = false;
+                            document.getElementById("txtBuscar").disabled = false;
+                            document.getElementById("txtBuscar").focus();
                             return;
                         } 
                         //muestra resultados
                         document.getElementById("ingresando").style.display = "none";
                         document.getElementById("contFrases").style.display = "block";
-
+                                                
+                        //dirige el foco a los resultados
+                        document.getElementById("txtBuscar").blur();
+                        document.getElementById("contFrases").focus();
+                        
                         //algoritmo de búsqueda:
 
-                    }
 
+                        //scroll para que vea los resultados
+                        topFunction();
+                        //búsqueda terminada
+                        buscando = false;
+                        //activa el cuadro de texto
+                        document.getElementById("txtBuscar").disabled = false;
+                    }
                     
                     //capturando pulsación de teclado en cuadro de búsqueda...
                     document.getElementById("txtBuscar").onkeydown = function (e) {                        
