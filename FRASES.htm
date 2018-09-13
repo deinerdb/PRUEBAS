@@ -1109,13 +1109,14 @@ DefinirModoBuscar(true);
                     }
                     
                     //************
-                    //Global de búsqueda
+                    // Global de búsqueda
                     //************
 
                     function buscar() {
                         buscando = true;
                         //desactiva el cuadro de texto
                         document.getElementById("txtBuscar").disabled = true;
+                        
                         //sale si no hay nada
                         if (document.getElementById("txtBuscar").value.length == 0) {
                             //mensaje
@@ -1125,6 +1126,10 @@ DefinirModoBuscar(true);
                             document.getElementById("txtBuscar").focus();
                             return;
                         } 
+
+                        //MONITOR
+                        desactivaMonitor();
+
                         //muestra resultados
                         document.getElementById("ingresando").style.display = "none";
                         document.getElementById("contFrases").style.display = "block";
@@ -1142,6 +1147,8 @@ DefinirModoBuscar(true);
                         buscando = false;
                         //activa el cuadro de texto
                         document.getElementById("txtBuscar").disabled = false;
+                        //MONITOR
+                        activaMonitor();
                     }
                     
                     //capturando pulsación de teclado en cuadro de búsqueda...
