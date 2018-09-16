@@ -218,6 +218,17 @@
                 -moz-box-sizing: border-box;
                 box-sizing: border-box;
             }
+            #spanBuscar {
+                font-size: 1.2em;
+                margin-left: 3px;
+                display:none;
+            }
+            /* solo visible en pantallas grandes  */
+            @media only screen and (min-width: 600px) {
+                #spanBuscar {
+                    display: inline-block;
+                }
+            }
             #txtBuscar {
                 font-family: Tahoma, Arial, sans-serif;
                 display: inline-block;
@@ -234,8 +245,14 @@
                 -webkit-box-sizing: border-box;
                 -moz-box-sizing: border-box;
                 box-sizing: border-box;
-                max-width: 600px;
+                max-width: 500px;
+                color: black;
+                background-color: LightGray;
             }
+                #txtBuscar:focus {
+                    background-color: white !important;
+                    border: 2px solid dodgerblue;
+                }
 
                 .cajaFrases button:active, .cajaFrases button:hover {
                     background-color: lavender;
@@ -775,6 +792,7 @@ DefinirModoBuscar(true);
                     <button id="BtnUltimaFrase" title="Ir a la última frase"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
                     <button id="BtnFraseAleatoria" title="Mostrar frase al azar"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                     <button id="BtnFraseSolicitada" title="Mostrar la frase número..."><i class="fa fa-hashtag" aria-hidden="true"></i></button>
+                    <button id="BtnEjecutaBuscar" title="Realizar búsqueda"><i class="fa fa-search" aria-hidden="true"></i> <span id="spanBuscar">Buscar</span> </button>
                     <button id="BtnCerrar" title="Cerrar modo búsqueda"><i class="fa fa-times" aria-hidden="true"></i></button>
                     <button id="BtnCopiar" title="Copiar frase(s)"><i class="fa fa-files-o" aria-hidden="true"></i></button>
                     <button id="BtnEnlace" title="Copiar enlace a frase"><i class="fa fa-link" aria-hidden="true"></i></button>
@@ -890,7 +908,8 @@ DefinirModoBuscar(true);
                     function DefinirModoBuscar(activo) {
 
                         if (activo == true) {
-                            document.getElementById("BtnCerrar").style.display = "block"; 
+                            document.getElementById("BtnCerrar").style.display = "block";                            
+                            document.getElementById("BtnEjecutaBuscar").style.display = "block";
                             document.getElementById("BtnBuscar").style.display = "none";
                             document.getElementById("BtnPrimeraFrase").style.display = "none";
                             document.getElementById("BtnFraseAnterior").style.display = "none";
@@ -924,6 +943,7 @@ DefinirModoBuscar(true);
 
                                 document.getElementById("txtBuscar").style.display = "none";
                                 document.getElementById("BtnCerrar").style.display = "none";
+                                document.getElementById("BtnEjecutaBuscar").style.display = "none";
                                 document.getElementById("BtnBuscar").style.display = "block";
                                 document.getElementById("BtnPrimeraFrase").style.display = "block";
                                 document.getElementById("BtnFraseAnterior").style.display = "block";
@@ -965,9 +985,11 @@ DefinirModoBuscar(true);
                         showSnackbar("Modo búsqueda desactivado");
                     }
                     // una forma de salir es en la X: el btn cerrar
-                    document.getElementById("BtnCerrar").onclick = function () {
+                    document.getElementById("BtnCerrar").onclick = function (e) {
                         // no sale si está ocupado buscando...
                         if (buscando == true) {
+                            e.preventDefault();
+                            e.stopPropagation();
                             return;
                         }
                         //sale
@@ -1116,13 +1138,21 @@ DefinirModoBuscar(true);
                         buscando = true;
                         //desactiva el cuadro de texto
                         document.getElementById("txtBuscar").disabled = true;
-                        
+                        //desactiva el botón de buscar, salir y copiar
+                        document.getElementById("BtnEjecutaBuscar").disabled = true;
+                        document.getElementById("BtnCopiar").disabled = true;
+                        document.getElementById("BtnCerrar").disabled = true;
+
+
                         //sale si no hay nada
                         if (document.getElementById("txtBuscar").value.length == 0) {
-                            //mensaje
+                            //mensaje y cancela acciones tomadas
                             showSnackbar("Ingrese texto de búsqueda");
                             buscando = false;
                             document.getElementById("txtBuscar").disabled = false;
+                            document.getElementById("BtnEjecutaBuscar").disabled = false;
+                            document.getElementById("BtnCopiar").disabled = false;
+                            document.getElementById("BtnCerrar").disabled = false;
                             document.getElementById("txtBuscar").focus();
                             return;
                         } 
@@ -1145,14 +1175,26 @@ DefinirModoBuscar(true);
                         topFunction();
                         //búsqueda terminada
                         buscando = false;
-                        //activa el cuadro de texto
+                        //activa el cuadro de texto, botones buscar, salir y el de copiar
                         document.getElementById("txtBuscar").disabled = false;
+                        document.getElementById("BtnEjecutaBuscar").disabled = false;
+                        document.getElementById("BtnCopiar").disabled = false;
+                        document.getElementById("BtnCerrar").disabled = false;
+                        
+
                         //MONITOR
                         activaMonitor();
                     }
                     
                     //capturando pulsación de teclado en cuadro de búsqueda...
-                    document.getElementById("txtBuscar").onkeydown = function (e) {                        
+                    document.getElementById("txtBuscar").onkeydown = function (e) {   
+                        //sale si está buscando...
+                        if (buscando == true) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            return;
+                        }
+
                         var characterCode;
                         // e.key es la recomendación actual
                         if (e.key != undefined) {                            
@@ -1173,8 +1215,48 @@ DefinirModoBuscar(true);
                         }  
                         
                     }
+                    //capturando pulsación de teclado en cuadro de búsqueda...
+                    //para cancelar la pulsación en algunos navegadores se necesita keypress
+                    document.getElementById("txtBuscar").onkeypress = function (e) {
+                        //sale si está buscando...
+                        if (buscando == true) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            return;
+                        }
+                    }
+                    // botón ejecutar búsqueda 
+                    document.getElementById("BtnEjecutaBuscar").onclick = function (e) {
+                        // no busca si está ocupado buscando...
+                        if (buscando == true) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            return;
+                        }
+                        //busca
+                        buscar();
+                    }
+                    // botón copiar 
+                    document.getElementById("BtnCopiar").onclick = function (e) {
+                        // no copia si está ocupado buscando...
+                        if (buscando == true) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            return;
+                        }
 
+                        //copia
+                        
+                    }
+
+                    // botón copiar enlace 
+                    document.getElementById("BtnEnlace").onclick = function () {
+                        
+                        //copia enlace a frase actual
+
+                    }
                 </script>
+
                     <footer>
                         <p>Coded by @deiner_db</p>
                         <img id="miFoto" title="Deiner Domínguez" alt="Foto Deiner Domínguez" src="miFoto.jpg" width="1280" height="893" />
