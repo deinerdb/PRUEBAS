@@ -242,6 +242,7 @@
                 -webkit-transition: width 0.5s ease-in-out;
                 transition: width 0.5s ease-in-out;
                 width: 0;
+                min-width: 0;
                 -webkit-box-sizing: border-box;
                 -moz-box-sizing: border-box;
                 box-sizing: border-box;
@@ -682,7 +683,8 @@
                     <hr />
                     <i class="fa fa-search" aria-hidden="true"></i>
                     Activa el modo búsqueda. Muestra un cuadro de texto para ingresar la búsqueda.
-                    Al buscar, se muestran las frases que contengan la expresión ingresada.
+                    Al buscar, se muestran las frases que contengan la expresión ingresada. 
+                    En el modo búsqueda, puede presionar Enter o usar este botón para ejecutar la consulta.
                     <hr />
                     <i class="fa fa-arrow-left" aria-hidden="true"></i>
                     Se desplaza a la primera frase de la colección. 
@@ -770,14 +772,14 @@ DefinirModoBuscar(true);
 
                     <h3 id="infoEncontradas" class="parpadea">Frases encontradas:</h3>
                     
-                    <span id="e1" class="fraseSeglar" style="display:none;">Frase 1</span>
-                    <p id="f1" class="fraseSeglar" style="display:none;">Esta sería la primera, frase 1...</p>
+                    <span id="e1" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Frase 1</span>
+                    <p id="f1" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Esta sería la primera, frase 1...</p>
                     
-                    <span id="e2" class="fraseBiblia" style="display:none;">Frase 2</span>
-                    <p id="f2" class="fraseBiblia" style="display:none;">Ejemplo, frase 2</p>
+                    <span id="e2" class="fraseBiblia" style="display:none;" onclick="clickFrase(this.id)">Frase 2</span>
+                    <p id="f2" class="fraseBiblia" style="display:none;" onclick="clickFrase(this.id)">Ejemplo, frase 2</p>
 
-                    <span id="e3" class="fraseBiblia" style="display:none;">Frase 3</span>
-                    <p id="f3" class="fraseBiblia" style="display:none;">Esta sería la última, frase 3...</p>
+                    <span id="e3" class="fraseBiblia" style="display:none;" onclick="clickFrase(this.id)">Frase 3</span>
+                    <p id="f3" class="fraseBiblia" style="display:none;" onclick="clickFrase(this.id)">Esta sería la última, frase 3...</p>
 
                     <!--al final un ícono de lápiz-->
                     <i id="icoPen" class="fa fa-pencil" aria-hidden="true"></i>
@@ -923,6 +925,7 @@ DefinirModoBuscar(true);
                             document.getElementById("infoEncontradas").style.display = "block";
                             document.getElementById("txtBuscar").style.display = "block";                            
                             document.getElementById("txtBuscar").style.width = "100%";
+                            document.getElementById("txtBuscar").style.minWidth = "150px";
                             document.getElementById("ingresando").style.display = "block";
                             document.getElementById("contFrases").style.fontSize = "1.2em"; 
                             document.getElementById("contFrases").style.display = "none";
@@ -937,6 +940,7 @@ DefinirModoBuscar(true);
                         }
                         else {
                                                          
+                            document.getElementById("txtBuscar").style.minWidth = "0";
                             document.getElementById("txtBuscar").style.width = "0"; 
                             //para permitir transiciones espera un poco...                            
                             setTimeout(function () {
@@ -996,7 +1000,16 @@ DefinirModoBuscar(true);
                         salirBuscar();
                     }
                     // otra forma de salir es haciendo clic en una frase de los resultados
-
+                    function clickFrase(miId) {                        
+                        //solo funciona en el modo búsqueda, pero si no está ocupado
+                        if (modoBuscar == false || buscando == true) {
+                            return;
+                        }
+                        // irá a la frase que seleccionó
+                        fraseActual = miId.slice(1);  
+                        //sale
+                        salirBuscar();
+                    }
 
 
                     // aceptar en #Ir a frase...
@@ -1047,6 +1060,8 @@ DefinirModoBuscar(true);
                         fraseActual = 1;
                         //va a la 1
                         mostrarFrase(fraseActual);
+                        //scroll 
+                        topFunction();
                         //mensaje
                         showSnackbar("Primera frase: Número " + fraseActual);
                     }
@@ -1058,13 +1073,17 @@ DefinirModoBuscar(true);
                         fraseActual = maxNumFrase;
                         //va a la máxima
                         mostrarFrase(fraseActual);
+                        //scroll 
+                        topFunction();
                         //mensaje
                         showSnackbar("Última frase: Número " + fraseActual);
                     }
                     // Ir a siguiente frase...
                     document.getElementById("BtnFraseSiguiente").onclick = function () {
-                        //si está en la última no hace nada
-                        if ( Number(fraseActual) == Number(maxNumFrase) ) {
+                        //si está en la última no hace nada, solo scroll
+                        if (Number(fraseActual) == Number(maxNumFrase)) {
+                            //scroll 
+                            topFunction();
                             return;
                         }
                         //oculta la actual
@@ -1073,13 +1092,17 @@ DefinirModoBuscar(true);
                         fraseActual = Number(fraseActual) + 1;
                         //va a la siguiente
                         mostrarFrase(fraseActual);
+                        //scroll 
+                        topFunction();
                         //mensaje
                         showSnackbar("Siguiente frase: Número " + fraseActual);
                     }
                     // Ir a anterior frase...
                     document.getElementById("BtnFraseAnterior").onclick = function () {
-                        //si está en la primera no hace nada
+                        //si está en la primera no hace nada, solo scroll
                         if (Number(fraseActual) == 1) {
+                            //scroll 
+                            topFunction();
                             return;
                         }
                         //oculta la actual
@@ -1088,6 +1111,8 @@ DefinirModoBuscar(true);
                         fraseActual = Number(fraseActual) - 1;
                         //va a la anterior
                         mostrarFrase(fraseActual);
+                        //scroll 
+                        topFunction();
                         //mensaje
                         showSnackbar("Frase anterior: Número " + fraseActual);
                     }
@@ -1102,6 +1127,8 @@ DefinirModoBuscar(true);
                         fraseActual = rand;
                         //va a la frase aleatoria
                         mostrarFrase(fraseActual);
+                        //scroll 
+                        topFunction();
                         //mensaje
                         showSnackbar("Saltó a frase número " + fraseActual);
                     }
@@ -1120,6 +1147,8 @@ DefinirModoBuscar(true);
                         //ahora sí puede proceder...
                         document.getElementById("ingresando").style.display = "block";
                         document.getElementById("contFrases").style.display = "none";
+                        //scroll 
+                        topFunction();
                        
                     }
                     //input y onchange... para estar seguros
