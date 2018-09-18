@@ -128,12 +128,12 @@
                 -moz-box-sizing: border-box;
                 box-sizing: border-box;
             }
-            form {
-                /*Formularios con borde superior e inferior diferente*/
-                
-                border-color: mediumpurple !important;
-                
-               
+            #divIr {
+                /*contendedor con borde superior e inferior diferente*/
+                border-bottom-style: solid;
+                border-top-style: solid;                
+                margin: 8px;
+                border-color: mediumpurple;
             }
             .icon {
                 padding: 10px;
@@ -649,14 +649,15 @@
                 </div>
                 <div class="modal-body" id="modalBody">
 
-                    <form id="formIr" name="formIr" onsubmit="return validateForm()" method="get" target="_self" >
+                    <div id="divIr" >
 
                         <h3 id="preguntaFrase">¿Cuál frase desea ver?</h3>
                         <div class="input-container">
                             <i class="fa fa-hashtag icon"></i>
-                            <input class="input-field" id="txtNumFrase" autocomplete="off" type="number" placeholder="Número de frase" name="numfrase" step="1" min="1" maxlength="6" required="required" autofocus="autofocus" >
-                        </div>                   
-                    </form>
+                            <input class="input-field" id="txtNumFrase" autocomplete="off" type="number" placeholder="Número de frase" step="1" min="1" maxlength="6" required="required" autofocus="autofocus" >
+                        </div>  
+                        
+                    </div>
 
                     <p id="esperado">
                         <strong>Nota: </strong>
@@ -994,7 +995,7 @@ DefinirModoBuscar(true);
                         if (buscando == true) {
                             e.preventDefault();
                             e.stopPropagation();
-                            return;
+                            return false;
                         }
                         //sale
                         salirBuscar();
@@ -1010,20 +1011,35 @@ DefinirModoBuscar(true);
                         //sale
                         salirBuscar();
                     }
-
+                    // se mueve a una frase específica
+                    function irFrase(miFrase) {                    
+                        //oculta la actual
+                        ocultarFrase(fraseActual);
+                        // nueva actual
+                        fraseActual = miFrase;
+                        //va a la nueva
+                        mostrarFrase(fraseActual);
+                        //scroll 
+                        topFunction();
+                        //mensaje
+                        showSnackbar("Frase número " + fraseActual);                        
+                    }
 
                     // aceptar en #Ir a frase...
                     document.getElementById("btnNumFrase").onclick = function () {
-                        if (validateForm() == true) {
-                            //envía por get
-                            document.getElementById("formIr").submit();
+                        if (validateNumFrase() == true) {
+                            //cierra ventana
+                            modal.style.display = "none";
+                            //se mueve a la frase
+                            irFrase(document.getElementById("txtNumFrase").value);
+                            
                         } else {
                             //error. El mensaje está en la validación                            
                         }
                     }
-                    function validateForm() {
+                    function validateNumFrase() {
                         //solo valido que la frase exista...
-                        var x = document.forms["formIr"]["numfrase"].value;
+                        var x = document.getElementById("txtNumFrase").value;
                         if (existeFrase("f" + x) == true) {
                             //valida
                             return true;
@@ -1221,7 +1237,7 @@ DefinirModoBuscar(true);
                         if (buscando == true) {
                             e.preventDefault();
                             e.stopPropagation();
-                            return;
+                            return false;
                         }
 
                         var characterCode;
@@ -1251,7 +1267,7 @@ DefinirModoBuscar(true);
                         if (buscando == true) {
                             e.preventDefault();
                             e.stopPropagation();
-                            return;
+                            return false;
                         }
                     }
                     // botón ejecutar búsqueda 
@@ -1260,7 +1276,7 @@ DefinirModoBuscar(true);
                         if (buscando == true) {
                             e.preventDefault();
                             e.stopPropagation();
-                            return;
+                            return false;
                         }
                         //busca
                         buscar();
@@ -1271,7 +1287,7 @@ DefinirModoBuscar(true);
                         if (buscando == true) {
                             e.preventDefault();
                             e.stopPropagation();
-                            return;
+                            return false;
                         }
 
                         //copia
