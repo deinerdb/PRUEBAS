@@ -654,7 +654,7 @@
                         <h3 id="preguntaFrase">¿Cuál frase desea ver?</h3>
                         <div class="input-container">
                             <i class="fa fa-hashtag icon"></i>
-                            <input class="input-field" id="txtNumFrase" autocomplete="off" type="number" placeholder="Número de frase" step="1" min="1" maxlength="6" required="required" autofocus="autofocus" >
+                            <input class="input-field" id="txtNumFrase" autocomplete="off" type="number" placeholder="Número de frase" step="1" min="1" maxlength="6" required="required">
                         </div>  
                         
                     </div>
@@ -844,8 +844,14 @@ DefinirModoBuscar(true);
                         
                         modal.style.display = "block";
                         alturaModal();
-                        document.getElementById("txtNumFrase").focus();
+
+                        //espera un poco para que se active...                            
+                        setTimeout(function () {
+                            document.getElementById("txtNumFrase").focus();
+                        }, 250); 
+
                     }
+
                     // When the user clicks the button Texto, open the modal Texto herramientas
                     btnTexto.onclick = function () {
 
@@ -1012,31 +1018,57 @@ DefinirModoBuscar(true);
                         salirBuscar();
                     }
                     // se mueve a una frase específica
-                    function irFrase(miFrase) {                    
-                        //oculta la actual
-                        ocultarFrase(fraseActual);
-                        // nueva actual
-                        fraseActual = miFrase;
-                        //va a la nueva
-                        mostrarFrase(fraseActual);
-                        //scroll 
-                        topFunction();
-                        //mensaje
-                        showSnackbar("Frase número " + fraseActual);                        
+                    function irFrase(miFrase) {  
+                        if (validateNumFrase() == true) {
+                            var miFrase = document.getElementById("txtNumFrase").value
+                            //cierra ventana
+                            modal.style.display = "none";                            
+                            //oculta la actual
+                            ocultarFrase(fraseActual);
+                            // nueva actual
+                            fraseActual = miFrase;
+                            //va a la nueva
+                            mostrarFrase(fraseActual);
+                            //scroll 
+                            topFunction();
+                            //mensaje
+                            showSnackbar("Frase número " + fraseActual);
+                        } else {
+                            //error. El mensaje está en la validación                            
+                        }                                                
+                    }
+
+                    //capturando pulsación de teclado en txtNumFrase...
+                    document.getElementById("txtNumFrase").onkeydown = function (e) {                        
+
+                        var characterCode;
+                        // e.key es la recomendación actual
+                        if (e.key != undefined) {
+                            if (e.key.toLowerCase() == "enter") {
+                                characterCode = 13;
+                            }
+                            else {
+                                characterCode = 0;
+                            }
+                        } else {
+                            /* navegadores antiguos...  */
+                            characterCode = e.which || e.charCode || e.keyCode || e.keyIdentifier || 0;
+                        }
+
+                        // solo si presionó Enter
+                        if (characterCode == 13) {
+                            irFrase();
+                        }
+
                     }
 
                     // aceptar en #Ir a frase...
                     document.getElementById("btnNumFrase").onclick = function () {
-                        if (validateNumFrase() == true) {
-                            //cierra ventana
-                            modal.style.display = "none";
-                            //se mueve a la frase
-                            irFrase(document.getElementById("txtNumFrase").value);
-                            
-                        } else {
-                            //error. El mensaje está en la validación                            
-                        }
+                       
+                            irFrase();
+                           
                     }
+
                     function validateNumFrase() {
                         //solo valido que la frase exista...
                         var x = document.getElementById("txtNumFrase").value;
