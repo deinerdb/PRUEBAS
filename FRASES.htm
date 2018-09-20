@@ -654,7 +654,7 @@
                         <h3 id="preguntaFrase">¿Cuál frase desea ver?</h3>
                         <div class="input-container">
                             <i class="fa fa-hashtag icon"></i>
-                            <input class="input-field" id="txtNumFrase" autocomplete="off" type="number" placeholder="Número de frase" step="1" min="1" maxlength="6" required="required">
+                            <input class="input-field" id="txtNumFrase" autocomplete="off" type="number" placeholder="Número de frase" step="1" min="1" maxlength="6" >
                         </div>  
                         
                     </div>
@@ -1057,6 +1057,13 @@ DefinirModoBuscar(true);
 
                         // solo si presionó Enter
                         if (characterCode == 13) {
+
+                            //da el enfoque al botón,
+                            //esto permite que se oculte el teclado en algunos móviles
+
+                            document.getElementById("txtNumFrase").blur();
+                            document.getElementById("btnNumFrase").focus();
+                            //ahora sí llama la función
                             irFrase();
                         }
 
