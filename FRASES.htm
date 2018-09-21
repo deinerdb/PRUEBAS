@@ -1335,7 +1335,7 @@ DefinirModoBuscar(true);
                             return false;
                         }
                         //sale si no hay nada
-                        if (document.getElementById("txtBuscar").value.length == 0) {
+                        if (document.getElementById("txtBuscar").value.length == 0 && modoBuscar == true) {
                             //mensaje
                             showSnackbar("Ejecute búsqueda primero");
                             return;
