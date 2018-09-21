@@ -845,10 +845,8 @@ DefinirModoBuscar(true);
                         modal.style.display = "block";
                         alturaModal();
 
-                        //espera un poco para que se active...                            
-                        setTimeout(function () {
-                            document.getElementById("txtNumFrase").focus();
-                        }, 250); 
+                        //enfoca el input...                            
+                        document.getElementById("txtNumFrase").focus(); 
 
                     }
 
@@ -906,7 +904,7 @@ DefinirModoBuscar(true);
                     var tMonitor = 0;
                     //activa monitor de cambios
                     function activaMonitor() {
-                        tMonitor = setInterval(modoIngreso, 2000);
+                        tMonitor = setInterval(modoIngreso, 500);
                     }
                     //desactiva monitor de cambios
                     function desactivaMonitor() {
@@ -926,6 +924,7 @@ DefinirModoBuscar(true);
                             document.getElementById("BtnUltimaFrase").style.display = "none";
                             document.getElementById("BtnFraseAleatoria").style.display = "none";
                             document.getElementById("BtnFraseSolicitada").style.display = "none";
+                            document.getElementById("BtnCopiar").style.display = "none";
                             document.getElementById("BtnAyuda").style.display = "none";
                             document.getElementById("icoPen").style.display = "none";
                             document.getElementById("BtnEnlace").style.display = "none";
@@ -962,6 +961,7 @@ DefinirModoBuscar(true);
                                 document.getElementById("BtnUltimaFrase").style.display = "block";
                                 document.getElementById("BtnFraseAleatoria").style.display = "block";
                                 document.getElementById("BtnFraseSolicitada").style.display = "block";
+                                document.getElementById("BtnCopiar").style.display = "block";
                                 document.getElementById("BtnAyuda").style.display = "block";
                                 document.getElementById("icoPen").style.display = "block";
                                 document.getElementById("BtnEnlace").style.display = "block";
@@ -1202,6 +1202,8 @@ DefinirModoBuscar(true);
                         //ahora sí puede proceder...
                         document.getElementById("ingresando").style.display = "block";
                         document.getElementById("contFrases").style.display = "none";
+                        //no puede copiar si está ingresando...
+                        document.getElementById("BtnCopiar").style.display = "none";
                         //scroll 
                         topFunction();
                        
@@ -1262,12 +1264,16 @@ DefinirModoBuscar(true);
                         //activa el cuadro de texto, botones buscar, salir y el de copiar
                         document.getElementById("txtBuscar").disabled = false;
                         document.getElementById("BtnEjecutaBuscar").disabled = false;
+                        document.getElementById("BtnCopiar").style.display = "block";
                         document.getElementById("BtnCopiar").disabled = false;
                         document.getElementById("BtnCerrar").disabled = false;
+                        //mensaje
+                        showSnackbar("Búsqueda finalizada");
                         
 
                         //MONITOR
                         activaMonitor();
+
                     }
                     
                     //capturando pulsación de teclado en cuadro de búsqueda...
@@ -1328,7 +1334,12 @@ DefinirModoBuscar(true);
                             e.stopPropagation();
                             return false;
                         }
-
+                        //sale si no hay nada
+                        if (document.getElementById("txtBuscar").value.length == 0) {
+                            //mensaje
+                            showSnackbar("Ejecute búsqueda primero");
+                            return;
+                        } 
                         //copia
                         
                     }
