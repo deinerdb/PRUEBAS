@@ -31,6 +31,10 @@
                 opacity: 0.8;
                 filter: Alpha(opacity=80); /* IE8 and earlier */
             }
+		#mainjuego:-webkit-full-screen {
+  			width: 100%;
+ 			height: 100%;
+		}
             .clearfix::after {
                 content: "";
                 clear: both;
@@ -382,7 +386,7 @@
                         var pad;
                         var hCanvas = myGameArea.canvas.scrollHeight;
                         //sale si ocupa más espacio del necesario
-                        if (elDiv.scrollHeight > h) { return;}
+                        //if (elDiv.scrollHeight > h) { return;}
                         // el padding depende del alto de la pantalla y del div
                         pad = (h - hCanvas) / 2;
 
