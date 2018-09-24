@@ -270,6 +270,7 @@ function ajustesResize() {
     if (typeof alturaBotones == 'function') {
         alturaBotones();
         definirPadding();
+        definirPadding();
     }
 
     //para DTV
