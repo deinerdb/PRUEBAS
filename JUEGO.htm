@@ -34,7 +34,7 @@
             .clearfix::after {
                 content: "";
                 clear: both;
-                display: table;
+                display: table;                
                 /*no se puede seleccionar el texto*/
                 -webkit-user-select: none; /* Chrome, Opera, Safari */
                 -moz-user-select: none; /* Firefox 2+ */
@@ -114,7 +114,7 @@
                 border-color: mediumblue;
                 text-align: center;
                 margin-bottom: 18px;
-                width: 100%;
+                width: 100%;                
                 -moz-box-sizing: border-box;
                 -webkit-box-sizing: border-box;
                 box-sizing: border-box;
@@ -128,7 +128,9 @@
                 -webkit-user-select: none; /* Chrome, Opera, Safari */
                 -moz-user-select: none; /* Firefox 2+ */
                 -ms-user-select: none; /* IE 10+ */
-                user-select: none; /* Standard syntax */
+                user-select: none; /* Standard syntax */    
+               
+                
             }
 
             .button {
@@ -325,12 +327,77 @@
                     var colorObst = "#004d00"; //color por defecto es un verde obscuro
                     var aceleraX = -1;
                     var puntajeMayor = 0;
+
+
+                    // Lanza en pantalla completa en navegadores que lo soporten
+                    function launchFullScreen() {
+
+                        element = document.getElementById("mainjuego");
+
+                        if (element.requestFullScreen) {
+                            element.requestFullScreen();
+                        } else if (element.requestFullscreen) {
+                            element.requestFullscreen();
+                        } else if (element.mozRequestFullScreen) {
+                            element.mozRequestFullScreen();
+                        } else if (element.webkitRequestFullScreen) {
+                            element.webkitRequestFullScreen();
+                        } else if (element.webkitRequestFullscreen) {
+                            element.webkitRequestFullscreen();
+                        } else if (element.msRequestFullscreen) {
+                            element.msRequestFullscreen();
+                        }
+                    }
+
+                    function cancelFullScreen() {
+
+                        if (document.cancelFullScreen) {
+                            document.cancelFullScreen();
+                        } else if (document.exitFullscreen) {
+                            document.exitFullscreen();
+                        } else if (document.mozCancelFullScreen) {
+                            document.mozCancelFullScreen();
+                        } else if (document.webkitCancelFullScreen) {
+                            document.webkitCancelFullScreen();
+                        } else if (document.webkitExitFullscreen) {
+                            document.webkitExitFullscreen();
+                        } else if (document.msCancelFullScreen) {
+                            document.msCancelFullScreen();
+                        } else if (document.msExitFullscreen) {
+                            document.msExitFullscreen();
+                        }
+
+                    }
+
                                         
                     function alturaBotones() {
                         document.getElementById("btnUp").style.height = myGameArea.canvas.scrollHeight / 2 + "px";
                         document.getElementById("btnDown").style.height = myGameArea.canvas.scrollHeight / 2 + "px";
                     }
+                    function definirPadding() {
+                        var h = window.innerHeight
+                            || document.documentElement.clientHeight
+                            || document.body.clientHeight;
+                        var elDiv = document.getElementById("mainjuego");
+                        var pad;
+                        var hCanvas = myGameArea.canvas.scrollHeight;
+                        //sale si ocupa más espacio del necesario
+                        if (elDiv.scrollHeight > h) { return;}
+                        // el padding depende del alto de la pantalla y del div
+                        pad = (h - hCanvas) / 2;
 
+                        //alert(hCanvas + "   hCanvas");
+                        //alert(pad + "   pad");
+                        //alert(h + "   h");
+                        //alert(elDiv.scrollHeight + "   elDiv.scrollHeight");
+
+                        if (jugando == true) {
+                            elDiv.style.paddingTop = pad + "px";
+                        } else {
+                            elDiv.style.paddingTop = 0 + "px";
+                        }
+                        
+                    }
 
                     function startGame() {                                                                        
                         myGamePiece = new component(30 * 180 / 270, 30 * 180 / 270, "nave.png", 75, 75, "image");
@@ -543,6 +610,7 @@
 
                         myGamePiece.newPos();
                         myGamePiece.update();
+                        
                     }
 
                     function everyinterval(n) {
@@ -640,6 +708,9 @@
                     function Jugar() {
                         clearInterval(intervalRedibujar);
                         jugando = true;
+                        //pantalla completa
+                        launchFullScreen();
+                        definirPadding();
                         //inicia y pausa el sonido de choque, para móviles.
                         myBang.play();
                         myBang.stop();
@@ -675,6 +746,10 @@
                     }
                     function Parar() {
                         jugando = false;
+                        //sale de pantalla completa
+                        cancelFullScreen();
+                        document.getElementById("mainjuego").style.paddingTop = 0 + "px";
+                        topFunction();
                         //para la música y suena la explosión
                         myMusic.stop();
                         myBang.play();

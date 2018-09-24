@@ -269,6 +269,7 @@ function ajustesResize() {
     //para el juego, altura botones
     if (typeof alturaBotones == 'function') {
         alturaBotones();
+        definirPadding();
     }
 
     //para DTV

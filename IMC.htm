@@ -374,21 +374,53 @@
                             copyToClipboard(copyText);                            
                         }
 
-                        imputEstatura.onkeypress = function (event) {
-                            var x = event.which || event.keyCode;
-                            if (x == 13) {
+                        imputEstatura.onkeydown = function (e) {
+
+                            var characterCode;
+                            // e.key es la recomendación actual
+                            if (e.key != undefined) {
+                                if (e.key.toLowerCase() == "enter") {
+                                    characterCode = 13;
+                                }
+                                else {
+                                    characterCode = 0;
+                                }
+                            } else {
+                                /* navegadores antiguos...  */
+                                characterCode = e.which || e.charCode || e.keyCode || e.keyIdentifier || 0;
+                            }
+
+                            //busca solo si presionó Enter
+                            if (characterCode == 13) {
                                 imputEstatura.blur();
                                 getbtnCalcular.focus();
                                 calcularIMC();
-                            }                            
+                            }  
+
+                                                       
                         }
                                             
-                        imputPeso.onkeypress = function (event) {
-                            var x = event.which || event.keyCode;
-                            if (x == 13) {
-                                imputEstatura.focus();
+                        imputPeso.onkeydown = function (e) {
+
+                            var characterCode;
+                            // e.key es la recomendación actual
+                            if (e.key != undefined) {
+                                if (e.key.toLowerCase() == "enter") {
+                                    characterCode = 13;
+                                }
+                                else {
+                                    characterCode = 0;
+                                }
+                            } else {
+                                /* navegadores antiguos...  */
+                                characterCode = e.which || e.charCode || e.keyCode || e.keyIdentifier || 0;
                             }
 
+                            //busca solo si presionó Enter
+                            if (characterCode == 13) {
+                                imputEstatura.focus();
+                            }  
+                                                       
                         }
 
                         getbtnCalcular.onclick = function () {
