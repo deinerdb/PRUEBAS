@@ -434,24 +434,64 @@
                             myBang = new sound("bang.mp3", "false");
                             //una sola vez
                             updateGameArea();
+
                             //eventos de teclado
+                            //PRESIONA UNA TECLA
                             window.addEventListener('keydown', function (e) {
+
+                                var characterCode;
+                                // e.key es la recomendación actual
+                                if (e.key != undefined) {
+                                    var lowerKey = e.key.toLowerCase();
+                                    if (lowerKey == "enter") {
+                                        characterCode = 13;
+                                    } else if (lowerKey == "+" || lowerKey == "add" || lowerKey == "numpadadd" ) {
+                                        characterCode = 107;
+                                    } else if (lowerKey == "-" || lowerKey == "subtract" || lowerKey == "numpadsubtract" ) {
+                                        characterCode = 109;
+                                    }else {
+                                        characterCode = 0;
+                                    }
+
+                                } else {
+                                    /* navegadores antiguos...  */
+                                    characterCode = e.which || e.charCode || e.keyCode || e.keyIdentifier || 0;
+                                }
+
+                                myGameArea.key = characterCode;
+
                                 //si presiona enter y no está jugando... juega
-                                if (e.keyCode == 13 && jugando == false) {                                    
+                                if (characterCode == 13 && jugando == false) {                                    
                                     Jugar();
                                 }
-                            })
-                            window.addEventListener('keydown', function (e) {
-                                myGameArea.key = e.keyCode;
-                            })
+
+                                
+
+                            });
+
+                            //SUELTA LA TECLA
                             window.addEventListener('keyup', function (e) {
-                                if (e.keyCode != 13) {
+                                var characterCode;
+                                // e.key es la recomendación actual
+                                if (e.key != undefined) {
+                                    if (e.key.toLowerCase() == "enter") {
+                                        characterCode = 13;
+                                    }
+                                    else {
+                                        characterCode = 0;
+                                    }
+                                } else {
+                                    /* navegadores antiguos...  */
+                                    characterCode = e.which || e.charCode || e.keyCode || e.keyIdentifier || 0;
+                                }
+                                if (characterCode != 13) {
                                     //alert("up");
                                     myGameArea.key = false;
                                     //deja de moverse al soltar cualquiera
                                     clearmove();
                                 }
-                            })
+                            });
+
                             alturaBotones();
                             //this.interval = setInterval(updateGameArea, 20);
                         },
@@ -717,7 +757,7 @@
                     }
                     function Jugar() {
                         clearInterval(intervalRedibujar);
-                        jugando = true;
+                        jugando = true;                        
                         //pantalla completa
                         launchFullScreen();
                         definirPadding();
