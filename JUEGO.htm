@@ -36,6 +36,48 @@
  			height: 100%;
 			min-height: 100%;
 		}
+            #divFullScreen {
+                color: white;
+                font-family:Verdana, Geneva, Tahoma, sans-serif;
+                display: none;
+                margin: 6px;
+                padding: 8px 8px 8px 12px;
+                border-left-style: solid;
+                border-left-color: mediumpurple;
+                border-left-width: 4px;
+                /*gradiente de fondo*/
+                background-color: black; /* For browsers that do not support gradients */
+                background-image: -webkit-linear-gradient(#0d0613, #8c53c6, #0d0613); /* For Safari 5.1 to 6.0 */
+                background-image: -o-linear-gradient(#0d0613, #8c53c6, #0d0613); /* For Opera 11.1 to 12.0 */
+                background-image: -moz-linear-gradient(#0d0613, #8c53c6, #0d0613); /* For Firefox 3.6 to 15 */
+                background-image: linear-gradient(#0d0613, #8c53c6, #0d0613); /* Standard syntax (must be last) */
+            }
+            #btnFullScreen {
+                padding: 4px 8px;
+                max-width: 70%;
+                margin-top: 8px;
+                cursor: pointer;
+                font-size: 1.4em;
+                font-weight: bold;
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+                -moz-border-radius: 4px;
+                -webkit-border-radius: 4px;
+                border-radius: 4px;
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                color: white;
+                background: #b38cd9; /* For browsers that do not support gradients */
+                background: -webkit-radial-gradient(RebeccaPurple, #b38cd9); /* Safari 5.1 to 6.0 */
+                background: -o-radial-gradient(RebeccaPurple, #b38cd9); /* For Opera 11.6 to 12.0 */
+                background: -moz-radial-gradient(RebeccaPurple, #b38cd9); /* For Firefox 3.6 to 15 */
+                background: radial-gradient(RebeccaPurple, #b38cd9); /* Standard syntax */
+                /*no se puede seleccionar el texto*/
+                -webkit-user-select: none; /* Chrome, Opera, Safari */
+                -moz-user-select: none; /* Firefox 2+ */
+                -ms-user-select: none; /* IE 10+ */
+                user-select: none; /* Standard syntax */
+            }
             .clearfix::after {
                 content: "";
                 clear: both;
@@ -101,15 +143,15 @@
                 -ms-user-select: none; /* IE 10+ */
                 user-select: none; /* Standard syntax */
             }
-            .btnControles:hover, .btnControles:focus{
+            .btnControles:hover, .btnControles:focus , #btnFullScreen:hover, #btnFullScreen:focus {
                 opacity: 0.8;
             }
-            .btnControles:active {
+            .btnControles:active , #btnFullScreen:active {
                 color:purple;
             }
             /* On smaller screens, decrease text size of btn*/
             @media only screen and (max-width: 400px) {
-                .btnControles {
+                .btnControles , #btnFullScreen {
                     font-size: 1.2em;                    
                 }
             }
@@ -305,6 +347,11 @@
             </div>
         </div>
             <div class="main" id="main">
+                <div id="divFullScreen">
+                    Active la pantalla completa para una mejor experiencia de juego:
+                    <br />
+                    <button id="btnFullScreen" title="Activar pantalla completa" onclick="launchFullScreen()">Pantalla Completa</button>
+                </div>
                 <div id="mainjuego" class="clearfix">
                     <div id="controles">
                         <button disabled="disabled" class="btnControles" id="btnUp" title="Subir (tecla -)" onmousedown="moveup()" onmouseup="clearmove()" ontouchstart="moveup()" ontouchend="clearmove()">&#8593;</button>
@@ -761,6 +808,8 @@
                         //pantalla completa
                         launchFullScreen();
                         definirPadding();
+                        //para ie
+                        document.getElementById("divFullScreen").style.display = "block";
                         //inicia y pausa el sonido de choque, para móviles.
                         myBang.play();
                         myBang.stop();
@@ -799,6 +848,9 @@
                         //sale de pantalla completa
                         cancelFullScreen();
                         document.getElementById("mainjuego").style.paddingTop = 0 + "px";
+                        //para ie
+                        document.getElementById("divFullScreen").style.display = "none";
+                        //scroll
                         topFunction();
                         //para la música y suena la explosión
                         myMusic.stop();
