@@ -278,12 +278,20 @@ function ajustesResize() {
         sizeLogo();
     }
 
-    //FUENTES
+    //FUENTES Y FRASES (PRIMEROS DOS MODAL)
     if (typeof alturaModal == 'function') {
         alturaModal();
         alturaModalTexto();
         alturaMitades();
+        //FRASES (TERCER MODAL)
+        if (typeof alturaModalHistorial == 'function') {
+            alert("hola");
+            alturaModalHistorial();
+
+        } 
     } 
+    
+    
 }
 
 //***********************************

@@ -348,11 +348,25 @@
             
             /*PARA LAS VENTANAS MODALES*/
             /***************************/
-            .formulario {
-                font-size: 1.1em;
-                padding: 10px 8px;
-            }
+            
             #modalBodyTexto {
+                max-width: 100%;
+                /*margin: 16px 0px 2px 0px;*/
+                margin: 4px;
+                overflow: auto !important;
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
+                border-radius: 5px;
+                border-style: solid;
+                border-color: purple;
+                border-width: 1.2px;
+                box-sizing: border-box;
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+                padding: 12px 10px 12px 10px;
+                color: #1a0033; /*un púrpura casi negro*/
+                background-color: white;
+            }
+            #modalBodyHistorial {
                 max-width: 100%;
                 /*margin: 16px 0px 2px 0px;*/
                 margin: 4px;
@@ -732,6 +746,26 @@
             </div>
 
         </div>
+        <!-- La ventana modal del historial -->
+        <div id="myModalHistorial" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content" id="modalContentHistorial">
+                <div class="modal-header" id="modalHeaderHistorial">
+                    <span class="close">&times;</span>
+                    <h2><i class="fa fa-history" aria-hidden="true"></i>Historial</h2>
+                </div>
+                <div class="modal-body" id="modalBodyHistorial">
+                    <hr />                    
+                    Aquí saldrá la última frase vista...
+                    <hr />                   
+                    Aquí saldrá la anterior, así sucesivamente...                    
+                    <hr />
+                </div>
+            </div>
+
+        </div>
+
             <div class="main" id="main"> 
                     <button class="accordion" id="accordion">Colección de <span id="topeAcordion"></span> Frases<i id="folder" class="fa" aria-hidden="true"></i></button>
                     <div class="panel" id="panel">
@@ -799,6 +833,7 @@ DefinirModoBuscar(true);
                     <button id="BtnCerrar" title="Cerrar modo búsqueda"><i class="fa fa-times" aria-hidden="true"></i></button>
                     <button id="BtnCopiar" title="Copiar frase(s)"><i class="fa fa-files-o" aria-hidden="true"></i></button>
                     <button id="BtnEnlace" title="Copiar enlace a frase"><i class="fa fa-link" aria-hidden="true"></i></button>
+                    <button id="BtnHistorial" title="Historial"><i class="fa fa-history" aria-hidden="true"></i></button>                                        
                     <button id="BtnAyuda" title="Información sobre estos botones"><i class="fa fa-question" aria-hidden="true"></i></button>                                        
                 </div>
                 <!--El script principal de esta página-->
@@ -816,24 +851,31 @@ DefinirModoBuscar(true);
 
                     // modal de información completa sobre herramientas
                     var miTextoFull = document.getElementById("modalBodyTexto");
+                    // modal de historial
+                    var miTextoHistorial = document.getElementById("modalBodyHistorial");
                     //para el modal
 
                     // Get the modal , input frase
                     var modal = document.getElementById('myModal');
                     // Get the modal texto
                     var modalTexto = document.getElementById('myModalTexto');
+                    // Get the modal historial
+                    var modalHistorial = document.getElementById('myModalHistorial');
 
                     // Get the button that opens the modal input frase
                     var btn = document.getElementById("BtnFraseSolicitada");
                     // Get the button that opens the modal texto full sobre herramientas
                     var btnTexto = document.getElementById("BtnAyuda");
+                    // Get the button that opens the modal Historial
+                    var btnHist = document.getElementById("BtnHistorial");
 
 
                     // Get the <span> element that closes the modal input frase
                     var span = document.getElementsByClassName("close")[0];
                     // Get the <span> element that closes the modal texto herramientas
                     var spanTexto = document.getElementsByClassName("close")[1]; 
-
+                    // Get the <span> element that closes the modal historial
+                    var spanHistorial = document.getElementsByClassName("close")[2]; 
 
                     // When the user clicks the button, open the modal input frase
                     btn.onclick = function () {
@@ -858,6 +900,13 @@ DefinirModoBuscar(true);
 
                     }
 
+                    // When the user clicks the button Historial, open the modal Historial
+                    btnHist.onclick = function () {
+
+                        modalHistorial.style.display = "block";
+                        alturaModalHistorial();
+
+                    }
 
                     // When the user clicks on <span> (x), close the modal input frase
                     span.onclick = function () {
@@ -867,15 +916,22 @@ DefinirModoBuscar(true);
                     spanTexto.onclick = function () {
                         modalTexto.style.display = "none";
                     }
+                    // When the user clicks on <span> (x), close the modal HISTORIAL
+                    spanHistorial.onclick = function () {
+                        modalHistorial.style.display = "none";
+                    }
 
 
-                    // When the user clicks anywhere outside of the modal (both), close it
+                    // When the user clicks anywhere outside of the modal (3), close it
                     window.onclick = function (event) {
                         if (event.target == modal) {
                             modal.style.display = "none";
                         }
                         if (event.target == modalTexto) {
                             modalTexto.style.display = "none";
+                        }
+                        if (event.target == modalHistorial) {
+                            modalHistorial.style.display = "none";
                         }
                     }
 
@@ -901,6 +957,18 @@ DefinirModoBuscar(true);
                         h = 0.75 * (h - 40 - hd.scrollHeight);
                         bd.style.height = h + "px";
                     }
+
+                    function alturaModalHistorial() {
+                        var h = window.innerHeight
+                            || document.documentElement.clientHeight
+                            || document.body.clientHeight;
+                        var bd = document.getElementById("modalBodyHistorial");
+                        var hd = document.getElementById("modalHeaderHistorial");
+                        // mejor define altura descontando título.
+                        h = 0.75 * (h - 40 - hd.scrollHeight);
+                        bd.style.height = h + "px";
+                    }
+
                     var tMonitor = 0;
                     //activa monitor de cambios
                     function activaMonitor() {
@@ -926,6 +994,7 @@ DefinirModoBuscar(true);
                             document.getElementById("BtnFraseSolicitada").style.display = "none";
                             document.getElementById("BtnCopiar").style.display = "none";
                             document.getElementById("BtnAyuda").style.display = "none";
+                            document.getElementById("BtnHistorial").style.display = "none";
                             document.getElementById("icoPen").style.display = "none";
                             document.getElementById("BtnEnlace").style.display = "none";
                             document.getElementById("infoEncontradas").style.display = "block";
@@ -963,6 +1032,7 @@ DefinirModoBuscar(true);
                                 document.getElementById("BtnFraseSolicitada").style.display = "block";
                                 document.getElementById("BtnCopiar").style.display = "block";
                                 document.getElementById("BtnAyuda").style.display = "block";
+                                document.getElementById("BtnHistorial").style.display = "block";
                                 document.getElementById("icoPen").style.display = "block";
                                 document.getElementById("BtnEnlace").style.display = "block";
                                 document.getElementById("infoEncontradas").style.display = "none";
