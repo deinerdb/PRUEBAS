@@ -278,19 +278,22 @@ function ajustesResize() {
         sizeLogo();
     }
 
-    //FUENTES Y FRASES (PRIMEROS DOS MODAL)
+    //FUENTES Y FRASES (PRIMER MODAL)
     if (typeof alturaModal == 'function') {
-        alturaModal();
-        alturaModalTexto();
-        alturaMitades();
-        //FRASES (TERCER MODAL)
-        if (typeof alturaModalHistorial == 'function') {
-            alert("hola");
-            alturaModalHistorial();
-
-        } 
+        alturaModal();           
     } 
-    
+    //FRASES Y FUENTES (SEGUNDO MODAL)
+    if (typeof alturaModalTexto == 'function') {        
+        alturaModalTexto();
+    } 
+    //FRASES (TERCER MODAL)
+    if (typeof alturaModalHistorial == 'function') {       
+        alturaModalHistorial();
+    } 
+    //FUENTES (INTERFAZ)
+    if (typeof alturaMitades == 'function') {
+        alturaMitades();     
+    } 
     
 }
 
