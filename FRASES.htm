@@ -98,20 +98,42 @@
                 margin: 0 12px 4px 0;
                 
             }
-            #modalBodyTexto hr {
-                /* no deben flotar */
-                clear:left;
+            #modalBodyHistorial hr {
                 margin-bottom: 16px;
                 margin-top: 24px;
+            }
+            #modalBodyTexto hr, #modalBodyHistorial hr {
+                /* no deben flotar */
+                clear: left;
+                margin-bottom: 16px;
+                margin-top: 24px;
+            }
+                #modalBodyTexto hr:first-child, #modalBodyHistorial hr:first-child {
+                    margin-top: 2px;
+                }
+                #modalBodyTexto hr:last-child, #modalBodyHistorial hr:last-child {
+                    margin-bottom: 8px;
+                }
 
+            .spanHistNum {
+                font-weight: bold;
+                white-space: nowrap; /*solo una línea cada frase*/
+                margin-right: 6px;
+                max-width: 50%;
+                cursor: pointer;
             }
-            #modalBodyTexto hr:first-child {
-               
-                margin-top: 2px;
+
+            .spanHistFrase {
+                overflow: hidden;
+                white-space: nowrap; /*solo una línea cada frase*/
+                text-overflow: ellipsis;
+                max-width: 50%;
+                cursor: pointer;
             }
-            #modalBodyTexto hr:last-child {
-                margin-bottom: 8px;
-            }
+                .spanHistFrase:hover, .spanHistNum:hover {
+                    color: purple;
+                    font-weight: bold;
+                }
 
             /*interfaz ingresar número de frase*/
             #preguntaFrase {
@@ -370,7 +392,12 @@
                 max-width: 100%;
                 /*margin: 16px 0px 2px 0px;*/
                 margin: 4px;
-                overflow: auto !important;
+                /*comportamiento especial en x*/
+                overflow-x: hidden;
+                overflow-y: auto !important;
+                /*una fila cada frase*/
+                white-space: nowrap;
+                text-overflow: ellipsis;
                 -webkit-border-radius: 5px;
                 -moz-border-radius: 5px;
                 border-radius: 5px;
@@ -757,11 +784,11 @@
                 </div>
                 <div class="modal-body" id="modalBodyHistorial">
                     <hr />                    
-                    Aquí saldrá la última frase vista...
+                    <span class="spanHistNum" id="spanHistNum1"> Frase 1</span><span class="spanHistFrase" id="spanHistFrase1">Aquí saldrá la última frase vista</span> 
                     <hr />                   
-                    Aquí saldrá la anterior...                    
+                    <span class="spanHistNum" id="spanHistNum2">Frase 2</span><span class="spanHistFrase" id="spanHistFrase2">Aquí saldrá la anterior  </span>                                       
                     <hr />
-                    Y así sucesivamente hasta la décima...
+                    <span class="spanHistNum" id="spanHistNum3">Frase 3</span><span class="spanHistFrase" id="spanHistFrase3">Y así sucesivamente hasta la décima. El texto se recorta si es necesario</span>                     
                     <hr />
                 </div>
             </div>
@@ -904,6 +931,9 @@ DefinirModoBuscar(true);
 
                     // When the user clicks the button Historial, open the modal Historial
                     btnHist.onclick = function () {
+
+                        //sale si está en modo buscar, poco probable
+                        if (modoBuscar == true) { return;}
 
                         modalHistorial.style.display = "block";
                         alturaModalHistorial();
