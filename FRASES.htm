@@ -118,21 +118,22 @@
             .spanHistNum {
                 font-weight: bold;
                 white-space: nowrap; /*solo una línea cada frase*/
-                margin-right: 6px;
-                max-width: 50%;
+                margin-right: 6px;                
                 cursor: pointer;
             }
 
             .spanHistFrase {
                 overflow: hidden;
                 white-space: nowrap; /*solo una línea cada frase*/
+                -ms-text-overflow: ellipsis;
+                -o-text-overflow: ellipsis;
                 text-overflow: ellipsis;
-                max-width: 50%;
                 cursor: pointer;
             }
                 .spanHistFrase:hover, .spanHistNum:hover {
                     color: purple;
-                    font-weight: bold;
+                    font-weight: bold;                    
+                    text-decoration:underline;
                 }
 
             /*interfaz ingresar número de frase*/
@@ -397,6 +398,8 @@
                 overflow-y: auto !important;
                 /*una fila cada frase*/
                 white-space: nowrap;
+                -ms-text-overflow: ellipsis;
+                -o-text-overflow: ellipsis;
                 text-overflow: ellipsis;
                 -webkit-border-radius: 5px;
                 -moz-border-radius: 5px;
@@ -784,12 +787,26 @@
                 </div>
                 <div class="modal-body" id="modalBodyHistorial">
                     <hr />                    
-                    <span class="spanHistNum" id="spanHistNum1"> Frase 1</span><span class="spanHistFrase" id="spanHistFrase1">Aquí saldrá la última frase vista</span> 
+                    <span class="spanHistNum" > Frase 1</span><span class="spanHistFrase">Aquí saldrá la última frase vista</span> 
                     <hr />                   
-                    <span class="spanHistNum" id="spanHistNum2">Frase 2</span><span class="spanHistFrase" id="spanHistFrase2">Aquí saldrá la anterior  </span>                                       
+                    <span class="spanHistNum" >Frase 2</span><span class="spanHistFrase">Aquí saldrá la anterior, la segunda frase vista</span>                                       
                     <hr />
-                    <span class="spanHistNum" id="spanHistNum3">Frase 3</span><span class="spanHistFrase" id="spanHistFrase3">Y así sucesivamente hasta la décima. El texto se recorta si es necesario</span>                     
+                    <span class="spanHistNum" >Frase 3</span><span class="spanHistFrase">Aquí saldrá la tercera frase vista. El texto se recorta si es necesario</span>                     
                     <hr />
+                    <span class="spanHistNum"> Frase 4</span><span class="spanHistFrase">Aquí saldrá la cuarta frase vista</span>
+                    <hr /> 
+                    <span class="spanHistNum"> Frase 5</span><span class="spanHistFrase">Aquí saldrá la quinta frase vista</span>
+                    <hr /> 
+                    <span class="spanHistNum"> Frase 6</span><span class="spanHistFrase">Aquí saldrá la sexta frase vista</span>
+                    <hr /> 
+                    <span class="spanHistNum"> Frase 7</span><span class="spanHistFrase">Aquí saldrá la séptima frase vista</span>
+                    <hr /> 
+                    <span class="spanHistNum"> Frase 8</span><span class="spanHistFrase">Aquí saldrá la octava frase vista</span>
+                    <hr /> 
+                    <span class="spanHistNum"> Frase 9</span><span class="spanHistFrase">Aquí saldrá la novena frase vista</span>
+                    <hr /> 
+                    <span class="spanHistNum"> Frase 10</span><span class="spanHistFrase">Aquí saldrá la décima frase vista</span>
+                    <hr /> 
                 </div>
             </div>
 
@@ -837,13 +854,40 @@ DefinirModoBuscar(true);
                     <h3 id="infoEncontradas" class="parpadea">Frases encontradas:</h3>
                     
                     <span id="e1" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Frase 1</span>
-                    <p id="f1" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Esta sería la primera, frase 1...</p>
+                    <p id="f1" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Esta sería la primera, la colección tiene más de mil frases.</p>
                     
                     <span id="e2" class="fraseBiblia" style="display:none;" onclick="clickFrase(this.id)">Frase 2</span>
-                    <p id="f2" class="fraseBiblia" style="display:none;" onclick="clickFrase(this.id)">Ejemplo, frase 2</p>
+                    <p id="f2" class="fraseBiblia" style="display:none;" onclick="clickFrase(this.id)">La colección tiene más de mil frases. Estas son solo ejemplos para probar los algoritmos de búsqueda, historial y otros.</p>
 
                     <span id="e3" class="fraseBiblia" style="display:none;" onclick="clickFrase(this.id)">Frase 3</span>
-                    <p id="f3" class="fraseBiblia" style="display:none;" onclick="clickFrase(this.id)">Esta sería la última, frase 3...</p>
+                    <p id="f3" class="fraseBiblia" style="display:none;" onclick="clickFrase(this.id)">Esta sería la tercera, frase 3... La colección tiene más de mil frases. Estas son solo ejemplos para probar los algoritmos de búsqueda, historial y otros.</p>
+
+                    <span id="e4" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Frase 4</span>
+                    <p id="f4" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Esta sería la 4, La colección tiene más de mil frases. Estas son solo ejemplos para probar los algoritmos de búsqueda, historial y otros.</p>
+
+                    <span id="e5" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Frase 5</span>
+                    <p id="f5" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Esta sería la 5, La colección tiene más de mil frases. Estas son solo ejemplos para probar los algoritmos de búsqueda, historial y otros.</p>
+
+                    <span id="e6" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Frase 6</span>
+                    <p id="f6" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Esta sería la 6, La colección tiene más de mil frases. Estas son solo ejemplos para probar los algoritmos de búsqueda, historial y otros.</p>
+
+                    <span id="e7" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Frase 7</span>
+                    <p id="f7" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Esta sería la 7, La colección tiene más de mil frases. Estas son solo ejemplos para probar los algoritmos de búsqueda, historial y otros.</p>
+
+                    <span id="e8" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Frase 8</span>
+                    <p id="f8" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Esta sería la 8, La colección tiene más de mil frases. Estas son solo ejemplos para probar los algoritmos de búsqueda, historial y otros.</p>
+
+                    <span id="e9" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Frase 9</span>
+                    <p id="f9" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Esta sería la 9, La colección tiene más de mil frases. Estas son solo ejemplos para probar los algoritmos de búsqueda, historial y otros.</p>
+
+                    <span id="e10" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Frase 10</span>
+                    <p id="f10" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Esta sería la 10, La colección tiene más de mil frases. Estas son solo ejemplos para probar los algoritmos de búsqueda, historial y otros.</p>
+
+                    <span id="e11" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Frase 11</span>
+                    <p id="f11" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Esta sería la 11, La colección tiene más de mil frases. Estas son solo ejemplos para probar los algoritmos de búsqueda, historial y otros.</p>
+
+                    <span id="e12" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Frase 12</span>
+                    <p id="f12" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Esta sería la 12, La colección tiene más de mil frases. Estas son solo ejemplos para probar los algoritmos de búsqueda, historial y otros.</p>
 
                     <!--al final un ícono de lápiz-->
                     <i id="icoPen" class="fa fa-pencil" aria-hidden="true"></i>
@@ -871,7 +915,7 @@ DefinirModoBuscar(true);
                     //*** IMPORTANTE ***
                     //NÚMERO MÁXIMO DE FRASE
                     //var maxNumFrase = "1153";
-                    var maxNumFrase = "3"
+                    var maxNumFrase = "12"
                     //*********************
                     var fraseActual = 1;
                     var buscado = "";
