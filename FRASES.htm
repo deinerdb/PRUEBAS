@@ -767,6 +767,10 @@
                     Copia al portapapeles un enlace web a la frase actual de la colección. 
                     Puede usar este enlace para compartir la frase actual.
                     No está disponible en el modo búsqueda.
+                    <hr />  
+                    <i class="fa fa-history" aria-hidden="true"></i>
+                    Muestra una ventana con el historial de las últimas 10 frases (diferentes) que se han visualizado.
+                    No está disponible en el modo búsqueda.
                     <hr />
                     <i class="fa fa-question" aria-hidden="true"></i>
                     Como es obvio, muestra esta ventana con información sobre la barra de herramientas. 
@@ -787,25 +791,25 @@
                 </div>
                 <div class="modal-body" id="modalBodyHistorial">
                     <hr />                    
-                    <span class="spanHistNum" > Frase 1</span><span class="spanHistFrase">Aquí saldrá la última frase vista</span> 
+                    <span class="spanHistNum" >Frase 1</span><span class="spanHistFrase">Aquí saldrá la última frase vista</span> 
                     <hr />                   
                     <span class="spanHistNum" >Frase 2</span><span class="spanHistFrase">Aquí saldrá la anterior, la segunda frase vista</span>                                       
                     <hr />
                     <span class="spanHistNum" >Frase 3</span><span class="spanHistFrase">Aquí saldrá la tercera frase vista. El texto se recorta si es necesario</span>                     
                     <hr />
-                    <span class="spanHistNum"> Frase 4</span><span class="spanHistFrase">Aquí saldrá la cuarta frase vista</span>
+                    <span class="spanHistNum">Frase 4</span><span class="spanHistFrase">Aquí saldrá la cuarta frase vista</span>
                     <hr /> 
-                    <span class="spanHistNum"> Frase 5</span><span class="spanHistFrase">Aquí saldrá la quinta frase vista</span>
+                    <span class="spanHistNum">Frase 5</span><span class="spanHistFrase">Aquí saldrá la quinta frase vista</span>
                     <hr /> 
-                    <span class="spanHistNum"> Frase 6</span><span class="spanHistFrase">Aquí saldrá la sexta frase vista</span>
+                    <span class="spanHistNum">Frase 6</span><span class="spanHistFrase">Aquí saldrá la sexta frase vista</span>
                     <hr /> 
-                    <span class="spanHistNum"> Frase 7</span><span class="spanHistFrase">Aquí saldrá la séptima frase vista</span>
+                    <span class="spanHistNum">Frase 7</span><span class="spanHistFrase">Aquí saldrá la séptima frase vista</span>
                     <hr /> 
-                    <span class="spanHistNum"> Frase 8</span><span class="spanHistFrase">Aquí saldrá la octava frase vista</span>
+                    <span class="spanHistNum">Frase 8</span><span class="spanHistFrase">Aquí saldrá la octava frase vista</span>
                     <hr /> 
-                    <span class="spanHistNum"> Frase 9</span><span class="spanHistFrase">Aquí saldrá la novena frase vista</span>
+                    <span class="spanHistNum">Frase 9</span><span class="spanHistFrase">Aquí saldrá la novena frase vista</span>
                     <hr /> 
-                    <span class="spanHistNum"> Frase 10</span><span class="spanHistFrase">Aquí saldrá la décima frase vista</span>
+                    <span class="spanHistNum">Frase 10</span><span class="spanHistFrase">Aquí saldrá la décima frase vista</span>
                     <hr /> 
                 </div>
             </div>
@@ -921,11 +925,13 @@ DefinirModoBuscar(true);
                     var buscado = "";
                     //algunas tareas no se hacen cuando está buscando...
                     var buscando = false;
-
                     // modal de información completa sobre herramientas
                     var miTextoFull = document.getElementById("modalBodyTexto");
                     // modal de historial
                     var miTextoHistorial = document.getElementById("modalBodyHistorial");
+                    //vector de frases vistas
+                    var arrayHist = [];
+
                     //para el modal
 
                     // Get the modal , input frase
@@ -973,13 +979,18 @@ DefinirModoBuscar(true);
 
                     }
 
-                    // When the user clicks the button Historial, open the modal Historial
+                    // When the user clicks the button Historial, open the modal Historial 
                     btnHist.onclick = function () {
 
                         //sale si está en modo buscar, poco probable
                         if (modoBuscar == true) { return;}
 
+                        //configura el historial
+
+
+                        //muestra la ventana
                         modalHistorial.style.display = "block";
+                        //configura altura de la ventana
                         alturaModalHistorial();
 
                     }
@@ -1136,7 +1147,9 @@ DefinirModoBuscar(true);
                     // sale del modo búsqueda
                     function salirBuscar() {
                         DefinirModoBuscar(false);
-                        //muestra la frase actual: la que estaba o la que eligió de los resultados
+                        //debido a la transición, es necesario confirmar el estado
+                        modoBuscar = false;
+                        //muestra la frase actual: la que estaba o la que eligió de los resultados                        
                         mostrarFrase(fraseActual);
                         //mensaje
                         showSnackbar("Modo búsqueda desactivado");
@@ -1249,10 +1262,48 @@ DefinirModoBuscar(true);
                         document.getElementById("f" + idFrase).style.display = "none";
                         document.getElementById("e" + idFrase).style.display = "none";
                     }
+                    //devuelve la posición en que aparece una frase en el vector historial
+                    //devuelve -1 si no está en el vector
+                    //arrayHist es requerido
+                    function posFrase(numBuscado) {
+                        var i;
+                        var pos = -1;                        
+                        for (i = 0; i < arrayHist.length; i++){
+                            if (numBuscado == arrayHist[i]) {
+                                pos = i;
+                                break;
+                            }
+                        }
+                        return pos;
+                    }
+
                     function mostrarFrase(idFrase) {
                         document.getElementById("f" + idFrase).style.display = "block";
                         document.getElementById("e" + idFrase).style.display = "block";
+
+                        
+                        if (modoBuscar == true) {
+                            //configura el puntero
+                            document.getElementById("f" + idFrase).style.cursor = "pointer";
+                            document.getElementById("e" + idFrase).style.cursor = "pointer";
+                        } else {
+                            //configura el puntero
+                            document.getElementById("f" + idFrase).style.cursor = "auto";
+                            document.getElementById("e" + idFrase).style.cursor = "auto";
+                            //está en modo normal
+                            //procesa el historial
+                            if (posFrase(idFrase) == -1) {
+                                //no está en el historial, se agrega
+
+                            } else {
+                                //está en el historial, se mueve al final
+
+                            }
+
+                        }
+
                     }
+
                     // Ir a primera frase...
                     document.getElementById("BtnPrimeraFrase").onclick = function () {
                         //oculta la actual
