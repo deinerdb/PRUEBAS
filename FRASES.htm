@@ -1070,6 +1070,7 @@ DefinirModoBuscar(true);
                     function DefinirModoBuscar(activo) {
 
                         if (activo == true) {
+                            modoBuscar = true;
                             document.getElementById("BtnCerrar").style.display = "block";                            
                             document.getElementById("BtnEjecutaBuscar").style.display = "block";
                             document.getElementById("BtnBuscar").style.display = "none";
@@ -1085,9 +1086,11 @@ DefinirModoBuscar(true);
                             document.getElementById("icoPen").style.display = "none";
                             document.getElementById("BtnEnlace").style.display = "none";
                             document.getElementById("infoEncontradas").style.display = "block";
-                            document.getElementById("txtBuscar").style.display = "block";                            
-                            document.getElementById("txtBuscar").style.width = "100%";
+                            document.getElementById("txtBuscar").style.display = "block";
+                            //ESTO TIENE TRANSICIÓN -----
+                            document.getElementById("txtBuscar").style.width = "100%";                            
                             document.getElementById("txtBuscar").style.minWidth = "150px";
+                            // ----
                             document.getElementById("ingresando").style.display = "block";
                             document.getElementById("contFrases").style.fontSize = "1.2em"; 
                             document.getElementById("contFrases").style.display = "none";
@@ -1097,16 +1100,20 @@ DefinirModoBuscar(true);
                             //monitor
                             activaMonitor();
                             //dirige el foco al cuadro de búsqueda
-                            document.getElementById("txtBuscar").focus();                                                      
-                            modoBuscar = true;
+                            document.getElementById("txtBuscar").focus(); 
                         }
                         else {
-                                                         
+
+                            modoBuscar = false;  
+                            //monitor
+                            desactivaMonitor();
+                            //lo siguiente tiene transición --------------
                             document.getElementById("txtBuscar").style.minWidth = "0";
                             document.getElementById("txtBuscar").style.width = "0"; 
+                            //----------
                             //para permitir transiciones espera un poco...                            
                             setTimeout(function () {
-
+                                
                                 document.getElementById("txtBuscar").style.display = "none";
                                 document.getElementById("BtnCerrar").style.display = "none";
                                 document.getElementById("BtnEjecutaBuscar").style.display = "none";
@@ -1126,9 +1133,7 @@ DefinirModoBuscar(true);
                                 document.getElementById("ingresando").style.display = "none";
                                 document.getElementById("contFrases").style.display = "block";
                                 document.getElementById("contFrases").style.fontSize = "10vh";
-                                //monitor
-                                desactivaMonitor();
-                                modoBuscar = false;
+                                
 
                             }, 500);     
                                       
@@ -1146,9 +1151,7 @@ DefinirModoBuscar(true);
                     }
                     // sale del modo búsqueda
                     function salirBuscar() {
-                        DefinirModoBuscar(false);
-                        //debido a la transición, es necesario confirmar el estado
-                        modoBuscar = false;
+                        DefinirModoBuscar(false);                       
                         //muestra la frase actual: la que estaba o la que eligió de los resultados                        
                         mostrarFrase(fraseActual);
                         //mensaje
@@ -1283,21 +1286,41 @@ DefinirModoBuscar(true);
 
                         
                         if (modoBuscar == true) {
-                            //configura el puntero
+                            //configura el puntero como pointer
                             document.getElementById("f" + idFrase).style.cursor = "pointer";
-                            document.getElementById("e" + idFrase).style.cursor = "pointer";
+                            document.getElementById("e" + idFrase).style.cursor = "pointer";                            
                         } else {
-                            //configura el puntero
+                            var i;
+                            //configura el puntero normal                            
                             document.getElementById("f" + idFrase).style.cursor = "auto";
-                            document.getElementById("e" + idFrase).style.cursor = "auto";
-                            //está en modo normal
-                            //procesa el historial
-                            if (posFrase(idFrase) == -1) {
+                            document.getElementById("e" + idFrase).style.cursor = "auto";   
+                            var miPosFrase = posFrase(idFrase);
+                            //está en modo normal, procesa el historial
+                            if (miPosFrase == -1) {
                                 //no está en el historial, se agrega
-
+                                if (arrayHist.length < 9) {
+                                    //tiene menos de 10 elementos, la agrega en la siguiente casilla
+                                    arrayHist[arrayHist.length] = idFrase;
+                                } else {
+                                    // tiene 10 elementos, está lleno. Hace espacio, se pierde el más antiguo.                                    
+                                    for (i = 0; i < 9; i++) {
+                                        arrayHist[i] = arrayHist[1 + i];
+                                    }
+                                    //en la última posición guarda la actual
+                                    arrayHist[9] = idFrase;
+                                }
                             } else {
-                                //está en el historial, se mueve al final
-
+                                //está en el historial, lo mueve al final
+                                if (miPosFrase == arrayHist.length - 1) {
+                                    //ya está al final, no hace nada
+                                    return;
+                                } else {
+                                    //está en alguna otra posición, debe moverlo al final
+                                    for (i = miPosFrase; i < arrayHist.length - 1; i++) {
+                                        arrayHist[i] = arrayHist[1 + i];
+                                    }
+                                    arrayHist[arrayHist.length - 1] = idFrase;
+                                }
                             }
 
                         }
