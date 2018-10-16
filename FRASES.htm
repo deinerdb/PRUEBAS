@@ -98,20 +98,26 @@
                 margin: 0 12px 4px 0;
                 
             }
-            #modalBodyHistorial hr {
-                margin-bottom: 16px;
-                margin-top: 24px;
-            }
-            #modalBodyTexto hr, #modalBodyHistorial hr {
+            
+            #modalBodyTexto hr {
                 /* no deben flotar */
                 clear: left;
                 margin-bottom: 16px;
                 margin-top: 24px;
             }
-                #modalBodyTexto hr:first-child, #modalBodyHistorial hr:first-child {
+
+            #modalBodyHistorial hr {
+                /* no deben flotar */
+                clear: left;
+                /*promediando*/
+                margin-bottom: 0.7em;
+                margin-top: 0.7em;
+            } 
+                
+                #modalBodyTexto hr:first-child {
                     margin-top: 2px;
                 }
-                #modalBodyTexto hr:last-child, #modalBodyHistorial hr:last-child {
+                #modalBodyTexto hr:last-child {
                     margin-bottom: 8px;
                 }
 
@@ -409,7 +415,7 @@
                 border-width: 1.2px;
                 box-sizing: border-box;
                 font-family: Verdana, Geneva, Tahoma, sans-serif;
-                padding: 12px 10px 12px 10px;
+                padding: 2px 10px 2px 10px;
                 color: #1a0033; /*un púrpura casi negro*/
                 background-color: white;
             }
@@ -790,27 +796,27 @@
                     <h2><i class="fa fa-history" aria-hidden="true"></i>Historial</h2>
                 </div>
                 <div class="modal-body" id="modalBodyHistorial">
-                    <hr />                    
-                    <span class="spanHistNum" >Frase 1</span><span class="spanHistFrase">Aquí saldrá la última frase vista</span> 
-                    <hr />                   
-                    <span class="spanHistNum" >Frase 2</span><span class="spanHistFrase">Aquí saldrá la anterior, la segunda frase vista</span>                                       
-                    <hr />
-                    <span class="spanHistNum" >Frase 3</span><span class="spanHistFrase">Aquí saldrá la tercera frase vista. El texto se recorta si es necesario</span>                     
-                    <hr />
-                    <span class="spanHistNum">Frase 4</span><span class="spanHistFrase">Aquí saldrá la cuarta frase vista</span>
-                    <hr /> 
-                    <span class="spanHistNum">Frase 5</span><span class="spanHistFrase">Aquí saldrá la quinta frase vista</span>
-                    <hr /> 
-                    <span class="spanHistNum">Frase 6</span><span class="spanHistFrase">Aquí saldrá la sexta frase vista</span>
-                    <hr /> 
-                    <span class="spanHistNum">Frase 7</span><span class="spanHistFrase">Aquí saldrá la séptima frase vista</span>
-                    <hr /> 
-                    <span class="spanHistNum">Frase 8</span><span class="spanHistFrase">Aquí saldrá la octava frase vista</span>
-                    <hr /> 
-                    <span class="spanHistNum">Frase 9</span><span class="spanHistFrase">Aquí saldrá la novena frase vista</span>
-                    <hr /> 
-                    <span class="spanHistNum">Frase 10</span><span class="spanHistFrase">Aquí saldrá la décima frase vista</span>
-                    <hr /> 
+                    <hr class="hrHistorial" />                    
+                    <span class="spanHistNum" onclick="clickHistorial(this.id)" >Frase 1</span><span class="spanHistFrase" onclick="clickHistorial(this.id)">Aquí saldrá la última frase vista</span> 
+                    <hr class="hrHistorial"/>                   
+                    <span class="spanHistNum" onclick="clickHistorial(this.id)" >Frase 2</span><span class="spanHistFrase" onclick="clickHistorial(this.id)">Aquí saldrá la anterior, la segunda frase vista</span>                                       
+                    <hr class="hrHistorial"/>
+                    <span class="spanHistNum" onclick="clickHistorial(this.id)" >Frase 3</span><span class="spanHistFrase" onclick="clickHistorial(this.id)">Aquí saldrá la tercera frase vista. El texto se recorta si es necesario</span>                     
+                    <hr class="hrHistorial"/>
+                    <span class="spanHistNum" onclick="clickHistorial(this.id)">Frase 4</span><span class="spanHistFrase" onclick="clickHistorial(this.id)">Aquí saldrá la cuarta frase vista</span>
+                    <hr class="hrHistorial"/> 
+                    <span class="spanHistNum" onclick="clickHistorial(this.id)">Frase 5</span><span class="spanHistFrase" onclick="clickHistorial(this.id)">Aquí saldrá la quinta frase vista</span>
+                    <hr class="hrHistorial"/> 
+                    <span class="spanHistNum" onclick="clickHistorial(this.id)">Frase 6</span><span class="spanHistFrase" onclick="clickHistorial(this.id)">Aquí saldrá la sexta frase vista</span>
+                    <hr class="hrHistorial"/> 
+                    <span class="spanHistNum" onclick="clickHistorial(this.id)">Frase 7</span><span class="spanHistFrase" onclick="clickHistorial(this.id)">Aquí saldrá la séptima frase vista</span>
+                    <hr class="hrHistorial"/> 
+                    <span class="spanHistNum" onclick="clickHistorial(this.id)">Frase 8</span><span class="spanHistFrase" onclick="clickHistorial(this.id)">Aquí saldrá la octava frase vista</span>
+                    <hr class="hrHistorial"/> 
+                    <span class="spanHistNum" onclick="clickHistorial(this.id)">Frase 9</span><span class="spanHistFrase" onclick="clickHistorial(this.id)">Aquí saldrá la novena frase vista</span>
+                    <hr class="hrHistorial"/> 
+                    <span class="spanHistNum" onclick="clickHistorial(this.id)">Frase 10</span><span class="spanHistFrase" onclick="clickHistorial(this.id)">Aquí saldrá la décima frase vista</span>
+                    <hr class="hrHistorial"/> 
                 </div>
             </div>
 
@@ -965,7 +971,7 @@ DefinirModoBuscar(true);
                         
                         modal.style.display = "block";
                         alturaModal();
-
+                        document.getElementById("modalBody").scrollTop = 0;                        
                         //enfoca el input...                            
                         document.getElementById("txtNumFrase").focus(); 
 
@@ -976,6 +982,7 @@ DefinirModoBuscar(true);
 
                         modalTexto.style.display = "block";
                         alturaModalTexto();
+                        document.getElementById("modalBodyTexto").scrollTop = 0;
 
                     }
 
@@ -984,15 +991,46 @@ DefinirModoBuscar(true);
 
                         //sale si está en modo buscar, poco probable
                         if (modoBuscar == true) { return;}
-
+                        //oculta la actual
+                        ocultarFrase(fraseActual);
                         //configura el historial
-
+                        var i;
+                        var j;                        
+                        //oculta todos los elementos de la ventana
+                        for (i = 0; i < 10; i++) {
+                            document.getElementsByClassName("spanHistNum")[i].style.display = "none";
+                            document.getElementsByClassName("spanHistFrase")[i].style.display = "none";
+                            document.getElementsByClassName("hrHistorial")[i].style.display = "none";                            
+                        }
+                        //hay un hr más por ocultar, son 11
+                        document.getElementsByClassName("hrHistorial")[10].style.display = "none";
+                        //recorre el vector historial de la última a la primera posición
+                        for (i = arrayHist.length - 1; i >= 0; i--) {
+                            //el último en el vector es el primero en la clase... el primero es el último
+                            // i para vector, j para la clase. Se escriben en orden inverso.
+                            j = 9 - i;
+                            //escribe el número de la frase
+                            document.getElementsByClassName("spanHistNum")[j].innerHTML = "Frase " + arrayHist[i] + ": ";
+                            //escribe la frase (se recorta si es necesario con CSS)
+                            document.getElementsByClassName("spanHistFrase")[j].innerHTML = document.getElementById("f" + arrayHist[i]).innerHTML;
+                            //asigna id para el evento click
+                            document.getElementsByClassName("spanHistNum")[j].id = "hn" + arrayHist[i];
+                            document.getElementsByClassName("spanHistFrase")[j].id = "hf" + arrayHist[i];
+                            //muestra estos elementos
+                            document.getElementsByClassName("spanHistNum")[j].style.display = "inline";
+                            document.getElementsByClassName("spanHistFrase")[j].style.display = "inline";
+                            //y muestra los hr respectivos
+                            document.getElementsByClassName("hrHistorial")[j].style.display = "block";
+                            document.getElementsByClassName("hrHistorial")[1 + j].style.display = "block";
+                            
+                        }
 
                         //muestra la ventana
-                        modalHistorial.style.display = "block";
+                        modalHistorial.style.display = "block";                        
                         //configura altura de la ventana
                         alturaModalHistorial();
-
+                        //scroll
+                        document.getElementById("modalBodyHistorial").scrollTop = 0;                        
                     }
 
                     // When the user clicks on <span> (x), close the modal input frase
@@ -1005,7 +1043,7 @@ DefinirModoBuscar(true);
                     }
                     // When the user clicks on <span> (x), close the modal HISTORIAL
                     spanHistorial.onclick = function () {
-                        modalHistorial.style.display = "none";
+                        salirHistorial();
                     }
 
 
@@ -1018,7 +1056,7 @@ DefinirModoBuscar(true);
                             modalTexto.style.display = "none";
                         }
                         if (event.target == modalHistorial) {
-                            modalHistorial.style.display = "none";
+                            salirHistorial();
                         }
                     }
 
@@ -1149,6 +1187,13 @@ DefinirModoBuscar(true);
                         //mensaje
                         showSnackbar("Modo búsqueda activado"); 
                     }
+                    // sale del historial
+                    function salirHistorial() {
+                        modalHistorial.style.display = "none";                        
+                        //muestra la frase actual: la que estaba o la que eligió del historial                       
+                        mostrarFrase(fraseActual);                        
+                    }
+
                     // sale del modo búsqueda
                     function salirBuscar() {
                         DefinirModoBuscar(false);                       
@@ -1157,6 +1202,7 @@ DefinirModoBuscar(true);
                         //mensaje
                         showSnackbar("Modo búsqueda desactivado");
                     }
+
                     // una forma de salir es en la X: el btn cerrar
                     document.getElementById("BtnCerrar").onclick = function (e) {
                         // no sale si está ocupado buscando...
@@ -1179,6 +1225,15 @@ DefinirModoBuscar(true);
                         //sale
                         salirBuscar();
                     }
+                    // haciendo clic en una frase del historial, se cierra la ventana y se muestra esa frase
+                    function clickHistorial(miId) {
+                        
+                        // irá a la frase que seleccionó
+                        fraseActual = miId.slice(2);
+                        //sale
+                        salirHistorial();
+                    }
+                    
                     // se mueve a una frase específica
                     function irFrase(miFrase) {  
                         if (validateNumFrase() == true) {
