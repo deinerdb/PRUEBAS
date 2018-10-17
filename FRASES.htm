@@ -321,7 +321,7 @@
                 
                 #contFrases {
                     font-family: 'Flamenco', Verdana, Geneva, Tahoma, sans-serif;
-                    font-size: 10vh;
+                    font-size: 9vh;
                     text-align: left;
                     padding: 10px;
                     border-width: 5px;
@@ -1170,7 +1170,7 @@ DefinirModoBuscar(true);
                                 document.getElementById("infoEncontradas").style.display = "none";
                                 document.getElementById("ingresando").style.display = "none";
                                 document.getElementById("contFrases").style.display = "block";
-                                document.getElementById("contFrases").style.fontSize = "10vh";
+                                document.getElementById("contFrases").style.fontSize = "9vh";
                                 
 
                             }, 500);     
@@ -1530,7 +1530,17 @@ DefinirModoBuscar(true);
                         document.getElementById("contFrases").focus();
                         
                         //algoritmo de búsqueda:
-
+                        var i;
+                        var txtBuscado = document.getElementById("txtBuscar").value;
+                        for (i = 1; i <= maxNumFrase; i++) {
+                            if ( document.getElementById("f" + i).innerHTML.toLowerCase().indexOf(txtBuscado.toLowerCase()) == -1 ) {
+                                //no contiene la expresión buscada
+                                ocultarFrase(i);
+                            } else {
+                                //sí contiene la expresión buscada
+                                mostrarFrase(i);
+                            }
+                        }
 
                         //scroll para que vea los resultados
                         topFunction();
