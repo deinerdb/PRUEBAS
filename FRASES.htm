@@ -937,9 +937,12 @@ DefinirModoBuscar(true);
                     var miTextoHistorial = document.getElementById("modalBodyHistorial");
                     //vector de frases vistas
                     var arrayHist = [];
+                    //vector números de frase encontradas
+                    var arrayNumEncontradas = [];
+                    // vector frases encontradas, para poder restaurar los párrafos
+                    var arrayFrasesEncontradas = [];
 
                     //para el modal
-
                     // Get the modal , input frase
                     var modal = document.getElementById('myModal');
                     // Get the modal texto
@@ -1133,6 +1136,9 @@ DefinirModoBuscar(true);
                             document.getElementById("contFrases").style.fontSize = "1.2em"; 
                             document.getElementById("contFrases").style.display = "none";
                             document.getElementById("txtBuscar").value = "";
+                            //vacía los vectores de resultados
+                            arrayNumEncontradas.length = 0;
+                            arrayFrasesEncontradas.length = 0;
                             //oculta la actual
                             ocultarFrase(fraseActual);
                             //monitor
@@ -1532,13 +1538,25 @@ DefinirModoBuscar(true);
                         //algoritmo de búsqueda:
                         var i;
                         var txtBuscado = document.getElementById("txtBuscar").value;
+                        //elimina resaltados, restaura frases
+
+                        //vacía los vectores de resultados
+                        arrayNumEncontradas.length = 0;
+                        arrayFrasesEncontradas.length = 0;
+
                         for (i = 1; i <= maxNumFrase; i++) {
                             if ( document.getElementById("f" + i).innerHTML.toLowerCase().indexOf(txtBuscado.toLowerCase()) == -1 ) {
                                 //no contiene la expresión buscada
                                 ocultarFrase(i);
                             } else {
                                 //sí contiene la expresión buscada
+                                //la muestra
                                 mostrarFrase(i);
+                                //guarda el número y el texto de la frase
+                                arrayNumEncontradas[arrayNumEncontradas.length] = i;
+                                arrayFrasesEncontradas[arrayFrasesEncontradas.length] = document.getElementById("f" + i).innerHTML;
+                                //resalta el término buscado
+
                             }
                         }
 
