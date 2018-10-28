@@ -22,6 +22,18 @@
         este es más nuevo, pero usamos la versión vieja
     -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <!--función extendida para resaltar-->
+        <script type="text/javascript">
+            jQuery.fn.extend({
+                resaltar: function (busqueda, claseCSSbusqueda) {
+                    var regex = new RegExp("(<[^>]*>)|(" + busqueda.replace(/([-.*+?^${}()|[\]\/\\])/g, "\\$1") + ')', 'ig');
+                    var nuevoHtml = this.html(this.html().replace(regex, function (a, b, c) {
+                        return (a.charAt(0) == "<") ? a : "<span class=\"" + claseCSSbusqueda + "\">" + c + "</span>";
+                    }));
+                    return nuevoHtml;
+                }
+            });            
+        </script>
 
         <style>
             .loader {
@@ -63,6 +75,12 @@
                
                 bottom: 80px !important; /* Place the button at the middle of the page */
                 
+            }
+            /*la clase del texto resaltado*/
+            .resaltarTexto {
+                color: #ff0066;
+                background-color: yellow;
+                font-weight: bold;
             }
            
             /* before diferente por la barra de menú de abajo */
@@ -357,6 +375,7 @@
                 color:purple;
                 font-family: Verdana, Geneva, Tahoma, sans-serif;
                 margin: 5px 0px;
+                margin-bottom: 18px !important;
             }
 
             .fraseBiblia {
@@ -862,21 +881,21 @@ DefinirModoBuscar(true);
                 <div id="contFrases">
 
                     <h3 id="infoEncontradas" class="parpadea">Frases encontradas:</h3>
-                    
+                                        
                     <span id="e1" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Frase 1</span>
                     <p id="f1" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Esta sería la primera, la colección tiene más de mil frases.</p>
                     
                     <span id="e2" class="fraseBiblia" style="display:none;" onclick="clickFrase(this.id)">Frase 2</span>
-                    <p id="f2" class="fraseBiblia" style="display:none;" onclick="clickFrase(this.id)">La colección tiene más de mil frases. Estas son solo ejemplos para probar los algoritmos de búsqueda, historial y otros.</p>
+                    <p id="f2" class="fraseBiblia" style="display:none;" onclick="clickFrase(this.id)">Segunda. La colección tiene más de mil frases. Estas son solo ejemplos para probar los algoritmos de búsqueda, historial y otros.</p>
 
                     <span id="e3" class="fraseBiblia" style="display:none;" onclick="clickFrase(this.id)">Frase 3</span>
                     <p id="f3" class="fraseBiblia" style="display:none;" onclick="clickFrase(this.id)">Esta sería la tercera, frase 3... La colección tiene más de mil frases. Estas son solo ejemplos para probar los algoritmos de búsqueda, historial y otros.</p>
 
                     <span id="e4" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Frase 4</span>
-                    <p id="f4" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Esta sería la 4, La colección tiene más de mil frases. Estas son solo ejemplos para probar los algoritmos de búsqueda, historial y otros.</p>
+                    <p id="f4" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Esta sería la cuarta, La colección tiene más de mil frases. Estas son solo ejemplos para probar los algoritmos de búsqueda, historial y otros.</p>
 
                     <span id="e5" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Frase 5</span>
-                    <p id="f5" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Esta sería la 5, La colección tiene más de mil frases. Estas son solo ejemplos para probar los algoritmos de búsqueda, historial y otros.</p>
+                    <p id="f5" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Esta sería la quinta, La colección tiene más de mil frases. Estas son solo ejemplos para probar los algoritmos de búsqueda, historial y otros.</p>
 
                     <span id="e6" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Frase 6</span>
                     <p id="f6" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Esta sería la 6, La colección tiene más de mil frases. Estas son solo ejemplos para probar los algoritmos de búsqueda, historial y otros.</p>
@@ -1154,6 +1173,13 @@ DefinirModoBuscar(true);
                             //lo siguiente tiene transición --------------
                             document.getElementById("txtBuscar").style.minWidth = "0";
                             document.getElementById("txtBuscar").style.width = "0"; 
+                            //oculta las de los resultados                            
+                            //elimina resaltados restaurando frases
+                            var i;
+                            for (i = 0; i < arrayNumEncontradas.length; i++) {
+                                document.getElementById("f" + arrayNumEncontradas[i]).innerHTML = arrayFrasesEncontradas[i];
+                                ocultarFrase(arrayNumEncontradas[i]);
+                            }
                             //----------
                             //para permitir transiciones espera un poco...                            
                             setTimeout(function () {
@@ -1197,7 +1223,9 @@ DefinirModoBuscar(true);
                     function salirHistorial() {
                         modalHistorial.style.display = "none";                        
                         //muestra la frase actual: la que estaba o la que eligió del historial                       
-                        mostrarFrase(fraseActual);                        
+                        mostrarFrase(fraseActual); 
+                        //scroll 
+                        topFunction();
                     }
 
                     // sale del modo búsqueda
@@ -1205,6 +1233,8 @@ DefinirModoBuscar(true);
                         DefinirModoBuscar(false);                       
                         //muestra la frase actual: la que estaba o la que eligió de los resultados                        
                         mostrarFrase(fraseActual);
+                        //scroll 
+                        topFunction();
                         //mensaje
                         showSnackbar("Modo búsqueda desactivado");
                     }
@@ -1496,7 +1526,10 @@ DefinirModoBuscar(true);
                     document.getElementById("txtBuscar").oninput = function () {
                         modoIngreso();
                     }
-                    
+                    //para navegadores antiguos, como IE8
+                    function myTrim(x) {
+                        return x.replace(/^\s+|\s+$/gm, '');
+                    }
                     //************
                     // Global de búsqueda
                     //************
@@ -1511,8 +1544,8 @@ DefinirModoBuscar(true);
                         document.getElementById("BtnCerrar").disabled = true;
 
 
-                        //sale si no hay nada
-                        if (document.getElementById("txtBuscar").value.length == 0) {
+                        //sale si no hay nada o si solo hay espacios
+                        if (document.getElementById("txtBuscar").value.length == 0 || myTrim(document.getElementById("txtBuscar").value).length == 0) {
                             //mensaje y cancela acciones tomadas
                             showSnackbar("Ingrese texto de búsqueda");
                             buscando = false;
@@ -1520,6 +1553,7 @@ DefinirModoBuscar(true);
                             document.getElementById("BtnEjecutaBuscar").disabled = false;
                             document.getElementById("BtnCopiar").disabled = false;
                             document.getElementById("BtnCerrar").disabled = false;
+                            document.getElementById("txtBuscar").value = "";
                             document.getElementById("txtBuscar").focus();
                             return;
                         } 
@@ -1538,8 +1572,10 @@ DefinirModoBuscar(true);
                         //algoritmo de búsqueda:
                         var i;
                         var txtBuscado = document.getElementById("txtBuscar").value;
-                        //elimina resaltados, restaura frases
-
+                        //elimina resaltados restaurando frases
+                        for (i = 0; i < arrayNumEncontradas.length; i++) {
+                            document.getElementById("f" + arrayNumEncontradas[i]).innerHTML = arrayFrasesEncontradas[i];
+                        }
                         //vacía los vectores de resultados
                         arrayNumEncontradas.length = 0;
                         arrayFrasesEncontradas.length = 0;
@@ -1555,8 +1591,8 @@ DefinirModoBuscar(true);
                                 //guarda el número y el texto de la frase
                                 arrayNumEncontradas[arrayNumEncontradas.length] = i;
                                 arrayFrasesEncontradas[arrayFrasesEncontradas.length] = document.getElementById("f" + i).innerHTML;
-                                //resalta el término buscado
-
+                                //resalta el término buscado  
+                                $("#" + "f" + i).resaltar(txtBuscado, "resaltarTexto");
                             }
                         }
 
@@ -1571,7 +1607,18 @@ DefinirModoBuscar(true);
                         document.getElementById("BtnCopiar").disabled = false;
                         document.getElementById("BtnCerrar").disabled = false;
                         //mensaje
-                        showSnackbar("Búsqueda finalizada");
+                        if (arrayNumEncontradas.length > 0) {
+                            if (arrayNumEncontradas.length == 1) {
+                                showSnackbar("Se encontró 1 frase");
+                                document.getElementById("infoEncontradas").innerHTML = "1 frase encontrada:";
+                            } else {
+                                showSnackbar("Se encontraron " + arrayNumEncontradas.length + " frases");
+                                document.getElementById("infoEncontradas").innerHTML = "" + arrayNumEncontradas.length + " frases encontradas:";
+                            }
+                        } else {
+                            showSnackbar("No se encontraron frases");
+                            document.getElementById("infoEncontradas").innerHTML = "No se encontraron frases";
+                        }
                         
 
                         //MONITOR
