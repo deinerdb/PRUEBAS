@@ -82,7 +82,10 @@
                 background-color: yellow;
                 font-weight: bold;
             }
-           
+           /*la clase para las frases como resultado de búsqueda*/
+            .resultados .fraseBiblia:hover , .resultados .fraseSeglar:hover {
+                text-decoration: underline;
+            }
             /* before diferente por la barra de menú de abajo */
 
             .sidenav:after {
@@ -1126,6 +1129,20 @@ DefinirModoBuscar(true);
                         clearInterval(tMonitor);
                     }
                     var modoBuscar = false;
+
+                    function agregarClaseResultados() {
+                        var element, name, arr;
+                        element = document.getElementById("contFrases");
+                        name = "resultados";
+                        arr = element.className.split(" ");
+                        if (arr.indexOf(name) == -1) {
+                            element.className += " " + name;
+                        }
+                    }
+                    function removerClaseResultados() {
+                        var element = document.getElementById("contFrases");
+                        element.className = element.className.replace(/\bresultados\b/g, "");
+                    }
                                         
                     function DefinirModoBuscar(activo) {
 
@@ -1158,6 +1175,8 @@ DefinirModoBuscar(true);
                             //vacía los vectores de resultados
                             arrayNumEncontradas.length = 0;
                             arrayFrasesEncontradas.length = 0;
+                            //agrega la clase de resultados
+                            agregarClaseResultados();
                             //oculta la actual
                             ocultarFrase(fraseActual);
                             //monitor
@@ -1180,6 +1199,8 @@ DefinirModoBuscar(true);
                                 document.getElementById("f" + arrayNumEncontradas[i]).innerHTML = arrayFrasesEncontradas[i];
                                 ocultarFrase(arrayNumEncontradas[i]);
                             }
+                            //quita la clase
+                            removerClaseResultados();
                             //----------
                             //para permitir transiciones espera un poco...                            
                             setTimeout(function () {
@@ -1684,19 +1705,44 @@ DefinirModoBuscar(true);
                             e.stopPropagation();
                             return false;
                         }
-                        //sale si no hay nada
+                        //sale si no hay nada, por si acaso
                         if (document.getElementById("txtBuscar").value.length == 0 && modoBuscar == true) {
                             //mensaje
                             showSnackbar("Ejecute búsqueda primero");
                             return;
                         } 
                         //copia
-                        
+                        var copyText = "";
+                        var i;
+                        if (modoBuscar == false) {
+                            //la frase actual
+                            copyText = document.getElementById("f" + fraseActual).innerHTML;
+                            copyToClipboard(copyText); 
+                            //mensaje
+                            showSnackbar("Frase copiada");
+                        } else {
+                            if (arrayNumEncontradas.length == 0) {
+                                //mensaje
+                                showSnackbar("No hay frases para copiar");
+                                return;
+                            }
+                            //todas las encontradas
+                            copyText = "Frases encontradas:";
+                            for (i = 0; i < arrayNumEncontradas.length; i++) {
+                                copyText = copyText + "\r\n" + arrayFrasesEncontradas[i];                                
+                            }
+                            copyToClipboard(copyText);
+                            //mensaje
+                            showSnackbar("Frase(s) copiada(s)");
+                        }
                     }
 
                     // botón copiar enlace 
                     document.getElementById("BtnEnlace").onclick = function () {
-                        
+                        //sale si está en modo búsqueda, por si acaso
+                        if (modoBuscar == true) {
+                            return;
+                        } 
                         //copia enlace a frase actual
 
                     }
