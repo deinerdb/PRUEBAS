@@ -886,7 +886,7 @@ DefinirModoBuscar(true);
                     <h3 id="infoEncontradas" class="parpadea">Frases encontradas:</h3>
                                         
                     <span id="e1" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Frase 1</span>
-                    <p id="f1" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Esta sería la primera, la colección tiene más de mil frases.</p>
+                    <p id="f1" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Prueba. Esta sería la primera, la colección tiene más de mil frases.</p>
                     
                     <span id="e2" class="fraseBiblia" style="display:none;" onclick="clickFrase(this.id)">Frase 2</span>
                     <p id="f2" class="fraseBiblia" style="display:none;" onclick="clickFrase(this.id)">Segunda. La colección tiene más de mil frases. Estas son solo ejemplos para probar los algoritmos de búsqueda, historial y otros.</p>
@@ -901,7 +901,7 @@ DefinirModoBuscar(true);
                     <p id="f5" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Esta sería la quinta, La colección tiene más de mil frases. Estas son solo ejemplos para probar los algoritmos de búsqueda, historial y otros.</p>
 
                     <span id="e6" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Frase 6</span>
-                    <p id="f6" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Esta sería la 6, La colección tiene más de mil frases. Estas son solo ejemplos para probar los algoritmos de búsqueda, historial y otros.</p>
+                    <p id="f6" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Prueba. Esta sería la 6, La colección tiene más de mil frases. Estas son solo ejemplos para probar los algoritmos de búsqueda, historial y otros.</p>
 
                     <span id="e7" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Frase 7</span>
                     <p id="f7" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Esta sería la 7, La colección tiene más de mil frases. Estas son solo ejemplos para probar los algoritmos de búsqueda, historial y otros.</p>
@@ -910,7 +910,7 @@ DefinirModoBuscar(true);
                     <p id="f8" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Esta sería la 8, La colección tiene más de mil frases. Estas son solo ejemplos para probar los algoritmos de búsqueda, historial y otros.</p>
 
                     <span id="e9" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Frase 9</span>
-                    <p id="f9" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Esta sería la 9, La colección tiene más de mil frases. Estas son solo ejemplos para probar los algoritmos de búsqueda, historial y otros.</p>
+                    <p id="f9" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Prueba. Esta sería la 9, La colección tiene más de mil frases. Estas son solo ejemplos para probar los algoritmos de búsqueda, historial y otros.</p>
 
                     <span id="e10" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Frase 10</span>
                     <p id="f10" class="fraseSeglar" style="display:none;" onclick="clickFrase(this.id)">Esta sería la 10, La colección tiene más de mil frases. Estas son solo ejemplos para probar los algoritmos de búsqueda, historial y otros.</p>
@@ -937,8 +937,8 @@ DefinirModoBuscar(true);
                     <button id="BtnEjecutaBuscar" title="Realizar búsqueda"><i class="fa fa-search" aria-hidden="true"></i> <span id="spanBuscar">Buscar</span> </button>
                     <button id="BtnCerrar" title="Cerrar modo búsqueda"><i class="fa fa-times" aria-hidden="true"></i></button>
                     <button id="BtnCopiar" title="Copiar frase(s)"><i class="fa fa-files-o" aria-hidden="true"></i></button>
-                    <button id="BtnEnlace" title="Copiar enlace a frase"><i class="fa fa-link" aria-hidden="true"></i></button>
-                    <button id="BtnHistorial" title="Historial"><i class="fa fa-history" aria-hidden="true"></i></button>                                        
+                    <button id="BtnEnlace" title="Copiar enlace a frase actual"><i class="fa fa-link" aria-hidden="true"></i></button>
+                    <button id="BtnHistorial" title="Ver historial"><i class="fa fa-history" aria-hidden="true"></i></button>                                        
                     <button id="BtnAyuda" title="Información sobre estos botones"><i class="fa fa-question" aria-hidden="true"></i></button>                                        
                 </div>
                 <!--El script principal de esta página-->
@@ -1148,6 +1148,7 @@ DefinirModoBuscar(true);
 
                         if (activo == true) {
                             modoBuscar = true;
+                            document.getElementById("BtnCopiar").title = "Copiar resultados de búsqueda";
                             document.getElementById("BtnCerrar").style.display = "block";                            
                             document.getElementById("BtnEjecutaBuscar").style.display = "block";
                             document.getElementById("BtnBuscar").style.display = "none";
@@ -1189,6 +1190,7 @@ DefinirModoBuscar(true);
                             modoBuscar = false;  
                             //monitor
                             desactivaMonitor();
+                            document.getElementById("BtnCopiar").title = "Copiar frase actual";
                             //lo siguiente tiene transición --------------
                             document.getElementById("txtBuscar").style.minWidth = "0";
                             document.getElementById("txtBuscar").style.width = "0"; 
@@ -1715,25 +1717,41 @@ DefinirModoBuscar(true);
                         var copyText = "";
                         var i;
                         if (modoBuscar == false) {
-                            //la frase actual
+                            //modo normal
+                            //la frase actual, sin nada más
                             copyText = document.getElementById("f" + fraseActual).innerHTML;
                             copyToClipboard(copyText); 
                             //mensaje
-                            showSnackbar("Frase copiada");
+                            showSnackbar("Frase " + fraseActual + " copiada");
                         } else {
+                            //modo búsqueda
                             if (arrayNumEncontradas.length == 0) {
+                                //no hay resultados
                                 //mensaje
                                 showSnackbar("No hay frases para copiar");
                                 return;
                             }
                             //todas las encontradas
-                            copyText = "Frases encontradas:";
+                            copyText = "*******" + "\r";
+                            copyText = copyText + "RESULTADOS DE BÚSQUEDA" + "\r";
+                            copyText = copyText + "Expresión buscada:" + "\r";
+                            copyText = copyText + document.getElementById("txtBuscar").value + "\r";
+                            copyText = copyText + "Frases encontradas:" + "\r";
+                            copyText = copyText + arrayFrasesEncontradas.length + " de " + maxNumFrase + "\r";
+                            copyText = copyText + "*******";
                             for (i = 0; i < arrayNumEncontradas.length; i++) {
-                                copyText = copyText + "\r\n" + arrayFrasesEncontradas[i];                                
+                                copyText = copyText + "\r" + "Frase " + arrayNumEncontradas[i];  
+                                copyText = copyText + "\r" + arrayFrasesEncontradas[i];                                
                             }
+                            copyText = copyText + "\r" + "*******";
                             copyToClipboard(copyText);
                             //mensaje
-                            showSnackbar("Frase(s) copiada(s)");
+                            if (arrayFrasesEncontradas.length > 1) {
+                                showSnackbar(arrayFrasesEncontradas.length + " frases copiadas");
+                            } else {
+                                showSnackbar("1 frase copiada");
+                            }
+                            
                         }
                     }
 
@@ -1744,8 +1762,15 @@ DefinirModoBuscar(true);
                             return;
                         } 
                         //copia enlace a frase actual
-
+                        var copyText;
+                        //copyText = "Mira esta frase: " + "\r";
+                        //copyText = copyText + "https://rawgit.com/deinerdb/PRUEBAS/master/FRASES.htm" + "?numfrase=" + fraseActual + "\r\n";
+                        copyText = "https://rawgit.com/deinerdb/PRUEBAS/master/FRASES.htm" + "?numfrase=" + fraseActual;
+                        copyToClipboard(copyText);
+                        //mensaje
+                        showSnackbar("Enlace a frase " + fraseActual + " copiado");
                     }
+
                 </script>
 
                     <footer>
