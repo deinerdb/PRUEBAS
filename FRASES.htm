@@ -339,29 +339,30 @@
                     max-width:300px;
                     margin: 0;
                 }
+
+            #contFrases {
+                font-family: 'Flamenco', Verdana, Geneva, Tahoma, sans-serif;
+                font-size: 9vh;
+                text-align: left;
+                padding: 10px;
+                border-width: 5px;
+                border-style: outset;
+                border-color: indigo;
+                -moz-border-radius: 24px; /*borde redondeado*/
+                -webkit-border-radius: 24px; /*borde redondeado*/
+                border-radius: 24px; /*borde redondeado*/
+                width: 95%;
+                margin: 24px auto 32px auto;
+                background-color: lavender;
+                /*SOMBRA*/
+                -moz-box-shadow: 10px 10px 5px MediumPurple;
+                -webkit-box-shadow: 10px 10px 5px MediumPurple;
+                box-shadow: 10px 10px 5px MediumPurple; /*sombra gris en la caja*/
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
                 
-                #contFrases {
-                    font-family: 'Flamenco', Verdana, Geneva, Tahoma, sans-serif;
-                    font-size: 9vh;
-                    text-align: left;
-                    padding: 10px;
-                    border-width: 5px;
-                    border-style: outset;
-                    border-color: indigo;
-                    -moz-border-radius: 24px; /*borde redondeado*/
-                    -webkit-border-radius: 24px; /*borde redondeado*/
-                    border-radius: 24px; /*borde redondeado*/
-                    width: 90%;
-                    margin: 24px auto 32px auto;
-                    background-color: lavender;
-                    /*SOMBRA*/
-                    -moz-box-shadow: 10px 10px 5px MediumPurple;
-                    -webkit-box-shadow: 10px 10px 5px MediumPurple;
-                    box-shadow: 10px 10px 5px MediumPurple; /*sombra gris en la caja*/
-                    -webkit-box-sizing: border-box;
-                    -moz-box-sizing: border-box;
-                    box-sizing: border-box;
-                }
+            }
             #contFrases::after {
                 content: "";
                 clear: both;                
@@ -381,6 +382,12 @@
                 margin-bottom: 18px !important;
             }
 
+            /*ambos*/
+            .fraseBiblia, .fraseSeglar {
+                max-width: 98% !important;
+                overflow: auto;
+            }
+            /*ahora por separado*/
             .fraseBiblia {
                 color: darkred;
             }
@@ -2038,12 +2045,23 @@ DefinirModoBuscar(true);
                     <span id='e1151' class='fraseSeglar' style='display:none;' onclick='clickFrase(this.id)'>Frase 1151</span><p id='f1151' class='fraseSeglar' style='display:none;' onclick='clickFrase(this.id)'>Autoestima es saber cuánto valemos. Arrogancia es querer que todos lo sepan.</p>
                     <span id='e1152' class='fraseSeglar' style='display:none;' onclick='clickFrase(this.id)'>Frase 1152</span><p id='f1152' class='fraseSeglar' style='display:none;' onclick='clickFrase(this.id)'>Un hombre inteligente solo cree la mitad de lo que le dicen. Un hombre sabio sabe cuál mitad creer.</p>
                     <span id='e1153' class='fraseSeglar' style='display:none;' onclick='clickFrase(this.id)'>Frase 1153</span><p id='f1153' class='fraseSeglar' style='display:none;' onclick='clickFrase(this.id)'>Un sueño es solo un sueño. Una meta, en cambio, es un sueño con un plan y una fecha límite.</p>
+                    <span id='e1154' class='fraseSeglar' style='display:none;' onclick='clickFrase(this.id)'>Frase 1154</span><p id='f1154' class='fraseSeglar' style='display:none;' onclick='clickFrase(this.id)'>Seis honrados servidores me enseñaron todo cuanto sé. Sus nombres son: Cómo, Cuándo, Dónde, Qué, Quién y Por Qué.</p>
+                    <span id='e1155' class='fraseSeglar' style='display:none;' onclick='clickFrase(this.id)'>Frase 1155</span><p id='f1155' class='fraseSeglar' style='display:none;' onclick='clickFrase(this.id)'>Me lo contaron y lo olvidé, lo vi y lo entendí, lo hice y lo aprendí.</p>
+                    <span id='e1156' class='fraseSeglar' style='display:none;' onclick='clickFrase(this.id)'>Frase 1156</span><p id='f1156' class='fraseSeglar' style='display:none;' onclick='clickFrase(this.id)'>Si hacemos el bien por interés, seremos astutos, pero nunca buenos.</p>
+                    <span id='e1157' class='fraseSeglar' style='display:none;' onclick='clickFrase(this.id)'>Frase 1157</span><p id='f1157' class='fraseSeglar' style='display:none;' onclick='clickFrase(this.id)'>No hay dicha en la posesión si no se comparte.</p>
+                    <span id='e1158' class='fraseSeglar' style='display:none;' onclick='clickFrase(this.id)'>Frase 1158</span><p id='f1158' class='fraseSeglar' style='display:none;' onclick='clickFrase(this.id)'>La forma más rápida de encender un fuego es frotar dos opiniones opuestas.</p>
+                    <span id='e1159' class='fraseSeglar' style='display:none;' onclick='clickFrase(this.id)'>Frase 1159</span><p id='f1159' class='fraseSeglar' style='display:none;' onclick='clickFrase(this.id)'>Los límites deben decirle a la gente lo que puede hacer, no lo que no puede hacer.</p>
+                    <span id='e1160' class='fraseSeglar' style='display:none;' onclick='clickFrase(this.id)'>Frase 1160</span><p id='f1160' class='fraseSeglar' style='display:none;' onclick='clickFrase(this.id)'>Prefiero equivocarme al intentar algo nuevo y desconocido que tener éxito a salvo en la repetición de algo que ya he hecho.</p>
+                    <span id='e1161' class='fraseSeglar' style='display:none;' onclick='clickFrase(this.id)'>Frase 1161</span><p id='f1161' class='fraseSeglar' style='display:none;' onclick='clickFrase(this.id)'>El hábito es hábito, y no sirve tirarlo por la ventana, sino bajarlo poco a poco por las escaleras, un peldaño cada vez.</p>
+                    <span id='e1162' class='fraseSeglar' style='display:none;' onclick='clickFrase(this.id)'>Frase 1162</span><p id='f1162' class='fraseSeglar' style='display:none;' onclick='clickFrase(this.id)'>La libertad es la oportunidad de tomar decisiones.</p>
+                    <span id='e1163' class='fraseSeglar' style='display:none;' onclick='clickFrase(this.id)'>Frase 1163</span><p id='f1163' class='fraseSeglar' style='display:none;' onclick='clickFrase(this.id)'>El conocimiento siempre quiere aumentar, es como el fuego, que primero debe ser encendido por un agente externo, pero que después se propagará por sí mismo.</p>
+                    <span id='e1164' class='fraseSeglar' style='display:none;' onclick='clickFrase(this.id)'>Frase 1164</span><p id='f1164' class='fraseSeglar' style='display:none;' onclick='clickFrase(this.id)'>Una vez que se ha adquirido conocimiento, éste arroja luz más allá de sus límites inmediatos.</p>
 
 
                     <!--al final un ícono de lápiz-->
                     <i id="icoPen" class="fa fa-pencil" aria-hidden="true"></i>
                 </div>
-                <h3 style="color:red" class="parpadea">Página en construcción, vuelve pronto...</h3>
+                
                 <div class="cajaFrases" id="cajaFrases">
                     <input type="search" placeholder="Buscar..." id="txtBuscar" maxlength="50" autocomplete="off" >
                     <button id="BtnBuscar" title="Buscar frases"><i class="fa fa-search" aria-hidden="true"></i></button>
@@ -2065,7 +2083,7 @@ DefinirModoBuscar(true);
 
                     //*** IMPORTANTE ***
                     //NÚMERO MÁXIMO DE FRASE
-                    var maxNumFrase = "1153";
+                    var maxNumFrase = "1164";
                     //*********************
                     var fraseActual = 1;
                     var buscado = "";
