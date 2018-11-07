@@ -802,6 +802,10 @@
                     Copia al portapapeles un enlace web a la frase actual de la colección. 
                     Puede usar este enlace para compartir la frase actual.
                     No está disponible en el modo búsqueda.
+                    <hr />
+                    <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                    Abre la colección en una nueva ventana en formato PDF. 
+                    No está disponible en el modo búsqueda.
                     <hr />  
                     <i class="fa fa-history" aria-hidden="true"></i>
                     Muestra una ventana con el historial de las últimas 10 frases (diferentes) que se han visualizado.
@@ -2075,6 +2079,7 @@ DefinirModoBuscar(true);
                     <button id="BtnCerrar" title="Cerrar modo búsqueda"><i class="fa fa-times" aria-hidden="true"></i></button>
                     <button id="BtnCopiar" title="Copiar frase(s)"><i class="fa fa-files-o" aria-hidden="true"></i></button>
                     <button id="BtnEnlace" title="Copiar enlace a frase actual"><i class="fa fa-link" aria-hidden="true"></i></button>
+                    <button id="BtnPDF" title="Abrir colección en PDF"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
                     <button id="BtnHistorial" title="Ver historial"><i class="fa fa-history" aria-hidden="true"></i></button>                                        
                     <button id="BtnAyuda" title="Información sobre estos botones"><i class="fa fa-question" aria-hidden="true"></i></button>                                        
                 </div>
@@ -2293,6 +2298,7 @@ DefinirModoBuscar(true);
                             document.getElementById("BtnFraseSiguiente").style.display = "none";
                             document.getElementById("BtnUltimaFrase").style.display = "none";
                             document.getElementById("BtnFraseAleatoria").style.display = "none";
+                            document.getElementById("BtnPDF").style.display = "none";
                             document.getElementById("BtnFraseSolicitada").style.display = "none";
                             document.getElementById("BtnCopiar").style.display = "none";
                             document.getElementById("BtnAyuda").style.display = "none";
@@ -2354,6 +2360,7 @@ DefinirModoBuscar(true);
                                 document.getElementById("BtnFraseAleatoria").style.display = "block";
                                 document.getElementById("BtnFraseSolicitada").style.display = "block";
                                 document.getElementById("BtnCopiar").style.display = "block";
+                                document.getElementById("BtnPDF").style.display = "block";
                                 document.getElementById("BtnAyuda").style.display = "block";
                                 document.getElementById("BtnHistorial").style.display = "block";
                                 document.getElementById("icoPen").style.display = "block";
@@ -2906,7 +2913,15 @@ DefinirModoBuscar(true);
                         //mensaje
                         showSnackbar("Enlace a frase " + fraseActual + " copiado");
                     }
-
+                    // botón PDF
+                    document.getElementById("BtnPDF").onclick = function () {
+                        //sale si está en modo búsqueda, por si acaso
+                        if (modoBuscar == true) {
+                            return;
+                        }
+                        //abre una ventana con el PDF
+                        window.open("FRASES.pdf");
+                    }
                 </script>
 
                     <footer>
