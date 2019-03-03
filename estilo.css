@@ -1644,10 +1644,10 @@ form {
     outline: none;
 }
 
-.formulario input[type=text], .formulario input[type=email], .formulario input[type=url], .formulario input[type=password], .formulario input[type=number], #país, .formulario select, .formulario textarea {
-    width: 100%;
-    padding: 12px 20px;
-}
+    .formulario input[type=text], .formulario input[type=email], .formulario input[type=url], .formulario input[type=password], .formulario input[type=number], #país, .formulario select, .formulario textarea {
+        width: 100%;
+        padding: 12px 20px;
+    }
 
     .formulario input[type=date], .formulario input[type=month] {
         padding: 12px 20px;

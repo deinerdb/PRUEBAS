@@ -1,0 +1,629 @@
+﻿<!DOCTYPE HTML>
+<html lang="es" dir="ltr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+        <meta name="description" content="ANALIZAR DATOS"/>
+        <!-- Chrome, Firefox, OS y Opera -->
+        <meta name="theme-color" content="#663399" />
+        <!-- Windows Phone -->
+        <meta name="msapplication-navbutton-color" content="#663399" />
+        <title>ANALIZAR DATOS</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="estilo.css" />
+        
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <!--*jQuery CDN
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        este es más nuevo, pero usamos la versión vieja
+    -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+        <style>
+            .loader {
+                position: fixed;
+                left: 0px;
+                top: 0px;
+                width: 100%;
+                height: 100%;
+                z-index: 9999;
+                background: url('pageLoader.gif') 50% 50% no-repeat rgb(249,249,249);
+                opacity: 0.8;
+                filter: Alpha(opacity=80); /* IE8 and earlier */
+            }
+            .formulario {
+                font-size: 1.1em;
+                padding: 10px 8px;
+            }
+            legend {
+                font-weight:bold;
+            }
+            #divDatos{                
+                overflow:auto;
+                padding: 4px 12px 4px 0px;
+            }
+            #aIzquierda {
+                font-size: 2em;
+                color: purple;
+                vertical-align: auto;
+                min-width: 50%;
+                text-align: left;
+                display: inline-block;
+                font-weight:bold;
+            }
+
+            #aDerecha {
+                font-size: 2em;
+                color: purple;
+                vertical-align: auto;
+                min-width: 50%;
+                text-align: right;
+                display: inline-block;
+                font-weight: bold;
+            }
+
+            #divA {
+                width: 100%;
+                white-space: nowrap;
+            }
+            #numDatos {
+                font-size: 1.2em;
+                font-family: Tahoma, Arial, sans-serif;
+                padding: 1px 1px 1px 12px;
+                margin: 6px 0px 4px 0px;
+                overflow: auto;
+                max-width: 98%;
+                white-space: nowrap;
+                color: purple;
+                text-align:center;
+            }
+            #divDatos label , input[type=number] {
+                display: inline-block;
+                max-width:70%;
+                
+            }
+            #divDatos input[type=number] {
+                margin-left:12px;
+            }
+            #rangoDatos {
+                border: none;
+            }
+            /* INICIO CSS PARA INPUT RANGE PERSONALIZADO*/
+            input[type=range] {
+                -webkit-appearance: none;
+                margin: 10px 0;
+                width: 100%;
+            }
+
+                input[type=range]:focus {
+                    outline: none;
+                }
+
+                input[type=range]::-webkit-slider-runnable-track {
+                    width: 100%;
+                    height: 12.8px;
+                    cursor: pointer;
+                    animate: 0.2s;
+                    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+                    background: #9370DB;
+                    border-radius: 25px;
+                    border: 0px solid #000101;
+                }
+
+                input[type=range]::-webkit-slider-thumb {
+                    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+                    border: 0px solid #000000;
+                    height: 20px;
+                    width: 39px;
+                    border-radius: 7px;
+                    background: #4B0082;
+                    cursor: pointer;
+                    -webkit-appearance: none;
+                    margin-top: -3.6px;
+                }
+
+                input[type=range]:focus::-webkit-slider-runnable-track {
+                    background: #7B68EE;
+                }
+
+                input[type=range]::-moz-range-track {
+                    width: 100%;
+                    height: 12.8px;
+                    cursor: pointer;
+                    animate: 0.2s;
+                    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+                    background: #9370DB;
+                    border-radius: 25px;
+                    border: 0px solid #000101;
+                }
+
+                input[type=range]::-moz-range-thumb {
+                    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+                    border: 0px solid #000000;
+                    height: 20px;
+                    width: 39px;
+                    border-radius: 7px;
+                    background: #4B0082;
+                    cursor: pointer;
+                }
+
+                input[type=range]::-ms-track {
+                    width: 100%;
+                    height: 12.8px;
+                    cursor: pointer;
+                    animate: 0.2s;
+                    background: transparent;
+                    border-color: transparent;
+                    border-width: 39px 0;
+                    color: transparent;
+                }
+
+                input[type=range]::-ms-fill-lower {
+                    background: #9370DB;
+                    border: 0px solid #000101;
+                    border-radius: 50px;
+                    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+                }
+
+                input[type=range]::-ms-fill-upper {
+                    background: #9370DB;
+                    border: 0px solid #000101;
+                    border-radius: 50px;
+                    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+                }
+
+                input[type=range]::-ms-thumb {
+                    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+                    border: 0px solid #000000;
+                    height: 20px;
+                    width: 39px;
+                    border-radius: 7px;
+                    background: #4B0082;
+                    cursor: pointer;
+                }
+
+                input[type=range]:focus::-ms-fill-lower {
+                    background: #7B68EE;
+                }
+
+                input[type=range]:focus::-ms-fill-upper {
+                    background: #7B68EE;
+                }
+            /* FIN CSS PARA INPUT RANGE PERSONALIZADO*/
+        </style>
+    </head>
+    <body>
+        <div class="loader"></div>
+        <script type="text/javascript">
+            $(window).load(function () {
+                $(".loader").fadeOut("slow");
+            });
+
+            function alturaDatos() {
+                var h = window.innerHeight
+                    || document.documentElement.clientHeight
+                    || document.body.clientHeight;
+                var datos = document.getElementById("divDatos");                
+                //  define altura 
+                h = 0.33 * h ;
+                datos.style.maxHeight = h + "px";                
+            }
+
+        </script>
+        <div id="mySidenav" class="sidenav">
+            <a href="INDEX.htm"><i class="fa fa-home"></i>INICIO</a>
+            <a href="HTML.htm"><i class="fa fa-html5"></i>HTML</a>
+            <a href="CSS.htm"><i class="fa fa-css3"></i>CSS</a>
+            <a href="JAVASCRIPT.htm"><i class="fa fa-code"></i>JAVASCRIPT</a>            
+            <a href="MEDIA.htm"><i class="fa fa-play"></i>MULTIMEDIA</a>
+            <a href="FILTROS.htm"><i class="fa fa-paint-brush"></i>FILTROS</a>
+            <a href="CANVAS.htm"><i class="fa fa-file-image-o"></i>CANVAS</a>
+            <a href="JUEGO.htm"><i class="fa fa-gamepad"></i>JUEGO</a>
+            <a href="SVG.htm"><i class="fa fa-picture-o"></i>SVG</a>
+            <a href="SITIOS.htm"><i class="fa fa-globe"></i>SITIOS</a>
+            <a href="FORM.htm"><i class="fa fa-file-text-o"></i>FORMULARIOS</a>
+            <a href="FUENTE.htm"><i class="fa fa-font"></i>FUENTES</a>
+            <a href="IMC.htm"><i class="fa fa-calculator"></i>IMC</a>
+            <a href="DTV.htm"><i class="fa fa-television"></i>DirecTV <sup>&#174;</sup></a>
+            <a href="LOADERS.htm"><i class="fa fa-spinner"></i>LOADERS</a>
+            <a href="MAP.htm"><i class="fa fa-map-marker"></i>MAPA</a>
+            <a href="TRADUCTOR.htm"><i class="fa fa-google"></i>TRADUCIR</a>
+            <a href="GRAFICAR.htm"><i class="fa fa-pie-chart"></i>GRAFICAR</a>
+            <a href="FRASES.htm"><i class="fa fa-book"></i>FRASES</a>
+            <a class="selected" id="selectedsidenav" href="ANALIZAR.htm"><i class="fa fa-table"></i>ANALIZAR</a>
+            <hr />
+            <a href="#" onclick="imprimir()"><i class="fa fa-print"></i>IMPRIMIR</a>
+        </div>
+        <div id="relleno">
+            relleno
+        </div>
+        <div id="overlay" onclick="soloCerrar()">
+        </div>
+        <div class="caja">
+            <div class="container" id="container" onclick="myFunction(this)">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+            </div>
+            <div class="navbar" id="navbar" onclick="soloCerrar()">
+                <a href="INDEX.htm"><i class="fa fa-home"></i>VOLVER AL INICIO</a>
+                <a href="HTML.htm"><i class="fa fa-html5"></i>HTML</a>
+                <a href="CSS.htm"><i class="fa fa-css3"></i>CSS</a>
+                <a href="JAVASCRIPT.htm"><i class="fa fa-code"></i>JAVASCRIPT</a>
+                <a href="MEDIA.htm"><i class="fa fa-play"></i>MULTIMEDIA</a>
+                <a href="FILTROS.htm"><i class="fa fa-paint-brush"></i>FILTROS</a>
+                <a href="CANVAS.htm"><i class="fa fa-file-image-o"></i>CANVAS</a>
+                <a href="JUEGO.htm"><i class="fa fa-gamepad"></i>JUEGO</a>
+                <a href="SVG.htm"><i class="fa fa-picture-o"></i>SVG</a>
+                <a href="SITIOS.htm"><i class="fa fa-globe"></i>SITIOS</a>
+                <a href="FORM.htm"><i class="fa fa-file-text-o"></i>FORMULARIOS</a>
+                <a href="FUENTE.htm"><i class="fa fa-font"></i>FUENTES</a>
+                <a href="IMC.htm"><i class="fa fa-calculator"></i>IMC</a>
+                <a href="DTV.htm"><i class="fa fa-television"></i>DirecTV <sup>&#174;</sup></a>
+                <a href="LOADERS.htm"><i class="fa fa-spinner"></i>LOADERS</a>
+                <a href="MAP.htm"><i class="fa fa-map-marker"></i>MAPA</a>
+                <a href="TRADUCTOR.htm"><i class="fa fa-google"></i>TRADUCIR</a>
+                <a href="GRAFICAR.htm"><i class="fa fa-pie-chart"></i>GRAFICAR</a>
+                <a href="FRASES.htm"><i class="fa fa-book"></i>FRASES</a>
+                <a class="selected" id="selectednavbar"  href="ANALIZAR.htm"><i class="fa fa-table"></i>ANALIZAR</a>
+                <span id="separador">|</span>
+                <a href="#" onclick="imprimir()"><i class="fa fa-print"></i>IMPRIMIR</a>
+
+            </div>
+        </div>
+ 
+           
+            <div class="main" id="main">                
+                    <button class="accordion" id="accordion">ANÁLISIS DE DATOS<i id="folder" class="fa" aria-hidden="true"></i></button>
+                    <div class="panel" id="panel">
+                        <p>
+                            <i class="fa fa-table" aria-hidden="true"></i>
+                            Se realizan varios cálculos a partir de los datos ingresados.
+                            <br />
+                            <br />
+                            <strong style="clear:left">Fragmento de código usado en esta página:</strong><br />
+                        </p>
+
+<textarea readonly rows="4">
+... 
+...
+</textarea>
+                        <i id="arrow" class="fa fa-angle-double-up" aria-hidden="true"></i>
+                    </div>
+
+
+                <form class="formulario">
+                    <fieldset>
+                        <legend>Número de datos: </legend>
+                        <p id="numDatos">3 datos</p>
+                        <input id="rangoDatos" type="range" min="1" max="100" value="3" />                        
+                        <div id="divA">
+                            <span id="aIzquierda">-</span><span id="aDerecha">+</span>
+                        </div>
+                    </fieldset> 
+                    <div id="divDatos">
+                        <fieldset>
+                            <legend>Datos: </legend>
+                            <label>1:</label><input type="number" id="dato1" placeholder="Ingrese un número" autocomplete="off" /><br />
+                            <label>2:</label><input type="number" id="dato2" placeholder="Ingrese un número" autocomplete="off" /><br />
+                            <label>3:</label><input type="number" id="dato3" placeholder="Ingrese un número" autocomplete="off" /><br />
+                        </fieldset>
+                    </div>
+                    
+                    <button type="button" id="btnCalcular" title="Calcular">Calcular</button>
+                    <button type="button" id="btnCopiar" disabled title="Copiar resultados">Copiar Resultados</button>                    
+                    <fieldset>
+                        <legend>Resultados: </legend>
+                        <label >Cálculo 1:</label> <br />
+                        <input type="text" id="imc" readonly /><br />
+                        <label >Otro:</label> <br />
+                        <input type="text" id="valoración" readonly /><br />
+                      
+                    </fieldset>
+                    
+                </form>
+
+                    <!--CÁLCULOS-->
+                    <script>
+                        //obtiene referencias
+
+                        var imputPeso = document.getElementById("peso");
+                        var imputEstatura = document.getElementById("estatura");
+
+                        var imputIMC = document.getElementById("imc");
+                        var imputValoración = document.getElementById("valoración");
+                        var imputMin = document.getElementById("min");
+                        var imputPromedio = document.getElementById("promedio");
+                        var imputMax = document.getElementById("max");
+
+                        var getbtnCalcular = document.getElementById("btnCalcular");
+                        var getbtnCopiar = document.getElementById("btnCopiar");
+
+                        //borra todo
+                        function borrarResultados() {
+                            imputIMC.value = "";
+                            imputValoración.value = "";
+                            imputMin.value = "";
+                            imputPromedio.value = "";
+                            imputMax.value = "";
+                            //no hay error aún
+                            document.getElementById("errorimc").style.display = "none";
+                            //no informa de ningún cálculo aún
+                            document.getElementById("calculadoimc").style.display = "none";
+                            //nada que copiar
+                            getbtnCopiar.setAttribute("disabled", "disabled");
+                            
+                        }
+
+                        //parámetros deben ser correctos
+                        function validarParámetros() {
+                            //alert("peso " + Number(imputPeso.value));
+                            //alert("estatura " + Number(imputEstatura.value));
+
+                            if (Number(imputPeso.value) == 0 && imputPeso.value == "") {
+                                imputPeso.focus();
+                                return false;
+                            }
+                            if (Number(imputEstatura.value) == 0 && imputEstatura.value == "") {
+                                imputEstatura.focus();
+                                return false;
+                            }
+
+                            if (Number(imputPeso.value) < 0 || Number(imputPeso.value) > 300) {
+                                imputPeso.focus();
+                                return false;
+                            }
+
+                            if (Number(imputEstatura.value) < 0 || Number(imputEstatura.value) > 3) {
+                                imputEstatura.focus();
+                                return false;
+                            }
+
+                            return true;
+                        }
+
+                        //realiza el cálculo
+                        function calcularIMC() {
+                            //valida
+                            if (validarParámetros() == false) { 
+                                //informa del error
+                                document.getElementById("errorimc").style.display = "block";
+                                myError.load();
+                                myError.play();
+                                return;
+                            }
+                            //ahora sí trabaja con los datos validados...
+                            //declara variables para cálculos
+                            var resultadoIMC;
+                            var pesoMax;
+                            var pesoPromedio;
+                            var pesoMin;
+                            var valorar;
+                            var cuadradoEstatura;
+                            
+                            //calcula
+                            cuadradoEstatura = Math.pow(Number(imputEstatura.value), 2);
+                            resultadoIMC = Number(imputPeso.value) / cuadradoEstatura;
+                            valorar = "No disponible";
+                            switch (true) {
+                                case resultadoIMC <= 16:
+                                    valorar = "Delgadez Grado III, severa";
+                                    break;
+                                case resultadoIMC <= 17:
+                                    valorar = "Delgadez Grado II, moderada";
+                                    break;
+                                case resultadoIMC <= 18.5:
+                                    valorar = "Delgadez Grado I, leve";
+                                    break;
+                                case resultadoIMC < 20:
+                                    valorar = "Bajo peso, normal";
+                                    break;
+                                case resultadoIMC <= 25:
+                                    valorar = "Normal";
+                                    break;
+                                case resultadoIMC <= 30:
+                                    valorar = "Obesidad Grado I, leve";
+                                    break;
+                                case resultadoIMC <= 40:
+                                    valorar = "Obesidad Grado II, media";
+                                    break;
+                                case resultadoIMC > 40:
+                                    valorar = "Obesidad Grado III, mórbida";
+                                    break;
+                            }
+
+                            pesoMin = 20 * cuadradoEstatura;
+                            pesoPromedio = 22.5 * cuadradoEstatura;
+                            pesoMax = 25 * cuadradoEstatura;
+
+                            //formatea resultados: 2 decimales y configuración local
+                            resultadoIMC = Number(resultadoIMC.toFixed(2)).toLocaleString();
+                            pesoMin = Number(pesoMin.toFixed(2)).toLocaleString();
+                            pesoPromedio = Number(pesoPromedio.toFixed(2)).toLocaleString();
+                            pesoMax = Number(pesoMax.toFixed(2)).toLocaleString();
+
+                            //escribe resultados                            
+                            imputIMC.value = resultadoIMC;  
+                            imputValoración.value = valorar;
+                            imputMin.value = pesoMin;
+                            imputPromedio.value = pesoPromedio;
+                            imputMax.value = pesoMax;
+                            
+                                                        
+                            //informa éxito en cálculo
+                            document.getElementById("calculadoimc").style.display = "block";
+                            myCalculado.load();
+                            myCalculado.play();
+                            //ya hay algo que copiar
+                            getbtnCopiar.removeAttribute("disabled");
+
+                        }
+                        
+                        //****************************************
+                        // COPIAR
+                        //copia resultados al portapapeles
+                        //****************************************
+
+                        //pasa el contenido de cada campo a una cadena
+                        function copiarResultados() {
+                            //aquí guardamos una referencia a cada control a copiar
+                            var copyCampo;
+                            //aquí vamos guardando la cadena total a copiar
+                            var copyText = "*** IMC ***" + "\r\n" + "*** ÍNDICE DE MASA CORPORAL *** ";
+                            //PARÁMETROS                            
+                            copyText = copyText + "\r\n" + "PARÁMETROS:";
+                            //PESO
+                            copyCampo = imputPeso;
+                            copyText = copyText + "\r\n" + 'PESO (KILOGRAMOS) = ' + Number(copyCampo.value).toLocaleString();
+                            //ESTATURA
+                            copyCampo = imputEstatura;
+                            copyText = copyText + "\r\n" + 'ESTATURA (METROS) = ' + Number(copyCampo.value).toLocaleString();
+                            //RESULTADOS                            
+                            copyText = copyText + "\r\n" + "RESULTADOS:";
+                            //IMC
+                            copyCampo = imputIMC;
+                            copyText = copyText + "\r\n" + 'IMC = ' + copyCampo.value;
+                            //VALORACIÓN
+                            copyCampo = imputValoración;
+                            copyText = copyText + "\r\n" + 'VALORACIÓN = ' + copyCampo.value;
+                            //MIN
+                            copyCampo = imputMin;
+                            copyText = copyText + "\r\n" + 'PESO IDEAL MÍNIMO (Kg) = ' + copyCampo.value;
+                            //PROMEDIO
+                            copyCampo = imputPromedio;
+                            copyText = copyText + "\r\n" + 'PESO IDEAL PROMEDIO (Kg) = ' + copyCampo.value;
+                            //MAX
+                            copyCampo = imputMax;
+                            copyText = copyText + "\r\n" + 'PESO IDEAL MÁXIMO (Kg) = ' + copyCampo.value;
+                            //FECHA DE GENERACIÓN
+                            var d = new Date();
+                            copyText = copyText + "\r\n" + '********';
+                            copyText = copyText + "\r\n" + 'GENERADO: ';
+                            copyText = copyText + "\r\n" + d.toLocaleString();
+                            //finalmente copiamos la cadena completa...
+                            copyToClipboard(copyText);                            
+                        }
+
+                        imputEstatura.onkeydown = function (e) {
+
+                            var characterCode;
+                            // e.key es la recomendación actual
+                            if (e.key != undefined) {
+                                if (e.key.toLowerCase() == "enter") {
+                                    characterCode = 13;
+                                }
+                                else {
+                                    characterCode = 0;
+                                }
+                            } else {
+                                /* navegadores antiguos...  */
+                                characterCode = e.which || e.charCode || e.keyCode || e.keyIdentifier || 0;
+                            }
+
+                            //busca solo si presionó Enter
+                            if (characterCode == 13) {
+                                imputEstatura.blur();
+                                getbtnCalcular.focus();
+                                calcularIMC();
+                            }  
+
+                                                       
+                        }
+                                            
+                        imputPeso.onkeydown = function (e) {
+
+                            var characterCode;
+                            // e.key es la recomendación actual
+                            if (e.key != undefined) {
+                                if (e.key.toLowerCase() == "enter") {
+                                    characterCode = 13;
+                                }
+                                else {
+                                    characterCode = 0;
+                                }
+                            } else {
+                                /* navegadores antiguos...  */
+                                characterCode = e.which || e.charCode || e.keyCode || e.keyIdentifier || 0;
+                            }
+
+                            //busca solo si presionó Enter
+                            if (characterCode == 13) {
+                                imputEstatura.focus();
+                            }  
+                                                       
+                        }
+
+                        getbtnCalcular.onclick = function () {
+                            calcularIMC();
+                        }
+
+                        getbtnCopiar.onclick = function () {
+                            copiarResultados();
+                            //informa que copió solo por audio
+                            myCopiado.load();
+                            myCopiado.play();
+                        }
+
+                        imputPeso.oninput = function () {
+                            borrarResultados();
+                        }
+                        imputPeso.onchange = function () {
+                            borrarResultados();
+                        }
+                        imputEstatura.oninput = function () {
+                            borrarResultados();
+                        }
+                        imputEstatura.onchange = function () {
+                            borrarResultados();                            
+                        }
+
+                        //SONIDO CUANDO CALCULA
+                        myCalculado = new sound("calculado.mp3", "false");
+                        //SONIDO CUANDO HAY ERROR
+                        myError = new sound("error.mp3", "false");
+                        //SONIDO CUANDO COPIA
+                        myCopiado = new sound("copiado.mp3", "false");
+
+                        function sound(src, repetir) {
+                            this.sound = document.createElement("audio");
+                            this.sound.setAttribute("type", "audio/mpeg");
+                            this.sound.src = src;
+                            this.sound.setAttribute("preload", "auto");
+                            this.sound.setAttribute("controls", "none");
+                            if (repetir == "true") {
+                                this.sound.setAttribute("loop", "loop");
+                            }
+                            this.sound.style.display = "none";
+                            document.body.appendChild(this.sound);
+                            this.play = function () {
+                                this.sound.play();
+                            }
+                            this.stop = function () {
+                                this.sound.pause();
+                            }
+                            this.load = function () {
+                                this.sound.load();
+                            }
+                        }
+
+                    </script>
+
+
+                    <footer>
+                        <p>Coded by @deiner_db</p>
+                        <img id="miFoto" title="Deiner Domínguez" alt="Foto Deiner Domínguez" src="miFoto.jpg" width="1280" height="893" />
+                        <br />
+                        <a href="https://www.facebook.com/deinerdb" target="_blank" class="fa fa-facebook"></a>
+                        <a href="https://twitter.com/deiner_db" target="_blank" class="fa fa-twitter"></a>
+                        <a href="https://www.instagram.com/deiner_db/" target="_blank" class="fa fa-instagram"></a>
+                        
+                        <a href="https://www.youtube.com/user/deinerdominguez" target="_blank" class="fa fa-youtube"></a>
+                        <a href="skype:live:deiner_db?call" class="fa fa-skype"></a>
+                    </footer>
+</div>
+            <button onclick="topFunction()" id="BtnTop" title="Subir">⇧</button>
+            <script type="text/javascript" charset="utf-8" src="rutinas.js"></script>
+</body>
+</html>
+

@@ -212,7 +212,10 @@ window.onload = function () {
         //forza el valor por defecto timeTV rango
         document.getElementById("rangoTV").value = 2;
     }
-    
+    //ANALIZAR (INTERFAZ)
+    if (typeof alturaDatos == 'function') {
+        alturaDatos();
+    } 
 };
 
 
@@ -294,7 +297,10 @@ function ajustesResize() {
     if (typeof alturaMitades == 'function') {
         alturaMitades();     
     } 
-    
+    //ANALIZAR (INTERFAZ)
+    if (typeof alturaDatos == 'function') {
+        alturaDatos();
+    } 
 }
 
 //***********************************
