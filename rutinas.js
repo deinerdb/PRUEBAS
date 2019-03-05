@@ -224,7 +224,11 @@ window.onload = function () {
         document.getElementById("div3").style.display = "block";
         //limpia por si acaso
         borrarResultados();
-
+        // todos los campos input borrados
+        var i;
+        for (i = 1; i <= 100; i++) {
+            document.getElementById("dato" + i).value = "";           
+        }
     } 
 };
 
