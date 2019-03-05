@@ -215,6 +215,16 @@ window.onload = function () {
     //ANALIZAR (INTERFAZ)
     if (typeof alturaDatos == 'function') {
         alturaDatos();
+        //forza el valor por defecto del rango Datos
+        document.getElementById("rangoDatos").value = 3;
+        document.getElementById("numDatos").innerHTML = "3 datos";
+        //3 visibles        
+        document.getElementById("div1").style.display = "block";
+        document.getElementById("div2").style.display = "block";
+        document.getElementById("div3").style.display = "block";
+        //limpia por si acaso
+        borrarResultados();
+
     } 
 };
 
