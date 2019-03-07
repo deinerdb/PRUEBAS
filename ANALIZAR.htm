@@ -423,32 +423,43 @@
                     <button type="button" id="btnCopiar" disabled title="Copiar Resultados">COPIAR</button>                    
                     <fieldset>
                         <legend>Resultados: </legend>
-                        <label >Cálculo 1:</label> <br />
-                        <input type="text" id="imc" readonly /><br />
-                        <label >Otro:</label> <br />
-                        <input type="text" id="valoración" readonly /><br />
+                        <label >Número de Datos:</label> <br />
+                        <input type="text" id="cuenta" readonly /><br />
+                        <label >Suma:</label> <br />
+                        <input type="text" id="suma" readonly /><br />
                       
                     </fieldset>
                     
                 </form>
-
-                    <!--CÁLCULOS-->
+                    <!--FUNCIONES PARA ANÁLISIS-->
+                    <script>
+                        //SUMA ARRAY
+                        function sumar() {
+                            var temp = 0;
+                            var i;
+                            for (i = 0; i < arrayDatos.length; i++) {
+                                temp = Number(arrayDatos[i]) + temp;
+                            }
+                            return temp;
+                        }
+                    </script>
+                    <!--REALIZA CÁLCULOS-->
                     <script>
                         //obtiene referencias
 
                         //el input range NÚMERO DE DATOS
                         var slider = document.getElementById("rangoDatos");
-                        
+
                         //array para almacenar los valores ingresados
-                        var arrayDatos = [];                         
-                       
+                        var arrayDatos = [];
+
 
                         var getbtnCalcular = document.getElementById("btnCalcular");
                         var getbtnCopiar = document.getElementById("btnCopiar");
                         //tamaño de datos cambia dinámicamente con el slider
                         //input y change, redundantes por un bug en IE
 
-                        slider.oninput = function () {                           
+                        slider.oninput = function () {
                             document.getElementById("numDatos").innerHTML = this.value + " datos";
                             borrarResultados();
                             mostrarDatos(this.value);
@@ -469,16 +480,16 @@
                                     document.getElementById("div" + i).style.display = "none";
                                 }
                             }
-                                                        
+
                         }
                         //borra todo
                         function borrarResultados() {
-                            document.getElementById("imc").value = "";
-                            
-                            
+                            document.getElementById("cuenta").value = "";
+                            document.getElementById("suma").value = "";
+
                             //nada que copiar
                             getbtnCopiar.setAttribute("disabled", "disabled");
-                            
+
                         }
 
                         //parámetros deben ser correctos
@@ -487,7 +498,7 @@
                             //Borra el array
                             arrayDatos.length = 0;
                             //recorre todos los input
-                            for (i = 1; i <= Number(slider.value); i++) {   
+                            for (i = 1; i <= Number(slider.value); i++) {
                                 //valida (compatible con tipo number)
                                 if (Number(document.getElementById("dato" + i).value) == 0 && document.getElementById("dato" + i).value == "") {
                                     //enfoca el error
@@ -505,75 +516,33 @@
                         //realiza el cálculo
                         function calcular() {
                             //valida
-                            if (validarParámetros() == false) { 
+                            if (validarParámetros() == false) {
                                 //informa del error
                                 showSnackbar("¡Error en los datos ingresados!");
                                 return;
                             }
                             //ahora sí trabaja con los datos validados...
-                            
-                            document.getElementById("imc").value = "Prueba";
-                            showSnackbar("Calculado");
-                            return;
 
                             //declara variables para cálculos
 
-                            var resultadoIMC;
-                            var pesoMax;
-                            var pesoPromedio;
-                            var pesoMin;
-                            var valorar;
-                            var cuadradoEstatura;
-                            
-                            //calcula
-                            cuadradoEstatura = Math.pow(Number(imputEstatura.value), 2);
-                            resultadoIMC = Number(imputPeso.value) / cuadradoEstatura;
-                            valorar = "No disponible";
-                            switch (true) {
-                                case resultadoIMC <= 16:
-                                    valorar = "Delgadez Grado III, severa";
-                                    break;
-                                case resultadoIMC <= 17:
-                                    valorar = "Delgadez Grado II, moderada";
-                                    break;
-                                case resultadoIMC <= 18.5:
-                                    valorar = "Delgadez Grado I, leve";
-                                    break;
-                                case resultadoIMC < 20:
-                                    valorar = "Bajo peso, normal";
-                                    break;
-                                case resultadoIMC <= 25:
-                                    valorar = "Normal";
-                                    break;
-                                case resultadoIMC <= 30:
-                                    valorar = "Obesidad Grado I, leve";
-                                    break;
-                                case resultadoIMC <= 40:
-                                    valorar = "Obesidad Grado II, media";
-                                    break;
-                                case resultadoIMC > 40:
-                                    valorar = "Obesidad Grado III, mórbida";
-                                    break;
-                            }
+                            var cuenta;
+                            var suma;
 
-                            pesoMin = 20 * cuadradoEstatura;
-                            pesoPromedio = 22.5 * cuadradoEstatura;
-                            pesoMax = 25 * cuadradoEstatura;
+                            //calcula
+                            //cuenta
+                            cuenta = arrayDatos.length;
+                            //suma
+                            suma = sumar();
+
 
                             //formatea resultados: 2 decimales y configuración local
-                            resultadoIMC = Number(resultadoIMC.toFixed(2)).toLocaleString();
-                            pesoMin = Number(pesoMin.toFixed(2)).toLocaleString();
-                            pesoPromedio = Number(pesoPromedio.toFixed(2)).toLocaleString();
-                            pesoMax = Number(pesoMax.toFixed(2)).toLocaleString();
+                            //resultadoIMC = Number(resultadoIMC.toFixed(2)).toLocaleString();
 
-                            //escribe resultados                            
-                            imputIMC.value = resultadoIMC;  
-                            imputValoración.value = valorar;
-                            imputMin.value = pesoMin;
-                            imputPromedio.value = pesoPromedio;
-                            imputMax.value = pesoMax;
-                            
-                                                        
+                            //escribe resultados
+                            document.getElementById("cuenta").value = cuenta;
+                            document.getElementById("suma").value = suma;
+
+
                             //informa éxito en cálculo
                             showSnackbar("¡Cálculos realizados!");
 
@@ -581,7 +550,7 @@
                             getbtnCopiar.removeAttribute("disabled");
 
                         }
-                        
+
                         //****************************************
                         // COPIAR
                         //copia resultados al portapapeles
@@ -593,7 +562,7 @@
                             var copyCampo;
                             //aquí vamos guardando la cadena total a copiar
                             var copyText = "*** IMC ***" + "\r\n" + "*** ÍNDICE DE MASA CORPORAL *** ";
-                            //PARÁMETROS                            
+                            //PARÁMETROS
                             copyText = copyText + "\r\n" + "PARÁMETROS:";
                             //PESO
                             copyCampo = imputPeso;
@@ -601,7 +570,7 @@
                             //ESTATURA
                             copyCampo = imputEstatura;
                             copyText = copyText + "\r\n" + 'ESTATURA (METROS) = ' + Number(copyCampo.value).toLocaleString();
-                            //RESULTADOS                            
+                            //RESULTADOS
                             copyText = copyText + "\r\n" + "RESULTADOS:";
                             //IMC
                             copyCampo = imputIMC;
@@ -624,10 +593,10 @@
                             copyText = copyText + "\r\n" + 'GENERADO: ';
                             copyText = copyText + "\r\n" + d.toLocaleString();
                             //finalmente copiamos la cadena completa...
-                            copyToClipboard(copyText);                            
+                            copyToClipboard(copyText);
                         }
 
-                              
+
 
                         getbtnCalcular.onclick = function () {
                             calcular();
@@ -637,9 +606,9 @@
                             copiarResultados();
                             //informa que copió
                             showSnackbar("¡Resultados copiados!");
-                        }                        
-                        
-                    </script>
+                        }
+
+                </script>
 
 
                     <footer>
