@@ -427,12 +427,26 @@
                         <input type="text" id="cuenta" readonly /><br />
                         <label >Suma:</label> <br />
                         <input type="text" id="suma" readonly /><br />
-                      
+                        <label>Máximo:</label> <br />
+                        <input type="text" id="max" readonly /><br />
+                        <label>Mínimo:</label> <br />
+                        <input type="text" id="min" readonly /><br />
+                        <label>Rango:</label> <br />
+                        <input type="text" id="rango" readonly /><br />
                     </fieldset>
                     
                 </form>
                     <!--FUNCIONES PARA ANÁLISIS-->
                     <script>
+                        //declara variables para cálculos
+
+                        var cuenta;
+                        var suma;
+                        var max;
+                        var min;
+                        var rango;
+                        var ningunoNegativo = true;
+
                         //SUMA ARRAY
                         function sumar() {
                             var temp = 0;
@@ -441,6 +455,26 @@
                                 temp = Number(arrayDatos[i]) + temp;
                             }
                             return temp;
+                        }
+                        //recorre y obtiene max y min                  
+                        function maxmin() {
+                            var tempMax = Number(arrayDatos[0]) ;
+                            var tempMin = Number(arrayDatos[0]) ;
+                            var i;
+                            for (i = 0; i < arrayDatos.length; i++) {
+                                //verifica si no hay negativos
+                                if (arrayDatos[i] < 0) { ningunoNegativo = false; }
+                                //mayor
+                                if (arrayDatos[i] > tempMax) {
+                                    tempMax = Number(arrayDatos[i]);
+                                }
+                                //menor
+                                if (arrayDatos[i] < tempMin) {
+                                    tempMin = Number(arrayDatos[i]);
+                                }                                
+                            } 
+                            max = tempMax;
+                            min = tempMin;                            
                         }
                     </script>
                     <!--REALIZA CÁLCULOS-->
@@ -486,6 +520,9 @@
                         function borrarResultados() {
                             document.getElementById("cuenta").value = "";
                             document.getElementById("suma").value = "";
+                            document.getElementById("max").value = "";
+                            document.getElementById("min").value = "";
+                            document.getElementById("rango").value = "";
 
                             //nada que copiar
                             getbtnCopiar.setAttribute("disabled", "disabled");
@@ -500,7 +537,8 @@
                             //recorre todos los input
                             for (i = 1; i <= Number(slider.value); i++) {
                                 //valida (compatible con tipo number)
-                                if (Number(document.getElementById("dato" + i).value) == 0 && document.getElementById("dato" + i).value == "") {
+                                if (Number(document.getElementById("dato" + i).value) == 0 && document.getElementById("dato" + i).value == ""
+                                    || isNaN(document.getElementById("dato" + i).value) == true) {
                                     //enfoca el error
                                     document.getElementById("dato" + i).focus();
                                     //sale
@@ -523,25 +561,26 @@
                             }
                             //ahora sí trabaja con los datos validados...
 
-                            //declara variables para cálculos
-
-                            var cuenta;
-                            var suma;
-
+                            
                             //calcula
                             //cuenta
                             cuenta = arrayDatos.length;
                             //suma
                             suma = sumar();
-
+                            //max, min
+                            maxmin();
+                            //rango
+                            rango = max - min;
 
                             //formatea resultados: 2 decimales y configuración local
                             //resultadoIMC = Number(resultadoIMC.toFixed(2)).toLocaleString();
 
                             //escribe resultados
                             document.getElementById("cuenta").value = cuenta;
-                            document.getElementById("suma").value = suma;
-
+                            document.getElementById("suma").value = suma.toLocaleString();
+                            document.getElementById("max").value = max.toLocaleString();
+                            document.getElementById("min").value = min.toLocaleString();
+                            document.getElementById("rango").value = rango.toLocaleString();
 
                             //informa éxito en cálculo
                             showSnackbar("¡Cálculos realizados!");
