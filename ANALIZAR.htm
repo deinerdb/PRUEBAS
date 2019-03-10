@@ -577,10 +577,10 @@
 
                             //escribe resultados
                             document.getElementById("cuenta").value = cuenta;
-                            document.getElementById("suma").value = suma.toLocaleString();
-                            document.getElementById("max").value = max.toLocaleString();
-                            document.getElementById("min").value = min.toLocaleString();
-                            document.getElementById("rango").value = rango.toLocaleString();
+                            document.getElementById("suma").value = suma.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("max").value = max.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("min").value = min.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("rango").value = rango.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
 
                             //informa éxito en cálculo
                             showSnackbar("¡Cálculos realizados!");
