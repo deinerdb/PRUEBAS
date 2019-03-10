@@ -433,6 +433,12 @@
                         <input type="text" id="min" readonly /><br />
                         <label>Rango:</label> <br />
                         <input type="text" id="rango" readonly /><br />
+                        <label>Media aritmética:</label> <br />
+                        <input type="text" id="media" readonly /><br />
+                        <label>Media geométrica:</label> <br />
+                        <input type="text" id="mediaGeom" readonly /><br />
+                        <label>Media armónica:</label> <br />
+                        <input type="text" id="mediaArm" readonly /><br />
                     </fieldset>
                     
                 </form>
@@ -445,7 +451,10 @@
                         var max;
                         var min;
                         var rango;
-                        var ningunoNegativo = true;
+                        var todosPositivos = true;
+                        var media;
+                        var mediaGeom;
+                        var mediaArm;
 
                         //SUMA ARRAY
                         function sumar() {
@@ -461,9 +470,10 @@
                             var tempMax = Number(arrayDatos[0]) ;
                             var tempMin = Number(arrayDatos[0]) ;
                             var i;
+                            todosPositivos = true;
                             for (i = 0; i < arrayDatos.length; i++) {
                                 //verifica si no hay negativos
-                                if (arrayDatos[i] < 0) { ningunoNegativo = false; }
+                                if (arrayDatos[i] <= 0) { todosPositivos = false; }
                                 //mayor
                                 if (arrayDatos[i] > tempMax) {
                                     tempMax = Number(arrayDatos[i]);
@@ -476,6 +486,40 @@
                             max = tempMax;
                             min = tempMin;                            
                         }
+                        //media geométrica
+                        function mediaGeométrica() {
+                            var temp;
+                            var prod = 1;
+                            var i;
+                            if (todosPositivos == false) {
+                                //no la calcula
+                                temp = "No disponible";
+                            } else {
+                                for (i = 0; i < arrayDatos.length; i++) {
+                                    prod = Number(arrayDatos[i]) * prod;
+                                }
+                                temp = Math.pow(prod, 1 / cuenta);
+                            }
+                            return temp;
+                        }
+                        //media armónica
+                        function mediaArmónica() {
+                            var temp;
+                            var sumaInv = 0;
+                            var i;
+                            if (todosPositivos == false) {
+                                //no la calcula
+                                temp = "No disponible";
+                            } else {
+                                for (i = 0; i < arrayDatos.length; i++) {
+                                    sumaInv = 1/Number(arrayDatos[i]) + sumaInv;
+                                }
+                                temp = sumaInv / cuenta;
+                                temp = 1 / temp;
+                            }
+                            return temp;
+                        }
+
                     </script>
                     <!--REALIZA CÁLCULOS-->
                     <script>
@@ -523,7 +567,9 @@
                             document.getElementById("max").value = "";
                             document.getElementById("min").value = "";
                             document.getElementById("rango").value = "";
-
+                            document.getElementById("media").value = "";
+                            document.getElementById("mediaGeom").value = "";
+                            document.getElementById("mediaArm").value = "";
                             //nada que copiar
                             getbtnCopiar.setAttribute("disabled", "disabled");
 
@@ -571,17 +617,24 @@
                             maxmin();
                             //rango
                             rango = max - min;
+                            //media aritmética
+                            media = suma / cuenta;
+                            //media geométrica
+                            mediaGeom = mediaGeométrica();
+                            //media armónica
+                            mediaArm = mediaArmónica();
 
-                            //formatea resultados: 2 decimales y configuración local
-                            //resultadoIMC = Number(resultadoIMC.toFixed(2)).toLocaleString();
-
+                            //formatea resultados: min 0 y max 9 decimales... y configuración local
+                            
                             //escribe resultados
                             document.getElementById("cuenta").value = cuenta;
                             document.getElementById("suma").value = suma.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("max").value = max.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("min").value = min.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("rango").value = rango.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-
+                            document.getElementById("media").value = media.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("mediaGeom").value = mediaGeom.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("mediaArm").value = mediaArm.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             //informa éxito en cálculo
                             showSnackbar("¡Cálculos realizados!");
 
