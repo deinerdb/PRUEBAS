@@ -427,18 +427,26 @@
                         <input type="text" id="cuenta" readonly /><br />
                         <label >Suma:</label> <br />
                         <input type="text" id="suma" readonly /><br />
+                        <label>Productoria:</label> <br />
+                        <input type="text" id="productoria" readonly /><br />
+                        <label>Suma de cuadrados:</label> <br />
+                        <input type="text" id="sumaCuadrados" readonly /><br />
                         <label>Máximo:</label> <br />
                         <input type="text" id="max" readonly /><br />
                         <label>Mínimo:</label> <br />
                         <input type="text" id="min" readonly /><br />
-                        <label>Rango:</label> <br />
+                        <label>Rango o recorrido:</label> <br />
                         <input type="text" id="rango" readonly /><br />
+                        <label>Recorrido relativo:</label> <br />
+                        <input type="text" id="recorridoRelativo" readonly /><br />
                         <label>Media aritmética:</label> <br />
                         <input type="text" id="media" readonly /><br />
                         <label>Media geométrica:</label> <br />
                         <input type="text" id="mediaGeom" readonly /><br />
                         <label>Media armónica:</label> <br />
                         <input type="text" id="mediaArm" readonly /><br />
+                        <label>Media cuadrática:</label> <br />
+                        <input type="text" id="mediaCuad" readonly /><br />
                     </fieldset>
                     
                 </form>
@@ -448,13 +456,17 @@
 
                         var cuenta;
                         var suma;
+                        var sumaCuadrados;
+                        var productoria;
                         var max;
                         var min;
                         var rango;
+                        var recorridoRelativo;
                         var todosPositivos = true;
                         var media;
                         var mediaGeom;
                         var mediaArm;
+                        var mediaCuad;
 
                         //SUMA ARRAY
                         function sumar() {
@@ -462,6 +474,15 @@
                             var i;
                             for (i = 0; i < arrayDatos.length; i++) {
                                 temp = Number(arrayDatos[i]) + temp;
+                            }
+                            return temp;
+                        }
+                        //SUMA cuadrados
+                        function sumarCuadrados() {
+                            var temp = 0;
+                            var i;
+                            for (i = 0; i < arrayDatos.length; i++) {
+                                temp = Number(arrayDatos[i]) * Number(arrayDatos[i]) + temp;
                             }
                             return temp;
                         }
@@ -486,19 +507,29 @@
                             max = tempMax;
                             min = tempMin;                            
                         }
-                        //media geométrica
-                        function mediaGeométrica() {
-                            var temp;
+                        //productoria
+                        function calculaProductoria() {                            
                             var prod = 1;
                             var i;
                             if (todosPositivos == false) {
                                 //no la calcula
-                                temp = "No disponible";
+                                prod = "No disponible";
                             } else {
                                 for (i = 0; i < arrayDatos.length; i++) {
                                     prod = Number(arrayDatos[i]) * prod;
-                                }
-                                temp = Math.pow(prod, 1 / cuenta);
+                                }                                
+                            }
+                            return prod;
+                        }
+                        //media geométrica
+                        function mediaGeométrica() {
+                            var temp;                            
+                            var i;
+                            if (todosPositivos == false) {
+                                //no la calcula
+                                temp = "No disponible";
+                            } else {                                
+                                temp = Math.pow(productoria, 1 / cuenta);
                             }
                             return temp;
                         }
@@ -517,6 +548,12 @@
                                 temp = sumaInv / cuenta;
                                 temp = 1 / temp;
                             }
+                            return temp;
+                        }
+                        //media cuadrática
+                        function mediaCuadrática() {
+                            var temp = 0;
+                            temp = Math.sqrt(sumaCuadrados / cuenta);
                             return temp;
                         }
 
@@ -570,6 +607,10 @@
                             document.getElementById("media").value = "";
                             document.getElementById("mediaGeom").value = "";
                             document.getElementById("mediaArm").value = "";
+                            document.getElementById("productoria").value = "";
+                            document.getElementById("sumaCuadrados").value = "";
+                            document.getElementById("recorridoRelativo").value = "";
+                            document.getElementById("mediaCuad").value = "";
                             //nada que copiar
                             getbtnCopiar.setAttribute("disabled", "disabled");
 
@@ -613,28 +654,40 @@
                             cuenta = arrayDatos.length;
                             //suma
                             suma = sumar();
-                            //max, min
+                            //suma de cuadrados
+                            sumaCuadrados = sumarCuadrados();                            
+                            //max, min, todos postivos?
                             maxmin();
-                            //rango
-                            rango = max - min;
+                            //productoria
+                            productoria = calculaProductoria();
+                            //rango o recorrido
+                            rango = max - min;                            
                             //media aritmética
                             media = suma / cuenta;
+                            //recorrido relativo
+                            recorridoRelativo = rango / media;
                             //media geométrica
                             mediaGeom = mediaGeométrica();
                             //media armónica
                             mediaArm = mediaArmónica();
+                            //media cuadrática
+                            mediaCuad = mediaCuadrática();
 
                             //formatea resultados: min 0 y max 9 decimales... y configuración local
                             
                             //escribe resultados
                             document.getElementById("cuenta").value = cuenta;
                             document.getElementById("suma").value = suma.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("sumaCuadrados").value = sumaCuadrados.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("productoria").value = productoria.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("max").value = max.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("min").value = min.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("rango").value = rango.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("recorridoRelativo").value = recorridoRelativo.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("media").value = media.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("mediaGeom").value = mediaGeom.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("mediaArm").value = mediaArm.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("mediaCuad").value = mediaCuad.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             //informa éxito en cálculo
                             showSnackbar("¡Cálculos realizados!");
 
