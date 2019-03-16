@@ -314,9 +314,9 @@
                     <div id="divDatos">
                         <fieldset>
                             <legend>Datos: </legend>
-                            <div id="div1"><label>1:</label><input type="number" id="dato1" placeholder="Ingrese un número" autocomplete="off" step="any" oninput="borrarResultados();" onchange="borrarResultados();" /></div>
-                            <div id="div2"><label>2:</label><input type="number" id="dato2" placeholder="Ingrese un número" autocomplete="off" step="any" oninput="borrarResultados();" onchange="borrarResultados();" /></div>
-                            <div id="div3"><label>3:</label><input type="number" id="dato3" placeholder="Ingrese un número" autocomplete="off" step="any" oninput="borrarResultados();" onchange="borrarResultados();" /></div>
+                            <div id="div1"><label>1:</label><input type="number" id="dato1" placeholder="Ingrese un número" autocomplete="off" step="any" oninput="borrarResultados();" onchange="borrarResultados();" onkeydown= "manejador(event, this.id);" /></div>
+                            <div id="div2"><label>2:</label><input type="number" id="dato2" placeholder="Ingrese un número" autocomplete="off" step="any" oninput="borrarResultados();" onchange="borrarResultados();" onkeydown= "manejador(event, this.id);" /></div>
+                            <div id="div3"><label>3:</label><input type="number" id="dato3" placeholder="Ingrese un número" autocomplete="off" step="any" oninput="borrarResultados();" onchange="borrarResultados();" onkeydown= "manejador(event, this.id);"/></div>
                             <div id="div4"><label>4:</label><input type="number" id="dato4" placeholder="Ingrese un número" autocomplete="off" step="any" oninput="borrarResultados();" onchange="borrarResultados();" /></div>
                             <div id="div5"><label>5:</label><input type="number" id="dato5" placeholder="Ingrese un número" autocomplete="off" step="any" oninput="borrarResultados();" onchange="borrarResultados();" /></div>
                             <div id="div6"><label>6:</label><input type="number" id="dato6" placeholder="Ingrese un número" autocomplete="off" step="any" oninput="borrarResultados();" onchange="borrarResultados();" /></div>
@@ -439,6 +439,8 @@
                         <input type="text" id="rango" readonly /><br />
                         <label>Recorrido relativo:</label> <br />
                         <input type="text" id="recorridoRelativo" readonly /><br />
+                        <label>Coeficiente de apertura:</label> <br />
+                        <input type="text" id="coefApertura" readonly /><br />
                         <label>Media aritmética:</label> <br />
                         <input type="text" id="media" readonly /><br />
                         <label>Media geométrica:</label> <br />
@@ -462,6 +464,7 @@
                         var min;
                         var rango;
                         var recorridoRelativo;
+                        var coefApertura;
                         var todosPositivos = true;
                         var media;
                         var mediaGeom;
@@ -666,6 +669,8 @@
                             media = suma / cuenta;
                             //recorrido relativo
                             recorridoRelativo = rango / media;
+                            //coeficiente da apertura
+                            coefApertura = max / min;
                             //media geométrica
                             mediaGeom = mediaGeométrica();
                             //media armónica
@@ -684,6 +689,7 @@
                             document.getElementById("min").value = min.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("rango").value = rango.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("recorridoRelativo").value = recorridoRelativo.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("coefApertura").value = coefApertura.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("media").value = media.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("mediaGeom").value = mediaGeom.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("mediaArm").value = mediaArm.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
@@ -693,6 +699,38 @@
 
                             //ya hay algo que copiar
                             getbtnCopiar.removeAttribute("disabled");
+
+                        }
+                        function manejador(e, miId) {                            
+                            var characterCode;
+                            // e.key es la recomendación actual
+                            if (e.key != undefined) {
+                                if (e.key.toLowerCase() == "enter") {
+                                    characterCode = 13;
+                                }
+                                else {
+                                    characterCode = 0;
+                                }
+                            } else {
+                                /* navegadores antiguos...  */
+                                characterCode = e.which || e.charCode || e.keyCode || e.keyIdentifier || 0;
+                            }
+
+                            //dirige el foco al siguiente con Enter                            
+                            if (characterCode == 13 && miId == "dato1") {
+                                document.getElementById("dato2").focus();
+                            }
+                            //dirige el foco al siguiente con Enter                            
+                            if (characterCode == 13 && miId == "dato2") {
+                                document.getElementById("dato3").focus();
+                            }
+                                //ejecuta solo si presionó Enter y es el último input
+                            if (characterCode == 13  && miId == "dato3") {
+                                    document.getElementById("dato3").blur();
+                                    getbtnCalcular.focus();
+                                    calcular();
+                                }
+                            
 
                         }
 
