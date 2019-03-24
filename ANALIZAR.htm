@@ -294,8 +294,16 @@
                             <strong style="clear:left">Fragmento de código usado en esta página:</strong><br />
                         </p>
 
-<textarea readonly rows="4">
-... 
+<textarea readonly rows="10">
+...
+function sumar() {
+    var temp = 0;
+    var i;
+    for (i = 0; i < arrayDatos.length; i++) {
+        temp = Number(arrayDatos[i]) + temp;
+    }
+return temp;
+} 
 ...
 </textarea>
                         <i id="arrow" class="fa fa-angle-double-up" aria-hidden="true"></i>
@@ -449,6 +457,8 @@
                         <input type="text" id="mediaArm" readonly /><br />
                         <label>Media cuadrática:</label> <br />
                         <input type="text" id="mediaCuad" readonly /><br />
+                        <label>Moda (Primera encontrada):</label> <br />
+                        <input type="text" id="moda" readonly /><br />
                     </fieldset>
                     
                 </form>
@@ -470,6 +480,7 @@
                         var mediaGeom;
                         var mediaArm;
                         var mediaCuad;
+                        var moda;
 
                         //SUMA ARRAY
                         function sumar() {
@@ -516,7 +527,7 @@
                             var i;
                             if (todosPositivos == false) {
                                 //no la calcula
-                                prod = "No disponible";
+                                prod = "Requiere valores positivos";
                             } else {
                                 for (i = 0; i < arrayDatos.length; i++) {
                                     prod = Number(arrayDatos[i]) * prod;
@@ -530,7 +541,7 @@
                             var i;
                             if (todosPositivos == false) {
                                 //no la calcula
-                                temp = "No disponible";
+                                temp = "Requiere valores positivos";
                             } else {                                
                                 temp = Math.pow(productoria, 1 / cuenta);
                             }
@@ -543,7 +554,7 @@
                             var i;
                             if (todosPositivos == false) {
                                 //no la calcula
-                                temp = "No disponible";
+                                temp = "Requiere valores positivos";
                             } else {
                                 for (i = 0; i < arrayDatos.length; i++) {
                                     sumaInv = 1/Number(arrayDatos[i]) + sumaInv;
@@ -559,7 +570,27 @@
                             temp = Math.sqrt(sumaCuadrados / cuenta);
                             return temp;
                         }
-
+                        //devuelve la primera moda encontrada
+                        function calculaModa() {
+                            var repetidos = 1;
+                            var temp = "No disponible (Sin duplicados)";
+                            var contador = 0;
+                            var i;
+                            var j;
+                            for (i = 0; i < arrayDatos.length; i++) {
+                                contador = 0;
+                                for (j = 0; j < arrayDatos.length; j++) {
+                                    if (arrayDatos[i] == arrayDatos[j]) {
+                                        contador++;
+                                    }
+                                }
+                                if (contador > repetidos) {
+                                    temp = arrayDatos[i];
+                                    repetidos = contador;
+                                }
+                            }
+                            return temp;
+                        }
                     </script>
                     <!--REALIZA CÁLCULOS-->
                     <script>
@@ -613,7 +644,9 @@
                             document.getElementById("productoria").value = "";
                             document.getElementById("sumaCuadrados").value = "";
                             document.getElementById("recorridoRelativo").value = "";
-                            document.getElementById("mediaCuad").value = "";
+                            document.getElementById("mediaCuad").value = "";                            
+                            document.getElementById("coefApertura").value = "";
+                            document.getElementById("moda").value = "";
                             //nada que copiar
                             getbtnCopiar.setAttribute("disabled", "disabled");
 
@@ -668,15 +701,25 @@
                             //media aritmética
                             media = suma / cuenta;
                             //recorrido relativo
-                            recorridoRelativo = rango / media;
+                            if (media == 0) {
+                                recorridoRelativo = "No disponible (Media = 0)";
+                            } else {
+                                recorridoRelativo = rango / media;
+                            }                            
                             //coeficiente da apertura
-                            coefApertura = max / min;
+                            if (min == 0) {
+                                coefApertura = "No disponible (Mínimo = 0)";
+                            } else {
+                                coefApertura = max / min;
+                            }  
                             //media geométrica
                             mediaGeom = mediaGeométrica();
                             //media armónica
                             mediaArm = mediaArmónica();
                             //media cuadrática
                             mediaCuad = mediaCuadrática();
+                            //moda
+                            moda = calculaModa();
 
                             //formatea resultados: min 0 y max 9 decimales... y configuración local
                             
@@ -694,6 +737,7 @@
                             document.getElementById("mediaGeom").value = mediaGeom.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("mediaArm").value = mediaArm.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("mediaCuad").value = mediaCuad.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("moda").value = moda.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             //informa éxito en cálculo
                             showSnackbar("¡Cálculos realizados!");
 
