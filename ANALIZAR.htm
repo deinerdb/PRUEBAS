@@ -459,6 +459,8 @@ return temp;
                         <input type="text" id="mediaCuad" readonly /><br />
                         <label>Moda (Primera encontrada):</label> <br />
                         <input type="text" id="moda" readonly /><br />
+                        <label>Mediana:</label> <br />
+                        <input type="text" id="mediana" readonly /><br />
                     </fieldset>
                     
                 </form>
@@ -481,6 +483,7 @@ return temp;
                         var mediaArm;
                         var mediaCuad;
                         var moda;
+                        var mediana;
 
                         //SUMA ARRAY
                         function sumar() {
@@ -591,6 +594,10 @@ return temp;
                             }
                             return temp;
                         }
+                        //devuelve la mediana
+                        function calculaMediana() {
+                            return "Algoritmo en construcción";
+                        }
                     </script>
                     <!--REALIZA CÁLCULOS-->
                     <script>
@@ -647,6 +654,7 @@ return temp;
                             document.getElementById("mediaCuad").value = "";                            
                             document.getElementById("coefApertura").value = "";
                             document.getElementById("moda").value = "";
+                            document.getElementById("mediana").value = "";
                             //nada que copiar
                             getbtnCopiar.setAttribute("disabled", "disabled");
 
@@ -720,6 +728,8 @@ return temp;
                             mediaCuad = mediaCuadrática();
                             //moda
                             moda = calculaModa();
+                            //mediana
+                            mediana = calculaMediana();
 
                             //formatea resultados: min 0 y max 9 decimales... y configuración local
                             
@@ -738,6 +748,7 @@ return temp;
                             document.getElementById("mediaArm").value = mediaArm.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("mediaCuad").value = mediaCuad.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("moda").value = moda.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("mediana").value = mediana.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             //informa éxito en cálculo
                             showSnackbar("¡Cálculos realizados!");
 
