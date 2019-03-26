@@ -596,7 +596,16 @@ return temp;
                         }
                         //devuelve la mediana
                         function calculaMediana() {
-                            return "Algoritmo en construcción";
+                            // Nota:
+                            // n = cuenta (length)
+                            // array ordenado es base 0
+                            if (cuenta % 2 == 0) {
+                                //es par
+                                return (Number(ordenado[(cuenta / 2) - 1]) + Number(ordenado[cuenta / 2])) / 2;
+                            } else {
+                                //es impar
+                                return Number(ordenado[((1 + cuenta) / 2) - 1]);
+                            }
                         }
                     </script>
                     <!--REALIZA CÁLCULOS-->
@@ -608,7 +617,8 @@ return temp;
 
                         //array para almacenar los valores ingresados
                         var arrayDatos = [];
-
+                        //array para ordenar los datos
+                        var ordenado = [];
 
                         var getbtnCalcular = document.getElementById("btnCalcular");
                         var getbtnCopiar = document.getElementById("btnCopiar");
@@ -663,8 +673,9 @@ return temp;
                         //parámetros deben ser correctos
                         function validarParámetros() {
                             var i;
-                            //Borra el array
+                            //Borra los array
                             arrayDatos.length = 0;
+                            ordenado.length = 0;
                             //recorre todos los input
                             for (i = 1; i <= Number(slider.value); i++) {
                                 //valida (compatible con tipo number)
@@ -677,7 +688,11 @@ return temp;
                                 }
                                 //se van almacenando los valores ingresados en el array de datos
                                 arrayDatos[i - 1] = document.getElementById("dato" + i).value;
+                                //se almacena una copia para ordenarla
+                                ordenado[i - 1] = arrayDatos[i - 1];
                             }
+                            //ordena el array
+                            ordenado.sort(function (a, b) { return a - b });
                             // todo salió bien
                             return true;
                         }
