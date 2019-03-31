@@ -32,6 +32,18 @@
                 opacity: 0.8;
                 filter: Alpha(opacity=80); /* IE8 and earlier */
             }
+            /*ajustes al imprimir*/
+            @media print {
+                #selectorN {
+                    display: none !important;
+                }
+
+                #divDatos {
+                    max-height: none !important;
+                }
+
+            }
+
             .formulario {
                 font-size: 1.1em;
                 padding: 10px 8px;
@@ -46,17 +58,17 @@
                 display: none;
             }
             #aIzquierda {
-                font-size: 2em;
+                font-size: 1.7em;
                 color: purple;
                 vertical-align: auto;
                 min-width: 50%;
                 text-align: left;
                 display: inline-block;
-                font-weight:bold;
+                font-weight: bold;
             }
 
             #aDerecha {
-                font-size: 2em;
+                font-size: 1.7em;
                 color: purple;
                 vertical-align: auto;
                 min-width: 50%;
@@ -64,10 +76,40 @@
                 display: inline-block;
                 font-weight: bold;
             }
-
+            #aIzquierda i:hover , #aDerecha i:hover {
+                background: #8c53c6; /* For browsers that do not support gradients */
+                background: -webkit-linear-gradient(left, #8c53c6, rebeccapurple); /* For Safari 5.1 to 6.0 */
+                background: -o-linear-gradient(right, #8c53c6, rebeccapurple); /* For Opera 11.1 to 12.0 */
+                background: -moz-linear-gradient(right, #8c53c6, rebeccapurple); /* For Firefox 3.6 to 15 */
+                background: linear-gradient(to right, #8c53c6, rebeccapurple); /* Standard syntax (must be last) */
+            }
             #divA {
                 width: 100%;
                 white-space: nowrap;
+            }
+            #divA i {
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+
+                border: none; /* Remove borders */
+                outline: none; /* Remove outline */
+                background-color: rebeccapurple; /* Set a background color */
+                color: white; /* Text color */
+                cursor: pointer; /* Add a mouse pointer on hover */
+                padding: 7px 12px; /* Some padding */
+                -moz-border-radius: 10px;
+                -webkit-border-radius: 10px;
+                border-radius: 10px; /* Rounded corners */
+                /*SOMBRA*/
+                -moz-box-shadow: 5px 5px 3px MediumPurple;
+                -webkit-box-shadow: 5px 5px 3px MediumPurple;
+                box-shadow: 5px 5px 3px MediumPurple;
+                /*no se puede seleccionar el texto*/
+                -webkit-user-select: none; /* Chrome, Opera, Safari */
+                -moz-user-select: none; /* Firefox 2+ */
+                -ms-user-select: none; /* IE 10+ */
+                user-select: none; /* Standard syntax */
             }
             #numDatos {
                 font-size: 1.2em;
@@ -311,12 +353,12 @@ return temp;
 
 
                 <form class="formulario">
-                    <fieldset>
+                    <fieldset id="selectorN">
                         <legend>Número de datos: </legend>
                         <p id="numDatos">3 datos</p>
                         <input id="rangoDatos" type="range" min="1" max="100" value="3" />                        
                         <div id="divA">
-                            <span id="aIzquierda">-</span><span id="aDerecha">+</span>
+                            <span id="aIzquierda"><i id="minus" class="fa fa-minus-circle" aria-hidden="true"></i></span><span id="aDerecha"><i id="plus" class="fa fa-plus-circle" aria-hidden="true"></i></span>
                         </div>
                     </fieldset> 
                     <div id="divDatos">
@@ -622,16 +664,30 @@ return temp;
 
                         var getbtnCalcular = document.getElementById("btnCalcular");
                         var getbtnCopiar = document.getElementById("btnCopiar");
+
+                        var getMinus = document.getElementById("minus");
+                        var getPlus = document.getElementById("plus");
+
                         //tamaño de datos cambia dinámicamente con el slider
                         //input y change, redundantes por un bug en IE
 
                         slider.oninput = function () {
-                            document.getElementById("numDatos").innerHTML = this.value + " datos";
+                            if (this.value > 1) {
+                                document.getElementById("numDatos").innerHTML = this.value + " datos";
+                            } else {
+                                document.getElementById("numDatos").innerHTML = this.value + " dato";
+                            }
+                            
                             borrarResultados();
                             mostrarDatos(this.value);
                         }
                         slider.onchange = function () {
-                            document.getElementById("numDatos").innerHTML = this.value + " datos";
+                            if (this.value > 1) {
+                                document.getElementById("numDatos").innerHTML = this.value + " datos";
+                            } else {
+                                document.getElementById("numDatos").innerHTML = this.value + " dato";
+                            }
+
                             borrarResultados();
                             mostrarDatos(this.value);
                         }
@@ -857,6 +913,31 @@ return temp;
                             copiarResultados();
                             //informa que copió
                             showSnackbar("¡Resultados copiados!");
+                        }
+
+                        getMinus.onclick = function () {                            
+                            //disminuye el número de datos
+                            if (slider.value != 1) {
+                                var nuevo = slider.value - 1;
+                                slider.value = nuevo;
+                                if (nuevo > 1) {
+                                    document.getElementById("numDatos").innerHTML = nuevo + " datos";
+                                } else {
+                                    document.getElementById("numDatos").innerHTML = nuevo + " dato";
+                                }
+                                borrarResultados();
+                                mostrarDatos(nuevo);
+                            }
+                        }
+                        getPlus.onclick = function () {
+                            //disminuye el número de datos
+                            if (slider.value != 100) {
+                                var nuevo = Number( slider.value ) + 1;
+                                slider.value = nuevo;                                
+                                document.getElementById("numDatos").innerHTML = nuevo + " datos";                                
+                                borrarResultados();
+                                mostrarDatos(nuevo);
+                            }
                         }
 
                 </script>
