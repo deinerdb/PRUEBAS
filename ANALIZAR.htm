@@ -58,7 +58,7 @@
                 display: none;
             }
             #aIzquierda {
-                font-size: 1.7em;
+                font-size: 1.5em;
                 color: purple;
                 vertical-align: auto;
                 min-width: 50%;
@@ -68,7 +68,7 @@
             }
 
             #aDerecha {
-                font-size: 1.7em;
+                font-size: 1.5em;
                 color: purple;
                 vertical-align: auto;
                 min-width: 50%;
@@ -86,6 +86,7 @@
             #divA {
                 width: 100%;
                 white-space: nowrap;
+                margin-top: 24px;                
             }
             #divA i {
                 -webkit-box-sizing: border-box;
@@ -358,7 +359,7 @@ return temp;
                         <p id="numDatos">3 datos</p>
                         <input id="rangoDatos" type="range" min="1" max="100" value="3" />                        
                         <div id="divA">
-                            <span id="aIzquierda"><i id="minus" class="fa fa-minus-circle" aria-hidden="true"></i></span><span id="aDerecha"><i id="plus" class="fa fa-plus-circle" aria-hidden="true"></i></span>
+                            <span id="aIzquierda"><i id="minus" class="fa fa-minus-circle" title="Disminuir número de datos" aria-hidden="true"></i></span><span id="aDerecha"><i id="plus" class="fa fa-plus-circle" title="Aumentar número de datos" aria-hidden="true"></i></span>
                         </div>
                     </fieldset> 
                     <div id="divDatos">
@@ -503,6 +504,12 @@ return temp;
                         <input type="text" id="moda" readonly /><br />
                         <label>Mediana:</label> <br />
                         <input type="text" id="mediana" readonly /><br />
+                        <label>Primer cuartil (Q<sub>1</sub> = P<sub>25</sub>):</label> <br />
+                        <input type="text" id="q1" readonly /><br />
+                        <label>Tercer cuartil (Q<sub>3</sub> = P<sub>75</sub>):</label> <br />
+                        <input type="text" id="q3" readonly /><br />
+                        <label>Rango intercuartílico (Q<sub>3</sub> - Q<sub>1</sub>):</label> <br />
+                        <input type="text" id="rangoIntercuartílico" readonly /><br />
                     </fieldset>
                     
                 </form>
@@ -526,7 +533,10 @@ return temp;
                         var mediaCuad;
                         var moda;
                         var mediana;
-
+                        var q1;
+                        var q3;
+                        var rangoIntercuartílico;
+                        
                         //SUMA ARRAY
                         function sumar() {
                             var temp = 0;
@@ -649,6 +659,62 @@ return temp;
                                 return Number(ordenado[((1 + cuenta) / 2) - 1]);
                             }
                         }
+                        //devuelve primer cuartil
+                        function calculaQ1() {
+                            // Nota:
+                            // n = cuenta (length)
+                            // array ordenado es base 0
+                            if (cuenta < 3) {
+                                return "No disponible (N < 3)";
+                            }
+                            var parteEntera;
+                            var parteDecimal;
+                            var pos;
+
+                            if ((1 + cuenta) % 4 == 0) {
+                                //es múltiplo
+                                pos = (1 + cuenta) / 4;
+                                pos--;
+                                return ordenado[pos];                                
+                            } else {
+                                //no es múltiplo                                
+                                parteEntera = Math.floor((1 + cuenta) / 4);
+                                parteDecimal = ((1 + cuenta) / 4) % 1;
+                                return Number(ordenado[parteEntera - 1]) + parteDecimal * (ordenado[parteEntera] - ordenado[parteEntera-1]);
+                            }
+                        }
+                        //devuelve tercer cuartil
+                        function calculaQ3() {
+                            // Nota:
+                            // n = cuenta (length)
+                            // array ordenado es base 0
+                            if (cuenta < 3) {
+                                return "No disponible (N < 3)";
+                            }
+                            var parteEntera;
+                            var parteDecimal;
+                            var pos;
+
+                            if ((3 * (1 + cuenta)) % 4 == 0) {
+                                //es múltiplo
+                                pos = 3 * (1 + cuenta) / 4;
+                                pos--;
+                                return ordenado[pos];
+                            } else {
+                                //no es múltiplo                                
+                                parteEntera = Math.floor(3 * (1 + cuenta) / 4);
+                                parteDecimal = (3 * (1 + cuenta) / 4) % 1;
+                                return Number(ordenado[parteEntera - 1]) + parteDecimal * (ordenado[parteEntera] - ordenado[parteEntera - 1]);
+                            }
+                        }
+                        //devuelve rango intercuartílico
+                        function calculaRangoIntercuartílico() {
+                            if (cuenta < 3) {
+                                return "No disponible (N < 3)";
+                            } else {
+                                return q3 - q1;
+                            }                            
+                        }
                     </script>
                     <!--REALIZA CÁLCULOS-->
                     <script>
@@ -721,6 +787,9 @@ return temp;
                             document.getElementById("coefApertura").value = "";
                             document.getElementById("moda").value = "";
                             document.getElementById("mediana").value = "";
+                            document.getElementById("q1").value = "";
+                            document.getElementById("q3").value = "";
+                            document.getElementById("rangoIntercuartílico").value = "";
                             //nada que copiar
                             getbtnCopiar.setAttribute("disabled", "disabled");
 
@@ -801,6 +870,13 @@ return temp;
                             moda = calculaModa();
                             //mediana
                             mediana = calculaMediana();
+                            //primer cuartil
+                            q1 = calculaQ1();
+                            //tercer cuartil
+                            q3 = calculaQ3();
+                            //rango intercuartílico
+                            rangoIntercuartílico = calculaRangoIntercuartílico();
+
 
                             //formatea resultados: min 0 y max 9 decimales... y configuración local
                             
@@ -820,6 +896,9 @@ return temp;
                             document.getElementById("mediaCuad").value = mediaCuad.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("moda").value = moda.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("mediana").value = mediana.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("q1").value = q1.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("q3").value = q3.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("rangoIntercuartílico").value = rangoIntercuartílico.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             //informa éxito en cálculo
                             showSnackbar("¡Cálculos realizados!");
 
