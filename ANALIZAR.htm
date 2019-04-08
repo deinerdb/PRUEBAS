@@ -32,6 +32,14 @@
                 opacity: 0.8;
                 filter: Alpha(opacity=80); /* IE8 and earlier */
             }
+            #linechart {
+                /*RESPONSIVE*/
+                max-width: 100%;
+                overflow: auto;
+                margin: 8px 4px;
+            }
+
+
             /*ajustes al imprimir*/
             @media print {
                 #selectorN {
@@ -511,8 +519,18 @@ return temp;
                         <label>Rango intercuartílico (Q<sub>3</sub> - Q<sub>1</sub>):</label> <br />
                         <input type="text" id="rangoIntercuartílico" readonly /><br />
                     </fieldset>
-                    
+                    <fieldset id="gráfico">
+                        <legend>Gráfico: </legend>
+                        <div id="linechart"></div>
+                    </fieldset>
+
+
                 </form>
+                <!--script para cargar la API de Google para gráficos-->
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js">
+                </script>
+
+
                     <!--FUNCIONES PARA ANÁLISIS-->
                     <script>
                         //declara variables para cálculos
@@ -1020,6 +1038,51 @@ return temp;
                         }
 
                 </script>
+
+                
+                <script type="text/javascript">
+                    //script del gráfico
+
+                        // Load google charts
+                        google.charts.load('current', { 'packages': ['corechart'] });
+                        google.charts.setOnLoadCallback(drawChart2);                       
+
+                        // Draw the chart and set the chart values
+                        function drawChart2() {
+                            var x3 = "Dato 3";
+                            var y3 = 4;
+                            // llena el array de datos
+                            // Create the data table.
+                            var data = new google.visualization.DataTable();
+                            //crea las columnas
+                            data.addColumn('string', 'DATOS');
+                            data.addColumn('number', 'VALOR');
+                            //los pares de datos
+                            data.addRows([                                
+                                ['Dato 1', 3],
+                                ['Dato 2', 6],                                                                
+                            ]);
+                            data.addRows([
+                                [x3, y3]
+                            ]);
+                            
+                            // Optional; add a title and set the width and height of the chart
+                            var options = {
+                                'title': 'GRÁFICA DE DATOS INGRESADOS',
+                                'legend': { position: 'bottom' },
+                                'width': 550,
+                                'height': 400,
+                                //'is3D': true
+                            };
+
+                            // Display the chart inside the <div> element with id="linechart"
+                            var chart = new google.visualization.LineChart(document.getElementById('linechart'));
+                            chart.draw(data, options);
+                        }
+
+                </script>
+
+
 
 
                     <footer>

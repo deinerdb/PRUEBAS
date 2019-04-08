@@ -211,6 +211,7 @@ window.onload = function () {
     if (typeof drawChart == 'function') {
         //forza el valor por defecto timeTV rango
         document.getElementById("rangoTV").value = 2;
+        
     }
     //ANALIZAR (INTERFAZ)
     if (typeof alturaDatos == 'function') {
@@ -222,6 +223,7 @@ window.onload = function () {
         document.getElementById("div1").style.display = "block";
         document.getElementById("div2").style.display = "block";
         document.getElementById("div3").style.display = "block";
+        
         //limpia por si acaso
         borrarResultados();
         // todos los campos input borrados
