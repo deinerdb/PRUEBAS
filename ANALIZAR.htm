@@ -32,11 +32,11 @@
                 opacity: 0.8;
                 filter: Alpha(opacity=80); /* IE8 and earlier */
             }
-            #linechart, #gráfico {
+            #linechart {
                 /*RESPONSIVE*/
                 max-width: 100%;
                 overflow: auto;
-                margin: 4px 2px;
+                margin: 12px 4px;
             }
 
 
@@ -518,14 +518,9 @@ return temp;
                         <input type="text" id="q3" readonly /><br />
                         <label>Rango intercuartílico (Q<sub>3</sub> - Q<sub>1</sub>):</label> <br />
                         <input type="text" id="rangoIntercuartílico" readonly /><br />
-                    </fieldset>
-                    <fieldset id="gráfico">
-                        <legend>Gráfico: </legend>
-                        <div id="linechart"></div>
-                    </fieldset>
-
-
+                    </fieldset>                    
                 </form>
+                <div id="linechart"></div>
                 <!--script para cargar la API de Google para gráficos-->
                 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js">
                 </script>
