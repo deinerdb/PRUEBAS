@@ -32,11 +32,11 @@
                 opacity: 0.8;
                 filter: Alpha(opacity=80); /* IE8 and earlier */
             }
-            #linechart {
+            #linechart , #noDisponible {
                 /*RESPONSIVE*/
                 max-width: 100%;
                 overflow: auto;
-                margin: 12px 4px;
+                margin: 4px 12px 4px 4px;
                 /*para que el ancho sea real*/
                 -moz-box-sizing: border-box;
                 -webkit-box-sizing: border-box;
@@ -45,10 +45,21 @@
                 -webkit-border-radius: 4px;
                 -moz-border-radius: 4px;
                 border-radius: 4px;
-                outline: none;
+                outline: none;                
             }
-
-
+            #noDisponible {                
+                /*visible por defecto*/
+                display: block;
+                padding: 4px 24px;
+                color:purple;
+            }
+            #linechart {
+                /*oculto por defecto*/
+                display: none;
+            }
+            footer {
+                margin-top: 24px !important;
+            }
             /*ajustes al imprimir*/
             @media print {
                 #selectorN {
@@ -64,7 +75,13 @@
             .formulario {
                 font-size: 1.1em;
                 padding: 10px 8px;
+                /*Formularios con borde superior e inferior gris*/
+                border-bottom-style: none !important;
+                border-top-style: none !important; 
+                margin-bottom: 4px !important;
+
             }
+
             legend {
                 font-weight:bold;
             }
@@ -488,7 +505,8 @@ return temp;
                     </div>
                     
                     <button type="button" id="btnCalcular" title="Realizar cálculos">CALCULAR</button>
-                    <button type="button" id="btnCopiar" disabled title="Copiar Resultados">COPIAR</button>                    
+                    <button type="button" id="btnCopiar" disabled title="Copiar Resultados">COPIAR</button> 
+                    <button type="button" id="btnRellenar" title="Rellenar con valores aleatorios">Rellenar</button>
                     <fieldset>
                         <legend>Resultados: </legend>
                         <label >Número de Datos:</label> <br />
@@ -530,6 +548,9 @@ return temp;
                     </fieldset>                    
                 </form>
                 <div id="linechart"></div>
+                <div id="noDisponible">
+                    <p>GRÁFICO NO DISPONIBLE</p>
+                </div>
                 <!--script para cargar la API de Google para gráficos-->
                 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js">
                 </script>
@@ -814,6 +835,9 @@ return temp;
                             document.getElementById("rangoIntercuartílico").value = "";
                             //nada que copiar
                             getbtnCopiar.setAttribute("disabled", "disabled");
+                            //nada que graficar
+                            document.getElementById("linechart").style.display = "none";
+                            document.getElementById("noDisponible").style.display = "block";
 
                         }
 
@@ -927,6 +951,9 @@ return temp;
                             //ya hay algo que copiar
                             getbtnCopiar.removeAttribute("disabled");
 
+                            //muestra la gráfica                            
+                            document.getElementById("linechart").style.display = "block";
+                            document.getElementById("noDisponible").style.display = "none";
                         }
                         function manejador(e, miId) {                            
                             var characterCode;
@@ -1084,6 +1111,13 @@ return temp;
                             chart.draw(data, options);
                         }
 
+
+                        document.getElementById('btnRellenar').onclick = function () {
+                            var i;
+                            for (i = 1; i <= Number(slider.value); i++) {
+                                document.getElementById("dato" + i).value = Math.floor(Math.random() * 101);
+                            }
+                        }
                 </script>
 
 
