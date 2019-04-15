@@ -45,7 +45,8 @@
                 -webkit-border-radius: 4px;
                 -moz-border-radius: 4px;
                 border-radius: 4px;
-                outline: none;                
+                outline: none;
+                background-color:lavender;
             }
             #noDisponible {                
                 /*visible por defecto*/
@@ -953,6 +954,7 @@ return temp;
 
                             //muestra la gráfica                            
                             document.getElementById("linechart").style.display = "block";
+                            drawChart2();                            
                             document.getElementById("noDisponible").style.display = "none";
                         }
                         function manejador(e, miId) {                            
@@ -1080,30 +1082,74 @@ return temp;
 
                         // Draw the chart and set the chart values
                         function drawChart2() {
-                            var x3 = "Dato 3";
-                            var y3 = 4;
+                            var i;
+                            var x;
+                            var y;
                             // llena el array de datos
                             // Create the data table.
                             var data = new google.visualization.DataTable();
                             //crea las columnas
-                            data.addColumn('string', 'DATOS');
+                            data.addColumn('string', 'DATO');
                             data.addColumn('number', 'VALOR');
                             //los pares de datos
-                            data.addRows([                                
-                                ['Dato 1', 3],
-                                ['Dato 2', 6],                                                                
-                            ]);
-                            data.addRows([
-                                [x3, y3]
-                            ]);
+                            for (i = 0; i < arrayDatos.length; i++) {
+                                x = String(1 + i);
+                                y = Number(arrayDatos[i]);                                
+                                data.addRows([
+                                    [x, y]
+                                ]);
+                            }
+                            
                             
                             // Optional; add a title and set the width and height of the chart
                             var options = {
-                                'title': 'GRÁFICA DE DATOS INGRESADOS',
+                                //título
+                                'title': 'GRÁFICA DE DATOS INGRESADOS',                                
+                                titleTextStyle: {
+                                    //azul oscuro
+                                    color: '#000066',
+                                    fontName: 'Tahoma', 
+                                    fontSize: 16, 
+                                    bold: true                                       
+                                },
+                                //legenda
                                 'legend': { position: 'bottom' },
-                                'width': 600,
+                                //tamaño gráfico
+                                'width': 800,
                                 'height': 500,
-                                //'is3D': true
+                                //eje x
+                                hAxis: {
+                                    title: 'Datos',
+                                    textStyle: {
+                                        color: 'purple'                                        
+                                    },
+                                    titleTextStyle: {
+                                        color: 'indigo',                                        
+                                        italic: true,
+                                        bold: true
+                                    }
+                                },
+                                //eje y
+                                vAxis: {
+                                    title: 'Valores',
+                                    textStyle: {
+                                        color: 'purple'
+                                    },
+                                    titleTextStyle: {
+                                        color: 'indigo', 
+                                        italic: true,
+                                        bold: true
+                                    }
+                                },
+                                //color linea de la serie
+                                colors: ['blue'],
+                                //color de fondo del gráfico
+                                backgroundColor: 'lavender',
+                                //tamaño de puntos
+                                pointSize: 5,
+                                //forma de puntos
+                                pointShape: 'circle' 
+
                             };
 
                             // Display the chart inside the <div> element with id="linechart"
