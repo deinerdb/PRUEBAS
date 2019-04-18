@@ -32,7 +32,7 @@
                 opacity: 0.8;
                 filter: Alpha(opacity=80); /* IE8 and earlier */
             }
-            #linechart , #noDisponible {
+            #linechart, #noDisponible, #opcionesGráfico {
                 /*RESPONSIVE*/
                 max-width: 100%;
                 overflow: auto;
@@ -46,7 +46,7 @@
                 -moz-border-radius: 4px;
                 border-radius: 4px;
                 outline: none;
-                background-color:lavender;
+                background-color: lavender;
             }
             #noDisponible {                
                 /*visible por defecto*/
@@ -54,7 +54,10 @@
                 padding: 4px 24px;
                 color:purple;
             }
-            #linechart {
+            #opcionesGráfico {
+                padding: 24px 12px 12px 18px;
+            }
+            #linechart, #opcionesGráfico {
                 /*oculto por defecto*/
                 display: none;
             }
@@ -274,6 +277,81 @@
                     background: #7B68EE;
                 }
             /* FIN CSS PARA INPUT RANGE PERSONALIZADO*/
+
+            /*/ INICIO css para el checkbox personalizado*/
+            /* The container */
+            .contenedorCheckbox {
+                display: block;
+                position: relative;
+                padding-left: 35px;
+                margin-bottom: 12px;
+                cursor: pointer;
+                font-size: 22px;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                color: purple;
+            }
+
+                /* Hide the browser's default checkbox */
+                .contenedorCheckbox input {
+                    position: absolute;
+                    opacity: 0;
+                    cursor: pointer;
+                    height: 0;
+                    width: 0;
+                }
+
+            /* Create a custom checkbox */
+            .checkmark {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 25px;
+                width: 25px;
+                background-color: #bfbff2; /*un poco más oscuro que el lavender*/
+            }
+
+            /* On mouse-over, add a grey background color */
+            .contenedorCheckbox:hover input ~ .checkmark {
+                background-color: #9595ea; /*bastante más oscuro que el lavender*/
+            }
+
+            /* When the checkbox is checked, add a blue background */
+            .contenedorCheckbox input:checked ~ .checkmark {
+                background-color: #855cd6; /* un poco más oscuro que el mediumpurple */
+            }
+
+            /* Create the checkmark/indicator (hidden when not checked) */
+            .checkmark:after {
+                content: "";
+                position: absolute;
+                display: none;
+            }
+
+            /* Show the checkmark when checked */
+            .contenedorCheckbox input:checked ~ .checkmark:after {
+                display: block;
+            }
+
+            /* Style the checkmark/indicator */
+            .contenedorCheckbox .checkmark:after {
+                left: 9px;
+                top: 5px;
+                width: 5px;
+                height: 10px;
+                border: solid white;
+                border-width: 0 3px 3px 0;
+                -ms-transform: rotate(45deg);
+                -webkit-transform: rotate(45deg);
+                -o-transform: rotate(45deg);
+                -moz-transform: rotate(45deg);
+                transform: rotate(45deg);
+            }
+
+            /*/ FIN css para el checkbox personalizado*/
+
         </style>
     </head>
     <body>
@@ -552,6 +630,13 @@ return temp;
                 <div id="noDisponible">
                     <p>GRÁFICO NO DISPONIBLE</p>
                 </div>
+                <fieldset id="opcionesGráfico">
+                    <label class="contenedorCheckbox">
+                        Mostrar series adicionales
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                    </label>
+                </fieldset>
                 <!--script para cargar la API de Google para gráficos-->
                 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js">
                 </script>
@@ -838,6 +923,7 @@ return temp;
                             getbtnCopiar.setAttribute("disabled", "disabled");
                             //nada que graficar
                             document.getElementById("linechart").style.display = "none";
+                            document.getElementById("opcionesGráfico").style.display = "none";
                             document.getElementById("noDisponible").style.display = "block";
 
                         }
@@ -952,10 +1038,11 @@ return temp;
                             //ya hay algo que copiar
                             getbtnCopiar.removeAttribute("disabled");
 
-                            //muestra la gráfica                            
+                            //muestra la gráfica y sus opciones                         
                             document.getElementById("linechart").style.display = "block";
-                            drawChart2();                            
+                            document.getElementById("opcionesGráfico").style.display = "block";                                                        
                             document.getElementById("noDisponible").style.display = "none";
+                            drawChart2();
                         }
                         function manejador(e, miId) {                            
                             var characterCode;
