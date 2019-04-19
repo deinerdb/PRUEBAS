@@ -46,6 +46,9 @@
                 -moz-border-radius: 4px;
                 border-radius: 4px;
                 outline: none;
+                
+            }
+            #linechart {
                 background-color: lavender;
             }
             #noDisponible {                
@@ -311,17 +314,17 @@
                 left: 0;
                 height: 25px;
                 width: 25px;
-                background-color: #bfbff2; /*un poco más oscuro que el lavender*/
+                background-color: lavender; /*lavender*/
             }
 
             /* On mouse-over, add a grey background color */
             .contenedorCheckbox:hover input ~ .checkmark {
-                background-color: #9595ea; /*bastante más oscuro que el lavender*/
+                background-color: #bfbff2; /*un poco más oscuro que el lavender*/
             }
 
-            /* When the checkbox is checked, add a blue background */
+            /* When the checkbox is checked, add a mediumpurple background */
             .contenedorCheckbox input:checked ~ .checkmark {
-                background-color: #855cd6; /* un poco más oscuro que el mediumpurple */
+                background-color: mediumpurple; /*  mediumpurple */
             }
 
             /* Create the checkmark/indicator (hidden when not checked) */
@@ -445,7 +448,8 @@
                     <div class="panel" id="panel">
                         <p>
                             <i class="fa fa-table" aria-hidden="true"></i>
-                            Se realizan varios cálculos a partir de los datos ingresados.
+                            Se realizan varios cálculos a partir de los datos ingresados. 
+                            Es un análisis estadístico y gráfico.
                             <br />
                             <br />
                             <strong style="clear:left">Fragmento de código usado en esta página:</strong><br />
@@ -1198,7 +1202,7 @@ return temp;
                                     //azul oscuro
                                     color: '#000066',
                                     fontName: 'Tahoma', 
-                                    fontSize: 16, 
+                                    fontSize: 18, 
                                     bold: true                                       
                                 },
                                 //legenda
@@ -1215,6 +1219,7 @@ return temp;
                                     titleTextStyle: {
                                         color: 'indigo',                                        
                                         italic: true,
+                                        fontSize: 16, 
                                         bold: true
                                     }
                                 },
@@ -1227,6 +1232,7 @@ return temp;
                                     titleTextStyle: {
                                         color: 'indigo', 
                                         italic: true,
+                                        fontSize: 16, 
                                         bold: true
                                     }
                                 },
