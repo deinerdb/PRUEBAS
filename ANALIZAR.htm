@@ -629,6 +629,12 @@ return temp;
                         <input type="text" id="q3" readonly /><br />
                         <label>Rango intercuartílico (Q<sub>3</sub> - Q<sub>1</sub>):</label> <br />
                         <input type="text" id="rangoIntercuartílico" readonly /><br />
+                        <label>Varianza poblacional</label> <br />
+                        <input type="text" id="varianzaP" readonly /><br />
+                        <label>Desviación estándar poblacional</label> <br />
+                        <input type="text" id="desvP" readonly /><br />
+                        <label>Coeficiente de variación poblacional</label> <br />
+                        <input type="text" id="coefVarP" readonly /><br />
                     </fieldset>                    
                 </form>
                 <div id="linechart"></div>
@@ -672,6 +678,9 @@ return temp;
                         var q3;
                         var rangoIntercuartílico;
                         var mostrarSeriesAdicionales = false;
+                        var varianzaP;
+                        var desvP;
+                        var coefVarP;
 
                         //SUMA ARRAY
                         function sumar() {
@@ -851,6 +860,30 @@ return temp;
                                 return q3 - q1;
                             }                            
                         }
+                        //devuelve varianza poblacional
+                        function calculaVarianzaPoblacional() {
+                            return (sumaCuadrados / cuenta) - (media * media);
+                        }
+                        //devuelve desviación estándar poblacional
+                        function calculaDesvPoblacional() {                            
+                            if (varianzaP < 0) {
+                                //improbable, pero por si acaso
+                                return "No disponible (Var < 0)";
+                            }
+                            //la raíz de la varianza
+                            return Math.sqrt(varianzaP);
+                        }
+                        //devuelve el coeficiente de variación poblacional
+                        function calculaCoefVarPoblacional() {
+                            if (media == 0) {
+                                //evita la división por cero
+                                return "No disponible (Media = 0)";
+                            }
+                            //cociente
+                            return desvP / media;
+                        }
+
+
                     </script>
                     <!--REALIZA CÁLCULOS-->
                     <script>
@@ -926,6 +959,9 @@ return temp;
                             document.getElementById("q1").value = "";
                             document.getElementById("q3").value = "";
                             document.getElementById("rangoIntercuartílico").value = "";
+                            document.getElementById("varianzaP").value = "";
+                            document.getElementById("desvP").value = "";
+                            document.getElementById("coefVarP").value = "";
                             //nada que copiar
                             getbtnCopiar.setAttribute("disabled", "disabled");
                             //nada que graficar
@@ -1016,7 +1052,12 @@ return temp;
                             q3 = calculaQ3();
                             //rango intercuartílico
                             rangoIntercuartílico = calculaRangoIntercuartílico();
-
+                            //varianza poblacional
+                            varianzaP = calculaVarianzaPoblacional();
+                            //desviación estándar poblacional
+                            desvP = calculaDesvPoblacional();
+                            //coeficiente de variación poblacional
+                            coefVarP = calculaCoefVarPoblacional();
 
                             //formatea resultados: min 0 y max 9 decimales... y configuración local
                             
@@ -1039,6 +1080,9 @@ return temp;
                             document.getElementById("q1").value = q1.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("q3").value = q3.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("rangoIntercuartílico").value = rangoIntercuartílico.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("varianzaP").value = varianzaP.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("desvP").value = desvP.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("coefVarP").value = coefVarP.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             //informa éxito en cálculo
                             showSnackbar("¡Cálculos realizados!");
 
@@ -1359,7 +1403,7 @@ return temp;
                                 trendlines: {                                    
                                     0: {
                                         type: 'linear',
-                                        color: 'Maroon',                                        
+                                        color: 'red',                                        
                                         visibleInLegend: true,
                                         labelInLegend: 'Ajuste lineal',
                                         showR2: true,
