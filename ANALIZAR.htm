@@ -638,8 +638,8 @@ return temp;
                 <fieldset id="opcionesGráfico">
                     <legend>Opciones del Gráfico: </legend>
                     <label class="contenedorCheckbox">
-                        Mostrar series adicionales
-                        <input type="checkbox">
+                        Mostrar tendencia lineal y media aritmética
+                        <input type="checkbox" id="myCheck" onclick="clickCheck()">
                         <span class="checkmark"></span>
                     </label>
                 </fieldset>
@@ -671,7 +671,8 @@ return temp;
                         var q1;
                         var q3;
                         var rangoIntercuartílico;
-                        
+                        var mostrarSeriesAdicionales = false;
+
                         //SUMA ARRAY
                         function sumar() {
                             var temp = 0;
@@ -1048,7 +1049,12 @@ return temp;
                             document.getElementById("linechart").style.display = "block";
                             document.getElementById("opcionesGráfico").style.display = "block";                                                        
                             document.getElementById("noDisponible").style.display = "none";
-                            drawChart2();
+                            if (mostrarSeriesAdicionales == true) {
+                                drawChart3();
+                            } else {
+                                drawChart2();
+                            }
+                            
                         }
                         function manejador(e, miId) {                            
                             var characterCode;
@@ -1170,10 +1176,11 @@ return temp;
                     //script del gráfico
 
                         // Load google charts
-                        google.charts.load('current', { 'packages': ['corechart'] });
+                        google.charts.load('current', { 'packages': ['corechart', 'line'] });
                         google.charts.setOnLoadCallback(drawChart2);                       
 
                         // Draw the chart and set the chart values
+                        //     normal, sin series adicionales
                         function drawChart2() {
                             var i;
                             var x;
@@ -1240,10 +1247,125 @@ return temp;
                                 colors: ['blue'],
                                 //color de fondo del gráfico
                                 backgroundColor: 'lavender',
+                                //muestra una cruz al seleccionar o señalar
+                                crosshair: { trigger: 'both' },
                                 //tamaño de puntos
                                 pointSize: 5,
                                 //forma de puntos
                                 pointShape: 'circle' 
+                            };
+
+                            // Display the chart inside the <div> element with id="linechart"
+                            var chart = new google.visualization.LineChart(document.getElementById('linechart'));
+                            chart.draw(data, options);
+                        }
+
+                        // Draw the chart and set the chart values
+                        // con series adicionales
+                        function drawChart3() {
+                            var i;
+                            var miX;
+                            var miValor;
+                            // se usa variable "media"
+
+                            // llena el array de datos
+                            // Create the data table.
+                            var data = new google.visualization.DataTable();
+                            //crea las columnas
+
+                            data.addColumn('number', 'X');
+                            data.addColumn('number', 'Valor');
+                            data.addColumn('number', 'Media');
+
+                            //los pares de datos
+                            for (i = 0; i < arrayDatos.length; i++) {
+                                miX = 1 + i;
+                                miValor = Number(arrayDatos[i]);
+                                // y la media ya está calculada
+                                data.addRows([
+                                    [miX, miValor, Number(media)]
+                                ]);
+                            }
+
+
+                            // Optional; add a title and set the width and height of the chart
+                            var options = {
+                                //título
+                                'title': 'GRÁFICA DE DATOS INGRESADOS',
+                                titleTextStyle: {
+                                    //azul oscuro
+                                    color: '#000066',
+                                    fontName: 'Tahoma',
+                                    fontSize: 18,
+                                    bold: true
+                                },
+                                //legenda
+                                'legend': { position: 'bottom' },
+                                //tamaño gráfico
+                                'width': 800,
+                                'height': 500,
+                                //eje x
+                                hAxis: {
+                                    title: 'Datos',
+                                    textStyle: {
+                                        color: 'purple'
+                                    },
+                                    titleTextStyle: {
+                                        color: 'indigo',
+                                        italic: true,
+                                        fontSize: 16,
+                                        bold: true
+                                    }
+                                },
+                                //eje y
+                                vAxis: {
+                                    title: 'Valores',
+                                    textStyle: {
+                                        color: 'purple'
+                                    },
+                                    titleTextStyle: {
+                                        color: 'indigo',
+                                        italic: true,
+                                        fontSize: 16,
+                                        bold: true
+                                    }
+                                },
+                                //color de fondo del gráfico
+                                backgroundColor: 'lavender',
+                                //colores líneas de serie
+                                colors: ['blue', 'green'],
+                                //muestra una cruz al seleccionar o señalar
+                                crosshair: { trigger: 'both' },
+                                //personaliza series
+                                series: {
+                                    //valores
+                                    0: {
+                                        //tamaño de puntos
+                                        pointSize: 5,
+                                        //forma de puntos
+                                        pointShape: 'circle'
+                                    },
+                                    //media
+                                    1: {
+                                        //tamaño de puntos
+                                        pointSize: 0,
+                                        //forma de puntos
+                                        pointShape: 'circle',
+                                        //punteada
+                                        lineDashStyle: [4, 4]
+                                    }
+                                },
+                                // líneas de tendencia
+                                trendlines: {                                    
+                                    0: {
+                                        type: 'linear',
+                                        color: 'Maroon',                                        
+                                        visibleInLegend: true,
+                                        labelInLegend: 'Ajuste lineal',
+                                        showR2: true,
+                                        opacity: 1
+                                    }                       
+                                }                               
 
                             };
 
@@ -1252,6 +1374,16 @@ return temp;
                             chart.draw(data, options);
                         }
 
+                        function clickCheck() {
+                            var checkBox = document.getElementById("myCheck");                            
+                            if (checkBox.checked == true) {
+                                mostrarSeriesAdicionales = true;
+                                drawChart3();
+                            } else {
+                                mostrarSeriesAdicionales = false;
+                                drawChart2();
+                            }
+                        }
 
                         document.getElementById('btnRellenar').onclick = function () {
                             var i;

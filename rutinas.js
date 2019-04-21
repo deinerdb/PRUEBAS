@@ -156,6 +156,9 @@ function copyToClipboard(text) {
 //NAVBAR SE DESPLAZA AL ELEMENTO ACTUAL
 var barra = document.getElementById("navbar");
 var actual = document.getElementById("selectednavbar");
+
+// EVENTO LOAD PARA DIFERENTES PÁGINAS
+
 window.onload = function () {
     //HACE VISIBLE EN EL NAVBAR EL ELEMENTO ACTUAL
     barra.scrollLeft = actual.offsetLeft;
@@ -223,7 +226,8 @@ window.onload = function () {
         document.getElementById("div1").style.display = "block";
         document.getElementById("div2").style.display = "block";
         document.getElementById("div3").style.display = "block";
-        
+        //CHECKBOX DESMARCADO        
+        document.getElementById("myCheck").checked = false;
         //limpia por si acaso
         borrarResultados();
         // todos los campos input borrados
