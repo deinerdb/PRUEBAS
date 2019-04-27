@@ -635,6 +635,12 @@ return temp;
                         <input type="text" id="desvP" readonly /><br />
                         <label>Coeficiente de variación poblacional</label> <br />
                         <input type="text" id="coefVarP" readonly /><br />
+                        <label>Varianza muestral</label> <br />
+                        <input type="text" id="varianzaM" readonly /><br />
+                        <label>Desviación estándar muestral</label> <br />
+                        <input type="text" id="desvM" readonly /><br />
+                        <label>Coeficiente de variación muestral</label> <br />
+                        <input type="text" id="coefVarM" readonly /><br />
                     </fieldset>                    
                 </form>
                 <div id="linechart"></div>
@@ -681,7 +687,9 @@ return temp;
                         var varianzaP;
                         var desvP;
                         var coefVarP;
-
+                        var varianzaM;
+                        var desvM;
+                        var coefVarM;
                         //SUMA ARRAY
                         function sumar() {
                             var temp = 0;
@@ -864,6 +872,14 @@ return temp;
                         function calculaVarianzaPoblacional() {
                             return (sumaCuadrados / cuenta) - (media * media);
                         }
+                        //devuelve varianza muestral
+                        function calculaVarianzaMuestral() {
+                            if (cuenta < 2) {
+                                return "No disponible (N < 2)";
+                            } else {
+                                return (sumaCuadrados / (cuenta - 1)) - (media * media * cuenta / (cuenta - 1));
+                            }                               
+                        }
                         //devuelve desviación estándar poblacional
                         function calculaDesvPoblacional() {                            
                             if (varianzaP < 0) {
@@ -872,6 +888,18 @@ return temp;
                             }
                             //la raíz de la varianza
                             return Math.sqrt(varianzaP);
+                        }
+                        //devuelve desviación estándar muestral
+                        function calculaDesvMuestral() {
+                            if (cuenta < 2) {
+                                return "No disponible (N < 2)";
+                            }                             
+                            if (varianzaM < 0) {
+                                //improbable, pero por si acaso
+                                return "No disponible (VarM < 0)";
+                            }
+                            //la raíz de la varianza muestral
+                            return Math.sqrt(varianzaM);
                         }
                         //devuelve el coeficiente de variación poblacional
                         function calculaCoefVarPoblacional() {
@@ -882,7 +910,18 @@ return temp;
                             //cociente
                             return desvP / media;
                         }
-
+                        //devuelve el coeficiente de variación muestral
+                        function calculaCoefVarMuestral() {
+                            if (cuenta < 2) {
+                                return "No disponible (N < 2)";
+                            }    
+                            if (media == 0) {
+                                //evita la división por cero
+                                return "No disponible (Media = 0)";
+                            }
+                            //cociente
+                            return desvM / media;
+                        }
 
                     </script>
                     <!--REALIZA CÁLCULOS-->
@@ -962,6 +1001,9 @@ return temp;
                             document.getElementById("varianzaP").value = "";
                             document.getElementById("desvP").value = "";
                             document.getElementById("coefVarP").value = "";
+                            document.getElementById("varianzaM").value = "";
+                            document.getElementById("desvM").value = "";
+                            document.getElementById("coefVarM").value = "";
                             //nada que copiar
                             getbtnCopiar.setAttribute("disabled", "disabled");
                             //nada que graficar
@@ -1058,6 +1100,12 @@ return temp;
                             desvP = calculaDesvPoblacional();
                             //coeficiente de variación poblacional
                             coefVarP = calculaCoefVarPoblacional();
+                            //varianza muestral
+                            varianzaM = calculaVarianzaMuestral();
+                            //desviación estándar muestral
+                            desvM = calculaDesvMuestral();
+                            //coeficiente de variación muestral
+                            coefVarM = calculaCoefVarMuestral();
 
                             //formatea resultados: min 0 y max 9 decimales... y configuración local
                             
@@ -1083,6 +1131,10 @@ return temp;
                             document.getElementById("varianzaP").value = varianzaP.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("desvP").value = desvP.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("coefVarP").value = coefVarP.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("varianzaM").value = varianzaM.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("desvM").value = desvM.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("coefVarM").value = coefVarM.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+
                             //informa éxito en cálculo
                             showSnackbar("¡Cálculos realizados!");
 
