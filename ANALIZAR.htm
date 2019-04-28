@@ -641,6 +641,12 @@ return temp;
                         <input type="text" id="desvM" readonly /><br />
                         <label>Coeficiente de variación muestral</label> <br />
                         <input type="text" id="coefVarM" readonly /><br />
+                        <label>Error típico de la media muestral</label> <br />
+                        <input type="text" id="ETMM" readonly /><br />
+                        <label>Coeficiente de asimetría</label> <br />
+                        <input type="text" id="coefAsim" readonly /><br />
+                        <label>Curtosis</label> <br />
+                        <input type="text" id="curtosis" readonly /><br />
                     </fieldset>                    
                 </form>
                 <div id="linechart"></div>
@@ -690,6 +696,10 @@ return temp;
                         var varianzaM;
                         var desvM;
                         var coefVarM;
+                        var ETMM;
+                        var coefAsim;
+                        var curtosis;
+
                         //SUMA ARRAY
                         function sumar() {
                             var temp = 0;
@@ -922,7 +932,59 @@ return temp;
                             //cociente
                             return desvM / media;
                         }
-
+                        //devuelve el error típico de la media muestral ETMM
+                        function calculaETMM() {
+                            if (cuenta < 2) {
+                                return "No disponible (N < 2)";
+                            }
+                            if (varianzaM < 0) {
+                                //improbable, pero por si acaso
+                                return "No disponible (VarM < 0)";
+                            }
+                            //un cociente
+                            return desvM / Math.sqrt(cuenta);
+                        }
+                        //devuelve el coeficiente de asimetría
+                        function calculaCoefAsim() {
+                            if (cuenta < 3) {
+                                return "No disponible (N < 3)";
+                            }
+                            if (desvM == 0) {
+                                //impide div/0
+                                return "No disponible (Desv Est = 0)";
+                            }
+                            //cálcula...
+                            var i;
+                            var sumaCubos = 0;
+                            for (i = 0; i < arrayDatos.length; i++) {
+                                sumaCubos = Math.pow((arrayDatos[i] - media) / desvM, 3) + sumaCubos;
+                            }
+                            return sumaCubos * cuenta / ((cuenta - 1) * (cuenta - 2));
+                        }
+                        //devuelve la curtosis
+                        function calculaCurtosis() {
+                            if (cuenta < 4) {
+                                return "No disponible (N < 4)";
+                            }
+                            if (desvM == 0) {
+                                //impide div/0
+                                return "No disponible (Desv Est = 0)";
+                            }
+                            //cálcula...
+                            var i;
+                            var suma4 = 0;
+                            var temp;
+                            var restar;
+                            for (i = 0; i < arrayDatos.length; i++) {
+                                suma4 = Math.pow((arrayDatos[i] - media) / desvM, 4) + suma4;
+                            }
+                            temp = cuenta * (cuenta + 1);
+                            temp = temp / ((cuenta - 1) * (cuenta - 2) * (cuenta - 3));
+                            temp = temp * suma4;
+                            restar = 3 * (cuenta - 1) * (cuenta - 1);
+                            restar = restar / ((cuenta - 2) * (cuenta - 3));
+                            return temp - restar;
+                        }
                     </script>
                     <!--REALIZA CÁLCULOS-->
                     <script>
@@ -1004,6 +1066,9 @@ return temp;
                             document.getElementById("varianzaM").value = "";
                             document.getElementById("desvM").value = "";
                             document.getElementById("coefVarM").value = "";
+                            document.getElementById("ETMM").value = "";
+                            document.getElementById("coefAsim").value = "";
+                            document.getElementById("curtosis").value = "";
                             //nada que copiar
                             getbtnCopiar.setAttribute("disabled", "disabled");
                             //nada que graficar
@@ -1106,6 +1171,12 @@ return temp;
                             desvM = calculaDesvMuestral();
                             //coeficiente de variación muestral
                             coefVarM = calculaCoefVarMuestral();
+                            //error típico de la media muestral
+                            ETMM = calculaETMM();
+                            //coeficiente de asimetría
+                            coefAsim = calculaCoefAsim();
+                            //curtosis
+                            curtosis = calculaCurtosis();
 
                             //formatea resultados: min 0 y max 9 decimales... y configuración local
                             
@@ -1134,6 +1205,9 @@ return temp;
                             document.getElementById("varianzaM").value = varianzaM.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("desvM").value = desvM.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("coefVarM").value = coefVarM.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("ETMM").value = ETMM.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("coefAsim").value = coefAsim.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("curtosis").value = curtosis.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
 
                             //informa éxito en cálculo
                             showSnackbar("¡Cálculos realizados!");
