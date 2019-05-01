@@ -647,6 +647,15 @@ return temp;
                         <input type="text" id="coefAsim" readonly /><br />
                         <label>Curtosis</label> <br />
                         <input type="text" id="curtosis" readonly /><br />
+                        <label>Pendiente recta de ajuste y = <strong>m</strong>x + b</label> <br />
+                        <input type="text" id="pendiente" readonly /><br />
+                        <label>Intercepto recta de ajuste y = mx + <strong>b</strong></label> <br />
+                        <input type="text" id="intercepto" readonly /><br />
+                        <label>Coeficiente de correlación <strong>r</strong></label> <br />
+                        <input type="text" id="r" readonly /><br />
+                        <label>Coeficiente <strong>r<sup>2</sup></strong></label> <br />
+                        <input type="text" id="r2" readonly /><br />
+
                     </fieldset>                    
                 </form>
                 <div id="linechart"></div>
@@ -699,6 +708,10 @@ return temp;
                         var ETMM;
                         var coefAsim;
                         var curtosis;
+                        var pendiente;
+                        var intercepto;
+                        var r;
+                        var r2;
 
                         //SUMA ARRAY
                         function sumar() {
@@ -985,6 +998,63 @@ return temp;
                             restar = restar / ((cuenta - 2) * (cuenta - 3));
                             return temp - restar;
                         }
+                        //regresión lineal
+                        function regLineal() {
+                            if (cuenta == 1) {
+                                //mínimo dos puntos de datos
+                                //asume linealidad y recta horizontal
+                                pendiente = 0;
+                                intercepto = arrayDatos[0];
+                                r = 1;
+                                r2 = 1;
+                                return;
+                            }
+                            
+                            //cálcula...
+                            var i;
+                            var numerador = 0;
+                            var denominador1 = 0;
+                            var denominador2 = 0;
+                            var mediaX;
+                            var temp = 0;
+
+                            for (i = 1; i <= cuenta; i++) {
+                                temp = Number(i) + temp;
+                            }
+                            mediaX = temp / cuenta;
+                            //sumatorias
+                            for (i = 0; i < arrayDatos.length; i++) {
+                                numerador = (1 + i - mediaX) * (arrayDatos[i] - media) + numerador;
+                                denominador1 = Math.pow(1 + i - mediaX, 2) + denominador1;
+                                denominador2 = Math.pow(arrayDatos[i] - media, 2) + denominador2;
+                            }
+                            if (denominador1 == 0) {
+                                //improbable
+                                pendiente = "No disponible";
+                                intercepto = "No disponible";
+                                r = "No disponible";
+                                r2 = "No disponible";
+                                return;
+                            } else {
+                                pendiente = numerador / denominador1;
+                                intercepto = media - pendiente * mediaX;
+                            }
+                            if (denominador2 == 0) {
+                                //improbable 
+                                if (pendiente == 0) {
+                                    r = 1;
+                                    r2 = 1;
+                                    return;
+                                }
+                                r = "No disponible";
+                                r2 = "No disponible";
+                                return;
+                            } else {
+                                r = numerador / Math.sqrt(denominador1 * denominador2);
+                                r2 = r * r;
+                            }
+                            
+                        }
                     </script>
                     <!--REALIZA CÁLCULOS-->
                     <script>
@@ -1069,6 +1139,10 @@ return temp;
                             document.getElementById("ETMM").value = "";
                             document.getElementById("coefAsim").value = "";
                             document.getElementById("curtosis").value = "";
+                            document.getElementById("pendiente").value = "";
+                            document.getElementById("intercepto").value = "";
+                            document.getElementById("r").value = "";
+                            document.getElementById("r2").value = "";
                             //nada que copiar
                             getbtnCopiar.setAttribute("disabled", "disabled");
                             //nada que graficar
@@ -1177,6 +1251,9 @@ return temp;
                             coefAsim = calculaCoefAsim();
                             //curtosis
                             curtosis = calculaCurtosis();
+                            //regresión lineal
+                            //se obtienen 4 variables: pendiente, intercepto, r y r^2
+                            regLineal();
 
                             //formatea resultados: min 0 y max 9 decimales... y configuración local
                             
@@ -1208,6 +1285,10 @@ return temp;
                             document.getElementById("ETMM").value = ETMM.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("coefAsim").value = coefAsim.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("curtosis").value = curtosis.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("pendiente").value = pendiente.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("intercepto").value = intercepto.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("r").value = r.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("r2").value = r2.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
 
                             //informa éxito en cálculo
                             showSnackbar("¡Cálculos realizados!");
