@@ -70,14 +70,18 @@
             }
             /*ajustes al imprimir*/
             @media print {
-                #selectorN {
+                #selectorN, #opcionesGráfico, #snackbar {
                     display: none !important;
                 }
 
                 #divDatos {
                     max-height: none !important;
                 }
-
+                #linechart {                    
+                    overflow:hidden;
+                    margin-left: 1px !important;
+                    margin-right: 1px !important;                    
+                }
             }
 
             .formulario {
@@ -590,7 +594,11 @@ return temp;
                     
                     <button type="button" id="btnCalcular" title="Realizar cálculos">CALCULAR</button>
                     <button type="button" id="btnCopiar" disabled title="Copiar Resultados">COPIAR</button> 
-                    <button type="button" id="btnRellenar" title="Rellenar con valores aleatorios">Rellenar</button>
+                    <!--
+                    //RUTINA PARA PRUEBAS DE DISEÑO, LLENA LOS CAMPOS CON ENTEROS ALEATORIOS ENTRE 0 Y 100
+                        <button type="button" id="btnRellenar" title="Rellenar con valores aleatorios">Rellenar</button>
+                    -->
+                    
                     <fieldset>
                         <legend>Resultados: </legend>
                         <label >Número de Datos:</label> <br />
@@ -629,31 +637,31 @@ return temp;
                         <input type="text" id="q3" readonly /><br />
                         <label>Rango intercuartílico (Q<sub>3</sub> - Q<sub>1</sub>):</label> <br />
                         <input type="text" id="rangoIntercuartílico" readonly /><br />
-                        <label>Varianza poblacional</label> <br />
+                        <label>Varianza poblacional:</label> <br />
                         <input type="text" id="varianzaP" readonly /><br />
-                        <label>Desviación estándar poblacional</label> <br />
+                        <label>Desviación estándar poblacional:</label> <br />
                         <input type="text" id="desvP" readonly /><br />
-                        <label>Coeficiente de variación poblacional</label> <br />
+                        <label>Coeficiente de variación poblacional:</label> <br />
                         <input type="text" id="coefVarP" readonly /><br />
-                        <label>Varianza muestral</label> <br />
+                        <label>Varianza muestral:</label> <br />
                         <input type="text" id="varianzaM" readonly /><br />
-                        <label>Desviación estándar muestral</label> <br />
+                        <label>Desviación estándar muestral:</label> <br />
                         <input type="text" id="desvM" readonly /><br />
-                        <label>Coeficiente de variación muestral</label> <br />
+                        <label>Coeficiente de variación muestral:</label> <br />
                         <input type="text" id="coefVarM" readonly /><br />
-                        <label>Error típico de la media muestral</label> <br />
+                        <label>Error típico de la media muestral:</label> <br />
                         <input type="text" id="ETMM" readonly /><br />
-                        <label>Coeficiente de asimetría</label> <br />
+                        <label>Coeficiente de asimetría de Fisher:</label> <br />
                         <input type="text" id="coefAsim" readonly /><br />
-                        <label>Curtosis</label> <br />
+                        <label>Curtosis:</label> <br />
                         <input type="text" id="curtosis" readonly /><br />
-                        <label>Pendiente recta de ajuste y = <strong>m</strong>x + b</label> <br />
+                        <label>Pendiente recta de ajuste y = <strong>m</strong>x + b:</label> <br />
                         <input type="text" id="pendiente" readonly /><br />
-                        <label>Intercepto recta de ajuste y = mx + <strong>b</strong></label> <br />
+                        <label>Intercepto recta de ajuste y = mx + <strong>b</strong>:</label> <br />
                         <input type="text" id="intercepto" readonly /><br />
-                        <label>Coeficiente de correlación <strong>r</strong></label> <br />
+                        <label>Coeficiente de correlación <strong>r</strong>:</label> <br />
                         <input type="text" id="r" readonly /><br />
-                        <label>Coeficiente <strong>r<sup>2</sup></strong></label> <br />
+                        <label>Coeficiente <strong>r<sup>2</sup></strong>:</label> <br />
                         <input type="text" id="r2" readonly /><br />
 
                     </fieldset>                    
@@ -1348,37 +1356,110 @@ return temp;
                             //aquí guardamos una referencia a cada control a copiar
                             var copyCampo;
                             //aquí vamos guardando la cadena total a copiar
-                            var copyText = "*** IMC ***" + "\r\n" + "*** ÍNDICE DE MASA CORPORAL *** ";
-                            //PARÁMETROS
-                            copyText = copyText + "\r\n" + "PARÁMETROS:";
-                            //PESO
-                            copyCampo = imputPeso;
-                            copyText = copyText + "\r\n" + 'PESO (KILOGRAMOS) = ' + Number(copyCampo.value).toLocaleString();
-                            //ESTATURA
-                            copyCampo = imputEstatura;
-                            copyText = copyText + "\r\n" + 'ESTATURA (METROS) = ' + Number(copyCampo.value).toLocaleString();
+                            var copyText = "*** ANÁLISIS DE DATOS ***" + "\r" ;
+                            
                             //RESULTADOS
-                            copyText = copyText + "\r\n" + "RESULTADOS:";
-                            //IMC
-                            copyCampo = imputIMC;
-                            copyText = copyText + "\r\n" + 'IMC = ' + copyCampo.value;
-                            //VALORACIÓN
-                            copyCampo = imputValoración;
-                            copyText = copyText + "\r\n" + 'VALORACIÓN = ' + copyCampo.value;
-                            //MIN
-                            copyCampo = imputMin;
-                            copyText = copyText + "\r\n" + 'PESO IDEAL MÍNIMO (Kg) = ' + copyCampo.value;
-                            //PROMEDIO
-                            copyCampo = imputPromedio;
-                            copyText = copyText + "\r\n" + 'PESO IDEAL PROMEDIO (Kg) = ' + copyCampo.value;
-                            //MAX
-                            copyCampo = imputMax;
-                            copyText = copyText + "\r\n" + 'PESO IDEAL MÁXIMO (Kg) = ' + copyCampo.value;
-                            //FECHA DE GENERACIÓN
+                            copyText = copyText + "RESULTADOS:";
+
+                            //cuenta
+                            copyCampo = document.getElementById("cuenta");
+                            copyText = copyText + "\r" + 'Número de Datos = ' + copyCampo.value;
+                            //suma
+                            copyCampo = document.getElementById("suma");
+                            copyText = copyText + "\r" + 'Suma = ' + copyCampo.value;
+                            //productoria
+                            copyCampo = document.getElementById("productoria");
+                            copyText = copyText + "\r" + 'Productoria = ' + copyCampo.value;
+                            //sumaCuadrados
+                            copyCampo = document.getElementById("sumaCuadrados");
+                            copyText = copyText + "\r" + 'Suma de cuadrados = ' + copyCampo.value;
+                            //max
+                            copyCampo = document.getElementById("max");
+                            copyText = copyText + "\r" + 'Máximo = ' + copyCampo.value;
+                            //min
+                            copyCampo = document.getElementById("min");
+                            copyText = copyText + "\r" + 'Mínimo = ' + copyCampo.value;
+                            //rango
+                            copyCampo = document.getElementById("rango");
+                            copyText = copyText + "\r" + 'Rango o recorrido = ' + copyCampo.value;
+                            //recorridoRelativo
+                            copyCampo = document.getElementById("recorridoRelativo");
+                            copyText = copyText + "\r" + 'Recorrido relativo = ' + copyCampo.value;
+                            //coefApertura
+                            copyCampo = document.getElementById("coefApertura");
+                            copyText = copyText + "\r" + 'Coeficiente de apertura = ' + copyCampo.value;
+                            //media
+                            copyCampo = document.getElementById("media");
+                            copyText = copyText + "\r" + 'Media aritmética = ' + copyCampo.value;
+                            //mediaGeom
+                            copyCampo = document.getElementById("mediaGeom");
+                            copyText = copyText + "\r" + 'Media geométrica = ' + copyCampo.value;
+                            //mediaArm
+                            copyCampo = document.getElementById("mediaArm");
+                            copyText = copyText + "\r" + 'Media armónica = ' + copyCampo.value;
+                            //mediaCuad
+                            copyCampo = document.getElementById("mediaCuad");
+                            copyText = copyText + "\r" + 'Media cuadrática = ' + copyCampo.value;
+                            //moda
+                            copyCampo = document.getElementById("moda");
+                            copyText = copyText + "\r" + 'Moda (Primera encontrada) = ' + copyCampo.value;
+                            //mediana
+                            copyCampo = document.getElementById("mediana");
+                            copyText = copyText + "\r" + 'Mediana = ' + copyCampo.value;
+                            //q1
+                            copyCampo = document.getElementById("q1");
+                            copyText = copyText + "\r" + 'Primer cuartil (Q1 = P25) = ' + copyCampo.value;
+                            //q3
+                            copyCampo = document.getElementById("q3");
+                            copyText = copyText + "\r" + 'Tercer cuartil (Q3 = P75) = ' + copyCampo.value;
+                            //rangoIntercuartílico
+                            copyCampo = document.getElementById("rangoIntercuartílico");
+                            copyText = copyText + "\r" + 'Rango intercuartílico (Q3 - Q1) = ' + copyCampo.value;
+                            //varianzaP
+                            copyCampo = document.getElementById("varianzaP");
+                            copyText = copyText + "\r" + 'Varianza poblacional = ' + copyCampo.value;
+                            //desvP
+                            copyCampo = document.getElementById("desvP");
+                            copyText = copyText + "\r" + 'Desviación estándar poblacional = ' + copyCampo.value;
+                            //coefVarP
+                            copyCampo = document.getElementById("coefVarP");
+                            copyText = copyText + "\r" + 'Coeficiente de variación poblacional = ' + copyCampo.value;
+                            //varianzaM
+                            copyCampo = document.getElementById("varianzaM");
+                            copyText = copyText + "\r" + 'Varianza muestral = ' + copyCampo.value;
+                            //desvM
+                            copyCampo = document.getElementById("desvM");
+                            copyText = copyText + "\r" + 'Desviación estándar muestral = ' + copyCampo.value;
+                            //coefVarM
+                            copyCampo = document.getElementById("coefVarM");
+                            copyText = copyText + "\r" + 'Coeficiente de variación muestral = ' + copyCampo.value;
+                            //ETMM
+                            copyCampo = document.getElementById("ETMM");
+                            copyText = copyText + "\r" + 'Error típico de la media muestral = ' + copyCampo.value;
+                            //coefAsim
+                            copyCampo = document.getElementById("coefAsim");
+                            copyText = copyText + "\r" + 'Coeficiente de asimetría de Fisher = ' + copyCampo.value;
+                            //curtosis
+                            copyCampo = document.getElementById("curtosis");
+                            copyText = copyText + "\r" + 'Curtosis = ' + copyCampo.value;
+                            //pendiente
+                            copyCampo = document.getElementById("pendiente");
+                            copyText = copyText + "\r" + 'Pendiente recta de ajuste = ' + copyCampo.value;
+                            //intercepto
+                            copyCampo = document.getElementById("intercepto");
+                            copyText = copyText + "\r" + 'Intercepto recta de ajuste = ' + copyCampo.value;
+                            //r
+                            copyCampo = document.getElementById("r");
+                            copyText = copyText + "\r" + 'Coeficiente de correlación r = ' + copyCampo.value;
+                            //r2
+                            copyCampo = document.getElementById("r2");
+                            copyText = copyText + "\r" + 'Coeficiente r^2 = ' + copyCampo.value;
+
+                            //FECHA DE CÁLCULO
                             var d = new Date();
-                            copyText = copyText + "\r\n" + '********';
-                            copyText = copyText + "\r\n" + 'GENERADO: ';
-                            copyText = copyText + "\r\n" + d.toLocaleString();
+                            copyText = copyText + "\r" + '********';
+                            copyText = copyText + "\r" + 'CALCULADO: ';
+                            copyText = copyText + "\r" + d.toLocaleString();
                             //finalmente copiamos la cadena completa...
                             copyToClipboard(copyText);
                         }
@@ -1635,13 +1716,14 @@ return temp;
                                 drawChart2();
                             }
                         }
+                        //RUTINA PARA PRUEBAS DE DISEÑO, LLENA LOS CAMPOS CON ENTEROS ALEATORIOS ENTRE 0 Y 100
+                        //document.getElementById('btnRellenar').onclick = function () {
+                            // i;
+                            // (i = 1; i <= Number(slider.value); i++) {
+                                //.getElementById("dato" + i).value = Math.floor(Math.random() * 101);
+                            //
+                        //}
 
-                        document.getElementById('btnRellenar').onclick = function () {
-                            var i;
-                            for (i = 1; i <= Number(slider.value); i++) {
-                                document.getElementById("dato" + i).value = Math.floor(Math.random() * 101);
-                            }
-                        }
                 </script>
 
 

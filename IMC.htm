@@ -90,6 +90,7 @@
             <a href="TRADUCTOR.htm"><i class="fa fa-google"></i>TRADUCIR</a>
             <a href="GRAFICAR.htm"><i class="fa fa-pie-chart"></i>GRAFICAR</a>
             <a href="FRASES.htm"><i class="fa fa-book"></i>FRASES</a>
+            <a href="ANALIZAR.htm"><i class="fa fa-table"></i>ANALIZAR</a>
             <hr />
             <a href="#" onclick="imprimir()"><i class="fa fa-print"></i>IMPRIMIR</a>
         </div>
@@ -124,6 +125,7 @@
                 <a href="TRADUCTOR.htm"><i class="fa fa-google"></i>TRADUCIR</a>
                 <a href="GRAFICAR.htm"><i class="fa fa-pie-chart"></i>GRAFICAR</a>
                 <a href="FRASES.htm"><i class="fa fa-book"></i>FRASES</a>
+                <a href="ANALIZAR.htm"><i class="fa fa-table"></i>ANALIZAR</a>
                 <span id="separador">|</span>
                 <a href="#" onclick="imprimir()"><i class="fa fa-print"></i>IMPRIMIR</a>
 
@@ -339,37 +341,37 @@
                             //aquí guardamos una referencia a cada control a copiar
                             var copyCampo;
                             //aquí vamos guardando la cadena total a copiar
-                            var copyText = "*** IMC ***" + "\r\n" + "*** ÍNDICE DE MASA CORPORAL *** ";
+                            var copyText = "*** IMC ***" + "\r" + "*** ÍNDICE DE MASA CORPORAL *** ";
                             //PARÁMETROS                            
-                            copyText = copyText + "\r\n" + "PARÁMETROS:";
+                            copyText = copyText + "\r" + "PARÁMETROS:";
                             //PESO
                             copyCampo = imputPeso;
-                            copyText = copyText + "\r\n" + 'PESO (KILOGRAMOS) = ' + Number(copyCampo.value).toLocaleString();
+                            copyText = copyText + "\r" + 'PESO (KILOGRAMOS) = ' + Number(copyCampo.value).toLocaleString();
                             //ESTATURA
                             copyCampo = imputEstatura;
-                            copyText = copyText + "\r\n" + 'ESTATURA (METROS) = ' + Number(copyCampo.value).toLocaleString();
+                            copyText = copyText + "\r" + 'ESTATURA (METROS) = ' + Number(copyCampo.value).toLocaleString();
                             //RESULTADOS                            
-                            copyText = copyText + "\r\n" + "RESULTADOS:";
+                            copyText = copyText + "\r" + "RESULTADOS:";
                             //IMC
                             copyCampo = imputIMC;
-                            copyText = copyText + "\r\n" + 'IMC = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'IMC = ' + copyCampo.value;
                             //VALORACIÓN
                             copyCampo = imputValoración;
-                            copyText = copyText + "\r\n" + 'VALORACIÓN = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'VALORACIÓN = ' + copyCampo.value;
                             //MIN
                             copyCampo = imputMin;
-                            copyText = copyText + "\r\n" + 'PESO IDEAL MÍNIMO (Kg) = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'PESO IDEAL MÍNIMO (Kg) = ' + copyCampo.value;
                             //PROMEDIO
                             copyCampo = imputPromedio;
-                            copyText = copyText + "\r\n" + 'PESO IDEAL PROMEDIO (Kg) = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'PESO IDEAL PROMEDIO (Kg) = ' + copyCampo.value;
                             //MAX
                             copyCampo = imputMax;
-                            copyText = copyText + "\r\n" + 'PESO IDEAL MÁXIMO (Kg) = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'PESO IDEAL MÁXIMO (Kg) = ' + copyCampo.value;
                             //FECHA DE GENERACIÓN
                             var d = new Date();
-                            copyText = copyText + "\r\n" + '********';
-                            copyText = copyText + "\r\n" + 'GENERADO: ';
-                            copyText = copyText + "\r\n" + d.toLocaleString();
+                            copyText = copyText + "\r" + '********';
+                            copyText = copyText + "\r" + 'GENERADO: ';
+                            copyText = copyText + "\r" + d.toLocaleString();
                             //finalmente copiamos la cadena completa...
                             copyToClipboard(copyText);                            
                         }
