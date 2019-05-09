@@ -676,8 +676,11 @@ return temp;
                         Mostrar tendencia lineal y media aritmética
                         <input type="checkbox" id="myCheck" onclick="clickCheck()">
                         <span class="checkmark"></span>
-                    </label>
-                </fieldset>
+                    </label>  
+                    <div id='png'></div>
+                    <p class="letramorada">En navegadores modernos, puede descargar el gráfico como una imagen PNG</p>
+                </fieldset>                
+                
                 <!--script para cargar la API de Google para gráficos-->
                 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js">
                 </script>
@@ -1589,7 +1592,11 @@ return temp;
 
                             // Display the chart inside the <div> element with id="linechart"
                             var chart = new google.visualization.LineChart(document.getElementById('linechart'));
+                            
                             chart.draw(data, options);
+                            //enlace de descarga png
+                            document.getElementById('png').outerHTML = '<a href="' + chart.getImageURI() + '" download="Imagen" target="_blank" class="link" title="Obtener imagen png del gráfico">Descargar Gráfico</a>';
+
                         }
 
                         // Draw the chart and set the chart values
@@ -1703,7 +1710,10 @@ return temp;
 
                             // Display the chart inside the <div> element with id="linechart"
                             var chart = new google.visualization.LineChart(document.getElementById('linechart'));
+                           
                             chart.draw(data, options);
+                            //enlace de descarga png
+                            document.getElementById('png').outerHTML = '<a href="' + chart.getImageURI() + '" download="Imagen" target="_blank" class="link" title="Obtener imagen png del gráfico">Descargar Gráfico</a>';
                         }
 
                         function clickCheck() {
