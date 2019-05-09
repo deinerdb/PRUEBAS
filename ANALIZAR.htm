@@ -122,7 +122,7 @@
                 display: inline-block;
                 font-weight: bold;
             }
-            #aIzquierda i:hover , #aDerecha i:hover {
+            #aIzquierda i:hover , #aDerecha i:hover, #BtnPNG:hover {
                 background: #8c53c6; /* For browsers that do not support gradients */
                 background: -webkit-linear-gradient(left, #8c53c6, rebeccapurple); /* For Safari 5.1 to 6.0 */
                 background: -o-linear-gradient(right, #8c53c6, rebeccapurple); /* For Opera 11.1 to 12.0 */
@@ -134,7 +134,11 @@
                 white-space: nowrap;
                 margin-top: 24px;                
             }
-            #divA i {
+            #BtnPNG {
+                text-decoration: none;
+                padding: 16px 32px !important;
+            }
+            #divA i, #BtnPNG {
                 -webkit-box-sizing: border-box;
                 -moz-box-sizing: border-box;
                 box-sizing: border-box;
@@ -292,7 +296,7 @@
                 display: block;
                 position: relative;
                 padding-left: 35px;
-                margin-bottom: 12px;
+                margin-bottom: 18px;
                 cursor: pointer;
                 font-size: 22px;
                 -webkit-user-select: none;
@@ -676,9 +680,9 @@ return temp;
                         Mostrar tendencia lineal y media aritmética
                         <input type="checkbox" id="myCheck" onclick="clickCheck()">
                         <span class="checkmark"></span>
-                    </label>  
-                    <div id='png'></div>
-                    <p class="letramorada">En navegadores modernos, puede descargar el gráfico como una imagen PNG</p>
+                    </label>                      
+                    <button id="BtnPNG" title="Copiar enlace a imagen PNG del gráfico">COPIAR ENLACE PNG</button>
+                    <p class="letramorada">En navegadores modernos, puede visualizar este enlace como una imagen PNG</p>
                 </fieldset>                
                 
                 <!--script para cargar la API de Google para gráficos-->
@@ -723,6 +727,9 @@ return temp;
                         var intercepto;
                         var r;
                         var r2;
+
+                        // para el gráfico
+                        var chart;
 
                         //SUMA ARRAY
                         function sumar() {
@@ -1591,14 +1598,18 @@ return temp;
                             };
 
                             // Display the chart inside the <div> element with id="linechart"
-                            var chart = new google.visualization.LineChart(document.getElementById('linechart'));
+                            //var chart = new google.visualization.LineChart(document.getElementById('linechart'));
+                            var chart_div = document.getElementById('linechart');
+                            chart = new google.visualization.LineChart(chart_div);
+
+                                                      
+                             //   enlace de descarga png, esto no funcionó
+                             //document.getElementById('png').outerHTML = '<a href="' + chart.getImageURI() + '" download="Imagen" target="_blank" class="link" title="Obtener imagen png del gráfico">Descargar Gráfico</a>';
                             
-                            chart.draw(data, options);
-                            //enlace de descarga png
-                            document.getElementById('png').outerHTML = '<a href="' + chart.getImageURI() + '" download="Imagen" target="_blank" class="link" title="Obtener imagen png del gráfico">Descargar Gráfico</a>';
-
+                            chart.draw(data, options);                          
+                            
                         }
-
+                        
                         // Draw the chart and set the chart values
                         // con series adicionales
                         function drawChart3() {
@@ -1709,13 +1720,21 @@ return temp;
                             };
 
                             // Display the chart inside the <div> element with id="linechart"
-                            var chart = new google.visualization.LineChart(document.getElementById('linechart'));
-                           
+                            //var chart = new google.visualization.LineChart(document.getElementById('linechart'));
+                            var chart_div = document.getElementById('linechart');
+                            chart = new google.visualization.LineChart(chart_div);                                                                                                                                         
                             chart.draw(data, options);
-                            //enlace de descarga png
-                            document.getElementById('png').outerHTML = '<a href="' + chart.getImageURI() + '" download="Imagen" target="_blank" class="link" title="Obtener imagen png del gráfico">Descargar Gráfico</a>';
+                            
                         }
-
+                        // botón png
+                        document.getElementById("BtnPNG").onclick = function () {
+                            //optiene un enlace a la imagen png 
+                            var msj;
+                            msj = chart.getImageURI();
+                            copyToClipboard(msj);
+                            showSnackbar("Enlace PNG copiado");
+                        }
+                    
                         function clickCheck() {
                             var checkBox = document.getElementById("myCheck");                            
                             if (checkBox.checked == true) {
