@@ -669,7 +669,8 @@ return temp;
                         <input type="text" id="r" readonly /><br />
                         <label>Coeficiente <strong>r<sup>2</sup></strong>:</label> <br />
                         <input type="text" id="r2" readonly /><br />
-                        
+                        <label>Pronóstico lineal:</label> <br />
+                        <input type="text" id="pronLin" readonly /><br />
                     </fieldset>                    
                 </form>
                 <div id="linechart"></div>
@@ -730,6 +731,7 @@ return temp;
                         var r;
                         var r2;
                         var desvMedia;
+                        var pronLin;
 
                         // para el gráfico
                         var chart;
@@ -1025,7 +1027,7 @@ return temp;
                                 //mínimo dos puntos de datos
                                 //asume linealidad y recta horizontal
                                 pendiente = 0;
-                                intercepto = arrayDatos[0];
+                                intercepto = Number(arrayDatos[0]);
                                 r = 1;
                                 r2 = 1;
                                 return;
@@ -1084,6 +1086,13 @@ return temp;
                                 temp = Math.abs(arrayDatos[i] - media) + temp;
                             }
                             return temp / cuenta;
+                        }
+                        //devuelve el pronóstico lineal
+                        function calculaPronósticoLineal() { 
+                            if (isNaN(pendiente) == true || isNaN(intercepto) == true) {
+                                return "No disponible";
+                            }
+                            return Number(pendiente * (1 + cuenta)) + Number(intercepto);
                         }
                     </script>
                     <!--REALIZA CÁLCULOS-->
@@ -1174,6 +1183,7 @@ return temp;
                             document.getElementById("r").value = "";
                             document.getElementById("r2").value = "";
                             document.getElementById("desvMedia").value = "";
+                            document.getElementById("pronLin").value = "";
                             //nada que copiar
                             getbtnCopiar.setAttribute("disabled", "disabled");
                             //nada que graficar
@@ -1286,7 +1296,8 @@ return temp;
                             curtosis = calculaCurtosis();
                             //regresión lineal
                             //se obtienen 4 variables: pendiente, intercepto, r y r^2
-                            regLineal();                            
+                            regLineal(); 
+                            pronLin = calculaPronósticoLineal();
                             //formatea resultados: min 0 y max 9 decimales... y configuración local
                             
                             //escribe resultados
@@ -1322,6 +1333,7 @@ return temp;
                             document.getElementById("r").value = r.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("r2").value = r2.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("desvMedia").value = desvMedia.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("pronLin").value = pronLin.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
 
                             //informa éxito en cálculo
                             showSnackbar("¡Cálculos realizados!");
@@ -1482,6 +1494,9 @@ return temp;
                             //r2
                             copyCampo = document.getElementById("r2");
                             copyText = copyText + "\r" + 'Coeficiente r^2 = ' + copyCampo.value;
+                            //pronóstico lineal
+                            copyCampo = document.getElementById("pronLin");
+                            copyText = copyText + "\r" + 'Pronóstico lineal = ' + copyCampo.value;
 
                             //FECHA DE CÁLCULO
                             var d = new Date();
