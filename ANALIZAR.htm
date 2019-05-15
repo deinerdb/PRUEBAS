@@ -680,6 +680,11 @@ return temp;
                 <fieldset id="opcionesGráfico">
                     <legend>Opciones del Gráfico: </legend>
                     <label class="contenedorCheckbox">
+                        Usar trazado curvo
+                        <input type="checkbox" id="myCheck2" onclick="clickCheck2()">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="contenedorCheckbox">
                         Mostrar tendencia lineal y media aritmética
                         <input type="checkbox" id="myCheck" onclick="clickCheck()">
                         <span class="checkmark"></span>
@@ -732,6 +737,7 @@ return temp;
                         var r2;
                         var desvMedia;
                         var pronLin;
+                        var tipoCurva = 'null';
 
                         // para el gráfico
                         var chart;
@@ -1579,7 +1585,8 @@ return temp;
                             // Optional; add a title and set the width and height of the chart
                             var options = {
                                 //título
-                                'title': 'GRÁFICA DE DATOS INGRESADOS',                                
+                                'title': 'GRÁFICA DE DATOS INGRESADOS',  
+                                curveType: tipoCurva,
                                 titleTextStyle: {
                                     //azul oscuro
                                     color: '#000066',
@@ -1675,6 +1682,7 @@ return temp;
                             var options = {
                                 //título
                                 'title': 'GRÁFICA DE DATOS INGRESADOS',
+                                curveType: tipoCurva,
                                 titleTextStyle: {
                                     //azul oscuro
                                     color: '#000066',
@@ -1777,6 +1785,15 @@ return temp;
                                 mostrarSeriesAdicionales = false;
                                 drawChart2();
                             }
+                        }
+                        function clickCheck2() {
+                            var checkBox2 = document.getElementById("myCheck2");
+                            if (checkBox2.checked == true) {
+                                tipoCurva = 'function';
+                            } else {
+                                tipoCurva = 'null';
+                            }
+                            clickCheck();
                         }
                         //RUTINA PARA PRUEBAS DE DISEÑO, LLENA LOS CAMPOS CON ENTEROS ALEATORIOS ENTRE 0 Y 100
                         //document.getElementById('btnRellenar').onclick = function () {

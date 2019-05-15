@@ -228,6 +228,7 @@ window.onload = function () {
         document.getElementById("div3").style.display = "block";
         //CHECKBOX DESMARCADO        
         document.getElementById("myCheck").checked = false;
+        document.getElementById("myCheck2").checked = false;
         //limpia por si acaso
         borrarResultados();
         // todos los campos input borrados
