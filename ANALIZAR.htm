@@ -661,16 +661,36 @@ return temp;
                         <input type="text" id="coefAsim" readonly /><br />
                         <label>Curtosis:</label> <br />
                         <input type="text" id="curtosis" readonly /><br />
-                        <label>Pendiente recta de ajuste y = <strong>m</strong>x + b:</label> <br />
+                        <label>Pendiente <strong>m</strong> recta de ajuste y = <strong>m</strong>x + b:</label> <br />
                         <input type="text" id="pendiente" readonly /><br />
-                        <label>Intercepto recta de ajuste y = mx + <strong>b</strong>:</label> <br />
+                        <label>Intercepto <strong>b</strong> recta de ajuste y = mx + <strong>b</strong>:</label> <br />
                         <input type="text" id="intercepto" readonly /><br />
-                        <label>Coeficiente de correlación <strong>r</strong>:</label> <br />
+                        <label>Coeficiente de correlación <strong>r</strong> lineal:</label> <br />
                         <input type="text" id="r" readonly /><br />
-                        <label>Coeficiente <strong>r<sup>2</sup></strong>:</label> <br />
+                        <label>Coeficiente <strong>r<sup>2</sup></strong> lineal:</label> <br />
                         <input type="text" id="r2" readonly /><br />
                         <label>Pronóstico lineal:</label> <br />
                         <input type="text" id="pronLin" readonly /><br />
+                        <label>Parámetro <strong>a</strong> regresión exponencial y = <strong>a</strong>e<sup>bx</sup>:</label> <br />
+                        <input type="text" id="aExp" readonly /><br />
+                        <label>Parámetro <strong>b</strong> regresión exponencial y = ae<sup><strong>b</strong>x</sup>:</label> <br />
+                        <input type="text" id="bExp" readonly /><br />
+                        <label>Coeficiente <strong>r</strong> regresión exponencial:</label> <br />
+                        <input type="text" id="rExp" readonly /><br />
+                        <label>Coeficiente <strong>r<sup>2</sup></strong> regresión exponencial:</label> <br />
+                        <input type="text" id="r2Exp" readonly /><br />
+                        <label>Pronóstico exponencial:</label> <br />
+                        <input type="text" id="pronExp" readonly /><br />
+                        <label>Parámetro <strong>a</strong> regresión logarítmica y = <strong>a</strong>ln(x) + b:</label> <br />
+                        <input type="text" id="aLog" readonly /><br />
+                        <label>Parámetro <strong>b</strong> regresión logarítmica y = aln(x) + <strong>b</strong>:</label> <br />
+                        <input type="text" id="bLog" readonly /><br />
+                        <label>Coeficiente <strong>r</strong> regresión logarítmica:</label> <br />
+                        <input type="text" id="rLog" readonly /><br />
+                        <label>Coeficiente <strong>r<sup>2</sup></strong> regresión logarítmica:</label> <br />
+                        <input type="text" id="r2Log" readonly /><br />
+                        <label>Pronóstico logarítmico:</label> <br />
+                        <input type="text" id="pronLog" readonly /><br />
                     </fieldset>                    
                 </form>
                 <div id="linechart"></div>
@@ -738,6 +758,16 @@ return temp;
                         var desvMedia;
                         var pronLin;
                         var tipoCurva = 'null';
+                        var aExp;
+                        var bExp;
+                        var rExp;
+                        var r2Exp;
+                        var pronExp;
+                        var aLog;
+                        var bLog;
+                        var rLog;
+                        var r2Log;
+                        var pronLog;
 
                         // para el gráfico
                         var chart;
@@ -1100,6 +1130,84 @@ return temp;
                             }
                             return Number(pendiente * (1 + cuenta)) + Number(intercepto);
                         }
+                        //regresión exponencial
+                        function regExponencial() {
+                            if (cuenta < 2) {
+                                //mínimo dos puntos de datos
+                                //No asume nada
+                                aExp = "No disponible (N < 2)";
+                                bExp = "No disponible (N < 2)";
+                                rExp = "No disponible (N < 2)";
+                                r2Exp = "No disponible (N < 2)";
+                                pronExp = "No disponible (N < 2)";
+                                return;
+                            }
+                            if (todosPositivos == false) {
+                                //no realiza la regresión 
+                                aExp = "Requiere valores positivos";
+                                bExp = "Requiere valores positivos";
+                                rExp = "Requiere valores positivos";
+                                r2Exp = "Requiere valores positivos";
+                                pronExp = "Requiere valores positivos";
+                                return;
+                            }
+                            //cálcula...
+                            var i;
+                            var numerador = 0;
+                            var denominador1 = 0;
+                            var denominador2 = 0;
+                            var mediaX;
+                            var mediaLnY = 0;
+                            var temp = 0;
+
+                            for (i = 1; i <= cuenta; i++) {
+                                temp = Number(i) + temp;
+                                mediaLnY = Math.log(arrayDatos[i - 1]) + mediaLnY;
+                            }
+                            mediaX = temp / cuenta;
+                            mediaLnY = mediaLnY / cuenta;
+                            //sumatorias
+                            for (i = 0; i < arrayDatos.length; i++) {
+                                numerador = (1 + i - mediaX) * (Math.log(arrayDatos[i]) - mediaLnY) + numerador;
+                                denominador1 = Math.pow(1 + i - mediaX, 2) + denominador1;
+                                denominador2 = Math.pow(Math.log(arrayDatos[i]) - mediaLnY, 2) + denominador2;
+                            }
+                            if (denominador1 == 0) {
+                                //improbable
+                                aExp = "No disponible";
+                                bExp = "No disponible";
+                                rExp = "No disponible";
+                                r2Exp = "No disponible";
+                                return;
+                            } else {
+                                bExp = numerador / denominador1;
+                                aExp = mediaLnY - bExp * mediaX;
+                                aExp = Math.exp(aExp);
+                            }
+                            if (denominador2 == 0) {                                
+                                rExp = "No disponible";
+                                r2Exp = "No disponible";
+                                return;
+                            } else {
+                                rExp = numerador / Math.sqrt(denominador1 * denominador2);
+                                r2Exp = rExp * rExp;
+                            }
+                        }
+                        //devuelve el pronóstico exponencial
+                        function calculaPronósticoExponencial() {
+                            if (cuenta < 2) {
+                                return "No disponible (N < 2)";
+                            }
+                            if (todosPositivos == false) {                                
+                                return "Requiere valores positivos";                                
+                            }
+                            if (isNaN(aExp) == true || isNaN(bExp) == true) {
+                                return "No disponible";
+                            }                            
+                            var siguiente = 1 + cuenta;
+                            return aExp * Math.exp(bExp * siguiente);
+                        }
+
                     </script>
                     <!--REALIZA CÁLCULOS-->
                     <script>
@@ -1190,6 +1298,16 @@ return temp;
                             document.getElementById("r2").value = "";
                             document.getElementById("desvMedia").value = "";
                             document.getElementById("pronLin").value = "";
+                            document.getElementById("aExp").value = "";
+                            document.getElementById("bExp").value = "";
+                            document.getElementById("rExp").value = "";
+                            document.getElementById("r2Exp").value = "";
+                            document.getElementById("pronExp").value = "";
+                            document.getElementById("aLog").value = "";
+                            document.getElementById("bLog").value = "";
+                            document.getElementById("rLog").value = "";
+                            document.getElementById("r2Log").value = "";
+                            document.getElementById("pronLog").value = "";
                             //nada que copiar
                             getbtnCopiar.setAttribute("disabled", "disabled");
                             //nada que graficar
@@ -1304,8 +1422,15 @@ return temp;
                             //se obtienen 4 variables: pendiente, intercepto, r y r^2
                             regLineal(); 
                             pronLin = calculaPronósticoLineal();
-                            //formatea resultados: min 0 y max 9 decimales... y configuración local
-                            
+                            //regresión exponencial
+                            // se obtienen 4 variables: aExp, bExp, rExp y r2Exp
+                            regExponencial();
+                            pronExp = calculaPronósticoExponencial();
+                            //regresión logarítmica
+                            // se obtienen 4 variables: aLog, bLog, rLog y r2Log
+                            aLog = bLog = rLog = r2Log = pronLog = "Algoritmo en construcción";
+
+                            //formatea resultados: min 0 y max 9 decimales... y configuración local                            
                             //escribe resultados
                             document.getElementById("cuenta").value = cuenta;
                             document.getElementById("suma").value = suma.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
@@ -1340,6 +1465,16 @@ return temp;
                             document.getElementById("r2").value = r2.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("desvMedia").value = desvMedia.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("pronLin").value = pronLin.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("aExp").value = aExp.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("bExp").value = bExp.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("rExp").value = rExp.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("r2Exp").value = r2Exp.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("pronExp").value = pronExp.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("aLog").value = aLog.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("bLog").value = bLog.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("rLog").value = rLog.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("r2Log").value = r2Log.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("pronLog").value = pronLog.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
 
                             //informa éxito en cálculo
                             showSnackbar("¡Cálculos realizados!");
@@ -1496,13 +1631,28 @@ return temp;
                             copyText = copyText + "\r" + 'Intercepto recta de ajuste = ' + copyCampo.value;
                             //r
                             copyCampo = document.getElementById("r");
-                            copyText = copyText + "\r" + 'Coeficiente de correlación r = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Coeficiente r lineal = ' + copyCampo.value;
                             //r2
                             copyCampo = document.getElementById("r2");
-                            copyText = copyText + "\r" + 'Coeficiente r^2 = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Coeficiente r^2 lineal = ' + copyCampo.value;
                             //pronóstico lineal
                             copyCampo = document.getElementById("pronLin");
                             copyText = copyText + "\r" + 'Pronóstico lineal = ' + copyCampo.value;
+                            //a exp
+                            copyCampo = document.getElementById("aExp");
+                            copyText = copyText + "\r" + 'Parámetro a regresión exponencial = ' + copyCampo.value;
+                            //b exp
+                            copyCampo = document.getElementById("bExp");
+                            copyText = copyText + "\r" + 'Parámetro b regresión exponencial = ' + copyCampo.value;
+                            //r exp
+                            copyCampo = document.getElementById("rExp");
+                            copyText = copyText + "\r" + 'Coeficiente r exponencial = ' + copyCampo.value;
+                            //r2 exp
+                            copyCampo = document.getElementById("r2Exp");
+                            copyText = copyText + "\r" + 'Coeficiente r^2 exponencial = ' + copyCampo.value;
+                            //pronóstico exp
+                            copyCampo = document.getElementById("pronExp");
+                            copyText = copyText + "\r" + 'Pronóstico exponencial = ' + copyCampo.value;
 
                             //FECHA DE CÁLCULO
                             var d = new Date();
