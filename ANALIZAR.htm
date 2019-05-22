@@ -1208,6 +1208,69 @@ return temp;
                             return aExp * Math.exp(bExp * siguiente);
                         }
 
+                        //regresión logarítmica
+                        function regLogarítmica() {
+                            if (cuenta < 2) {
+                                //mínimo dos puntos de datos
+                                //No asume nada
+                                aLog = "No disponible (N < 2)";
+                                bLog = "No disponible (N < 2)";
+                                rLog = "No disponible (N < 2)";
+                                r2Log = "No disponible (N < 2)";
+                                pronLog = "No disponible (N < 2)";
+                                return;
+                            }
+                            
+                            //cálcula...
+                            var i;
+                            var numerador = 0;
+                            var denominador1 = 0;
+                            var denominador2 = 0;
+                            var mediaLnX = 0;  
+
+                            for (i = 1; i <= cuenta; i++) {                                
+                                mediaLnX = Math.log(i) + mediaLnX;
+                            }                            
+                            mediaLnX = mediaLnX / cuenta;
+                            //sumatorias
+                            for (i = 0; i < arrayDatos.length; i++) {
+                                numerador = (Math.log(1 + i) - mediaLnX) * (arrayDatos[i] - media) + numerador;
+                                denominador1 = Math.pow(Math.log(1 + i) - mediaLnX, 2) + denominador1;
+                                denominador2 = Math.pow(arrayDatos[i] - media, 2) + denominador2;
+                            }
+                            if (denominador1 == 0) {
+                                //improbable
+                                aLog = "No disponible";
+                                bLog = "No disponible";
+                                rLog = "No disponible";
+                                r2Log = "No disponible";
+                                return;
+                            } else {
+                                aLog = numerador / denominador1;
+                                bLog = media - aLog * mediaLnX;                                
+                            }
+                            if (denominador2 == 0) {
+                                rLog = "No disponible";
+                                r2Log = "No disponible";
+                                return;
+                            } else {
+                                rLog = numerador / Math.sqrt(denominador1 * denominador2);
+                                r2Log = rLog * rLog;
+                            }
+                        }
+                        //devuelve el pronóstico logarítmico
+                        function calculaPronósticoLogarítmico() {
+                            if (cuenta < 2) {
+                                return "No disponible (N < 2)";
+                            }                            
+                            if (isNaN(aLog) == true || isNaN(bLog) == true) {
+                                return "No disponible";
+                            }
+                            var siguiente = 1 + cuenta;
+                            return Number(bLog) + aLog * Math.log(siguiente);
+                        }
+
+
                     </script>
                     <!--REALIZA CÁLCULOS-->
                     <script>
@@ -1428,7 +1491,8 @@ return temp;
                             pronExp = calculaPronósticoExponencial();
                             //regresión logarítmica
                             // se obtienen 4 variables: aLog, bLog, rLog y r2Log
-                            aLog = bLog = rLog = r2Log = pronLog = "Algoritmo en construcción";
+                            regLogarítmica();
+                            pronLog = calculaPronósticoLogarítmico();
 
                             //formatea resultados: min 0 y max 9 decimales... y configuración local                            
                             //escribe resultados
