@@ -691,6 +691,16 @@ return temp;
                         <input type="text" id="r2Log" readonly /><br />
                         <label>Pronóstico logarítmico:</label> <br />
                         <input type="text" id="pronLog" readonly /><br />
+                        <label>Parámetro <strong>a</strong> regresión potencial y = <strong>a</strong>x<sup>b</sup>:</label> <br />
+                        <input type="text" id="aPot" readonly /><br />
+                        <label>Parámetro <strong>b</strong> regresión potencial y = ax<sup><strong>b</strong></sup>:</label> <br />
+                        <input type="text" id="bPot" readonly /><br />
+                        <label>Coeficiente <strong>r</strong> regresión potencial:</label> <br />
+                        <input type="text" id="rPot" readonly /><br />
+                        <label>Coeficiente <strong>r<sup>2</sup></strong> regresión potencial:</label> <br />
+                        <input type="text" id="r2Pot" readonly /><br />
+                        <label>Pronóstico potencial:</label> <br />
+                        <input type="text" id="pronPot" readonly /><br />
                     </fieldset>                    
                 </form>
                 <div id="linechart"></div>
@@ -768,7 +778,11 @@ return temp;
                         var rLog;
                         var r2Log;
                         var pronLog;
-
+                        var aPot;
+                        var bPot;
+                        var rPot;
+                        var r2Pot;
+                        var pronPot;
                         // para el gráfico
                         var chart;
 
@@ -1269,8 +1283,14 @@ return temp;
                             var siguiente = 1 + cuenta;
                             return Number(bLog) + aLog * Math.log(siguiente);
                         }
-
-
+                        //regresión potencial
+                        function regPotencial() {
+                            aPot = bPot = rPot = r2Pot = "Algoritmo en construcción";
+                        }
+                        //devuelve el pronóstico potencial
+                        function calculaPronósticoPotencial() {
+                            return "Algoritmo en construcción";
+                        }
                     </script>
                     <!--REALIZA CÁLCULOS-->
                     <script>
@@ -1371,6 +1391,11 @@ return temp;
                             document.getElementById("rLog").value = "";
                             document.getElementById("r2Log").value = "";
                             document.getElementById("pronLog").value = "";
+                            document.getElementById("aPot").value = "";
+                            document.getElementById("bPot").value = "";
+                            document.getElementById("rPot").value = "";
+                            document.getElementById("r2Pot").value = "";
+                            document.getElementById("pronPot").value = "";
                             //nada que copiar
                             getbtnCopiar.setAttribute("disabled", "disabled");
                             //nada que graficar
@@ -1493,7 +1518,11 @@ return temp;
                             // se obtienen 4 variables: aLog, bLog, rLog y r2Log
                             regLogarítmica();
                             pronLog = calculaPronósticoLogarítmico();
-
+                            //regresión potencial
+                            // se obtienen 4 variables: aPot, bPot, rPot y r2Pot
+                            regPotencial();
+                            pronPot = calculaPronósticoPotencial();
+                            //
                             //formatea resultados: min 0 y max 9 decimales... y configuración local                            
                             //escribe resultados
                             document.getElementById("cuenta").value = cuenta;
@@ -1539,6 +1568,11 @@ return temp;
                             document.getElementById("rLog").value = rLog.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("r2Log").value = r2Log.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("pronLog").value = pronLog.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("aPot").value = aPot.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("bPot").value = bPot.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("rPot").value = rPot.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("r2Pot").value = r2Pot.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("pronPot").value = pronPot.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
 
                             //informa éxito en cálculo
                             showSnackbar("¡Cálculos realizados!");
@@ -1717,6 +1751,36 @@ return temp;
                             //pronóstico exp
                             copyCampo = document.getElementById("pronExp");
                             copyText = copyText + "\r" + 'Pronóstico exponencial = ' + copyCampo.value;
+                            //a log
+                            copyCampo = document.getElementById("aLog");
+                            copyText = copyText + "\r" + 'Parámetro a regresión logarítmica = ' + copyCampo.value;
+                            //b log
+                            copyCampo = document.getElementById("bLog");
+                            copyText = copyText + "\r" + 'Parámetro b regresión logarítmica = ' + copyCampo.value;
+                            //r log
+                            copyCampo = document.getElementById("rLog");
+                            copyText = copyText + "\r" + 'Coeficiente r logarítmico = ' + copyCampo.value;
+                            //r2 log
+                            copyCampo = document.getElementById("r2Log");
+                            copyText = copyText + "\r" + 'Coeficiente r^2 logarítmico = ' + copyCampo.value;
+                            //pronóstico log
+                            copyCampo = document.getElementById("pronLog");
+                            copyText = copyText + "\r" + 'Pronóstico logarítmico = ' + copyCampo.value;
+                            //a Pot
+                            copyCampo = document.getElementById("aPot");
+                            copyText = copyText + "\r" + 'Parámetro a regresión potencial = ' + copyCampo.value;
+                            //b Pot
+                            copyCampo = document.getElementById("bPot");
+                            copyText = copyText + "\r" + 'Parámetro b regresión potencial = ' + copyCampo.value;
+                            //r Pot
+                            copyCampo = document.getElementById("rPot");
+                            copyText = copyText + "\r" + 'Coeficiente r potencial = ' + copyCampo.value;
+                            //r2 Pot
+                            copyCampo = document.getElementById("r2Pot");
+                            copyText = copyText + "\r" + 'Coeficiente r^2 potencial = ' + copyCampo.value;
+                            //pronóstico Pot
+                            copyCampo = document.getElementById("pronPot");
+                            copyText = copyText + "\r" + 'Pronóstico potencial = ' + copyCampo.value;
 
                             //FECHA DE CÁLCULO
                             var d = new Date();
