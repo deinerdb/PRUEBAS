@@ -1284,12 +1284,80 @@ return temp;
                             return Number(bLog) + aLog * Math.log(siguiente);
                         }
                         //regresión potencial
-                        function regPotencial() {
-                            aPot = bPot = rPot = r2Pot = "Algoritmo en construcción";
+                        function regPotencial() {                             
+                            if (cuenta < 2) {
+                                //mínimo dos puntos de datos
+                                //No asume nada
+                                aPot = "No disponible (N < 2)";
+                                bPot = "No disponible (N < 2)";
+                                rPot = "No disponible (N < 2)";
+                                r2Pot = "No disponible (N < 2)";
+                                pronPot = "No disponible (N < 2)";
+                                return;
+                            }
+                            if (todosPositivos == false) {
+                                //no realiza la regresión 
+                                aPot = "Requiere valores positivos";
+                                bPot = "Requiere valores positivos";
+                                rPot = "Requiere valores positivos";
+                                r2Pot = "Requiere valores positivos";
+                                pronPot = "Requiere valores positivos";
+                                return;
+                            }
+                            //cálcula...
+                            var i;
+                            var numerador = 0;
+                            var denominador1 = 0;
+                            var denominador2 = 0;
+                            var mediaLnX = 0;
+                            var mediaLnY = 0;                            
+
+                            for (i = 1; i <= cuenta; i++) {
+                                mediaLnX = Math.log(i) + mediaLnX;
+                                mediaLnY = Math.log(arrayDatos[i - 1]) + mediaLnY;
+                            }
+                            mediaLnX = mediaLnX / cuenta;
+                            mediaLnY = mediaLnY / cuenta;
+                            //sumatorias
+                            for (i = 0; i < arrayDatos.length; i++) {
+                                numerador = (Math.log(1 + i) - mediaLnX) * (Math.log(arrayDatos[i]) - mediaLnY) + numerador;
+                                denominador1 = Math.pow(Math.log(1 + i) - mediaLnX, 2) + denominador1;
+                                denominador2 = Math.pow(Math.log(arrayDatos[i]) - mediaLnY, 2) + denominador2;
+                            }
+                            if (denominador1 == 0) {
+                                //improbable
+                                aPot = "No disponible";
+                                bPot = "No disponible";
+                                rPot = "No disponible";
+                                r2Pot = "No disponible";
+                                return;
+                            } else {
+                                bPot = numerador / denominador1;
+                                aPot = mediaLnY - bPot * mediaLnX;
+                                aPot = Math.exp(aPot);
+                            }
+                            if (denominador2 == 0) {
+                                rPot = "No disponible";
+                                r2Pot = "No disponible";
+                                return;
+                            } else {
+                                rPot = numerador / Math.sqrt(denominador1 * denominador2);
+                                r2Pot = rPot * rPot;
+                            }
                         }
                         //devuelve el pronóstico potencial
                         function calculaPronósticoPotencial() {
-                            return "Algoritmo en construcción";
+                            if (cuenta < 2) {
+                                return "No disponible (N < 2)";
+                            }
+                            if (todosPositivos == false) {
+                                return "Requiere valores positivos";
+                            }
+                            if (isNaN(aPot) == true || isNaN(bPot) == true) {
+                                return "No disponible";
+                            }
+                            var siguiente = 1 + cuenta;
+                            return aPot * Math.pow(siguiente, bPot);
                         }
                     </script>
                     <!--REALIZA CÁLCULOS-->
@@ -1639,148 +1707,148 @@ return temp;
 
                             //cuenta
                             copyCampo = document.getElementById("cuenta");
-                            copyText = copyText + "\r" + 'Número de Datos = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Número de Datos = ' + "\t" + copyCampo.value;
                             //suma
                             copyCampo = document.getElementById("suma");
-                            copyText = copyText + "\r" + 'Suma = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Suma = ' + "\t" + copyCampo.value;
                             //productoria
                             copyCampo = document.getElementById("productoria");
-                            copyText = copyText + "\r" + 'Productoria = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Productoria = ' + "\t" + copyCampo.value;
                             //sumaCuadrados
                             copyCampo = document.getElementById("sumaCuadrados");
-                            copyText = copyText + "\r" + 'Suma de cuadrados = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Suma de cuadrados = ' + "\t" + copyCampo.value;
                             //max
                             copyCampo = document.getElementById("max");
-                            copyText = copyText + "\r" + 'Máximo = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Máximo = ' + "\t" + copyCampo.value;
                             //min
                             copyCampo = document.getElementById("min");
-                            copyText = copyText + "\r" + 'Mínimo = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Mínimo = ' + "\t" + copyCampo.value;
                             //rango
                             copyCampo = document.getElementById("rango");
-                            copyText = copyText + "\r" + 'Rango o recorrido = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Rango o recorrido = ' + "\t" + copyCampo.value;
                             //recorridoRelativo
                             copyCampo = document.getElementById("recorridoRelativo");
-                            copyText = copyText + "\r" + 'Recorrido relativo = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Recorrido relativo = ' + "\t" + copyCampo.value;
                             //coefApertura
                             copyCampo = document.getElementById("coefApertura");
-                            copyText = copyText + "\r" + 'Coeficiente de apertura = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Coeficiente de apertura = ' + "\t" + copyCampo.value;
                             //media
                             copyCampo = document.getElementById("media");
-                            copyText = copyText + "\r" + 'Media aritmética = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Media aritmética = ' + "\t" + copyCampo.value;
                             //mediaGeom
                             copyCampo = document.getElementById("mediaGeom");
-                            copyText = copyText + "\r" + 'Media geométrica = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Media geométrica = ' + "\t" + copyCampo.value;
                             //mediaArm
                             copyCampo = document.getElementById("mediaArm");
-                            copyText = copyText + "\r" + 'Media armónica = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Media armónica = ' + "\t" + copyCampo.value;
                             //mediaCuad
                             copyCampo = document.getElementById("mediaCuad");
-                            copyText = copyText + "\r" + 'Media cuadrática = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Media cuadrática = ' + "\t" + copyCampo.value;
                             //moda
                             copyCampo = document.getElementById("moda");
-                            copyText = copyText + "\r" + 'Moda (Primera encontrada) = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Moda (Primera encontrada) = ' + "\t" + copyCampo.value;
                             //mediana
                             copyCampo = document.getElementById("mediana");
-                            copyText = copyText + "\r" + 'Mediana = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Mediana = ' + "\t" + copyCampo.value;
                             //q1
                             copyCampo = document.getElementById("q1");
-                            copyText = copyText + "\r" + 'Primer cuartil (Q1 = P25) = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Primer cuartil (Q1 = P25) = ' + "\t" + copyCampo.value;
                             //q3
                             copyCampo = document.getElementById("q3");
-                            copyText = copyText + "\r" + 'Tercer cuartil (Q3 = P75) = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Tercer cuartil (Q3 = P75) = ' + "\t" + copyCampo.value;
                             //rangoIntercuartílico
                             copyCampo = document.getElementById("rangoIntercuartílico");
-                            copyText = copyText + "\r" + 'Rango intercuartílico (Q3 - Q1) = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Rango intercuartílico (Q3 - Q1) = ' + "\t" + copyCampo.value;
                             //desviación media
                             copyCampo = document.getElementById("desvMedia");
-                            copyText = copyText + "\r" + 'Desviación media = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Desviación media = ' + "\t" + copyCampo.value;
                             //varianzaP
                             copyCampo = document.getElementById("varianzaP");
-                            copyText = copyText + "\r" + 'Varianza poblacional = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Varianza poblacional = ' + "\t" + copyCampo.value;
                             //desvP
                             copyCampo = document.getElementById("desvP");
-                            copyText = copyText + "\r" + 'Desviación estándar poblacional = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Desviación estándar poblacional = ' + "\t" + copyCampo.value;
                             //coefVarP
                             copyCampo = document.getElementById("coefVarP");
-                            copyText = copyText + "\r" + 'Coeficiente de variación poblacional = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Coeficiente de variación poblacional = ' + "\t" + copyCampo.value;
                             //varianzaM
                             copyCampo = document.getElementById("varianzaM");
-                            copyText = copyText + "\r" + 'Varianza muestral = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Varianza muestral = ' + "\t" + copyCampo.value;
                             //desvM
                             copyCampo = document.getElementById("desvM");
-                            copyText = copyText + "\r" + 'Desviación estándar muestral = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Desviación estándar muestral = ' + "\t" + copyCampo.value;
                             //coefVarM
                             copyCampo = document.getElementById("coefVarM");
-                            copyText = copyText + "\r" + 'Coeficiente de variación muestral = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Coeficiente de variación muestral = ' + "\t" + copyCampo.value;
                             //ETMM
                             copyCampo = document.getElementById("ETMM");
-                            copyText = copyText + "\r" + 'Error típico de la media muestral = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Error típico de la media muestral = ' + "\t" + copyCampo.value;
                             //coefAsim
                             copyCampo = document.getElementById("coefAsim");
-                            copyText = copyText + "\r" + 'Coeficiente de asimetría de Fisher = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Coeficiente de asimetría de Fisher = ' + "\t" + copyCampo.value;
                             //curtosis
                             copyCampo = document.getElementById("curtosis");
-                            copyText = copyText + "\r" + 'Curtosis = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Curtosis = ' + "\t" + copyCampo.value;
                             //pendiente
                             copyCampo = document.getElementById("pendiente");
-                            copyText = copyText + "\r" + 'Pendiente recta de ajuste = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Pendiente recta de ajuste = ' + "\t" + copyCampo.value;
                             //intercepto
                             copyCampo = document.getElementById("intercepto");
-                            copyText = copyText + "\r" + 'Intercepto recta de ajuste = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Intercepto recta de ajuste = ' + "\t" + copyCampo.value;
                             //r
                             copyCampo = document.getElementById("r");
-                            copyText = copyText + "\r" + 'Coeficiente r lineal = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Coeficiente r lineal = ' + "\t" + copyCampo.value;
                             //r2
                             copyCampo = document.getElementById("r2");
-                            copyText = copyText + "\r" + 'Coeficiente r^2 lineal = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Coeficiente r^2 lineal = ' + "\t" + copyCampo.value;
                             //pronóstico lineal
                             copyCampo = document.getElementById("pronLin");
-                            copyText = copyText + "\r" + 'Pronóstico lineal = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Pronóstico lineal = ' + "\t" + copyCampo.value;
                             //a exp
                             copyCampo = document.getElementById("aExp");
-                            copyText = copyText + "\r" + 'Parámetro a regresión exponencial = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Parámetro a regresión exponencial = ' + "\t" + copyCampo.value;
                             //b exp
                             copyCampo = document.getElementById("bExp");
-                            copyText = copyText + "\r" + 'Parámetro b regresión exponencial = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Parámetro b regresión exponencial = ' + "\t" + copyCampo.value;
                             //r exp
                             copyCampo = document.getElementById("rExp");
-                            copyText = copyText + "\r" + 'Coeficiente r exponencial = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Coeficiente r exponencial = ' + "\t" + copyCampo.value;
                             //r2 exp
                             copyCampo = document.getElementById("r2Exp");
-                            copyText = copyText + "\r" + 'Coeficiente r^2 exponencial = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Coeficiente r^2 exponencial = ' + "\t" + copyCampo.value;
                             //pronóstico exp
                             copyCampo = document.getElementById("pronExp");
-                            copyText = copyText + "\r" + 'Pronóstico exponencial = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Pronóstico exponencial = ' + "\t" + copyCampo.value;
                             //a log
                             copyCampo = document.getElementById("aLog");
-                            copyText = copyText + "\r" + 'Parámetro a regresión logarítmica = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Parámetro a regresión logarítmica = ' + "\t" + copyCampo.value;
                             //b log
                             copyCampo = document.getElementById("bLog");
-                            copyText = copyText + "\r" + 'Parámetro b regresión logarítmica = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Parámetro b regresión logarítmica = ' + "\t" + copyCampo.value;
                             //r log
                             copyCampo = document.getElementById("rLog");
-                            copyText = copyText + "\r" + 'Coeficiente r logarítmico = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Coeficiente r logarítmico = ' + "\t" + copyCampo.value;
                             //r2 log
                             copyCampo = document.getElementById("r2Log");
-                            copyText = copyText + "\r" + 'Coeficiente r^2 logarítmico = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Coeficiente r^2 logarítmico = ' + "\t" + copyCampo.value;
                             //pronóstico log
                             copyCampo = document.getElementById("pronLog");
-                            copyText = copyText + "\r" + 'Pronóstico logarítmico = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Pronóstico logarítmico = ' + "\t" + copyCampo.value;
                             //a Pot
                             copyCampo = document.getElementById("aPot");
-                            copyText = copyText + "\r" + 'Parámetro a regresión potencial = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Parámetro a regresión potencial = ' + "\t" + copyCampo.value;
                             //b Pot
                             copyCampo = document.getElementById("bPot");
-                            copyText = copyText + "\r" + 'Parámetro b regresión potencial = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Parámetro b regresión potencial = ' + "\t" + copyCampo.value;
                             //r Pot
                             copyCampo = document.getElementById("rPot");
-                            copyText = copyText + "\r" + 'Coeficiente r potencial = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Coeficiente r potencial = ' + "\t" + copyCampo.value;
                             //r2 Pot
                             copyCampo = document.getElementById("r2Pot");
-                            copyText = copyText + "\r" + 'Coeficiente r^2 potencial = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Coeficiente r^2 potencial = ' + "\t" + copyCampo.value;
                             //pronóstico Pot
                             copyCampo = document.getElementById("pronPot");
-                            copyText = copyText + "\r" + 'Pronóstico potencial = ' + copyCampo.value;
+                            copyText = copyText + "\r" + 'Pronóstico potencial = ' + "\t" + copyCampo.value;
 
                             //FECHA DE CÁLCULO
                             var d = new Date();
