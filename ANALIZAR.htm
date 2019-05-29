@@ -661,9 +661,11 @@ return temp;
                         <input type="text" id="coefAsim" readonly /><br />
                         <label>Curtosis:</label> <br />
                         <input type="text" id="curtosis" readonly /><br />
-                        <label>Pendiente <strong>m</strong> recta de ajuste y = <strong>m</strong>x + b:</label> <br />
+                        <label>Pendiente <strong>m</strong> recta de ajuste <br /> 
+                        y = <strong>m</strong>x + b:</label> <br />
                         <input type="text" id="pendiente" readonly /><br />
-                        <label>Intercepto <strong>b</strong> recta de ajuste y = mx + <strong>b</strong>:</label> <br />
+                        <label>Intercepto <strong>b</strong> recta de ajuste <br />
+                        y = mx + <strong>b</strong>:</label> <br />
                         <input type="text" id="intercepto" readonly /><br />
                         <label>Coeficiente de correlación <strong>r</strong> lineal:</label> <br />
                         <input type="text" id="r" readonly /><br />
@@ -671,9 +673,11 @@ return temp;
                         <input type="text" id="r2" readonly /><br />
                         <label>Pronóstico lineal:</label> <br />
                         <input type="text" id="pronLin" readonly /><br />
-                        <label>Parámetro <strong>a</strong> regresión exponencial y = <strong>a</strong>e<sup>bx</sup>:</label> <br />
+                        <label>Parámetro <strong>a</strong> regresión exponencial <br />
+                        y = <strong>a</strong>e<sup>bx</sup>:</label> <br />
                         <input type="text" id="aExp" readonly /><br />
-                        <label>Parámetro <strong>b</strong> regresión exponencial y = ae<sup><strong>b</strong>x</sup>:</label> <br />
+                        <label>Parámetro <strong>b</strong> regresión exponencial <br />
+                        y = ae<sup><strong>b</strong>x</sup>:</label> <br />
                         <input type="text" id="bExp" readonly /><br />
                         <label>Coeficiente <strong>r</strong> regresión exponencial:</label> <br />
                         <input type="text" id="rExp" readonly /><br />
@@ -681,9 +685,11 @@ return temp;
                         <input type="text" id="r2Exp" readonly /><br />
                         <label>Pronóstico exponencial:</label> <br />
                         <input type="text" id="pronExp" readonly /><br />
-                        <label>Parámetro <strong>a</strong> regresión logarítmica y = <strong>a</strong>ln(x) + b:</label> <br />
+                        <label>Parámetro <strong>a</strong> regresión logarítmica <br />
+                        y = <strong>a</strong>ln(x) + b:</label> <br />
                         <input type="text" id="aLog" readonly /><br />
-                        <label>Parámetro <strong>b</strong> regresión logarítmica y = aln(x) + <strong>b</strong>:</label> <br />
+                        <label>Parámetro <strong>b</strong> regresión logarítmica <br />
+                        y = aln(x) + <strong>b</strong>:</label> <br />
                         <input type="text" id="bLog" readonly /><br />
                         <label>Coeficiente <strong>r</strong> regresión logarítmica:</label> <br />
                         <input type="text" id="rLog" readonly /><br />
@@ -691,9 +697,11 @@ return temp;
                         <input type="text" id="r2Log" readonly /><br />
                         <label>Pronóstico logarítmico:</label> <br />
                         <input type="text" id="pronLog" readonly /><br />
-                        <label>Parámetro <strong>a</strong> regresión potencial y = <strong>a</strong>x<sup>b</sup>:</label> <br />
+                        <label>Parámetro <strong>a</strong> regresión potencial <br />
+                        y = <strong>a</strong>x<sup>b</sup>:</label> <br />
                         <input type="text" id="aPot" readonly /><br />
-                        <label>Parámetro <strong>b</strong> regresión potencial y = ax<sup><strong>b</strong></sup>:</label> <br />
+                        <label>Parámetro <strong>b</strong> regresión potencial <br />
+                        y = ax<sup><strong>b</strong></sup>:</label> <br />
                         <input type="text" id="bPot" readonly /><br />
                         <label>Coeficiente <strong>r</strong> regresión potencial:</label> <br />
                         <input type="text" id="rPot" readonly /><br />
@@ -701,6 +709,26 @@ return temp;
                         <input type="text" id="r2Pot" readonly /><br />
                         <label>Pronóstico potencial:</label> <br />
                         <input type="text" id="pronPot" readonly /><br />
+                        <label>Coeficiente <strong>C<sub>0</sub></strong> regresión polinomial grado 2 <br />
+                        Y = <strong>C<sub>0</sub></strong> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup>:
+                        </label> <br />
+                        <input type="text" id="Pol2C0" readonly /><br />
+                        <label>
+                            Coeficiente <strong>C<sub>1</sub></strong> regresión polinomial grado 2 <br />
+                            Y = C<sub>0</sub> + <strong>C<sub>1</sub></strong>X + C<sub>2</sub>X<sup>2</sup>:
+                        </label> <br />
+                        <input type="text" id="Pol2C1" readonly /><br />
+                        <label>
+                            Coeficiente <strong>C<sub>2</sub></strong> regresión polinomial grado 2 <br />
+                            Y = C<sub>0</sub> + C<sub>1</sub>X + <strong>C<sub>2</sub></strong>X<sup>2</sup>:
+                        </label> <br />
+                        <input type="text" id="Pol2C2" readonly /><br />
+                        <label>Coeficiente <strong>r</strong> polinomial grado 2:</label> <br />
+                        <input type="text" id="Pol2R" readonly /><br />
+                        <label>Coeficiente <strong>r<sup>2</sup></strong> polinomial grado 2:</label> <br />
+                        <input type="text" id="Pol2R2" readonly /><br />
+                        <label>Pronóstico regresión polinomial grado 2:</label> <br />
+                        <input type="text" id="Pol2Pron" readonly /><br />
                     </fieldset>                    
                 </form>
                 <div id="linechart"></div>
@@ -783,6 +811,12 @@ return temp;
                         var rPot;
                         var r2Pot;
                         var pronPot;
+                        var Pol2C0;
+                        var Pol2C1;
+                        var Pol2C2;
+                        var Pol2R;
+                        var Pol2R2;
+                        var Pol2Pron;
                         // para el gráfico
                         var chart;
 
@@ -1359,6 +1393,17 @@ return temp;
                             var siguiente = 1 + cuenta;
                             return aPot * Math.pow(siguiente, bPot);
                         }
+                        //regresión polinomial cualquier grado 
+                        function regPolinomial(grado) {
+                            var Sol = [];
+                             Pol2C0 = "Algoritmo en construcción";
+                             Pol2C1 = "Algoritmo en construcción";
+                             Pol2C2 = "Algoritmo en construcción";
+                             Pol2R = "Algoritmo en construcción";
+                             Pol2R2 = "Algoritmo en construcción";
+                             Pol2Pron = "Algoritmo en construcción";
+                             return Sol;
+                        }
                     </script>
                     <!--REALIZA CÁLCULOS-->
                     <script>
@@ -1464,6 +1509,12 @@ return temp;
                             document.getElementById("rPot").value = "";
                             document.getElementById("r2Pot").value = "";
                             document.getElementById("pronPot").value = "";
+                            document.getElementById("Pol2C0").value = "";
+                            document.getElementById("Pol2C1").value = "";
+                            document.getElementById("Pol2C2").value = "";
+                            document.getElementById("Pol2R").value = "";
+                            document.getElementById("Pol2R2").value = "";
+                            document.getElementById("Pol2Pron").value = "";
                             //nada que copiar
                             getbtnCopiar.setAttribute("disabled", "disabled");
                             //nada que graficar
@@ -1590,7 +1641,11 @@ return temp;
                             // se obtienen 4 variables: aPot, bPot, rPot y r2Pot
                             regPotencial();
                             pronPot = calculaPronósticoPotencial();
-                            //
+                            //regresión polinomial grado 2
+                            // se obtienen todos los parámetros
+                            var ArrayTemp = [];
+                            ArrayTemp = regPolinomial(2);
+                            
                             //formatea resultados: min 0 y max 9 decimales... y configuración local                            
                             //escribe resultados
                             document.getElementById("cuenta").value = cuenta;
@@ -1641,6 +1696,12 @@ return temp;
                             document.getElementById("rPot").value = rPot.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("r2Pot").value = r2Pot.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("pronPot").value = pronPot.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("Pol2C0").value = Pol2C0.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("Pol2C1").value = Pol2C1.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("Pol2C2").value = Pol2C2.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("Pol2R").value = Pol2R.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("Pol2R2").value = Pol2R2.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("Pol2Pron").value = Pol2Pron.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
 
                             //informa éxito en cálculo
                             showSnackbar("¡Cálculos realizados!");
@@ -1849,7 +1910,24 @@ return temp;
                             //pronóstico Pot
                             copyCampo = document.getElementById("pronPot");
                             copyText = copyText + "\r" + 'Pronóstico potencial = ' + "\t" + copyCampo.value;
-
+                            //Pol2C0
+                            copyCampo = document.getElementById("Pol2C0");
+                            copyText = copyText + "\r" + 'Coeficiente C0 regresión polinomial grado 2 = ' + "\t" + copyCampo.value;
+                            //Pol2C1
+                            copyCampo = document.getElementById("Pol2C1");
+                            copyText = copyText + "\r" + 'Coeficiente C1 regresión polinomial grado 2 = ' + "\t" + copyCampo.value;
+                            //Pol2C2
+                            copyCampo = document.getElementById("Pol2C2");
+                            copyText = copyText + "\r" + 'Coeficiente C2 regresión polinomial grado 2 = ' + "\t" + copyCampo.value;
+                            //Pol2R
+                            copyCampo = document.getElementById("Pol2R");
+                            copyText = copyText + "\r" + 'Coeficiente r regresión polinomial grado 2 = ' + "\t" + copyCampo.value;
+                            //Pol2R2
+                            copyCampo = document.getElementById("Pol2R2");
+                            copyText = copyText + "\r" + 'Coeficiente r^2 regresión polinomial grado 2 = ' + "\t" + copyCampo.value;
+                            //Pol2Pron
+                            copyCampo = document.getElementById("Pol2Pron");
+                            copyText = copyText + "\r" + 'Pronóstico polinomial grado 2 = ' + "\t" + copyCampo.value;
                             //FECHA DE CÁLCULO
                             var d = new Date();
                             copyText = copyText + "\r" + '********';
