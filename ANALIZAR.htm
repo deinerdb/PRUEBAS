@@ -598,11 +598,7 @@ return temp;
                     
                     <button type="button" id="btnCalcular" title="Realizar cálculos">CALCULAR</button>
                     <button type="button" id="btnCopiar" disabled title="Copiar Resultados">COPIAR</button> 
-                    <!--
-                    //RUTINA PARA PRUEBAS DE DISEÑO, LLENA LOS CAMPOS CON ENTEROS ALEATORIOS ENTRE 0 Y 100
-                        <button type="button" id="btnRellenar" title="Rellenar con valores aleatorios">Rellenar</button>
-                    -->
-                    
+                                       
                     <fieldset>
                         <legend>Resultados: </legend>
                         <label >Número de Datos:</label> <br />
@@ -709,6 +705,7 @@ return temp;
                         <input type="text" id="r2Pot" readonly /><br />
                         <label>Pronóstico potencial:</label> <br />
                         <input type="text" id="pronPot" readonly /><br />
+                        <!-- polinomial grado 2 -->
                         <label>Coeficiente <strong>C<sub>0</sub></strong> regresión polinomial grado 2 <br />
                         Y = <strong>C<sub>0</sub></strong> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup>:
                         </label> <br />
@@ -725,6 +722,33 @@ return temp;
                         <input type="text" id="Pol2R2" readonly /><br />
                         <label>Pronóstico regresión polinomial grado 2:</label> <br />
                         <input type="text" id="Pol2Pron" readonly /><br />
+                        <!-- polinomial grado 3 -->
+                        <label>
+                            Coeficiente <strong>C<sub>0</sub></strong> regresión polinomial grado 3 <br />
+                            Y = <strong>C<sub>0</sub></strong> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup>:
+                        </label> <br />
+                        <input type="text" id="Pol3C0" readonly /><br />
+                        <label>
+                            Coeficiente <strong>C<sub>1</sub></strong> regresión polinomial grado 3 <br />
+                            Y = C<sub>0</sub> + <strong>C<sub>1</sub></strong>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup>:
+                        </label> <br />
+                        <input type="text" id="Pol3C1" readonly /><br />
+                        <label>
+                            Coeficiente <strong>C<sub>2</sub></strong> regresión polinomial grado 3 <br />
+                            Y = C<sub>0</sub> + C<sub>1</sub>X + <strong>C<sub>2</sub></strong>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup>:
+                        </label> <br />
+                        <input type="text" id="Pol3C2" readonly /><br />
+                        <label>
+                            Coeficiente <strong>C<sub>3</sub></strong> regresión polinomial grado 3 <br />
+                            Y = C<sub>0</sub> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + <strong>C<sub>3</sub></strong>X<sup>3</sup>:
+                        </label> <br />
+                        <input type="text" id="Pol3C3" readonly /><br />
+                        <label>Coeficiente <strong>r</strong> polinomial grado 3:</label> <br />
+                        <input type="text" id="Pol3R" readonly /><br />
+                        <label>Coeficiente <strong>r<sup>2</sup></strong> polinomial grado 3:</label> <br />
+                        <input type="text" id="Pol3R2" readonly /><br />
+                        <label>Pronóstico regresión polinomial grado 3:</label> <br />
+                        <input type="text" id="Pol3Pron" readonly /><br />
                     </fieldset>                    
                 </form>
                 <div id="linechart"></div>
@@ -807,12 +831,21 @@ return temp;
                         var rPot;
                         var r2Pot;
                         var pronPot;
+                        //polinomial grado 2
                         var Pol2C0;
                         var Pol2C1;
                         var Pol2C2;
                         var Pol2R;
                         var Pol2R2;
                         var Pol2Pron;
+                        //polinomial grado 3
+                        var Pol3C0;
+                        var Pol3C1;
+                        var Pol3C2;
+                        var Pol3C3;
+                        var Pol3R;
+                        var Pol3R2;
+                        var Pol3Pron;
                         // para el gráfico
                         var chart;
 
@@ -1391,7 +1424,7 @@ return temp;
                         }
                         /** resuelve un sistema de ecuaciones dado una matrix n x n+1
                             devuelve un vector n x 1 con las soluciones
-                            tomado de https://martin-thoma.com/solving-linear-equations-with-gaussian-elimination/    */
+                            basado y mejorado a partir de https://martin-thoma.com/solving-linear-equations-with-gaussian-elimination/    */
                         function gauss(A) {
                             try {
                                 var n = 1;
@@ -1451,6 +1484,15 @@ return temp;
 
                         //regresión polinomial cualquier grado 
                         function regPolinomial(grado) {
+                            if (cuenta < 1 + grado) {
+                                var Sol = [];
+                                var tope = 1 + cuenta;
+                                Sol.length = 4 + grado;
+                                for (i = 0; i < Sol.length; i++) {
+                                    Sol[i] = "No disponible (N < " + tope + ")";
+                                }
+                                return Sol;
+                            }
                             try {
                                 var i;
                                 var j;
@@ -1657,12 +1699,21 @@ return temp;
                             document.getElementById("rPot").value = "";
                             document.getElementById("r2Pot").value = "";
                             document.getElementById("pronPot").value = "";
+                            // polinomial grado 2
                             document.getElementById("Pol2C0").value = "";
                             document.getElementById("Pol2C1").value = "";
                             document.getElementById("Pol2C2").value = "";
                             document.getElementById("Pol2R").value = "";
                             document.getElementById("Pol2R2").value = "";
                             document.getElementById("Pol2Pron").value = "";
+                            // polinomial grado 3
+                            document.getElementById("Pol3C0").value = "";
+                            document.getElementById("Pol3C1").value = "";
+                            document.getElementById("Pol3C2").value = "";
+                            document.getElementById("Pol3C3").value = "";
+                            document.getElementById("Pol3R").value = "";
+                            document.getElementById("Pol3R2").value = "";
+                            document.getElementById("Pol3Pron").value = "";
                             //nada que copiar
                             getbtnCopiar.setAttribute("disabled", "disabled");
                             //nada que graficar
@@ -1799,6 +1850,17 @@ return temp;
                             Pol2R = ArrayTemp[3];
                             Pol2R2 = ArrayTemp[4];
                             Pol2Pron = ArrayTemp[5];
+                            //regresión polinomial grado 3
+                            // se obtienen todos los parámetros
+                            var ArrayTemp = [];
+                            ArrayTemp = regPolinomial(3);
+                            Pol3C0 = ArrayTemp[0];
+                            Pol3C1 = ArrayTemp[1];
+                            Pol3C2 = ArrayTemp[2];
+                            Pol3C3 = ArrayTemp[3];
+                            Pol3R = ArrayTemp[4];
+                            Pol3R2 = ArrayTemp[5];
+                            Pol3Pron = ArrayTemp[6];
                             
                             //formatea resultados: min 0 y max 9 decimales... y configuración local                            
                             //escribe resultados
@@ -1850,12 +1912,21 @@ return temp;
                             document.getElementById("rPot").value = rPot.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("r2Pot").value = r2Pot.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("pronPot").value = pronPot.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            // polinomial grado 2
                             document.getElementById("Pol2C0").value = Pol2C0.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("Pol2C1").value = Pol2C1.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("Pol2C2").value = Pol2C2.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("Pol2R").value = Pol2R.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("Pol2R2").value = Pol2R2.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("Pol2Pron").value = Pol2Pron.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            // polinomial grado 3
+                            document.getElementById("Pol3C0").value = Pol3C0.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("Pol3C1").value = Pol3C1.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("Pol3C2").value = Pol3C2.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("Pol3C3").value = Pol3C3.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("Pol3R").value = Pol3R.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("Pol3R2").value = Pol3R2.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("Pol3Pron").value = Pol3Pron.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
 
                             //informa éxito en cálculo
                             showSnackbar("¡Cálculos realizados!");
@@ -2064,6 +2135,7 @@ return temp;
                             //pronóstico Pot
                             copyCampo = document.getElementById("pronPot");
                             copyText = copyText + "\r" + 'Pronóstico potencial = ' + "\t" + copyCampo.value;
+                            // regresión polinomial grado 2
                             //Pol2C0
                             copyCampo = document.getElementById("Pol2C0");
                             copyText = copyText + "\r" + 'Coeficiente C0 regresión polinomial grado 2 = ' + "\t" + copyCampo.value;
@@ -2082,6 +2154,35 @@ return temp;
                             //Pol2Pron
                             copyCampo = document.getElementById("Pol2Pron");
                             copyText = copyText + "\r" + 'Pronóstico polinomial grado 2 = ' + "\t" + copyCampo.value;
+                            // regresión polinomial grado 3
+                            //Pol3C0
+                            copyCampo = document.getElementById("Pol3C0");
+                            copyText = copyText + "\r" + 'Coeficiente C0 regresión polinomial grado 3 = ' + "\t" + copyCampo.value;
+                            //Pol3C1
+                            copyCampo = document.getElementById("Pol3C1");
+                            copyText = copyText + "\r" + 'Coeficiente C1 regresión polinomial grado 3 = ' + "\t" + copyCampo.value;
+                            //Pol3C2
+                            copyCampo = document.getElementById("Pol3C2");
+                            copyText = copyText + "\r" + 'Coeficiente C2 regresión polinomial grado 3 = ' + "\t" + copyCampo.value;
+                            //Pol3C3
+                            copyCampo = document.getElementById("Pol3C3");
+                            copyText = copyText + "\r" + 'Coeficiente C3 regresión polinomial grado 3 = ' + "\t" + copyCampo.value;
+                            //Pol3R
+                            copyCampo = document.getElementById("Pol3R");
+                            copyText = copyText + "\r" + 'Coeficiente r regresión polinomial grado 3 = ' + "\t" + copyCampo.value;
+                            //Pol3R2
+                            copyCampo = document.getElementById("Pol3R2");
+                            copyText = copyText + "\r" + 'Coeficiente r^2 regresión polinomial grado 3 = ' + "\t" + copyCampo.value;
+                            //Pol3Pron
+                            copyCampo = document.getElementById("Pol3Pron");
+                            copyText = copyText + "\r" + 'Pronóstico polinomial grado 3 = ' + "\t" + copyCampo.value;
+
+
+
+
+
+
+
                             //FECHA DE CÁLCULO
                             var d = new Date();
                             copyText = copyText + "\r" + '********';
@@ -2373,14 +2474,7 @@ return temp;
                             }
                             clickCheck();
                         }
-                        //RUTINA PARA PRUEBAS DE DISEÑO, LLENA LOS CAMPOS CON ENTEROS ALEATORIOS ENTRE 0 Y 100
-                        //document.getElementById('btnRellenar').onclick = function () {
-                            // i;
-                            // (i = 1; i <= Number(slider.value); i++) {
-                                //.getElementById("dato" + i).value = Math.floor(Math.random() * 101);
-                            //
-                        //}
-
+                    
                 </script>
 
 
