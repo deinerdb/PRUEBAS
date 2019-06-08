@@ -749,6 +749,38 @@ return temp;
                         <input type="text" id="Pol3R2" readonly /><br />
                         <label>Pronóstico regresión polinomial grado 3:</label> <br />
                         <input type="text" id="Pol3Pron" readonly /><br />
+                        <!-- polinomial grado 4 -->
+                        <label>
+                            Coeficiente <strong>C<sub>0</sub></strong> regresión polinomial grado 4 <br />
+                            Y = <strong>C<sub>0</sub></strong> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup>:
+                        </label> <br />
+                        <input type="text" id="Pol4C0" readonly /><br />
+                        <label>
+                            Coeficiente <strong>C<sub>1</sub></strong> regresión polinomial grado 4 <br />
+                            Y = C<sub>0</sub> + <strong>C<sub>1</sub></strong>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup>:
+                        </label> <br />
+                        <input type="text" id="Pol4C1" readonly /><br />
+                        <label>
+                            Coeficiente <strong>C<sub>2</sub></strong> regresión polinomial grado 4 <br />
+                            Y = C<sub>0</sub> + C<sub>1</sub>X + <strong>C<sub>2</sub></strong>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup>:
+                        </label> <br />
+                        <input type="text" id="Pol4C2" readonly /><br />
+                        <label>
+                            Coeficiente <strong>C<sub>3</sub></strong> regresión polinomial grado 4 <br />
+                            Y = C<sub>0</sub> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + <strong>C<sub>3</sub></strong>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup>:
+                        </label> <br />
+                        <input type="text" id="Pol4C3" readonly /><br />
+                        <label>
+                            Coeficiente <strong>C<sub>4</sub></strong> regresión polinomial grado 4 <br />
+                            Y = C<sub>0</sub> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + <strong>C<sub>4</sub></strong>X<sup>4</sup>:
+                        </label> <br />
+                        <input type="text" id="Pol4C4" readonly /><br />
+                        <label>Coeficiente <strong>r</strong> polinomial grado 4:</label> <br />
+                        <input type="text" id="Pol4R" readonly /><br />
+                        <label>Coeficiente <strong>r<sup>2</sup></strong> polinomial grado 4:</label> <br />
+                        <input type="text" id="Pol4R2" readonly /><br />
+                        <label>Pronóstico regresión polinomial grado 4:</label> <br />
+                        <input type="text" id="Pol4Pron" readonly /><br />
                     </fieldset>                    
                 </form>
                 <div id="linechart"></div>
@@ -846,6 +878,15 @@ return temp;
                         var Pol3R;
                         var Pol3R2;
                         var Pol3Pron;
+                        //polinomial grado 4
+                        var Pol4C0;
+                        var Pol4C1;
+                        var Pol4C2;
+                        var Pol4C3;
+                        var Pol4C4;
+                        var Pol4R;
+                        var Pol4R2;
+                        var Pol4Pron;
                         // para el gráfico
                         var chart;
 
@@ -1714,6 +1755,15 @@ return temp;
                             document.getElementById("Pol3R").value = "";
                             document.getElementById("Pol3R2").value = "";
                             document.getElementById("Pol3Pron").value = "";
+                            // polinomial grado 4
+                            document.getElementById("Pol4C0").value = "";
+                            document.getElementById("Pol4C1").value = "";
+                            document.getElementById("Pol4C2").value = "";
+                            document.getElementById("Pol4C3").value = "";
+                            document.getElementById("Pol4C4").value = "";
+                            document.getElementById("Pol4R").value = "";
+                            document.getElementById("Pol4R2").value = "";
+                            document.getElementById("Pol4Pron").value = "";
                             //nada que copiar
                             getbtnCopiar.setAttribute("disabled", "disabled");
                             //nada que graficar
@@ -1861,7 +1911,19 @@ return temp;
                             Pol3R = ArrayTemp[4];
                             Pol3R2 = ArrayTemp[5];
                             Pol3Pron = ArrayTemp[6];
-                            
+                            //regresión polinomial grado 4
+                            // se obtienen todos los parámetros
+                            var ArrayTemp = [];
+                            ArrayTemp = regPolinomial(4);
+                            Pol4C0 = ArrayTemp[0];
+                            Pol4C1 = ArrayTemp[1];
+                            Pol4C2 = ArrayTemp[2];
+                            Pol4C3 = ArrayTemp[3];
+                            Pol4C4 = ArrayTemp[4];
+                            Pol4R = ArrayTemp[5];
+                            Pol4R2 = ArrayTemp[6];
+                            Pol4Pron = ArrayTemp[7];
+
                             //formatea resultados: min 0 y max 9 decimales... y configuración local                            
                             //escribe resultados
                             document.getElementById("cuenta").value = cuenta;
@@ -1927,6 +1989,15 @@ return temp;
                             document.getElementById("Pol3R").value = Pol3R.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("Pol3R2").value = Pol3R2.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("Pol3Pron").value = Pol3Pron.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            // polinomial grado 4
+                            document.getElementById("Pol4C0").value = Pol4C0.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("Pol4C1").value = Pol4C1.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("Pol4C2").value = Pol4C2.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("Pol4C3").value = Pol4C3.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("Pol4C4").value = Pol4C4.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("Pol4R").value = Pol4R.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("Pol4R2").value = Pol4R2.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("Pol4Pron").value = Pol4Pron.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
 
                             //informa éxito en cálculo
                             showSnackbar("¡Cálculos realizados!");
@@ -2176,13 +2247,33 @@ return temp;
                             //Pol3Pron
                             copyCampo = document.getElementById("Pol3Pron");
                             copyText = copyText + "\r" + 'Pronóstico polinomial grado 3 = ' + "\t" + copyCampo.value;
+                            // regresión polinomial grado 4
+                            //Pol4C0
+                            copyCampo = document.getElementById("Pol4C0");
+                            copyText = copyText + "\r" + 'Coeficiente C0 regresión polinomial grado 4 = ' + "\t" + copyCampo.value;
+                            //Pol4C1
+                            copyCampo = document.getElementById("Pol4C1");
+                            copyText = copyText + "\r" + 'Coeficiente C1 regresión polinomial grado 4 = ' + "\t" + copyCampo.value;
+                            //Pol4C2
+                            copyCampo = document.getElementById("Pol4C2");
+                            copyText = copyText + "\r" + 'Coeficiente C2 regresión polinomial grado 4 = ' + "\t" + copyCampo.value;
+                            //Pol4C3
+                            copyCampo = document.getElementById("Pol4C3");
+                            copyText = copyText + "\r" + 'Coeficiente C3 regresión polinomial grado 4 = ' + "\t" + copyCampo.value;
+                            //Pol4C4
+                            copyCampo = document.getElementById("Pol4C4");
+                            copyText = copyText + "\r" + 'Coeficiente C4 regresión polinomial grado 4 = ' + "\t" + copyCampo.value;
 
-
-
-
-
-
-
+                            //Pol4R
+                            copyCampo = document.getElementById("Pol4R");
+                            copyText = copyText + "\r" + 'Coeficiente r regresión polinomial grado 4 = ' + "\t" + copyCampo.value;
+                            //Pol4R2
+                            copyCampo = document.getElementById("Pol4R2");
+                            copyText = copyText + "\r" + 'Coeficiente r^2 regresión polinomial grado 4 = ' + "\t" + copyCampo.value;
+                            //Pol4Pron
+                            copyCampo = document.getElementById("Pol4Pron");
+                            copyText = copyText + "\r" + 'Pronóstico polinomial grado 4 = ' + "\t" + copyCampo.value;
+                            
                             //FECHA DE CÁLCULO
                             var d = new Date();
                             copyText = copyText + "\r" + '********';
