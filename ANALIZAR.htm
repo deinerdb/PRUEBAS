@@ -97,6 +97,10 @@
             legend {
                 font-weight:bold;
             }
+            summary {
+                font-weight:bold;
+                margin-top: 20px;
+            }
             #divDatos {                
                 overflow:auto;                
             }
@@ -601,265 +605,328 @@ return temp;
                                        
                     <fieldset>
                         <legend>Resultados: </legend>
-                        <label >Número de Datos:</label> <br />
-                        <input type="text" id="cuenta" readonly /><br />
-                        <label >Suma:</label> <br />
-                        <input type="text" id="suma" readonly /><br />
-                        <label>Productoria:</label> <br />
-                        <input type="text" id="productoria" readonly /><br />
-                        <label>Suma de cuadrados:</label> <br />
-                        <input type="text" id="sumaCuadrados" readonly /><br />
-                        <label>Máximo:</label> <br />
-                        <input type="text" id="max" readonly /><br />
-                        <label>Mínimo:</label> <br />
-                        <input type="text" id="min" readonly /><br />
-                        <label>Rango o recorrido:</label> <br />
-                        <input type="text" id="rango" readonly /><br />
-                        <label>Recorrido relativo:</label> <br />
-                        <input type="text" id="recorridoRelativo" readonly /><br />
-                        <label>Coeficiente de apertura:</label> <br />
-                        <input type="text" id="coefApertura" readonly /><br />
-                        <label>Media aritmética:</label> <br />
-                        <input type="text" id="media" readonly /><br />
-                        <label>Media geométrica:</label> <br />
-                        <input type="text" id="mediaGeom" readonly /><br />
-                        <label>Media armónica:</label> <br />
-                        <input type="text" id="mediaArm" readonly /><br />
-                        <label>Media cuadrática:</label> <br />
-                        <input type="text" id="mediaCuad" readonly /><br />
-                        <label>Moda (Primera encontrada):</label> <br />
-                        <input type="text" id="moda" readonly /><br />
-                        <label>Mediana:</label> <br />
-                        <input type="text" id="mediana" readonly /><br />
-                        <label>Primer cuartil (Q<sub>1</sub> = P<sub>25</sub>):</label> <br />
-                        <input type="text" id="q1" readonly /><br />
-                        <label>Tercer cuartil (Q<sub>3</sub> = P<sub>75</sub>):</label> <br />
-                        <input type="text" id="q3" readonly /><br />
-                        <label>Rango intercuartílico (Q<sub>3</sub> - Q<sub>1</sub>):</label> <br />
-                        <input type="text" id="rangoIntercuartílico" readonly /><br />
-                        <label>Desviación media:</label> <br />
-                        <input type="text" id="desvMedia" readonly /><br />
-                        <label>Varianza poblacional:</label> <br />
-                        <input type="text" id="varianzaP" readonly /><br />
-                        <label>Desviación estándar poblacional:</label> <br />
-                        <input type="text" id="desvP" readonly /><br />
-                        <label>Coeficiente de variación poblacional:</label> <br />
-                        <input type="text" id="coefVarP" readonly /><br />
-                        <label>Varianza muestral:</label> <br />
-                        <input type="text" id="varianzaM" readonly /><br />
-                        <label>Desviación estándar muestral:</label> <br />
-                        <input type="text" id="desvM" readonly /><br />
-                        <label>Coeficiente de variación muestral:</label> <br />
-                        <input type="text" id="coefVarM" readonly /><br />
-                        <label>Error típico de la media muestral:</label> <br />
-                        <input type="text" id="ETMM" readonly /><br />
-                        <label>Coeficiente de asimetría de Fisher:</label> <br />
-                        <input type="text" id="coefAsim" readonly /><br />
-                        <label>Curtosis:</label> <br />
-                        <input type="text" id="curtosis" readonly /><br />
-                        <label>Pendiente <strong>m</strong> recta de ajuste <br /> 
-                        y = <strong>m</strong>x + b:</label> <br />
-                        <input type="text" id="pendiente" readonly /><br />
-                        <label>Intercepto <strong>b</strong> recta de ajuste <br />
-                        y = mx + <strong>b</strong>:</label> <br />
-                        <input type="text" id="intercepto" readonly /><br />
-                        <label>Coeficiente de correlación <strong>r</strong> lineal:</label> <br />
-                        <input type="text" id="r" readonly /><br />
-                        <label>Coeficiente <strong>r<sup>2</sup></strong> lineal:</label> <br />
-                        <input type="text" id="r2" readonly /><br />
-                        <label>Pronóstico lineal:</label> <br />
-                        <input type="text" id="pronLin" readonly /><br />
-                        <label>Parámetro <strong>a</strong> regresión exponencial <br />
-                        y = <strong>a</strong>e<sup>bx</sup>:</label> <br />
-                        <input type="text" id="aExp" readonly /><br />
-                        <label>Parámetro <strong>b</strong> regresión exponencial <br />
-                        y = ae<sup><strong>b</strong>x</sup>:</label> <br />
-                        <input type="text" id="bExp" readonly /><br />
-                        <label>Coeficiente <strong>r</strong> regresión exponencial:</label> <br />
-                        <input type="text" id="rExp" readonly /><br />
-                        <label>Coeficiente <strong>r<sup>2</sup></strong> regresión exponencial:</label> <br />
-                        <input type="text" id="r2Exp" readonly /><br />
-                        <label>Pronóstico exponencial:</label> <br />
-                        <input type="text" id="pronExp" readonly /><br />
-                        <label>Parámetro <strong>a</strong> regresión logarítmica <br />
-                        y = <strong>a</strong>ln(x) + b:</label> <br />
-                        <input type="text" id="aLog" readonly /><br />
-                        <label>Parámetro <strong>b</strong> regresión logarítmica <br />
-                        y = aln(x) + <strong>b</strong>:</label> <br />
-                        <input type="text" id="bLog" readonly /><br />
-                        <label>Coeficiente <strong>r</strong> regresión logarítmica:</label> <br />
-                        <input type="text" id="rLog" readonly /><br />
-                        <label>Coeficiente <strong>r<sup>2</sup></strong> regresión logarítmica:</label> <br />
-                        <input type="text" id="r2Log" readonly /><br />
-                        <label>Pronóstico logarítmico:</label> <br />
-                        <input type="text" id="pronLog" readonly /><br />
-                        <label>Parámetro <strong>a</strong> regresión potencial <br />
-                        y = <strong>a</strong>x<sup>b</sup>:</label> <br />
-                        <input type="text" id="aPot" readonly /><br />
-                        <label>Parámetro <strong>b</strong> regresión potencial <br />
-                        y = ax<sup><strong>b</strong></sup>:</label> <br />
-                        <input type="text" id="bPot" readonly /><br />
-                        <label>Coeficiente <strong>r</strong> regresión potencial:</label> <br />
-                        <input type="text" id="rPot" readonly /><br />
-                        <label>Coeficiente <strong>r<sup>2</sup></strong> regresión potencial:</label> <br />
-                        <input type="text" id="r2Pot" readonly /><br />
-                        <label>Pronóstico potencial:</label> <br />
-                        <input type="text" id="pronPot" readonly /><br />
-                        <!-- polinomial grado 2 -->
-                        <label>Coeficiente <strong>C<sub>0</sub></strong> regresión polinomial grado 2 <br />
-                        Y = <strong>C<sub>0</sub></strong> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup>:
-                        </label> <br />
-                        <input type="text" id="Pol2C0" readonly /><br />
-                        <label>Coeficiente <strong>C<sub>1</sub></strong> regresión polinomial grado 2 <br />
-                        Y = C<sub>0</sub> + <strong>C<sub>1</sub></strong>X + C<sub>2</sub>X<sup>2</sup>:</label> <br />
-                        <input type="text" id="Pol2C1" readonly /><br />
-                        <label>Coeficiente <strong>C<sub>2</sub></strong> regresión polinomial grado 2 <br />
-                        Y = C<sub>0</sub> + C<sub>1</sub>X + <strong>C<sub>2</sub></strong>X<sup>2</sup>:</label> <br />
-                        <input type="text" id="Pol2C2" readonly /><br />
-                        <label>Coeficiente <strong>r</strong> polinomial grado 2:</label> <br />
-                        <input type="text" id="Pol2R" readonly /><br />
-                        <label>Coeficiente <strong>r<sup>2</sup></strong> polinomial grado 2:</label> <br />
-                        <input type="text" id="Pol2R2" readonly /><br />
-                        <label>Pronóstico regresión polinomial grado 2:</label> <br />
-                        <input type="text" id="Pol2Pron" readonly /><br />
-                        <!-- polinomial grado 3 -->
-                        <label>
-                            Coeficiente <strong>C<sub>0</sub></strong> regresión polinomial grado 3 <br />
-                            Y = <strong>C<sub>0</sub></strong> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup>:
-                        </label> <br />
-                        <input type="text" id="Pol3C0" readonly /><br />
-                        <label>
-                            Coeficiente <strong>C<sub>1</sub></strong> regresión polinomial grado 3 <br />
-                            Y = C<sub>0</sub> + <strong>C<sub>1</sub></strong>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup>:
-                        </label> <br />
-                        <input type="text" id="Pol3C1" readonly /><br />
-                        <label>
-                            Coeficiente <strong>C<sub>2</sub></strong> regresión polinomial grado 3 <br />
-                            Y = C<sub>0</sub> + C<sub>1</sub>X + <strong>C<sub>2</sub></strong>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup>:
-                        </label> <br />
-                        <input type="text" id="Pol3C2" readonly /><br />
-                        <label>
-                            Coeficiente <strong>C<sub>3</sub></strong> regresión polinomial grado 3 <br />
-                            Y = C<sub>0</sub> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + <strong>C<sub>3</sub></strong>X<sup>3</sup>:
-                        </label> <br />
-                        <input type="text" id="Pol3C3" readonly /><br />
-                        <label>Coeficiente <strong>r</strong> polinomial grado 3:</label> <br />
-                        <input type="text" id="Pol3R" readonly /><br />
-                        <label>Coeficiente <strong>r<sup>2</sup></strong> polinomial grado 3:</label> <br />
-                        <input type="text" id="Pol3R2" readonly /><br />
-                        <label>Pronóstico regresión polinomial grado 3:</label> <br />
-                        <input type="text" id="Pol3Pron" readonly /><br />
-                        <!-- polinomial grado 4 -->
-                        <label>
-                            Coeficiente <strong>C<sub>0</sub></strong> regresión polinomial grado 4 <br />
-                            Y = <strong>C<sub>0</sub></strong> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup>:
-                        </label> <br />
-                        <input type="text" id="Pol4C0" readonly /><br />
-                        <label>
-                            Coeficiente <strong>C<sub>1</sub></strong> regresión polinomial grado 4 <br />
-                            Y = C<sub>0</sub> + <strong>C<sub>1</sub></strong>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup>:
-                        </label> <br />
-                        <input type="text" id="Pol4C1" readonly /><br />
-                        <label>
-                            Coeficiente <strong>C<sub>2</sub></strong> regresión polinomial grado 4 <br />
-                            Y = C<sub>0</sub> + C<sub>1</sub>X + <strong>C<sub>2</sub></strong>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup>:
-                        </label> <br />
-                        <input type="text" id="Pol4C2" readonly /><br />
-                        <label>
-                            Coeficiente <strong>C<sub>3</sub></strong> regresión polinomial grado 4 <br />
-                            Y = C<sub>0</sub> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + <strong>C<sub>3</sub></strong>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup>:
-                        </label> <br />
-                        <input type="text" id="Pol4C3" readonly /><br />
-                        <label>
-                            Coeficiente <strong>C<sub>4</sub></strong> regresión polinomial grado 4 <br />
-                            Y = C<sub>0</sub> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + <strong>C<sub>4</sub></strong>X<sup>4</sup>:
-                        </label> <br />
-                        <input type="text" id="Pol4C4" readonly /><br />
-                        <label>Coeficiente <strong>r</strong> polinomial grado 4:</label> <br />
-                        <input type="text" id="Pol4R" readonly /><br />
-                        <label>Coeficiente <strong>r<sup>2</sup></strong> polinomial grado 4:</label> <br />
-                        <input type="text" id="Pol4R2" readonly /><br />
-                        <label>Pronóstico regresión polinomial grado 4:</label> <br />
-                        <input type="text" id="Pol4Pron" readonly /><br />
-                        <!-- polinomial grado 5 -->
-                        <label>
-                            Coeficiente <strong>C<sub>0</sub></strong> regresión polinomial grado 5 <br />
-                            Y = <strong>C<sub>0</sub></strong> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup> + C<sub>5</sub>X<sup>5</sup>:
-                        </label> <br />
-                        <input type="text" id="Pol5C0" readonly /><br />
-                        <label>
-                            Coeficiente <strong>C<sub>1</sub></strong> regresión polinomial grado 5 <br />
-                            Y = C<sub>0</sub> + <strong>C<sub>1</sub></strong>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup> + C<sub>5</sub>X<sup>5</sup>:
-                        </label> <br />
-                        <input type="text" id="Pol5C1" readonly /><br />
-                        <label>
-                            Coeficiente <strong>C<sub>2</sub></strong> regresión polinomial grado 5 <br />
-                            Y = C<sub>0</sub> + C<sub>1</sub>X + <strong>C<sub>2</sub></strong>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup> + C<sub>5</sub>X<sup>5</sup>:
-                        </label> <br />
-                        <input type="text" id="Pol5C2" readonly /><br />
-                        <label>
-                            Coeficiente <strong>C<sub>3</sub></strong> regresión polinomial grado 5 <br />
-                            Y = C<sub>0</sub> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + <strong>C<sub>3</sub></strong>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup> + C<sub>5</sub>X<sup>5</sup>:
-                        </label> <br />
-                        <input type="text" id="Pol5C3" readonly /><br />
-                        <label>
-                            Coeficiente <strong>C<sub>4</sub></strong> regresión polinomial grado 5 <br />
-                            Y = C<sub>0</sub> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + <strong>C<sub>4</sub></strong>X<sup>4</sup> + C<sub>5</sub>X<sup>5</sup>:
-                        </label> <br />
-                        <input type="text" id="Pol5C4" readonly /><br />
-                        <label>
-                            Coeficiente <strong>C<sub>5</sub></strong> regresión polinomial grado 5 <br />
-                            Y = C<sub>0</sub> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup> + <strong>C<sub>5</sub></strong>X<sup>5</sup>:
-                        </label> <br />
-                        <input type="text" id="Pol5C5" readonly /><br />
-                        <label>Coeficiente <strong>r</strong> polinomial grado 5:</label> <br />
-                        <input type="text" id="Pol5R" readonly /><br />
-                        <label>Coeficiente <strong>r<sup>2</sup></strong> polinomial grado 5:</label> <br />
-                        <input type="text" id="Pol5R2" readonly /><br />
-                        <label>Pronóstico regresión polinomial grado 5:</label> <br />
-                        <input type="text" id="Pol5Pron" readonly /><br />
-                        <!-- polinomial grado 6 -->
-                        <label>
-                            Coeficiente <strong>C<sub>0</sub></strong> regresión polinomial grado 6 <br />
-                            Y = <strong>C<sub>0</sub></strong> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup> + C<sub>5</sub>X<sup>5</sup> + C<sub>6</sub>X<sup>6</sup>:
-                        </label> <br />
-                        <input type="text" id="Pol6C0" readonly /><br />
-                        <label>
-                            Coeficiente <strong>C<sub>1</sub></strong> regresión polinomial grado 6 <br />
-                            Y = C<sub>0</sub> + <strong>C<sub>1</sub></strong>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup> + C<sub>5</sub>X<sup>5</sup> + C<sub>6</sub>X<sup>6</sup>:
-                        </label> <br />
-                        <input type="text" id="Pol6C1" readonly /><br />
-                        <label>
-                            Coeficiente <strong>C<sub>2</sub></strong> regresión polinomial grado 6 <br />
-                            Y = C<sub>0</sub> + C<sub>1</sub>X + <strong>C<sub>2</sub></strong>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup> + C<sub>5</sub>X<sup>5</sup> + C<sub>6</sub>X<sup>6</sup>:
-                        </label> <br />
-                        <input type="text" id="Pol6C2" readonly /><br />
-                        <label>
-                            Coeficiente <strong>C<sub>3</sub></strong> regresión polinomial grado 6 <br />
-                            Y = C<sub>0</sub> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + <strong>C<sub>3</sub></strong>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup> + C<sub>5</sub>X<sup>5</sup> + C<sub>6</sub>X<sup>6</sup>:
-                        </label> <br />
-                        <input type="text" id="Pol6C3" readonly /><br />
-                        <label>
-                            Coeficiente <strong>C<sub>4</sub></strong> regresión polinomial grado 6 <br />
-                            Y = C<sub>0</sub> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + <strong>C<sub>4</sub></strong>X<sup>4</sup> + C<sub>5</sub>X<sup>5</sup> + C<sub>6</sub>X<sup>6</sup>:
-                        </label> <br />
-                        <input type="text" id="Pol6C4" readonly /><br />
-                        <label>
-                            Coeficiente <strong>C<sub>5</sub></strong> regresión polinomial grado 6 <br />
-                            Y = C<sub>0</sub> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup> + <strong>C<sub>5</sub></strong>X<sup>5</sup> + C<sub>6</sub>X<sup>6</sup>:
-                        </label> <br />
-                        <input type="text" id="Pol6C5" readonly /><br />
-                        <label>
-                            Coeficiente <strong>C<sub>6</sub></strong> regresión polinomial grado 6 <br />
-                            Y = C<sub>0</sub> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup> + C<sub>5</sub>X<sup>5</sup>  + <strong>C<sub>6</sub></strong>X<sup>6</sup>:
-                        </label> <br />
-                        <input type="text" id="Pol6C6" readonly /><br />
-                        <label>Coeficiente <strong>r</strong> polinomial grado 6:</label> <br />
-                        <input type="text" id="Pol6R" readonly /><br />
-                        <label>Coeficiente <strong>r<sup>2</sup></strong> polinomial grado 6:</label> <br />
-                        <input type="text" id="Pol6R2" readonly /><br />
-                        <label>Pronóstico regresión polinomial grado 6:</label> <br />
-                        <input type="text" id="Pol6Pron" readonly /><br />
+                        <details open="open">
+                            <summary>CÁLCULOS GENERALES</summary><br />
+                            <label>Número de Datos:</label> <br />
+                            <input type="text" id="cuenta" readonly /><br />
+                            <label>Suma:</label> <br />
+                            <input type="text" id="suma" readonly /><br />
+                            <label>Productoria:</label> <br />
+                            <input type="text" id="productoria" readonly /><br />
+                            <label>Suma de cuadrados:</label> <br />
+                            <input type="text" id="sumaCuadrados" readonly /><br />
+                        </details>
+                        <details>
+                            <summary>MEDIDAS DE TENDENCIA CENTRAL</summary><br />
+                            <label>Media aritmética:</label> <br />
+                            <input type="text" id="media" readonly /><br />
+                            <label>Media geométrica:</label> <br />
+                            <input type="text" id="mediaGeom" readonly /><br />
+                            <label>Media armónica:</label> <br />
+                            <input type="text" id="mediaArm" readonly /><br />
+                            <label>Media cuadrática:</label> <br />
+                            <input type="text" id="mediaCuad" readonly /><br />
+                            <label>Moda (Primera encontrada):</label> <br />
+                            <input type="text" id="moda" readonly /><br />
+                            <label>Mediana:</label> <br />
+                            <input type="text" id="mediana" readonly /><br />
+                        </details>
+                        <details>
+                            <summary>MEDIDAS DE DISPERSIÓN</summary><br />
+                            <label>Rango o recorrido:</label> <br />
+                            <input type="text" id="rango" readonly /><br />
+                            <label>Recorrido relativo:</label> <br />
+                            <input type="text" id="recorridoRelativo" readonly /><br />
+                            <label>Coeficiente de apertura:</label> <br />
+                            <input type="text" id="coefApertura" readonly /><br />
+                            <label>Rango intercuartílico (Q<sub>3</sub> - Q<sub>1</sub>):</label> <br />
+                            <input type="text" id="rangoIntercuartílico" readonly /><br />
+                            <label>Desviación media:</label> <br />
+                            <input type="text" id="desvMedia" readonly /><br />
+                            <label>Varianza poblacional:</label> <br />
+                            <input type="text" id="varianzaP" readonly /><br />
+                            <label>Desviación estándar poblacional:</label> <br />
+                            <input type="text" id="desvP" readonly /><br />
+                            <label>Coeficiente de variación poblacional:</label> <br />
+                            <input type="text" id="coefVarP" readonly /><br />
+                            <label>Varianza muestral:</label> <br />
+                            <input type="text" id="varianzaM" readonly /><br />
+                            <label>Desviación estándar muestral:</label> <br />
+                            <input type="text" id="desvM" readonly /><br />
+                            <label>Coeficiente de variación muestral:</label> <br />
+                            <input type="text" id="coefVarM" readonly /><br />
+                            <label>Error típico de la media muestral:</label> <br />
+                            <input type="text" id="ETMM" readonly /><br />
+                        </details>
+                        <details>
+                            <summary>MEDIDAS DE POSICIÓN</summary><br />
+                            <label>Máximo:</label> <br />
+                            <input type="text" id="max" readonly /><br />
+                            <label>Mínimo:</label> <br />
+                            <input type="text" id="min" readonly /><br />
+                            <label>Primer cuartil (Q<sub>1</sub> = P<sub>25</sub>):</label> <br />
+                            <input type="text" id="q1" readonly /><br />
+                            <label>Tercer cuartil (Q<sub>3</sub> = P<sub>75</sub>):</label> <br />
+                            <input type="text" id="q3" readonly /><br />
+                        </details>
+                        <details>
+                            <summary>MEDIDAS DE FORMA</summary><br />
+                            <label>Coeficiente de asimetría de Fisher:</label> <br />
+                            <input type="text" id="coefAsim" readonly /><br />
+                            <label>Curtosis:</label> <br />
+                            <input type="text" id="curtosis" readonly /><br />
+                        </details>                        
+                        <details>
+                            <summary>REGRESIÓN LINEAL</summary><br />
+                            <label>
+                                Pendiente <strong>m</strong> recta de ajuste <br />
+                                y = <strong>m</strong>x + b:
+                            </label> <br />
+                            <input type="text" id="pendiente" readonly /><br />
+                            <label>
+                                Intercepto <strong>b</strong> recta de ajuste <br />
+                                y = mx + <strong>b</strong>:
+                            </label> <br />
+                            <input type="text" id="intercepto" readonly /><br />
+                            <label>Coeficiente de correlación <strong>r</strong> lineal:</label> <br />
+                            <input type="text" id="r" readonly /><br />
+                            <label>Coeficiente <strong>r<sup>2</sup></strong> lineal:</label> <br />
+                            <input type="text" id="r2" readonly /><br />
+                            <label>Pronóstico lineal:</label> <br />
+                            <input type="text" id="pronLin" readonly /><br />
+                        </details>
+                        <details>
+                            <summary>REGRESIÓN EXPONENCIAL</summary><br />
+                            <label>
+                                Parámetro <strong>a</strong> regresión exponencial <br />
+                                y = <strong>a</strong>e<sup>bx</sup>:
+                            </label> <br />
+                            <input type="text" id="aExp" readonly /><br />
+                            <label>
+                                Parámetro <strong>b</strong> regresión exponencial <br />
+                                y = ae<sup><strong>b</strong>x</sup>:
+                            </label> <br />
+                            <input type="text" id="bExp" readonly /><br />
+                            <label>Coeficiente <strong>r</strong> regresión exponencial:</label> <br />
+                            <input type="text" id="rExp" readonly /><br />
+                            <label>Coeficiente <strong>r<sup>2</sup></strong> regresión exponencial:</label> <br />
+                            <input type="text" id="r2Exp" readonly /><br />
+                            <label>Pronóstico exponencial:</label> <br />
+                            <input type="text" id="pronExp" readonly /><br />
+                        </details>
+                        <details>
+                            <summary>REGRESIÓN LOGARÍTMICA</summary><br />
+                            <label>
+                                Parámetro <strong>a</strong> regresión logarítmica <br />
+                                y = <strong>a</strong>ln(x) + b:
+                            </label> <br />
+                            <input type="text" id="aLog" readonly /><br />
+                            <label>
+                                Parámetro <strong>b</strong> regresión logarítmica <br />
+                                y = aln(x) + <strong>b</strong>:
+                            </label> <br />
+                            <input type="text" id="bLog" readonly /><br />
+                            <label>Coeficiente <strong>r</strong> regresión logarítmica:</label> <br />
+                            <input type="text" id="rLog" readonly /><br />
+                            <label>Coeficiente <strong>r<sup>2</sup></strong> regresión logarítmica:</label> <br />
+                            <input type="text" id="r2Log" readonly /><br />
+                            <label>Pronóstico logarítmico:</label> <br />
+                            <input type="text" id="pronLog" readonly /><br />
+                        </details>
+                        <details>
+                            <summary>REGRESIÓN POTENCIAL</summary><br />
+                            <label>
+                                Parámetro <strong>a</strong> regresión potencial <br />
+                                y = <strong>a</strong>x<sup>b</sup>:
+                            </label> <br />
+                            <input type="text" id="aPot" readonly /><br />
+                            <label>
+                                Parámetro <strong>b</strong> regresión potencial <br />
+                                y = ax<sup><strong>b</strong></sup>:
+                            </label> <br />
+                            <input type="text" id="bPot" readonly /><br />
+                            <label>Coeficiente <strong>r</strong> regresión potencial:</label> <br />
+                            <input type="text" id="rPot" readonly /><br />
+                            <label>Coeficiente <strong>r<sup>2</sup></strong> regresión potencial:</label> <br />
+                            <input type="text" id="r2Pot" readonly /><br />
+                            <label>Pronóstico potencial:</label> <br />
+                            <input type="text" id="pronPot" readonly /><br />
+                        </details>
+                        <details>
+                            <summary>REGRESIÓN POLINOMIAL GRADO 2</summary><br />
+                            <!-- polinomial grado 2 -->
+                            <label>
+                                Coeficiente <strong>C<sub>0</sub></strong> regresión polinomial grado 2 <br />
+                                Y = <strong>C<sub>0</sub></strong> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup>:
+                            </label> <br />
+                            <input type="text" id="Pol2C0" readonly /><br />
+                            <label>
+                                Coeficiente <strong>C<sub>1</sub></strong> regresión polinomial grado 2 <br />
+                                Y = C<sub>0</sub> + <strong>C<sub>1</sub></strong>X + C<sub>2</sub>X<sup>2</sup>:
+                            </label> <br />
+                            <input type="text" id="Pol2C1" readonly /><br />
+                            <label>
+                                Coeficiente <strong>C<sub>2</sub></strong> regresión polinomial grado 2 <br />
+                                Y = C<sub>0</sub> + C<sub>1</sub>X + <strong>C<sub>2</sub></strong>X<sup>2</sup>:
+                            </label> <br />
+                            <input type="text" id="Pol2C2" readonly /><br />
+                            <label>Coeficiente <strong>r</strong> polinomial grado 2:</label> <br />
+                            <input type="text" id="Pol2R" readonly /><br />
+                            <label>Coeficiente <strong>r<sup>2</sup></strong> polinomial grado 2:</label> <br />
+                            <input type="text" id="Pol2R2" readonly /><br />
+                            <label>Pronóstico regresión polinomial grado 2:</label> <br />
+                            <input type="text" id="Pol2Pron" readonly /><br />
+                        </details>
+                        <details>
+                            <summary>REGRESIÓN POLINOMIAL GRADO 3</summary><br />
+                            <!-- polinomial grado 3 -->
+                            <label>
+                                Coeficiente <strong>C<sub>0</sub></strong> regresión polinomial grado 3 <br />
+                                Y = <strong>C<sub>0</sub></strong> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup>:
+                            </label> <br />
+                            <input type="text" id="Pol3C0" readonly /><br />
+                            <label>
+                                Coeficiente <strong>C<sub>1</sub></strong> regresión polinomial grado 3 <br />
+                                Y = C<sub>0</sub> + <strong>C<sub>1</sub></strong>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup>:
+                            </label> <br />
+                            <input type="text" id="Pol3C1" readonly /><br />
+                            <label>
+                                Coeficiente <strong>C<sub>2</sub></strong> regresión polinomial grado 3 <br />
+                                Y = C<sub>0</sub> + C<sub>1</sub>X + <strong>C<sub>2</sub></strong>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup>:
+                            </label> <br />
+                            <input type="text" id="Pol3C2" readonly /><br />
+                            <label>
+                                Coeficiente <strong>C<sub>3</sub></strong> regresión polinomial grado 3 <br />
+                                Y = C<sub>0</sub> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + <strong>C<sub>3</sub></strong>X<sup>3</sup>:
+                            </label> <br />
+                            <input type="text" id="Pol3C3" readonly /><br />
+                            <label>Coeficiente <strong>r</strong> polinomial grado 3:</label> <br />
+                            <input type="text" id="Pol3R" readonly /><br />
+                            <label>Coeficiente <strong>r<sup>2</sup></strong> polinomial grado 3:</label> <br />
+                            <input type="text" id="Pol3R2" readonly /><br />
+                            <label>Pronóstico regresión polinomial grado 3:</label> <br />
+                            <input type="text" id="Pol3Pron" readonly /><br />
+                        </details>
+                        <details>
+                            <summary>REGRESIÓN POLINOMIAL GRADO 4</summary><br />
+                            <!-- polinomial grado 4 -->
+                            <label>
+                                Coeficiente <strong>C<sub>0</sub></strong> regresión polinomial grado 4 <br />
+                                Y = <strong>C<sub>0</sub></strong> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup>:
+                            </label> <br />
+                            <input type="text" id="Pol4C0" readonly /><br />
+                            <label>
+                                Coeficiente <strong>C<sub>1</sub></strong> regresión polinomial grado 4 <br />
+                                Y = C<sub>0</sub> + <strong>C<sub>1</sub></strong>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup>:
+                            </label> <br />
+                            <input type="text" id="Pol4C1" readonly /><br />
+                            <label>
+                                Coeficiente <strong>C<sub>2</sub></strong> regresión polinomial grado 4 <br />
+                                Y = C<sub>0</sub> + C<sub>1</sub>X + <strong>C<sub>2</sub></strong>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup>:
+                            </label> <br />
+                            <input type="text" id="Pol4C2" readonly /><br />
+                            <label>
+                                Coeficiente <strong>C<sub>3</sub></strong> regresión polinomial grado 4 <br />
+                                Y = C<sub>0</sub> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + <strong>C<sub>3</sub></strong>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup>:
+                            </label> <br />
+                            <input type="text" id="Pol4C3" readonly /><br />
+                            <label>
+                                Coeficiente <strong>C<sub>4</sub></strong> regresión polinomial grado 4 <br />
+                                Y = C<sub>0</sub> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + <strong>C<sub>4</sub></strong>X<sup>4</sup>:
+                            </label> <br />
+                            <input type="text" id="Pol4C4" readonly /><br />
+                            <label>Coeficiente <strong>r</strong> polinomial grado 4:</label> <br />
+                            <input type="text" id="Pol4R" readonly /><br />
+                            <label>Coeficiente <strong>r<sup>2</sup></strong> polinomial grado 4:</label> <br />
+                            <input type="text" id="Pol4R2" readonly /><br />
+                            <label>Pronóstico regresión polinomial grado 4:</label> <br />
+                            <input type="text" id="Pol4Pron" readonly /><br />
+                        </details>
+                        <details>
+                            <summary>REGRESIÓN POLINOMIAL GRADO 5</summary><br />
+                            <!-- polinomial grado 5 -->
+                            <label>
+                                Coeficiente <strong>C<sub>0</sub></strong> regresión polinomial grado 5 <br />
+                                Y = <strong>C<sub>0</sub></strong> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup> + C<sub>5</sub>X<sup>5</sup>:
+                            </label> <br />
+                            <input type="text" id="Pol5C0" readonly /><br />
+                            <label>
+                                Coeficiente <strong>C<sub>1</sub></strong> regresión polinomial grado 5 <br />
+                                Y = C<sub>0</sub> + <strong>C<sub>1</sub></strong>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup> + C<sub>5</sub>X<sup>5</sup>:
+                            </label> <br />
+                            <input type="text" id="Pol5C1" readonly /><br />
+                            <label>
+                                Coeficiente <strong>C<sub>2</sub></strong> regresión polinomial grado 5 <br />
+                                Y = C<sub>0</sub> + C<sub>1</sub>X + <strong>C<sub>2</sub></strong>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup> + C<sub>5</sub>X<sup>5</sup>:
+                            </label> <br />
+                            <input type="text" id="Pol5C2" readonly /><br />
+                            <label>
+                                Coeficiente <strong>C<sub>3</sub></strong> regresión polinomial grado 5 <br />
+                                Y = C<sub>0</sub> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + <strong>C<sub>3</sub></strong>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup> + C<sub>5</sub>X<sup>5</sup>:
+                            </label> <br />
+                            <input type="text" id="Pol5C3" readonly /><br />
+                            <label>
+                                Coeficiente <strong>C<sub>4</sub></strong> regresión polinomial grado 5 <br />
+                                Y = C<sub>0</sub> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + <strong>C<sub>4</sub></strong>X<sup>4</sup> + C<sub>5</sub>X<sup>5</sup>:
+                            </label> <br />
+                            <input type="text" id="Pol5C4" readonly /><br />
+                            <label>
+                                Coeficiente <strong>C<sub>5</sub></strong> regresión polinomial grado 5 <br />
+                                Y = C<sub>0</sub> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup> + <strong>C<sub>5</sub></strong>X<sup>5</sup>:
+                            </label> <br />
+                            <input type="text" id="Pol5C5" readonly /><br />
+                            <label>Coeficiente <strong>r</strong> polinomial grado 5:</label> <br />
+                            <input type="text" id="Pol5R" readonly /><br />
+                            <label>Coeficiente <strong>r<sup>2</sup></strong> polinomial grado 5:</label> <br />
+                            <input type="text" id="Pol5R2" readonly /><br />
+                            <label>Pronóstico regresión polinomial grado 5:</label> <br />
+                            <input type="text" id="Pol5Pron" readonly /><br />
+                        </details>
+                        <details>
+                            <summary>REGRESIÓN POLINOMIAL GRADO 6</summary><br />
+                            <!-- polinomial grado 6 -->
+                            <label>
+                                Coeficiente <strong>C<sub>0</sub></strong> regresión polinomial grado 6 <br />
+                                Y = <strong>C<sub>0</sub></strong> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup> + C<sub>5</sub>X<sup>5</sup> + C<sub>6</sub>X<sup>6</sup>:
+                            </label> <br />
+                            <input type="text" id="Pol6C0" readonly /><br />
+                            <label>
+                                Coeficiente <strong>C<sub>1</sub></strong> regresión polinomial grado 6 <br />
+                                Y = C<sub>0</sub> + <strong>C<sub>1</sub></strong>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup> + C<sub>5</sub>X<sup>5</sup> + C<sub>6</sub>X<sup>6</sup>:
+                            </label> <br />
+                            <input type="text" id="Pol6C1" readonly /><br />
+                            <label>
+                                Coeficiente <strong>C<sub>2</sub></strong> regresión polinomial grado 6 <br />
+                                Y = C<sub>0</sub> + C<sub>1</sub>X + <strong>C<sub>2</sub></strong>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup> + C<sub>5</sub>X<sup>5</sup> + C<sub>6</sub>X<sup>6</sup>:
+                            </label> <br />
+                            <input type="text" id="Pol6C2" readonly /><br />
+                            <label>
+                                Coeficiente <strong>C<sub>3</sub></strong> regresión polinomial grado 6 <br />
+                                Y = C<sub>0</sub> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + <strong>C<sub>3</sub></strong>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup> + C<sub>5</sub>X<sup>5</sup> + C<sub>6</sub>X<sup>6</sup>:
+                            </label> <br />
+                            <input type="text" id="Pol6C3" readonly /><br />
+                            <label>
+                                Coeficiente <strong>C<sub>4</sub></strong> regresión polinomial grado 6 <br />
+                                Y = C<sub>0</sub> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + <strong>C<sub>4</sub></strong>X<sup>4</sup> + C<sub>5</sub>X<sup>5</sup> + C<sub>6</sub>X<sup>6</sup>:
+                            </label> <br />
+                            <input type="text" id="Pol6C4" readonly /><br />
+                            <label>
+                                Coeficiente <strong>C<sub>5</sub></strong> regresión polinomial grado 6 <br />
+                                Y = C<sub>0</sub> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup> + <strong>C<sub>5</sub></strong>X<sup>5</sup> + C<sub>6</sub>X<sup>6</sup>:
+                            </label> <br />
+                            <input type="text" id="Pol6C5" readonly /><br />
+                            <label>
+                                Coeficiente <strong>C<sub>6</sub></strong> regresión polinomial grado 6 <br />
+                                Y = C<sub>0</sub> + C<sub>1</sub>X + C<sub>2</sub>X<sup>2</sup> + C<sub>3</sub>X<sup>3</sup> + C<sub>4</sub>X<sup>4</sup> + C<sub>5</sub>X<sup>5</sup>  + <strong>C<sub>6</sub></strong>X<sup>6</sup>:
+                            </label> <br />
+                            <input type="text" id="Pol6C6" readonly /><br />
+                            <label>Coeficiente <strong>r</strong> polinomial grado 6:</label> <br />
+                            <input type="text" id="Pol6R" readonly /><br />
+                            <label>Coeficiente <strong>r<sup>2</sup></strong> polinomial grado 6:</label> <br />
+                            <input type="text" id="Pol6R2" readonly /><br />
+                            <label>Pronóstico regresión polinomial grado 6:</label> <br />
+                            <input type="text" id="Pol6Pron" readonly /><br />
+                        </details>                        
                     </fieldset>                    
                 </form>
                 <div id="linechart"></div>
