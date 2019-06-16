@@ -32,7 +32,7 @@
                 opacity: 0.8;
                 filter: Alpha(opacity=80); /* IE8 and earlier */
             }
-            #linechart, #noDisponible, #opcionesGráfico {
+            #linechart, #regChart, #noDisponible, #opcionesGráfico, #opcionesGráficoReg {
                 /*RESPONSIVE*/
                 max-width: 100%;
                 overflow: auto;
@@ -46,7 +46,6 @@
                 -moz-border-radius: 4px;
                 border-radius: 4px;
                 outline: none;
-                
             }
             #linechart {
                 background-color: lavender;
@@ -57,30 +56,54 @@
                 padding: 4px 24px;
                 color:purple;
             }
-            #opcionesGráfico {
+            #opcionesGráfico, #opcionesGráficoReg {
                 margin-top: 12px !important;
                 padding: 24px 12px 12px 18px;
             }
-            #linechart, #opcionesGráfico {
+            #opcionesGráfico {
+                margin-bottom: 12px !important;                
+            }
+            #linechart, #opcionesGráfico, #regChart, #opcionesGráficoReg {
                 /*oculto por defecto*/
                 display: none;
             }
+            #tipoReg {
+                margin: 4px 4px 16px 4px;
+                /*para que el ancho sea real*/
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                border: 2px solid purple;
+                -webkit-border-radius: 4px;
+                -moz-border-radius: 4px;
+                border-radius: 4px;
+                outline: none;
+                width: 100%;
+                padding: 12px 20px;
+                border: none;
+                background-color: #ffe6ff;
+            }
+
+                #tipoReg:focus {
+                    background-color: lavender !important;
+                }
+
             footer {
                 margin-top: 24px !important;
             }
             /*ajustes al imprimir*/
             @media print {
-                #selectorN, #opcionesGráfico, #snackbar {
+                #selectorN, #opcionesGráfico, #snackbar, #opcionesGráficoReg {
                     display: none !important;
                 }
 
                 #divDatos {
                     max-height: none !important;
                 }
-                #linechart {                    
-                    overflow:hidden;
+                #regChart, #linechart {
+                    overflow: hidden;
                     margin-left: 1px !important;
-                    margin-right: 1px !important;                    
+                    margin-right: 1px !important;
                 }
             }
 
@@ -138,15 +161,14 @@
                 white-space: nowrap;
                 margin-top: 24px;                
             }
-            #BtnPNG {
+            #BtnPNG, #BtnRegPNG {
                 text-decoration: none;
                 padding: 16px 32px !important;
             }
-            #divA i, #BtnPNG {
+            #divA i, #BtnPNG, #BtnRegPNG {
                 -webkit-box-sizing: border-box;
                 -moz-box-sizing: border-box;
                 box-sizing: border-box;
-
                 border: none; /* Remove borders */
                 outline: none; /* Remove outline */
                 background-color: rebeccapurple; /* Set a background color */
@@ -929,12 +951,13 @@ return temp;
                         </details>                        
                     </fieldset>                    
                 </form>
-                <div id="linechart"></div>
+                <!-- gráfico de datos -->
+                <div id="linechart"></div>                
                 <div id="noDisponible">
-                    <p>GRÁFICO NO DISPONIBLE</p>
+                    <p>GRÁFICOS NO DISPONIBLES</p>
                 </div>
                 <fieldset id="opcionesGráfico">
-                    <legend>Opciones del Gráfico: </legend>
+                    <legend>Opciones gráfico de datos: </legend>
                     <label class="contenedorCheckbox">
                         Usar trazado curvo
                         <input type="checkbox" id="myCheck2" onclick="clickCheck2()">
@@ -947,8 +970,28 @@ return temp;
                     </label>                      
                     <button id="BtnPNG" title="Copiar enlace a imagen PNG del gráfico">COPIAR ENLACE PNG</button>
                     <p class="letramorada">En navegadores modernos, puede visualizar este enlace como una imagen PNG</p>
-                </fieldset>                
-                
+                </fieldset>          
+                <!-- gráfico de regresión -->
+                <div id="regChart"></div>
+                <fieldset id="opcionesGráficoReg">
+                    <legend>Opciones gráfico de regresión: </legend> 
+                    <!-- selección de modelo de regresión -->
+                    <h3>Seleccione un tipo de regresión:</h3>
+                    <select id="tipoReg">
+                        <option value="ninguna" selected>NINGUNA</option>
+                        <option value="lineal">LINEAL</option>
+                        <option value="exponencial">EXPONENCIAL</option>
+                        <option value="logarítmica">LOGARÍTMICA</option>
+                        <option value="potencial">POTENCIAL</option>
+                        <option value="polinomial2">POLINOMIAL GRADO 2</option>
+                        <option value="polinomial3">POLINOMIAL GRADO 3</option>
+                        <option value="polinomial4">POLINOMIAL GRADO 4</option>
+                        <option value="polinomial5">POLINOMIAL GRADO 5</option>
+                        <option value="polinomial6">POLINOMIAL GRADO 6</option>
+                    </select>
+                    <button id="BtnRegPNG" title="Copiar enlace a imagen PNG del gráfico">COPIAR ENLACE PNG</button>
+                    <p class="letramorada">En navegadores modernos, puede visualizar este enlace como una imagen PNG</p>
+                </fieldset>    
                 <!--script para cargar la API de Google para gráficos-->
                 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js">
                 </script>
@@ -1054,8 +1097,10 @@ return temp;
                         var Pol6R;
                         var Pol6R2;
                         var Pol6Pron;
-                        // para el gráfico
+                        // para el gráfico de datos
                         var chart;
+                        // para el gráfico de regresión
+                        var chartReg;
 
                         //SUMA ARRAY
                         function sumar() {
@@ -1957,6 +2002,8 @@ return temp;
                             //nada que graficar
                             document.getElementById("linechart").style.display = "none";
                             document.getElementById("opcionesGráfico").style.display = "none";
+                            document.getElementById("regChart").style.display = "none";
+                            document.getElementById("opcionesGráficoReg").style.display = "none";
                             document.getElementById("noDisponible").style.display = "block";
 
                         }
@@ -2240,16 +2287,22 @@ return temp;
                             //ya hay algo que copiar
                             getbtnCopiar.removeAttribute("disabled");
 
-                            //muestra la gráfica y sus opciones                         
+                            //muestra las gráficas y sus opciones                         
                             document.getElementById("linechart").style.display = "block";
-                            document.getElementById("opcionesGráfico").style.display = "block";                                                        
+                            document.getElementById("opcionesGráfico").style.display = "block";  
+                            document.getElementById("regChart").style.display = "block";
+                            document.getElementById("opcionesGráficoReg").style.display = "block";
                             document.getElementById("noDisponible").style.display = "none";
+                            //gráfica de datos
                             if (mostrarSeriesAdicionales == true) {
                                 drawChart3();
                             } else {
                                 drawChart2();
                             }
-                            
+                            //gráfica de regresión 
+                            //  ninguna regresión, por defecto
+                            document.getElementById("tipoReg").selectedIndex = "0";
+                            drawChart4();
                         }
                         function manejador(e, miId) {                            
                             var characterCode;
@@ -2560,13 +2613,13 @@ return temp;
                             copyCampo = document.getElementById("Pol6C6");
                             copyText = copyText + "\r" + 'Coeficiente C6 regresión polinomial grado 6 = ' + "\t" + copyCampo.value;
 
-                            //Pol5R
+                            //Pol6R
                             copyCampo = document.getElementById("Pol6R");
                             copyText = copyText + "\r" + 'Coeficiente r regresión polinomial grado 6 = ' + "\t" + copyCampo.value;
-                            //Pol5R2
+                            //Pol6R2
                             copyCampo = document.getElementById("Pol6R2");
                             copyText = copyText + "\r" + 'Coeficiente r^2 regresión polinomial grado 6 = ' + "\t" + copyCampo.value;
-                            //Pol5Pron
+                            //Pol6Pron
                             copyCampo = document.getElementById("Pol6Pron");
                             copyText = copyText + "\r" + 'Pronóstico polinomial grado 6 = ' + "\t" + copyCampo.value;
 
@@ -2624,7 +2677,10 @@ return temp;
 
                         // Load google charts
                         google.charts.load('current', { 'packages': ['corechart', 'line'] });
+                        //gráfico de datos
                         google.charts.setOnLoadCallback(drawChart2);                       
+                        //gráfico de regresión
+                        google.charts.setOnLoadCallback(drawChart4);                       
 
                         // Draw the chart and set the chart values
                         //     normal, sin series adicionales
@@ -2651,7 +2707,7 @@ return temp;
                             // Optional; add a title and set the width and height of the chart
                             var options = {
                                 //título
-                                'title': 'GRÁFICA DE DATOS INGRESADOS',  
+                                'title': 'GRÁFICA DE DATOS',  
                                 curveType: tipoCurva,
                                 titleTextStyle: {
                                     //azul oscuro
@@ -2747,7 +2803,7 @@ return temp;
                             // Optional; add a title and set the width and height of the chart
                             var options = {
                                 //título
-                                'title': 'GRÁFICA DE DATOS INGRESADOS',
+                                'title': 'GRÁFICA DE DATOS',
                                 curveType: tipoCurva,
                                 titleTextStyle: {
                                     //azul oscuro
@@ -2833,7 +2889,93 @@ return temp;
                             chart.draw(data, options);
                             
                         }
-                        // botón png
+                        // DEL SEGUNDO GRÁFICO
+                        //     NINGUNA REGRESIÓN SELECCIONADA, GRÁFICO DE DISPERSIÓN
+                        function drawChart4() {
+                            var i;
+                            var x;
+                            var y;
+                            // llena el array de datos
+                            // Create the data table.
+                            var data = new google.visualization.DataTable();
+                            //crea las columnas
+                            data.addColumn('string', 'DATO');
+                            data.addColumn('number', 'VALOR');
+                            //los pares de datos
+                            for (i = 0; i < arrayDatos.length; i++) {
+                                x = String(1 + i);
+                                y = Number(arrayDatos[i]);
+                                data.addRows([
+                                    [x, y]
+                                ]);
+                            }
+
+
+                            // Optional; add a title and set the width and height of the chart
+                            var options = {
+                                //título
+                                'title': 'GRÁFICA DE REGRESIÓN',
+                                curveType: 'function',
+                                titleTextStyle: {
+                                    //azul oscuro
+                                    color: '#000066',
+                                    fontName: 'Tahoma',
+                                    fontSize: 18,
+                                    bold: true
+                                },
+                                //legenda
+                                'legend': { position: 'bottom' },
+                                //tamaño gráfico
+                                'width': 800,
+                                'height': 500,
+                                //eje x
+                                hAxis: {
+                                    title: 'Datos',
+                                    textStyle: {
+                                        color: 'purple'
+                                    },
+                                    titleTextStyle: {
+                                        color: 'indigo',
+                                        italic: true,
+                                        fontSize: 16,
+                                        bold: true
+                                    }
+                                },
+                                //eje y
+                                vAxis: {
+                                    title: 'Valores',
+                                    textStyle: {
+                                        color: 'purple'
+                                    },
+                                    titleTextStyle: {
+                                        color: 'indigo',
+                                        italic: true,
+                                        fontSize: 16,
+                                        bold: true
+                                    }
+                                },
+                                //color linea de la serie
+                                colors: ['blue'],
+                                //color de fondo del gráfico
+                                //backgroundColor: 'lavender',
+                                //muestra una cruz al seleccionar o señalar
+                                crosshair: { trigger: 'both' },
+                                //tamaño de puntos
+                                pointSize: 10,
+                                //forma de puntos
+                                pointShape: 'circle',
+                                //SIN LINEA CONECTORA
+                                lineWidth: 0
+                            };
+
+                            // Display the chart inside the <div> element with id="regChart"                            
+                            var chart_divReg = document.getElementById('regChart');
+                            chartReg = new google.visualization.LineChart(chart_divReg);
+                            
+                            chartReg.draw(data, options);
+
+                        }
+                        // botón BtnPNG
                         document.getElementById("BtnPNG").onclick = function () {
                             //optiene un enlace a la imagen png 
                             var msj;
@@ -2841,7 +2983,22 @@ return temp;
                             copyToClipboard(msj);
                             showSnackbar("Enlace PNG copiado");
                         }
-                    
+
+                        // botón BtnRegPNG
+                        document.getElementById("BtnRegPNG").onclick = function () {
+                            //optiene un enlace a la imagen png 
+                            var msj;
+                            msj = chartReg.getImageURI();
+                            copyToClipboard(msj);
+                            showSnackbar("Enlace PNG copiado");
+                        }
+
+                        // selecciona una regresión
+                        document.getElementById("tipoReg").onchange = function () {
+                            
+                            showSnackbar("¡Código en construcción!");
+                        }
+
                         function clickCheck() {
                             var checkBox = document.getElementById("myCheck");                            
                             if (checkBox.checked == true) {

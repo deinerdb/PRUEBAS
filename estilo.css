@@ -1342,13 +1342,11 @@ footer .fa-skype {
     font-style:italic;    
     font:x-large
         
-}   
+}
 
-#filtro{
-
-    font-size:larger;
-    max-width:100%;
-
+#filtro, #tipoReg {
+    font-size: larger;
+    max-width: 100%;
 }
 figcaption{
 
