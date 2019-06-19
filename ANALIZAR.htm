@@ -91,6 +91,47 @@
             footer {
                 margin-top: 24px !important;
             }
+            /* inicio CSS para tab*/
+
+            /* Style the tab */
+            .tab {
+                overflow: hidden;
+                border: 2px solid purple;
+                background-color: lavender;
+            }
+
+                /* Style the buttons inside the tab */
+                .tab button {
+                    background-color: inherit;
+                    float: left;
+                    border: none;
+                    outline: none;
+                    cursor: pointer;
+                    padding: 14px 16px;
+                    transition: 0.3s;
+                    font-size: 17px;
+                }
+
+                    /* Change background color of buttons on hover */
+                    .tab button:hover {
+                        background-color: #bfbff2; /*lavender 2 tonos más oscuro*/
+                    }
+
+                    /* Create an active/current tablink class */
+                    .tab button.active {
+                        background-color: #9595ea; /*lavender 4 tonos más oscuro*/
+                    }
+
+            /* Style the tab content */
+            .tabcontent {
+                display: none;
+                padding: 6px 12px;
+                border: 2px solid purple;
+                border-top: none;
+            }
+
+            /* fin CSS para tab*/
+
             /*ajustes al imprimir*/
             @media print {
                 #selectorN, #opcionesGráfico, #snackbar, #opcionesGráficoReg {
@@ -951,8 +992,27 @@ return temp;
                         </details>                        
                     </fieldset>                    
                 </form>
+                <h2 class="letramorada" style="margin-left:12px;">Análisis gráfico:</h2>
+                <div class="tab">
+                    <button class="tablinks" onclick="openCity(event, 'esencial')" id="defaultOpen">Esencial</button>
+                    <button class="tablinks" onclick="openCity(event, 'regresión')">Regresión</button>                    
+                </div>
+
+                <div id="esencial" class="tabcontent">
+                    <h3>Esencial</h3>
+                    <p>Aquí irá el gráfico esencial.</p>
+                    <p>Código en construcción.</p>
+                </div>
+
+                <div id="regresión" class="tabcontent">
+                    <h3>Regresión</h3>
+                    <p>Aquí va el gráfico de regresión.</p>
+                    <p>Código en construcción.</p>
+                </div>
+
                 <!-- gráfico de datos -->
-                <div id="linechart"></div>                
+                <div id="linechart"></div>
+                
                 <div id="noDisponible">
                     <p>GRÁFICOS NO DISPONIBLES</p>
                 </div>
@@ -3021,6 +3081,26 @@ return temp;
                     
                 </script>
 
+                <script>
+                    // inicia script para el tab
+                    
+                        function openCity(evt, cityName) {
+                            var i, tabcontent, tablinks;
+                            tabcontent = document.getElementsByClassName("tabcontent");
+                            for (i = 0; i < tabcontent.length; i++) {
+                                tabcontent[i].style.display = "none";
+                            }
+                            tablinks = document.getElementsByClassName("tablinks");
+                            for (i = 0; i < tablinks.length; i++) {
+                                tablinks[i].className = tablinks[i].className.replace(" active", "");
+                            }
+                            document.getElementById(cityName).style.display = "block";
+                            evt.currentTarget.className += " active";
+                        }
+
+                        // Get the element with id="defaultOpen" and click on it
+                        document.getElementById("defaultOpen").click();
+                </script>
 
 
 
