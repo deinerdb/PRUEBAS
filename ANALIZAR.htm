@@ -36,12 +36,12 @@
                 /*RESPONSIVE*/
                 max-width: 100%;
                 overflow: auto;
-                margin: 4px 12px 4px 4px;
+                margin: 4px 10px 4px 4px;
                 /*para que el ancho sea real*/
                 -moz-box-sizing: border-box;
                 -webkit-box-sizing: border-box;
                 box-sizing: border-box;
-                border: 2px solid purple;
+                border: 1px solid purple;
                 -webkit-border-radius: 4px;
                 -moz-border-radius: 4px;
                 border-radius: 4px;
@@ -55,6 +55,7 @@
                 display: block;
                 padding: 4px 24px;
                 color:purple;
+                border-width: 2px;
             }
             #opcionesGráfico, #opcionesGráficoReg {
                 margin-top: 12px !important;
@@ -63,7 +64,7 @@
             #opcionesGráfico {
                 margin-bottom: 12px !important;                
             }
-            #linechart, #opcionesGráfico, #regChart, #opcionesGráficoReg {
+            #linechart, #opcionesGráfico, #regChart, #opcionesGráficoReg, .tab, .tabcontent {
                 /*oculto por defecto*/
                 display: none;
             }
@@ -94,15 +95,23 @@
             /* inicio CSS para tab*/
 
             /* Style the tab */
+            .tab, .tab button {
+                -webkit-border-top-left-radius: 4px;
+                -moz-border-radius-topleft: 4px;
+                border-top-left-radius: 4px;
+                -webkit-border-top-right-radius: 4px;
+                -moz-border-radius-topright: 4px;
+                border-top-right-radius: 4px;
+            }
             .tab {
                 overflow: hidden;
                 border: 2px solid purple;
-                background-color: lavender;
+                background-color: lavender;               
             }
 
                 /* Style the buttons inside the tab */
                 .tab button {
-                    background-color: inherit;
+                    background-color: lavender;
                     float: left;
                     border: none;
                     outline: none;
@@ -110,6 +119,7 @@
                     padding: 14px 16px;
                     transition: 0.3s;
                     font-size: 17px;
+                    
                 }
 
                     /* Change background color of buttons on hover */
@@ -125,8 +135,14 @@
             /* Style the tab content */
             .tabcontent {
                 display: none;
-                padding: 6px 12px;
+                padding: 6px 10px;
                 border: 2px solid purple;
+                -webkit-border-bottom-left-radius: 4px;
+                -moz-border-radius-bottomleft: 4px;
+                border-bottom-left-radius: 4px;
+                -webkit-border-bottom-right-radius: 4px;
+                -moz-border-radius-bottomright: 4px;
+                border-bottom-right-radius: 4px;
                 border-top: none;
             }
 
@@ -993,65 +1009,59 @@ return temp;
                     </fieldset>                    
                 </form>
                 <h2 class="letramorada" style="margin-left:12px;">Análisis gráfico:</h2>
-                <div class="tab">
-                    <button class="tablinks" onclick="openCity(event, 'esencial')" id="defaultOpen">Esencial</button>
-                    <button class="tablinks" onclick="openCity(event, 'regresión')">Regresión</button>                    
-                </div>
-
-                <div id="esencial" class="tabcontent">
-                    <h3>Esencial</h3>
-                    <p>Aquí irá el gráfico esencial.</p>
-                    <p>Código en construcción.</p>
-                </div>
-
-                <div id="regresión" class="tabcontent">
-                    <h3>Regresión</h3>
-                    <p>Aquí va el gráfico de regresión.</p>
-                    <p>Código en construcción.</p>
-                </div>
-
-                <!-- gráfico de datos -->
-                <div id="linechart"></div>
-                
                 <div id="noDisponible">
                     <p>GRÁFICOS NO DISPONIBLES</p>
                 </div>
-                <fieldset id="opcionesGráfico">
-                    <legend>Opciones gráfico de datos: </legend>
-                    <label class="contenedorCheckbox">
-                        Usar trazado curvo
-                        <input type="checkbox" id="myCheck2" onclick="clickCheck2()">
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="contenedorCheckbox">
-                        Mostrar tendencia lineal y media aritmética
-                        <input type="checkbox" id="myCheck" onclick="clickCheck()">
-                        <span class="checkmark"></span>
-                    </label>                      
-                    <button id="BtnPNG" title="Copiar enlace a imagen PNG del gráfico">COPIAR ENLACE PNG</button>
-                    <p class="letramorada">En navegadores modernos, puede visualizar este enlace como una imagen PNG</p>
-                </fieldset>          
-                <!-- gráfico de regresión -->
-                <div id="regChart"></div>
-                <fieldset id="opcionesGráficoReg">
-                    <legend>Opciones gráfico de regresión: </legend> 
-                    <!-- selección de modelo de regresión -->
-                    <h3>Seleccione un tipo de regresión:</h3>
-                    <select id="tipoReg">
-                        <option value="ninguna" selected>NINGUNA</option>
-                        <option value="lineal">LINEAL</option>
-                        <option value="exponencial">EXPONENCIAL</option>
-                        <option value="logarítmica">LOGARÍTMICA</option>
-                        <option value="potencial">POTENCIAL</option>
-                        <option value="polinomial2">POLINOMIAL GRADO 2</option>
-                        <option value="polinomial3">POLINOMIAL GRADO 3</option>
-                        <option value="polinomial4">POLINOMIAL GRADO 4</option>
-                        <option value="polinomial5">POLINOMIAL GRADO 5</option>
-                        <option value="polinomial6">POLINOMIAL GRADO 6</option>
-                    </select>
-                    <button id="BtnRegPNG" title="Copiar enlace a imagen PNG del gráfico">COPIAR ENLACE PNG</button>
-                    <p class="letramorada">En navegadores modernos, puede visualizar este enlace como una imagen PNG</p>
-                </fieldset>    
+                <div class="tab" id="tab">
+                    <button class="tablinks" onclick="openTab(event, 'esencial')" id="defaultOpen">Esencial</button>
+                    <button class="tablinks" onclick="openTab(event, 'regresión')">Regresión</button>                    
+                </div>
+
+                <div id="esencial" class="tabcontent">
+                    <!-- gráfico de datos -->
+                    <div id="linechart"></div>
+
+                    <fieldset id="opcionesGráfico">
+                        <legend>Opciones gráfico de datos: </legend>
+                        <label class="contenedorCheckbox">
+                            Usar trazado curvo
+                            <input type="checkbox" id="myCheck2" onclick="clickCheck2()">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="contenedorCheckbox">
+                            Mostrar tendencia lineal y media aritmética
+                            <input type="checkbox" id="myCheck" onclick="clickCheck()">
+                            <span class="checkmark"></span>
+                        </label>
+                        <button id="BtnPNG" title="Copiar enlace a imagen PNG del gráfico">COPIAR ENLACE PNG</button>
+                        <p class="letramorada">En navegadores modernos, puede visualizar este enlace como una imagen PNG</p>
+                    </fieldset>  
+                </div>
+
+                <div id="regresión" class="tabcontent">
+                    <!-- gráfico de regresión -->
+                    <div id="regChart"></div>
+                    <fieldset id="opcionesGráficoReg">
+                        <legend>Opciones gráfico de regresión: </legend>
+                        <!-- selección de modelo de regresión -->
+                        <h3>Seleccione un tipo de regresión:</h3>
+                        <select id="tipoReg">
+                            <option value="ninguna" selected>NINGUNA</option>
+                            <option value="lineal">LINEAL</option>
+                            <option value="exponencial">EXPONENCIAL</option>
+                            <option value="logarítmica">LOGARÍTMICA</option>
+                            <option value="potencial">POTENCIAL</option>
+                            <option value="polinomial2">POLINOMIAL GRADO 2</option>
+                            <option value="polinomial3">POLINOMIAL GRADO 3</option>
+                            <option value="polinomial4">POLINOMIAL GRADO 4</option>
+                            <option value="polinomial5">POLINOMIAL GRADO 5</option>
+                            <option value="polinomial6">POLINOMIAL GRADO 6</option>
+                        </select>
+                        <button id="BtnRegPNG" title="Copiar enlace a imagen PNG del gráfico">COPIAR ENLACE PNG</button>
+                        <p class="letramorada">En navegadores modernos, puede visualizar este enlace como una imagen PNG</p>
+                    </fieldset>    
+                </div>
+             
                 <!--script para cargar la API de Google para gráficos-->
                 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js">
                 </script>
@@ -2060,6 +2070,9 @@ return temp;
                             //nada que copiar
                             getbtnCopiar.setAttribute("disabled", "disabled");
                             //nada que graficar
+                            document.getElementById("tab").style.display = "none";
+                            document.getElementById("esencial").style.display = "none";
+                            document.getElementById("regresión").style.display = "none";
                             document.getElementById("linechart").style.display = "none";
                             document.getElementById("opcionesGráfico").style.display = "none";
                             document.getElementById("regChart").style.display = "none";
@@ -2347,12 +2360,17 @@ return temp;
                             //ya hay algo que copiar
                             getbtnCopiar.removeAttribute("disabled");
 
-                            //muestra las gráficas y sus opciones                         
+                            //muestra las gráficas y sus opciones  
+                            document.getElementById("tab").style.display = "block";
+                            //tab por defecto
+                            // Get the element with id="defaultOpen" and click on it
+                            document.getElementById("defaultOpen").click();
                             document.getElementById("linechart").style.display = "block";
                             document.getElementById("opcionesGráfico").style.display = "block";  
                             document.getElementById("regChart").style.display = "block";
                             document.getElementById("opcionesGráficoReg").style.display = "block";
                             document.getElementById("noDisponible").style.display = "none";
+
                             //gráfica de datos
                             if (mostrarSeriesAdicionales == true) {
                                 drawChart3();
@@ -2363,6 +2381,7 @@ return temp;
                             //  ninguna regresión, por defecto
                             document.getElementById("tipoReg").selectedIndex = "0";
                             drawChart4();
+                            
                         }
                         function manejador(e, miId) {                            
                             var characterCode;
@@ -3084,7 +3103,7 @@ return temp;
                 <script>
                     // inicia script para el tab
                     
-                        function openCity(evt, cityName) {
+                        function openTab(evt, tabName) {
                             var i, tabcontent, tablinks;
                             tabcontent = document.getElementsByClassName("tabcontent");
                             for (i = 0; i < tabcontent.length; i++) {
@@ -3094,12 +3113,11 @@ return temp;
                             for (i = 0; i < tablinks.length; i++) {
                                 tablinks[i].className = tablinks[i].className.replace(" active", "");
                             }
-                            document.getElementById(cityName).style.display = "block";
+                            document.getElementById(tabName).style.display = "block";
                             evt.currentTarget.className += " active";
                         }
 
-                        // Get the element with id="defaultOpen" and click on it
-                        document.getElementById("defaultOpen").click();
+                        
                 </script>
 
 
