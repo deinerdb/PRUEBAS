@@ -36,7 +36,7 @@
                 /*RESPONSIVE*/
                 max-width: 100%;
                 overflow: auto;
-                margin: 4px 10px 4px 4px;
+                margin: 4px 6px 4px 4px;
                 /*para que el ancho sea real*/
                 -moz-box-sizing: border-box;
                 -webkit-box-sizing: border-box;
@@ -102,6 +102,10 @@
                 -webkit-border-top-right-radius: 4px;
                 -moz-border-radius-topright: 4px;
                 border-top-right-radius: 4px;
+                /*para que el ancho sea real*/
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
             }
             .tab {
                 overflow: hidden;
@@ -117,9 +121,11 @@
                     outline: none;
                     cursor: pointer;
                     padding: 14px 16px;
+                    -moz-transition: 0.3s;
+                    -o-transition: 0.3s;
+                    -webkit-transition: 0.3s;
                     transition: 0.3s;
                     font-size: 17px;
-                    
                 }
 
                     /* Change background color of buttons on hover */
@@ -135,7 +141,7 @@
             /* Style the tab content */
             .tabcontent {
                 display: none;
-                padding: 6px 10px;
+                padding: 5px 6px;
                 border: 2px solid purple;
                 -webkit-border-bottom-left-radius: 4px;
                 -moz-border-radius-bottomleft: 4px;
@@ -144,6 +150,10 @@
                 -moz-border-radius-bottomright: 4px;
                 border-bottom-right-radius: 4px;
                 border-top: none;
+                /*para que el ancho sea real*/
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
             }
 
             /* fin CSS para tab*/
