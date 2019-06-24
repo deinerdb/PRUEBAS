@@ -1224,7 +1224,7 @@ return temp;
                         // para el gráfico de regresión
                         var chartReg;
                         //almacena la regresión seleccionada
-                        var miTipoReg;
+                        var miTipoReg = "ninguna";
 
                         //SUMA ARRAY
                         function sumar() {
@@ -2433,6 +2433,7 @@ return temp;
                             }
                             //gráfica de regresión 
                             //  ninguna regresión, por defecto
+                            miTipoReg = "ninguna";
                             document.getElementById("tipoReg").selectedIndex = "0";
                             drawChart4();
                             
@@ -3197,9 +3198,89 @@ return temp;
                     // devuelve la evaluación de la función de pronóstico para el modelo de regresión solicitado
                     // x es el valor que se evalúa
                     // reg es el tipo de regresión
+                    // tipoResultado: nombre o valor de la regresión
                     // errorValue es el valor devuelto en caso de error
-                        function evaluarReg(x, reg, errorValue) {
-
+                        function evaluarReg(x, reg, tipoResultado, errorValue) {                            
+                            try {
+                                // también es un default
+                                var temporal = errorValue;
+                                if (tipoResultado == "nombre") {
+                                    //nombres para etiqueta del gráfico de regresión
+                                    switch (reg) {
+                                        case "ninguna":
+                                            temporal = "Ninguna";
+                                            break;
+                                        case "lineal":
+                                            temporal = "Lineal";
+                                            break;
+                                        case "exponencial":
+                                            temporal = "Exponencial";
+                                            break;
+                                        case "logarítmica":
+                                            temporal = "Logarítmica";
+                                            break;
+                                        case "potencial":
+                                            temporal = "Potencial";
+                                            break;
+                                        case "polinomial2":
+                                            temporal = "Polin grado 2";
+                                            break;
+                                        case "polinomial3":
+                                            temporal = "Polin grado 3";
+                                            break;
+                                        case "polinomial4":
+                                            temporal = "Polin grado 4";
+                                            break;
+                                        case "polinomial5":
+                                            temporal = "Polin grado 5";
+                                            break;
+                                        case "polinomial6":
+                                            temporal = "Polin grado 6";
+                                            break;
+                                    }
+                                }
+                                if (tipoResultado == "valor") {                                   
+                                    switch (reg) {
+                                        case "ninguna":
+                                            //si no hay regresión, no se puede calcular nada
+                                            temporal = errorValue;
+                                            break;
+                                        case "lineal":
+                                            temporal = Number(pendiente * x) + Number(intercepto);
+                                            break;
+                                        case "exponencial":
+                                            temporal = aExp * Math.exp(bExp * x);
+                                            break;
+                                        case "logarítmica":
+                                            temporal = Number(bLog) + aLog * Math.log(x);
+                                            break;
+                                        case "potencial":
+                                            temporal = aPot * Math.pow(x, bPot);
+                                            break;
+                                        case "polinomial2":
+                                            temporal = Number(Pol2C0) + Pol2C1 * x + Pol2C2 * Math.pow(x, 2);
+                                            break;
+                                        case "polinomial3":
+                                            temporal = Number(Pol3C0) + Pol3C1 * x + Pol3C2 * Math.pow(x, 2) + Pol3C3 * Math.pow(x, 3);
+                                            break;
+                                        case "polinomial4":
+                                            temporal = Number(Pol4C0) + Pol4C1 * x + Pol4C2 * Math.pow(x, 2) + Pol4C3 * Math.pow(x, 3) + Pol4C4 * Math.pow(x, 4);
+                                            break;
+                                        case "polinomial5":
+                                            temporal = Number(Pol5C0) + Pol5C1 * x + Pol5C2 * Math.pow(x, 2) + Pol5C3 * Math.pow(x, 3) + Pol5C4 * Math.pow(x, 4) + Pol5C5 * Math.pow(x, 5);
+                                            break;
+                                        case "polinomial6":
+                                            temporal = Number(Pol6C0) + Pol6C1 * x + Pol6C2 * Math.pow(x, 2) + Pol6C3 * Math.pow(x, 3) + Pol6C4 * Math.pow(x, 4) + Pol6C5 * Math.pow(x, 5) + Pol6C6 * Math.pow(x, 6);
+                                            break;
+                                    }
+                                }
+                            }
+                            catch (err){
+                                temporal = errorValue;
+                            }
+                            finally {
+                                return temporal;
+                            }
                         }
 
                         function clickCheck() {
