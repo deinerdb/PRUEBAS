@@ -2811,12 +2811,13 @@ return temp;
 
                         // Load google charts
                         google.charts.load('current', { 'packages': ['corechart', 'line'] });
-                        //gráfico de datos
+                        //gráfico de datos, esencial
                         google.charts.setOnLoadCallback(drawChart2);                       
                         //gráfico de regresión
-                        google.charts.setOnLoadCallback(drawChart4);                       
-
-                        // Draw the chart and set the chart values
+                        google.charts.setOnLoadCallback(drawChart4);   
+                    
+                    // del gráfico esencial
+                    // Draw the chart and set the chart values
                         //     normal, sin series adicionales
                         function drawChart2() {
                             var i;
@@ -2905,9 +2906,9 @@ return temp;
                             chart.draw(data, options);                          
                             
                         }
-                        
-                        // Draw the chart and set the chart values
-                        // con series adicionales
+
+                        //del gráfico esencial, pero con series adicionales
+                        // Draw the chart and set the chart values                        
                         function drawChart3() {
                             var i;
                             var miX;
@@ -3109,6 +3110,118 @@ return temp;
                             chartReg.draw(data, options);
 
                         }
+                    // del gráfico de regresión, con serie adicional según regresión seleccionada
+                        // Draw the chart and set the chart values
+                        
+                        function drawChart5() {
+                            var i, j;
+                            var miX;
+                            var miValor;
+                            var miReg = 'null';
+                            // se usa variable "media"
+
+                            // llena el array de datos
+                            // Create the data table.
+                            var data = new google.visualization.DataTable();
+                            //crea las columnas
+
+                            data.addColumn('number', 'X');
+                            data.addColumn('number', 'Valor');
+                            //data.addColumn('number', 'Regresión');
+                            data.addColumn('number', evaluarReg(0, miTipoReg, "nombre", "Regresión"));
+                            //los pares de datos
+                            for (i = 0; i < arrayDatos.length; i++) {
+                                miX = 1 + i;
+                                miValor = Number(arrayDatos[i]);
+                                // calcula el valor de la regresión
+                                miReg = evaluarReg(miX, miTipoReg, "valor", 'null');
+                                data.addRows([
+                                    [miX, miValor, Number(miReg)]
+                                ]);
+                            }
+
+
+                            // Optional; add a title and set the width and height of the chart
+                            var options = {
+                                //título
+                                'title': 'GRÁFICA DE REGRESIÓN',
+                                curveType: 'function',
+                                titleTextStyle: {
+                                    //azul oscuro
+                                    color: '#000066',
+                                    fontName: 'Tahoma',
+                                    fontSize: 18,
+                                    bold: true
+                                },
+                                //legenda
+                                'legend': { position: 'bottom' },
+                                //tamaño gráfico
+                                'width': 800,
+                                'height': 500,
+                                //eje x
+                                hAxis: {
+                                    title: 'Datos',
+                                    textStyle: {
+                                        color: 'purple'
+                                    },
+                                    titleTextStyle: {
+                                        color: 'indigo',
+                                        italic: true,
+                                        fontSize: 16,
+                                        bold: true
+                                    }
+                                },
+                                //eje y
+                                vAxis: {
+                                    title: 'Valores',
+                                    textStyle: {
+                                        color: 'purple'
+                                    },
+                                    titleTextStyle: {
+                                        color: 'indigo',
+                                        italic: true,
+                                        fontSize: 16,
+                                        bold: true
+                                    }
+                                },
+                                //color de fondo del gráfico
+                                //backgroundColor: 'lavender',
+                                //colores líneas de serie
+                                colors: ['blue', '#cc0066'],
+                                //muestra una cruz al seleccionar o señalar
+                                crosshair: { trigger: 'both' },
+                                //personaliza series
+                                series: {
+                                    //VALORES
+                                    0: {
+                                        //tamaño de puntos
+                                        pointSize: 10,
+                                        //SIN LÍNEA, DISPERSIÓN
+                                        lineWidth: 0,
+                                        //forma de puntos
+                                        pointShape: 'circle'
+                                    },
+                                    //REGRESIÓN
+                                    1: {
+                                        //tamaño de puntos
+                                        pointSize: 0,
+                                        //LÍNEA GRUESA
+                                        lineWidth: 8,
+                                        //forma de puntos
+                                        pointShape: 'circle',
+                                        //OPACA
+                                        opacity: 0.3
+                                    }
+                                },
+                                
+                            };
+
+                            // Display the chart inside the <div> element with id="regChart"                            
+                            var chart_divReg = document.getElementById('regChart');
+                            chart = new google.visualization.LineChart(chart_divReg);
+                            chart.draw(data, options);
+
+                        }
                         // botón BtnPNG
                         document.getElementById("BtnPNG").onclick = function () {
                             //optiene un enlace a la imagen png 
@@ -3137,7 +3250,7 @@ return temp;
                                 drawChart4();
                             } else {
                                 //muestra la regresión seleccionada
-
+                                drawChart5();
                             }
                         }
                     // define si una regresión está disponible
@@ -3316,12 +3429,24 @@ return temp;
                             }
                             tablinks = document.getElementsByClassName("tablinks");
                             for (i = 0; i < tablinks.length; i++) {
-                                tablinks[i].className = tablinks[i].className.replace(" active", "");
+                                //tablinks[i].className = tablinks[i].className.replace(" active", "");
+                                removerClaseActive(tablinks[i]);
                             }
                             document.getElementById(tabName).style.display = "block";
-                            evt.currentTarget.className += " active";
+                            //evt.currentTarget.className += " active";
+                            agregarClaseActive(evt.currentTarget);
                         }
-
+                        function agregarClaseActive(element) {
+                            var name, arr;                            
+                            name = "active";
+                            arr = element.className.split(" ");
+                            if (arr.indexOf(name) == -1) {
+                                element.className += " " + name;
+                            }
+                        }
+                        function removerClaseActive(element) {                            
+                            element.className = element.className.replace(/\bactive\b/g, "");
+                        }
                         
                 </script>
 
