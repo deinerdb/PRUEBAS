@@ -3116,6 +3116,7 @@ return temp;
                         function drawChart5() {
                             var i, j;
                             var miX;
+                            var miExtraX;                            
                             var miValor;
                             var miReg = 'null';
                             // se usa variable "media"
@@ -3135,12 +3136,23 @@ return temp;
                                 miValor = Number(arrayDatos[i]);
                                 // calcula el valor de la regresión
                                 miReg = evaluarReg(miX, miTipoReg, "valor", 'null');
+                                //agrega los puntos principales
                                 data.addRows([
                                     [miX, miValor, Number(miReg)]
                                 ]);
+                                //agrega puntos adicionales para mejorar la precisión de la curva de regresión
+                                //solo si no es el último punto
+                                if (i < cuenta - 1) {
+                                    for (j = 1; j <= 9; j++) {
+                                        miExtraX = 0.1 * j + miX;
+                                        miReg = evaluarReg(miExtraX, miTipoReg, "valor", 'null');
+                                        data.addRows([
+                                            [miExtraX, null, Number(miReg)]
+                                        ]);
+                                    }
+                                }
                             }
-
-
+                            
                             // Optional; add a title and set the width and height of the chart
                             var options = {
                                 //título
@@ -3218,8 +3230,8 @@ return temp;
 
                             // Display the chart inside the <div> element with id="regChart"                            
                             var chart_divReg = document.getElementById('regChart');
-                            chart = new google.visualization.LineChart(chart_divReg);
-                            chart.draw(data, options);
+                            chartReg = new google.visualization.LineChart(chart_divReg);
+                            chartReg.draw(data, options);
 
                         }
                         // botón BtnPNG
