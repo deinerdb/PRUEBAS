@@ -32,7 +32,7 @@
                 opacity: 0.8;
                 filter: Alpha(opacity=80); /* IE8 and earlier */
             }
-            #linechart, #regChart, #noDisponible, #opcionesGráfico, #opcionesGráficoReg {
+            #linechart, #regChart, #cajachart, #noDisponible, #opcionesGráfico, #opcionesGráficoReg, #opcionesGráficoCaja {
                 /*RESPONSIVE*/
                 max-width: 100%;
                 overflow: auto;
@@ -57,14 +57,14 @@
                 color:purple;
                 border-width: 2px;
             }
-            #opcionesGráfico, #opcionesGráficoReg {
+            #opcionesGráfico, #opcionesGráficoReg, #opcionesGráficoCaja {
                 margin-top: 12px !important;
                 padding: 24px 12px 12px 18px;
             }
             #opcionesGráfico {
                 margin-bottom: 12px !important;                
             }
-            #linechart, #opcionesGráfico, #regChart, #opcionesGráficoReg, .tab, .tabcontent {
+            #linechart, #opcionesGráfico, #regChart, #opcionesGráficoReg, #cajachart, #opcionesGráficoCaja, .tab, .tabcontent {
                 /*oculto por defecto*/
                 display: none;
             }
@@ -202,14 +202,14 @@
 
             /*ajustes al imprimir*/
             @media print {
-                #selectorN, #opcionesGráfico, #snackbar, #opcionesGráficoReg {
+                #selectorN, #opcionesGráfico, #snackbar, #opcionesGráficoReg, #opcionesGráficoCaja {
                     display: none !important;
                 }
 
                 #divDatos {
                     max-height: none !important;
                 }
-                #regChart, #linechart {
+                #regChart, #linechart, #cajachart {
                     overflow: hidden;
                     margin-left: 1px !important;
                     margin-right: 1px !important;
@@ -258,7 +258,7 @@
                 display: inline-block;
                 font-weight: bold;
             }
-            #aIzquierda i:hover , #aDerecha i:hover, #BtnPNG:hover {
+            #aIzquierda i:hover , #aDerecha i:hover, #BtnPNG:hover, #BtnRegPNG:hover, #BtnCajaPNG:hover {
                 background: #8c53c6; /* For browsers that do not support gradients */
                 background: -webkit-linear-gradient(left, #8c53c6, rebeccapurple); /* For Safari 5.1 to 6.0 */
                 background: -o-linear-gradient(right, #8c53c6, rebeccapurple); /* For Opera 11.1 to 12.0 */
@@ -270,11 +270,11 @@
                 white-space: nowrap;
                 margin-top: 24px;                
             }
-            #BtnPNG, #BtnRegPNG {
+            #BtnPNG, #BtnRegPNG, #BtnCajaPNG {
                 text-decoration: none;
                 padding: 16px 32px !important;
             }
-            #divA i, #BtnPNG, #BtnRegPNG {
+            #divA i, #BtnPNG, #BtnRegPNG, #BtnCajaPNG {
                 -webkit-box-sizing: border-box;
                 -moz-box-sizing: border-box;
                 box-sizing: border-box;
@@ -1067,6 +1067,7 @@ return temp;
                 <div class="tab" id="tab">
                     <button class="tablinks" onclick="openTab(event, 'esencial')" id="defaultOpen">Esencial</button>
                     <button class="tablinks" onclick="openTab(event, 'regresión')">Regresión</button>                    
+                    <button class="tablinks" onclick="openTab(event, 'caja')">Caja</button>
                 </div>
 
                 <div id="esencial" class="tabcontent">
@@ -1113,7 +1114,16 @@ return temp;
                         <p class="letramorada">En navegadores modernos, puede visualizar este enlace como una imagen PNG</p>
                     </fieldset>    
                 </div>
-             
+                <div id="caja" class="tabcontent">
+                    <!-- gráfico de datos -->
+                    <div id="cajachart"></div>
+
+                    <fieldset id="opcionesGráficoCaja">
+                        <legend>Opciones gráfico de caja: </legend>                        
+                        <button id="BtnCajaPNG" title="Copiar enlace a imagen PNG del gráfico">COPIAR ENLACE PNG</button>
+                        <p class="letramorada">En navegadores modernos, puede visualizar este enlace como una imagen PNG</p>
+                    </fieldset>
+                </div>
                 <!--script para cargar la API de Google para gráficos-->
                 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js">
                 </script>
@@ -1223,6 +1233,8 @@ return temp;
                         var chart;
                         // para el gráfico de regresión
                         var chartReg;
+                        // para el gráfico de caja
+                        var chartCaja;
                         //almacena la regresión seleccionada
                         var miTipoReg = "ninguna";
 
@@ -2127,10 +2139,13 @@ return temp;
                             document.getElementById("tab").style.display = "none";
                             document.getElementById("esencial").style.display = "none";
                             document.getElementById("regresión").style.display = "none";
+                            document.getElementById("caja").style.display = "none";
                             document.getElementById("linechart").style.display = "none";
                             document.getElementById("opcionesGráfico").style.display = "none";
                             document.getElementById("regChart").style.display = "none";
                             document.getElementById("opcionesGráficoReg").style.display = "none";
+                            document.getElementById("cajachart").style.display = "none";
+                            document.getElementById("opcionesGráficoCaja").style.display = "none";
                             document.getElementById("noDisponible").style.display = "block";
 
                         }
@@ -2423,20 +2438,23 @@ return temp;
                             document.getElementById("opcionesGráfico").style.display = "block";  
                             document.getElementById("regChart").style.display = "block";
                             document.getElementById("opcionesGráficoReg").style.display = "block";
+                            document.getElementById("cajachart").style.display = "block";
+                            document.getElementById("opcionesGráficoCaja").style.display = "block";
                             document.getElementById("noDisponible").style.display = "none";
-
+                            
                             //gráfica de datos
                             if (mostrarSeriesAdicionales == true) {
                                 drawChart3();
                             } else {
                                 drawChart2();
-                            }
+                            }                            
                             //gráfica de regresión 
                             //  ninguna regresión, por defecto
                             miTipoReg = "ninguna";
                             document.getElementById("tipoReg").selectedIndex = "0";
                             drawChart4();
-                            
+                            //gráfica de caja
+                            drawChart6();
                         }
                         function manejador(e, miId) {                            
                             var characterCode;
@@ -2814,7 +2832,9 @@ return temp;
                         //gráfico de datos, esencial
                         google.charts.setOnLoadCallback(drawChart2);                       
                         //gráfico de regresión
-                        google.charts.setOnLoadCallback(drawChart4);   
+                        google.charts.setOnLoadCallback(drawChart4);
+                        //gráfico de caja
+                        google.charts.setOnLoadCallback(drawChart6);
                     
                     // del gráfico esencial
                     // Draw the chart and set the chart values
@@ -3234,6 +3254,102 @@ return temp;
                             chartReg.draw(data, options);
 
                         }
+                        // del gráfico de caja
+                        // Draw the chart and set the chart values
+                        //     box-plot, con media agregada
+                        function drawChart6() {
+                            
+                            // llena el array de datos
+                            var miMax;
+                            var miMin;
+                            var miMediana;
+                            var miMedia;
+                            var miQ1;
+                            var miQ3;
+
+                            miMax = Number(max);
+                            miMin = Number(min);
+                            miMedia = Number(media);
+                            miMediana = Number(mediana);
+                            miQ1 = Number(q1);
+                            miQ3 = Number(q3);
+                            
+                            var data = google.visualization.arrayToDataTable([
+                                ['Mín - Máx, Q1 - Q3', miMin, miQ1, miQ3, miMax],
+                                ['Mediana', miMediana, miMediana, miMediana, miMediana],
+                                ['Media', miMedia, miMedia, miMedia, miMedia]
+                                // Treat first row as data as well.
+                            ], true);
+
+                            // Optional; add a title and set the width and height of the chart
+                            var options = {
+                                 //título
+                                'title': 'GRÁFICA DE CAJA',                                
+                                titleTextStyle: {
+                                    //azul oscuro
+                                    color: '#000066',
+                                    fontName: 'Tahoma',
+                                    fontSize: 18,
+                                    bold: true
+                                },
+                                //legenda
+                                legend: 'none',
+                                //tamaño gráfico
+                                'width': 800,
+                                'height': 500,
+                                //eje x
+                                hAxis: {
+                                    title: 'Datos',
+                                    textStyle: {
+                                        color: 'purple'
+                                    },
+                                    titleTextStyle: {
+                                        color: 'indigo',
+                                        italic: true,
+                                        fontSize: 16,
+                                        bold: true
+                                    }
+                                },
+                                //eje y
+                                vAxis: { 
+                                    title: 'Valores',                                    
+                                    textStyle: {
+                                        color: 'purple'
+                                    },
+                                    titleTextStyle: {
+                                        color: 'indigo',
+                                        italic: true,
+                                        fontSize: 16,
+                                        bold: true
+                                    }                                    
+                                },
+                                //color linea de la serie
+                                colors: ['blue'],
+                                //color de fondo del gráfico
+                                //backgroundColor: 'lavender',
+                                //muestra una cruz al seleccionar o señalar
+                                crosshair: { trigger: 'both' },
+                                //tamaño de puntos
+                                //pointSize: 5,
+                                //forma de puntos
+                                //pointShape: 'circle'
+
+                                // sin espacio entre barras
+                                bar: { groupWidth: '100%' }, // Remove space between bars.
+                                //la caja
+                                candlestick: {
+                                    fallingColor: { strokeWidth: 0, fill: '#a52714' }, // red
+                                    risingColor: { strokeWidth: 0, fill: '#0f9d58' }   // green
+                                }
+                            };
+
+                            // Display the chart inside the <div> element with id="cajachart"                            
+                            var chart_divCaja = document.getElementById('cajachart');
+                            chartCaja = new google.visualization.CandlestickChart(chart_divCaja);
+                            
+                            chartCaja.draw(data, options);
+
+                        }
                         // botón BtnPNG
                         document.getElementById("BtnPNG").onclick = function () {
                             //optiene un enlace a la imagen png 
@@ -3252,6 +3368,15 @@ return temp;
                             showSnackbar("Enlace PNG copiado");
                         }
 
+                        // botón BtnCajaPNG
+                        document.getElementById("BtnCajaPNG").onclick = function () {
+                            //optiene un enlace a la imagen png 
+                            var msj;
+                            msj = chartCaja.getImageURI();
+                            copyToClipboard(msj);
+                            showSnackbar("Enlace PNG copiado");
+                        }
+
                         // selecciona una regresión
                         document.getElementById("tipoReg").onchange = function () {
                             miTipoReg = document.getElementById("tipoReg").options.item(document.getElementById("tipoReg").options.selectedIndex).value                            
@@ -3261,8 +3386,12 @@ return temp;
                                 document.getElementById("tipoReg").selectedIndex = "0";
                                 drawChart4();
                             } else {
-                                //muestra la regresión seleccionada
-                                drawChart5();
+                                if (document.getElementById("tipoReg").selectedIndex == "0") {
+                                    drawChart4();
+                                } else {
+                                    //muestra la regresión seleccionada
+                                    drawChart5();
+                                }
                             }
                         }
                     // define si una regresión está disponible
@@ -3445,8 +3574,17 @@ return temp;
                                 removerClaseActive(tablinks[i]);
                             }
                             document.getElementById(tabName).style.display = "block";
-                            //evt.currentTarget.className += " active";
+                            //evt.currentTarget.className += " active";                           
                             agregarClaseActive(evt.currentTarget);
+
+                             //forza actualizaciones, por un bug del eje vertical de Google Chart
+                            if (tabName == "caja") {                                
+                                drawChart6();
+                            }
+                            if (tabName == "regresión" && miTipoReg == "ninguna") {
+                                drawChart4();
+                            }
+
                         }
                         function agregarClaseActive(element) {
                             var name, arr;                            
