@@ -32,7 +32,10 @@
                 opacity: 0.8;
                 filter: Alpha(opacity=80); /* IE8 and earlier */
             }
-            #linechart, #regChart, #cajachart, #noDisponible, #opcionesGráfico, #opcionesGráficoReg, #opcionesGráficoCaja {
+            #imgdiagramacaja {
+                max-width: 100%;
+            }
+            #linechart, #regChart, #cajachart, #noDisponible, #opcionesGráfico, #opcionesGráficoReg, #diagrama, #opcionesGráficoCaja {
                 /*RESPONSIVE*/
                 max-width: 100%;
                 overflow: auto;
@@ -60,6 +63,13 @@
             #opcionesGráfico, #opcionesGráficoReg, #opcionesGráficoCaja {
                 margin-top: 12px !important;
                 padding: 24px 12px 12px 18px;
+            }
+            #diagrama {
+                margin-top: 12px !important;
+                padding: 10px 12px 12px 18px;
+            }
+            #notadiagrama {
+                margin-top: 4px;
             }
             #opcionesGráfico {
                 margin-bottom: 12px !important;                
@@ -772,6 +782,8 @@ return temp;
                             <input type="text" id="coefApertura" readonly /><br />
                             <label>Rango intercuartílico (Q<sub>3</sub> - Q<sub>1</sub>):</label> <br />
                             <input type="text" id="rangoIntercuartílico" readonly /><br />
+                            <label>Rango medio:</label> <br />
+                            <input type="text" id="rangoMedio" readonly /><br />
                             <label>Desviación media:</label> <br />
                             <input type="text" id="desvMedia" readonly /><br />
                             <label>Varianza poblacional:</label> <br />
@@ -1123,6 +1135,12 @@ return temp;
                         <button id="BtnCajaPNG" title="Copiar enlace a imagen PNG del gráfico">COPIAR ENLACE PNG</button>
                         <p class="letramorada">En navegadores modernos, puede visualizar este enlace como una imagen PNG</p>
                     </fieldset>
+                    <fieldset id="diagrama">
+                        <legend>Nota: </legend>                        
+                        <p class="letramorada" id="notadiagrama">Se muestra un gráfico de caja (box-plot) simplificado, el cual no incluye valores atípicos (outliers). 
+                            El siguiente diagrama puede ayudar a interpretarlo:</p>
+                        <img id="imgdiagramacaja" title="Diagrama de caja explicado" alt="Diagrama de caja explicado" src="diagramacaja.png" width="792" height="504" />
+                    </fieldset>
                 </div>
                 <!--script para cargar la API de Google para gráficos-->
                 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js">
@@ -1152,6 +1170,7 @@ return temp;
                         var q1;
                         var q3;
                         var rangoIntercuartílico;
+                        var rangoMedio;
                         var mostrarSeriesAdicionales = false;
                         var varianzaP;
                         var desvP;
@@ -1415,6 +1434,10 @@ return temp;
                             } else {
                                 return q3 - q1;
                             }                            
+                        }
+                        // devuelve el Rango medio
+                        function calculaRangoMedio() {
+                            return (Number(max) + min) / 2;
                         }
                         //devuelve varianza poblacional
                         function calculaVarianzaPoblacional() {
@@ -2058,6 +2081,7 @@ return temp;
                             document.getElementById("q1").value = "";
                             document.getElementById("q3").value = "";
                             document.getElementById("rangoIntercuartílico").value = "";
+                            document.getElementById("rangoMedio").value = "";
                             document.getElementById("varianzaP").value = "";
                             document.getElementById("desvP").value = "";
                             document.getElementById("coefVarP").value = "";
@@ -2231,6 +2255,8 @@ return temp;
                             q3 = calculaQ3();
                             //rango intercuartílico
                             rangoIntercuartílico = calculaRangoIntercuartílico();
+                            //rango medio
+                            rangoMedio = calculaRangoMedio();
                             //desviación media
                             desvMedia = calculaDesvMedia();
                             //varianza poblacional
@@ -2347,6 +2373,7 @@ return temp;
                             document.getElementById("q1").value = q1.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("q3").value = q3.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("rangoIntercuartílico").value = rangoIntercuartílico.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("rangoMedio").value = rangoMedio.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("varianzaP").value = varianzaP.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("desvP").value = desvP.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("coefVarP").value = coefVarP.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
@@ -2556,6 +2583,9 @@ return temp;
                             //rangoIntercuartílico
                             copyCampo = document.getElementById("rangoIntercuartílico");
                             copyText = copyText + "\r" + 'Rango intercuartílico (Q3 - Q1) = ' + "\t" + copyCampo.value;
+                            //rangoMedio
+                            copyCampo = document.getElementById("rangoMedio");
+                            copyText = copyText + "\r" + 'Rango medio = ' + "\t" + copyCampo.value;
                             //desviación media
                             copyCampo = document.getElementById("desvMedia");
                             copyText = copyText + "\r" + 'Desviación media = ' + "\t" + copyCampo.value;
