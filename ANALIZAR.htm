@@ -35,7 +35,7 @@
             #imgdiagramacaja {
                 max-width: 100%;
             }
-            #linechart, #regChart, #cajachart, #noDisponible, #opcionesGráfico, #opcionesGráficoReg, #diagrama, #opcionesGráficoCaja {
+            #linechart, #regChart,#cajaNoDisponible, #cajachart, #noDisponible, #opcionesGráfico, #opcionesGráficoReg, #diagrama, #opcionesGráficoCaja {
                 /*RESPONSIVE*/
                 max-width: 100%;
                 overflow: auto;
@@ -59,6 +59,13 @@
                 padding: 4px 24px;
                 color:purple;
                 border-width: 2px;
+            }
+           #cajaNoDisponible {
+                /*visible por defecto*/
+                display: block;
+                padding: 4px 24px;
+                color: purple;
+                border-width: 1px;
             }
             #opcionesGráfico, #opcionesGráficoReg, #opcionesGráficoCaja {
                 margin-top: 12px !important;
@@ -1127,6 +1134,13 @@ return temp;
                     </fieldset>    
                 </div>
                 <div id="caja" class="tabcontent">
+                    <div id="cajaNoDisponible">
+                        <h3>Gráfico de caja no disponible</h3>
+                        <p>El gráfico de caja de esta página requiere que los siguientes parámetros contengan valores numéricos válidos:</p>
+                        <p>
+                            Mínimo, máximo, primer cuartil, tercer cuartil, mediana, media.
+                        </p>
+                    </div>
                     <!-- gráfico de datos -->
                     <div id="cajachart"></div>
 
@@ -1256,6 +1270,9 @@ return temp;
                         var chartCaja;
                         //almacena la regresión seleccionada
                         var miTipoReg = "ninguna";
+                        var regActualizado = false;
+                        var cajaActualizado = false;
+                        var cajaDisponible = false;
 
                         //SUMA ARRAY
                         function sumar() {
@@ -2464,9 +2481,7 @@ return temp;
                             document.getElementById("linechart").style.display = "block";
                             document.getElementById("opcionesGráfico").style.display = "block";  
                             document.getElementById("regChart").style.display = "block";
-                            document.getElementById("opcionesGráficoReg").style.display = "block";
-                            document.getElementById("cajachart").style.display = "block";
-                            document.getElementById("opcionesGráficoCaja").style.display = "block";
+                            document.getElementById("opcionesGráficoReg").style.display = "block";                            
                             document.getElementById("noDisponible").style.display = "none";
                             
                             //gráfica de datos
@@ -2480,8 +2495,22 @@ return temp;
                             miTipoReg = "ninguna";
                             document.getElementById("tipoReg").selectedIndex = "0";
                             drawChart4();
+                            regActualizado = false;
                             //gráfica de caja
-                            drawChart6();
+                            cajaDisponible = validarCajaDisponible();
+                            cajaActualizado = false;
+                            if (cajaDisponible == true) {
+                                document.getElementById("cajachart").style.display = "block";
+                                document.getElementById("opcionesGráficoCaja").style.display = "block";
+                                document.getElementById("cajaNoDisponible").style.display = "none";
+                                drawChart6();
+                            } else {
+                                document.getElementById("cajachart").style.display = "none";
+                                document.getElementById("opcionesGráficoCaja").style.display = "none";
+                                document.getElementById("cajaNoDisponible").style.display = "block";
+                            }
+                            
+                            
                         }
                         function manejador(e, miId) {                            
                             var characterCode;
@@ -3608,13 +3637,36 @@ return temp;
                             agregarClaseActive(evt.currentTarget);
 
                              //forza actualizaciones, por un bug del eje vertical de Google Chart
+                            //solo la primera vez que entra a cada tab
                             if (tabName == "caja") {                                
-                                drawChart6();
+                                if (cajaActualizado == false) {
+                                    drawChart6();
+                                    cajaActualizado = true;                                    
+                                }
+                                
                             }
                             if (tabName == "regresión" && miTipoReg == "ninguna") {
-                                drawChart4();
+                                if (regActualizado == false) {
+                                    drawChart4();
+                                    regActualizado = true;                                    
+                                }                                
                             }
 
+                        }
+                    //devuelve true si el gráfico de caja puede ser mostrado
+                        function validarCajaDisponible() {
+                            try {
+                                var temporal = false;
+                                if (isNaN(media) == false && isNaN(mediana) == false && isNaN(max) == false && isNaN(min) == false && isNaN(q1) == false && isNaN(q3) == false && cuenta >= 3) {
+                                    temporal = true;
+                                }
+                            }
+                            catch (err) {
+                                temporal = false;
+                            }
+                            finally {
+                                return temporal;
+                            }
                         }
                         function agregarClaseActive(element) {
                             var name, arr;                            
