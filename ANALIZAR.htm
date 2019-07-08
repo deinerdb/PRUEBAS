@@ -35,6 +35,9 @@
             #imgdiagramacaja {
                 max-width: 100%;
             }
+            #checkCopiar {
+                margin: 22px 8px 18px 24px;
+            }
             #linechart, #regChart,#cajaNoDisponible, #cajachart, #noDisponible, #opcionesGráfico, #opcionesGráficoReg, #diagrama, #opcionesGráficoCaja {
                 /*RESPONSIVE*/
                 max-width: 100%;
@@ -216,21 +219,21 @@
                 }
             }
             /* fin CSS para tab*/
+            #ayudaImprimirGráfico {
+                color: indigo;
+                margin-left: 12px;
 
+            }
             /*ajustes al imprimir*/
             @media print {
-                #selectorN, #opcionesGráfico, #snackbar, #opcionesGráficoReg, #opcionesGráficoCaja {
+                /*cosas invisibles al imprimir*/
+                #ayudaImprimirGráfico, #selectorN, #opcionesGráfico, #snackbar, #opcionesGráficoReg, #opcionesGráficoCaja, #checkCopiar, .tab, .tabcontent, #titulaGráficos, #noDisponible {
                     display: none !important;
                 }
-
                 #divDatos {
+                    /*para que se vean todos, porque en el papel no hay scroll xD */
                     max-height: none !important;
-                }
-                #regChart, #linechart, #cajachart {
-                    overflow: hidden;
-                    margin-left: 1px !important;
-                    margin-right: 1px !important;
-                }
+                }                 
             }
 
             .formulario {
@@ -750,7 +753,11 @@ return temp;
                     
                     <button type="button" id="btnCalcular" title="Realizar cálculos">CALCULAR</button>
                     <button type="button" id="btnCopiar" disabled title="Copiar Resultados">COPIAR</button> 
-                                       
+                    <label class="contenedorCheckbox" id="checkCopiar">
+                        Incluir datos ingresados al copiar resultados
+                        <input type="checkbox" id="myCheck3">
+                        <span class="checkmark"></span>
+                    </label>                   
                     <fieldset>
                         <legend>Resultados: </legend>
                         <details open="open">
@@ -1079,7 +1086,8 @@ return temp;
                         </details>                        
                     </fieldset>                    
                 </form>
-                <h2 class="letramorada" style="margin-left:12px;">Análisis gráfico:</h2>
+                <h2 id="titulaGráficos" class="letramorada" style="margin-left:12px;">Análisis gráfico*:</h2>
+                
                 <div id="noDisponible">
                     <p>GRÁFICOS NO DISPONIBLES</p>
                 </div>
@@ -1141,7 +1149,7 @@ return temp;
                             Mínimo, máximo, primer cuartil, tercer cuartil, mediana, media.
                         </p>
                     </div>
-                    <!-- gráfico de datos -->
+                    <!-- gráfico de caja -->
                     <div id="cajachart"></div>
 
                     <fieldset id="opcionesGráficoCaja">
@@ -1156,6 +1164,9 @@ return temp;
                         <img id="imgdiagramacaja" title="Diagrama de caja explicado" alt="Diagrama de caja explicado" src="diagramacaja.png" width="792" height="504" />
                     </fieldset>
                 </div>
+                <h4 id="ayudaImprimirGráfico">
+                    * Para imprimir los gráficos, utilice la opción COPIAR ENLACE PNG, pegue el enlace en la barra de direcciones en una nueva pestaña del navegador.
+                </h4>
                 <!--script para cargar la API de Google para gráficos-->
                 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js">
                 </script>
@@ -2548,16 +2559,29 @@ return temp;
                         //copia resultados al portapapeles
                         //****************************************
 
-                        //pasa el contenido de cada campo a una cadena
+                        //pasa el contenido de cada campo a una cadena y la copia al portapapeles
                         function copiarResultados() {
+                            //decide si se incluyen los datos ingresados al copiar los resultados
+                            var incluyeDatos = document.getElementById("myCheck3").checked;                                
                             //aquí guardamos una referencia a cada control a copiar
                             var copyCampo;
                             //aquí vamos guardando la cadena total a copiar
                             var copyText = "*** ANÁLISIS DE DATOS ***" + "\r" ;
-                            
+                                                        
+                            // incluye los datos ingresados, si es necesario
+                            if (incluyeDatos == true) {
+                                // DATOS INGRESADOS
+                                copyText = copyText + "DATOS INGRESADOS:";
+                                var i;
+                                var miDato;
+                                for (i = 0; i < cuenta; i++) {
+                                    miDato = Number(arrayDatos[i]).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                                    copyText = copyText + "\r" + "Dato " + (1 + i) + " = " + "\t" + miDato;
+                                }
+                                copyText = copyText + "\r";
+                            }
                             //RESULTADOS
                             copyText = copyText + "RESULTADOS:";
-
                             //cuenta
                             copyCampo = document.getElementById("cuenta");
                             copyText = copyText + "\r" + 'Número de Datos = ' + "\t" + copyCampo.value;

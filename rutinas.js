@@ -229,6 +229,7 @@ window.onload = function () {
         //CHECKBOX DESMARCADO        
         document.getElementById("myCheck").checked = false;
         document.getElementById("myCheck2").checked = false;
+        document.getElementById("myCheck3").checked = false;
         //ninguna regresión en el gráfico
 
         //limpia por si acaso

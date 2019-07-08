@@ -28,7 +28,9 @@ html, body {
 /*lo que se oculta al imprimir*/
 @media print {
     * {
-        -webkit-transition: none !important;
+        -o-transition: none !important;
+        -moz-transition: none !important;
+        -webkit-transition: none !important;        
         transition: none !important;
     }
     footer, .sidenav, .caja, .cajaFrases, .navbar, #folder, #relleno, #BtnTop, #overlay, .container, .bar1, .bar2, .bar3, input[type=button], input[type=reset], input[type=submit], .formulario button, .clasemultimedia button, #btnCalcular {
