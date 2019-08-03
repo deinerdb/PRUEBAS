@@ -14,6 +14,7 @@
         
         <link rel="icon" href="favicon.ico" type="image/x-icon" />
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <link href='https://fonts.googleapis.com/css?family=Alfa Slab One' rel='stylesheet'>
         <!--*jQuery CDN
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         este es más nuevo, pero usamos la versión vieja
@@ -33,16 +34,98 @@
                 filter: Alpha(opacity=80); /* IE8 and earlier */
             }
             #títuloEcuación {
-                color: indigo;
+                color: #2d004d;
                 font-size: 1.8em;
                 text-align: center;
                 max-width: 100%;
-                margin: auto;
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 18px;
                 padding: 8px;
                 /*sombra en el texto*/
-                text-shadow: 3px 3px 4px purple; /*estándar*/
+                text-shadow: 3px 3px 4px #b54dff; /*estándar*/
+                /*fuente*/
+                font-family: "Alfa Slab One", "Arial Black", Gadget, sans-serif;
+                /*coloreado*/
+                -moz-animation: coloreado 5s infinite;
+                -o-animation: coloreado 5s infinite;
+                -webkit-animation: coloreado 5s infinite;
+                animation: coloreado 5s infinite;
             }
-           
+            /* coloreado en título ecuación */
+            @-moz-keyframes coloreado {
+                0% {
+                    color: #2d004d;
+                    text-shadow: 3px 3px 4px #b54dff;
+                }
+
+                50% {
+                    color: #0047b3;
+                    text-shadow: 3px 3px 4px #3385ff;
+                }
+
+                100% {
+                    color: #2d004d;
+                    text-shadow: 3px 3px 4px #b54dff;
+                }
+            }
+
+            @-o-keyframes coloreado {
+                0% {
+                    color: #2d004d;
+                    text-shadow: 3px 3px 4px #b54dff;
+                }
+
+                50% {
+                    color: #0047b3;
+                    text-shadow: 3px 3px 4px #3385ff;
+                }
+
+                100% {
+                    color: #2d004d;
+                    text-shadow: 3px 3px 4px #b54dff;
+                }
+            }
+
+            @-webkit-keyframes coloreado {
+                0% {
+                    color: #2d004d;
+                    text-shadow: 3px 3px 4px #b54dff;
+                }
+
+                50% {
+                    color: #0047b3;
+                    text-shadow: 3px 3px 4px #3385ff;
+                }
+
+                100% {
+                    color: #2d004d;
+                    text-shadow: 3px 3px 4px #b54dff;
+                }
+            }
+
+            @keyframes coloreado {                
+                0% {
+                    color: #2d004d;
+                    text-shadow: 3px 3px 4px #b54dff;
+                }
+
+                50% {
+                    color: #0047b3;
+                    text-shadow: 3px 3px 4px #3385ff;
+                }
+
+                100% {
+                    color: #2d004d;
+                    text-shadow: 3px 3px 4px #b54dff;
+                }
+            }
+
+            legend {
+                font-weight: bold;
+                color: purple;
+                font-size: 1.5em;
+            }
             #linechart, #regChart,#cajaNoDisponible, #cajachart, #noDisponible, #opcionesGráfico, #opcionesGráficoReg, #diagrama, #opcionesGráficoCaja {
                 /*RESPONSIVE*/
                 max-width: 100%;
@@ -384,10 +467,12 @@
                 <form class="formulario">                                      
                     <div id="títuloEcuación">
                         f(x) = AX<sup>2</sup> + BX + C
+                        <br />
+                        A &#x2260 0
                     </div>                   
                     <div id="divDatos">
                         <fieldset>
-                            <legend><strong>COEFICIENTES:</strong></legend>
+                            <legend>COEFICIENTES:</legend>
                             <div id="div1"><label>A:</label><input type="number" id="txtA" placeholder="Ingrese un número" autocomplete="off" step="any" oninput="borrarResultados();" onchange="borrarResultados();" onkeydown="manejador(event, this.id);" /></div>
                             <div id="div2"><label>B:</label><input type="number" id="txtB" placeholder="Ingrese un número" autocomplete="off" step="any" oninput="borrarResultados();" onchange="borrarResultados();" onkeydown="manejador(event, this.id);" /></div>
                             <div id="div3"><label>C:</label><input type="number" id="txtC" placeholder="Ingrese un número" autocomplete="off" step="any" oninput="borrarResultados();" onchange="borrarResultados();" onkeydown="manejador(event, this.id);" /></div>
