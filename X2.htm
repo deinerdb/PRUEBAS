@@ -33,6 +33,14 @@
                 opacity: 0.8;
                 filter: Alpha(opacity=80); /* IE8 and earlier */
             }
+            legend, #titulaResultados {
+                font-weight: bold;
+                color: purple;
+                font-size: 1.4em;
+            }
+            #titulaResultados {
+                margin-left: 12px;
+            }
             #títuloEcuación {
                 color: #2d004d;
                 font-size: 1.7em;
@@ -162,11 +170,6 @@
                 }
             }
 
-            legend {
-                font-weight: bold;
-                color: purple;
-                font-size: 1.5em;
-            }
             #linechart, #regChart,#cajaNoDisponible, #cajachart, #noDisponible, #opcionesGráfico, #opcionesGráficoReg, #diagrama, #opcionesGráficoCaja {
                 /*RESPONSIVE*/
                 max-width: 100%;
@@ -524,18 +527,29 @@
                     <button type="button" id="btnCalcular" title="Realizar cálculos">CALCULAR</button>
                     <button type="button" id="btnCopiar" disabled title="Copiar Resultados">COPIAR</button> 
                                  
+                    <h2 id="titulaResultados">RESULTADOS: </h2>
+                    <label>Raíz 1:</label> <br />
+                    <input type="text" id="raíz1" readonly /><br />
+                    <label>Raíz 2:</label> <br />
+                    <input type="text" id="raíz2" readonly /><br />
+                    <label>Intercepto Eje Y:</label> <br />
+                    <input type="text" id="intercepto" readonly /><br />
+                    <label>Distancia focal (p):</label> <br />
+                    <input type="text" id="p" readonly /><br />
+                    <label>Lado recto (4p):</label> <br />
+                    <input type="text" id="ladoRecto" readonly /><br />
+                    <label>Dirección apertura:</label> <br />
+                    <input type="text" id="apertura" readonly /><br />
+                    <label>Vértice:</label> <br />
+                    <input type="text" id="vértice" readonly /><br />
+                    <label>Foco:</label> <br />
+                    <input type="text" id="foco" readonly /><br />
+                    <label>Recta directriz:</label> <br />
+                    <input type="text" id="directriz" readonly /><br />
+                    <label>Eje de Simetría:</label> <br />
+                    <input type="text" id="ejeSimetría" readonly /><br />
+
                    
-                        <h2 id="titulaResultados" class="letramorada" style="margin-left:12px;">RESULTADOS: </h2>                        
-                           
-                            <label>Raíz 1:</label> <br />
-                            <input type="text" id="raíz1" readonly /><br />
-                            <label>Raíz 2:</label> <br />
-                            <input type="text" id="raíz2" readonly /><br />
-                            <label>Distancia focal (p):</label> <br />
-                            <input type="text" id="p" readonly /><br />
-                            <label>Lado recto (4p):</label> <br />
-                            <input type="text" id="ladoRecto" readonly /><br />
-                    <p>Y así sucesivamente...</p>
                         
                 </form>
                 
