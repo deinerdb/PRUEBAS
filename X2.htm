@@ -170,7 +170,7 @@
                 }
             }
 
-            #linechart, #regChart,#cajaNoDisponible, #cajachart, #noDisponible, #opcionesGráfico, #opcionesGráficoReg, #diagrama, #opcionesGráficoCaja {
+            #parChart, #noDisponible, #opcionesGráficoPar {
                 /*RESPONSIVE*/
                 max-width: 100%;
                 overflow: auto;
@@ -185,9 +185,7 @@
                 border-radius: 4px;
                 outline: none;
             }
-            #linechart {
-                background-color: lavender;
-            }
+            
             #noDisponible {                
                 /*visible por defecto*/
                 display: block;
@@ -196,16 +194,12 @@
                 border-width: 2px;
             }
           
-            #opcionesGráfico, #opcionesGráficoReg, #opcionesGráficoCaja {
+            #opcionesGráficoPar {
                 margin-top: 12px !important;
                 padding: 24px 12px 12px 18px;
             }
             
-           
-            #opcionesGráfico {
-                margin-bottom: 12px !important;                
-            }
-            #linechart, #opcionesGráfico, #regChart, #opcionesGráficoReg, #cajachart, #opcionesGráficoCaja, .tab, .tabcontent {
+            #parChart, #opcionesGráficoPar {
                 /*oculto por defecto*/
                 display: none;
             }
@@ -326,18 +320,13 @@
             #ayudaImprimirGráfico {
                 color: indigo;
                 margin-left: 12px;
-
             }
             /*ajustes al imprimir*/
             @media print {
                 /*cosas invisibles al imprimir*/
-                #ayudaImprimirGráfico, #selectorN, #opcionesGráfico, #snackbar, #opcionesGráficoReg, #opcionesGráficoCaja, #checkCopiar, .tab, .tabcontent, #titulaGráficos, #noDisponible {
+                #ayudaImprimirGráfico, #snackbar, #opcionesGráficoPar, .tab, #gráficos, #noDisponible {
                     display: none !important;
-                }
-                #divDatos {
-                    /*para que se vean todos, porque en el papel no hay scroll xD */
-                    max-height: none !important;
-                }                 
+                }                           
             }
 
             .formulario {
@@ -356,7 +345,7 @@
            
             
 
-            #aIzquierda i:hover , #aDerecha i:hover, #BtnPNG:hover, #BtnRegPNG:hover, #BtnCajaPNG:hover {
+            #BtnParPNG:hover {
                 background: #8c53c6; /* For browsers that do not support gradients */
                 background: -webkit-linear-gradient(left, #8c53c6, rebeccapurple); /* For Safari 5.1 to 6.0 */
                 background: -o-linear-gradient(right, #8c53c6, rebeccapurple); /* For Opera 11.1 to 12.0 */
@@ -364,11 +353,11 @@
                 background: linear-gradient(to right, #8c53c6, rebeccapurple); /* Standard syntax (must be last) */
             }
             
-            #BtnPNG, #BtnRegPNG, #BtnCajaPNG {
+            #BtnParPNG {
                 text-decoration: none;
                 padding: 16px 32px !important;
             }
-            #divA i, #BtnPNG, #BtnRegPNG, #BtnCajaPNG {
+            #BtnParPNG {
                 -webkit-box-sizing: border-box;
                 -moz-box-sizing: border-box;
                 box-sizing: border-box;
@@ -403,13 +392,7 @@
             #divDatos div {
                 text-align:center;
             }
-            #rangoDatos {
-                border: none;
-            }
-            
-
            
-
         </style>
     </head>
     <body>
@@ -528,110 +511,62 @@
                     <button type="button" id="btnCopiar" disabled title="Copiar Resultados">COPIAR</button> 
                                  
                     <h2 id="titulaResultados">RESULTADOS: </h2>
-                    <label>Raíz 1:</label> <br />
-                    <input type="text" id="raíz1" readonly /><br />
-                    <label>Raíz 2:</label> <br />
-                    <input type="text" id="raíz2" readonly /><br />
-                    <label>Intercepto Eje Y:</label> <br />
-                    <input type="text" id="intercepto" readonly /><br />
-                    <label>Distancia focal (p):</label> <br />
-                    <input type="text" id="p" readonly /><br />
-                    <label>Lado recto (4p):</label> <br />
-                    <input type="text" id="ladoRecto" readonly /><br />
-                    <label>Dirección apertura:</label> <br />
-                    <input type="text" id="apertura" readonly /><br />
-                    <label>Vértice:</label> <br />
-                    <input type="text" id="vértice" readonly /><br />
-                    <label>Foco:</label> <br />
-                    <input type="text" id="foco" readonly /><br />
-                    <label>Recta directriz:</label> <br />
-                    <input type="text" id="directriz" readonly /><br />
-                    <label>Eje de Simetría:</label> <br />
-                    <input type="text" id="ejeSimetría" readonly /><br />
+                    
 
                    
                         
                 </form>
                 
-                <div id="noDisponible">
-                    <p>GRÁFICOS NO DISPONIBLES</p>
-                </div>
+                
                 <div class="tab" id="tab">
-                    <button class="tablinks" onclick="openTab(event, 'esencial')" id="defaultOpen">Esencial</button>
-                    <button class="tablinks" onclick="openTab(event, 'regresión')">Regresión</button>                    
-                    <button class="tablinks" onclick="openTab(event, 'caja')">Caja</button>
+                    <button class="tablinks" onclick="openTab(event, 'analíticos')" id="defaultOpen">Analíticos</button>
+                    <button class="tablinks" onclick="openTab(event, 'gráficos')">Gráficos</button>
                 </div>
 
-                <div id="esencial" class="tabcontent">
-                    <!-- gráfico de datos -->
-                    <div id="linechart"></div>
+                <div id="analíticos" class="tabcontent">
+                    <form class="formulario">
+                        <!-- resultados numéricos, analíticos -->
+                        <label>Raíz 1:</label> <br />
+                        <input type="text" id="raíz1" readonly /><br />
+                        <label>Raíz 2:</label> <br />
+                        <input type="text" id="raíz2" readonly /><br />
+                        <label>Intercepto Eje Y:</label> <br />
+                        <input type="text" id="intercepto" readonly /><br />
+                        <label>Distancia Focal (p):</label> <br />
+                        <input type="text" id="p" readonly /><br />
+                        <label>Lado Recto (4p):</label> <br />
+                        <input type="text" id="ladoRecto" readonly /><br />
+                        <label>Dirección Apertura:</label> <br />
+                        <input type="text" id="apertura" readonly /><br />
+                        <label>Vértice:</label> <br />
+                        <input type="text" id="vértice" readonly /><br />
+                        <label>Foco:</label> <br />
+                        <input type="text" id="foco" readonly /><br />
+                        <label>Recta Directriz:</label> <br />
+                        <input type="text" id="directriz" readonly /><br />
+                        <label>Eje de Simetría:</label> <br />
+                        <input type="text" id="ejeSimetría" readonly /><br />
 
-                    <fieldset id="opcionesGráfico">
-                        <legend>Opciones gráfico de datos: </legend>
-                        <label class="contenedorCheckbox">
-                            Usar trazado curvo
-                            <input type="checkbox" id="myCheck2" onclick="clickCheck2()">
-                            <span class="checkmark"></span>
-                        </label>
-                        <label class="contenedorCheckbox">
-                            Mostrar tendencia lineal y media aritmética
-                            <input type="checkbox" id="myCheck" onclick="clickCheck()">
-                            <span class="checkmark"></span>
-                        </label>
-                        <button id="BtnPNG" title="Copiar enlace a imagen PNG del gráfico">COPIAR ENLACE PNG</button>
-                        <p class="letramorada">En navegadores modernos, puede visualizar este enlace como una imagen PNG</p>
-                    </fieldset>  
+                    </form>
                 </div>
 
-                <div id="regresión" class="tabcontent">
-                    <!-- gráfico de regresión -->
-                    <div id="regChart"></div>
-                    <fieldset id="opcionesGráficoReg">
-                        <legend>Opciones gráfico de regresión: </legend>
-                        <!-- selección de modelo de regresión -->
-                        <h3>Seleccione un tipo de regresión:</h3>
-                        <select id="tipoReg">
-                            <option value="ninguna" selected>NINGUNA</option>
-                            <option value="lineal">LINEAL</option>
-                            <option value="exponencial">EXPONENCIAL</option>
-                            <option value="logarítmica">LOGARÍTMICA</option>
-                            <option value="potencial">POTENCIAL</option>
-                            <option value="polinomial2">POLINOMIAL GRADO 2</option>
-                            <option value="polinomial3">POLINOMIAL GRADO 3</option>
-                            <option value="polinomial4">POLINOMIAL GRADO 4</option>
-                            <option value="polinomial5">POLINOMIAL GRADO 5</option>
-                            <option value="polinomial6">POLINOMIAL GRADO 6</option>
-                        </select>
-                        <button id="BtnRegPNG" title="Copiar enlace a imagen PNG del gráfico">COPIAR ENLACE PNG</button>
-                        <p class="letramorada">En navegadores modernos, puede visualizar este enlace como una imagen PNG</p>
-                    </fieldset>    
-                </div>
-                <div id="caja" class="tabcontent">
-                    <div id="cajaNoDisponible">
-                        <h3>Gráfico de caja no disponible</h3>
-                        <p>El gráfico de caja de esta página requiere que los siguientes parámetros contengan valores numéricos válidos:</p>
-                        <p>
-                            Mínimo, máximo, primer cuartil, tercer cuartil, mediana, media.
-                        </p>
+                <div id="gráficos" class="tabcontent">
+                    <!-- gráfico de la parábola -->
+                    <div id="noDisponible">
+                        <p>GRÁFICO NO DISPONIBLE</p>
                     </div>
-                    <!-- gráfico de caja -->
-                    <div id="cajachart"></div>
-
-                    <fieldset id="opcionesGráficoCaja">
-                        <legend>Opciones gráfico de caja: </legend>                        
-                        <button id="BtnCajaPNG" title="Copiar enlace a imagen PNG del gráfico">COPIAR ENLACE PNG</button>
+                    <div id="parChart"></div>
+                    <fieldset id="opcionesGráficoPar">
+                        <legend>Opciones del gráfico: </legend>
+                        <!-- copiar png -->                        
+                        <button id="BtnParPNG" title="Copiar enlace a imagen PNG del gráfico">COPIAR ENLACE PNG</button>
                         <p class="letramorada">En navegadores modernos, puede visualizar este enlace como una imagen PNG</p>
                     </fieldset>
-                    <fieldset id="diagrama">
-                        <legend>Nota: </legend>                        
-                        <p class="letramorada" id="notadiagrama">Se muestra un gráfico de caja (box-plot) simplificado, el cual no incluye valores atípicos (outliers). 
-                            El siguiente diagrama puede ayudar a interpretarlo:</p>
-                        <img id="imgdiagramacaja" title="Diagrama de caja explicado" alt="Diagrama de caja explicado" src="diagramacaja.png" width="792" height="504" />
-                    </fieldset>
+                    <h4 id="ayudaImprimirGráfico">
+                        * Para imprimir el gráfico, utilice la opción COPIAR ENLACE PNG, pegue el enlace en la barra de direcciones en una nueva pestaña del navegador.
+                    </h4>
                 </div>
-                <h4 id="ayudaImprimirGráfico">
-                    * Para imprimir los gráficos, utilice la opción COPIAR ENLACE PNG, pegue el enlace en la barra de direcciones en una nueva pestaña del navegador.
-                </h4>
+           
                 <!--script para cargar la API de Google para gráficos-->
                 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js">
                 </script>
@@ -640,1035 +575,57 @@
                     <!--FUNCIONES PARA ANÁLISIS-->
                     <script>
                         //declara variables para cálculos
-
-                        var cuenta;
-                        var suma;
-                        var sumaCuadrados;
-                        var productoria;
-                        var max;
-                        var min;
-                        var rango;
-                        var recorridoRelativo;
-                        var coefApertura;
-                        var todosPositivos = true;
-                        var media;
-                        var mediaGeom;
-                        var mediaArm;
-                        var mediaCuad;
-                        var moda;
-                        var mediana;
-                        var q1;
-                        var q3;
-                        var rangoIntercuartílico;
-                        var rangoMedio;
-                        var mostrarSeriesAdicionales = false;
-                        var varianzaP;
-                        var desvP;
-                        var coefVarP;
-                        var varianzaM;
-                        var desvM;
-                        var coefVarM;
-                        var ETMM;
-                        var coefAsim;
-                        var curtosis;
-                        var pendiente;
+                        //para captar coeficientes ingresados
+                        var txtA;
+                        var txtB;
+                        var txtC;
+                        //para almacenar resultados
+                        var raíz1;
+                        var raíz2;
                         var intercepto;
-                        var r;
-                        var r2;
-                        var desvMedia;
-                        var pronLin;
-                        var tipoCurva = 'null';
-                        var aExp;
-                        var bExp;
-                        var rExp;
-                        var r2Exp;
-                        var pronExp;
-                        var aLog;
-                        var bLog;
-                        var rLog;
-                        var r2Log;
-                        var pronLog;
-                        var aPot;
-                        var bPot;
-                        var rPot;
-                        var r2Pot;
-                        var pronPot;
-                        //polinomial grado 2
-                        var Pol2C0;
-                        var Pol2C1;
-                        var Pol2C2;
-                        var Pol2R;
-                        var Pol2R2;
-                        var Pol2Pron;
-                        //polinomial grado 3
-                        var Pol3C0;
-                        var Pol3C1;
-                        var Pol3C2;
-                        var Pol3C3;
-                        var Pol3R;
-                        var Pol3R2;
-                        var Pol3Pron;
-                        //polinomial grado 4
-                        var Pol4C0;
-                        var Pol4C1;
-                        var Pol4C2;
-                        var Pol4C3;
-                        var Pol4C4;
-                        var Pol4R;
-                        var Pol4R2;
-                        var Pol4Pron;
-                        //polinomial grado 5
-                        var Pol5C0;
-                        var Pol5C1;
-                        var Pol5C2;
-                        var Pol5C3;
-                        var Pol5C4;
-                        var Pol5C5;
-                        var Pol5R;
-                        var Pol5R2;
-                        var Pol5Pron;
-                        //polinomial grado 6
-                        var Pol6C0;
-                        var Pol6C1;
-                        var Pol6C2;
-                        var Pol6C3;
-                        var Pol6C4;
-                        var Pol6C5;
-                        var Pol6C6;
-                        var Pol6R;
-                        var Pol6R2;
-                        var Pol6Pron;
-                        // para el gráfico de datos
-                        var chart;
-                        // para el gráfico de regresión
-                        var chartReg;
-                        // para el gráfico de caja
-                        var chartCaja;
-                        //almacena la regresión seleccionada
-                        var miTipoReg = "ninguna";
-                        var regActualizado = false;
-                        var cajaActualizado = false;
-                        var cajaDisponible = false;
-
-                        //SUMA ARRAY
-                        function sumar() {
-                            var temp = 0;
-                            var i;
-                            for (i = 0; i < arrayDatos.length; i++) {
-                                temp = Number(arrayDatos[i]) + temp;
-                            }
-                            return temp;
-                        }
-                        //SUMA cuadrados
-                        function sumarCuadrados() {
-                            var temp = 0;
-                            var i;
-                            for (i = 0; i < arrayDatos.length; i++) {
-                                temp = Number(arrayDatos[i]) * Number(arrayDatos[i]) + temp;
-                            }
-                            return temp;
-                        }
-                        //recorre y obtiene max y min                  
-                        function maxmin() {
-                            var tempMax = Number(arrayDatos[0]) ;
-                            var tempMin = Number(arrayDatos[0]) ;
-                            var i;
-                            todosPositivos = true;
-                            for (i = 0; i < arrayDatos.length; i++) {
-                                //verifica si no hay negativos
-                                if (arrayDatos[i] <= 0) { todosPositivos = false; }
-                                //mayor
-                                if (arrayDatos[i] > tempMax) {
-                                    tempMax = Number(arrayDatos[i]);
-                                }
-                                //menor
-                                if (arrayDatos[i] < tempMin) {
-                                    tempMin = Number(arrayDatos[i]);
-                                }                                
-                            } 
-                            max = tempMax;
-                            min = tempMin;                            
-                        }
-                        //productoria
-                        function calculaProductoria() {                            
-                            var prod = 1;
-                            var i;
-                            if (todosPositivos == false) {
-                                //no la calcula
-                                prod = "Requiere valores positivos";
-                            } else {
-                                for (i = 0; i < arrayDatos.length; i++) {
-                                    prod = Number(arrayDatos[i]) * prod;
-                                }                                
-                            }
-                            return prod;
-                        }
-                        //media geométrica
-                        function mediaGeométrica() {
-                            var temp;                            
-                            var i;
-                            if (todosPositivos == false) {
-                                //no la calcula
-                                temp = "Requiere valores positivos";
-                            } else {                                
-                                temp = Math.pow(productoria, 1 / cuenta);
-                            }
-                            return temp;
-                        }
-                        //media armónica
-                        function mediaArmónica() {
-                            var temp;
-                            var sumaInv = 0;
-                            var i;
-                            if (todosPositivos == false) {
-                                //no la calcula
-                                temp = "Requiere valores positivos";
-                            } else {
-                                for (i = 0; i < arrayDatos.length; i++) {
-                                    sumaInv = 1/Number(arrayDatos[i]) + sumaInv;
-                                }
-                                temp = sumaInv / cuenta;
-                                temp = 1 / temp;
-                            }
-                            return temp;
-                        }
-                        //media cuadrática
-                        function mediaCuadrática() {
-                            var temp = 0;
-                            temp = Math.sqrt(sumaCuadrados / cuenta);
-                            return temp;
-                        }
-                        //devuelve la primera moda encontrada
-                        function calculaModa() {
-                            var repetidos = 1;
-                            var temp = "No disponible (Sin duplicados)";
-                            var contador = 0;
-                            var i;
-                            var j;
-                            for (i = 0; i < arrayDatos.length; i++) {
-                                contador = 0;
-                                for (j = 0; j < arrayDatos.length; j++) {
-                                    if (arrayDatos[i] == arrayDatos[j]) {
-                                        contador++;
-                                    }
-                                }
-                                if (contador > repetidos) {
-                                    temp = arrayDatos[i];
-                                    repetidos = contador;
-                                }
-                            }
-                            return temp;
-                        }
-                        //devuelve la mediana
-                        function calculaMediana() {
-                            // Nota:
-                            // n = cuenta (length)
-                            // array ordenado es base 0
-                            if (cuenta % 2 == 0) {
-                                //es par
-                                return (Number(ordenado[(cuenta / 2) - 1]) + Number(ordenado[cuenta / 2])) / 2;
-                            } else {
-                                //es impar
-                                return Number(ordenado[((1 + cuenta) / 2) - 1]);
-                            }
-                        }
-                        //devuelve primer cuartil
-                        function calculaQ1() {
-                            // Nota:
-                            // n = cuenta (length)
-                            // array ordenado es base 0
-                            if (cuenta < 3) {
-                                return "No disponible (N < 3)";
-                            }
-                            var parteEntera;
-                            var parteDecimal;
-                            var pos;
-
-                            if ((1 + cuenta) % 4 == 0) {
-                                //es múltiplo
-                                pos = (1 + cuenta) / 4;
-                                pos--;
-                                return ordenado[pos];                                
-                            } else {
-                                //no es múltiplo                                
-                                parteEntera = Math.floor((1 + cuenta) / 4);
-                                parteDecimal = ((1 + cuenta) / 4) % 1;
-                                return Number(ordenado[parteEntera - 1]) + parteDecimal * (ordenado[parteEntera] - ordenado[parteEntera-1]);
-                            }
-                        }
-                        //devuelve tercer cuartil
-                        function calculaQ3() {
-                            // Nota:
-                            // n = cuenta (length)
-                            // array ordenado es base 0
-                            if (cuenta < 3) {
-                                return "No disponible (N < 3)";
-                            }
-                            var parteEntera;
-                            var parteDecimal;
-                            var pos;
-
-                            if ((3 * (1 + cuenta)) % 4 == 0) {
-                                //es múltiplo
-                                pos = 3 * (1 + cuenta) / 4;
-                                pos--;
-                                return ordenado[pos];
-                            } else {
-                                //no es múltiplo                                
-                                parteEntera = Math.floor(3 * (1 + cuenta) / 4);
-                                parteDecimal = (3 * (1 + cuenta) / 4) % 1;
-                                return Number(ordenado[parteEntera - 1]) + parteDecimal * (ordenado[parteEntera] - ordenado[parteEntera - 1]);
-                            }
-                        }
-                        //devuelve rango intercuartílico
-                        function calculaRangoIntercuartílico() {
-                            if (cuenta < 3) {
-                                return "No disponible (N < 3)";
-                            } else {
-                                return q3 - q1;
-                            }                            
-                        }
-                        // devuelve el Rango medio
-                        function calculaRangoMedio() {
-                            return (Number(max) + min) / 2;
-                        }
-                        //devuelve varianza poblacional
-                        function calculaVarianzaPoblacional() {
-                            return (sumaCuadrados / cuenta) - (media * media);
-                        }
-                        //devuelve varianza muestral
-                        function calculaVarianzaMuestral() {
-                            if (cuenta < 2) {
-                                return "No disponible (N < 2)";
-                            } else {
-                                return (sumaCuadrados / (cuenta - 1)) - (media * media * cuenta / (cuenta - 1));
-                            }                               
-                        }
-                        //devuelve desviación estándar poblacional
-                        function calculaDesvPoblacional() {                            
-                            if (varianzaP < 0) {
-                                //improbable, pero por si acaso
-                                return "No disponible (Var < 0)";
-                            }
-                            //la raíz de la varianza
-                            return Math.sqrt(varianzaP);
-                        }
-                        //devuelve desviación estándar muestral
-                        function calculaDesvMuestral() {
-                            if (cuenta < 2) {
-                                return "No disponible (N < 2)";
-                            }                             
-                            if (varianzaM < 0) {
-                                //improbable, pero por si acaso
-                                return "No disponible (VarM < 0)";
-                            }
-                            //la raíz de la varianza muestral
-                            return Math.sqrt(varianzaM);
-                        }
-                        //devuelve el coeficiente de variación poblacional
-                        function calculaCoefVarPoblacional() {
-                            if (media == 0) {
-                                //evita la división por cero
-                                return "No disponible (Media = 0)";
-                            }
-                            //cociente
-                            return desvP / media;
-                        }
-                        //devuelve el coeficiente de variación muestral
-                        function calculaCoefVarMuestral() {
-                            if (cuenta < 2) {
-                                return "No disponible (N < 2)";
-                            }    
-                            if (media == 0) {
-                                //evita la división por cero
-                                return "No disponible (Media = 0)";
-                            }
-                            //cociente
-                            return desvM / media;
-                        }
-                        //devuelve el error típico de la media muestral ETMM
-                        function calculaETMM() {
-                            if (cuenta < 2) {
-                                return "No disponible (N < 2)";
-                            }
-                            if (varianzaM < 0) {
-                                //improbable, pero por si acaso
-                                return "No disponible (VarM < 0)";
-                            }
-                            //un cociente
-                            return desvM / Math.sqrt(cuenta);
-                        }
-                        //devuelve el coeficiente de asimetría
-                        function calculaCoefAsim() {
-                            if (cuenta < 3) {
-                                return "No disponible (N < 3)";
-                            }
-                            if (desvM == 0) {
-                                //impide div/0
-                                return "No disponible (Desv Est = 0)";
-                            }
-                            //cálcula...
-                            var i;
-                            var sumaCubos = 0;
-                            for (i = 0; i < arrayDatos.length; i++) {
-                                sumaCubos = Math.pow((arrayDatos[i] - media) / desvM, 3) + sumaCubos;
-                            }
-                            return sumaCubos * cuenta / ((cuenta - 1) * (cuenta - 2));
-                        }
-                        //devuelve la curtosis
-                        function calculaCurtosis() {
-                            if (cuenta < 4) {
-                                return "No disponible (N < 4)";
-                            }
-                            if (desvM == 0) {
-                                //impide div/0
-                                return "No disponible (Desv Est = 0)";
-                            }
-                            //cálcula...
-                            var i;
-                            var suma4 = 0;
-                            var temp;
-                            var restar;
-                            for (i = 0; i < arrayDatos.length; i++) {
-                                suma4 = Math.pow((arrayDatos[i] - media) / desvM, 4) + suma4;
-                            }
-                            temp = cuenta * (cuenta + 1);
-                            temp = temp / ((cuenta - 1) * (cuenta - 2) * (cuenta - 3));
-                            temp = temp * suma4;
-                            restar = 3 * (cuenta - 1) * (cuenta - 1);
-                            restar = restar / ((cuenta - 2) * (cuenta - 3));
-                            return temp - restar;
-                        }
-                        //regresión lineal
-                        function regLineal() {
-                            if (cuenta == 1) {
-                                //mínimo dos puntos de datos
-                                //asume linealidad y recta horizontal
-                                pendiente = 0;
-                                intercepto = Number(arrayDatos[0]);
-                                r = 1;
-                                r2 = 1;
-                                return;
-                            }
-                            
-                            //cálcula...
-                            var i;
-                            var numerador = 0;
-                            var denominador1 = 0;
-                            var denominador2 = 0;
-                            var mediaX;
-                            var temp = 0;
-
-                            for (i = 1; i <= cuenta; i++) {
-                                temp = Number(i) + temp;
-                            }
-                            mediaX = temp / cuenta;
-                            //sumatorias
-                            for (i = 0; i < arrayDatos.length; i++) {
-                                numerador = (1 + i - mediaX) * (arrayDatos[i] - media) + numerador;
-                                denominador1 = Math.pow(1 + i - mediaX, 2) + denominador1;
-                                denominador2 = Math.pow(arrayDatos[i] - media, 2) + denominador2;
-                            }
-                            if (denominador1 == 0) {
-                                //improbable
-                                pendiente = "No disponible";
-                                intercepto = "No disponible";
-                                r = "No disponible";
-                                r2 = "No disponible";
-                                return;
-                            } else {
-                                pendiente = numerador / denominador1;
-                                intercepto = media - pendiente * mediaX;
-                            }
-                            if (denominador2 == 0) {
-                                //improbable 
-                                if (pendiente == 0) {
-                                    r = 1;
-                                    r2 = 1;
-                                    return;
-                                }
-                                r = "No disponible";
-                                r2 = "No disponible";
-                                return;
-                            } else {
-                                r = numerador / Math.sqrt(denominador1 * denominador2);
-                                r2 = r * r;
-                            }                            
-                        }
-                        //devuelve el desviación media
-                        function calculaDesvMedia() {                            
-                            //cálcula...
-                            var i;
-                            var temp = 0;
-                            for (i = 0; i < arrayDatos.length; i++) {
-                                temp = Math.abs(arrayDatos[i] - media) + temp;
-                            }
-                            return temp / cuenta;
-                        }
-                        //devuelve el pronóstico lineal
-                        function calculaPronósticoLineal() { 
-                            if (isNaN(pendiente) == true || isNaN(intercepto) == true) {
-                                return "No disponible";
-                            }
-                            return Number(pendiente * (1 + cuenta)) + Number(intercepto);
-                        }
-                        //regresión exponencial
-                        function regExponencial() {
-                            if (cuenta < 2) {
-                                //mínimo dos puntos de datos
-                                //No asume nada
-                                aExp = "No disponible (N < 2)";
-                                bExp = "No disponible (N < 2)";
-                                rExp = "No disponible (N < 2)";
-                                r2Exp = "No disponible (N < 2)";
-                                pronExp = "No disponible (N < 2)";
-                                return;
-                            }
-                            if (todosPositivos == false) {
-                                //no realiza la regresión 
-                                aExp = "Requiere valores positivos";
-                                bExp = "Requiere valores positivos";
-                                rExp = "Requiere valores positivos";
-                                r2Exp = "Requiere valores positivos";
-                                pronExp = "Requiere valores positivos";
-                                return;
-                            }
-                            //cálcula...
-                            var i;
-                            var numerador = 0;
-                            var denominador1 = 0;
-                            var denominador2 = 0;
-                            var mediaX;
-                            var mediaLnY = 0;
-                            var temp = 0;
-
-                            for (i = 1; i <= cuenta; i++) {
-                                temp = Number(i) + temp;
-                                mediaLnY = Math.log(arrayDatos[i - 1]) + mediaLnY;
-                            }
-                            mediaX = temp / cuenta;
-                            mediaLnY = mediaLnY / cuenta;
-                            //sumatorias
-                            for (i = 0; i < arrayDatos.length; i++) {
-                                numerador = (1 + i - mediaX) * (Math.log(arrayDatos[i]) - mediaLnY) + numerador;
-                                denominador1 = Math.pow(1 + i - mediaX, 2) + denominador1;
-                                denominador2 = Math.pow(Math.log(arrayDatos[i]) - mediaLnY, 2) + denominador2;
-                            }
-                            if (denominador1 == 0) {
-                                //improbable
-                                aExp = "No disponible";
-                                bExp = "No disponible";
-                                rExp = "No disponible";
-                                r2Exp = "No disponible";
-                                return;
-                            } else {
-                                bExp = numerador / denominador1;
-                                aExp = mediaLnY - bExp * mediaX;
-                                aExp = Math.exp(aExp);
-                            }
-                            if (denominador2 == 0) {                                
-                                rExp = "No disponible";
-                                r2Exp = "No disponible";
-                                return;
-                            } else {
-                                rExp = numerador / Math.sqrt(denominador1 * denominador2);
-                                r2Exp = rExp * rExp;
-                            }
-                        }
-                        //devuelve el pronóstico exponencial
-                        function calculaPronósticoExponencial() {
-                            if (cuenta < 2) {
-                                return "No disponible (N < 2)";
-                            }
-                            if (todosPositivos == false) {                                
-                                return "Requiere valores positivos";                                
-                            }
-                            if (isNaN(aExp) == true || isNaN(bExp) == true) {
-                                return "No disponible";
-                            }                            
-                            var siguiente = 1 + cuenta;
-                            return aExp * Math.exp(bExp * siguiente);
-                        }
-
-                        //regresión logarítmica
-                        function regLogarítmica() {
-                            if (cuenta < 2) {
-                                //mínimo dos puntos de datos
-                                //No asume nada
-                                aLog = "No disponible (N < 2)";
-                                bLog = "No disponible (N < 2)";
-                                rLog = "No disponible (N < 2)";
-                                r2Log = "No disponible (N < 2)";
-                                pronLog = "No disponible (N < 2)";
-                                return;
-                            }
-                            
-                            //cálcula...
-                            var i;
-                            var numerador = 0;
-                            var denominador1 = 0;
-                            var denominador2 = 0;
-                            var mediaLnX = 0;  
-
-                            for (i = 1; i <= cuenta; i++) {                                
-                                mediaLnX = Math.log(i) + mediaLnX;
-                            }                            
-                            mediaLnX = mediaLnX / cuenta;
-                            //sumatorias
-                            for (i = 0; i < arrayDatos.length; i++) {
-                                numerador = (Math.log(1 + i) - mediaLnX) * (arrayDatos[i] - media) + numerador;
-                                denominador1 = Math.pow(Math.log(1 + i) - mediaLnX, 2) + denominador1;
-                                denominador2 = Math.pow(arrayDatos[i] - media, 2) + denominador2;
-                            }
-                            if (denominador1 == 0) {
-                                //improbable
-                                aLog = "No disponible";
-                                bLog = "No disponible";
-                                rLog = "No disponible";
-                                r2Log = "No disponible";
-                                return;
-                            } else {
-                                aLog = numerador / denominador1;
-                                bLog = media - aLog * mediaLnX;                                
-                            }
-                            if (denominador2 == 0) {
-                                rLog = "No disponible";
-                                r2Log = "No disponible";
-                                return;
-                            } else {
-                                rLog = numerador / Math.sqrt(denominador1 * denominador2);
-                                r2Log = rLog * rLog;
-                            }
-                        }
-                        //devuelve el pronóstico logarítmico
-                        function calculaPronósticoLogarítmico() {
-                            if (cuenta < 2) {
-                                return "No disponible (N < 2)";
-                            }                            
-                            if (isNaN(aLog) == true || isNaN(bLog) == true) {
-                                return "No disponible";
-                            }
-                            var siguiente = 1 + cuenta;
-                            return Number(bLog) + aLog * Math.log(siguiente);
-                        }
-                        //regresión potencial
-                        function regPotencial() {                             
-                            if (cuenta < 2) {
-                                //mínimo dos puntos de datos
-                                //No asume nada
-                                aPot = "No disponible (N < 2)";
-                                bPot = "No disponible (N < 2)";
-                                rPot = "No disponible (N < 2)";
-                                r2Pot = "No disponible (N < 2)";
-                                pronPot = "No disponible (N < 2)";
-                                return;
-                            }
-                            if (todosPositivos == false) {
-                                //no realiza la regresión 
-                                aPot = "Requiere valores positivos";
-                                bPot = "Requiere valores positivos";
-                                rPot = "Requiere valores positivos";
-                                r2Pot = "Requiere valores positivos";
-                                pronPot = "Requiere valores positivos";
-                                return;
-                            }
-                            //cálcula...
-                            var i;
-                            var numerador = 0;
-                            var denominador1 = 0;
-                            var denominador2 = 0;
-                            var mediaLnX = 0;
-                            var mediaLnY = 0;                            
-
-                            for (i = 1; i <= cuenta; i++) {
-                                mediaLnX = Math.log(i) + mediaLnX;
-                                mediaLnY = Math.log(arrayDatos[i - 1]) + mediaLnY;
-                            }
-                            mediaLnX = mediaLnX / cuenta;
-                            mediaLnY = mediaLnY / cuenta;
-                            //sumatorias
-                            for (i = 0; i < arrayDatos.length; i++) {
-                                numerador = (Math.log(1 + i) - mediaLnX) * (Math.log(arrayDatos[i]) - mediaLnY) + numerador;
-                                denominador1 = Math.pow(Math.log(1 + i) - mediaLnX, 2) + denominador1;
-                                denominador2 = Math.pow(Math.log(arrayDatos[i]) - mediaLnY, 2) + denominador2;
-                            }
-                            if (denominador1 == 0) {
-                                //improbable
-                                aPot = "No disponible";
-                                bPot = "No disponible";
-                                rPot = "No disponible";
-                                r2Pot = "No disponible";
-                                return;
-                            } else {
-                                bPot = numerador / denominador1;
-                                aPot = mediaLnY - bPot * mediaLnX;
-                                aPot = Math.exp(aPot);
-                            }
-                            if (denominador2 == 0) {
-                                rPot = "No disponible";
-                                r2Pot = "No disponible";
-                                return;
-                            } else {
-                                rPot = numerador / Math.sqrt(denominador1 * denominador2);
-                                r2Pot = rPot * rPot;
-                            }
-                        }
-                        //devuelve el pronóstico potencial
-                        function calculaPronósticoPotencial() {
-                            if (cuenta < 2) {
-                                return "No disponible (N < 2)";
-                            }
-                            if (todosPositivos == false) {
-                                return "Requiere valores positivos";
-                            }
-                            if (isNaN(aPot) == true || isNaN(bPot) == true) {
-                                return "No disponible";
-                            }
-                            var siguiente = 1 + cuenta;
-                            return aPot * Math.pow(siguiente, bPot);
-                        }
-                        /** resuelve un sistema de ecuaciones dado una matrix n x n+1
-                            devuelve un vector n x 1 con las soluciones
-                            basado y mejorado a partir de https://martin-thoma.com/solving-linear-equations-with-gaussian-elimination/    */
-                        function gauss(A) {
-                            try {
-                                var n = 1;
-                                n = A.length;
-
-                                for (var i = 0; i < n; i++) {
-                                    // Search for maximum in this column
-                                    var maxEl = Math.abs(A[i][i]);
-                                    var maxRow = i;
-                                    for (var k = i + 1; k < n; k++) {
-                                        if (Math.abs(A[k][i]) > maxEl) {
-                                            maxEl = Math.abs(A[k][i]);
-                                            maxRow = k;
-                                        }
-                                    }
-
-                                    // Swap maximum row with current row (column by column)
-                                    for (var k = i; k < n + 1; k++) {
-                                        var tmp = A[maxRow][k];
-                                        A[maxRow][k] = A[i][k];
-                                        A[i][k] = tmp;
-                                    }
-
-                                    // Make all rows below this one 0 in current column
-                                    for (k = i + 1; k < n; k++) {
-                                        var c = -A[k][i] / A[i][i];
-                                        for (var j = i; j < n + 1; j++) {
-                                            if (i == j) {
-                                                A[k][j] = 0;
-                                            } else {
-                                                A[k][j] += c * A[i][j];
-                                            }
-                                        }
-                                    }
-                                }
-
-                                // Solve equation Ax=b for an upper triangular matrix A
-                                var x = new Array(n);
-                                for (var i = n - 1; i > -1; i--) {
-                                    x[i] = A[i][n] / A[i][i];
-                                    for (var k = i - 1; k > -1; k--) {
-                                        A[k][n] -= A[k][i] * x[i];
-                                    }
-                                }
-                            }
-                            catch(err) {
-                                var x = [];
-                                for (var i = 0; i < n; i++) {
-                                    x[i] = "No disponible";
-                                }
-                            }
-                            finally {
-                                return x;
-                            }
-                        }
-                        // fin gauss
-
-                        //regresión polinomial cualquier grado 
-                        function regPolinomial(grado) {
-                            if (cuenta < 1 + grado) {
-                                var Sol = [];
-                                var tope = 1 + grado;
-                                Sol.length = 4 + grado;
-                                for (i = 0; i < Sol.length; i++) {
-                                    Sol[i] = "No disponible (N < " + tope + ")";
-                                }
-                                return Sol;
-                            }
-                            try {
-                                var i;
-                                var j;
-                                var temp;
-                                var St;
-                                var Sr;
-                                var tempR;
-                                var tempR2;
-                                var tempPron;
-                                var tempEval;
-                                var Sol = [];
-                                var Sistema = [];
-                                for (var i = 0; i <= grado; i++) {
-                                    Sistema[i] = [];
-                                    for (var j = 0; j <= 1 + grado; j++) {
-                                        Sistema[i][j] = undefined;
-                                    }
-                                }
-                                //obtiene las sumas de potencias de 0 a 2*grado
-                                var xPot = [];
-                                var xPotY = [];
-
-                                for (i = 0; i <= (2 * grado); i++) {
-                                    xPot[i] = 0;
-                                    xPotY[i] = 0;
-                                }
-                                for (i = 0; i <= (2 * grado); i++) {
-                                    for (j = 1; j <= cuenta; j++) {
-                                        xPot[i] = Math.pow(j, i) + xPot[i];
-                                        if (i <= grado) {
-                                            xPotY[i] = arrayDatos[j - 1] * Math.pow(j, i) + xPotY[i];
-                                        }
-                                    }
-                                }
-                                //agrega a la matrix Sistema[][] los coeficientes
-                                for (i = 0; i <= grado; i++) {
-                                    for (j = 0; j <= grado; j++) {
-                                        Sistema[i][j] = xPot[Number(i) + j];
-                                    }
-                                }
-                                //agrega a la matrix Sistema[][] los términos independientes
-                                j = 1 + grado;
-                                for (i = 0; i <= grado; i++) {
-                                    Sistema[i][j] = xPotY[i];
-                                }
-                                // soluciona el sistema de ecuaciones por Gauss
-                                Sol = gauss(Sistema);
-
-                                // halla St
-                                temp = 0;
-                                for (i = 0; i < arrayDatos.length; i++) {
-                                    temp = Math.pow(arrayDatos[i] - media, 2) + temp;
-                                }
-                                St = temp;
-                                // halla Sr
-                                temp = 0;
-                                for (i = 0; i < arrayDatos.length; i++) {
-                                    //evalúa el polinomio en i
-                                    tempEval = 0;
-                                    for (j = 0; j <= grado; j++) {
-                                        tempEval = Math.pow(1 + i, j) * Sol[j] + tempEval;
-                                    }
-                                    temp = Math.pow(arrayDatos[i] - tempEval, 2) + temp;
-                                }
-                                Sr = temp;
-                                //halla r y r^2
-                                if (St == 0) {
-                                    //improbable
-                                    tempR2 = "No disponible";
-                                    tempR = "No disponible";
-                                } else {
-                                    tempR2 = (St - Sr) / St;
-                                    if (tempR2 < 0) {
-                                        tempR = "No disponible";
-                                    } else {
-                                        tempR = Math.sqrt(tempR2);
-                                    }
-                                }
-                                //evalúa el polinomio para hallar el pronóstico
-                                tempEval = 0;
-                                for (j = 0; j <= grado; j++) {
-                                    tempEval = Math.pow(1 + cuenta, j) * Sol[j] + tempEval;
-                                }
-                                tempPron = tempEval;
-                                //extiende el vector solución
-                                Sol[Sol.length] = tempR;
-                                Sol[Sol.length] = tempR2;
-                                Sol[Sol.length] = tempPron;                                
-                            }
-                            catch (err) {
-                                var Sol = [];
-                                Sol.length = 4 + grado;
-                                for (i = 0; i < Sol.length; i++) {
-                                    Sol[i] = "No disponible";
-                                }
-                            }
-                            finally {
-                                //Devuelve el vector extendido: coeficientes + r + r^2 + pronóstico
-                                return Sol;
-                            }
-                        }
+                        var p;
+                        var ladoRecto;
+                        var apertura;
+                        var vértice;
+                        var foco;
+                        var directriz;
+                        var ejeSimetría;
+                        // para el gráfico de la parábola
+                        var chartPar;                       
+                        var parActualizado = false;                       
+                        
                     </script>
                     <!--REALIZA CÁLCULOS-->
                     <script>
-                        //obtiene referencias
-
-                        //el input range NÚMERO DE DATOS
-                        var slider = document.getElementById("rangoDatos");
-
-                        //array para almacenar los valores ingresados
-                        var arrayDatos = [];
-                        //array para ordenar los datos
-                        var ordenado = [];
-
+                        //obtiene referencias                                               
+                       
                         var getbtnCalcular = document.getElementById("btnCalcular");
-                        var getbtnCopiar = document.getElementById("btnCopiar");
-
-                        var getMinus = document.getElementById("minus");
-                        var getPlus = document.getElementById("plus");
-
-                        //tamaño de datos cambia dinámicamente con el slider
-                        //input y change, redundantes por un bug en IE
-
-                        slider.oninput = function () {
-                            if (this.value > 1) {
-                                document.getElementById("numDatos").innerHTML = this.value + " datos";
-                            } else {
-                                document.getElementById("numDatos").innerHTML = this.value + " dato";
-                            }
-                            
-                            borrarResultados();
-                            mostrarDatos(this.value);
-                        }
-                        slider.onchange = function () {
-                            if (this.value > 1) {
-                                document.getElementById("numDatos").innerHTML = this.value + " datos";
-                            } else {
-                                document.getElementById("numDatos").innerHTML = this.value + " dato";
-                            }
-
-                            borrarResultados();
-                            mostrarDatos(this.value);
-                        }
-                        //muestra los necesarios
-                        function mostrarDatos(num) {
-                            var i;
-                            for (i = 1; i <= 100; i++) {
-                                if (i <= Number(num)) {
-                                    document.getElementById("div" + i).style.display = "block";
-                                    document.getElementById("dato" + i).value = "";
-                                } else {
-                                    document.getElementById("div" + i).style.display = "none";
-                                }
-                            }
-
-                        }
+                        var getbtnCopiar = document.getElementById("btnCopiar");                                                
+                                               
                         //borra todo
                         function borrarResultados() {
-                            document.getElementById("cuenta").value = "";
-                            document.getElementById("suma").value = "";
-                            document.getElementById("max").value = "";
-                            document.getElementById("min").value = "";
-                            document.getElementById("rango").value = "";
-                            document.getElementById("media").value = "";
-                            document.getElementById("mediaGeom").value = "";
-                            document.getElementById("mediaArm").value = "";
-                            document.getElementById("productoria").value = "";
-                            document.getElementById("sumaCuadrados").value = "";
-                            document.getElementById("recorridoRelativo").value = "";
-                            document.getElementById("mediaCuad").value = "";                            
-                            document.getElementById("coefApertura").value = "";
-                            document.getElementById("moda").value = "";
-                            document.getElementById("mediana").value = "";
-                            document.getElementById("q1").value = "";
-                            document.getElementById("q3").value = "";
-                            document.getElementById("rangoIntercuartílico").value = "";
-                            document.getElementById("rangoMedio").value = "";
-                            document.getElementById("varianzaP").value = "";
-                            document.getElementById("desvP").value = "";
-                            document.getElementById("coefVarP").value = "";
-                            document.getElementById("varianzaM").value = "";
-                            document.getElementById("desvM").value = "";
-                            document.getElementById("coefVarM").value = "";
-                            document.getElementById("ETMM").value = "";
-                            document.getElementById("coefAsim").value = "";
-                            document.getElementById("curtosis").value = "";
-                            document.getElementById("pendiente").value = "";
+                            document.getElementById("raíz1").value = "";
+                            document.getElementById("raíz2").value = "";
                             document.getElementById("intercepto").value = "";
-                            document.getElementById("r").value = "";
-                            document.getElementById("r2").value = "";
-                            document.getElementById("desvMedia").value = "";
-                            document.getElementById("pronLin").value = "";
-                            document.getElementById("aExp").value = "";
-                            document.getElementById("bExp").value = "";
-                            document.getElementById("rExp").value = "";
-                            document.getElementById("r2Exp").value = "";
-                            document.getElementById("pronExp").value = "";
-                            document.getElementById("aLog").value = "";
-                            document.getElementById("bLog").value = "";
-                            document.getElementById("rLog").value = "";
-                            document.getElementById("r2Log").value = "";
-                            document.getElementById("pronLog").value = "";
-                            document.getElementById("aPot").value = "";
-                            document.getElementById("bPot").value = "";
-                            document.getElementById("rPot").value = "";
-                            document.getElementById("r2Pot").value = "";
-                            document.getElementById("pronPot").value = "";
-                            // polinomial grado 2
-                            document.getElementById("Pol2C0").value = "";
-                            document.getElementById("Pol2C1").value = "";
-                            document.getElementById("Pol2C2").value = "";
-                            document.getElementById("Pol2R").value = "";
-                            document.getElementById("Pol2R2").value = "";
-                            document.getElementById("Pol2Pron").value = "";
-                            // polinomial grado 3
-                            document.getElementById("Pol3C0").value = "";
-                            document.getElementById("Pol3C1").value = "";
-                            document.getElementById("Pol3C2").value = "";
-                            document.getElementById("Pol3C3").value = "";
-                            document.getElementById("Pol3R").value = "";
-                            document.getElementById("Pol3R2").value = "";
-                            document.getElementById("Pol3Pron").value = "";
-                            // polinomial grado 4
-                            document.getElementById("Pol4C0").value = "";
-                            document.getElementById("Pol4C1").value = "";
-                            document.getElementById("Pol4C2").value = "";
-                            document.getElementById("Pol4C3").value = "";
-                            document.getElementById("Pol4C4").value = "";
-                            document.getElementById("Pol4R").value = "";
-                            document.getElementById("Pol4R2").value = "";
-                            document.getElementById("Pol4Pron").value = "";
-                            // polinomial grado 5
-                            document.getElementById("Pol5C0").value = "";
-                            document.getElementById("Pol5C1").value = "";
-                            document.getElementById("Pol5C2").value = "";
-                            document.getElementById("Pol5C3").value = "";
-                            document.getElementById("Pol5C4").value = "";
-                            document.getElementById("Pol5C5").value = "";
-                            document.getElementById("Pol5R").value = "";
-                            document.getElementById("Pol5R2").value = "";
-                            document.getElementById("Pol5Pron").value = "";
-                            // polinomial grado 6
-                            document.getElementById("Pol6C0").value = "";
-                            document.getElementById("Pol6C1").value = "";
-                            document.getElementById("Pol6C2").value = "";
-                            document.getElementById("Pol6C3").value = "";
-                            document.getElementById("Pol6C4").value = "";
-                            document.getElementById("Pol6C5").value = "";
-                            document.getElementById("Pol6C6").value = "";
-                            document.getElementById("Pol6R").value = "";
-                            document.getElementById("Pol6R2").value = "";
-                            document.getElementById("Pol6Pron").value = "";
+                            document.getElementById("p").value = "";
+                            document.getElementById("ladoRecto").value = "";
+                            document.getElementById("apertura").value = "";
+                            document.getElementById("vértice").value = "";
+                            document.getElementById("foco").value = "";
+                            document.getElementById("directriz").value = "";
+                            document.getElementById("ejeSimetría").value = "";                            
+                           
                             //nada que copiar
                             getbtnCopiar.setAttribute("disabled", "disabled");
-                            //nada que graficar
-                            document.getElementById("tab").style.display = "none";
-                            document.getElementById("esencial").style.display = "none";
-                            document.getElementById("regresión").style.display = "none";
-                            document.getElementById("caja").style.display = "none";
-                            document.getElementById("linechart").style.display = "none";
-                            document.getElementById("opcionesGráfico").style.display = "none";
-                            document.getElementById("regChart").style.display = "none";
-                            document.getElementById("opcionesGráficoReg").style.display = "none";
-                            document.getElementById("cajachart").style.display = "none";
-                            document.getElementById("opcionesGráficoCaja").style.display = "none";
+                            //nada que graficar                            
+                            document.getElementById("parChart").style.display = "none";
+                            document.getElementById("opcionesGráficoPar").style.display = "none";                            
                             document.getElementById("noDisponible").style.display = "block";
 
                         }
 
                         //parámetros deben ser correctos
-                        function validarParámetros() {
+                        function validarParámetros() {                            
                             var i;
                             //Borra los array
                             arrayDatos.length = 0;
@@ -1951,44 +908,17 @@
                             //ya hay algo que copiar
                             getbtnCopiar.removeAttribute("disabled");
 
-                            //muestra las gráficas y sus opciones  
-                            document.getElementById("tab").style.display = "block";
+                            //muestra las gráficas y sus opciones                              
                             //tab por defecto
                             // Get the element with id="defaultOpen" and click on it
-                            document.getElementById("defaultOpen").click();
-                            document.getElementById("linechart").style.display = "block";
-                            document.getElementById("opcionesGráfico").style.display = "block";  
-                            document.getElementById("regChart").style.display = "block";
-                            document.getElementById("opcionesGráficoReg").style.display = "block";                            
+                            document.getElementById("defaultOpen").click();                            
+                            document.getElementById("parChart").style.display = "block";
+                            document.getElementById("opcionesGráficoPar").style.display = "block";                            
                             document.getElementById("noDisponible").style.display = "none";
-                            
-                            //gráfica de datos
-                            if (mostrarSeriesAdicionales == true) {
-                                drawChart3();
-                            } else {
-                                drawChart2();
-                            }                            
-                            //gráfica de regresión 
-                            //  ninguna regresión, por defecto
-                            miTipoReg = "ninguna";
-                            document.getElementById("tipoReg").selectedIndex = "0";
-                            drawChart4();
-                            regActualizado = false;
-                            //gráfica de caja
-                            cajaDisponible = validarCajaDisponible();
-                            cajaActualizado = false;
-                            if (cajaDisponible == true) {
-                                document.getElementById("cajachart").style.display = "block";
-                                document.getElementById("opcionesGráficoCaja").style.display = "block";
-                                document.getElementById("cajaNoDisponible").style.display = "none";
-                                drawChart6();
-                            } else {
-                                document.getElementById("cajachart").style.display = "none";
-                                document.getElementById("opcionesGráficoCaja").style.display = "none";
-                                document.getElementById("cajaNoDisponible").style.display = "block";
-                            }
-                            
-                            
+                                              
+                            //gráfica de parábola 
+                            drawChartPar();
+                            parActualizado = false;  
                         }
                         function manejador(e, miId) {                            
                             var characterCode;
@@ -2346,30 +1276,7 @@
                             showSnackbar("¡Resultados copiados!");
                         }
 
-                        getMinus.onclick = function () {                            
-                            //disminuye el número de datos
-                            if (slider.value != 1) {
-                                var nuevo = slider.value - 1;
-                                slider.value = nuevo;
-                                if (nuevo > 1) {
-                                    document.getElementById("numDatos").innerHTML = nuevo + " datos";
-                                } else {
-                                    document.getElementById("numDatos").innerHTML = nuevo + " dato";
-                                }
-                                borrarResultados();
-                                mostrarDatos(nuevo);
-                            }
-                        }
-                        getPlus.onclick = function () {
-                            //disminuye el número de datos
-                            if (slider.value != 100) {
-                                var nuevo = Number( slider.value ) + 1;
-                                slider.value = nuevo;                                
-                                document.getElementById("numDatos").innerHTML = nuevo + " datos";                                
-                                borrarResultados();
-                                mostrarDatos(nuevo);
-                            }
-                        }
+                    
 
                 </script>
 
@@ -2379,311 +1286,15 @@
 
                         // Load google charts
                         google.charts.load('current', { 'packages': ['corechart', 'line'] });
-                        //gráfico de datos, esencial
-                        google.charts.setOnLoadCallback(drawChart2);                       
-                        //gráfico de regresión
-                        google.charts.setOnLoadCallback(drawChart4);
-                        //gráfico de caja
-                        google.charts.setOnLoadCallback(drawChart6);
+                                        
+                        //gráfico de parábola
+                        google.charts.setOnLoadCallback(drawChartPar);
+                        
                     
-                    // del gráfico esencial
-                    // Draw the chart and set the chart values
-                        //     normal, sin series adicionales
-                        function drawChart2() {
-                            var i;
-                            var x;
-                            var y;
-                            // llena el array de datos
-                            // Create the data table.
-                            var data = new google.visualization.DataTable();
-                            //crea las columnas
-                            data.addColumn('string', 'DATO');
-                            data.addColumn('number', 'VALOR');
-                            //los pares de datos
-                            for (i = 0; i < arrayDatos.length; i++) {
-                                x = String(1 + i);
-                                y = Number(arrayDatos[i]);                                
-                                data.addRows([
-                                    [x, y]
-                                ]);
-                            }
-                            
-                            
-                            // Optional; add a title and set the width and height of the chart
-                            var options = {
-                                //título
-                                'title': 'GRÁFICA DE DATOS',  
-                                curveType: tipoCurva,
-                                titleTextStyle: {
-                                    //azul oscuro
-                                    color: '#000066',
-                                    fontName: 'Tahoma', 
-                                    fontSize: 18, 
-                                    bold: true                                       
-                                },
-                                //legenda
-                                'legend': { position: 'bottom' },
-                                //tamaño gráfico
-                                'width': 800,
-                                'height': 500,
-                                //eje x
-                                hAxis: {
-                                    title: 'Datos',
-                                    textStyle: {
-                                        color: 'purple'                                        
-                                    },
-                                    titleTextStyle: {
-                                        color: 'indigo',                                        
-                                        italic: true,
-                                        fontSize: 16, 
-                                        bold: true
-                                    }
-                                },
-                                //eje y
-                                vAxis: {
-                                    title: 'Valores',
-                                    textStyle: {
-                                        color: 'purple'
-                                    },
-                                    titleTextStyle: {
-                                        color: 'indigo', 
-                                        italic: true,
-                                        fontSize: 16, 
-                                        bold: true
-                                    }
-                                },
-                                //color linea de la serie
-                                colors: ['blue'],
-                                //color de fondo del gráfico
-                                backgroundColor: 'lavender',
-                                //muestra una cruz al seleccionar o señalar
-                                crosshair: { trigger: 'both' },
-                                //tamaño de puntos
-                                pointSize: 5,
-                                //forma de puntos
-                                pointShape: 'circle' 
-                            };
-
-                            // Display the chart inside the <div> element with id="linechart"
-                            //var chart = new google.visualization.LineChart(document.getElementById('linechart'));
-                            var chart_div = document.getElementById('linechart');
-                            chart = new google.visualization.LineChart(chart_div);
-
-                                                      
-                             //   enlace de descarga png, esto no funcionó
-                             //document.getElementById('png').outerHTML = '<a href="' + chart.getImageURI() + '" download="Imagen" target="_blank" class="link" title="Obtener imagen png del gráfico">Descargar Gráfico</a>';
-                            
-                            chart.draw(data, options);                          
-                            
-                        }
-
-                        //del gráfico esencial, pero con series adicionales
-                        // Draw the chart and set the chart values                        
-                        function drawChart3() {
-                            var i;
-                            var miX;
-                            var miValor;
-                            // se usa variable "media"
-
-                            // llena el array de datos
-                            // Create the data table.
-                            var data = new google.visualization.DataTable();
-                            //crea las columnas
-
-                            data.addColumn('number', 'X');
-                            data.addColumn('number', 'Valor');
-                            data.addColumn('number', 'Media');
-
-                            //los pares de datos
-                            for (i = 0; i < arrayDatos.length; i++) {
-                                miX = 1 + i;
-                                miValor = Number(arrayDatos[i]);
-                                // y la media ya está calculada
-                                data.addRows([
-                                    [miX, miValor, Number(media)]
-                                ]);
-                            }
-
-
-                            // Optional; add a title and set the width and height of the chart
-                            var options = {
-                                //título
-                                'title': 'GRÁFICA DE DATOS',
-                                curveType: tipoCurva,
-                                titleTextStyle: {
-                                    //azul oscuro
-                                    color: '#000066',
-                                    fontName: 'Tahoma',
-                                    fontSize: 18,
-                                    bold: true
-                                },
-                                //legenda
-                                'legend': { position: 'bottom' },
-                                //tamaño gráfico
-                                'width': 800,
-                                'height': 500,
-                                //eje x
-                                hAxis: {
-                                    title: 'Datos',
-                                    textStyle: {
-                                        color: 'purple'
-                                    },
-                                    titleTextStyle: {
-                                        color: 'indigo',
-                                        italic: true,
-                                        fontSize: 16,
-                                        bold: true
-                                    }
-                                },
-                                //eje y
-                                vAxis: {
-                                    title: 'Valores',
-                                    textStyle: {
-                                        color: 'purple'
-                                    },
-                                    titleTextStyle: {
-                                        color: 'indigo',
-                                        italic: true,
-                                        fontSize: 16,
-                                        bold: true
-                                    }
-                                },
-                                //color de fondo del gráfico
-                                backgroundColor: 'lavender',
-                                //colores líneas de serie
-                                colors: ['blue', 'green'],
-                                //muestra una cruz al seleccionar o señalar
-                                crosshair: { trigger: 'both' },
-                                //personaliza series
-                                series: {
-                                    //valores
-                                    0: {
-                                        //tamaño de puntos
-                                        pointSize: 5,
-                                        //forma de puntos
-                                        pointShape: 'circle'
-                                    },
-                                    //media
-                                    1: {
-                                        //tamaño de puntos
-                                        pointSize: 0,
-                                        //forma de puntos
-                                        pointShape: 'circle',
-                                        //punteada
-                                        lineDashStyle: [4, 4]
-                                    }
-                                },
-                                // líneas de tendencia
-                                trendlines: {                                    
-                                    0: {
-                                        type: 'linear',
-                                        color: 'red',                                        
-                                        visibleInLegend: true,
-                                        labelInLegend: 'Ajuste lineal',
-                                        showR2: true,
-                                        opacity: 1
-                                    }                       
-                                }                               
-
-                            };
-
-                            // Display the chart inside the <div> element with id="linechart"
-                            //var chart = new google.visualization.LineChart(document.getElementById('linechart'));
-                            var chart_div = document.getElementById('linechart');
-                            chart = new google.visualization.LineChart(chart_div);                                                                                                                                         
-                            chart.draw(data, options);
-                            
-                        }
-                        // DEL SEGUNDO GRÁFICO
-                        //     NINGUNA REGRESIÓN SELECCIONADA, GRÁFICO DE DISPERSIÓN
-                        function drawChart4() {
-                            var i;
-                            var x;
-                            var y;
-                            // llena el array de datos
-                            // Create the data table.
-                            var data = new google.visualization.DataTable();
-                            //crea las columnas
-                            data.addColumn('string', 'DATO');
-                            data.addColumn('number', 'VALOR');
-                            //los pares de datos
-                            for (i = 0; i < arrayDatos.length; i++) {
-                                x = String(1 + i);
-                                y = Number(arrayDatos[i]);
-                                data.addRows([
-                                    [x, y]
-                                ]);
-                            }
-
-
-                            // Optional; add a title and set the width and height of the chart
-                            var options = {
-                                //título
-                                'title': 'GRÁFICA DE REGRESIÓN',
-                                curveType: 'function',
-                                titleTextStyle: {
-                                    //azul oscuro
-                                    color: '#000066',
-                                    fontName: 'Tahoma',
-                                    fontSize: 18,
-                                    bold: true
-                                },
-                                //legenda
-                                'legend': { position: 'bottom' },
-                                //tamaño gráfico
-                                'width': 800,
-                                'height': 500,
-                                //eje x
-                                hAxis: {
-                                    title: 'Datos',
-                                    textStyle: {
-                                        color: 'purple'
-                                    },
-                                    titleTextStyle: {
-                                        color: 'indigo',
-                                        italic: true,
-                                        fontSize: 16,
-                                        bold: true
-                                    }
-                                },
-                                //eje y
-                                vAxis: {
-                                    title: 'Valores',
-                                    textStyle: {
-                                        color: 'purple'
-                                    },
-                                    titleTextStyle: {
-                                        color: 'indigo',
-                                        italic: true,
-                                        fontSize: 16,
-                                        bold: true
-                                    }
-                                },
-                                //color linea de la serie
-                                colors: ['blue'],
-                                //color de fondo del gráfico
-                                //backgroundColor: 'lavender',
-                                //muestra una cruz al seleccionar o señalar
-                                crosshair: { trigger: 'both' },
-                                //tamaño de puntos
-                                pointSize: 10,
-                                //forma de puntos
-                                pointShape: 'circle',
-                                //SIN LINEA CONECTORA
-                                lineWidth: 0
-                            };
-
-                            // Display the chart inside the <div> element with id="regChart"                            
-                            var chart_divReg = document.getElementById('regChart');
-                            chartReg = new google.visualization.LineChart(chart_divReg);
-                            
-                            chartReg.draw(data, options);
-
-                        }
-                    // del gráfico de regresión, con serie adicional según regresión seleccionada
+                    // del gráfico de parábola, múltiples series
                         // Draw the chart and set the chart values
                         
-                        function drawChart5() {
+                        function drawChartPar() {
                             var i, j;
                             var miX;
                             var miExtraX;                            
@@ -2804,309 +1415,19 @@
                             chartReg.draw(data, options);
 
                         }
-                        // del gráfico de caja
-                        // Draw the chart and set the chart values
-                        //     box-plot, con media agregada
-                        function drawChart6() {
-                            
-                            // llena el array de datos
-                            var miMax;
-                            var miMin;
-                            var miMediana;
-                            var miMedia;
-                            var miQ1;
-                            var miQ3;
+               
+                       
 
-                            miMax = Number(max);
-                            miMin = Number(min);
-                            miMedia = Number(media);
-                            miMediana = Number(mediana);
-                            miQ1 = Number(q1);
-                            miQ3 = Number(q3);
-                            
-                            var data = google.visualization.arrayToDataTable([
-                                ['Mín - Máx, Q1 - Q3', miMin, miQ1, miQ3, miMax],
-                                ['Mediana', miMediana, miMediana, miMediana, miMediana],
-                                ['Media', miMedia, miMedia, miMedia, miMedia]
-                                // Treat first row as data as well.
-                            ], true);
-
-                            // Optional; add a title and set the width and height of the chart
-                            var options = {
-                                 //título
-                                'title': 'GRÁFICA DE CAJA',                                
-                                titleTextStyle: {
-                                    //azul oscuro
-                                    color: '#000066',
-                                    fontName: 'Tahoma',
-                                    fontSize: 18,
-                                    bold: true
-                                },
-                                //legenda
-                                legend: 'none',
-                                //tamaño gráfico
-                                'width': 800,
-                                'height': 500,
-                                //eje x
-                                hAxis: {
-                                    title: 'Datos',
-                                    textStyle: {
-                                        color: 'purple'
-                                    },
-                                    titleTextStyle: {
-                                        color: 'indigo',
-                                        italic: true,
-                                        fontSize: 16,
-                                        bold: true
-                                    }
-                                },
-                                //eje y
-                                vAxis: { 
-                                    title: 'Valores',                                    
-                                    textStyle: {
-                                        color: 'purple'
-                                    },
-                                    titleTextStyle: {
-                                        color: 'indigo',
-                                        italic: true,
-                                        fontSize: 16,
-                                        bold: true
-                                    }                                    
-                                },
-                                //color linea de la serie
-                                colors: ['blue'],
-                                //color de fondo del gráfico
-                                //backgroundColor: 'lavender',
-                                //muestra una cruz al seleccionar o señalar
-                                crosshair: { trigger: 'both' },
-                                //tamaño de puntos
-                                //pointSize: 5,
-                                //forma de puntos
-                                //pointShape: 'circle'
-
-                                // sin espacio entre barras
-                                bar: { groupWidth: '100%' }, // Remove space between bars.
-                                //la caja
-                                candlestick: {
-                                    fallingColor: { strokeWidth: 0, fill: '#a52714' }, // red
-                                    risingColor: { strokeWidth: 0, fill: '#0f9d58' }   // green
-                                }
-                            };
-
-                            // Display the chart inside the <div> element with id="cajachart"                            
-                            var chart_divCaja = document.getElementById('cajachart');
-                            chartCaja = new google.visualization.CandlestickChart(chart_divCaja);
-                            
-                            chartCaja.draw(data, options);
-
-                        }
-                        // botón BtnPNG
-                        document.getElementById("BtnPNG").onclick = function () {
+                        // botón BtnParPNG
+                        document.getElementById("BtnParPNG").onclick = function () {
                             //optiene un enlace a la imagen png 
                             var msj;
-                            msj = chart.getImageURI();
+                            msj = chartPar.getImageURI();
                             copyToClipboard(msj);
                             showSnackbar("Enlace PNG copiado");
                         }
-
-                        // botón BtnRegPNG
-                        document.getElementById("BtnRegPNG").onclick = function () {
-                            //optiene un enlace a la imagen png 
-                            var msj;
-                            msj = chartReg.getImageURI();
-                            copyToClipboard(msj);
-                            showSnackbar("Enlace PNG copiado");
-                        }
-
-                        // botón BtnCajaPNG
-                        document.getElementById("BtnCajaPNG").onclick = function () {
-                            //optiene un enlace a la imagen png 
-                            var msj;
-                            msj = chartCaja.getImageURI();
-                            copyToClipboard(msj);
-                            showSnackbar("Enlace PNG copiado");
-                        }
-
-                        // selecciona una regresión
-                        document.getElementById("tipoReg").onchange = function () {
-                            miTipoReg = document.getElementById("tipoReg").options.item(document.getElementById("tipoReg").options.selectedIndex).value                            
-                            if (validarReg(miTipoReg) == false) {
-                                // informa el error y vuelve a la predeterminada (ninguna)
-                                showSnackbar("Regresión no disponible");
-                                document.getElementById("tipoReg").selectedIndex = "0";
-                                drawChart4();
-                            } else {
-                                if (document.getElementById("tipoReg").selectedIndex == "0") {
-                                    drawChart4();
-                                } else {
-                                    //muestra la regresión seleccionada
-                                    drawChart5();
-                                }
-                            }
-                        }
-                    // define si una regresión está disponible
-                        function validarReg(reg) {
-                            var validar = false;
-                            switch (reg) {
-                                case "ninguna":
-                                    validar = true;
-                                    break;
-                                case "lineal":
-                                    if (isNaN(pendiente) == false && isNaN(intercepto) == false && cuenta > 1) {
-                                        validar = true;
-                                    }
-                                    break;
-                                case "exponencial":
-                                    if (isNaN(aExp) == false && isNaN(bExp) == false && cuenta > 1 && todosPositivos == true) {
-                                        validar = true;
-                                    }
-                                    break;
-                                case "logarítmica":
-                                    if (isNaN(aLog) == false && isNaN(bLog) == false && cuenta > 1) {
-                                        validar = true;
-                                    }
-                                    break;
-                                case "potencial":
-                                    if (isNaN(aPot) == false && isNaN(bPot) == false && cuenta > 1 && todosPositivos == true) {
-                                        validar = true;
-                                    }
-                                    break;
-                                case "polinomial2":
-                                    if (isNaN(Pol2C0) == false && isNaN(Pol2C1) == false && isNaN(Pol2C2) == false && cuenta > 2) {
-                                        validar = true;
-                                    }
-                                    break;
-                                case "polinomial3":
-                                    if (isNaN(Pol3C0) == false && isNaN(Pol3C1) == false && isNaN(Pol3C2) == false && isNaN(Pol3C3) == false && cuenta > 3) {
-                                        validar = true;
-                                    }
-                                    break;
-                                case "polinomial4":
-                                    if (isNaN(Pol4C0) == false && isNaN(Pol4C1) == false && isNaN(Pol4C2) == false && isNaN(Pol4C3) == false && isNaN(Pol4C4) == false && cuenta > 4) {
-                                        validar = true;
-                                    }
-                                    break;
-                                case "polinomial5":
-                                    if (isNaN(Pol5C0) == false && isNaN(Pol5C1) == false && isNaN(Pol5C2) == false && isNaN(Pol5C3) == false && isNaN(Pol5C4) == false && isNaN(Pol5C5) == false && cuenta > 5) {
-                                        validar = true;
-                                    }
-                                    break;
-                                case "polinomial6":
-                                    if (isNaN(Pol6C0) == false && isNaN(Pol6C1) == false && isNaN(Pol6C2) == false && isNaN(Pol6C3) == false && isNaN(Pol6C4) == false && isNaN(Pol6C5) == false && isNaN(Pol6C6) == false && cuenta > 6) {
-                                        validar = true;
-                                    }
-                                    break;
-                            }
-                            return validar;
-                        }
-                    // devuelve la evaluación de la función de pronóstico para el modelo de regresión solicitado
-                    // x es el valor que se evalúa
-                    // reg es el tipo de regresión
-                    // tipoResultado: nombre o valor de la regresión
-                    // errorValue es el valor devuelto en caso de error
-                        function evaluarReg(x, reg, tipoResultado, errorValue) {                            
-                            try {
-                                // también es un default
-                                var temporal = errorValue;
-                                if (tipoResultado == "nombre") {
-                                    //nombres para etiqueta del gráfico de regresión
-                                    switch (reg) {
-                                        case "ninguna":
-                                            temporal = "Ninguna";
-                                            break;
-                                        case "lineal":
-                                            temporal = "Lineal";
-                                            break;
-                                        case "exponencial":
-                                            temporal = "Exponencial";
-                                            break;
-                                        case "logarítmica":
-                                            temporal = "Logarítmica";
-                                            break;
-                                        case "potencial":
-                                            temporal = "Potencial";
-                                            break;
-                                        case "polinomial2":
-                                            temporal = "Polin grado 2";
-                                            break;
-                                        case "polinomial3":
-                                            temporal = "Polin grado 3";
-                                            break;
-                                        case "polinomial4":
-                                            temporal = "Polin grado 4";
-                                            break;
-                                        case "polinomial5":
-                                            temporal = "Polin grado 5";
-                                            break;
-                                        case "polinomial6":
-                                            temporal = "Polin grado 6";
-                                            break;
-                                    }
-                                }
-                                if (tipoResultado == "valor") {                                   
-                                    switch (reg) {
-                                        case "ninguna":
-                                            //si no hay regresión, no se puede calcular nada
-                                            temporal = errorValue;
-                                            break;
-                                        case "lineal":
-                                            temporal = Number(pendiente * x) + Number(intercepto);
-                                            break;
-                                        case "exponencial":
-                                            temporal = aExp * Math.exp(bExp * x);
-                                            break;
-                                        case "logarítmica":
-                                            temporal = Number(bLog) + aLog * Math.log(x);
-                                            break;
-                                        case "potencial":
-                                            temporal = aPot * Math.pow(x, bPot);
-                                            break;
-                                        case "polinomial2":
-                                            temporal = Number(Pol2C0) + Pol2C1 * x + Pol2C2 * Math.pow(x, 2);
-                                            break;
-                                        case "polinomial3":
-                                            temporal = Number(Pol3C0) + Pol3C1 * x + Pol3C2 * Math.pow(x, 2) + Pol3C3 * Math.pow(x, 3);
-                                            break;
-                                        case "polinomial4":
-                                            temporal = Number(Pol4C0) + Pol4C1 * x + Pol4C2 * Math.pow(x, 2) + Pol4C3 * Math.pow(x, 3) + Pol4C4 * Math.pow(x, 4);
-                                            break;
-                                        case "polinomial5":
-                                            temporal = Number(Pol5C0) + Pol5C1 * x + Pol5C2 * Math.pow(x, 2) + Pol5C3 * Math.pow(x, 3) + Pol5C4 * Math.pow(x, 4) + Pol5C5 * Math.pow(x, 5);
-                                            break;
-                                        case "polinomial6":
-                                            temporal = Number(Pol6C0) + Pol6C1 * x + Pol6C2 * Math.pow(x, 2) + Pol6C3 * Math.pow(x, 3) + Pol6C4 * Math.pow(x, 4) + Pol6C5 * Math.pow(x, 5) + Pol6C6 * Math.pow(x, 6);
-                                            break;
-                                    }
-                                }
-                            }
-                            catch (err){
-                                temporal = errorValue;
-                            }
-                            finally {
-                                return temporal;
-                            }
-                        }
-
-                        function clickCheck() {
-                            var checkBox = document.getElementById("myCheck");                            
-                            if (checkBox.checked == true) {
-                                mostrarSeriesAdicionales = true;
-                                drawChart3();
-                            } else {
-                                mostrarSeriesAdicionales = false;
-                                drawChart2();
-                            }
-                        }
-                        function clickCheck2() {
-                            var checkBox2 = document.getElementById("myCheck2");
-                            if (checkBox2.checked == true) {
-                                tipoCurva = 'function';
-                            } else {
-                                tipoCurva = 'null';
-                            }
-                            clickCheck();
-                        }
-                    
+                          
+                                          
                 </script>
 
                 <script>
@@ -3128,37 +1449,16 @@
                             agregarClaseActive(evt.currentTarget);
 
                              //forza actualizaciones, por un bug del eje vertical de Google Chart
-                            //solo la primera vez que entra a cada tab
-                            if (tabName == "caja") {                                
-                                if (cajaActualizado == false) {
-                                    drawChart6();
-                                    cajaActualizado = true;                                    
-                                }
-                                
-                            }
-                            if (tabName == "regresión" && miTipoReg == "ninguna") {
-                                if (regActualizado == false) {
-                                    drawChart4();
-                                    regActualizado = true;                                    
+                            //solo la primera vez que entra                            
+                            if (tabName == "gráficos") {
+                                if (parActualizado == false) {
+                                    drawChartPar();
+                                    parActualizado = true;                                    
                                 }                                
                             }
 
                         }
-                    //devuelve true si el gráfico de caja puede ser mostrado
-                        function validarCajaDisponible() {
-                            try {
-                                var temporal = false;
-                                if (isNaN(media) == false && isNaN(mediana) == false && isNaN(max) == false && isNaN(min) == false && isNaN(q1) == false && isNaN(q3) == false && cuenta >= 3) {
-                                    temporal = true;
-                                }
-                            }
-                            catch (err) {
-                                temporal = false;
-                            }
-                            finally {
-                                return temporal;
-                            }
-                        }
+                    
                         function agregarClaseActive(element) {
                             var name, arr;                            
                             name = "active";
@@ -3170,7 +1470,8 @@
                         function removerClaseActive(element) {                            
                             element.className = element.className.replace(/\bactive\b/g, "");
                         }
-                        
+                        // Get the element with id="defaultOpen" and click on it
+                        document.getElementById("defaultOpen").click();     
                 </script>
 
 
