@@ -324,9 +324,12 @@
             /*ajustes al imprimir*/
             @media print {
                 /*cosas invisibles al imprimir*/
-                #ayudaImprimirGráfico, #snackbar, #opcionesGráficoPar, .tab, #gráficos, #noDisponible {
+                #snackbar, #opcionesGráficoPar, .tab, #gráficos, #noDisponible {
                     display: none !important;
-                }                           
+                }
+                .tabcontent {
+                    border-top: 2px solid purple;
+                }
             }
 
             .formulario {
@@ -561,12 +564,12 @@
                         <!-- copiar png -->                        
                         <button id="BtnParPNG" title="Copiar enlace a imagen PNG del gráfico">COPIAR ENLACE PNG</button>
                         <p class="letramorada">En navegadores modernos, puede visualizar este enlace como una imagen PNG</p>
-                    </fieldset>
-                    <h4 id="ayudaImprimirGráfico">
-                        * Para imprimir el gráfico, utilice la opción COPIAR ENLACE PNG, pegue el enlace en la barra de direcciones en una nueva pestaña del navegador.
-                    </h4>
+                    </fieldset>                    
                 </div>
-           
+                <h4 id="ayudaImprimirGráfico">
+                    * Para imprimir el gráfico, utilice la opción COPIAR ENLACE PNG, pegue el enlace en la barra de direcciones en una nueva pestaña del navegador.
+                </h4>
+            
                 <!--script para cargar la API de Google para gráficos-->
                 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js">
                 </script>
@@ -576,20 +579,21 @@
                     <script>
                         //declara variables para cálculos
                         //para captar coeficientes ingresados
-                        var txtA;
-                        var txtB;
-                        var txtC;
+                        var A;
+                        var B;
+                        var C;
+                        var msjError = "Error en los datos ingresados";
                         //para almacenar resultados
-                        var raíz1;
-                        var raíz2;
-                        var intercepto;
-                        var p;
-                        var ladoRecto;
-                        var apertura;
-                        var vértice;
-                        var foco;
-                        var directriz;
-                        var ejeSimetría;
+                        var raíz1 = "No disponible";
+                        var raíz2 = "No disponible";
+                        var intercepto = "No disponible";
+                        var p = "No disponible";
+                        var ladoRecto = "No disponible";
+                        var apertura = "No disponible";
+                        var vértice = "No disponible";
+                        var foco = "No disponible";
+                        var directriz = "No disponible";
+                        var ejeSimetría = "No disponible";
                         // para el gráfico de la parábola
                         var chartPar;                       
                         var parActualizado = false;                       
@@ -625,283 +629,78 @@
                         }
 
                         //parámetros deben ser correctos
-                        function validarParámetros() {                            
-                            var i;
-                            //Borra los array
-                            arrayDatos.length = 0;
-                            ordenado.length = 0;
-                            //recorre todos los input
-                            for (i = 1; i <= Number(slider.value); i++) {
-                                //valida (compatible con tipo number)
-                                if (Number(document.getElementById("dato" + i).value) == 0 && document.getElementById("dato" + i).value == ""
-                                    || isNaN(document.getElementById("dato" + i).value) == true) {
-                                    //enfoca el error
-                                    document.getElementById("dato" + i).focus();
-                                    //sale
-                                    return false;
-                                }
-                                //se van almacenando los valores ingresados en el array de datos
-                                arrayDatos[i - 1] = document.getElementById("dato" + i).value;
-                                //se almacena una copia para ordenarla
-                                ordenado[i - 1] = arrayDatos[i - 1];
+                        function validarParámetros() { 
+                            //recorre todos los input                            
+                            //valida (compatible con tipo number)
+                            //A
+                            if (
+                                Number(document.getElementById("txtA").value) == 0 && document.getElementById("txtA").value == ""
+                                || isNaN(document.getElementById("txtA").value) == true
+                                || Number(document.getElementById("txtA").value) == 0
+                                )
+                            {
+                                //enfoca el error
+                                document.getElementById("txtA").focus();
+                                msjError = "A debe ser un número diferente de cero.";
+                                //sale
+                                return false;
                             }
-                            //ordena el array
-                            ordenado.sort(function (a, b) { return a - b });
+                            //B
+                            if (
+                                Number(document.getElementById("txtB").value) == 0 && document.getElementById("txtB").value == ""
+                                || isNaN(document.getElementById("txtB").value) == true                                
+                            ) {
+                                //enfoca el error
+                                document.getElementById("txtB").focus();
+                                msjError = "B debe ser un número.";
+                                //sale
+                                return false;
+                            }
+                            //C
+                            if (
+                                Number(document.getElementById("txtC").value) == 0 && document.getElementById("txtC").value == ""
+                                || isNaN(document.getElementById("txtC").value) == true
+                            ) {
+                                //enfoca el error
+                                document.getElementById("txtC").focus();
+                                msjError = "C debe ser un número.";
+                                //sale
+                                return false;
+                            }
+                            //guarda los valores ingresados validados
+                            A = Number(document.getElementById("txtA").value);
+                            B = Number(document.getElementById("txtB").value);
+                            C = Number(document.getElementById("txtC").value);
                             // todo salió bien
                             return true;
                         }
 
                         //realiza el cálculo
                         function calcular() {
-                            showSnackbar("¡Página en construcción!");
-                            return;
                             //valida
                             if (validarParámetros() == false) {
                                 //informa del error
-                                showSnackbar("¡Error en los datos ingresados!");
+                                showSnackbar(msjError);
                                 return;
                             }
                             //ahora sí trabaja con los datos validados...
-
                             
+                           
                             //calcula
-                            //cuenta
-                            cuenta = arrayDatos.length;
-                            //suma
-                            suma = sumar();
-                            //suma de cuadrados
-                            sumaCuadrados = sumarCuadrados();                            
-                            //max, min, todos postivos?
-                            maxmin();
-                            //productoria
-                            productoria = calculaProductoria();
-                            //rango o recorrido
-                            rango = max - min;                            
-                            //media aritmética
-                            media = suma / cuenta;
-                            //recorrido relativo
-                            if (media == 0) {
-                                recorridoRelativo = "No disponible (Media = 0)";
-                            } else {
-                                recorridoRelativo = rango / media;
-                            }                            
-                            //coeficiente da apertura
-                            if (min == 0) {
-                                coefApertura = "No disponible (Mínimo = 0)";
-                            } else {
-                                coefApertura = max / min;
-                            }  
-                            //media geométrica
-                            mediaGeom = mediaGeométrica();
-                            //media armónica
-                            mediaArm = mediaArmónica();
-                            //media cuadrática
-                            mediaCuad = mediaCuadrática();
-                            //moda
-                            moda = calculaModa();
-                            //mediana
-                            mediana = calculaMediana();
-                            //primer cuartil
-                            q1 = calculaQ1();
-                            //tercer cuartil
-                            q3 = calculaQ3();
-                            //rango intercuartílico
-                            rangoIntercuartílico = calculaRangoIntercuartílico();
-                            //rango medio
-                            rangoMedio = calculaRangoMedio();
-                            //desviación media
-                            desvMedia = calculaDesvMedia();
-                            //varianza poblacional
-                            varianzaP = calculaVarianzaPoblacional();
-                            //desviación estándar poblacional
-                            desvP = calculaDesvPoblacional();
-                            //coeficiente de variación poblacional
-                            coefVarP = calculaCoefVarPoblacional();
-                            //varianza muestral
-                            varianzaM = calculaVarianzaMuestral();
-                            //desviación estándar muestral
-                            desvM = calculaDesvMuestral();
-                            //coeficiente de variación muestral
-                            coefVarM = calculaCoefVarMuestral();
-                            //error típico de la media muestral
-                            ETMM = calculaETMM();
-                            //coeficiente de asimetría
-                            coefAsim = calculaCoefAsim();
-                            //curtosis
-                            curtosis = calculaCurtosis();
-                            //regresión lineal
-                            //se obtienen 4 variables: pendiente, intercepto, r y r^2
-                            regLineal(); 
-                            pronLin = calculaPronósticoLineal();
-                            //regresión exponencial
-                            // se obtienen 4 variables: aExp, bExp, rExp y r2Exp
-                            regExponencial();
-                            pronExp = calculaPronósticoExponencial();
-                            //regresión logarítmica
-                            // se obtienen 4 variables: aLog, bLog, rLog y r2Log
-                            regLogarítmica();
-                            pronLog = calculaPronósticoLogarítmico();
-                            //regresión potencial
-                            // se obtienen 4 variables: aPot, bPot, rPot y r2Pot
-                            regPotencial();
-                            pronPot = calculaPronósticoPotencial();
-                            //regresión polinomial grado 2
-                            // se obtienen todos los parámetros
-                            var ArrayTemp = [];                            
-                            ArrayTemp = regPolinomial(2);                            
-                            Pol2C0 = ArrayTemp[0];
-                            Pol2C1 = ArrayTemp[1];
-                            Pol2C2 = ArrayTemp[2];
-                            Pol2R = ArrayTemp[3];
-                            Pol2R2 = ArrayTemp[4];
-                            Pol2Pron = ArrayTemp[5];
-                            //regresión polinomial grado 3
-                            // se obtienen todos los parámetros
-                            var ArrayTemp = [];
-                            ArrayTemp = regPolinomial(3);
-                            Pol3C0 = ArrayTemp[0];
-                            Pol3C1 = ArrayTemp[1];
-                            Pol3C2 = ArrayTemp[2];
-                            Pol3C3 = ArrayTemp[3];
-                            Pol3R = ArrayTemp[4];
-                            Pol3R2 = ArrayTemp[5];
-                            Pol3Pron = ArrayTemp[6];
-                            //regresión polinomial grado 4
-                            // se obtienen todos los parámetros
-                            var ArrayTemp = [];
-                            ArrayTemp = regPolinomial(4);
-                            Pol4C0 = ArrayTemp[0];
-                            Pol4C1 = ArrayTemp[1];
-                            Pol4C2 = ArrayTemp[2];
-                            Pol4C3 = ArrayTemp[3];
-                            Pol4C4 = ArrayTemp[4];
-                            Pol4R = ArrayTemp[5];
-                            Pol4R2 = ArrayTemp[6];
-                            Pol4Pron = ArrayTemp[7];
-                            //regresión polinomial grado 5
-                            // se obtienen todos los parámetros
-                            var ArrayTemp = [];
-                            ArrayTemp = regPolinomial(5);
-                            Pol5C0 = ArrayTemp[0];
-                            Pol5C1 = ArrayTemp[1];
-                            Pol5C2 = ArrayTemp[2];
-                            Pol5C3 = ArrayTemp[3];
-                            Pol5C4 = ArrayTemp[4];
-                            Pol5C5 = ArrayTemp[5];
-                            Pol5R = ArrayTemp[6];
-                            Pol5R2 = ArrayTemp[7];
-                            Pol5Pron = ArrayTemp[8];
-                            //regresión polinomial grado 6
-                            // se obtienen todos los parámetros
-                            var ArrayTemp = [];
-                            ArrayTemp = regPolinomial(6);
-                            Pol6C0 = ArrayTemp[0];
-                            Pol6C1 = ArrayTemp[1];
-                            Pol6C2 = ArrayTemp[2];
-                            Pol6C3 = ArrayTemp[3];
-                            Pol6C4 = ArrayTemp[4];
-                            Pol6C5 = ArrayTemp[5];
-                            Pol6C6 = ArrayTemp[6];
-                            Pol6R = ArrayTemp[7];
-                            Pol6R2 = ArrayTemp[8];
-                            Pol6Pron = ArrayTemp[9];
+                            
                             //formatea resultados: min 0 y max 9 decimales... y configuración local                            
-                            //escribe resultados
-                            document.getElementById("cuenta").value = cuenta;
-                            document.getElementById("suma").value = suma.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("sumaCuadrados").value = sumaCuadrados.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("productoria").value = productoria.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("max").value = max.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("min").value = min.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("rango").value = rango.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("recorridoRelativo").value = recorridoRelativo.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("coefApertura").value = coefApertura.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("media").value = media.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("mediaGeom").value = mediaGeom.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("mediaArm").value = mediaArm.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("mediaCuad").value = mediaCuad.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("moda").value = moda.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("mediana").value = mediana.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("q1").value = q1.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("q3").value = q3.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("rangoIntercuartílico").value = rangoIntercuartílico.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("rangoMedio").value = rangoMedio.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("varianzaP").value = varianzaP.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("desvP").value = desvP.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("coefVarP").value = coefVarP.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("varianzaM").value = varianzaM.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("desvM").value = desvM.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("coefVarM").value = coefVarM.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("ETMM").value = ETMM.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("coefAsim").value = coefAsim.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("curtosis").value = curtosis.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("pendiente").value = pendiente.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            //escribe resultados                            
+                            document.getElementById("raíz1").value = raíz1.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("raíz2").value = raíz2.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("intercepto").value = intercepto.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("r").value = r.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("r2").value = r2.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("desvMedia").value = desvMedia.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("pronLin").value = pronLin.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("aExp").value = aExp.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("bExp").value = bExp.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("rExp").value = rExp.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("r2Exp").value = r2Exp.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("pronExp").value = pronExp.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("aLog").value = aLog.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("bLog").value = bLog.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("rLog").value = rLog.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("r2Log").value = r2Log.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("pronLog").value = pronLog.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("aPot").value = aPot.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("bPot").value = bPot.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("rPot").value = rPot.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("r2Pot").value = r2Pot.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("pronPot").value = pronPot.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            // polinomial grado 2
-                            document.getElementById("Pol2C0").value = Pol2C0.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol2C1").value = Pol2C1.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol2C2").value = Pol2C2.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol2R").value = Pol2R.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol2R2").value = Pol2R2.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol2Pron").value = Pol2Pron.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            // polinomial grado 3
-                            document.getElementById("Pol3C0").value = Pol3C0.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol3C1").value = Pol3C1.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol3C2").value = Pol3C2.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol3C3").value = Pol3C3.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol3R").value = Pol3R.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol3R2").value = Pol3R2.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol3Pron").value = Pol3Pron.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            // polinomial grado 4
-                            document.getElementById("Pol4C0").value = Pol4C0.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol4C1").value = Pol4C1.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol4C2").value = Pol4C2.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol4C3").value = Pol4C3.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol4C4").value = Pol4C4.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol4R").value = Pol4R.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol4R2").value = Pol4R2.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol4Pron").value = Pol4Pron.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            // polinomial grado 5
-                            document.getElementById("Pol5C0").value = Pol5C0.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol5C1").value = Pol5C1.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol5C2").value = Pol5C2.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol5C3").value = Pol5C3.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol5C4").value = Pol5C4.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol5C5").value = Pol5C5.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol5R").value = Pol5R.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol5R2").value = Pol5R2.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol5Pron").value = Pol5Pron.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            // polinomial grado 6
-                            document.getElementById("Pol6C0").value = Pol6C0.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol6C1").value = Pol6C1.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol6C2").value = Pol6C2.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol6C3").value = Pol6C3.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol6C4").value = Pol6C4.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol6C5").value = Pol6C5.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol6C6").value = Pol6C6.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol6R").value = Pol6R.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol6R2").value = Pol6R2.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("Pol6Pron").value = Pol6Pron.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-
+                            document.getElementById("p").value = p.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("ladoRecto").value = ladoRecto.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("apertura").value = apertura.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("vértice").value = vértice.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("foco").value = foco.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("directriz").value = directriz.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("ejeSimetría").value = ejeSimetría.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                           
                             //informa éxito en cálculo
                             showSnackbar("¡Cálculos realizados!");
 
@@ -937,17 +736,19 @@
                             //ejecuta solo si presionó Enter
                             //dirige el foco al siguiente con Enter                            
                             if (characterCode == 13) {                                 
-                                //dirige el foco al siguiente con Enter                            
-                                if (Number(miId.slice(4)) < Number(slider.value)) {
-                                    var sigue = Number(miId.slice(4)) + 1
-                                    document.getElementById("dato" + sigue).focus();
-                                } else {
-                                    //ejecuta si es el último input
+                                //dirige el foco al siguiente con Enter en A y B                           
+                                if (miId == "txtA") {                                    
+                                    document.getElementById("txtB").focus();
+                                } 
+                                if (miId == "txtB") {
+                                    document.getElementById("txtC").focus();
+                                } 
+                                if (miId == "txtC") {
+                                    //ejecuta si es el último input, C
                                     document.getElementById(miId).blur();
                                     getbtnCalcular.focus();
                                     calcular();
                                 }
-
                             }
                         }
 
