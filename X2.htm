@@ -38,6 +38,9 @@
                 color: purple;
                 font-size: 1.4em;
             }
+            .tabcontent legend {
+                font-size: 1.1em;
+            }
             #titulaResultados {
                 margin-left: 12px;
             }
@@ -575,7 +578,7 @@
                 </script>
 
 
-                    <!--FUNCIONES PARA ANÁLISIS-->
+                    <!-- variables y cálculos -->
                     <script>
                         //declara variables para cálculos
                         //para captar coeficientes ingresados
@@ -597,9 +600,41 @@
                         // para el gráfico de la parábola
                         var chartPar;                       
                         var parActualizado = false;                       
-                        
+                        // funciones para cálculos
+                        // raíces
+                        function hallarRaíces() {
+                            raíz1 = "No disponible";
+                            raíz2 = "No disponible";
+                            var discriminante = 0;
+                            try {
+                                // X00
+                                if (B == 0 && C == 0) {
+                                    raíz1 = 0;
+                                    raíz2 = 0;
+                                }
+                                // X0X
+                                if (B == 0 && C != 0) {
+                                    discriminante = -C / A;
+                                    if (discriminante > 0) {
+                                        raíz1 = Math.sqrt(discriminante);
+                                        raíz2 = - Math.sqrt(discriminante);
+                                    } else {
+                                        discriminante = Math.abs(discriminante);
+                                        raíz1 = Math.sqrt(discriminante) + " · i";
+                                        raíz2 = - Math.sqrt(discriminante) + " · i";
+                                    }
+                                }
+                            } catch (err) {
+                                raíz1 = "No disponible";
+                                raíz2 = "No disponible";
+                            }
+                            
+                        }
+
+
+
                     </script>
-                    <!--REALIZA CÁLCULOS-->
+                    <!-- otros procesos -->
                     <script>
                         //obtiene referencias                                               
                        
@@ -630,49 +665,58 @@
 
                         //parámetros deben ser correctos
                         function validarParámetros() { 
-                            //recorre todos los input                            
-                            //valida (compatible con tipo number)
-                            //A
-                            if (
-                                Number(document.getElementById("txtA").value) == 0 && document.getElementById("txtA").value == ""
-                                || isNaN(document.getElementById("txtA").value) == true
-                                || Number(document.getElementById("txtA").value) == 0
-                                )
-                            {
-                                //enfoca el error
+                            try {
+                                //recorre todos los input                            
+                                //valida (compatible con tipo number)
+                                //A
+                                if (
+                                    Number(document.getElementById("txtA").value) == 0 && document.getElementById("txtA").value == ""
+                                    || isNaN(document.getElementById("txtA").value) == true
+                                    || Number(document.getElementById("txtA").value) == 0
+                                ) {
+                                    //enfoca el error
+                                    document.getElementById("txtA").focus();
+                                    msjError = "A debe ser un número diferente de cero.";
+                                    //sale
+                                    return false;
+                                }
+                                //B
+                                if (
+                                    Number(document.getElementById("txtB").value) == 0 && document.getElementById("txtB").value == ""
+                                    || isNaN(document.getElementById("txtB").value) == true
+                                ) {
+                                    //enfoca el error
+                                    document.getElementById("txtB").focus();
+                                    msjError = "B debe ser un número.";
+                                    //sale
+                                    return false;
+                                }
+                                //C
+                                if (
+                                    Number(document.getElementById("txtC").value) == 0 && document.getElementById("txtC").value == ""
+                                    || isNaN(document.getElementById("txtC").value) == true
+                                ) {
+                                    //enfoca el error
+                                    document.getElementById("txtC").focus();
+                                    msjError = "C debe ser un número.";
+                                    //sale
+                                    return false;
+                                }
+                                //guarda los valores ingresados validados y como números
+                                A = Number(document.getElementById("txtA").value);
+                                B = Number(document.getElementById("txtB").value);
+                                C = Number(document.getElementById("txtC").value);
+
+                                // todo salió bien
+                                return true;
+
+                            } catch (err) {
+                                // algo salió mal
+                                msjError = "Error en los datos ingresados";
                                 document.getElementById("txtA").focus();
-                                msjError = "A debe ser un número diferente de cero.";
-                                //sale
                                 return false;
                             }
-                            //B
-                            if (
-                                Number(document.getElementById("txtB").value) == 0 && document.getElementById("txtB").value == ""
-                                || isNaN(document.getElementById("txtB").value) == true                                
-                            ) {
-                                //enfoca el error
-                                document.getElementById("txtB").focus();
-                                msjError = "B debe ser un número.";
-                                //sale
-                                return false;
-                            }
-                            //C
-                            if (
-                                Number(document.getElementById("txtC").value) == 0 && document.getElementById("txtC").value == ""
-                                || isNaN(document.getElementById("txtC").value) == true
-                            ) {
-                                //enfoca el error
-                                document.getElementById("txtC").focus();
-                                msjError = "C debe ser un número.";
-                                //sale
-                                return false;
-                            }
-                            //guarda los valores ingresados validados
-                            A = Number(document.getElementById("txtA").value);
-                            B = Number(document.getElementById("txtB").value);
-                            C = Number(document.getElementById("txtC").value);
-                            // todo salió bien
-                            return true;
+
                         }
 
                         //realiza el cálculo
@@ -683,11 +727,10 @@
                                 showSnackbar(msjError);
                                 return;
                             }
-                            //ahora sí trabaja con los datos validados...
-                            
-                           
+                            //ahora sí trabaja con los datos validados...                                                       
                             //calcula
-                            
+                            hallarRaíces();
+
                             //formatea resultados: min 0 y max 9 decimales... y configuración local                            
                             //escribe resultados                            
                             document.getElementById("raíz1").value = raíz1.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
@@ -719,6 +762,7 @@
                             drawChartPar();
                             parActualizado = false;  
                         }
+
                         function manejador(e, miId) {                            
                             var characterCode;
                             // e.key es la recomendación actual
@@ -758,303 +802,51 @@
                         //****************************************
 
                         //pasa el contenido de cada campo a una cadena y la copia al portapapeles
-                        function copiarResultados() {
-                            //decide si se incluyen los datos ingresados al copiar los resultados
-                            var incluyeDatos = document.getElementById("myCheck3").checked;                                
+                        function copiarResultados() {                                                   
                             //aquí guardamos una referencia a cada control a copiar
                             var copyCampo;
                             //aquí vamos guardando la cadena total a copiar
-                            var copyText = "*** ANÁLISIS DE DATOS ***" + "\r" ;
+                            var copyText = "*** ECUACIÓN CUADRÁTICA ***" + "\r" ;
                                                         
-                            // incluye los datos ingresados, si es necesario
-                            if (incluyeDatos == true) {
-                                // DATOS INGRESADOS
-                                copyText = copyText + "DATOS INGRESADOS:";
-                                var i;
-                                var miDato;
-                                for (i = 0; i < cuenta; i++) {
-                                    miDato = Number(arrayDatos[i]).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                                    copyText = copyText + "\r" + "Dato " + (1 + i) + " = " + "\t" + miDato;
-                                }
-                                copyText = copyText + "\r";
-                            }
+                            // incluye los COEFICIENTES ingresados 
+                            copyText = copyText + "COEFICIENTES:";
+                            copyText = copyText + "\r" + "A = " + "\t" + A.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 }) ;
+                            copyText = copyText + "\r" + "B = " + "\t" + B.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            copyText = copyText + "\r" + "C = " + "\t" + C.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            copyText = copyText + "\r";
+                            
                             //RESULTADOS
                             copyText = copyText + "RESULTADOS:";
-                            //cuenta
-                            copyCampo = document.getElementById("cuenta");
-                            copyText = copyText + "\r" + 'Número de Datos = ' + "\t" + copyCampo.value;
-                            //suma
-                            copyCampo = document.getElementById("suma");
-                            copyText = copyText + "\r" + 'Suma = ' + "\t" + copyCampo.value;
-                            //productoria
-                            copyCampo = document.getElementById("productoria");
-                            copyText = copyText + "\r" + 'Productoria = ' + "\t" + copyCampo.value;
-                            //sumaCuadrados
-                            copyCampo = document.getElementById("sumaCuadrados");
-                            copyText = copyText + "\r" + 'Suma de cuadrados = ' + "\t" + copyCampo.value;
-                            //max
-                            copyCampo = document.getElementById("max");
-                            copyText = copyText + "\r" + 'Máximo = ' + "\t" + copyCampo.value;
-                            //min
-                            copyCampo = document.getElementById("min");
-                            copyText = copyText + "\r" + 'Mínimo = ' + "\t" + copyCampo.value;
-                            //rango
-                            copyCampo = document.getElementById("rango");
-                            copyText = copyText + "\r" + 'Rango o recorrido = ' + "\t" + copyCampo.value;
-                            //recorridoRelativo
-                            copyCampo = document.getElementById("recorridoRelativo");
-                            copyText = copyText + "\r" + 'Recorrido relativo = ' + "\t" + copyCampo.value;
-                            //coefApertura
-                            copyCampo = document.getElementById("coefApertura");
-                            copyText = copyText + "\r" + 'Coeficiente de apertura = ' + "\t" + copyCampo.value;
-                            //media
-                            copyCampo = document.getElementById("media");
-                            copyText = copyText + "\r" + 'Media aritmética = ' + "\t" + copyCampo.value;
-                            //mediaGeom
-                            copyCampo = document.getElementById("mediaGeom");
-                            copyText = copyText + "\r" + 'Media geométrica = ' + "\t" + copyCampo.value;
-                            //mediaArm
-                            copyCampo = document.getElementById("mediaArm");
-                            copyText = copyText + "\r" + 'Media armónica = ' + "\t" + copyCampo.value;
-                            //mediaCuad
-                            copyCampo = document.getElementById("mediaCuad");
-                            copyText = copyText + "\r" + 'Media cuadrática = ' + "\t" + copyCampo.value;
-                            //moda
-                            copyCampo = document.getElementById("moda");
-                            copyText = copyText + "\r" + 'Moda (Primera encontrada) = ' + "\t" + copyCampo.value;
-                            //mediana
-                            copyCampo = document.getElementById("mediana");
-                            copyText = copyText + "\r" + 'Mediana = ' + "\t" + copyCampo.value;
-                            //q1
-                            copyCampo = document.getElementById("q1");
-                            copyText = copyText + "\r" + 'Primer cuartil (Q1 = P25) = ' + "\t" + copyCampo.value;
-                            //q3
-                            copyCampo = document.getElementById("q3");
-                            copyText = copyText + "\r" + 'Tercer cuartil (Q3 = P75) = ' + "\t" + copyCampo.value;
-                            //rangoIntercuartílico
-                            copyCampo = document.getElementById("rangoIntercuartílico");
-                            copyText = copyText + "\r" + 'Rango intercuartílico (Q3 - Q1) = ' + "\t" + copyCampo.value;
-                            //rangoMedio
-                            copyCampo = document.getElementById("rangoMedio");
-                            copyText = copyText + "\r" + 'Rango medio = ' + "\t" + copyCampo.value;
-                            //desviación media
-                            copyCampo = document.getElementById("desvMedia");
-                            copyText = copyText + "\r" + 'Desviación media = ' + "\t" + copyCampo.value;
-                            //varianzaP
-                            copyCampo = document.getElementById("varianzaP");
-                            copyText = copyText + "\r" + 'Varianza poblacional = ' + "\t" + copyCampo.value;
-                            //desvP
-                            copyCampo = document.getElementById("desvP");
-                            copyText = copyText + "\r" + 'Desviación estándar poblacional = ' + "\t" + copyCampo.value;
-                            //coefVarP
-                            copyCampo = document.getElementById("coefVarP");
-                            copyText = copyText + "\r" + 'Coeficiente de variación poblacional = ' + "\t" + copyCampo.value;
-                            //varianzaM
-                            copyCampo = document.getElementById("varianzaM");
-                            copyText = copyText + "\r" + 'Varianza muestral = ' + "\t" + copyCampo.value;
-                            //desvM
-                            copyCampo = document.getElementById("desvM");
-                            copyText = copyText + "\r" + 'Desviación estándar muestral = ' + "\t" + copyCampo.value;
-                            //coefVarM
-                            copyCampo = document.getElementById("coefVarM");
-                            copyText = copyText + "\r" + 'Coeficiente de variación muestral = ' + "\t" + copyCampo.value;
-                            //ETMM
-                            copyCampo = document.getElementById("ETMM");
-                            copyText = copyText + "\r" + 'Error típico de la media muestral = ' + "\t" + copyCampo.value;
-                            //coefAsim
-                            copyCampo = document.getElementById("coefAsim");
-                            copyText = copyText + "\r" + 'Coeficiente de asimetría de Fisher = ' + "\t" + copyCampo.value;
-                            //curtosis
-                            copyCampo = document.getElementById("curtosis");
-                            copyText = copyText + "\r" + 'Curtosis = ' + "\t" + copyCampo.value;
-                            //pendiente
-                            copyCampo = document.getElementById("pendiente");
-                            copyText = copyText + "\r" + 'Pendiente recta de ajuste = ' + "\t" + copyCampo.value;
+                            //raíz1
+                            copyCampo = document.getElementById("raíz1");
+                            copyText = copyText + "\r" + 'Raíz 1 = ' + "\t" + copyCampo.value;
+                            //raíz2
+                            copyCampo = document.getElementById("raíz2");
+                            copyText = copyText + "\r" + 'Raíz 2 = ' + "\t" + copyCampo.value;
                             //intercepto
                             copyCampo = document.getElementById("intercepto");
-                            copyText = copyText + "\r" + 'Intercepto recta de ajuste = ' + "\t" + copyCampo.value;
-                            //r
-                            copyCampo = document.getElementById("r");
-                            copyText = copyText + "\r" + 'Coeficiente r lineal = ' + "\t" + copyCampo.value;
-                            //r2
-                            copyCampo = document.getElementById("r2");
-                            copyText = copyText + "\r" + 'Coeficiente r^2 lineal = ' + "\t" + copyCampo.value;
-                            //pronóstico lineal
-                            copyCampo = document.getElementById("pronLin");
-                            copyText = copyText + "\r" + 'Pronóstico lineal = ' + "\t" + copyCampo.value;
-                            //a exp
-                            copyCampo = document.getElementById("aExp");
-                            copyText = copyText + "\r" + 'Parámetro a regresión exponencial = ' + "\t" + copyCampo.value;
-                            //b exp
-                            copyCampo = document.getElementById("bExp");
-                            copyText = copyText + "\r" + 'Parámetro b regresión exponencial = ' + "\t" + copyCampo.value;
-                            //r exp
-                            copyCampo = document.getElementById("rExp");
-                            copyText = copyText + "\r" + 'Coeficiente r exponencial = ' + "\t" + copyCampo.value;
-                            //r2 exp
-                            copyCampo = document.getElementById("r2Exp");
-                            copyText = copyText + "\r" + 'Coeficiente r^2 exponencial = ' + "\t" + copyCampo.value;
-                            //pronóstico exp
-                            copyCampo = document.getElementById("pronExp");
-                            copyText = copyText + "\r" + 'Pronóstico exponencial = ' + "\t" + copyCampo.value;
-                            //a log
-                            copyCampo = document.getElementById("aLog");
-                            copyText = copyText + "\r" + 'Parámetro a regresión logarítmica = ' + "\t" + copyCampo.value;
-                            //b log
-                            copyCampo = document.getElementById("bLog");
-                            copyText = copyText + "\r" + 'Parámetro b regresión logarítmica = ' + "\t" + copyCampo.value;
-                            //r log
-                            copyCampo = document.getElementById("rLog");
-                            copyText = copyText + "\r" + 'Coeficiente r logarítmico = ' + "\t" + copyCampo.value;
-                            //r2 log
-                            copyCampo = document.getElementById("r2Log");
-                            copyText = copyText + "\r" + 'Coeficiente r^2 logarítmico = ' + "\t" + copyCampo.value;
-                            //pronóstico log
-                            copyCampo = document.getElementById("pronLog");
-                            copyText = copyText + "\r" + 'Pronóstico logarítmico = ' + "\t" + copyCampo.value;
-                            //a Pot
-                            copyCampo = document.getElementById("aPot");
-                            copyText = copyText + "\r" + 'Parámetro a regresión potencial = ' + "\t" + copyCampo.value;
-                            //b Pot
-                            copyCampo = document.getElementById("bPot");
-                            copyText = copyText + "\r" + 'Parámetro b regresión potencial = ' + "\t" + copyCampo.value;
-                            //r Pot
-                            copyCampo = document.getElementById("rPot");
-                            copyText = copyText + "\r" + 'Coeficiente r potencial = ' + "\t" + copyCampo.value;
-                            //r2 Pot
-                            copyCampo = document.getElementById("r2Pot");
-                            copyText = copyText + "\r" + 'Coeficiente r^2 potencial = ' + "\t" + copyCampo.value;
-                            //pronóstico Pot
-                            copyCampo = document.getElementById("pronPot");
-                            copyText = copyText + "\r" + 'Pronóstico potencial = ' + "\t" + copyCampo.value;
-                            // regresión polinomial grado 2
-                            //Pol2C0
-                            copyCampo = document.getElementById("Pol2C0");
-                            copyText = copyText + "\r" + 'Coeficiente C0 regresión polinomial grado 2 = ' + "\t" + copyCampo.value;
-                            //Pol2C1
-                            copyCampo = document.getElementById("Pol2C1");
-                            copyText = copyText + "\r" + 'Coeficiente C1 regresión polinomial grado 2 = ' + "\t" + copyCampo.value;
-                            //Pol2C2
-                            copyCampo = document.getElementById("Pol2C2");
-                            copyText = copyText + "\r" + 'Coeficiente C2 regresión polinomial grado 2 = ' + "\t" + copyCampo.value;
-                            //Pol2R
-                            copyCampo = document.getElementById("Pol2R");
-                            copyText = copyText + "\r" + 'Coeficiente r regresión polinomial grado 2 = ' + "\t" + copyCampo.value;
-                            //Pol2R2
-                            copyCampo = document.getElementById("Pol2R2");
-                            copyText = copyText + "\r" + 'Coeficiente r^2 regresión polinomial grado 2 = ' + "\t" + copyCampo.value;
-                            //Pol2Pron
-                            copyCampo = document.getElementById("Pol2Pron");
-                            copyText = copyText + "\r" + 'Pronóstico polinomial grado 2 = ' + "\t" + copyCampo.value;
-                            // regresión polinomial grado 3
-                            //Pol3C0
-                            copyCampo = document.getElementById("Pol3C0");
-                            copyText = copyText + "\r" + 'Coeficiente C0 regresión polinomial grado 3 = ' + "\t" + copyCampo.value;
-                            //Pol3C1
-                            copyCampo = document.getElementById("Pol3C1");
-                            copyText = copyText + "\r" + 'Coeficiente C1 regresión polinomial grado 3 = ' + "\t" + copyCampo.value;
-                            //Pol3C2
-                            copyCampo = document.getElementById("Pol3C2");
-                            copyText = copyText + "\r" + 'Coeficiente C2 regresión polinomial grado 3 = ' + "\t" + copyCampo.value;
-                            //Pol3C3
-                            copyCampo = document.getElementById("Pol3C3");
-                            copyText = copyText + "\r" + 'Coeficiente C3 regresión polinomial grado 3 = ' + "\t" + copyCampo.value;
-                            //Pol3R
-                            copyCampo = document.getElementById("Pol3R");
-                            copyText = copyText + "\r" + 'Coeficiente r regresión polinomial grado 3 = ' + "\t" + copyCampo.value;
-                            //Pol3R2
-                            copyCampo = document.getElementById("Pol3R2");
-                            copyText = copyText + "\r" + 'Coeficiente r^2 regresión polinomial grado 3 = ' + "\t" + copyCampo.value;
-                            //Pol3Pron
-                            copyCampo = document.getElementById("Pol3Pron");
-                            copyText = copyText + "\r" + 'Pronóstico polinomial grado 3 = ' + "\t" + copyCampo.value;
-                            // regresión polinomial grado 4
-                            //Pol4C0
-                            copyCampo = document.getElementById("Pol4C0");
-                            copyText = copyText + "\r" + 'Coeficiente C0 regresión polinomial grado 4 = ' + "\t" + copyCampo.value;
-                            //Pol4C1
-                            copyCampo = document.getElementById("Pol4C1");
-                            copyText = copyText + "\r" + 'Coeficiente C1 regresión polinomial grado 4 = ' + "\t" + copyCampo.value;
-                            //Pol4C2
-                            copyCampo = document.getElementById("Pol4C2");
-                            copyText = copyText + "\r" + 'Coeficiente C2 regresión polinomial grado 4 = ' + "\t" + copyCampo.value;
-                            //Pol4C3
-                            copyCampo = document.getElementById("Pol4C3");
-                            copyText = copyText + "\r" + 'Coeficiente C3 regresión polinomial grado 4 = ' + "\t" + copyCampo.value;
-                            //Pol4C4
-                            copyCampo = document.getElementById("Pol4C4");
-                            copyText = copyText + "\r" + 'Coeficiente C4 regresión polinomial grado 4 = ' + "\t" + copyCampo.value;
-
-                            //Pol4R
-                            copyCampo = document.getElementById("Pol4R");
-                            copyText = copyText + "\r" + 'Coeficiente r regresión polinomial grado 4 = ' + "\t" + copyCampo.value;
-                            //Pol4R2
-                            copyCampo = document.getElementById("Pol4R2");
-                            copyText = copyText + "\r" + 'Coeficiente r^2 regresión polinomial grado 4 = ' + "\t" + copyCampo.value;
-                            //Pol4Pron
-                            copyCampo = document.getElementById("Pol4Pron");
-                            copyText = copyText + "\r" + 'Pronóstico polinomial grado 4 = ' + "\t" + copyCampo.value;
-                            // regresión polinomial grado 5
-                            //Pol5C0
-                            copyCampo = document.getElementById("Pol5C0");
-                            copyText = copyText + "\r" + 'Coeficiente C0 regresión polinomial grado 5 = ' + "\t" + copyCampo.value;
-                            //Pol5C1
-                            copyCampo = document.getElementById("Pol5C1");
-                            copyText = copyText + "\r" + 'Coeficiente C1 regresión polinomial grado 5 = ' + "\t" + copyCampo.value;
-                            //Pol5C2
-                            copyCampo = document.getElementById("Pol5C2");
-                            copyText = copyText + "\r" + 'Coeficiente C2 regresión polinomial grado 5 = ' + "\t" + copyCampo.value;
-                            //Pol5C3
-                            copyCampo = document.getElementById("Pol5C3");
-                            copyText = copyText + "\r" + 'Coeficiente C3 regresión polinomial grado 5 = ' + "\t" + copyCampo.value;
-                            //Pol5C4
-                            copyCampo = document.getElementById("Pol5C4");
-                            copyText = copyText + "\r" + 'Coeficiente C4 regresión polinomial grado 5 = ' + "\t" + copyCampo.value;
-                            //Pol5C5
-                            copyCampo = document.getElementById("Pol5C5");
-                            copyText = copyText + "\r" + 'Coeficiente C5 regresión polinomial grado 5 = ' + "\t" + copyCampo.value;
-
-                            //Pol5R
-                            copyCampo = document.getElementById("Pol5R");
-                            copyText = copyText + "\r" + 'Coeficiente r regresión polinomial grado 5 = ' + "\t" + copyCampo.value;
-                            //Pol5R2
-                            copyCampo = document.getElementById("Pol5R2");
-                            copyText = copyText + "\r" + 'Coeficiente r^2 regresión polinomial grado 5 = ' + "\t" + copyCampo.value;
-                            //Pol5Pron
-                            copyCampo = document.getElementById("Pol5Pron");
-                            copyText = copyText + "\r" + 'Pronóstico polinomial grado 5 = ' + "\t" + copyCampo.value;
-                            // regresión polinomial grado 6
-                            //Pol6C0
-                            copyCampo = document.getElementById("Pol6C0");
-                            copyText = copyText + "\r" + 'Coeficiente C0 regresión polinomial grado 6 = ' + "\t" + copyCampo.value;
-                            //Pol6C1
-                            copyCampo = document.getElementById("Pol6C1");
-                            copyText = copyText + "\r" + 'Coeficiente C1 regresión polinomial grado 6 = ' + "\t" + copyCampo.value;
-                            //Pol6C2
-                            copyCampo = document.getElementById("Pol6C2");
-                            copyText = copyText + "\r" + 'Coeficiente C2 regresión polinomial grado 6 = ' + "\t" + copyCampo.value;
-                            //Pol6C3
-                            copyCampo = document.getElementById("Pol6C3");
-                            copyText = copyText + "\r" + 'Coeficiente C3 regresión polinomial grado 6 = ' + "\t" + copyCampo.value;
-                            //Pol6C4
-                            copyCampo = document.getElementById("Pol6C4");
-                            copyText = copyText + "\r" + 'Coeficiente C4 regresión polinomial grado 6 = ' + "\t" + copyCampo.value;
-                            //Pol6C5
-                            copyCampo = document.getElementById("Pol6C5");
-                            copyText = copyText + "\r" + 'Coeficiente C5 regresión polinomial grado 6 = ' + "\t" + copyCampo.value;
-                            //Pol6C6
-                            copyCampo = document.getElementById("Pol6C6");
-                            copyText = copyText + "\r" + 'Coeficiente C6 regresión polinomial grado 6 = ' + "\t" + copyCampo.value;
-
-                            //Pol6R
-                            copyCampo = document.getElementById("Pol6R");
-                            copyText = copyText + "\r" + 'Coeficiente r regresión polinomial grado 6 = ' + "\t" + copyCampo.value;
-                            //Pol6R2
-                            copyCampo = document.getElementById("Pol6R2");
-                            copyText = copyText + "\r" + 'Coeficiente r^2 regresión polinomial grado 6 = ' + "\t" + copyCampo.value;
-                            //Pol6Pron
-                            copyCampo = document.getElementById("Pol6Pron");
-                            copyText = copyText + "\r" + 'Pronóstico polinomial grado 6 = ' + "\t" + copyCampo.value;
+                            copyText = copyText + "\r" + 'Intercepto = ' + "\t" + copyCampo.value;
+                            //p
+                            copyCampo = document.getElementById("p");
+                            copyText = copyText + "\r" + 'Distancia Focal (p) = ' + "\t" + copyCampo.value;
+                            //ladoRecto
+                            copyCampo = document.getElementById("ladoRecto");
+                            copyText = copyText + "\r" + 'Lado Recto (4p) = ' + "\t" + copyCampo.value;
+                            //apertura
+                            copyCampo = document.getElementById("apertura");
+                            copyText = copyText + "\r" + 'Dirección Apertura = ' + "\t" + copyCampo.value;
+                            //vértice
+                            copyCampo = document.getElementById("vértice");
+                            copyText = copyText + "\r" + 'Vértice = ' + "\t" + copyCampo.value;
+                            //foco
+                            copyCampo = document.getElementById("foco");
+                            copyText = copyText + "\r" + 'Foco = ' + "\t" + copyCampo.value;
+                            //directriz
+                            copyCampo = document.getElementById("directriz");
+                            copyText = copyText + "\r" + 'Recta Directriz = ' + "\t" + copyCampo.value;
+                            //ejeSimetría
+                            copyCampo = document.getElementById("ejeSimetría");
+                            copyText = copyText + "\r" + 'Eje de Simetría = ' + "\t" + copyCampo.value;
 
                             //FECHA DE CÁLCULO
                             var d = new Date();
