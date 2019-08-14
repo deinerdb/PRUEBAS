@@ -606,14 +606,13 @@
                             raíz1 = "No disponible";
                             raíz2 = "No disponible";
                             var discriminante = 0;
-                            try {
-                                // X00
+                            try {                                
                                 if (B == 0 && C == 0) {
+                                    // X00
                                     raíz1 = 0;
                                     raíz2 = 0;
-                                }
-                                // X0X
-                                if (B == 0 && C != 0) {
+                                } else if (B == 0 && C != 0) {
+                                    // X0X
                                     discriminante = -C / A;
                                     if (discriminante > 0) {
                                         raíz1 = Math.sqrt(discriminante);
@@ -623,7 +622,13 @@
                                         raíz1 = Math.sqrt(discriminante) + " · i";
                                         raíz2 = - Math.sqrt(discriminante) + " · i";
                                     }
+                                } else if (C == 0 && B != 0) {
+                                    // XX0
+                                    raíz1 = 0;
+                                    raíz2 = -B/A;
                                 }
+
+                                //en caso de error...
                             } catch (err) {
                                 raíz1 = "No disponible";
                                 raíz2 = "No disponible";
