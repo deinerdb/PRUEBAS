@@ -619,15 +619,33 @@
                                         raíz2 = - Math.sqrt(discriminante);
                                     } else {
                                         discriminante = Math.abs(discriminante);
-                                        raíz1 = Math.sqrt(discriminante) + " · i";
-                                        raíz2 = - Math.sqrt(discriminante) + " · i";
+                                        raíz1 = Math.sqrt(discriminante).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 }) + " · i";
+                                        raíz2 = - Math.sqrt(discriminante);
+                                        raíz2 = raíz2.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 }) + " · i";
                                     }
                                 } else if (C == 0 && B != 0) {
                                     // XX0
                                     raíz1 = 0;
-                                    raíz2 = -B/A;
+                                    raíz2 = -B / A;
+                                } else if (B != 0 && C != 0) {
+                                    //XXX
+                                    discriminante = Math.pow(B, 2) - (4 * A * C);
+                                    if (discriminante > 0) {
+                                        //dos reales distintas
+                                        raíz1 = (-B + Math.sqrt(discriminante)) / (2 * A);
+                                        raíz2 = (-B - Math.sqrt(discriminante)) / (2 * A);
+                                    } else if (discriminante < 0) {
+                                        //dos complejas conjugadas
+                                        discriminante = Math.abs(discriminante);
+                                        raíz1 = (-B / (2 * A)).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 }) + " + " + (Math.sqrt(discriminante) / (2 * Math.abs(A))).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 }) + " · i";
+                                        raíz2 = (-B / (2 * A)).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 }) + " - " + (Math.sqrt(discriminante) / (2 * Math.abs(A))).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 }) + " · i";
+                                    } else {
+                                        // discriminante es cero, una raíz real duplicada
+                                        raíz1 = -B / (2 * A);
+                                        raíz2 = -B / (2 * A);
+                                    }
                                 }
-
+                                
                                 //en caso de error...
                             } catch (err) {
                                 raíz1 = "No disponible";
@@ -635,8 +653,35 @@
                             }
                             
                         }
-
-
+                        //intercepto eje Y
+                        function hallarInterceptoY() {
+                            intercepto = "No disponible";
+                            try {
+                                intercepto = "X = 0 ; Y = " + C.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            } catch (err) {
+                                intercepto = "No disponible";
+                            }                            
+                        }
+                        //distancia focal p
+                        function hallarP() {
+                            p = "No disponible";
+                            try {
+                                p = 1 / (4 * A);
+                                p = Math.abs(p);                                
+                            } catch (err) {
+                                p = "No disponible";
+                            }
+                        }
+                        // lado recto 4p
+                        function hallarLadoRecto() {
+                            ladoRecto = "No disponible";
+                            try {
+                                ladoRecto = 1 / A;
+                                ladoRecto = Math.abs(ladoRecto);
+                            } catch (err) {
+                                ladoRecto = "No disponible";
+                            }
+                        }
 
                     </script>
                     <!-- otros procesos -->
@@ -735,6 +780,9 @@
                             //ahora sí trabaja con los datos validados...                                                       
                             //calcula
                             hallarRaíces();
+                            hallarInterceptoY();
+                            hallarP();
+                            hallarLadoRecto();
 
                             //formatea resultados: min 0 y max 9 decimales... y configuración local                            
                             //escribe resultados                            
