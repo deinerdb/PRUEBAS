@@ -44,6 +44,12 @@
             #titulaResultados {
                 margin-left: 12px;
             }
+            .formulario label {
+                font-weight: bold;
+            }
+            #analíticos input {
+                font-size: 1.05em;
+            }
             #títuloEcuación {
                 color: #2d004d;
                 font-size: 1.7em;
@@ -682,7 +688,20 @@
                                 ladoRecto = "No disponible";
                             }
                         }
-
+                        // dirección apertura
+                        function hallarApertura() {
+                            apertura = "No disponible";
+                            try {
+                                if (A > 0) {
+                                    apertura = "La parábola abre hacia arriba";
+                                } else {
+                                    // A < 0, porque nunca es cero.
+                                    apertura = "La parábola abre hacia abajo";
+                                }
+                            } catch (err) {
+                                apertura = "No disponible";
+                            }
+                        }
                     </script>
                     <!-- otros procesos -->
                     <script>
@@ -783,6 +802,8 @@
                             hallarInterceptoY();
                             hallarP();
                             hallarLadoRecto();
+                            hallarApertura();
+
 
                             //formatea resultados: min 0 y max 9 decimales... y configuración local                            
                             //escribe resultados                            
