@@ -603,6 +603,9 @@
                         var foco = "No disponible";
                         var directriz = "No disponible";
                         var ejeSimetría = "No disponible";
+                        var h = "No disponible";
+                        var k = "No disponible";
+
                         // para el gráfico de la parábola
                         var chartPar;                       
                         var parActualizado = false;                       
@@ -702,6 +705,31 @@
                                 apertura = "No disponible";
                             }
                         }
+                        // evaluar f(X)
+                        function f(X, devolverError) {
+                            var temp = devolverError;
+                            try {
+                                temp = (A * X * X) + (B * X) + C;
+                                return temp;
+                            } catch (err) {
+                                return devolverError;
+                            }
+                        }
+                        // VÉRTICE
+                        // requiere variables h, k
+                        function hallarVértice() {
+                            vértice = "No disponible";
+                            h = "No disponible";
+                            k = "No disponible";
+                            try {
+                                h = -B / (2 * A);                                
+                                k = f(h, "No disponible"); 
+                                vértice = "X = " + h.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 }) + " ; Y = " + k.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            } catch (err) {
+                                vértice = "No disponible";
+                            }
+                        }
+                        
                     </script>
                     <!-- otros procesos -->
                     <script>
@@ -803,6 +831,7 @@
                             hallarP();
                             hallarLadoRecto();
                             hallarApertura();
+                            hallarVértice();
 
 
                             //formatea resultados: min 0 y max 9 decimales... y configuración local                            
@@ -962,6 +991,7 @@
                         // Draw the chart and set the chart values
                         
                         function drawChartPar() {
+                            return;
                             var i, j;
                             var miX;
                             var miExtraX;                            
