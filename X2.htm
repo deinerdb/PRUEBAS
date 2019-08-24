@@ -49,6 +49,7 @@
             }
             #analíticos input {
                 font-size: 1.05em;
+                font-family: Consolas, Courier New, Courier, monospace;
             }
             #títuloEcuación {
                 color: #2d004d;
@@ -554,7 +555,7 @@
                         <input type="text" id="vértice" readonly /><br />
                         <label>Foco:</label> <br />
                         <input type="text" id="foco" readonly /><br />
-                        <label>Recta Directriz:</label> <br />
+                        <label>Directriz:</label> <br />
                         <input type="text" id="directriz" readonly /><br />
                         <label>Eje de Simetría:</label> <br />
                         <input type="text" id="ejeSimetría" readonly /><br />
@@ -592,6 +593,7 @@
                         var B;
                         var C;
                         var msjError = "Error en los datos ingresados";
+                        var calculando = false;
                         //para almacenar resultados
                         var raíz1 = "No disponible";
                         var raíz2 = "No disponible";
@@ -605,6 +607,9 @@
                         var ejeSimetría = "No disponible";
                         var h = "No disponible";
                         var k = "No disponible";
+                        var focoX = "No disponible";
+                        var focoY = "No disponible";
+                        var directrizY = "No disponible";
 
                         // para el gráfico de la parábola
                         var chartPar;                       
@@ -729,7 +734,56 @@
                                 vértice = "No disponible";
                             }
                         }
-                        
+                        // foco
+                        // requiere variables FocoX, FocoY
+                        function hallarFoco() {
+                            foco = "No disponible";
+                            focoX = "No disponible";
+                            focoY = "No disponible";
+                            try {
+                                // foco y vértice están en el mismo X
+                                focoX = h;
+                                //halla Y
+                                if (A > 0) {
+                                    focoY = Number(k) + p;
+                                } else {
+                                    // A < 0, nunca es cero
+                                    focoY = k - p;
+                                }                                
+                                foco = "X = " + focoX.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 }) + " ; Y = " + focoY.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            } catch (err) {
+                                foco = "No disponible";
+                            }
+                        }
+                        // RECTA DIRECTRIZ
+                        //requiere variable directrizY
+                        function hallarDirectriz() {
+                            directriz = "No disponible";
+                            directrizY = "No disponible";
+                            try {
+                                if (A > 0) {
+                                    directrizY = k - p;
+                                } else {
+                                    // A < 0, nunca es cero
+                                    directrizY = Number(k) + p;
+                                } 
+                                directriz = "Recta Y = " + directrizY.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            } catch (err) {
+                                directriz = "No disponible";
+                            }
+                        }
+
+                        // RECTA EJE DE SIMETRÍA
+                        //requiere variable h
+                        function hallarEjeSimetría() {
+                            ejeSimetría = "No disponible";                            
+                            try {                                
+                                ejeSimetría = "Recta X = " + h.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            } catch (err) {
+                                ejeSimetría = "No disponible";
+                            }
+                        }
+
                     </script>
                     <!-- otros procesos -->
                     <script>
@@ -818,10 +872,18 @@
 
                         //realiza el cálculo
                         function calcular() {
+                            if (calculando == true) {
+                                //sale si ya está calculando
+                                return;
+                            } else {
+                                //indica que está ocupado...
+                                calculando = true;
+                            }
                             //valida
                             if (validarParámetros() == false) {
                                 //informa del error
                                 showSnackbar(msjError);
+                                calculando = false;
                                 return;
                             }
                             //ahora sí trabaja con los datos validados...                                                       
@@ -832,7 +894,9 @@
                             hallarLadoRecto();
                             hallarApertura();
                             hallarVértice();
-
+                            hallarFoco();
+                            hallarDirectriz();
+                            hallarEjeSimetría();
 
                             //formatea resultados: min 0 y max 9 decimales... y configuración local                            
                             //escribe resultados                            
@@ -863,7 +927,8 @@
                                               
                             //gráfica de parábola 
                             drawChartPar();
-                            parActualizado = false;  
+                            parActualizado = false;
+                            calculando = false;
                         }
 
                         function manejador(e, miId) {                            
