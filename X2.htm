@@ -549,7 +549,7 @@
                         <input type="text" id="p" readonly /><br />
                         <label>Lado Recto (4p):</label> <br />
                         <input type="text" id="ladoRecto" readonly /><br />
-                        <label>Dirección Apertura:</label> <br />
+                        <label>Dirección Parábola:</label> <br />
                         <input type="text" id="apertura" readonly /><br />
                         <label>Vértice:</label> <br />
                         <input type="text" id="vértice" readonly /><br />
@@ -701,10 +701,10 @@
                             apertura = "No disponible";
                             try {
                                 if (A > 0) {
-                                    apertura = "La parábola abre hacia arriba";
+                                    apertura = "Abre hacia arriba";
                                 } else {
                                     // A < 0, porque nunca es cero.
-                                    apertura = "La parábola abre hacia abajo";
+                                    apertura = "Abre hacia abajo";
                                 }
                             } catch (err) {
                                 apertura = "No disponible";
@@ -920,14 +920,15 @@
                             //muestra las gráficas y sus opciones                              
                             //tab por defecto
                             // Get the element with id="defaultOpen" and click on it
-                            document.getElementById("defaultOpen").click();                            
+                            document.getElementById("defaultOpen").click();
+                            //muestra el gráfico
                             document.getElementById("parChart").style.display = "block";
                             document.getElementById("opcionesGráficoPar").style.display = "block";                            
-                            document.getElementById("noDisponible").style.display = "none";
-                                              
+                            document.getElementById("noDisponible").style.display = "none";                                              
                             //gráfica de parábola 
                             drawChartPar();
                             parActualizado = false;
+                            // libre para una nueva ejecución
                             calculando = false;
                         }
 
@@ -1024,9 +1025,7 @@
                             //finalmente copiamos la cadena completa...
                             copyToClipboard(copyText);
                         }
-
-
-
+                        
                         getbtnCalcular.onclick = function () {
                             calcular();
                         }
@@ -1036,9 +1035,7 @@
                             //informa que copió
                             showSnackbar("¡Resultados copiados!");
                         }
-
-                    
-
+                        
                 </script>
 
                 
@@ -1055,51 +1052,85 @@
                     // del gráfico de parábola, múltiples series
                         // Draw the chart and set the chart values
                         
-                        function drawChartPar() {
-                            return;
-                            var i, j;
+                        function drawChartPar() {                            
+                            var i;
                             var miX;
-                            var miExtraX;                            
-                            var miValor;
-                            var miReg = 'null';
-                            // se usa variable "media"
+                           
 
                             // llena el array de datos
                             // Create the data table.
                             var data = new google.visualization.DataTable();
-                            //crea las columnas
-
+                            //crea las columnas, las series
                             data.addColumn('number', 'X');
-                            data.addColumn('number', 'Valor');
-                            //data.addColumn('number', 'Regresión');
-                            data.addColumn('number', evaluarReg(0, miTipoReg, "nombre", "Regresión"));
-                            //los pares de datos
-                            for (i = 0; i < arrayDatos.length; i++) {
-                                miX = 1 + i;
-                                miValor = Number(arrayDatos[i]);
-                                // calcula el valor de la regresión
-                                miReg = evaluarReg(miX, miTipoReg, "valor", 'null');
-                                //agrega los puntos principales
+                            data.addColumn('number', 'Parábola');
+                            data.addColumn('number', 'Vértice');
+                            data.addColumn('number', 'Foco');
+                            data.addColumn('number', 'Directriz');
+                            data.addColumn('number', 'Raíces');
+                            data.addColumn('number', 'Intercepto Y');
+                            data.addColumn('number', 'Lado Recto');
+
+                            // agrega los valores de las series
+                            
+                                //agrega el extremo izquierdo de la directriz                               
+                                miX = h - 8 * p;
                                 data.addRows([
-                                    [miX, miValor, Number(miReg)]
+                                    [miX,
+                                        graf(miX, "Parábola"),
+                                        graf(miX, "Vértice"),
+                                        graf(miX, "Foco"),
+                                        graf(miX, "Directriz"),
+                                        graf(miX, "Raíces"),
+                                        graf(miX, "Intercepto Y"),
+                                        graf(miX, "Lado Recto")
+                                    ]
                                 ]);
-                                //agrega puntos adicionales para mejorar la precisión de la curva de regresión
-                                //solo si no es el último punto
-                                if (i < cuenta - 1) {
-                                    for (j = 1; j <= 9; j++) {
-                                        miExtraX = 0.1 * j + miX;
-                                        miReg = evaluarReg(miExtraX, miTipoReg, "valor", 'null');
-                                        data.addRows([
-                                            [miExtraX, null, Number(miReg)]
-                                        ]);
-                                    }
-                                }
-                            }
+                                //agrega el vértice y el foco
+                                miX = Number(h);
+                                data.addRows([
+                                    [miX,
+                                        graf(miX, "Parábola"),
+                                        graf(miX, "Vértice"),
+                                        graf(miX, "Foco"),
+                                        graf(miX, "Directriz"),
+                                        graf(miX, "Raíces"),
+                                        graf(miX, "Intercepto Y"),
+                                        graf(miX, "Lado Recto")
+                                    ]
+                                ]);
+                                //agrega el intercepto eje Y
+                                miX = 0;
+                                data.addRows([
+                                    [miX,
+                                        graf(miX, "Parábola"),
+                                        graf(miX, "Vértice"),
+                                        graf(miX, "Foco"),
+                                        graf(miX, "Directriz"),
+                                        graf(miX, "Raíces"),
+                                        graf(miX, "Intercepto Y"),
+                                        graf(miX, "Lado Recto")
+                                    ]
+                                ]);
+                                //agrega el extremo derecho de la directriz 
+                                miX = 8 * p + h;                                
+                                data.addRows([
+                                    [miX,
+                                        graf(miX, "Parábola"),
+                                        graf(miX, "Vértice"),
+                                        graf(miX, "Foco"),
+                                        graf(miX, "Directriz"),
+                                        graf(miX, "Raíces"),
+                                        graf(miX, "Intercepto Y"),
+                                        graf(miX, "Lado Recto")
+                                    ]
+                                ]);
+                                //agrega puntos adicionales para mejorar la precisión de la curva parabólica                               
+                                
                             
                             // Optional; add a title and set the width and height of the chart
                             var options = {
                                 //título
-                                'title': 'GRÁFICA DE REGRESIÓN',
+                                'title': 'GRÁFICA DE LA PARÁBOLA',
                                 curveType: 'function',
                                 titleTextStyle: {
                                     //azul oscuro
@@ -1115,7 +1146,7 @@
                                 'height': 500,
                                 //eje x
                                 hAxis: {
-                                    title: 'Datos',
+                                    title: 'Eje X',
                                     textStyle: {
                                         color: 'purple'
                                     },
@@ -1128,7 +1159,7 @@
                                 },
                                 //eje y
                                 vAxis: {
-                                    title: 'Valores',
+                                    title: 'Eje Y',
                                     textStyle: {
                                         color: 'purple'
                                     },
@@ -1142,39 +1173,85 @@
                                 //color de fondo del gráfico
                                 //backgroundColor: 'lavender',
                                 //colores líneas de serie
-                                colors: ['blue', '#cc0066'],
+                                // blue, darkgreen, maroon, red, fuchsia, aqua, gold
+                                colors: ['#0000FF', '#006400', '#800000', '#FF0000', '#FF00FF', '#00FFFF', '#FFD700'],
                                 //muestra una cruz al seleccionar o señalar
                                 crosshair: { trigger: 'both' },
                                 //personaliza series
                                 series: {
-                                    //VALORES
+                                    // PARÁBOLA
                                     0: {
                                         //tamaño de puntos
-                                        pointSize: 10,
+                                        pointSize: 0,
+                                        //LÍNEA ALGO GRUESA
+                                        lineWidth: 6,
+                                        //forma de puntos
+                                        pointShape: 'circle',
+                                        //OPACA
+                                        opacity: 0.3
+                                    },
+                                    // VÉRTICE
+                                    1: {
+                                        //tamaño de puntos
+                                        pointSize: 8,
                                         //SIN LÍNEA, DISPERSIÓN
                                         lineWidth: 0,
                                         //forma de puntos
                                         pointShape: 'circle'
                                     },
-                                    //REGRESIÓN
-                                    1: {
+                                    // FOCO
+                                    2: {
+                                        //tamaño de puntos
+                                        pointSize: 7,
+                                        //SIN LÍNEA, DISPERSIÓN
+                                        lineWidth: 0,
+                                        //forma de puntos
+                                        pointShape: 'circle'
+                                    },
+                                    // DIRECTRIZ
+                                    3: {
                                         //tamaño de puntos
                                         pointSize: 0,
-                                        //LÍNEA GRUESA
-                                        lineWidth: 8,
+                                        //LÍNEA MÁS DELGADA
+                                        lineWidth: 3,
                                         //forma de puntos
-                                        pointShape: 'circle',
-                                        //OPACA
-                                        opacity: 0.3
+                                        pointShape: 'circle'
+                                    },
+                                    // RAÍCES
+                                    4: {
+                                        //tamaño de puntos
+                                        pointSize: 7,
+                                        //SIN LÍNEA, DISPERSIÓN
+                                        lineWidth: 0,
+                                        //forma de puntos
+                                        pointShape: 'circle'
+                                    },
+                                    // INTERCEPTO EJE Y
+                                    5: {
+                                        //tamaño de puntos
+                                        pointSize: 7,
+                                        //SIN LÍNEA, DISPERSIÓN
+                                        lineWidth: 0,
+                                        //forma de puntos
+                                        pointShape: 'circle'
+                                    },
+                                    // LADO RECTO
+                                    6: {
+                                        //tamaño de puntos
+                                        pointSize: 0,
+                                        //LÍNEA MÁS DELGADA
+                                        lineWidth: 3,
+                                        //forma de puntos
+                                        pointShape: 'circle'
                                     }
                                 },
                                 
                             };
 
                             // Display the chart inside the <div> element with id="regChart"                            
-                            var chart_divReg = document.getElementById('regChart');
-                            chartReg = new google.visualization.LineChart(chart_divReg);
-                            chartReg.draw(data, options);
+                            var chart_divPar = document.getElementById('parChart'); 
+                            chartPar = new google.visualization.LineChart(chart_divPar);
+                            chartPar.draw(data, options);
 
                         }
                
@@ -1188,8 +1265,53 @@
                             copyToClipboard(msj);
                             showSnackbar("Enlace PNG copiado");
                         }
-                          
-                                          
+
+                    // devuelve el valor de la serie indicada en el punto x
+                        function graf(valorX, serie) {
+                            switch (serie) {
+                                case "Parábola":
+                                    return Number(f(valorX, null));
+                                    break;
+                                case "Vértice":
+                                    if (valorX == h) {
+                                        return Number(k);
+                                    } else {
+                                        return null;
+                                    }
+                                    break;
+                                case "Foco":
+                                    if (valorX == focoX) {
+                                        return Number(focoY);
+                                    } else {
+                                        return null;
+                                    }
+                                    break;
+                                case "Directriz":
+                                    return Number(directrizY);
+                                    break;
+                                case "Raíces":
+                                    if (valorX == raíz1 || valorX == raíz2) {
+                                        return 0;
+                                    } else {
+                                        return null;
+                                    }  
+                                    break;
+                                case "Intercepto Y":
+                                    if (valorX == 0) {
+                                        return Number(C);
+                                    } else {
+                                        return null;
+                                    }                                    
+                                    break;
+                                case "Lado Recto":                                    
+                                    if (valorX == ((2 * p) + h) || valorX == (h - (2 * p))) {
+                                        return Number(focoY);
+                                    } else {
+                                        return null;
+                                    }  
+                                    break;
+                            }
+                        }                   
                 </script>
 
                 <script>
