@@ -3221,7 +3221,7 @@ return temp;
                             var miX;
                             var miExtraX;                            
                             var miValor;
-                            var miReg = 'null';
+                            var miReg = null;
                             // se usa variable "media"
 
                             // llena el array de datos
@@ -3238,7 +3238,7 @@ return temp;
                                 miX = 1 + i;
                                 miValor = Number(arrayDatos[i]);
                                 // calcula el valor de la regresión
-                                miReg = evaluarReg(miX, miTipoReg, "valor", 'null');
+                                miReg = evaluarReg(miX, miTipoReg, "valor", null);
                                 //agrega los puntos principales
                                 data.addRows([
                                     [miX, miValor, Number(miReg)]
@@ -3248,7 +3248,7 @@ return temp;
                                 if (i < cuenta - 1) {
                                     for (j = 1; j <= 9; j++) {
                                         miExtraX = 0.1 * j + miX;
-                                        miReg = evaluarReg(miExtraX, miTipoReg, "valor", 'null');
+                                        miReg = evaluarReg(miExtraX, miTipoReg, "valor", null);
                                         data.addRows([
                                             [miExtraX, null, Number(miReg)]
                                         ]);
