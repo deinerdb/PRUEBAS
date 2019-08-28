@@ -1055,7 +1055,11 @@
                         function drawChartPar() {                            
                             var i;
                             var miX;
-                           
+                            var delta;
+                            var maxX;
+                            var minX;
+                            var arrayX = [];
+                            var ordenadoX = [];                           
 
                             // llena el array de datos
                             // Create the data table.
@@ -1071,59 +1075,45 @@
                             data.addColumn('number', 'Lado Recto');
 
                             // agrega los valores de las series
-                            
+
+                            arrayX.length = 0;
+                            ordenadoX.length = 0;
                                 //agrega el extremo izquierdo de la directriz                               
                                 miX = h - 8 * p;
-                                data.addRows([
-                                    [miX,
-                                        graf(miX, "Parábola"),
-                                        graf(miX, "Vértice"),
-                                        graf(miX, "Foco"),
-                                        graf(miX, "Directriz"),
-                                        graf(miX, "Raíces"),
-                                        graf(miX, "Intercepto Y"),
-                                        graf(miX, "Lado Recto")
-                                    ]
-                                ]);
+                                arrayX[arrayX.length] = miX;
                                 //agrega el vértice y el foco
                                 miX = Number(h);
-                                data.addRows([
-                                    [miX,
-                                        graf(miX, "Parábola"),
-                                        graf(miX, "Vértice"),
-                                        graf(miX, "Foco"),
-                                        graf(miX, "Directriz"),
-                                        graf(miX, "Raíces"),
-                                        graf(miX, "Intercepto Y"),
-                                        graf(miX, "Lado Recto")
-                                    ]
-                                ]);
+                                arrayX[arrayX.length] = miX;
                                 //agrega el intercepto eje Y
                                 miX = 0;
-                                data.addRows([
-                                    [miX,
-                                        graf(miX, "Parábola"),
-                                        graf(miX, "Vértice"),
-                                        graf(miX, "Foco"),
-                                        graf(miX, "Directriz"),
-                                        graf(miX, "Raíces"),
-                                        graf(miX, "Intercepto Y"),
-                                        graf(miX, "Lado Recto")
-                                    ]
-                                ]);
+                                arrayX[arrayX.length] = miX;
+                                //agrega el punto a la misma altura que el intercepto eje Y
+                                miX = 2 * h;
+                                arrayX[arrayX.length] = miX;
                                 //agrega el extremo derecho de la directriz 
-                                miX = 8 * p + h;                                
-                                data.addRows([
-                                    [miX,
-                                        graf(miX, "Parábola"),
-                                        graf(miX, "Vértice"),
-                                        graf(miX, "Foco"),
-                                        graf(miX, "Directriz"),
-                                        graf(miX, "Raíces"),
-                                        graf(miX, "Intercepto Y"),
-                                        graf(miX, "Lado Recto")
-                                    ]
-                                ]);
+                                miX = 8 * p + h;
+                                arrayX[arrayX.length] = miX;
+                                for (i = 0; i < arrayX.length; i++) {
+                                    ordenadoX[i] = arrayX[i];                                    
+                                }
+                                //ordena el array
+                                ordenadoX.sort(function (a, b) { return a - b });
+                            //agrega el vector ordenado al gráfico
+                                for (i = 0; i < ordenadoX.length; i++) {
+                                    miX = ordenadoX[i];
+                                    data.addRows([
+                                        [miX,
+                                            graf(miX, "Parábola"),
+                                            graf(miX, "Vértice"),
+                                            graf(miX, "Foco"),
+                                            graf(miX, "Directriz"),
+                                            graf(miX, "Raíces"),
+                                            graf(miX, "Intercepto Y"),
+                                            graf(miX, "Lado Recto")
+                                        ]
+                                    ]);
+                                }
+                                
                                 //agrega puntos adicionales para mejorar la precisión de la curva parabólica                               
                                 
                             
@@ -1140,7 +1130,12 @@
                                     bold: true
                                 },
                                 //legenda
-                                'legend': { position: 'bottom' },
+                                'legend': {
+                                    position: 'bottom',
+                                    textStyle: {
+                                        fontSize: 17  //size of the legend 
+                                    }
+                                },
                                 //tamaño gráfico
                                 'width': 800,
                                 'height': 500,
