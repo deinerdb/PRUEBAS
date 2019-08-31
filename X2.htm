@@ -1093,9 +1093,27 @@
                                 //agrega el extremo derecho de la directriz 
                                 miX = 8 * p + h;
                                 arrayX[arrayX.length] = miX;
+                                //agrega las raíces si son reales
+                                if (isNaN(raíz1) == false) {
+                                    miX = raíz1;
+                                    arrayX[arrayX.length] = miX;
+                                }
+                                if (isNaN(raíz2) == false) {
+                                    miX = raíz2;
+                                    arrayX[arrayX.length] = miX;
+                                }
+                            //agrega los extremos del lado recto
+                                miX = (2 * p) + h;
+                                arrayX[arrayX.length] = miX;
+                                miX = h - (2 * p);
+                                arrayX[arrayX.length] = miX;
+                            //hace copia para ordenar y buscar valores extremos
                                 for (i = 0; i < arrayX.length; i++) {
                                     ordenadoX[i] = arrayX[i];                                    
                                 }
+                            
+                            //agrega puntos adicionales para mejorar la precisión de la curva parabólica  
+
                                 //ordena el array
                                 ordenadoX.sort(function (a, b) { return a - b });
                             //agrega el vector ordenado al gráfico
@@ -1113,8 +1131,6 @@
                                         ]
                                     ]);
                                 }
-                                
-                                //agrega puntos adicionales para mejorar la precisión de la curva parabólica                               
                                 
                             
                             // Optional; add a title and set the width and height of the chart
@@ -1299,7 +1315,7 @@
                                     }                                    
                                     break;
                                 case "Lado Recto":                                    
-                                    if (valorX == ((2 * p) + h) || valorX == (h - (2 * p))) {
+                                    if (valorX <= ((2 * p) + h) && valorX >= (h - (2 * p))) {
                                         return Number(focoY);
                                     } else {
                                         return null;
