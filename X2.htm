@@ -496,8 +496,18 @@
                             <strong style="clear:left">Fragmento de código usado en esta página:</strong><br />
                         </p>
 
-<textarea readonly rows="3">
+<textarea readonly rows="12">
 ...
+//distancia focal p
+function hallarP() {
+    p = "No disponible";
+    try {
+        p = 1 / (4 * A);
+        p = Math.abs(p);                                
+    } catch (err) {
+        p = "No disponible";
+    }
+}
 ...
 </textarea>
                         <i id="arrow" class="fa fa-angle-double-up" aria-hidden="true"></i>
@@ -994,7 +1004,7 @@
                             copyText = copyText + "\r" + 'Raíz 2 = ' + "\t" + copyCampo.value;
                             //intercepto
                             copyCampo = document.getElementById("intercepto");
-                            copyText = copyText + "\r" + 'Intercepto = ' + "\t" + copyCampo.value;
+                            copyText = copyText + "\r" + 'Intercepto Eje Y = ' + "\t" + copyCampo.value;
                             //p
                             copyCampo = document.getElementById("p");
                             copyText = copyText + "\r" + 'Distancia Focal (p) = ' + "\t" + copyCampo.value;
@@ -1003,7 +1013,7 @@
                             copyText = copyText + "\r" + 'Lado Recto (4p) = ' + "\t" + copyCampo.value;
                             //apertura
                             copyCampo = document.getElementById("apertura");
-                            copyText = copyText + "\r" + 'Dirección Apertura = ' + "\t" + copyCampo.value;
+                            copyText = copyText + "\r" + 'Dirección Parábola = ' + "\t" + copyCampo.value;
                             //vértice
                             copyCampo = document.getElementById("vértice");
                             copyText = copyText + "\r" + 'Vértice = ' + "\t" + copyCampo.value;
@@ -1012,7 +1022,7 @@
                             copyText = copyText + "\r" + 'Foco = ' + "\t" + copyCampo.value;
                             //directriz
                             copyCampo = document.getElementById("directriz");
-                            copyText = copyText + "\r" + 'Recta Directriz = ' + "\t" + copyCampo.value;
+                            copyText = copyText + "\r" + 'Directriz = ' + "\t" + copyCampo.value;
                             //ejeSimetría
                             copyCampo = document.getElementById("ejeSimetría");
                             copyText = copyText + "\r" + 'Eje de Simetría = ' + "\t" + copyCampo.value;
@@ -1073,7 +1083,7 @@
                             data.addColumn('number', 'Raíces');
                             data.addColumn('number', 'Intercepto Y');
                             data.addColumn('number', 'Lado Recto');
-
+                            
                             // agrega los valores de las series
 
                             arrayX.length = 0;
@@ -1107,13 +1117,36 @@
                                 arrayX[arrayX.length] = miX;
                                 miX = h - (2 * p);
                                 arrayX[arrayX.length] = miX;
-                            //hace copia para ordenar y buscar valores extremos
-                                for (i = 0; i < arrayX.length; i++) {
-                                    ordenadoX[i] = arrayX[i];                                    
-                                }
-                            
-                            //agrega puntos adicionales para mejorar la precisión de la curva parabólica  
+                            //agrega puntos cercanos al vértice para definir la curva
+                                i = ladoRecto / 10; // un pequeño segmento
+                            // a la izquierda
+                                miX = h - i;
+                                arrayX[arrayX.length] = miX;
+                                miX = h - (2 * i);
+                                arrayX[arrayX.length] = miX;
+                            // a la derecha
+                                miX = Number(h) + i;
+                                arrayX[arrayX.length] = miX;
+                                miX = 2 * i + h;
+                                arrayX[arrayX.length] = miX;
 
+                            //hace copia para ordenar y buscar valores extremos
+                                minX = Infinity;
+                                maxX = -Infinity;
+                                for (i = 0; i < arrayX.length; i++) {
+                                    ordenadoX[i] = arrayX[i];  
+                                    if (arrayX[i] > maxX) {
+                                        maxX = arrayX[i];
+                                    }
+                                    if (arrayX[i] < minX) {
+                                        minX = arrayX[i];
+                                    }
+                                }                            
+                            //agrega puntos adicionales para mejorar la precisión de la curva parabólica  
+                                delta = (maxX - minX) / 100;
+                                for (i = 1; i < 100; i++) {
+                                    ordenadoX[ordenadoX.length] = (i * delta) + minX;                                   
+                                }
                                 //ordena el array
                                 ordenadoX.sort(function (a, b) { return a - b });
                             //agrega el vector ordenado al gráfico
@@ -1195,20 +1228,20 @@
                                         //tamaño de puntos
                                         pointSize: 0,
                                         //LÍNEA ALGO GRUESA
-                                        lineWidth: 6,
+                                        lineWidth: 5,
                                         //forma de puntos
                                         pointShape: 'circle',
-                                        //OPACA
-                                        opacity: 0.3
+                                        //OPACA, esto no funciona así
+                                        //opacity: 0.3
                                     },
                                     // VÉRTICE
                                     1: {
                                         //tamaño de puntos
-                                        pointSize: 8,
+                                        pointSize: 9,
                                         //SIN LÍNEA, DISPERSIÓN
                                         lineWidth: 0,
                                         //forma de puntos
-                                        pointShape: 'circle'
+                                        pointShape: 'diamond'
                                     },
                                     // FOCO
                                     2: {
@@ -1231,20 +1264,20 @@
                                     // RAÍCES
                                     4: {
                                         //tamaño de puntos
-                                        pointSize: 7,
+                                        pointSize: 9,
                                         //SIN LÍNEA, DISPERSIÓN
                                         lineWidth: 0,
                                         //forma de puntos
-                                        pointShape: 'circle'
+                                        pointShape: { type: 'star', sides: 4 }
                                     },
                                     // INTERCEPTO EJE Y
                                     5: {
                                         //tamaño de puntos
-                                        pointSize: 7,
+                                        pointSize: 6,
                                         //SIN LÍNEA, DISPERSIÓN
                                         lineWidth: 0,
                                         //forma de puntos
-                                        pointShape: 'circle'
+                                        pointShape: 'square'
                                     },
                                     // LADO RECTO
                                     6: {
@@ -1252,6 +1285,8 @@
                                         pointSize: 0,
                                         //LÍNEA MÁS DELGADA
                                         lineWidth: 3,
+                                        //punteada
+                                        lineDashStyle: [10, 2],
                                         //forma de puntos
                                         pointShape: 'circle'
                                     }
