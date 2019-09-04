@@ -1050,6 +1050,8 @@ function hallarP() {
 
                 
                 <script type="text/javascript">
+                        var maxX;
+                        var minX;
                     //script del gráfico
 
                         // Load google charts
@@ -1065,11 +1067,12 @@ function hallarP() {
                         function drawChartPar() {                            
                             var i;
                             var miX;
-                            var delta;
-                            var maxX;
-                            var minX;
+                            var delta;                            
                             var arrayX = [];
-                            var ordenadoX = [];                           
+                            var ordenadoX = [];
+                            //estas son globales
+                            maxX = -Infinity;
+                            minX = Infinity;
 
                             // llena el array de datos
                             // Create the data table.
@@ -1083,7 +1086,7 @@ function hallarP() {
                             data.addColumn('number', 'Raíces');
                             data.addColumn('number', 'Intercepto Y');
                             data.addColumn('number', 'Lado Recto');
-                            
+                            data.addColumn('number', 'Eje Simetría');
                             // agrega los valores de las series
 
                             arrayX.length = 0;
@@ -1129,7 +1132,14 @@ function hallarP() {
                                 arrayX[arrayX.length] = miX;
                                 miX = 2 * i + h;
                                 arrayX[arrayX.length] = miX;
-
+                            // agrega puntos para el eje de simetría
+                            //  h ya fue agregado.
+                                // simetría a la izquierda
+                                miX = h - p / 1000;
+                                arrayX[arrayX.length] = miX;
+                                // simetría a la derecha
+                                miX = Number(h) + p / 1000;
+                                arrayX[arrayX.length] = miX;
                             //hace copia para ordenar y buscar valores extremos
                                 minX = Infinity;
                                 maxX = -Infinity;
@@ -1160,7 +1170,8 @@ function hallarP() {
                                             graf(miX, "Directriz"),
                                             graf(miX, "Raíces"),
                                             graf(miX, "Intercepto Y"),
-                                            graf(miX, "Lado Recto")
+                                            graf(miX, "Lado Recto"),
+                                            graf(miX, "Eje Simetría")
                                         ]
                                     ]);
                                 }
@@ -1217,8 +1228,8 @@ function hallarP() {
                                 //color de fondo del gráfico
                                 //backgroundColor: 'lavender',
                                 //colores líneas de serie
-                                // blue, darkgreen, maroon, red, fuchsia, aqua, gold
-                                colors: ['#0000FF', '#006400', '#800000', '#FF0000', '#FF00FF', '#00FFFF', '#FFD700'],
+                                // blue, darkgreen, maroon, red, fuchsia, aqua, gold, red
+                                colors: ['#0000FF', '#006400', '#800000', '#FF0000', '#FF00FF', '#00FFFF', '#FFD700', '#FF0000'],
                                 //muestra una cruz al seleccionar o señalar
                                 crosshair: { trigger: 'both' },
                                 //personaliza series
@@ -1264,7 +1275,7 @@ function hallarP() {
                                     // RAÍCES
                                     4: {
                                         //tamaño de puntos
-                                        pointSize: 9,
+                                        pointSize: 10,
                                         //SIN LÍNEA, DISPERSIÓN
                                         lineWidth: 0,
                                         //forma de puntos
@@ -1273,7 +1284,7 @@ function hallarP() {
                                     // INTERCEPTO EJE Y
                                     5: {
                                         //tamaño de puntos
-                                        pointSize: 6,
+                                        pointSize: 8,
                                         //SIN LÍNEA, DISPERSIÓN
                                         lineWidth: 0,
                                         //forma de puntos
@@ -1289,6 +1300,17 @@ function hallarP() {
                                         lineDashStyle: [10, 2],
                                         //forma de puntos
                                         pointShape: 'circle'
+                                    },
+                                    // EJE SIMETRÍA
+                                    7: {
+                                        //tamaño de puntos
+                                        pointSize: 0,
+                                        //LÍNEA AUN MÁS DELGADA
+                                        lineWidth: 2,
+                                        //forma de puntos
+                                        pointShape: 'circle',
+                                        //punteada
+                                        lineDashStyle: [3, 10]
                                     }
                                 },
                                 
@@ -1355,6 +1377,19 @@ function hallarP() {
                                     } else {
                                         return null;
                                     }  
+                                    break;
+                                case "Eje Simetría":
+                                    if (
+                                        (valorX >= h - p / 1000 && valorX < h)
+                                        ||
+                                        (valorX <= Number(h) + p / 1000 && valorX > h)
+                                        ) {                                        
+                                        return directrizY;
+                                    } else if (valorX == h) {
+                                        return Number(f(maxX, null));                                    
+                                    } else {
+                                        return null;
+                                    }
                                     break;
                             }
                         }                   
