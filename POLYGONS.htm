@@ -3,17 +3,18 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-        <meta name="description" content="Traducir página con Google Translate"/>
+        <meta name="description" content="POLÍGONOS SVG"/>
         <!-- Chrome, Firefox, OS y Opera -->
         <meta name="theme-color" content="#663399" />
         <!-- Windows Phone -->
         <meta name="msapplication-navbutton-color" content="#663399" />
-        <title>Google Translate</title>
+        <title>POLÍGONOS SVG</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="estilo.css" />
         
         <link rel="icon" href="favicon.ico" type="image/x-icon" />
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <link href='https://fonts.googleapis.com/css?family=Alfa Slab One' rel='stylesheet'>
         <!--*jQuery CDN
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         este es más nuevo, pero usamos la versión vieja
@@ -31,48 +32,40 @@
                 background: url('pageLoader.gif') 50% 50% no-repeat rgb(249,249,249);
                 opacity: 0.8;
                 filter: Alpha(opacity=80); /* IE8 and earlier */
-            }
-            /*de esta página, adicional al archivo CSS*/
-            .caja {
-                /*menú abajo para no cruzarlo con la barra de traducción*/
-                top: auto !important;
-                bottom : 0 !important;
-            }
-
-            /*after y before son diferentes por la posición de la caja menú */
-
-            .sidenav:after {
-                
-                height: 80px; /*padding-bottom: ESTO PARA QUE SE VEA EN IE Y FIREFOX*/
-                
+            }           
+         
+            /*ajustes al imprimir*/
+            @media print {
+                /*cosas invisibles al imprimir*/
+                #snackbar {
+                    display: none !important;
+                }               
             }
 
-            .sidenav:before {
-                
-                height: 50px; /*padding-TOP: ESTO PARA QUE SE VEA EN IE Y FIREFOX*/
-                
-            }
+            .formulario {
+                font-size: 1.1em;
+                padding: 10px 8px;
+                /*Formularios con borde superior e inferior gris*/
+                border-bottom-style: none !important;
+                border-top-style: none !important; 
+                margin-bottom: 4px !important;
 
-           /*el btntop debe reubicarse también */
-            #BtnTop {
-                bottom: 80px !important; /* Place the button at the middle of the page */
             }
-            .main {
-                margin-top: 35px !important;
-                margin-bottom: 62px !important;
-            }
-
+                 
+           
         </style>
-
     </head>
     <body>
-
         <div class="loader"></div>
         <script type="text/javascript">
             $(window).load(function () {
                 $(".loader").fadeOut("slow");
             });
+                        
         </script>
+
+        <!-- The actual snackbar -->
+        <div id="snackbar">Realizado</div>
 
         <div id="mySidenav" class="sidenav">
             <a href="INDEX.htm"><i class="fa fa-home"></i>INICIO</a>
@@ -90,12 +83,13 @@
             <a href="IMC.htm"><i class="fa fa-calculator"></i>IMC</a>
             <a href="DTV.htm"><i class="fa fa-television"></i>DirecTV <sup>&#174;</sup></a>
             <a href="LOADERS.htm"><i class="fa fa-spinner"></i>LOADERS</a>
-            <a href="MAP.htm"><i class="fa fa-map-marker"></i>MAPA</a>            
-            <a class="selected" id="selectedsidenav" href="TRADUCTOR.htm"><i class="fa fa-google"></i>TRADUCIR</a>
+            <a href="MAP.htm"><i class="fa fa-map-marker"></i>MAPA</a>
+            <a href="TRADUCTOR.htm"><i class="fa fa-google"></i>TRADUCIR</a>
             <a href="GRAFICAR.htm"><i class="fa fa-pie-chart"></i>GRAFICAR</a>
             <a href="FRASES.htm"><i class="fa fa-book"></i>FRASES</a>
             <a href="ANALIZAR.htm"><i class="fa fa-table"></i>ANALIZAR</a>
             <a href="X2.htm"><i class="fa fa-superscript"></i>EC. CUADRÁTICA</a>
+            <a class="selected" id="selectedsidenav" href="POLYGONS.htm"><i class="fa fa-square-o"></i>POLÍGONOS</a>
             <hr />
             <a href="#" onclick="imprimir()"><i class="fa fa-print"></i>IMPRIMIR</a>
         </div>
@@ -104,7 +98,7 @@
         </div>
         <div id="overlay" onclick="soloCerrar()">
         </div>
-        <div class="caja" id="caja">
+        <div class="caja">
             <div class="container" id="container" onclick="myFunction(this)">
                 <div class="bar1"></div>
                 <div class="bar2"></div>
@@ -127,60 +121,47 @@
                 <a href="DTV.htm"><i class="fa fa-television"></i>DirecTV <sup>&#174;</sup></a>
                 <a href="LOADERS.htm"><i class="fa fa-spinner"></i>LOADERS</a>
                 <a href="MAP.htm"><i class="fa fa-map-marker"></i>MAPA</a>
-                <a class="selected" id="selectednavbar" href="TRADUCTOR.htm"><i class="fa fa-google"></i>TRADUCIR</a>
+                <a href="TRADUCTOR.htm"><i class="fa fa-google"></i>TRADUCIR</a>
                 <a href="GRAFICAR.htm"><i class="fa fa-pie-chart"></i>GRAFICAR</a>
                 <a href="FRASES.htm"><i class="fa fa-book"></i>FRASES</a>
                 <a href="ANALIZAR.htm"><i class="fa fa-table"></i>ANALIZAR</a>
                 <a href="X2.htm"><i class="fa fa-superscript"></i>EC. CUADRÁTICA</a>
+                <a class="selected" id="selectednavbar" href="POLYGONS.htm"><i class="fa fa-square-o"></i>POLÍGONOS</a>
                 <span id="separador">|</span>
                 <a href="#" onclick="imprimir()"><i class="fa fa-print"></i>IMPRIMIR</a>
 
             </div>
         </div>
-
-            <div class="main" id="main"> 
-                    <button class="accordion" id="accordion">Google Translate<i id="folder" class="fa" aria-hidden="true"></i></button>
+ 
+           
+            <div class="main" id="main">                
+                    <button class="accordion" id="accordion">POLÍGONOS SVG<i id="folder" class="fa" aria-hidden="true"></i></button>
                     <div class="panel" id="panel">
                         <p>
-                            <i class="fa fa-google" aria-hidden="true"></i>
-                            El texto en la página puede ser traducido a muchos idiomas, usando la API de Google Translate. <br />
-                            Una API (Application Programming Interface) es un conjunto de métodos y herramientas que puede ser utilizado para construir software de aplicaciones.<br />
-                            La API de Google Translate te permite traducir el contenido de tu sitio web.
+                            <i class="fa fa-square-o" aria-hidden="true"></i>
+                            Esta página utiliza SVG (sigla en inglés de Scalable Vector Graphics [Gráficos Vectoriales Escalables]) para dibujar polígonos regulares.
+                            Un polígono regular es un polígono en el que todos los lados tienen la misma longitud y todos los ángulos interiores tienen el mismo valor. 
+                            Todos los polígonos regulares se pueden inscribir perfectamente en una circunferencia.
+                            Se pueden personalizar algunos elementos del dibujo (color de fondo, borde, relleno, etc).
                             <br />
                             <br />
                             <strong style="clear:left">Fragmento de código usado en esta página:</strong><br />
                         </p>
 
-<textarea readonly rows="6">
+<textarea readonly rows="3">
 ...
-<div id="google_translate_element"></div>
-function googleTranslateElementInit() {
-new google.translate.TranslateElement({ pageLanguage: 'es' }, 'google_translate_element');
-}
+
 ...
 </textarea>
                         <i id="arrow" class="fa fa-angle-double-up" aria-hidden="true"></i>
                     </div>
+
+
+                <form class="formulario">                                      
+                   PÁGINA EN CONSTRUCCIÓN
+                        
+                </form>
                 
-                <h2>Mi página web.</h2>
-
-                <p>¡Hola amigos!</p>
-
-                <p>Este es solo un texto de ejemplo para traducir.</p>
-                <p>Seleccione un idioma para iniciar la traducción de la página web.</p>
-
-                <!--EL ELEMENTO TRADUCTOR-->
-                <div id="google_translate_element"></div>         
-                
-                <!--REFERENCIA A LA API DE GOOGLE-->
-                <script type="text/javascript">
-                    function googleTranslateElementInit() {
-                        new google.translate.TranslateElement({ pageLanguage: 'es' }, 'google_translate_element');
-                    }
-                </script>
-                <!--FUNCIÓN TRADUCTORA-->
-                <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
                     <footer>
                         <p>Coded by @deiner_db</p>
                         <img id="miFoto" title="Deiner Domínguez" alt="Foto Deiner Domínguez" src="miFoto.jpg" width="1280" height="893" />
@@ -193,7 +174,6 @@ new google.translate.TranslateElement({ pageLanguage: 'es' }, 'google_translate_
                         <a href="skype:live:deiner_db?call" class="fa fa-skype"></a>
                     </footer>
 </div>
-        
             <button onclick="topFunction()" id="BtnTop" title="Subir">⇧</button>
             <script type="text/javascript" charset="utf-8" src="rutinas.js"></script>
 </body>
