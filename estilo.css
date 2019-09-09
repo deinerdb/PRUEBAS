@@ -36,8 +36,21 @@ html, body {
     footer, .sidenav, .caja, .cajaFrases, .navbar, #folder, #relleno, #BtnTop, #overlay, .container, .bar1, .bar2, .bar3, input[type=button], input[type=reset], input[type=submit], .formulario button, .clasemultimedia button, #btnCalcular {
         display: none !important;
     }
-    .clasemultimedia, .accordion, #contFrases {
+    .clasemultimedia, #accordion, #contFrases {
+        background-color: transparent !important;        
+    }
+    .panel textarea, .panel {
+        overflow: hidden !important;
+        height: auto !important;
+        max-height: none !important;
         background-color: transparent !important;
+        color: black !important;
+    }
+    #arrow {
+        display: none !important;
+    }
+    textarea {
+        white-space: normal !important;
     }
 }
 hr{
@@ -361,7 +374,7 @@ div.panel .fa {
         width: 100%;
         background-color: #e6daf1;
         overflow: auto;
-        white-space: pre !important;
+        white-space:pre;        
         padding: 12px;
         margin-bottom: 8px;
         -webkit-box-sizing: border-box;

@@ -254,7 +254,7 @@ acc.onclick = function () { alternarAcc() };
 arr.onclick = arrClick;
 function alternarAcc() {
     acc.classList.toggle("active");
-    var panel = document.getElementById("panel");
+    var panel = document.getElementById("panel");    
     if (panel.style.maxHeight) {
         panel.style.maxHeight = null;
         arr.style.display = "none";

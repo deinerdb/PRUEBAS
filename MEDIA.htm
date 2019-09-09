@@ -23,8 +23,16 @@
                 otras configuraciones de impresión están en el archivo CSS
             */
             @media print {  
-                body {
-                    background-color:transparent !important;
+                body, #accordion, #panel textarea {
+                    background-color: transparent !important;                    
+                    color: black !important;
+                }
+                .panel, .panel.active, .panel textarea, .main, #panel, #tArea {
+                    background-color: transparent !important;
+                    color: black !important;
+                }
+                #tArea {
+                    white-space:normal !important;
                 }
             }
             .loader {
@@ -632,7 +640,7 @@
                         <strong style="clear:left">Fragmentos de código usados en esta página:</strong><br />
                     </p>
 
-<textarea readonly rows="15">
+<textarea id="tArea" readonly rows="15">
 ...
 <img id="mediaimg" onclick="playorpauseaudio()" alt="Imagen de Vivaldi" title="Haga clic para reproducir o pausar el audio" src="Vivaldi.jpg" width="1284" height="1533" />
 <audio id="mediaaudio" controls="controls">
