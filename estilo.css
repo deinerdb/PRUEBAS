@@ -28,16 +28,28 @@ html, body {
 /*lo que se oculta al imprimir*/
 @media print {
     * {
+        /*
+        ni transiciones
+        */
         -o-transition: none !important;
         -moz-transition: none !important;
-        -webkit-transition: none !important;        
+        -webkit-transition: none !important;
         transition: none !important;
+        /*
+        ni animaciones
+        */
+        animation: none !important;
     }
-    footer, .sidenav, .caja, .cajaFrases, .navbar, #folder, #relleno, #BtnTop, #overlay, .container, .bar1, .bar2, .bar3, input[type=button], input[type=reset], input[type=submit], .formulario button, .clasemultimedia button, #btnCalcular {
+    
+    #headerIndex, footer, .sidenav, .caja, .cajaFrases, .navbar, #folder, #relleno, #BtnTop, #overlay, .container, .bar1, .bar2, .bar3, input[type=button], input[type=reset], input[type=submit], .formulario button, .clasemultimedia button, #btnCalcular {
         display: none !important;
     }
-    .clasemultimedia, #accordion, #contFrases {
-        background-color: transparent !important;        
+    .clasemultimedia, #accordion, #contFrases, #divTransf, #autobots, #textoArriba, #textoAbajo {
+        background-color: transparent !important;
+    }
+    #títuloEcuación {
+        color: black !important;
+        text-shadow:none !important;
     }
     .panel textarea, .panel {
         overflow: hidden !important;
@@ -52,9 +64,28 @@ html, body {
     textarea {
         white-space: normal !important;
     }
+    aside {
+        background-color: transparent !important; 
+        color: black !important;
+        border: solid 1px black;
+    }
+    .clasehumo {
+        /*fondo */
+        background-color: transparent !important;
+    }
+
+    #printHeader {
+        display: block !important;
+    }
+         
 }
-hr{
-    border-color:mediumpurple;
+#printHeader {
+    display: none;
+    color: purple;
+    background-color: transparent;
+}
+hr {
+    border-color: mediumpurple;
 }
 /*como un hr vertical*/
 #separador {
@@ -1345,7 +1376,7 @@ footer .fa-skype {
 .clasehumo{
     
     /*fondo blanco humo*/
-    background-color:whitesmoke
+    background-color:whitesmoke;
 
 }
 #cambiocolor{
@@ -1717,6 +1748,7 @@ aside{
     background-color:#555; /*un gris oscuro*/
     color:white;
     padding:8px;
+    margin: 16px;
 }
 footer{
 
