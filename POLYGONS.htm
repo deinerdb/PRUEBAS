@@ -32,14 +32,86 @@
                 background: url('pageLoader.gif') 50% 50% no-repeat rgb(249,249,249);
                 opacity: 0.8;
                 filter: Alpha(opacity=80); /* IE8 and earlier */
-            }           
-         
+            }
+            #col-container {
+                width: 100%;
+                max-width: 100%;
+                position:relative;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+            }
+            #opcionesCompleto {                
+                padding: 16px;
+                display: inline-block;
+                max-width: 50%;
+                position: absolute;
+                overflow: auto;
+                left: 0;
+                right: 50%;
+                top: 0;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+            }
+            #opcionesCorto {
+                overflow: auto;
+                width:100%;
+                max-width: 100%;
+                padding: 16px;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                display:block;
+                position:static;
+                display: none;
+            }
+            #contenedorPolígono {
+                padding: 0;
+                display: inline-block;
+                max-width: 50%;
+                position: absolute;
+                top: 0;
+                left: 50%;
+                right: 0;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+            }
+            footer {
+                position: absolute;
+                top: 100%;
+            }
+            @media only screen and (max-width: 600px) {
+                #col-container {
+                    width: 100%;
+                    position: static;
+                }
+                footer {
+                    position: static;
+                    top: auto;
+                }
+                #contenedorPolígono {
+                    width: 100%;
+                    max-width: 100%;
+                    position: static;
+                }
+                #opcionesCompleto {
+                    display: none;
+                }
+                #opcionesCorto {
+                    width: 100%;
+                    max-width: 100%;
+                    position: static;
+                    display: block;
+                }
+            }
             /*ajustes al imprimir*/
             @media print {
                 /*cosas invisibles al imprimir*/
                 #snackbar {
                     display: none !important;
-                }               
+                }
             }
 
             .formulario {
@@ -155,13 +227,28 @@
 </textarea>
                         <i id="arrow" class="fa fa-angle-double-up" aria-hidden="true"></i>
                     </div>
-
-
-                <form class="formulario">                                      
-                   PÁGINA EN CONSTRUCCIÓN
-                        
-                </form>
                 
+                <div id="col-container">
+                    <div id="opcionesCompleto">
+                        <form class="formulario">
+                            <h2>Largas</h2>
+                            <p>Aquí van las opciones completas</p>
+                        </form>
+                    </div>
+                    <div id="contenedorPolígono">
+                        <h2>Polígono</h2>
+                        <p>Aquí va el polígono</p>
+                        <p>Aquí va el polígono</p>
+                        <p>Aquí va el polígono</p>
+                        <p>Aquí va el polígono</p>
+                        <p>Aquí va el polígono</p>
+                    </div>
+                    <div id="opcionesCorto">
+                        <h2>Cortas</h2>
+                        <p>Aquí van las opciones cortas</p>
+                    </div>
+
+                </div>
                     <footer>
                         <p>Coded by @deiner_db</p>
                         <img id="miFoto" title="Deiner Domínguez" alt="Foto Deiner Domínguez" src="miFoto.jpg" width="1280" height="893" />
@@ -169,11 +256,12 @@
                         <a href="https://www.facebook.com/deinerdb" target="_blank" class="fa fa-facebook"></a>
                         <a href="https://twitter.com/deiner_db" target="_blank" class="fa fa-twitter"></a>
                         <a href="https://www.instagram.com/deiner_db/" target="_blank" class="fa fa-instagram"></a>
-                        
+
                         <a href="https://www.youtube.com/user/deinerdominguez" target="_blank" class="fa fa-youtube"></a>
                         <a href="skype:live:deiner_db?call" class="fa fa-skype"></a>
                     </footer>
-</div>
+                
+                </div>
             <button onclick="topFunction()" id="BtnTop" title="Subir">⇧</button>
             <script type="text/javascript" charset="utf-8" src="rutinas.js"></script>
 </body>
