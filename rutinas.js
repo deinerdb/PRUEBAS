@@ -240,6 +240,10 @@ window.onload = function () {
             document.getElementById("dato" + i).value = "";           
         }
     } 
+    // POLYGONS (INTERFAZ)
+    if (typeof alturaOpciones == 'function') {
+        alturaOpciones();
+    } 
 };
 
 
@@ -264,6 +268,10 @@ function alternarAcc() {
         panel.style.maxHeight = panel.scrollHeight + "px";
         accAbierta = true;
     }
+    // POLYGONS (INTERFAZ)
+    if (typeof alturaOpciones == 'function') {
+        alturaOpciones();
+    } 
 }
 function arrClick() {
     //para que se cierre
@@ -271,6 +279,8 @@ function arrClick() {
     //ahora un scroll
     window.scrollTo(acc.offsetLeft, acc.offsetTop - 70);    
 }
+
+// esto sobreescribe cualquier onresize de las páginas
 window.onresize = function () { ajustesResize() };
 
 function openfolder() {
@@ -324,6 +334,10 @@ function ajustesResize() {
     //ANALIZAR (INTERFAZ)
     if (typeof alturaDatos == 'function') {
         alturaDatos();
+    } 
+    // POLYGONS (INTERFAZ)
+    if (typeof alturaOpciones == 'function') {
+        alturaOpciones();
     } 
 }
 
