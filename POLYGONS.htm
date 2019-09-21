@@ -68,8 +68,10 @@
                 display: none;
             }
             #contenedorPolígono {
+                text-align: center;
                 padding: 0;
                 display: inline-block;
+                width: 50%;
                 max-width: 50%;
                 position: absolute;
                 top: 0;
@@ -77,33 +79,48 @@
                 right: 0;
                 -webkit-box-sizing: border-box;
                 -moz-box-sizing: border-box;
-                box-sizing: border-box;
+                box-sizing: border-box;                
+            }
+            #svgContainer {
+                width: 100%;
+                max-width: 100%;
             }
             footer {
                 position: absolute;
                 top: 400px;
-                left:1%;
-                right: 0.8%;
+                left:1.1%;
+                right: 1%;
             }
+            /* pantallas pequeñas*/
             @media only screen and (max-width: 600px) {
+                /* pantallas pequeñas*/
                 #col-container {
                     width: 100%;
                     position: static;
                 }
+                /* pantallas pequeñas*/
+                #svgContainer {
+                    width: 70%;
+                    max-width: 70%;
+                }
+                /* pantallas pequeñas*/
                 footer {
                     position: static;
                     top: auto;
                     left:auto;
                     right:auto;
                 }
+                /* pantallas pequeñas*/
                 #contenedorPolígono {
                     width: 100%;
                     max-width: 100%;
                     position: static;
                 }
+                /* pantallas pequeñas*/
                 #opcionesCompleto {
                     display: none;
                 }
+                /* pantallas pequeñas*/
                 #opcionesCorto {
                     width: 100%;
                     max-width: 100%;
@@ -248,12 +265,9 @@
                         </form>
                     </div>
                     <div id="contenedorPolígono">
-                        <h2>Polígono</h2>                        
-                        <p>Aquí va el polígono</p>
-                        <p>Aquí va el polígono</p>
-                        <p>Aquí va el polígono</p>
-                        <p>Aquí va el polígono</p>
-                        <p>Aquí va el polígono.</p>
+                        <svg id="svgContainer" height="100" width="100">
+                            <polygon id="poligono" transform="" points="" style="fill:blue; stroke:red; stroke-width:3;"></polygon>
+                        </svg>
                     </div>
                     <div id="opcionesCorto">
                         <h2>Cortas</h2>
@@ -292,11 +306,45 @@
                     t = Number(t) + document.getElementById("panel").scrollHeight;                
                 }                                
                 t = Number(t) + document.getElementById("col-container").scrollHeight;
-                t = Number(t) + 16;                
+                t = Number(t) + 32;                
                 document.getElementById("footer").style.top = t + "px";
-                
-            }
 
+                // actualiza el polígono
+                dibujar();
+
+            }
+            function dibujar() {
+                // define algunas variables necesarias
+                // halla el ancho del contenedor
+                var w = document.getElementById("svgContainer").scrollWidth;
+                // ajusta el alto
+                document.getElementById("svgContainer").setAttribute("height", w * 0.7); 
+                var cx = 0.5 * w;
+                var cy = 0.35 * w;
+                var r = 0.3 * w;
+                var lados = 6;
+                // la función points
+                function points(cx, cy, r, lados) {
+                    var a = 360 / lados;
+                    // inicia la variable points
+                    var points = (cx + r) + "," + cy + " ";
+                    // calcula el resto de los puntos
+                    for (var i = 1; i <= lados; i++) {
+                        var aRad = (Math.PI / 180) * (a * i);
+                        Xp = cx + r * Math.cos(aRad);
+                        Yp = cy + r * Math.sin(aRad);
+                        points += Xp + "," + Yp + " ";
+                    }
+                    // devuelve la variable points			
+                    return points
+                }
+                // busca el elemento #poligono
+                var poligono = document.getElementById("poligono");
+                // modifica el valor del atributo points utilizando la función points.
+                poligono.setAttribute("points", points(cx, cy, r, lados));
+                // para girar 90° en el sentido contrario del reloj: rotate(-90 60 60).
+                //poligono.setAttribute("transform", "rotate(-90 60 60)");
+            }
         </script>
 
             <button onclick="topFunction()" id="BtnTop" title="Subir">⇧</button>
