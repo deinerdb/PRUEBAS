@@ -71,7 +71,7 @@
                 border: 1px solid DarkGray;
             }
             #contenedorPolígono {
-                text-align: center;
+                
                 padding: 0;
                 display: inline-block;
                 width: 50%;
@@ -82,13 +82,20 @@
                 right: 0;
                 -webkit-box-sizing: border-box;
                 -moz-box-sizing: border-box;
-                box-sizing: border-box;                
+                box-sizing: border-box;
+                border: 1px solid green;
+            }
+            #poligono {
                 
             }
             #svgContainer {
                 width: 100%;
                 max-width: 100%;
                 border: 1px solid red;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                
             }
                                    
             footer {
@@ -121,7 +128,8 @@
                 #contenedorPolígono {
                     width: 100%;
                     max-width: 100%;
-                    position: static;                    
+                    position: static;    
+                    text-align:center;
                 }
                 /* pantallas pequeñas*/
                 #opcionesCompleto {
@@ -273,7 +281,7 @@
                     </div>
                     <div id="contenedorPolígono">
                         <svg id="svgContainer" height="100" width="100">
-                            <polygon id="poligono" points="" style="fill:blue; stroke:red; stroke-width:3;"></polygon>
+                            <polygon id="poligono"  transform="" points="" style="fill:blue; stroke:red; stroke-width:3;"></polygon>
                         </svg>
                     </div>                    
                     <div id="opcionesCorto">
@@ -350,11 +358,17 @@
                 // modifica el valor del atributo points utilizando la función points.
                 poligono.setAttribute("points", points(cx, cy, r, lados));
                 // determina el giro
-                var giro = "rotate(-45deg)";
-                // aplica el giro
-                document.getElementById("svgContainer").style.webkitTransform = giro;
-                document.getElementById("svgContainer").style.msTransform = giro;                
-                document.getElementById("svgContainer").style.transform = giro;
+                //var giro = "translate(-50%, -50%) rotate(10deg)";
+                //var giro = "rotate(45deg)";
+                //var giro = "translate(-50%, -50%)";
+                // aplica el giro a svgContainer
+                //poligono.style.transformOrigin = "center top 0";
+                //poligono.setAttribute("transform", "rotate(45 60 60)");
+                
+                
+                //document.getElementById("poligono").style.webkitTransform = giro;
+                //document.getElementById("poligono").style.msTransform = giro;                
+                //document.getElementById("poligono").style.transform = giro;
             }
             // todo por un bug de ie
             setInterval(alturaOpciones, 1000);
