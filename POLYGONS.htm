@@ -68,10 +68,10 @@
                 position: static;
                 display: none;
                 background-color: whitesmoke;
-                border: 1px solid DarkGray;
+                border: 1px solid DarkGray;                
             }
             #contenedorPolígono {
-                
+                text-align: center;
                 padding: 0;
                 display: inline-block;
                 width: 50%;
@@ -85,17 +85,14 @@
                 box-sizing: border-box;
                 border: 1px solid green;
             }
-            #poligono {
-                
-            }
+
             #svgContainer {
-                width: 100%;
-                max-width: 100%;
+                overflow: visible;
                 border: 1px solid red;
                 -webkit-box-sizing: border-box;
                 -moz-box-sizing: border-box;
                 box-sizing: border-box;
-                
+                margin-top: 50%;
             }
                                    
             footer {
@@ -111,11 +108,11 @@
                 #col-container {
                     width: 100%;
                     position: static;
+                    text-align:center;
                 }
                 /* pantallas pequeñas*/
                 #svgContainer {
-                    width: 70%;
-                    max-width: 70%;
+                    
                 }
                 /* pantallas pequeñas*/
                 footer {
@@ -126,10 +123,10 @@
                 }
                 /* pantallas pequeñas*/
                 #contenedorPolígono {
-                    width: 100%;
-                    max-width: 100%;
-                    position: static;    
-                    text-align:center;
+                    width: 70%;
+                    max-width: 70%;
+                    position: static;                    
+                    
                 }
                 /* pantallas pequeñas*/
                 #opcionesCompleto {
@@ -331,11 +328,17 @@
             function dibujar() {
                 // define algunas variables necesarias
                 // halla el ancho del contenedor
-                var w = document.getElementById("svgContainer").scrollWidth;
-                // ajusta el alto
-                document.getElementById("svgContainer").setAttribute("height", w * 0.7); 
-                var cx = 0.5 * w;
-                var cy = 0.35 * w;
+                var w = document.getElementById("contenedorPolígono").scrollWidth;
+                // ajusta el alto del contenedor del svg
+                document.getElementById("contenedorPolígono").style.height = w * 0.9 + "px";
+                //  ancho del svg
+                document.getElementById("svgContainer").setAttribute("width", w * 0.6); 
+                // alto del svg
+                document.getElementById("svgContainer").setAttribute("height", w * 0.6); 
+                // margen superior del svg, para centrarlo un poco
+                document.getElementById("svgContainer").style.marginTop = (w - 0.6 * w) * 0.35  + "px";
+                var cx = (w * 0.6) * 0.5;
+                var cy = (w * 0.6) * 0.5;
                 var r = 0.3 * w;
                 var lados = 4;
                 // la función points
@@ -359,16 +362,15 @@
                 poligono.setAttribute("points", points(cx, cy, r, lados));
                 // determina el giro
                 //var giro = "translate(-50%, -50%) rotate(10deg)";
-                //var giro = "rotate(45deg)";
+                var giro = "rotate(-45deg)";
                 //var giro = "translate(-50%, -50%)";
                 // aplica el giro a svgContainer
                 //poligono.style.transformOrigin = "center top 0";
                 //poligono.setAttribute("transform", "rotate(45 60 60)");
-                
-                
-                //document.getElementById("poligono").style.webkitTransform = giro;
-                //document.getElementById("poligono").style.msTransform = giro;                
-                //document.getElementById("poligono").style.transform = giro;
+                         
+                document.getElementById("svgContainer").style.webkitTransform = giro;
+                document.getElementById("svgContainer").style.msTransform = giro;
+                document.getElementById("svgContainer").style.transform = giro;
             }
             // todo por un bug de ie
             setInterval(alturaOpciones, 1000);
