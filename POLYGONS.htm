@@ -82,13 +82,12 @@
                 right: 0;
                 -webkit-box-sizing: border-box;
                 -moz-box-sizing: border-box;
-                box-sizing: border-box;
-                border: 1px solid green;
+                box-sizing: border-box;                
             }
 
             #svgContainer {
                 overflow: visible;
-                border: 1px solid red;
+                
                 -webkit-box-sizing: border-box;
                 -moz-box-sizing: border-box;
                 box-sizing: border-box;
@@ -157,7 +156,25 @@
                 margin-bottom: 4px !important;
 
             }
-                 
+            #listaOpcionesCorto, #listaLadosCorto {
+                margin: 8px 4px;
+                /*para que el ancho sea real*/
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;                
+                -webkit-border-radius: 4px;
+                -moz-border-radius: 4px;
+                border-radius: 4px;
+                outline: none;
+                width: 95%;
+                padding: 12px 20px;
+                border: none;
+                background-color: #ffe6ff;
+            }
+
+                #listaOpcionesCorto:focus, #listaLadosCorto:focus {
+                    background-color: lavender !important;
+                }    
            
         </style>
     </head>
@@ -254,9 +271,12 @@
                             <strong style="clear:left">Fragmento de código usado en esta página:</strong><br />
                         </p>
 
-<textarea readonly rows="3">
+<textarea readonly rows="6">
 ...
-
+// ajusta el alto del contenedor del svg
+document.getElementById("contenedorPolígono").style.height = w * 0.9 + "px";
+// ajusta el ancho del svg
+document.getElementById("svgContainer").setAttribute("width", w * 0.6); 
 ...
 </textarea>
                         <i id="arrow" class="fa fa-angle-double-up" aria-hidden="true"></i>
@@ -281,9 +301,19 @@
                             <polygon id="poligono"  transform="" points="" style="fill:blue; stroke:red; stroke-width:3;"></polygon>
                         </svg>
                     </div>                    
-                    <div id="opcionesCorto">
-                        <h2>Cortas</h2>
-                        <p>Aquí van las opciones cortas</p>
+                    <div id="opcionesCorto">                        
+                        <select id="listaOpcionesCorto" onchange="mostrarOpcionesCorto()">
+                            <option value="lados" selected>Número de lados</option>
+                        </select>
+                        <select id="listaLadosCorto" onchange="ladosCorto()">
+                            <option value="3lados" selected>3 - Triángulo equilátero</option>
+                            <option value="4lados">4 - Cuadrado</option>
+                        </select>
+
+
+
+                        <p>*Seleccione una opción para personalizar el polígono.</p>
+                        
                     </div>                    
                 </div>
                 
@@ -301,6 +331,9 @@
                 
                 </div>
         <script type="text/javascript">
+            //inicializa, valores defecto
+            var lados = 3;
+
             function alturaOpciones() {
                 var t = 0;
                 // la altura del opcionesCompleto
@@ -331,16 +364,16 @@
                 var w = document.getElementById("contenedorPolígono").scrollWidth;
                 // ajusta el alto del contenedor del svg
                 document.getElementById("contenedorPolígono").style.height = w * 0.9 + "px";
-                //  ancho del svg
+                // ajusta el ancho del svg
                 document.getElementById("svgContainer").setAttribute("width", w * 0.6); 
                 // alto del svg
                 document.getElementById("svgContainer").setAttribute("height", w * 0.6); 
                 // margen superior del svg, para centrarlo un poco
                 document.getElementById("svgContainer").style.marginTop = (w - 0.6 * w) * 0.35  + "px";
                 var cx = (w * 0.6) * 0.5;
-                var cy = (w * 0.6) * 0.5;
+                var cy = (w * 0.6) * 0.5;                
                 var r = 0.3 * w;
-                var lados = 4;
+                
                 // la función points
                 function points(cx, cy, r, lados) {
                     var a = 360 / lados;                    
@@ -360,18 +393,62 @@
                 var poligono = document.getElementById("poligono");
                 // modifica el valor del atributo points utilizando la función points.
                 poligono.setAttribute("points", points(cx, cy, r, lados));
-                // determina el giro
-                //var giro = "translate(-50%, -50%) rotate(10deg)";
-                var giro = "rotate(-45deg)";
-                //var giro = "translate(-50%, -50%)";
-                // aplica el giro a svgContainer
-                //poligono.style.transformOrigin = "center top 0";
-                //poligono.setAttribute("transform", "rotate(45 60 60)");
-                         
-                document.getElementById("svgContainer").style.webkitTransform = giro;
-                document.getElementById("svgContainer").style.msTransform = giro;
-                document.getElementById("svgContainer").style.transform = giro;
+                // determina el giro                
+                var giro = calculaGiro();
+                var svgContainer = document.getElementById("svgContainer");
+                svgContainer.style.webkitTransform = giro;
+                svgContainer.style.msTransform = giro;
+                svgContainer.style.transform = giro;
+
             }
+
+            // el giro depende del número de lados
+            function calculaGiro() {
+                //muestra la opción seleccionada
+                switch (lados) {
+                    case 3:
+                        return "rotate(-90deg)";
+                        break;
+                    case 4:
+                        return "rotate(-45deg)";
+                        break;
+
+                }
+
+            }
+            function mostrarOpcionesCorto() {
+                var x = document.getElementById("listaOpcionesCorto").selectedIndex;
+                var y = document.getElementById("listaOpcionesCorto").options;
+                // el elemento seleccionado es y[x].value;
+                //oculta todas las opciones cortas, OJO: TODAS
+                document.getElementById("listaLadosCorto").style.display = "none";
+
+                //muestra la opción seleccionada
+                switch (y[x].value) {
+                    case "lados":
+                        document.getElementById("listaLadosCorto").style.display = "block";
+                        break;
+                    //case "lineal":
+                        
+                }
+                
+            }
+            function ladosCorto() {
+                var x = document.getElementById("listaLadosCorto").selectedIndex;
+                var y = document.getElementById("listaLadosCorto").options;
+                // el elemento seleccionado es y[x].value;
+                //muestra los lados seleccionados
+                switch (y[x].value) {
+                    case "3lados":
+                        lados = 3;
+                        break;
+                    case "4lados":
+                        lados = 4;
+                }
+                dibujar();
+            }
+
+
             // todo por un bug de ie
             setInterval(alturaOpciones, 1000);
         </script>

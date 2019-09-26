@@ -1390,7 +1390,7 @@ footer .fa-skype {
         
 }
 
-#filtro, #tipoReg {
+#filtro, #tipoReg, #listaOpcionesCorto, #listaLadosCorto {
     font-size: larger;
     max-width: 100%;
 }
