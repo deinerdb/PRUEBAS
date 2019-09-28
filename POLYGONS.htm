@@ -41,6 +41,10 @@
                 -moz-box-sizing: border-box;
                 box-sizing: border-box;               
             }
+            #listaOpcionesCorto, #listaLadosCorto, #listaLadosLargo {
+                font-size: larger;
+                max-width: 100%;
+            }
             #opcionesCompleto {
                 padding: 16px;
                 display: inline-block;
@@ -54,7 +58,7 @@
                 -moz-box-sizing: border-box;
                 box-sizing: border-box;
                 background-color: whitesmoke;
-                border-right: 1px solid DarkGray;
+                border-right: 1px solid purple; /*DarkGray ??*/
             }
             #opcionesCorto {
                 overflow: auto;
@@ -68,7 +72,10 @@
                 position: static;
                 display: none;
                 background-color: whitesmoke;
-                border: 1px solid DarkGray;                
+                border: 1px solid purple; /*DarkGray ??*/
+                -webkit-border-radius: 4px;
+                -moz-border-radius: 4px;
+                border-radius: 4px;
             }
             #contenedorPolígono {
                 text-align: center;
@@ -147,16 +154,8 @@
                 }
             }
 
-            .formulario {
-                font-size: 1.1em;
-                padding: 10px 8px;
-                /*Formularios con borde superior e inferior gris*/
-                border-bottom-style: none !important;
-                border-top-style: none !important; 
-                margin-bottom: 4px !important;
-
-            }
-            #listaOpcionesCorto, #listaLadosCorto {
+           
+            #listaOpcionesCorto, #listaLadosCorto, #listaLadosLargo {
                 margin: 8px 4px;
                 /*para que el ancho sea real*/
                 -moz-box-sizing: border-box;
@@ -166,15 +165,27 @@
                 -moz-border-radius: 4px;
                 border-radius: 4px;
                 outline: none;
-                width: 95%;
+                width: 97%;
                 padding: 12px 20px;
                 border: none;
                 background-color: #ffe6ff;
             }
 
-                #listaOpcionesCorto:focus, #listaLadosCorto:focus {
+                #listaOpcionesCorto:focus, #listaLadosCorto:focus, #listaLadosLargo:focus {
                     background-color: lavender !important;
-                }    
+                }
+
+            fieldset {
+                border: 1px solid purple;
+                -webkit-border-radius: 4px;
+                -moz-border-radius: 4px;
+                border-radius: 4px;
+                outline: none;
+                /*para que el ancho sea real*/
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+            }
            
         </style>
     </head>
@@ -283,18 +294,18 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                     </div>
                 
                 <div id="col-container">                   
-                    <div id="opcionesCompleto">
-                        <form class="formulario">
-                            <h2>Largas</h2>
-                            <p>Aquí van las opciones completas</p>
-                            <p>Aquí van las opciones completas</p>
-                            <p>Aquí van las opciones completas</p>
-                            <p>Aquí van las opciones completas</p>
-                            <p>Aquí van las opciones completas</p>
-                            <p>Aquí van las opciones completas</p>
-                            <p>Aquí van las opciones completas</p>
-                            <p>Aquí va la última</p>
-                        </form>
+                    <div id="opcionesCompleto">                        
+                        <h3>Opciones</h3>
+                        <fieldset>
+                            <legend>Número de lados: </legend>
+                            <select id="listaLadosLargo" onchange="ladosLargo()">
+                                <option value="3lados" selected>3 - Triángulo equilátero</option>
+                                <option value="4lados">4 - Cuadrado</option>
+                            </select>
+
+                        </fieldset> 
+
+                       
                     </div>
                     <div id="contenedorPolígono">
                         <svg id="svgContainer" height="100" width="100">
@@ -333,6 +344,8 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
         <script type="text/javascript">
             //inicializa, valores defecto
             var lados = 3;
+            // el giro inicial es el del triángulo
+            var angle = -90;
 
             function alturaOpciones() {
                 var t = 0;
@@ -394,7 +407,7 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                 // modifica el valor del atributo points utilizando la función points.
                 poligono.setAttribute("points", points(cx, cy, r, lados));
                 // determina el giro                
-                var giro = calculaGiro();
+                var giro = "rotate(" + angle + "deg)";
                 var svgContainer = document.getElementById("svgContainer");
                 svgContainer.style.webkitTransform = giro;
                 svgContainer.style.msTransform = giro;
@@ -402,17 +415,17 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
 
             }
 
-            // el giro depende del número de lados
-            function calculaGiro() {
-                //muestra la opción seleccionada
+            // el ángulo depende del número de lados
+            function calculaÁngulo() {                
                 switch (lados) {
                     case 3:
-                        return "rotate(-90deg)";
+                        angle = -90;
                         break;
                     case 4:
-                        return "rotate(-45deg)";
+                        angle = -45;                        
                         break;
-
+                    default:
+                        angle = 0;
                 }
 
             }
@@ -437,17 +450,38 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                 var x = document.getElementById("listaLadosCorto").selectedIndex;
                 var y = document.getElementById("listaLadosCorto").options;
                 // el elemento seleccionado es y[x].value;
-                //muestra los lados seleccionados
-                switch (y[x].value) {
+                // variable lados cambiada
+                ajustaLados(y[x].value);
+                //ajusta el ángulo
+                calculaÁngulo();
+                //sincroniza
+                document.getElementById("listaLadosLargo").selectedIndex = x;
+                //aplica
+                dibujar();
+            }
+            function ladosLargo() {
+                var x = document.getElementById("listaLadosLargo").selectedIndex;
+                var y = document.getElementById("listaLadosLargo").options;
+                // el elemento seleccionado es y[x].value;
+                // variable lados cambiada
+                ajustaLados(y[x].value);
+                //ajusta el ángulo
+                calculaÁngulo();
+                //sincroniza
+                document.getElementById("listaLadosCorto").selectedIndex = x;
+                //aplica
+                dibujar();
+            }
+            // ajusta variable lados según la nueva selección
+            function ajustaLados(valueLados) {
+                switch (valueLados) {
                     case "3lados":
                         lados = 3;
                         break;
                     case "4lados":
                         lados = 4;
                 }
-                dibujar();
             }
-
 
             // todo por un bug de ie
             setInterval(alturaOpciones, 1000);
