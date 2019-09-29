@@ -41,12 +41,9 @@
                 -moz-box-sizing: border-box;
                 box-sizing: border-box;               
             }
-            #listaOpcionesCorto, #listaLadosCorto, #listaLadosLargo {
-                font-size: larger;
-                max-width: 100%;
-            }
+            
             #opcionesCompleto {
-                padding: 16px;
+                padding: 12px 4px;
                 display: inline-block;
                 max-width: 50%;
                 position: absolute;
@@ -58,13 +55,13 @@
                 -moz-box-sizing: border-box;
                 box-sizing: border-box;
                 background-color: whitesmoke;
-                border-right: 1px solid purple; /*DarkGray ??*/
+                /*border-right: 1px solid purple; */
             }
             #opcionesCorto {
                 overflow: auto;
                 width: 100%;
                 max-width: 100%;
-                padding: 16px;
+                padding: 12px 4px;
                 -webkit-box-sizing: border-box;
                 -moz-box-sizing: border-box;
                 box-sizing: border-box;
@@ -77,6 +74,19 @@
                 -moz-border-radius: 4px;
                 border-radius: 4px;
             }
+                #opcionesCorto i {
+                    color: rebeccapurple;
+                    font-size: 3em;
+                    float: left;
+                    margin: 0 12px 3px 8px;
+                }
+                #opcionesCorto p {
+                    background-color: lavender;
+                    text-align: justify;
+                    padding: 8px 12px;
+                    margin: 8px 12px;
+                    max-width: 100%;
+                }
             #contenedorPolígono {
                 text-align: center;
                 padding: 0;
@@ -154,21 +164,27 @@
                 }
             }
 
-           
+            #opcionesCompleto h3 {
+                color: purple;
+                text-align:center;
+            } 
+
             #listaOpcionesCorto, #listaLadosCorto, #listaLadosLargo {
-                margin: 8px 4px;
+                margin: 8px 3px;
                 /*para que el ancho sea real*/
                 -moz-box-sizing: border-box;
                 -webkit-box-sizing: border-box;
-                box-sizing: border-box;                
+                box-sizing: border-box;
                 -webkit-border-radius: 4px;
                 -moz-border-radius: 4px;
                 border-radius: 4px;
                 outline: none;
                 width: 97%;
-                padding: 12px 20px;
+                padding: 10px 12px;
                 border: none;
                 background-color: #ffe6ff;
+                font-size: 1.05em;
+                max-width: 100%;
             }
 
                 #listaOpcionesCorto:focus, #listaLadosCorto:focus, #listaLadosLargo:focus {
@@ -185,6 +201,8 @@
                 -moz-box-sizing: border-box;
                 -webkit-box-sizing: border-box;
                 box-sizing: border-box;
+                margin: 8px 0px;
+                font-weight: bold;
             }
            
         </style>
@@ -295,7 +313,7 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                 
                 <div id="col-container">                   
                     <div id="opcionesCompleto">                        
-                        <h3>Opciones</h3>
+                        <h3>OPCIONES</h3>
                         <fieldset>
                             <legend>Número de lados: </legend>
                             <select id="listaLadosLargo" onchange="ladosLargo()">
@@ -323,7 +341,12 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
 
 
 
-                        <p>*Seleccione una opción para personalizar el polígono.</p>
+                        <p>
+                            <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
+                            Seleccione en la lista de arriba una opción para personalizar el polígono.
+                            Luego modifique la opción seleccionada en la interfaz provista debajo.   
+                            <span style="margin:0; padding:0; display:block; clear:left"></span>                        
+                        </p>
                         
                     </div>                    
                 </div>
