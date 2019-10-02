@@ -86,10 +86,123 @@
                 #helpCorto {
                     background-color: lavender;
                     text-align: justify;
-                    padding: 8px 12px;
-                    margin: 8px 12px;
+                    padding: 12px 16px;
+                    margin: 16px 12px 8px 12px;
                     max-width: 100%;
                 }
+                /* clase para agregar dinámicamente */
+            .giroDerecha {
+                -moz-animation: girarDerecha 5s linear infinite;
+                -o-animation: girarDerecha 5s linear infinite;
+                -webkit-animation: girarDerecha 5s linear infinite;
+                animation: girarDerecha 5s linear infinite;                
+            }
+            /* clase para agregar dinámicamente */
+            .giroIzquierda {
+                -moz-animation: girarIzquierda 5s linear infinite;
+                -o-animation: girarIzquierda 5s linear infinite;
+                -webkit-animation: girarIzquierda 5s linear infinite;
+                animation: girarIzquierda 5s linear infinite;
+            }
+            /* Animations para rotar a la derecha */
+            @-webkit-keyframes girarDerecha {
+                from {
+                    -webkit-transform: rotate(0deg);                    
+                }
+
+                to {
+                    -webkit-transform: rotate(360deg);
+                }
+            }
+
+            @-o-keyframes girarDerecha {
+                from {
+                    -o-transform: rotate(0deg);
+                }
+
+                to {
+                    -o-transform: rotate(360deg);
+                }
+            }
+
+            @-moz-keyframes girarDerecha {
+                from {
+                    -moz-transform: rotate(0deg);
+                }
+
+                to {
+                    -moz-transform: rotate(360deg);
+                }
+            }
+            @-ms-keyframes girarDerecha {
+                from {
+                    -ms-transform: rotate(0deg);
+                }
+
+                to {
+                    -ms-transform: rotate(360deg);
+                }
+            }
+            @keyframes girarDerecha {
+                from {
+                    transform: rotate(0deg);
+                }
+
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+            /* Animations para rotar a la izquierda */
+            @-webkit-keyframes girarIzquierda {
+                from {
+                    -webkit-transform: rotate(0deg);
+                }
+
+                to {
+                    -webkit-transform: rotate(-360deg);
+                }
+            }
+
+            @-o-keyframes girarIzquierda {
+                from {
+                    -o-transform: rotate(0deg);
+                }
+
+                to {
+                    -o-transform: rotate(-360deg);
+                }
+            }
+
+            @-moz-keyframes girarIzquierda {
+                from {
+                    -moz-transform: rotate(0deg);
+                }
+
+                to {
+                    -moz-transform: rotate(-360deg);
+                }
+            }
+
+            @-ms-keyframes girarIzquierda {
+                from {
+                    -ms-transform: rotate(0deg);
+                }
+
+                to {
+                    -ms-transform: rotate(-360deg);
+                }
+            }
+
+            @keyframes girarIzquierda {
+                from {
+                    transform: rotate(0deg);
+                }
+
+                to {
+                    transform: rotate(-360deg);
+                }
+            }
+
             #contenedorPolígono {
                 text-align: center;
                 padding: 0;
