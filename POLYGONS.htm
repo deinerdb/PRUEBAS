@@ -90,15 +90,16 @@
                     margin: 16px 12px 8px 12px;
                     max-width: 100%;
                 }
+            
                 /* clase para agregar dinámicamente */
-            .giroDerecha {
+            .giroderecha {
                 -moz-animation: girarDerecha 5s linear infinite;
                 -o-animation: girarDerecha 5s linear infinite;
                 -webkit-animation: girarDerecha 5s linear infinite;
                 animation: girarDerecha 5s linear infinite;                
             }
             /* clase para agregar dinámicamente */
-            .giroIzquierda {
+            .giroizquierda {
                 -moz-animation: girarIzquierda 5s linear infinite;
                 -o-animation: girarIzquierda 5s linear infinite;
                 -webkit-animation: girarIzquierda 5s linear infinite;
@@ -283,9 +284,9 @@
             #opcionesCompleto h3 {
                 color: purple;
                 text-align:center;
-            } 
+            }
 
-            #listaOpcionesCorto, #listaLadosCorto, #listaLadosLargo {
+            #listaOpcionesCorto, #listaLadosCorto, #listaLadosLargo, #tipoGiroLargo, #tipoGiroCorto {
                 margin: 8px 3px;
                 /*para que el ancho sea real*/
                 -moz-box-sizing: border-box;
@@ -303,13 +304,20 @@
                 max-width: 100%;
             }
 
-                #listaOpcionesCorto:focus, #listaLadosCorto:focus, #listaLadosLargo:focus {
+                #listaOpcionesCorto:focus, #listaLadosCorto:focus, #listaLadosLargo:focus, #tipoGiroLargo:focus, #tipoGiroCorto:focus {
                     background-color: lavender !important;
                 }
-                #listaOpcionesCorto {
+                #listaOpcionesCorto, #tipoGiroCorto {
                     margin-bottom: 14px;
                 }
+                .imgGiro {
+                    margin: 12px;
+                    max-width: 50%;
+                    /* oculta por defecto */
+                    display: none;
+                }
             fieldset {
+                text-align: center;
                 border: 1px solid purple;
                 -webkit-border-radius: 4px;
                 -moz-border-radius: 4px;
@@ -320,7 +328,7 @@
                 -webkit-box-sizing: border-box;
                 box-sizing: border-box;
                 margin: 8px 0px;
-                padding-top: 0.6em;  
+                padding-top: 0.6em;
             }
             legend {
                 font-weight: bold;
@@ -340,7 +348,7 @@
             /* INICIO CSS PARA INPUT RANGE PERSONALIZADO*/
             input[type=range] {
                 -webkit-appearance: none;
-                margin: 10px 0;
+                margin: 14px 0;
                 width: 100%;
             }
 
@@ -558,8 +566,14 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                         </fieldset> 
                         <fieldset>
                             <legend>Giro: </legend>
+                            <select id="tipoGiroLargo" onchange="cambiarGiroLargo()">
+                                <option value="definido" selected>Ángulo definido</option>
+                                <option value="animadoDerecha">Animado a la derecha</option>
+                                <option value="animadoIzquierda">Animado a la izquierda</option>
+                            </select>
                             <input id="rangoAngleLargo" type="range" min="-360" max="0" value="-90" />
                             <p id="pAngleLargo">-90 grados</p>
+                            <img class="imgGiro" id="imgGiroLargo" title="Sentido del giro" alt="Sentido del giro" src="Izquierda.svg" width="60" height="60" />
                         </fieldset> 
                        
                     </div>
@@ -578,8 +592,14 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                             <option value="4lados">4 - Cuadrado</option>
                             <option value="5lados">5 - Pentágono</option>
                         </select>
+                        <select id="tipoGiroCorto" onchange="cambiarGiroCorto()">
+                            <option value="definido" selected>Ángulo definido</option>
+                            <option value="animadoDerecha">Animado a la derecha</option>
+                            <option value="animadoIzquierda">Animado a la izquierda</option>
+                        </select>
                         <input id="rangoAngleCorto" type="range" min="-360" max="0" value="-90" />
                         <p id="pAngleCorto">-90 grados</p>
+                        <img class="imgGiro" id="imgGiroCorto" title="Sentido del giro" alt="Sentido del giro" src="Izquierda.svg" width="60" height="60" />
 
 
                         <p id="helpCorto">
@@ -675,12 +695,15 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                 var poligono = document.getElementById("poligono");
                 // modifica el valor del atributo points utilizando la función points.
                 poligono.setAttribute("points", points(cx, cy, r, lados));
-                // determina el giro                
-                var giro = "rotate(" + angle + "deg)";
-                var svgContainer = document.getElementById("svgContainer");
+                // determina el giro, solo cuando es necesario  
+                if (document.getElementById("tipoGiroLargo").selectedIndex == 0) {
+                    var giro = "rotate(" + angle + "deg)";
+                    var svgContainer = document.getElementById("svgContainer");                
                 svgContainer.style.webkitTransform = giro;
                 svgContainer.style.msTransform = giro;
                 svgContainer.style.transform = giro;
+
+                }
 
             }
 
@@ -704,6 +727,9 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                 document.getElementById("listaLadosCorto").style.display = "none";
                 document.getElementById("rangoAngleCorto").style.display = "none";
                 document.getElementById("pAngleCorto").style.display = "none";
+                document.getElementById("tipoGiroCorto").style.display = "none";                
+                document.getElementById("imgGiroCorto").style.display = "none";
+                
             }
             function mostrarOpcionesCorto() {
                 var x = document.getElementById("listaOpcionesCorto").selectedIndex;
@@ -717,13 +743,137 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                         document.getElementById("listaLadosCorto").style.display = "block";
                         break;
                     case "giro":
+                        var mix = document.getElementById("tipoGiroCorto").selectedIndex;
+                        var miy = document.getElementById("tipoGiroCorto").options;
+                        document.getElementById("tipoGiroCorto").style.display = "block";
+                        // el elemento seleccionado es miy[mix].value;
+                        if (miy[mix].value == "definido") {
+                            document.getElementById("rangoAngleCorto").style.display = "block";
+                            document.getElementById("pAngleCorto").style.display = "block";
+                        } else {
+                            document.getElementById("imgGiroCorto").style.display = "inline-block";
+                            document.getElementById("imgGiroLargo").style.display = "inline-block";
+                        }                        
+                        break;                        
+                }                
+            }
+
+            function cambiarGiroCorto() {
+                var x = document.getElementById("tipoGiroCorto").selectedIndex;
+                var y = document.getElementById("tipoGiroCorto").options;
+                var svgContainer = document.getElementById("svgContainer");
+                // el elemento seleccionado es y[x].value;
+                // según la opción seleccionada...
+                switch (y[x].value) {
+                    case "definido":
+                        document.getElementById("rangoAngleLargo").style.display = "block";
+                        document.getElementById("pAngleLargo").style.display = "block";
                         document.getElementById("rangoAngleCorto").style.display = "block";
                         document.getElementById("pAngleCorto").style.display = "block";
+                        document.getElementById("imgGiroCorto").style.display = "none";
+                        document.getElementById("imgGiroLargo").style.display = "none";
+                        calculaÁngulo();
+                        //ajusta el ángulo
+                        calculaÁngulo();
+                        // sincroniza controles de ángulo
+                        document.getElementById("rangoAngleCorto").value = angle;
+                        document.getElementById("rangoAngleLargo").value = angle;
+                        // actualiza etiquetas de grados
+                        document.getElementById("pAngleLargo").innerHTML = angle + " grados";
+                        document.getElementById("pAngleCorto").innerHTML = angle + " grados";
+                        //elimina clases de giro, lo siento por los ie viejos, pero igual no soportan transform...
+                        svgContainer.classList.remove("giroderecha");
+                        svgContainer.classList.remove("giroizquierda");
+                        dibujar();
                         break;
-                        
+                    case "animadoDerecha":
+                        document.getElementById("rangoAngleLargo").style.display = "none";
+                        document.getElementById("pAngleLargo").style.display = "none";
+                        document.getElementById("rangoAngleCorto").style.display = "none";
+                        document.getElementById("pAngleCorto").style.display = "none";
+                        document.getElementById("imgGiroCorto").style.display = "inline-block";
+                        document.getElementById("imgGiroLargo").style.display = "inline-block";
+                        document.getElementById("imgGiroLargo").src = "Derecha.svg";
+                        document.getElementById("imgGiroCorto").src = "Derecha.svg";
+                        svgContainer.classList.remove("giroizquierda");
+                        svgContainer.classList.add("giroderecha");
+                        break;
+                    case "animadoIzquierda":
+                        document.getElementById("rangoAngleLargo").style.display = "none";
+                        document.getElementById("pAngleLargo").style.display = "none";
+                        document.getElementById("rangoAngleCorto").style.display = "none";
+                        document.getElementById("pAngleCorto").style.display = "none";
+                        document.getElementById("imgGiroCorto").style.display = "inline-block";
+                        document.getElementById("imgGiroLargo").style.display = "inline-block";
+                        document.getElementById("imgGiroLargo").src = "Izquierda.svg";
+                        document.getElementById("imgGiroCorto").src = "Izquierda.svg";
+                        svgContainer.classList.remove("giroderecha");
+                        svgContainer.classList.add("giroizquierda");
+                        break;
                 }
-                
+                //sincroniza el otro control de tipo giro
+                document.getElementById("tipoGiroLargo").selectedIndex = x;
+                mostrarOpcionesCorto();
             }
+            function cambiarGiroLargo() {
+                var x = document.getElementById("tipoGiroLargo").selectedIndex;
+                var y = document.getElementById("tipoGiroLargo").options;
+                var svgContainer = document.getElementById("svgContainer"); 
+                // el elemento seleccionado es y[x].value;
+                // según la opción seleccionada...
+                ocultaOpcionesCorto();
+                switch (y[x].value) {
+                    case "definido":
+                        document.getElementById("rangoAngleLargo").style.display = "block";
+                        document.getElementById("pAngleLargo").style.display = "block";
+                        document.getElementById("rangoAngleCorto").style.display = "block";
+                        document.getElementById("pAngleCorto").style.display = "block";
+                        document.getElementById("imgGiroCorto").style.display = "none";
+                        document.getElementById("imgGiroLargo").style.display = "none";
+                        calculaÁngulo();
+                        //ajusta el ángulo
+                        calculaÁngulo();
+                        // sincroniza controles de ángulo
+                        document.getElementById("rangoAngleCorto").value = angle;
+                        document.getElementById("rangoAngleLargo").value = angle;
+                        // actualiza etiquetas de grados
+                        document.getElementById("pAngleLargo").innerHTML = angle + " grados";
+                        document.getElementById("pAngleCorto").innerHTML = angle + " grados";
+                        //elimina clases de giro, lo siento por los ie viejos, pero igual no soportan transform...
+                        svgContainer.classList.remove("giroderecha");                        
+                        svgContainer.classList.remove("giroizquierda");
+                        dibujar();
+                        break;
+                    case "animadoDerecha":
+                        document.getElementById("rangoAngleLargo").style.display = "none";
+                        document.getElementById("pAngleLargo").style.display = "none";
+                        document.getElementById("rangoAngleCorto").style.display = "none";
+                        document.getElementById("pAngleCorto").style.display = "none";
+                        document.getElementById("imgGiroCorto").style.display = "inline-block";
+                        document.getElementById("imgGiroLargo").style.display = "inline-block";
+                        document.getElementById("imgGiroLargo").src = "Derecha.svg";
+                        document.getElementById("imgGiroCorto").src = "Derecha.svg";
+                        svgContainer.classList.remove("giroizquierda");
+                        svgContainer.classList.add("giroderecha");
+                        break;
+                    case "animadoIzquierda":
+                        document.getElementById("rangoAngleLargo").style.display = "none";
+                        document.getElementById("pAngleLargo").style.display = "none";
+                        document.getElementById("rangoAngleCorto").style.display = "none";
+                        document.getElementById("pAngleCorto").style.display = "none";
+                        document.getElementById("imgGiroCorto").style.display = "inline-block";
+                        document.getElementById("imgGiroLargo").style.display = "inline-block";
+                        document.getElementById("imgGiroLargo").src = "Izquierda.svg";
+                        document.getElementById("imgGiroCorto").src = "Izquierda.svg";
+                        svgContainer.classList.remove("giroderecha");
+                        svgContainer.classList.add("giroizquierda");
+                        break;
+                }
+                //sincroniza el otro control de tipo giro
+                document.getElementById("tipoGiroCorto").selectedIndex = x;
+                mostrarOpcionesCorto();
+            }
+            
             function ladosCorto() {
                 var x = document.getElementById("listaLadosCorto").selectedIndex;
                 var y = document.getElementById("listaLadosCorto").options;
