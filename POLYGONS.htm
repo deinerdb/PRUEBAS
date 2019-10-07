@@ -304,6 +304,10 @@
                 max-width: 100%;
             }
 
+                #listaLadosCorto, #listaLadosLargo {
+                    font-family: Consolas, Courier New, Courier, monospace;
+                }
+                
                 #listaOpcionesCorto:focus, #listaLadosCorto:focus, #listaLadosLargo:focus, #tipoGiroLargo:focus, #tipoGiroCorto:focus {
                     background-color: lavender !important;
                 }
@@ -536,7 +540,8 @@
                             Esta página utiliza SVG (sigla en inglés de Scalable Vector Graphics [Gráficos Vectoriales Escalables]) para dibujar polígonos regulares.
                             Un polígono regular es un polígono en el que todos los lados tienen la misma longitud y todos los ángulos interiores tienen el mismo valor. 
                             Todos los polígonos regulares se pueden inscribir perfectamente en una circunferencia.
-                            Se pueden personalizar algunos elementos del dibujo (color de fondo, borde, relleno, etc).
+                            Se pueden personalizar algunos elementos del dibujo (relleno, borde, giro, etc). 
+                            Esta página utiliza transformaciones, giros y gradientes (degradados), los cuales no son soportados por navegadores antiguos.
                             <br />
                             <br />
                             <strong style="clear:left">Fragmento de código usado en esta página:</strong><br />
@@ -559,19 +564,34 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                         <fieldset>
                             <legend>Número de lados: </legend>
                             <select id="listaLadosLargo" onchange="ladosLargo()">
-                                <option value="3lados" selected>3 - Triángulo equilátero</option>
-                                <option value="4lados">4 - Cuadrado</option>
-                                <option value="5lados">5 - Pentágono</option>
+                                <option value="3lados" selected>3 -- Triángulo equilátero</option>
+                                <option value="4lados">4 -- Cuadrado</option>
+                                <option value="5lados">5 -- Pentágono</option>
+                                <option value="6lados">6 -- Hexágono</option>
+                                <option value="7lados">7 -- Heptágono</option>
+                                <option value="8lados">8 -- Octágono</option>
+                                <option value="9lados">9 -- Eneágono</option>
+                                <option value="10lados">10 - Decágono</option>
+                                <option value="11lados">11 - Endecágono</option>
+                                <option value="12lados">12 - Dodecágono</option>
+                                <option value="13lados">13 - Tridecágono</option>
+                                <option value="14lados">14 - Tetradecágono</option>
+                                <option value="15lados">15 - Pentadecágono</option>
+                                <option value="16lados">16 - Hexadecágono</option>
+                                <option value="17lados">17 - Heptadecágono</option>
+                                <option value="18lados">18 - Octadecágono</option>
+                                <option value="19lados">19 - Eneadecágono</option>
+                                <option value="20lados">20 - Isodecágono</option>
                             </select>
                         </fieldset> 
                         <fieldset>
                             <legend>Giro: </legend>
                             <select id="tipoGiroLargo" onchange="cambiarGiroLargo()">
                                 <option value="definido" selected>Ángulo definido</option>
-                                <option value="animadoDerecha">Animado a la derecha</option>
                                 <option value="animadoIzquierda">Animado a la izquierda</option>
+                                <option value="animadoDerecha">Animado a la derecha</option>                                
                             </select>
-                            <input id="rangoAngleLargo" type="range" min="-360" max="0" value="-90" />
+                            <input id="rangoAngleLargo" type="range" min="-360" max="360" value="-90" step="0.25" />
                             <p id="pAngleLargo">-90 grados</p>
                             <img class="imgGiro" id="imgGiroLargo" title="Sentido del giro" alt="Sentido del giro" src="Izquierda.svg" width="60" height="60" />
                         </fieldset> 
@@ -588,16 +608,31 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                             <option value="giro">Giro</option>
                         </select>
                         <select id="listaLadosCorto" onchange="ladosCorto()">
-                            <option value="3lados" selected>3 - Triángulo equilátero</option>
-                            <option value="4lados">4 - Cuadrado</option>
-                            <option value="5lados">5 - Pentágono</option>
+                            <option value="3lados" selected>3 -- Triángulo equilátero</option>
+                            <option value="4lados">4 -- Cuadrado</option>
+                            <option value="5lados">5 -- Pentágono</option>
+                            <option value="6lados">6 -- Hexágono</option>
+                            <option value="7lados">7 -- Heptágono</option>
+                            <option value="8lados">8 -- Octágono</option>
+                            <option value="9lados">9 -- Eneágono</option>
+                            <option value="10lados">10 - Decágono</option>
+                            <option value="11lados">11 - Endecágono</option>
+                            <option value="12lados">12 - Dodecágono</option>
+                            <option value="13lados">13 - Tridecágono</option>
+                            <option value="14lados">14 - Tetradecágono</option>
+                            <option value="15lados">15 - Pentadecágono</option>
+                            <option value="16lados">16 - Hexadecágono</option>
+                            <option value="17lados">17 - Heptadecágono</option>
+                            <option value="18lados">18 - Octadecágono</option>
+                            <option value="19lados">19 - Eneadecágono</option>
+                            <option value="20lados">20 - Isodecágono</option>
                         </select>
                         <select id="tipoGiroCorto" onchange="cambiarGiroCorto()">
-                            <option value="definido" selected>Ángulo definido</option>
-                            <option value="animadoDerecha">Animado a la derecha</option>
+                            <option value="definido" selected>Ángulo definido</option>                            
                             <option value="animadoIzquierda">Animado a la izquierda</option>
+                            <option value="animadoDerecha">Animado a la derecha</option>
                         </select>
-                        <input id="rangoAngleCorto" type="range" min="-360" max="0" value="-90" />
+                        <input id="rangoAngleCorto" type="range" min="-360" max="360" value="-90" step="0.25" />
                         <p id="pAngleCorto">-90 grados</p>
                         <img class="imgGiro" id="imgGiroCorto" title="Sentido del giro" alt="Sentido del giro" src="Izquierda.svg" width="60" height="60" />
 
@@ -712,10 +747,29 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                 switch (lados) {                    
                     case 3:
                     case 5:
+                    case 7:
+                    case 9:
+                    case 11:
+                    case 13:
+                    case 15:
+                    case 17:
+                    case 19:
                         angle = -90;
                         break;
                     case 4:
                         angle = -45;                        
+                        break;
+                    case 8:                    
+                        angle = -22.5;
+                        break;
+                    case 12:
+                        angle = -15;
+                        break;
+                    case 16:
+                        angle = -11.25;
+                        break;
+                    case 20:
+                        angle = -9;
                         break;
                     default:
                         angle = 0;
@@ -924,6 +978,51 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                     case "5lados":
                         lados = 5;
                         break;
+                    case "6lados":
+                        lados = 6;
+                        break;
+                    case "7lados":
+                        lados = 7;
+                        break;
+                    case "8lados":
+                        lados = 8;
+                        break;
+                    case "9lados":
+                        lados = 9;
+                        break;
+                    case "10lados":
+                        lados = 10;
+                        break;
+                    case "11lados":
+                        lados = 11;
+                        break;
+                    case "12lados":
+                        lados = 12;
+                        break;
+                    case "13lados":
+                        lados = 13;
+                        break;
+                    case "14lados":
+                        lados = 14;
+                        break;
+                    case "15lados":
+                        lados = 15;
+                        break;
+                    case "16lados":
+                        lados = 16;
+                        break;
+                    case "17lados":
+                        lados = 17;
+                        break;
+                    case "18lados":
+                        lados = 18;
+                        break;
+                    case "19lados":
+                        lados = 19;
+                        break;
+                    case "20lados":
+                        lados = 20;
+                        break;                    
                 }
             }
             // ángulo cambia dinámicamente con ambos slider
