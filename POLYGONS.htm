@@ -304,9 +304,9 @@
                 max-width: 100%;
             }
 
-                #listaLadosCorto, #listaLadosLargo {
-                    font-family: Consolas, Courier New, Courier, monospace;
-                }
+            #listaLadosCorto, #listaLadosLargo {
+                font-family: 'Courier New', Consolas, Courier, monospace;
+            }
                 
                 #listaOpcionesCorto:focus, #listaLadosCorto:focus, #listaLadosLargo:focus, #tipoGiroLargo:focus, #tipoGiroCorto:focus {
                     background-color: lavender !important;
@@ -336,18 +336,19 @@
             }
             legend {
                 font-weight: bold;
+                text-align:left;
             }
-            #pAngleLargo, #pAngleCorto {
-                font-size: 1.05em;                
+            #pAngleLargo, #pAngleCorto, #pAnchoLargo, #pAnchoCorto {
+                font-size: 1.05em;
                 padding: 4px 8px;
-                margin: 6px 0px 4px 0px;                
+                margin: 6px 0px 4px 0px;
                 max-width: 98%;
-                text-align: center;                               
+                text-align: center;
             }
             /* para los rangos */
-                 #rangoAngleLargo, #rangoAngleCorto {
-                     border:none;
-                 }
+            #rangoAngleLargo, #rangoAngleCorto, #anchoBordeLargo, #anchoBordeCorto {
+                border: none;
+            }
 
             /* INICIO CSS PARA INPUT RANGE PERSONALIZADO*/
             input[type=range] {
@@ -595,7 +596,11 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                             <p id="pAngleLargo">-90 grados</p>
                             <img class="imgGiro" id="imgGiroLargo" title="Sentido del giro" alt="Sentido del giro" src="Izquierda.svg" width="60" height="60" />
                         </fieldset> 
-                       
+                        <fieldset>
+                            <legend>Ancho del borde: </legend>                            
+                            <input id="anchoBordeLargo" type="range" min="0" max="12" value="3" step="0.1" />
+                            <p id="pAnchoLargo">3</p>                            
+                        </fieldset>
                     </div>
                     <div id="contenedorPolígono">
                         <svg id="svgContainer" class="" height="100" width="100">
@@ -606,6 +611,7 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                         <select id="listaOpcionesCorto" onchange="mostrarOpcionesCorto()">
                             <option value="lados" selected>Número de lados</option>
                             <option value="giro">Giro</option>
+                            <option value="anchoBorde">Ancho del borde</option>
                         </select>
                         <select id="listaLadosCorto" onchange="ladosCorto()">
                             <option value="3lados" selected>3 - - Triángulo equilátero</option>
@@ -627,6 +633,7 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                             <option value="19lados">19 -- Eneadecágono</option>
                             <option value="20lados">20 -- Isodecágono</option>
                         </select>
+
                         <select id="tipoGiroCorto" onchange="cambiarGiroCorto()">
                             <option value="definido" selected>Ángulo definido</option>                            
                             <option value="animadoIzquierda">Animado a la izquierda</option>
@@ -635,7 +642,9 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                         <input id="rangoAngleCorto" type="range" min="-360" max="360" value="-90" step="0.25" />
                         <p id="pAngleCorto">-90 grados</p>
                         <img class="imgGiro" id="imgGiroCorto" title="Sentido del giro" alt="Sentido del giro" src="Izquierda.svg" width="60" height="60" />
-
+                        
+                        <input id="anchoBordeCorto" type="range" min="0" max="12" value="3" step="0.1" />
+                        <p id="pAnchoCorto">3</p>  
 
                         <p id="helpCorto">
                             <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
@@ -665,10 +674,13 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
             var lados = 3;
             // el giro inicial es el del triángulo
             var angle = -90;
+            // ancho inicial del borde
+            var anchoBorde = 3;
             // visibilidad opciones corto
             ocultaOpcionesCorto();
             // la opción por defecto es número de lados
             document.getElementById("listaLadosCorto").style.display = "block";
+            // otros valores por defecto están en el onload de rutinas
 
             // interfaz dinámica
             function alturaOpciones() {
@@ -728,8 +740,11 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                 }
                 // busca el elemento #poligono
                 var poligono = document.getElementById("poligono");
+                // modifica el valor de stroke-width                
+                poligono.style.strokeWidth = anchoBorde;
                 // modifica el valor del atributo points utilizando la función points.
                 poligono.setAttribute("points", points(cx, cy, r, lados));
+                
                 // determina el giro, solo cuando es necesario  
                 if (document.getElementById("tipoGiroLargo").selectedIndex == 0) {
                     var giro = "rotate(" + angle + "deg)";
@@ -783,6 +798,8 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                 document.getElementById("pAngleCorto").style.display = "none";
                 document.getElementById("tipoGiroCorto").style.display = "none";                
                 document.getElementById("imgGiroCorto").style.display = "none";
+                document.getElementById("anchoBordeCorto").style.display = "none";
+                document.getElementById("pAnchoCorto").style.display = "none";
                 
             }
             function mostrarOpcionesCorto() {
@@ -808,7 +825,11 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                             document.getElementById("imgGiroCorto").style.display = "inline-block";
                             document.getElementById("imgGiroLargo").style.display = "inline-block";
                         }                        
-                        break;                        
+                        break;  
+                    case "anchoBorde":
+                        document.getElementById("anchoBordeCorto").style.display = "block";
+                        document.getElementById("pAnchoCorto").style.display = "block";
+                        break;
                 }                
             }
 
@@ -1019,6 +1040,57 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                         break;                    
                 }
             }
+            
+            // ancho de borde cambia dinámicamente con ambos slider
+            //input y change, redundantes por un bug en IE
+
+            document.getElementById("anchoBordeLargo").oninput = function () {
+                // cambia el ángulo
+                anchoBorde = this.value;
+                // sincroniza el otro control
+                document.getElementById("anchoBordeCorto").value = this.value;
+                // actualiza etiquetas de grados
+                document.getElementById("pAnchoLargo").innerHTML = this.value;
+                document.getElementById("pAnchoCorto").innerHTML = this.value;
+                // actualiza el polígono
+                dibujar();
+            }
+
+            document.getElementById("anchoBordeLargo").onchange = function () {
+                // cambia el ángulo
+                anchoBorde = this.value;
+                // sincroniza el otro control
+                document.getElementById("anchoBordeCorto").value = this.value;
+                // actualiza etiquetas de grados
+                document.getElementById("pAnchoLargo").innerHTML = this.value;
+                document.getElementById("pAnchoCorto").innerHTML = this.value;
+                // actualiza el polígono
+                dibujar();
+            }
+            document.getElementById("anchoBordeCorto").oninput = function () {
+                // cambia el ángulo
+                anchoBorde = this.value;
+                // sincroniza el otro control
+                document.getElementById("anchoBordeLargo").value = this.value;
+                // actualiza etiquetas de grados
+                document.getElementById("pAnchoLargo").innerHTML = this.value;
+                document.getElementById("pAnchoCorto").innerHTML = this.value;
+                // actualiza el polígono
+                dibujar();
+            }
+
+            document.getElementById("anchoBordeCorto").onchange = function () {
+                // cambia el ángulo
+                anchoBorde = this.value;
+                // sincroniza el otro control
+                document.getElementById("anchoBordeLargo").value = this.value;
+                // actualiza etiquetas de grados
+                document.getElementById("pAnchoLargo").innerHTML = this.value;
+                document.getElementById("pAnchoCorto").innerHTML = this.value;
+                // actualiza el polígono
+                dibujar();
+            }
+
             // ángulo cambia dinámicamente con ambos slider
             //input y change, redundantes por un bug en IE
 

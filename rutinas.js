@@ -243,6 +243,25 @@ window.onload = function () {
     // POLYGONS (INTERFAZ)
     if (typeof alturaOpciones == 'function') {
         alturaOpciones();
+        //forza el valor por defecto de los rangos de ángulos
+        document.getElementById("rangoAngleLargo").value = -90;
+        document.getElementById("pAngleLargo").innerHTML = "-90 grados";
+        document.getElementById("rangoAngleCorto").value = -90;
+        document.getElementById("pAngleCorto").innerHTML = "-90 grados";
+        //forza el valor por defecto de los rangos de ancho de borde
+        document.getElementById("anchoBordeLargo").value = 3;
+        document.getElementById("pAnchoLargo").innerHTML = "3";
+        document.getElementById("anchoBordeCorto").value = 3;
+        document.getElementById("pAnchoCorto").innerHTML = "3";
+        // las listas seleccionables
+        document.getElementById("listaOpcionesCorto").value = "lados";
+        document.getElementById("listaLadosLargo").value = "3lados";
+        document.getElementById("listaLadosCorto").value = "3lados";
+        document.getElementById("tipoGiroLargo").value = "definido";
+        document.getElementById("tipoGiroCorto").value = "definido";
+        
+        
+
     } 
 };
 
