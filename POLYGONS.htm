@@ -598,7 +598,7 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                        
                     </div>
                     <div id="contenedorPolígono">
-                        <svg id="svgContainer" height="100" width="100">
+                        <svg id="svgContainer" class="" height="100" width="100">
                             <polygon id="poligono"  transform="" points="" style="fill:blue; stroke:red; stroke-width:3;"></polygon>
                         </svg>
                     </div>                    
@@ -835,9 +835,8 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                         // actualiza etiquetas de grados
                         document.getElementById("pAngleLargo").innerHTML = angle + " grados";
                         document.getElementById("pAngleCorto").innerHTML = angle + " grados";
-                        //elimina clases de giro, lo siento por los ie viejos, pero igual no soportan transform...
-                        svgContainer.classList.remove("giroderecha");
-                        svgContainer.classList.remove("giroizquierda");
+                        //elimina clases de giro, lo siento por los ie viejos, pero igual no soportan transform...                        
+                        svgContainer.setAttribute("class", "");    // así, por ser un svg                    
                         dibujar();
                         break;
                     case "animadoDerecha":
@@ -849,8 +848,7 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                         document.getElementById("imgGiroLargo").style.display = "inline-block";
                         document.getElementById("imgGiroLargo").src = "Derecha.svg";
                         document.getElementById("imgGiroCorto").src = "Derecha.svg";
-                        svgContainer.classList.remove("giroizquierda");
-                        svgContainer.classList.add("giroderecha");
+                        svgContainer.setAttribute("class", "giroderecha");    // así, por ser un svg  
                         break;
                     case "animadoIzquierda":
                         document.getElementById("rangoAngleLargo").style.display = "none";
@@ -861,8 +859,7 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                         document.getElementById("imgGiroLargo").style.display = "inline-block";
                         document.getElementById("imgGiroLargo").src = "Izquierda.svg";
                         document.getElementById("imgGiroCorto").src = "Izquierda.svg";
-                        svgContainer.classList.remove("giroderecha");
-                        svgContainer.classList.add("giroizquierda");
+                        svgContainer.setAttribute("class", "giroizquierda");    // así, por ser un svg                         
                         break;
                 }
                 //sincroniza el otro control de tipo giro
@@ -894,8 +891,7 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                         document.getElementById("pAngleLargo").innerHTML = angle + " grados";
                         document.getElementById("pAngleCorto").innerHTML = angle + " grados";
                         //elimina clases de giro, lo siento por los ie viejos, pero igual no soportan transform...
-                        svgContainer.classList.remove("giroderecha");                        
-                        svgContainer.classList.remove("giroizquierda");
+                        svgContainer.setAttribute("class", "");    // así, por ser un svg 
                         dibujar();
                         break;
                     case "animadoDerecha":
@@ -907,8 +903,7 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                         document.getElementById("imgGiroLargo").style.display = "inline-block";
                         document.getElementById("imgGiroLargo").src = "Derecha.svg";
                         document.getElementById("imgGiroCorto").src = "Derecha.svg";
-                        svgContainer.classList.remove("giroizquierda");
-                        svgContainer.classList.add("giroderecha");
+                        svgContainer.setAttribute("class", "giroderecha");    // así, por ser un svg 
                         break;
                     case "animadoIzquierda":
                         document.getElementById("rangoAngleLargo").style.display = "none";
@@ -919,8 +914,7 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                         document.getElementById("imgGiroLargo").style.display = "inline-block";
                         document.getElementById("imgGiroLargo").src = "Izquierda.svg";
                         document.getElementById("imgGiroCorto").src = "Izquierda.svg";
-                        svgContainer.classList.remove("giroderecha");
-                        svgContainer.classList.add("giroizquierda");
+                        svgContainer.setAttribute("class", "giroizquierda");    // así, por ser un svg                        
                         break;
                 }
                 //sincroniza el otro control de tipo giro
