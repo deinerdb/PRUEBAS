@@ -259,8 +259,8 @@ window.onload = function () {
         document.getElementById("listaLadosCorto").value = "3lados";
         document.getElementById("tipoGiroLargo").value = "definido";
         document.getElementById("tipoGiroCorto").value = "definido";
-        
-        
+        document.getElementById("ListaPunteadoCorto").value = "ninguno";
+        document.getElementById("ListaPunteadoLargo").value = "ninguno";        
 
     } 
 };

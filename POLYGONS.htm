@@ -270,8 +270,12 @@
                     width: 100%;
                     max-width: 100%;
                     position: static;
-                    display: block;
+                    display: block; 
+                    text-align:center;
+                    padding-left: 12px;
+                    padding-right:12px;
                 }
+                
             }
             /*ajustes al imprimir*/
             @media print {
@@ -286,7 +290,7 @@
                 text-align:center;
             }
 
-            #listaOpcionesCorto, #listaLadosCorto, #listaLadosLargo, #tipoGiroLargo, #tipoGiroCorto {
+            #listaOpcionesCorto, #listaLadosCorto, #listaLadosLargo, #tipoGiroLargo, #tipoGiroCorto, #ListaPunteadoLargo, #ListaPunteadoCorto {
                 margin: 8px 3px;
                 /*para que el ancho sea real*/
                 -moz-box-sizing: border-box;
@@ -308,7 +312,8 @@
                 font-family: 'Courier New', Consolas, Courier, monospace;
             }
                 
-                #listaOpcionesCorto:focus, #listaLadosCorto:focus, #listaLadosLargo:focus, #tipoGiroLargo:focus, #tipoGiroCorto:focus {
+                #listaOpcionesCorto:focus, #listaLadosCorto:focus, #listaLadosLargo:focus, #tipoGiroLargo:focus, 
+                #tipoGiroCorto:focus, #ListaPunteadoCorto:focus, #ListaPunteadoLargo:focus {
                     background-color: lavender !important;
                 }
                 #listaOpcionesCorto, #tipoGiroCorto {
@@ -565,24 +570,24 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                         <fieldset>
                             <legend>Número de lados: </legend>
                             <select id="listaLadosLargo" onchange="ladosLargo()">
-                                <option value="3lados" selected>3 - - Triángulo equilátero</option>
-                                <option value="4lados">4 - - Cuadrado</option>
-                                <option value="5lados">5 - - Pentágono</option>
-                                <option value="6lados">6 - - Hexágono</option>
-                                <option value="7lados">7 - - Heptágono</option>
-                                <option value="8lados">8 - - Octágono</option>
-                                <option value="9lados">9 - - Eneágono</option>
-                                <option value="10lados">10 -- Decágono</option>
-                                <option value="11lados">11 -- Endecágono</option>
-                                <option value="12lados">12 -- Dodecágono</option>
-                                <option value="13lados">13 -- Tridecágono</option>
-                                <option value="14lados">14 -- Tetradecágono</option>
-                                <option value="15lados">15 -- Pentadecágono</option>
-                                <option value="16lados">16 -- Hexadecágono</option>
-                                <option value="17lados">17 -- Heptadecágono</option>
-                                <option value="18lados">18 -- Octadecágono</option>
-                                <option value="19lados">19 -- Eneadecágono</option>
-                                <option value="20lados">20 -- Isodecágono</option>
+                                <option value="3lados" selected>3 -Triángulo equilátero</option>
+                                <option value="4lados">4 -Cuadrado</option>
+                                <option value="5lados">5 -Pentágono</option>
+                                <option value="6lados">6 -Hexágono</option>
+                                <option value="7lados">7 -Heptágono</option>
+                                <option value="8lados">8 -Octágono</option>
+                                <option value="9lados">9 -Eneágono</option>
+                                <option value="10lados">10-Decágono</option>
+                                <option value="11lados">11-Endecágono</option>
+                                <option value="12lados">12-Dodecágono</option>
+                                <option value="13lados">13-Tridecágono</option>
+                                <option value="14lados">14-Tetradecágono</option>
+                                <option value="15lados">15-Pentadecágono</option>
+                                <option value="16lados">16-Hexadecágono</option>
+                                <option value="17lados">17-Heptadecágono</option>
+                                <option value="18lados">18-Octadecágono</option>
+                                <option value="19lados">19-Eneadecágono</option>
+                                <option value="20lados">20-Isodecágono</option>
                             </select>
                         </fieldset> 
                         <fieldset>
@@ -601,10 +606,19 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                             <input id="anchoBordeLargo" type="range" min="0" max="12" value="3" step="0.1" />
                             <p id="pAnchoLargo">3</p>                            
                         </fieldset>
+                        <fieldset>
+                            <legend>Punteado del borde: </legend>
+                            <select id="ListaPunteadoLargo" onchange="cambiarPunteadoLargo()">
+                                <option value="ninguno" selected>Ninguno</option>
+                                <option value="estilo1">Estilo 1</option>
+                                <option value="estilo2">Estilo 2</option>
+                                <option value="estilo3">Estilo 3</option>
+                            </select>
+                        </fieldset> 
                     </div>
                     <div id="contenedorPolígono">
                         <svg id="svgContainer" class="" height="100" width="100">
-                            <polygon id="poligono"  transform="" points="" style="fill:blue; stroke:red; stroke-width:3;"></polygon>
+                            <polygon id="poligono"  transform="" points="" style="fill:blue; stroke:red; stroke-width:3;" stroke-dasharray="" stroke-linecap="butt" stroke-linejoin="miter"></polygon>
                         </svg>
                     </div>                    
                     <div id="opcionesCorto">                        
@@ -612,26 +626,27 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                             <option value="lados" selected>Número de lados</option>
                             <option value="giro">Giro</option>
                             <option value="anchoBorde">Ancho del borde</option>
+                            <option value="punteado">Punteado del borde</option>
                         </select>
                         <select id="listaLadosCorto" onchange="ladosCorto()">
-                            <option value="3lados" selected>3 - - Triángulo equilátero</option>
-                            <option value="4lados">4 - - Cuadrado</option>
-                            <option value="5lados">5 - - Pentágono</option>
-                            <option value="6lados">6 - - Hexágono</option>
-                            <option value="7lados">7 - - Heptágono</option>
-                            <option value="8lados">8 - - Octágono</option>
-                            <option value="9lados">9 - - Eneágono</option>
-                            <option value="10lados">10 -- Decágono</option>
-                            <option value="11lados">11 -- Endecágono</option>
-                            <option value="12lados">12 -- Dodecágono</option>
-                            <option value="13lados">13 -- Tridecágono</option>
-                            <option value="14lados">14 -- Tetradecágono</option>
-                            <option value="15lados">15 -- Pentadecágono</option>
-                            <option value="16lados">16 -- Hexadecágono</option>
-                            <option value="17lados">17 -- Heptadecágono</option>
-                            <option value="18lados">18 -- Octadecágono</option>
-                            <option value="19lados">19 -- Eneadecágono</option>
-                            <option value="20lados">20 -- Isodecágono</option>
+                            <option value="3lados" selected>3 -Triángulo equilátero</option>
+                            <option value="4lados">4 -Cuadrado</option>
+                            <option value="5lados">5 -Pentágono</option>
+                            <option value="6lados">6 -Hexágono</option>
+                            <option value="7lados">7 -Heptágono</option>
+                            <option value="8lados">8 -Octágono</option>
+                            <option value="9lados">9 -Eneágono</option>
+                            <option value="10lados">10-Decágono</option>
+                            <option value="11lados">11-Endecágono</option>
+                            <option value="12lados">12-Dodecágono</option>
+                            <option value="13lados">13-Tridecágono</option>
+                            <option value="14lados">14-Tetradecágono</option>
+                            <option value="15lados">15-Pentadecágono</option>
+                            <option value="16lados">16-Hexadecágono</option>
+                            <option value="17lados">17-Heptadecágono</option>
+                            <option value="18lados">18-Octadecágono</option>
+                            <option value="19lados">19-Eneadecágono</option>
+                            <option value="20lados">20-Isodecágono</option>
                         </select>
 
                         <select id="tipoGiroCorto" onchange="cambiarGiroCorto()">
@@ -645,6 +660,13 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                         
                         <input id="anchoBordeCorto" type="range" min="0" max="12" value="3" step="0.1" />
                         <p id="pAnchoCorto">3</p>  
+
+                        <select id="ListaPunteadoCorto" onchange="cambiarPunteadoCorto()">
+                            <option value="ninguno" selected>Ninguno</option>
+                            <option value="estilo1">Estilo 1</option>
+                            <option value="estilo2">Estilo 2</option>
+                            <option value="estilo3">Estilo 3</option>
+                        </select>
 
                         <p id="helpCorto">
                             <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
@@ -676,6 +698,8 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
             var angle = -90;
             // ancho inicial del borde
             var anchoBorde = 3;
+            // tipo de punteado del borde
+            var punteado = "ninguno";
             // visibilidad opciones corto
             ocultaOpcionesCorto();
             // la opción por defecto es número de lados
@@ -742,6 +766,8 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                 var poligono = document.getElementById("poligono");
                 // modifica el valor de stroke-width                
                 poligono.style.strokeWidth = anchoBorde;
+                // modifica el punteado del borde
+                poligono.setAttribute("stroke-dasharray", punteado);
                 // modifica el valor del atributo points utilizando la función points.
                 poligono.setAttribute("points", points(cx, cy, r, lados));
                 
@@ -800,6 +826,7 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                 document.getElementById("imgGiroCorto").style.display = "none";
                 document.getElementById("anchoBordeCorto").style.display = "none";
                 document.getElementById("pAnchoCorto").style.display = "none";
+                document.getElementById("ListaPunteadoCorto").style.display = "none";                
                 
             }
             function mostrarOpcionesCorto() {
@@ -829,6 +856,9 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                     case "anchoBorde":
                         document.getElementById("anchoBordeCorto").style.display = "block";
                         document.getElementById("pAnchoCorto").style.display = "block";
+                        break;
+                    case "punteado":
+                        document.getElementById("ListaPunteadoCorto").style.display = "block";
                         break;
                 }                
             }
@@ -942,7 +972,44 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                 document.getElementById("tipoGiroCorto").selectedIndex = x;
                 mostrarOpcionesCorto();
             }
-            
+            function ajustaPunteado(valuePunteado) {
+                switch (valuePunteado) {
+                    case "ninguno":
+                        punteado = "";
+                        break;
+                    case "estilo1":
+                        punteado = "5,5";
+                        break;
+                    case "estilo2":
+                        punteado = "10,10";
+                        break;
+                    case "estilo3":
+                        punteado = "20,10,5,5,5,10";
+                        break;
+                }
+            }
+            function cambiarPunteadoCorto() {
+                var x = document.getElementById("ListaPunteadoCorto").selectedIndex;
+                var y = document.getElementById("ListaPunteadoCorto").options;
+                // el elemento seleccionado es y[x].value;
+                // variable punteado cambiada
+                ajustaPunteado(y[x].value);  
+                //sincroniza el otro control de punteado
+                document.getElementById("ListaPunteadoLargo").selectedIndex = x;
+                //aplica
+                dibujar();
+            }
+            function cambiarPunteadoLargo() {
+                var x = document.getElementById("ListaPunteadoLargo").selectedIndex;
+                var y = document.getElementById("ListaPunteadoLargo").options;
+                // el elemento seleccionado es y[x].value;
+                // variable punteado cambiada
+                ajustaPunteado(y[x].value);
+                //sincroniza el otro control de punteado
+                document.getElementById("ListaPunteadoCorto").selectedIndex = x;
+                //aplica
+                dibujar();
+            }
             function ladosCorto() {
                 var x = document.getElementById("listaLadosCorto").selectedIndex;
                 var y = document.getElementById("listaLadosCorto").options;
