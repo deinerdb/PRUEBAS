@@ -253,6 +253,11 @@ window.onload = function () {
         document.getElementById("pAnchoLargo").innerHTML = "3";
         document.getElementById("anchoBordeCorto").value = 3;
         document.getElementById("pAnchoCorto").innerHTML = "3";
+        //forza el valor por defecto de los rangos de opacidad de borde
+        document.getElementById("opacidadBordeLargo").value = 1;
+        document.getElementById("pOpacidadBordeLargo").innerHTML = "1";
+        document.getElementById("opacidadBordeCorto").value = 1;
+        document.getElementById("pOpacidadBordeCorto").innerHTML = "1";
         // las listas seleccionables
         document.getElementById("listaOpcionesCorto").value = "lados";
         document.getElementById("listaLadosLargo").value = "3lados";

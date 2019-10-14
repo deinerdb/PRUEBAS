@@ -33,6 +33,11 @@
                 opacity: 0.8;
                 filter: Alpha(opacity=80); /* IE8 and earlier */
             }
+            summary {
+                font-weight: bold;
+                margin-top: 20px;
+                color: purple;
+            }
             #col-container {
                 width: 100%;
                 max-width: 100%;
@@ -572,71 +577,97 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                 <div id="col-container">                   
                     <div id="opcionesCompleto">                        
                         <h3>OPCIONES</h3>
-                        <fieldset>
-                            <legend>Número de lados: </legend>
-                            <select id="listaLadosLargo" onchange="ladosLargo()">
-                                <option value="3lados" selected>3 -Triángulo equilátero</option>
-                                <option value="4lados">4 -Cuadrado</option>
-                                <option value="5lados">5 -Pentágono</option>
-                                <option value="6lados">6 -Hexágono</option>
-                                <option value="7lados">7 -Heptágono</option>
-                                <option value="8lados">8 -Octágono</option>
-                                <option value="9lados">9 -Eneágono</option>
-                                <option value="10lados">10-Decágono</option>
-                                <option value="11lados">11-Endecágono</option>
-                                <option value="12lados">12-Dodecágono</option>
-                                <option value="13lados">13-Tridecágono</option>
-                                <option value="14lados">14-Tetradecágono</option>
-                                <option value="15lados">15-Pentadecágono</option>
-                                <option value="16lados">16-Hexadecágono</option>
-                                <option value="17lados">17-Heptadecágono</option>
-                                <option value="18lados">18-Octadecágono</option>
-                                <option value="19lados">19-Eneadecágono</option>
-                                <option value="20lados">20-Isodecágono</option>
-                            </select>
-                        </fieldset> 
-                        <fieldset>
-                            <legend>Giro: </legend>
-                            <select id="tipoGiroLargo" onchange="cambiarGiroLargo()">
-                                <option value="definido" selected>Ángulo definido</option>
-                                <option value="animadoIzquierda">Animado a la izquierda</option>
-                                <option value="animadoDerecha">Animado a la derecha</option>                                
-                            </select>
-                            <input id="rangoAngleLargo" type="range" min="-360" max="360" value="-90" step="0.25" />
-                            <p id="pAngleLargo">-90 grados</p>
-                            <img class="imgGiro" id="imgGiroLargo" title="Sentido del giro" alt="Sentido del giro" src="Izquierda.svg" width="60" height="60" />
-                        </fieldset> 
-                        <fieldset>
-                            <legend>Ancho del borde: </legend>                            
-                            <input id="anchoBordeLargo" type="range" min="0" max="12" value="3" step="0.1" />
-                            <p id="pAnchoLargo">3</p>                            
-                        </fieldset>
-                        <fieldset>
-                            <legend>Punteado del borde: </legend>
-                            <select id="ListaPunteadoLargo" onchange="cambiarPunteadoLargo()">
-                                <option value="ninguno" selected>Ninguno</option>
-                                <option value="estilo1">Estilo 1</option>
-                                <option value="estilo2">Estilo 2</option>
-                                <option value="estilo3">Estilo 3</option>
-                            </select>
-                        </fieldset>
-                        <fieldset>
-                            <legend>Color del borde: </legend>
-                            <input type="color" id="colorBordeLargo" value="#ff0000" title="Tal vez deba escribir un color en inglés o hexadecimal" onchange="colorBordeLargo()" oninput="colorBordeLargo()"/><br />
-                        </fieldset>
+                        <details>
+                            <summary>GENERALES</summary><br />
+                            <fieldset>
+                                <legend>Número de lados: </legend>
+                                <select id="listaLadosLargo" onchange="ladosLargo()">
+                                    <option value="3lados" selected>3 -Triángulo equilátero</option>
+                                    <option value="4lados">4 -Cuadrado</option>
+                                    <option value="5lados">5 -Pentágono</option>
+                                    <option value="6lados">6 -Hexágono</option>
+                                    <option value="7lados">7 -Heptágono</option>
+                                    <option value="8lados">8 -Octágono</option>
+                                    <option value="9lados">9 -Eneágono</option>
+                                    <option value="10lados">10-Decágono</option>
+                                    <option value="11lados">11-Endecágono</option>
+                                    <option value="12lados">12-Dodecágono</option>
+                                    <option value="13lados">13-Tridecágono</option>
+                                    <option value="14lados">14-Tetradecágono</option>
+                                    <option value="15lados">15-Pentadecágono</option>
+                                    <option value="16lados">16-Hexadecágono</option>
+                                    <option value="17lados">17-Heptadecágono</option>
+                                    <option value="18lados">18-Octadecágono</option>
+                                    <option value="19lados">19-Eneadecágono</option>
+                                    <option value="20lados">20-Isodecágono</option>
+                                </select>
+                            </fieldset> 
+                            <fieldset>
+                                <legend>Giro: </legend>
+                                <select id="tipoGiroLargo" onchange="cambiarGiroLargo()">
+                                    <option value="definido" selected>Ángulo definido</option>
+                                    <option value="animadoIzquierda">Animado a la izquierda</option>
+                                    <option value="animadoDerecha">Animado a la derecha</option>
+                                </select>
+                                <input id="rangoAngleLargo" type="range" min="-360" max="360" value="-90" step="0.25" />
+                                <p id="pAngleLargo">-90 grados</p>
+                                <img class="imgGiro" id="imgGiroLargo" title="Sentido del giro" alt="Sentido del giro" src="Izquierda.svg" width="60" height="60" />
+                            </fieldset> 
+                        </details>
+                        <details>
+                            <summary>RELLENO</summary><br />
+
+
+                        </details>
+                        <details>
+                            <summary>BORDE</summary><br />
+                            <fieldset>
+                                <legend>Ancho del borde: </legend>
+                                <input id="anchoBordeLargo" type="range" min="0" max="14" value="3" step="0.1" />
+                                <p id="pAnchoLargo">3</p>
+                            </fieldset>
+                            <fieldset>
+                                <legend>Punteado del borde: </legend>
+                                <select id="ListaPunteadoLargo" onchange="cambiarPunteadoLargo()">
+                                    <option value="ninguno" selected>Ninguno</option>
+                                    <option value="estilo1">Estilo 1</option>
+                                    <option value="estilo2">Estilo 2</option>
+                                    <option value="estilo3">Estilo 3</option>
+                                </select>
+                            </fieldset>
+                            <fieldset>
+                                <legend>Color del borde: </legend>
+                                <input type="color" id="colorBordeLargo" value="#ff0000" title="Seleccione o escriba un color en inglés o hexadecimal" onchange="colorBordeLargo()" oninput="colorBordeLargo()" /><br />
+                            </fieldset>
+                            <fieldset>
+                                <legend>Opacidad del borde: </legend>
+                                <input id="opacidadBordeLargo" type="range" min="0" max="1" value="1" step="0.05" />
+                                <p id="pOpacidadBordeLargo">1</p>
+                            </fieldset>
+                        </details>  
                     </div>
+
                     <div id="contenedorPolígono">
                         <svg id="svgContainer" class="" height="100" width="100">
-                            <polygon id="poligono"  transform="" points="" style="fill:blue; stroke:#ff0000; stroke-width:3;" stroke-dasharray="" stroke-linecap="butt" stroke-linejoin="miter"></polygon>
+                            <polygon id="poligono"  transform="" points="" style="fill:blue; stroke:#ff0000; stroke-width:3;" stroke-opacity="1" stroke-dasharray="" stroke-linecap="butt" stroke-linejoin="miter"></polygon>
                         </svg>
-                    </div>                    
+                    </div>
+                    
                     <div id="opcionesCorto">                        
                         <select id="listaOpcionesCorto" onchange="mostrarOpcionesCorto()">
-                            <option value="lados" selected>Número de lados</option>
-                            <option value="giro">Giro</option>
-                            <option value="anchoBorde">Ancho del borde</option>
-                            <option value="punteado">Punteado del borde</option>
-                            <option value="colorBorde">Color del borde</option>
+                            <optgroup label="GENERALES">
+                                <option value="lados" selected>Número de lados</option>
+                                <option value="giro">Giro</option>
+                            </optgroup>
+                            <optgroup label="RELLENO">
+
+                            </optgroup>
+                            <optgroup label="BORDE">
+                                <option value="anchoBorde">Ancho del borde</option>
+                                <option value="punteado">Punteado del borde</option>
+                                <option value="colorBorde">Color del borde</option>
+                                <option value="opacidadBorde">Opacidad del borde</option>                                
+                            </optgroup> 
                         </select>
                         <select id="listaLadosCorto" onchange="ladosCorto()">
                             <option value="3lados" selected>3 -Triángulo equilátero</option>
@@ -668,7 +699,7 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                         <p id="pAngleCorto">-90 grados</p>
                         <img class="imgGiro" id="imgGiroCorto" title="Sentido del giro" alt="Sentido del giro" src="Izquierda.svg" width="60" height="60" />
                         
-                        <input id="anchoBordeCorto" type="range" min="0" max="12" value="3" step="0.1" />
+                        <input id="anchoBordeCorto" type="range" min="0" max="14" value="3" step="0.1" />
                         <p id="pAnchoCorto">3</p>  
 
                         <select id="ListaPunteadoCorto" onchange="cambiarPunteadoCorto()">
@@ -679,6 +710,9 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                         </select>
 
                         <input type="color" id="colorBordeCorto" title="Tal vez deba escribir un color en inglés o hexadecimal" value="#ff0000" onchange="colorBordeCorto()" oninput="colorBordeCorto()"/><br />
+                                                
+                        <input id="opacidadBordeCorto" type="range" min="0" max="1" value="1" step="0.05" />
+                        <p id="pOpacidadBordeCorto">1</p>
 
                         <p id="helpCorto">
                             <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
@@ -714,6 +748,8 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
             var punteado = "ninguno";
             // color del borde
             var colorBorde = "#ff0000";
+            // opacidad del borde
+            var opacidadBorde = "1";
             // visibilidad opciones corto
             ocultaOpcionesCorto();
             // la opción por defecto es número de lados
@@ -780,6 +816,8 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                 var poligono = document.getElementById("poligono");
                 // modifica el valor de stroke-width                
                 poligono.style.strokeWidth = anchoBorde;
+                // modifica el valor de stroke-opacity                
+                poligono.style.strokeOpacity = opacidadBorde;
                 // modifica el punteado del borde
                 poligono.setAttribute("stroke-dasharray", punteado);
                 // modifica el valor de stroke color                
@@ -859,6 +897,8 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                 document.getElementById("pAnchoCorto").style.display = "none";
                 document.getElementById("ListaPunteadoCorto").style.display = "none";                
                 document.getElementById("colorBordeCorto").style.display = "none";
+                document.getElementById("opacidadBordeCorto").style.display = "none";                
+                document.getElementById("pOpacidadBordeCorto").style.display = "none";
             }
             function mostrarOpcionesCorto() {
                 var x = document.getElementById("listaOpcionesCorto").selectedIndex;
@@ -893,6 +933,10 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                         break;
                     case "colorBorde":
                         document.getElementById("colorBordeCorto").style.display = "inline-block";
+                        break;
+                    case "opacidadBorde":
+                        document.getElementById("opacidadBordeCorto").style.display = "block";
+                        document.getElementById("pOpacidadBordeCorto").style.display = "block";
                         break;
                 }                
             }
@@ -1141,7 +1185,52 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                         break;                    
                 }
             }
-            
+            // opacidad del borde cambia dinámicamente con ambos slider
+            //input y change, redundantes por un bug en IE
+            document.getElementById("opacidadBordeCorto").oninput = function () {
+                // cambia la variable
+                opacidadBorde = this.value;
+                // sincroniza el otro control
+                document.getElementById("opacidadBordeLargo").value = this.value;
+                // actualiza etiquetas de opacidad
+                document.getElementById("pOpacidadBordeLargo").innerHTML = this.value;
+                document.getElementById("pOpacidadBordeCorto").innerHTML = this.value;
+                // actualiza el polígono
+                dibujar();
+            }
+            document.getElementById("opacidadBordeCorto").onchange = function () {
+                // cambia la variable
+                opacidadBorde = this.value;
+                // sincroniza el otro control
+                document.getElementById("opacidadBordeLargo").value = this.value;
+                // actualiza etiquetas de opacidad
+                document.getElementById("pOpacidadBordeLargo").innerHTML = this.value;
+                document.getElementById("pOpacidadBordeCorto").innerHTML = this.value;
+                // actualiza el polígono
+                dibujar();
+            }
+            document.getElementById("opacidadBordeLargo").oninput = function () {
+                // cambia la variable
+                opacidadBorde = this.value;
+                // sincroniza el otro control
+                document.getElementById("opacidadBordeCorto").value = this.value;
+                // actualiza etiquetas de opacidad
+                document.getElementById("pOpacidadBordeLargo").innerHTML = this.value;
+                document.getElementById("pOpacidadBordeCorto").innerHTML = this.value;
+                // actualiza el polígono
+                dibujar();
+            }
+            document.getElementById("opacidadBordeLargo").onchange = function () {
+                // cambia la variable
+                opacidadBorde = this.value;
+                // sincroniza el otro control
+                document.getElementById("opacidadBordeCorto").value = this.value;
+                // actualiza etiquetas de opacidad
+                document.getElementById("pOpacidadBordeLargo").innerHTML = this.value;
+                document.getElementById("pOpacidadBordeCorto").innerHTML = this.value;
+                // actualiza el polígono
+                dibujar();
+            }
             // ancho de borde cambia dinámicamente con ambos slider
             //input y change, redundantes por un bug en IE
 
