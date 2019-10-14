@@ -644,11 +644,11 @@
                             <label for="indentar">Indentar (50 px)</label><br />
                             <fieldset>
                                 <legend>Color de letra: </legend>
-                                <input type="color" name="colorletra" id="colorletra" value="#000000" onchange="colorTexto()"/><br />
+                                <input type="color" name="colorletra" title="Seleccione o escriba un color en inglés o hexadecimal" id="colorletra" value="#000000" onchange="colorTexto()" oninput="colorTexto()"/><br />
                             </fieldset>
                             <fieldset>
                                 <legend>Color de fondo: </legend>
-                                <input type="color" name="colorfondo" id="colorfondo" value="#ffffff" onchange="colorearFondo()" /><br />
+                                <input type="color" name="colorfondo" title="Seleccione o escriba un color en inglés o hexadecimal" id="colorfondo" value="#ffffff" onchange="colorearFondo()" oninput="colorearFondo()"/><br />
                             </fieldset>
                             <fieldset>
                                 <legend>Fuente (Google Fonts): </legend>
@@ -701,7 +701,7 @@
                                 <label for="consombra">Personalizada</label> <br />                                
                                 <div id="divsombra">
                                     <p class="pSombra">Color de sombra:</p>
-                                    <input type="color" name="colorsombra" id="colorsombra" value="#000000"/><br />
+                                    <input type="color" title="Seleccione o escriba un color en inglés o hexadecimal" name="colorsombra" id="colorsombra" value="#000000"/><br />
                                     <p class="pSombra">Posición horizontal:</p>
                                     <input id="rangoxsombra" type="range" min="-48" max="48" value="0" />
                                     <p class="pSombra">Posición vertical:</p>

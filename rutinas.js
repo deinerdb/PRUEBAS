@@ -261,7 +261,10 @@ window.onload = function () {
         document.getElementById("tipoGiroCorto").value = "definido";
         document.getElementById("ListaPunteadoCorto").value = "ninguno";
         document.getElementById("ListaPunteadoLargo").value = "ninguno";        
-
+        // colores
+        document.getElementById("colorBordeLargo").value = "#ff0000";
+        document.getElementById("colorBordeCorto").value = "#ff0000";
+       
     } 
 };
 
