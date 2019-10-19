@@ -38,6 +38,22 @@
                 margin-top: 20px;
                 color: purple;
             }
+            #icoCorto, #icoLargo {
+                margin-right: 6px;
+                display: inline-block;
+                color: purple;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+            }
+            #listaOpcionesCorto {
+                display: inline-block;
+                max-width:90%;
+                margin-left:0;
+            }
+            #contIco {
+                white-space: nowrap;              
+            }
             #col-container {
                 width: 100%;
                 max-width: 100%;
@@ -300,7 +316,7 @@
                 text-align:center;
             }
 
-            #listaOpcionesCorto, #listaLadosCorto, #listaLadosLargo, #tipoGiroLargo, #tipoGiroCorto, #ListaPunteadoLargo, #ListaPunteadoCorto {
+            select {            
                 margin: 8px 3px;
                 /*para que el ancho sea real*/
                 -moz-box-sizing: border-box;
@@ -317,15 +333,14 @@
                 font-size: 1.05em;
                 max-width: 100%;
             }
-
+            select:focus {
+                background-color: lavender !important;
+            }
             #listaLadosCorto, #listaLadosLargo {
                 font-family: 'Courier New', Consolas, Courier, monospace;
             }
                 
-                #listaOpcionesCorto:focus, #listaLadosCorto:focus, #listaLadosLargo:focus, #tipoGiroLargo:focus, 
-                #tipoGiroCorto:focus, #ListaPunteadoCorto:focus, #ListaPunteadoLargo:focus {
-                    background-color: lavender !important;
-                }
+               
                 #listaOpcionesCorto, #tipoGiroCorto {
                     margin-bottom: 14px;
                 }
@@ -353,16 +368,17 @@
                 font-weight: bold;
                 text-align:left;
             }
-            #pAngleLargo, #pAngleCorto, #pAnchoLargo, #pAnchoCorto {
+            .pRango {
                 font-size: 1.05em;
                 padding: 4px 8px;
                 margin: 6px 0px 4px 0px;
                 max-width: 98%;
                 text-align: center;
+                font-weight:bold;
             }
             /* para los rangos */
-            #rangoAngleLargo, #rangoAngleCorto, #anchoBordeLargo, #anchoBordeCorto {
-                border: none;
+            input[type=range] {
+                border: none;                
             }
 
             /* INICIO CSS PARA INPUT RANGE PERSONALIZADO*/
@@ -576,7 +592,7 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                 
                 <div id="col-container">                   
                     <div id="opcionesCompleto">                        
-                        <h3>OPCIONES</h3>
+                        <h3><i id="icoLargo" class="fa fa-cog" aria-hidden="true"></i>OPCIONES</h3>
                         <details>
                             <summary>GENERALES</summary><br />
                             <fieldset>
@@ -610,13 +626,17 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                                     <option value="animadoDerecha">Animado a la derecha</option>
                                 </select>
                                 <input id="rangoAngleLargo" type="range" min="-360" max="360" value="-90" step="0.25" />
-                                <p id="pAngleLargo">-90 grados</p>
+                                <p class="pRango" id="pAngleLargo">-90 grados</p>
                                 <img class="imgGiro" id="imgGiroLargo" title="Sentido del giro" alt="Sentido del giro" src="Izquierda.svg" width="60" height="60" />
                             </fieldset> 
                         </details>
                         <details>
                             <summary>RELLENO</summary><br />
-
+                            <fieldset>
+                                <legend>Opacidad del relleno: </legend>
+                                <input id="opacidadRellenoLargo" type="range" min="0" max="1" value="1" step="0.05" />
+                                <p id="pOpacidadRellenoLargo" class="pRango">1</p>
+                            </fieldset>
 
                         </details>
                         <details>
@@ -624,7 +644,7 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                             <fieldset>
                                 <legend>Ancho del borde: </legend>
                                 <input id="anchoBordeLargo" type="range" min="0" max="14" value="3" step="0.1" />
-                                <p id="pAnchoLargo">3</p>
+                                <p id="pAnchoLargo" class="pRango">3</p>
                             </fieldset>
                             <fieldset>
                                 <legend>Punteado del borde: </legend>
@@ -642,33 +662,38 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                             <fieldset>
                                 <legend>Opacidad del borde: </legend>
                                 <input id="opacidadBordeLargo" type="range" min="0" max="1" value="1" step="0.05" />
-                                <p id="pOpacidadBordeLargo">1</p>
+                                <p id="pOpacidadBordeLargo" class="pRango">1</p>
                             </fieldset>
                         </details>  
                     </div>
 
                     <div id="contenedorPolígono">
                         <svg id="svgContainer" class="" height="100" width="100">
-                            <polygon id="poligono"  transform="" points="" style="fill:blue; stroke:#ff0000; stroke-width:3;" stroke-opacity="1" stroke-dasharray="" stroke-linecap="butt" stroke-linejoin="miter"></polygon>
+                            <polygon id="poligono"  transform="" points="" style="fill:blue; fill-opacity:1; stroke:#ff0000; stroke-width:3;" stroke-opacity="1" stroke-dasharray="" stroke-linecap="butt" stroke-linejoin="miter"></polygon>
                         </svg>
                     </div>
                     
-                    <div id="opcionesCorto">                        
-                        <select id="listaOpcionesCorto" onchange="mostrarOpcionesCorto()">
-                            <optgroup label="GENERALES">
-                                <option value="lados" selected>Número de lados</option>
-                                <option value="giro">Giro</option>
-                            </optgroup>
-                            <optgroup label="RELLENO">
+                    <div id="opcionesCorto">
+                        <div id="contIco">
+                            <i id="icoCorto" title="Seleccione una opción de la lista" class="fa fa-cog" aria-hidden="true"></i>
+                            <select id="listaOpcionesCorto" onchange="mostrarOpcionesCorto()">
+                                <optgroup label="GENERALES">
+                                    <option value="lados" selected>Número de lados</option>
+                                    <option value="giro">Giro</option>
+                                </optgroup>
+                                <optgroup label="RELLENO">
+                                    <option value="opacidadRelleno">Opacidad del relleno</option>
+                                </optgroup>
+                                <optgroup label="BORDE">
+                                    <option value="anchoBorde">Ancho del borde</option>
+                                    <option value="punteado">Punteado del borde</option>
+                                    <option value="colorBorde">Color del borde</option>
+                                    <option value="opacidadBorde">Opacidad del borde</option>                                
+                                </optgroup> 
+                            </select>
+                        </div>
 
-                            </optgroup>
-                            <optgroup label="BORDE">
-                                <option value="anchoBorde">Ancho del borde</option>
-                                <option value="punteado">Punteado del borde</option>
-                                <option value="colorBorde">Color del borde</option>
-                                <option value="opacidadBorde">Opacidad del borde</option>                                
-                            </optgroup> 
-                        </select>
+                        <br />
                         <select id="listaLadosCorto" onchange="ladosCorto()">
                             <option value="3lados" selected>3 -Triángulo equilátero</option>
                             <option value="4lados">4 -Cuadrado</option>
@@ -696,11 +721,11 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                             <option value="animadoDerecha">Animado a la derecha</option>
                         </select>
                         <input id="rangoAngleCorto" type="range" min="-360" max="360" value="-90" step="0.25" />
-                        <p id="pAngleCorto">-90 grados</p>
+                        <p id="pAngleCorto" class="pRango">-90 grados</p>
                         <img class="imgGiro" id="imgGiroCorto" title="Sentido del giro" alt="Sentido del giro" src="Izquierda.svg" width="60" height="60" />
                         
                         <input id="anchoBordeCorto" type="range" min="0" max="14" value="3" step="0.1" />
-                        <p id="pAnchoCorto">3</p>  
+                        <p id="pAnchoCorto" class="pRango">3</p>  
 
                         <select id="ListaPunteadoCorto" onchange="cambiarPunteadoCorto()">
                             <option value="ninguno" selected>Ninguno</option>
@@ -712,7 +737,10 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                         <input type="color" id="colorBordeCorto" title="Tal vez deba escribir un color en inglés o hexadecimal" value="#ff0000" onchange="colorBordeCorto()" oninput="colorBordeCorto()"/><br />
                                                 
                         <input id="opacidadBordeCorto" type="range" min="0" max="1" value="1" step="0.05" />
-                        <p id="pOpacidadBordeCorto">1</p>
+                        <p id="pOpacidadBordeCorto" class="pRango">1</p>
+
+                        <input id="opacidadRellenoCorto" type="range" min="0" max="1" value="1" step="0.05" />
+                        <p id="pOpacidadRellenoCorto" class="pRango">1</p>
 
                         <p id="helpCorto">
                             <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
@@ -750,6 +778,8 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
             var colorBorde = "#ff0000";
             // opacidad del borde
             var opacidadBorde = "1";
+            // opacidad del relleno
+            var opacidadRelleno = "1";
             // visibilidad opciones corto
             ocultaOpcionesCorto();
             // la opción por defecto es número de lados
@@ -822,6 +852,8 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                 poligono.setAttribute("stroke-dasharray", punteado);
                 // modifica el valor de stroke color                
                 poligono.style.stroke = colorBorde;
+                // modifica el valor de fill-opacity                
+                poligono.style.fillOpacity = opacidadRelleno;
                 // modifica el valor del atributo points utilizando la función points.
                 poligono.setAttribute("points", points(cx, cy, r, lados));
                 
@@ -899,6 +931,8 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                 document.getElementById("colorBordeCorto").style.display = "none";
                 document.getElementById("opacidadBordeCorto").style.display = "none";                
                 document.getElementById("pOpacidadBordeCorto").style.display = "none";
+                document.getElementById("opacidadRellenoCorto").style.display = "none";
+                document.getElementById("pOpacidadRellenoCorto").style.display = "none";
             }
             function mostrarOpcionesCorto() {
                 var x = document.getElementById("listaOpcionesCorto").selectedIndex;
@@ -937,6 +971,10 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                     case "opacidadBorde":
                         document.getElementById("opacidadBordeCorto").style.display = "block";
                         document.getElementById("pOpacidadBordeCorto").style.display = "block";
+                        break;
+                    case "opacidadRelleno":
+                        document.getElementById("opacidadRellenoCorto").style.display = "block";
+                        document.getElementById("pOpacidadRellenoCorto").style.display = "block";
                         break;
                 }                
             }
@@ -1184,6 +1222,52 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                         lados = 20;
                         break;                    
                 }
+            }
+            // opacidad del relleno cambia dinámicamente con ambos slider
+            //input y change, redundantes por un bug en IE
+            document.getElementById("opacidadRellenoCorto").oninput = function () {
+                // cambia la variable
+                opacidadRelleno = this.value;
+                // sincroniza el otro control
+                document.getElementById("opacidadRellenoLargo").value = this.value;
+                // actualiza etiquetas de opacidad
+                document.getElementById("pOpacidadRellenoLargo").innerHTML = this.value;
+                document.getElementById("pOpacidadRellenoCorto").innerHTML = this.value;
+                // actualiza el polígono
+                dibujar();
+            }
+            document.getElementById("opacidadRellenoCorto").onchange = function () {
+                // cambia la variable
+                opacidadRelleno = this.value;
+                // sincroniza el otro control
+                document.getElementById("opacidadRellenoLargo").value = this.value;
+                // actualiza etiquetas de opacidad
+                document.getElementById("pOpacidadRellenoLargo").innerHTML = this.value;
+                document.getElementById("pOpacidadRellenoCorto").innerHTML = this.value;
+                // actualiza el polígono
+                dibujar();
+            }
+            document.getElementById("opacidadRellenoLargo").oninput = function () {
+                // cambia la variable
+                opacidadRelleno = this.value;
+                // sincroniza el otro control
+                document.getElementById("opacidadRellenoCorto").value = this.value;
+                // actualiza etiquetas de opacidad
+                document.getElementById("pOpacidadRellenoLargo").innerHTML = this.value;
+                document.getElementById("pOpacidadRellenoCorto").innerHTML = this.value;
+                // actualiza el polígono
+                dibujar();
+            }
+            document.getElementById("opacidadRellenoLargo").onchange = function () {
+                // cambia la variable
+                opacidadRelleno = this.value;
+                // sincroniza el otro control
+                document.getElementById("opacidadRellenoCorto").value = this.value;
+                // actualiza etiquetas de opacidad
+                document.getElementById("pOpacidadRellenoLargo").innerHTML = this.value;
+                document.getElementById("pOpacidadRellenoCorto").innerHTML = this.value;
+                // actualiza el polígono
+                dibujar();
             }
             // opacidad del borde cambia dinámicamente con ambos slider
             //input y change, redundantes por un bug en IE

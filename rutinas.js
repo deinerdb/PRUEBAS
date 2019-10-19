@@ -240,7 +240,7 @@ window.onload = function () {
             document.getElementById("dato" + i).value = "";           
         }
     } 
-    // POLYGONS (INTERFAZ)
+    // POLYGONS (INTERFAZ E INICIALIZACIÓN)
     if (typeof alturaOpciones == 'function') {
         alturaOpciones();
         //forza el valor por defecto de los rangos de ángulos
@@ -258,6 +258,11 @@ window.onload = function () {
         document.getElementById("pOpacidadBordeLargo").innerHTML = "1";
         document.getElementById("opacidadBordeCorto").value = 1;
         document.getElementById("pOpacidadBordeCorto").innerHTML = "1";
+        //forza el valor por defecto de los rangos de opacidad de RELLENO
+        document.getElementById("opacidadRellenoLargo").value = 1;
+        document.getElementById("pOpacidadRellenoLargo").innerHTML = "1";
+        document.getElementById("opacidadRellenoCorto").value = 1;
+        document.getElementById("pOpacidadRellenoCorto").innerHTML = "1";
         // las listas seleccionables
         document.getElementById("listaOpcionesCorto").value = "lados";
         document.getElementById("listaLadosLargo").value = "3lados";
