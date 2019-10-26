@@ -38,6 +38,14 @@
                 margin-top: 20px;
                 color: purple;
             }
+            #contTexturasCorto, #contTexturasLargo {
+                /*por defecto oculto*/
+                display: none;
+            }
+            #spanColor1Largo, #spanColor2Largo, #color1Largo, #color2Largo {
+                /*por defecto oculto*/
+                display: none;
+            }
             #icoCorto, #icoLargo {
                 margin-right: 6px;
                 display: inline-block;
@@ -641,6 +649,9 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                                 <span id="spanColorLargo">Color:</span><input type="color" id="colorSólidoLargo" value="#0066ff" title="Seleccione o escriba un color en inglés o hexadecimal" onchange="colorSólidoLargo()" oninput="colorSólidoLargo()" />
                                 <span id="spanColor1Largo">Color 1:</span><input type="color" id="color1Largo" value="#00cc66" title="Seleccione o escriba un color en inglés o hexadecimal" onchange="color1Largo()" oninput="color1Largo()" /><br />
                                 <span id="spanColor2Largo">Color 2:</span><input type="color" id="color2Largo" value="#cc3399" title="Seleccione o escriba un color en inglés o hexadecimal" onchange="color2Largo()" oninput="color2Largo()" />
+                                <div id="contTexturasLargo">
+                                    Lista de imágenes
+                                </div>
                             </fieldset> 
                             <fieldset>
                                 <legend>Opacidad del relleno: </legend>
@@ -760,7 +771,9 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                         <span id="spanColorCorto">Color:</span><input type="color" id="colorSólidoCorto" value="#0066ff" title="Seleccione o escriba un color en inglés o hexadecimal" onchange="colorSólidoCorto()" oninput="colorSólidoCorto()" />
                         <span id="spanColor1Corto">Color 1:</span><input type="color" id="color1Corto" value="#00cc66" title="Seleccione o escriba un color en inglés o hexadecimal" onchange="color1Corto()" oninput="color1Corto()" /><br />
                         <span id="spanColor2Corto">Color 2:</span><input type="color" id="color2Corto" value="#cc3399" title="Seleccione o escriba un color en inglés o hexadecimal" onchange="color2Corto()" oninput="color2Corto()" />
-
+                        <div id="contTexturasCorto">
+                            Lista de imágenes
+                        </div>
                         <input id="opacidadRellenoCorto" type="range" min="0" max="1" value="1" step="0.05" />
                         <p id="pOpacidadRellenoCorto" class="pRango">1</p>
 
@@ -967,6 +980,8 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                 document.getElementById("colorSólidoCorto").style.display = "none";
                 document.getElementById("color1Corto").style.display = "none";
                 document.getElementById("color2Corto").style.display = "none";
+                document.getElementById("contTexturasCorto").style.display = "none";
+                
             }
             function mostrarOpcionesCorto() {
                 var x = document.getElementById("listaOpcionesCorto").selectedIndex;
@@ -1001,6 +1016,10 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                         break;
                     case "colorBorde":
                         document.getElementById("colorBordeCorto").style.display = "inline-block";
+                        break;                        
+                    case "opacidadBorde":                        
+                        document.getElementById("opacidadBordeCorto").style.display = "block";
+                        document.getElementById("pOpacidadBordeCorto").style.display = "block";
                         break;
                     case "tipoRelleno":                                               
                         var mix = document.getElementById("tipoRellenoCorto").selectedIndex;
@@ -1009,14 +1028,14 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                         // el elemento seleccionado es miy[mix].value;
                         if (miy[mix].value == "sólido") {
                             document.getElementById("spanColorCorto").style.display = "inline-block";
-                            document.getElementById("colorSólidoCorto").style.display = "inline-block";
+                            document.getElementById("colorSólidoCorto").style.display = "inline-block";                                                        
                         } else if (miy[mix].value == "lineal" || miy[mix].value == "radial") {
                             document.getElementById("spanColor1Corto").style.display = "inline-block";
                             document.getElementById("spanColor2Corto").style.display = "inline-block";
                             document.getElementById("color1Corto").style.display = "inline-block";
                             document.getElementById("color2Corto").style.display = "inline-block";
                         } else if (miy[mix].value == "textura") {
-                            //pendiente
+                            document.getElementById("contTexturasCorto").style.display = "block";
                         }
                         break;  
                     case "opacidadRelleno":
@@ -1078,6 +1097,132 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                 }
                 //sincroniza el otro control de tipo giro
                 document.getElementById("tipoGiroLargo").selectedIndex = x;
+                mostrarOpcionesCorto();
+            }
+            function cambiarRellenoLargo() {
+                var x = document.getElementById("tipoRellenoLargo").selectedIndex;
+                var y = document.getElementById("tipoRellenoLargo").options;                
+                // el elemento seleccionado es y[x].value;
+                // según la opción seleccionada...
+                ocultaOpcionesCorto();
+                switch (y[x].value) {
+                    case "sólido":
+                        document.getElementById("spanColorLargo").style.display = "inline-block";
+                        document.getElementById("colorSólidoLargo").style.display = "inline-block";
+                        document.getElementById("spanColorCorto").style.display = "inline-block";
+                        document.getElementById("colorSólidoCorto").style.display = "inline-block";
+                        document.getElementById("spanColor1Largo").style.display = "none";
+                        document.getElementById("spanColor2Largo").style.display = "none";
+                        document.getElementById("color1Largo").style.display = "none";
+                        document.getElementById("color2Largo").style.display = "none";
+                        document.getElementById("contTexturasLargo").style.display = "none";
+                        document.getElementById("contTexturasCorto").style.display = "none";
+                        // para que se actualice
+                        dibujar();
+                        break;
+                    case "lineal":
+                    case "radial":
+                        document.getElementById("spanColorLargo").style.display = "none";
+                        document.getElementById("colorSólidoLargo").style.display = "none";
+                        document.getElementById("spanColorCorto").style.display = "none";
+                        document.getElementById("colorSólidoCorto").style.display = "none";
+                        document.getElementById("spanColor1Largo").style.display = "inline-block";
+                        document.getElementById("spanColor2Largo").style.display = "inline-block";
+                        document.getElementById("color1Largo").style.display = "inline-block";
+                        document.getElementById("color2Largo").style.display = "inline-block";
+                        document.getElementById("spanColor1Corto").style.display = "inline-block";
+                        document.getElementById("spanColor2Corto").style.display = "inline-block";
+                        document.getElementById("color1Corto").style.display = "inline-block";
+                        document.getElementById("color2Corto").style.display = "inline-block";
+                        document.getElementById("contTexturasLargo").style.display = "none";
+                        document.getElementById("contTexturasCorto").style.display = "none";
+                        // para que se actualice
+                        dibujar();
+                        break;
+                    case "textura":
+                        document.getElementById("spanColorLargo").style.display = "none";
+                        document.getElementById("colorSólidoLargo").style.display = "none";
+                        document.getElementById("spanColorCorto").style.display = "none";
+                        document.getElementById("colorSólidoCorto").style.display = "none";
+                        document.getElementById("spanColor1Largo").style.display = "none";
+                        document.getElementById("spanColor2Largo").style.display = "none";
+                        document.getElementById("color1Largo").style.display = "none";
+                        document.getElementById("color2Largo").style.display = "none";
+                        document.getElementById("spanColor1Corto").style.display = "none";
+                        document.getElementById("spanColor2Corto").style.display = "none";
+                        document.getElementById("color1Corto").style.display = "none";
+                        document.getElementById("color2Corto").style.display = "none";
+                        document.getElementById("contTexturasLargo").style.display = "block";
+                        document.getElementById("contTexturasCorto").style.display = "block";
+                        // para que se actualice
+                        dibujar();                            
+                        break;
+                }
+                //sincroniza el otro control de tipo de relleno
+                document.getElementById("tipoRellenoCorto").selectedIndex = x;
+                mostrarOpcionesCorto();
+            }
+            function cambiarRellenoCorto() {
+                var x = document.getElementById("tipoRellenoCorto").selectedIndex;
+                var y = document.getElementById("tipoRellenoCorto").options;
+                // el elemento seleccionado es y[x].value;
+                // según la opción seleccionada...
+                ocultaOpcionesCorto();
+                switch (y[x].value) {
+                    case "sólido":
+                        document.getElementById("spanColorLargo").style.display = "inline-block";
+                        document.getElementById("colorSólidoLargo").style.display = "inline-block";
+                        document.getElementById("spanColorCorto").style.display = "inline-block";
+                        document.getElementById("colorSólidoCorto").style.display = "inline-block";
+                        document.getElementById("spanColor1Largo").style.display = "none";
+                        document.getElementById("spanColor2Largo").style.display = "none";
+                        document.getElementById("color1Largo").style.display = "none";
+                        document.getElementById("color2Largo").style.display = "none";
+                        document.getElementById("contTexturasLargo").style.display = "none";
+                        document.getElementById("contTexturasCorto").style.display = "none";
+                        // para que se actualice
+                        dibujar();
+                        break;
+                    case "lineal":
+                    case "radial":
+                        document.getElementById("spanColorLargo").style.display = "none";
+                        document.getElementById("colorSólidoLargo").style.display = "none";
+                        document.getElementById("spanColorCorto").style.display = "none";
+                        document.getElementById("colorSólidoCorto").style.display = "none";
+                        document.getElementById("spanColor1Largo").style.display = "inline-block";
+                        document.getElementById("spanColor2Largo").style.display = "inline-block";
+                        document.getElementById("color1Largo").style.display = "inline-block";
+                        document.getElementById("color2Largo").style.display = "inline-block";
+                        document.getElementById("spanColor1Corto").style.display = "inline-block";
+                        document.getElementById("spanColor2Corto").style.display = "inline-block";
+                        document.getElementById("color1Corto").style.display = "inline-block";
+                        document.getElementById("color2Corto").style.display = "inline-block";
+                        document.getElementById("contTexturasLargo").style.display = "none";
+                        document.getElementById("contTexturasCorto").style.display = "none";
+                        // para que se actualice
+                        dibujar();
+                        break;
+                    case "textura":
+                        document.getElementById("spanColorLargo").style.display = "none";
+                        document.getElementById("colorSólidoLargo").style.display = "none";
+                        document.getElementById("spanColorCorto").style.display = "none";
+                        document.getElementById("colorSólidoCorto").style.display = "none";
+                        document.getElementById("spanColor1Largo").style.display = "none";
+                        document.getElementById("spanColor2Largo").style.display = "none";
+                        document.getElementById("color1Largo").style.display = "none";
+                        document.getElementById("color2Largo").style.display = "none";
+                        document.getElementById("spanColor1Corto").style.display = "none";
+                        document.getElementById("spanColor2Corto").style.display = "none";
+                        document.getElementById("color1Corto").style.display = "none";
+                        document.getElementById("color2Corto").style.display = "none";
+                        document.getElementById("contTexturasLargo").style.display = "block";
+                        document.getElementById("contTexturasCorto").style.display = "block";
+                        // para que se actualice
+                        dibujar();
+                        break;
+                }
+                //sincroniza el otro control de tipo de relleno
+                document.getElementById("tipoRellenoLargo").selectedIndex = x;
                 mostrarOpcionesCorto();
             }
             function cambiarGiroLargo() {
