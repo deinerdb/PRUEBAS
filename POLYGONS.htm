@@ -892,8 +892,27 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                 poligono.setAttribute("stroke-dasharray", punteado);
                 // modifica el valor de stroke color                
                 poligono.style.stroke = colorBorde;
-                // modifica el valor de fill-opacity                
+                // modifica el valor de fill-opacity  (opacidad del relleno)              
                 poligono.style.fillOpacity = opacidadRelleno;
+                //tipo de relleno
+                var x = document.getElementById("tipoRellenoLargo").selectedIndex;
+                var y = document.getElementById("tipoRellenoLargo").options;
+                // el elemento seleccionado es y[x].value;
+                // según la opción seleccionada...
+                switch (y[x].value) {
+                    case "sólido":                    
+                        poligono.style.fill = colorSólido;
+                        break;
+                    case "lineal":
+                        
+                        break;
+                    case "radial":
+                        
+                        break;
+                    case "textura":
+                        
+                        break;
+                }
                 // modifica el valor del atributo points utilizando la función points.
                 poligono.setAttribute("points", points(cx, cy, r, lados));
                 
@@ -907,6 +926,23 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
 
                 }
 
+            }
+            
+            function colorSólidoLargo() {
+                //cambia variable
+                colorSólido = document.getElementById("colorSólidoLargo").value;
+                // sincroniza el otro control de color
+                document.getElementById("colorSólidoCorto").value = document.getElementById("colorSólidoLargo").value;
+                // actualiza
+                dibujar();
+            }
+            function colorSólidoCorto() {
+                //cambia variable
+                colorSólido = document.getElementById("colorSólidoCorto").value;
+                // sincroniza el otro control de color
+                document.getElementById("colorSólidoLargo").value = document.getElementById("colorSólidoCorto").value;
+                // actualiza
+                dibujar();
             }
             function colorBordeLargo() {
                 //cambia variable

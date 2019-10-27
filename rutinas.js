@@ -270,10 +270,14 @@ window.onload = function () {
         document.getElementById("tipoGiroLargo").value = "definido";
         document.getElementById("tipoGiroCorto").value = "definido";
         document.getElementById("ListaPunteadoCorto").value = "ninguno";
-        document.getElementById("ListaPunteadoLargo").value = "ninguno";        
+        document.getElementById("ListaPunteadoLargo").value = "ninguno";
+        document.getElementById("tipoRellenoLargo").value = "sólido";
+        document.getElementById("tipoRellenoCorto").value = "sólido";
         // colores
         document.getElementById("colorBordeLargo").value = "#ff0000";
         document.getElementById("colorBordeCorto").value = "#ff0000";
+        document.getElementById("colorSólidoLargo").value = "#0066ff";
+        document.getElementById("colorSólidoCorto").value = "#0066ff";
        
     } 
 };
