@@ -690,7 +690,14 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
 
                     <div id="contenedorPolígono">
                         <svg id="svgContainer" class="" height="100" width="100">
+                            <defs>
+                                <linearGradient id="gradLineal" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop id="stopLineal1" offset="0%" style="stop-color:rgb(0,204,102);stop-opacity:1" />
+                                    <stop id="stopLineal2" offset="100%" style="stop-color:rgb(204,51,153);stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
                             <polygon id="poligono"  transform="" points="" style="fill:#0066ff; fill-opacity:1; stroke:#ff0000; stroke-width:3;" stroke-opacity="1" stroke-dasharray="" stroke-linecap="butt" stroke-linejoin="miter"></polygon>
+                            Lo siento, tu navegador no soporta SVG.
                         </svg>
                     </div>
                     
@@ -815,8 +822,10 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
             var opacidadBorde = "1";
             // color del relleno
             var colorSólido = "#0066ff";
-            var color1 = "#0000ff";
-            var color2 = "#ffff00";
+            //var color1 = "rgb(0,204,102)";
+            var color1 = "#00cc66";
+            //var color2 = "rgb(204,51,153)";
+            var color2 = "#cc3399";
             var textura = "papiro";
             // opacidad del relleno
             var opacidadRelleno = "1";
@@ -904,7 +913,9 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                         poligono.style.fill = colorSólido;
                         break;
                     case "lineal":
-                        
+                        document.getElementById("stopLineal1").style.stopColor = color1;
+                        document.getElementById("stopLineal2").style.stopColor = color2;
+                        poligono.style.fill = "url(#gradLineal)";
                         break;
                     case "radial":
                         
@@ -927,7 +938,38 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                 }
 
             }
-            
+            function color1Largo() {
+                //cambia variable
+                color1 = document.getElementById("color1Largo").value;
+                // sincroniza el otro control de color
+                document.getElementById("color1Corto").value = document.getElementById("color1Largo").value;
+                // actualiza
+                dibujar();
+            }
+            function color1Corto() {
+                //cambia variable
+                color1 = document.getElementById("color1Corto").value;
+                // sincroniza el otro control de color
+                document.getElementById("color1Largo").value = document.getElementById("color1Corto").value;
+                // actualiza
+                dibujar();
+            }
+            function color2Largo() {
+                //cambia variable
+                color2 = document.getElementById("color2Largo").value;
+                // sincroniza el otro control de color
+                document.getElementById("color2Corto").value = document.getElementById("color2Largo").value;
+                // actualiza
+                dibujar();
+            }
+            function color2Corto() {
+                //cambia variable
+                color2 = document.getElementById("color2Corto").value;
+                // sincroniza el otro control de color
+                document.getElementById("color2Largo").value = document.getElementById("color2Corto").value;
+                // actualiza
+                dibujar();
+            }
             function colorSólidoLargo() {
                 //cambia variable
                 colorSólido = document.getElementById("colorSólidoLargo").value;

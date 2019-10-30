@@ -278,7 +278,10 @@ window.onload = function () {
         document.getElementById("colorBordeCorto").value = "#ff0000";
         document.getElementById("colorSólidoLargo").value = "#0066ff";
         document.getElementById("colorSólidoCorto").value = "#0066ff";
-       
+        document.getElementById("color1Largo").value = "#00cc66";
+        document.getElementById("color1Corto").value = "#00cc66";
+        document.getElementById("color2Largo").value = "#cc3399";
+        document.getElementById("color2Corto").value = "#cc3399";        
     } 
 };
 
