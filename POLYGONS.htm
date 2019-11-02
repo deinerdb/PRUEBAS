@@ -691,10 +691,14 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                     <div id="contenedorPolígono">
                         <svg id="svgContainer" class="" height="100" width="100">
                             <defs>
-                                <linearGradient id="gradLineal" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <linearGradient gradientUnits="userSpaceOnUse" id="gradLineal" x1="0%" y1="0%" x2="0%" y2="100%">
                                     <stop id="stopLineal1" offset="0%" style="stop-color:rgb(0,204,102);stop-opacity:1" />
                                     <stop id="stopLineal2" offset="100%" style="stop-color:rgb(204,51,153);stop-opacity:1" />
                                 </linearGradient>
+                                <radialGradient id="gradRadial" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                                    <stop id="stopRadial1" offset="0%" style="stop-color:rgb(0,204,102);stop-opacity:1" />
+                                    <stop id="stopRadial2" offset="100%" style="stop-color:rgb(204,51,153);stop-opacity:1" />
+                                </radialGradient>
                             </defs>
                             <polygon id="poligono"  transform="" points="" style="fill:#0066ff; fill-opacity:1; stroke:#ff0000; stroke-width:3;" stroke-opacity="1" stroke-dasharray="" stroke-linecap="butt" stroke-linejoin="miter"></polygon>
                             Lo siento, tu navegador no soporta SVG.
@@ -808,7 +812,7 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                 
                 </div>
         <script type="text/javascript">
-            //inicializa, valores defecto
+            //inicializa, valores defecto            
             var lados = 3;
             // el giro inicial es el del triángulo
             var angle = -90;
@@ -884,8 +888,8 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                     // calcula el resto de los puntos
                     for (var i = 1; i <= lados; i++) { 
                         var aRad = (Math.PI / 180) * (i * a);
-                        Xp = cx + r * Math.cos(aRad);                        
-                        Yp = cy + r * Math.sin(aRad);                        
+                        Xp = Number(cx) + r * Math.cos(aRad);                        
+                        Yp = cy - r * Math.sin(aRad);                        
                         points += Xp + "," + Yp + " ";
                     }
                     // devuelve la variable points			
@@ -913,15 +917,46 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                         poligono.style.fill = colorSólido;
                         break;
                     case "lineal":
+                        //los colores actuales del gradiente
                         document.getElementById("stopLineal1").style.stopColor = color1;
                         document.getElementById("stopLineal2").style.stopColor = color2;
+                        // calcula los ángulos del vector de dirección del gradiente
+                        // el gradiente siempre será de izquierda a derecha, sin importar
+                        // el ángulo con el que esté girado el polígono
+                        var angleLineal1;
+                        var angleLineal2; 
+                        if (angle <= 0 && angle >= -90) {
+                            angleLineal1 = 180 + angle;
+                            angleLineal2 = 360 + angle;    
+                        } else {
+                            angleLineal1 = 180;
+                            angleLineal2 = 360;    
+                        }                                               
+                        // los pasa a radianes
+                        angleLineal1 = (Math.PI / 180) * angleLineal1;
+                        angleLineal2 = (Math.PI / 180) * angleLineal2; 
+                        // calcula puntos del vector de dirección del gradiente
+                        var miX1 = Number(cx) + r * Math.cos(angleLineal1);
+                        var miX2 = Number(cx) + r * Math.cos(angleLineal2);
+                        var miY1 = cy - r * Math.sin(angleLineal1);
+                        var miY2 = cy - r * Math.sin(angleLineal2);
+                        // modifica los atributos de los puntos del gradiente
+                        document.getElementById("gradLineal").setAttribute("x1", miX1);
+                        document.getElementById("gradLineal").setAttribute("x2", miX2);
+                        document.getElementById("gradLineal").setAttribute("y1", miY1);
+                        document.getElementById("gradLineal").setAttribute("y2", miY2);                        
+                        // rellena con el gradiente lineal
                         poligono.style.fill = "url(#gradLineal)";
                         break;
                     case "radial":
-                        
+                        //los colores actuales del gradiente
+                        document.getElementById("stopRadial1").style.stopColor = color1;
+                        document.getElementById("stopRadial2").style.stopColor = color2;                      
+                        // rellena con el gradiente radial
+                        poligono.style.fill = "url(#gradRadial)";
                         break;
                     case "textura":
-                        
+                       
                         break;
                 }
                 // modifica el valor del atributo points utilizando la función points.
@@ -1233,7 +1268,8 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                         document.getElementById("contTexturasLargo").style.display = "block";
                         document.getElementById("contTexturasCorto").style.display = "block";
                         // para que se actualice
-                        dibujar();                            
+                        dibujar();
+                        showSnackbar("Código en construcción...");
                         break;
                 }
                 //sincroniza el otro control de tipo de relleno
@@ -1297,6 +1333,7 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                         document.getElementById("contTexturasCorto").style.display = "block";
                         // para que se actualice
                         dibujar();
+                        showSnackbar("Código en construcción...");
                         break;
                 }
                 //sincroniza el otro control de tipo de relleno
