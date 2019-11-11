@@ -183,6 +183,10 @@ window.onload = function () {
     if (typeof inicia == 'function') {
         inicia();
     }
+    // POLYGONS
+    if (typeof iniciaTáctil == 'function') {
+        iniciaTáctil();
+    }   
     //FUENTES
     if (typeof alturaMitades == 'function') {
         //se ajusta a la pantalla

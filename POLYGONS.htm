@@ -33,6 +33,7 @@
                 opacity: 0.8;
                 filter: Alpha(opacity=80); /* IE8 and earlier */
             }
+                        
             summary {
                 font-weight: bold;
                 margin-top: 20px;
@@ -1121,7 +1122,6 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                 svgContainer.style.transform = giro;
 
                 }
-
             }
             function plusPolygon(n) {                
                 var nuevoLados;
@@ -1135,7 +1135,11 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                 //sincroniza el control de lados largo para que se actualice todo
                 document.getElementById("listaLadosLargo").selectedIndex = nuevoLados - 3;
                 // llama la rutina asociada al evento change
-                ladosLargo();
+                ladosLargo();                
+            }
+            function fadePolygon() {               
+                document.getElementById("poligono").style.display = "none";
+                $("#poligono").fadeIn(500);
             }
             function cambiarTextura(miTextura) {
                 //cambia variable                
@@ -1633,6 +1637,7 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                 document.getElementById("listaLadosLargo").selectedIndex = x;
                 //aplica
                 dibujar();
+                fadePolygon();
             }
             function ladosLargo() {
                 var x = document.getElementById("listaLadosLargo").selectedIndex;
@@ -1652,6 +1657,7 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                 document.getElementById("listaLadosCorto").selectedIndex = x;
                 //aplica
                 dibujar();
+                fadePolygon();
             }
             // ajusta variable lados según la nueva selección
             function ajustaLados(valueLados) {
@@ -1907,7 +1913,63 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
             // todo por un bug de ie
             setInterval(alturaOpciones, 1000);
         </script>
+        
+        <script>
+            //manejo de eventos táctiles para el SVG
+            // global
+            var movimiento = "prohibido";
+            // llamada en onload de rutinas
+            function iniciaTáctil() {
+                //para el táctil
+                var receptor1 = document.getElementById("poligono");
+                var xIni;
+                var yIni;
+                //receptor 1
+                receptor1.addEventListener('touchstart', function (e) {
+                    if (e.targetTouches.length == 1) {
+                        var touch = e.targetTouches[0];
+                        xIni = touch.pageX;
+                        yIni = touch.pageY;
+                        //si no desliza no se mueve, hasta aquí solo es un toque
+                        movimiento = "prohibido";
+                    }
+                }, false);
 
+                receptor1.addEventListener('touchmove', function (e) {
+                    if (e.targetTouches.length == 1) {
+                        var touch = e.targetTouches[0];
+                        if ((touch.pageX > xIni + 20) && (touch.pageY > yIni - 5) && (touch.pageY < yIni + 5)) {
+                            //alert("el swipe se genera hacia la izquierda");
+                            movimiento = "izquierda";
+                        }
+
+                        if ((touch.pageX < xIni - 20) && (touch.pageY > yIni - 5) && (touch.pageY < yIni + 5)) {
+                            //alert("el swipe se genera hacia la derecha");
+                            movimiento = "derecha";
+                        }
+                    }
+                }, false);
+                //se mueve al quitar el dedo
+                receptor1.addEventListener('touchend', function (e) {
+
+                    //toma el caso de la variable global movimiento
+                    switch (movimiento) {
+                        case "prohibido":
+                            //no se mueve                                    
+                            break;
+                        case "derecha":
+                            plusPolygon(1);                           
+                            break;
+                        case "izquierda":
+                            plusPolygon(-1);                            
+                            break;
+                    }
+
+                }, false);
+
+            } //fin rutina "iniciaTáctil"
+
+        </script>
             <button onclick="topFunction()" id="BtnTop" title="Subir">⇧</button>
             <script type="text/javascript" charset="utf-8" src="rutinas.js"></script>
 </body>
