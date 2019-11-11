@@ -276,7 +276,52 @@
                     transform: rotate(-360deg);
                 }
             }
+            /* Next & previous buttons */
+            .prev, .next {
+                cursor: pointer;
+                position: absolute;
+                top: 45%;
+                width: auto;
+                padding: 16px;
+                margin-top: -22px;
+                color: indigo;
+                font-weight: bold;
+                font-size: 18px;
+                -webkit-transition: 0.6s ease;
+                -moz-transition: 0.6s ease;
+                -o-transition: 0.6s ease;
+                transition: 0.6s ease;
+                -webkit-border-radius: 0 3px 3px 0;
+                -moz-border-radius: 0 3px 3px 0;
+                border-radius: 0 3px 3px 0;
+                /*no se puede seleccionar el texto*/
+                -webkit-user-select: none; /* Chrome, Opera, Safari */
+                -moz-user-select: none; /* Firefox 2+ */
+                -ms-user-select: none; /* IE 10+ */
+                user-select: none; /* Standard syntax */
+            }
 
+            /* Position the "next button" to the right */
+            .next {
+                right: 0;
+                -moz-border-radius: 3px 0 0 3px;
+                -webkit-border-radius: 3px 0 0 3px;
+                border-radius: 3px 0 0 3px;
+            }
+            /* Position the "next button" to the right */
+            .prev {
+                left: 0;                
+            }
+                /* On hover, add a black background color with a little bit see-through */
+                .prev:hover, .next:hover {
+                    background-color: lavender;
+                }
+            /* On smaller screens, decrease text size */
+            @media only screen and (max-width: 300px) {
+                .prev, .next {
+                    font-size: 11px;
+                }
+            }
             #contenedorPolígono {
                 text-align: center;
                 padding: 0;
@@ -315,15 +360,15 @@
                     height: 60px;                    
                 }
                 /* pantallas pequeñas*/
+                .prev, .next {
+                    display: none;
+                }
+                /* pantallas pequeñas*/
                 #col-container {
                     width: 100%;
                     position: static;
                     text-align:center;
-                }
-                /* pantallas pequeñas*/
-                #svgContainer {
-                    
-                }
+                }                
                 /* pantallas pequeñas*/
                 footer {
                     position: static;
@@ -357,9 +402,17 @@
             /*ajustes al imprimir*/
             @media print {
                 /*cosas invisibles al imprimir*/
-                #snackbar {
+                #snackbar, .prev, .next {
                     display: none !important;
                 }
+                /*fondos*/
+                #opcionesCompleto, #opcionesCompleto {
+                    background-color: transparent !important;
+                }
+                #opcionesCompleto, #col-container {
+                    height: auto !important;
+                    max-height: none !important;                    
+                }                
             }
 
             #opcionesCompleto h3 {
@@ -753,6 +806,7 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                     </div>
 
                     <div id="contenedorPolígono">
+                        <a title="Anterior" class="prev" onclick="plusPolygon(-1)">&#10094;</a>
                         <svg id="svgContainer" class="" height="100" width="100">
                             <defs>
                                 <linearGradient gradientUnits="userSpaceOnUse" id="gradLineal" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -769,7 +823,8 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                             </defs>
                             <polygon id="poligono"  transform="" points="" style="fill:#0066ff; fill-opacity:1; stroke:#ff0000; stroke-width:3;" stroke-opacity="1" stroke-dasharray="" stroke-linecap="butt" stroke-linejoin="miter"></polygon>
                             Lo siento, tu navegador no soporta SVG.
-                        </svg>
+                        </svg>                        
+                        <a title="Siguiente" class="next" onclick="plusPolygon(1)">&#10095;</a>
                     </div>
                     
                     <div id="opcionesCorto">
@@ -1067,6 +1122,20 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
 
                 }
 
+            }
+            function plusPolygon(n) {                
+                var nuevoLados;
+                nuevoLados = lados += n;
+                if (nuevoLados < 3) {
+                    nuevoLados = 20;
+                }
+                if (nuevoLados > 20) {
+                    nuevoLados = 3;
+                }
+                //sincroniza el control de lados largo para que se actualice todo
+                document.getElementById("listaLadosLargo").selectedIndex = nuevoLados - 3;
+                // llama la rutina asociada al evento change
+                ladosLargo();
             }
             function cambiarTextura(miTextura) {
                 //cambia variable                
