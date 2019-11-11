@@ -41,6 +41,7 @@
             #contTexturasCorto, #contTexturasLargo {
                 /*por defecto oculto*/
                 display: none;
+                background-color: white;
                 border: 0.5px solid #D3D3D3; /*gris claro*/
                 margin: 4px;
                 padding: 4px 4px 16px 6px;
@@ -52,14 +53,31 @@
                 -webkit-box-sizing: border-box;
                 -moz-box-sizing: border-box;
                 box-sizing: border-box;
-                max-width:100%;
+                max-width: 100%;
+                /*no se puede seleccionar el texto*/
+                -webkit-user-select: none; /* Chrome, Opera, Safari */
+                -moz-user-select: none; /* Firefox 2+ */
+                -ms-user-select: none; /* IE 10+ */
+                user-select: none; /* Standard syntax */
             }
             .imgTexturas {
                 width: 120px;
                 height: 100px;
                 cursor: pointer;
                 margin: 8px 6px 16px 0px;
+                border-style: solid;
+                border-color: white;
+                border-width: 4px;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;                
+                
             }
+            #texturaPredeterminadaLargo, #texturaPredeterminadaCorto {
+                border-color: indigo;
+                /*SOMBRA*/
+                /*agregada en Javascript*/
+            }           
             .imgTexturas:hover {
                 opacity: 0.8;
             }
@@ -675,28 +693,28 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                                 <span id="spanColor1Largo">Color 1:</span><input type="color" id="color1Largo" value="#00cc66" title="Seleccione o escriba un color en inglés o hexadecimal" onchange="color1Largo()" oninput="color1Largo()" /><br />
                                 <span id="spanColor2Largo">Color 2:</span><input type="color" id="color2Largo" value="#cc3399" title="Seleccione o escriba un color en inglés o hexadecimal" onchange="color2Largo()" oninput="color2Largo()" />
                                 <div id="contTexturasLargo">
-                                    <img class="imgTexturas" title="Metal 1" alt="Metal 1" src="metal1.jpg" width="120" height="100" />
-                                    <img class="imgTexturas" title="Metal 2" alt="Metal 2" src="metal2.jpg" width="120" height="100" />
-                                    <img class="imgTexturas" title="Luces" alt="Luces" src="luces.jpg" width="120" height="100" />
-                                    <img class="imgTexturas" title="Jean 1" alt="Jean 1" src="jean1.jpg" width="120" height="100" />
-                                    <img class="imgTexturas" title="Jean 2" alt="Jean 2" src="jean2.jpg" width="120" height="100" />
-                                    <img class="imgTexturas" title="Jean 3" alt="Jean 3" src="jean3.jpg" width="120" height="100" />
-                                    <img class="imgTexturas" title="Grama" alt="Grama" src="grama.jpg" width="120" height="100" />
-                                    <img class="imgTexturas" title="Fibras" alt="Fibras" src="fibras.jpg" width="120" height="100" />
-                                    <img class="imgTexturas" title="Burbujas" alt="Burbujas" src="burbujas.jpg" width="120" height="100" />
-                                    <img class="imgTexturas" title="Asfalto" alt="Asfalto" src="asfalto.jpg" width="120" height="100" />
-                                    <img class="imgTexturas" title="Papel 1" alt="Papel 1" src="papel1.jpg" width="120" height="100" />
-                                    <img class="imgTexturas" title="Papel 2" alt="Papel 2" src="papel2.jpg" width="120" height="100" />
-                                    <img class="imgTexturas" title="Papel 3" alt="Papel 3" src="papel3.jpg" width="120" height="100" />
-                                    <img class="imgTexturas" title="Papel 4" alt="Papel 4" src="papel4.jpg" width="120" height="100" />
-                                    <img class="imgTexturas" title="Papel 5" alt="Papel 5" src="papel5.jpg" width="120" height="100" />
-                                    <img class="imgTexturas" title="Papel 6" alt="Papel 6" src="papel6.jpg" width="120" height="100" />
-                                    <img class="imgTexturas" title="Papel 7" alt="Papel 7" src="papel7.jpg" width="120" height="100" />
-                                    <img class="imgTexturas" title="Papel 8" alt="Papel 8" src="papel8.jpg" width="120" height="100" />
-                                    <img class="imgTexturas" title="Papel 9" alt="Papel 9" src="papel9.jpg" width="120" height="100" />
-                                    <img class="imgTexturas" title="Papel 10" alt="Papel 10" src="papel10.jpg" width="120" height="100" />
-                                    <img class="imgTexturas" title="Papel 11" alt="Papel 11" src="papel11.jpg" width="120" height="100" />
-                                    <img class="imgTexturas" title="Papel 12" alt="Papel 12" src="papel12.jpg" width="120" height="100" />
+                                    <img id="texturaPredeterminadaLargo" class="imgTexturas" title="Metal 1" alt="Metal 1" src="metal1.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                                    <img class="imgTexturas" title="Metal 2" alt="Metal 2" src="metal2.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                                    <img class="imgTexturas" title="Luces" alt="Luces" src="luces.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                                    <img class="imgTexturas" title="Jean 1" alt="Jean 1" src="jean1.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                                    <img class="imgTexturas" title="Jean 2" alt="Jean 2" src="jean2.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                                    <img class="imgTexturas" title="Jean 3" alt="Jean 3" src="jean3.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                                    <img class="imgTexturas" title="Grama" alt="Grama" src="grama.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                                    <img class="imgTexturas" title="Fibras" alt="Fibras" src="fibras.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                                    <img class="imgTexturas" title="Burbujas" alt="Burbujas" src="burbujas.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                                    <img class="imgTexturas" title="Asfalto" alt="Asfalto" src="asfalto.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                                    <img class="imgTexturas" title="Papel 1" alt="Papel 1" src="papel1.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                                    <img class="imgTexturas" title="Papel 2" alt="Papel 2" src="papel2.jpg" width="120" height="100" onclick="cambiarTextura(this.src)"/>
+                                    <img class="imgTexturas" title="Papel 3" alt="Papel 3" src="papel3.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                                    <img class="imgTexturas" title="Papel 4" alt="Papel 4" src="papel4.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                                    <img class="imgTexturas" title="Papel 5" alt="Papel 5" src="papel5.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                                    <img class="imgTexturas" title="Papel 6" alt="Papel 6" src="papel6.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                                    <img class="imgTexturas" title="Papel 7" alt="Papel 7" src="papel7.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                                    <img class="imgTexturas" title="Papel 8" alt="Papel 8" src="papel8.jpg" width="120" height="100" onclick="cambiarTextura(this.src)"/>
+                                    <img class="imgTexturas" title="Papel 9" alt="Papel 9" src="papel9.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                                    <img class="imgTexturas" title="Papel 10" alt="Papel 10" src="papel10.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                                    <img class="imgTexturas" title="Papel 11" alt="Papel 11" src="papel11.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                                    <img class="imgTexturas" title="Papel 12" alt="Papel 12" src="papel12.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
                                 </div>
                             </fieldset> 
                             <fieldset>
@@ -745,6 +763,9 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                                     <stop id="stopRadial1" offset="0%" style="stop-color:rgb(0,204,102);stop-opacity:1" />
                                     <stop id="stopRadial2" offset="100%" style="stop-color:rgb(204,51,153);stop-opacity:1" />
                                 </radialGradient>
+                                <pattern id="patrónRelleno" x="0" y="0" width="120" height="100" patternUnits="userSpaceOnUse">
+                                    <image id="myImage" xlink:href="metal1.jpg" x="0" y="0" width="120" height="100" />
+                                </pattern>
                             </defs>
                             <polygon id="poligono"  transform="" points="" style="fill:#0066ff; fill-opacity:1; stroke:#ff0000; stroke-width:3;" stroke-opacity="1" stroke-dasharray="" stroke-linecap="butt" stroke-linejoin="miter"></polygon>
                             Lo siento, tu navegador no soporta SVG.
@@ -829,28 +850,28 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                         <span id="spanColor1Corto">Color 1:</span><input type="color" id="color1Corto" value="#00cc66" title="Seleccione o escriba un color en inglés o hexadecimal" onchange="color1Corto()" oninput="color1Corto()" /><br />
                         <span id="spanColor2Corto">Color 2:</span><input type="color" id="color2Corto" value="#cc3399" title="Seleccione o escriba un color en inglés o hexadecimal" onchange="color2Corto()" oninput="color2Corto()" />
                         <div id="contTexturasCorto">
-                            <img class="imgTexturas" title="Metal 1" alt="Metal 1" src="metal1.jpg" width="120" height="100" />
-                            <img class="imgTexturas" title="Metal 2" alt="Metal 2" src="metal2.jpg" width="120" height="100" />
-                            <img class="imgTexturas" title="Luces" alt="Luces" src="luces.jpg" width="120" height="100" />
-                            <img class="imgTexturas" title="Jean 1" alt="Jean 1" src="jean1.jpg" width="120" height="100" />
-                            <img class="imgTexturas" title="Jean 2" alt="Jean 2" src="jean2.jpg" width="120" height="100" />
-                            <img class="imgTexturas" title="Jean 3" alt="Jean 3" src="jean3.jpg" width="120" height="100" />
-                            <img class="imgTexturas" title="Grama" alt="Grama" src="grama.jpg" width="120" height="100" />
-                            <img class="imgTexturas" title="Fibras" alt="Fibras" src="fibras.jpg" width="120" height="100" />
-                            <img class="imgTexturas" title="Burbujas" alt="Burbujas" src="burbujas.jpg" width="120" height="100" />
-                            <img class="imgTexturas" title="Asfalto" alt="Asfalto" src="asfalto.jpg" width="120" height="100" />
-                            <img class="imgTexturas" title="Papel 1" alt="Papel 1" src="papel1.jpg" width="120" height="100" />
-                            <img class="imgTexturas" title="Papel 2" alt="Papel 2" src="papel2.jpg" width="120" height="100" />
-                            <img class="imgTexturas" title="Papel 3" alt="Papel 3" src="papel3.jpg" width="120" height="100" />
-                            <img class="imgTexturas" title="Papel 4" alt="Papel 4" src="papel4.jpg" width="120" height="100" />
-                            <img class="imgTexturas" title="Papel 5" alt="Papel 5" src="papel5.jpg" width="120" height="100" />
-                            <img class="imgTexturas" title="Papel 6" alt="Papel 6" src="papel6.jpg" width="120" height="100" />
-                            <img class="imgTexturas" title="Papel 7" alt="Papel 7" src="papel7.jpg" width="120" height="100" />
-                            <img class="imgTexturas" title="Papel 8" alt="Papel 8" src="papel8.jpg" width="120" height="100" />
-                            <img class="imgTexturas" title="Papel 9" alt="Papel 9" src="papel9.jpg" width="120" height="100" />
-                            <img class="imgTexturas" title="Papel 10" alt="Papel 10" src="papel10.jpg" width="120" height="100" />
-                            <img class="imgTexturas" title="Papel 11" alt="Papel 11" src="papel11.jpg" width="120" height="100" />
-                            <img class="imgTexturas" title="Papel 12" alt="Papel 12" src="papel12.jpg" width="120" height="100" />
+                            <img id="texturaPredeterminadaCorto" class="imgTexturas" title="Metal 1" alt="Metal 1" src="metal1.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                            <img class="imgTexturas" title="Metal 2" alt="Metal 2" src="metal2.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                            <img class="imgTexturas" title="Luces" alt="Luces" src="luces.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                            <img class="imgTexturas" title="Jean 1" alt="Jean 1" src="jean1.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                            <img class="imgTexturas" title="Jean 2" alt="Jean 2" src="jean2.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                            <img class="imgTexturas" title="Jean 3" alt="Jean 3" src="jean3.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                            <img class="imgTexturas" title="Grama" alt="Grama" src="grama.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                            <img class="imgTexturas" title="Fibras" alt="Fibras" src="fibras.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                            <img class="imgTexturas" title="Burbujas" alt="Burbujas" src="burbujas.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                            <img class="imgTexturas" title="Asfalto" alt="Asfalto" src="asfalto.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                            <img class="imgTexturas" title="Papel 1" alt="Papel 1" src="papel1.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                            <img class="imgTexturas" title="Papel 2" alt="Papel 2" src="papel2.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                            <img class="imgTexturas" title="Papel 3" alt="Papel 3" src="papel3.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                            <img class="imgTexturas" title="Papel 4" alt="Papel 4" src="papel4.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                            <img class="imgTexturas" title="Papel 5" alt="Papel 5" src="papel5.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                            <img class="imgTexturas" title="Papel 6" alt="Papel 6" src="papel6.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                            <img class="imgTexturas" title="Papel 7" alt="Papel 7" src="papel7.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                            <img class="imgTexturas" title="Papel 8" alt="Papel 8" src="papel8.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                            <img class="imgTexturas" title="Papel 9" alt="Papel 9" src="papel9.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                            <img class="imgTexturas" title="Papel 10" alt="Papel 10" src="papel10.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                            <img class="imgTexturas" title="Papel 11" alt="Papel 11" src="papel11.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
+                            <img class="imgTexturas" title="Papel 12" alt="Papel 12" src="papel12.jpg" width="120" height="100" onclick="cambiarTextura(this.src)" />
                         </div>
                         <input id="opacidadRellenoCorto" type="range" min="0" max="1" value="1" step="0.05" />
                         <p id="pOpacidadRellenoCorto" class="pRango">1</p>
@@ -897,7 +918,11 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
             var color1 = "#00cc66";
             //var color2 = "rgb(204,51,153)";
             var color2 = "#cc3399";
-            var textura = "papiro";
+            //ruta textura seleccionada
+            var textura = "metal1.jpg";
+            //estilo de sombra para el preterminado
+            document.getElementById("texturaPredeterminadaLargo").style.boxShadow = "5px 5px 3px MediumPurple";
+            document.getElementById("texturaPredeterminadaCorto").style.boxShadow = "5px 5px 3px MediumPurple";
             // opacidad del relleno
             var opacidadRelleno = "1";
             // visibilidad opciones corto
@@ -1023,7 +1048,10 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
                         poligono.style.fill = "url(#gradRadial)";
                         break;
                     case "textura":
-                       
+                        // cambia la ruta de imagen del patrón
+                        document.getElementById("myImage").setAttribute("xlink:href", textura); 
+                        // rellena con el patrón de imagen
+                        poligono.style.fill = "url(#patrónRelleno)";
                         break;
                 }
                 // modifica el valor del atributo points utilizando la función points.
@@ -1039,6 +1067,26 @@ document.getElementById("svgContainer").setAttribute("width", w * 0.6);
 
                 }
 
+            }
+            function cambiarTextura(miTextura) {
+                //cambia variable                
+                textura = miTextura;
+                var aplicado = "";
+                var x = document.getElementsByClassName("imgTexturas");
+                var i;
+                for (i = 0; i < x.length; i++) {
+                    if (textura == x[i].src) {
+                        x[i].style.borderColor = "indigo";
+                        x[i].style.boxShadow = "5px 5px 3px MediumPurple";
+                        aplicado = x[i].title;
+                    } else {
+                        x[i].style.borderColor = "white";
+                        x[i].style.boxShadow = "none";
+                    }                    
+                }                
+                // actualiza
+                dibujar();
+                showSnackbar("Aplicado: " + aplicado);
             }
             function color1Largo() {
                 //cambia variable
