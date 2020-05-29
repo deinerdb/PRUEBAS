@@ -1,0 +1,1672 @@
+/* update 31*/
+/* z-index (niveles de capas)
+paleta 100
+btntop 200
+modal 300
+snack 500
+loader 9999
+*/
+/* para el accordion */
+.accordion {
+    border: 2px solid #ffffff;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+#pink {
+    background-color: #FFC0CB;
+    color: #003f34;
+}
+
+    #pink:after {
+        color: #003f34;
+    }
+
+.active, .accordion:hover {
+    border: 2px solid purple;
+}
+
+.accordion:after {
+    content: '\002B';
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+.active:after {
+    content: "\2212";
+}
+
+.panel {
+    padding: 0 18px;
+    background-color: #ffffff;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+/* para el rgb */
+#icoMuestraRGB {
+    border: 2px double #ffffff !important;
+    padding: 0 !important;
+    background-color: #87888b;
+    /* Rounded corners iniciales */
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px; /* Rounded corners */
+}
+
+#rgbCaption {
+    margin: 6px 0px;
+    font-weight: bolt;
+    color: purple;
+    font-size: 0.95em;
+    -webkit-transition: color 0.7s;
+    -moz-transition: color 0.7s;
+    -o-transition: color 0.7s;
+    transition: color 0.7s;
+}
+
+#infoColor {
+    margin: 6px 0px;
+    font-weight: bolt;
+    color: purple;
+    font-size: 0.95em;
+    padding: 4px;
+    border: 4px solid #000000;
+    border-bottom-width: 16px;
+    border-right-width: 10px;
+}
+
+#contenedorRGB {
+    padding: 2px 6px;
+    border: 6px solid #000000;
+    border-bottom-width: 30px;
+    border-right-width: 14px;
+}
+
+    #contenedorRGB div {
+        /* Rounded corners iniciales */
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px; /* Rounded corners */
+    }
+
+#contenedorR {
+    border: 6px solid #ff0000;
+    margin: 6px 0px;
+    padding: 6px;
+    background-color: #ffffff;
+}
+
+#contenedorG {
+    border: 6px solid #00ff00;
+    margin: 6px 0px;
+    padding: 6px;
+    background-color: #ffffff;
+}
+
+#contenedorB {
+    border: 6px solid #0000ff;
+    margin: 6px 0px;
+    padding: 6px;
+    background-color: #ffffff;
+}
+
+/* inicia clase seleccionado */
+.seleccionado {
+    color: #000000;
+    /* anima */
+    /*WEBKIT*/
+    -webkit-animation-name: blancoynegro;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    /*MOZ*/
+    -moz-animation-name: blancoynegro;
+    -moz-animation-duration: 1s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+    /*O*/
+    -o-animation-name: blancoynegro;
+    -o-animation-duration: 1s;
+    -o-animation-timing-function: linear;
+    -o-animation-iteration-count: infinite;
+    /*ESTÁNDAR*/
+    animation-name: blancoynegro;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes blancoynegro {
+    0% {
+        color: #000000;
+    }
+
+    50% {
+        color: #ffffff;
+    }
+
+    100% {
+        color: #000000;
+    }
+}
+
+@-moz-keyframes blancoynegro {
+    0% {
+        color: #000000;
+    }
+
+    50% {
+        color: #ffffff;
+    }
+
+    100% {
+        color: #000000;
+    }
+}
+
+@-o-keyframes blancoynegro {
+    0% {
+        color: #000000;
+    }
+
+    50% {
+        color: #ffffff;
+    }
+
+    100% {
+        color: #000000;
+    }
+}
+
+@keyframes blancoynegro {
+    0% {
+        color: #000000;
+    }
+
+    50% {
+        color: #ffffff;
+    }
+
+    100% {
+        color: #000000;
+    }
+}
+/*fin clase seleccionado*/
+
+#muestraRadio {
+    border: 4px solid #990000;
+    margin: 12px auto 24px auto;
+    width: 100px;
+    height: 100px;
+    background-color: #009900;
+}
+
+#relleno, #muestraRadio, #rellenoHistorial {
+    /* Rounded corners iniciales */
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px; /* Rounded corners */
+    /* sutil efecto */
+    -moz-transition: border-radius 0.3s;
+    -o-transition: border-radius 0.3s;
+    -webkit-transition: border-radius 0.3s;
+    transition: border-radius 0.3s;
+}
+
+#relleno {
+    width: 1.2em;
+    height: 1.2em;
+    display: inline-block;
+    background-color: #000000;
+    padding: 0;
+    margin: 0;
+    margin-right: 4px;
+    text-align: center;
+    border: none;
+    opacity: 1;
+    visibility: visible;
+    font-size: 1.2em;
+    vertical-align: text-bottom;
+}
+
+#aIzquierda {
+    font-size: 1.4em;
+    color: purple;
+    vertical-align: auto;
+    min-width: 50%;
+    text-align: left;
+    display: inline-block;
+    font-weight: bold;
+}
+
+#aDerecha {
+    font-size: 1.4em;
+    color: purple;
+    vertical-align: auto;
+    min-width: 50%;
+    text-align: right;
+    display: inline-block;
+    font-weight: bold;
+}
+
+    #aIzquierda i:hover, #aDerecha i:hover {
+        background: #8c53c6; /* For browsers that do not support gradients */
+        background: -webkit-linear-gradient(left, #8c53c6, rebeccapurple); /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(right, #8c53c6, rebeccapurple); /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(right, #8c53c6, rebeccapurple); /* For Firefox 3.6 to 15 */
+        background: linear-gradient(to right, #8c53c6, rebeccapurple); /* Standard syntax (must be last) */
+    }
+
+#divA {
+    width: 100%;
+    white-space: nowrap;
+    margin-top: 24px;
+}
+
+    #divA i {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        border: none; /* Remove borders */
+        outline: none; /* Remove outline */
+        background-color: rebeccapurple; /* Set a background color */
+        color: white; /* Text color */
+        cursor: pointer; /* Add a mouse pointer on hover */
+        padding: 7px 12px; /* Some padding */
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        border-radius: 10px; /* Rounded corners */
+        /*SOMBRA*/
+        -moz-box-shadow: 5px 5px 3px MediumPurple;
+        -webkit-box-shadow: 5px 5px 3px MediumPurple;
+        box-shadow: 5px 5px 3px MediumPurple;
+        /*no se puede seleccionar el texto*/
+        -webkit-user-select: none; /* Chrome, Opera, Safari */
+        -moz-user-select: none; /* Firefox 2+ */
+        -ms-user-select: none; /* IE 10+ */
+        user-select: none; /* Standard syntax */
+    }
+/* ajustes de la ventana modal */
+/*íconos en los títulos de las ventanas modales*/
+.modal-header .fa {
+    /* van con texto a la derecha ...*/
+    margin-right: 6px;
+    border-style: solid;
+    border-color: lavender;
+    border-width: 1px;
+    padding: 2px 6px;
+    font-size: 0.85em;
+}
+/* Set a style for the submit button, BOTÓN ACEPTAR */
+.btn {
+    color: white;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 15px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-decoration: none;
+    background: purple; /* For browsers that do not support gradients */
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1.1em;
+    /*no se puede seleccionar el texto*/
+    -webkit-user-select: none; /* Chrome, Opera, Safari */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */
+}
+
+    .btn:hover {
+        background: #990099;
+        font-weight: bolt;
+    }
+/*mensaje de validación O INFORMACIÓN EN CADA MODAL */
+#infoModal {
+    color: green;
+    background-color: #d3f8d3;
+    margin: 14px 4px 10px 4px;
+    padding: 8px 8px 8px 12px;
+    border-left-style: solid;
+    border-left-color: green;
+    border-left-width: 4px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 300; /* Sit on top. ver la tabla de valores en el css */
+    padding-top: 30px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: white;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 95%;
+    -moz-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    -moz-animation-name: animatetop;
+    -moz-animation-duration: 0.4s;
+    -o-animation-name: animatetop;
+    -o-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+
+@-moz-keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+
+@-o-keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+
+@keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+/* The Close Button */
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    /*no se puede seleccionar el texto*/
+    -webkit-user-select: none; /* Chrome, Opera, Safari */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */
+}
+
+    .close:hover,
+    .close:focus {
+        color: lavender;
+        text-decoration: none;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 30px;
+    }
+
+.modal-header {
+    padding: 2px 16px;
+    background-color: purple;
+    color: white;
+    /*no se puede seleccionar el texto*/
+    -webkit-user-select: none; /* Chrome, Opera, Safari */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */
+    text-align: left;
+}
+
+.modal-body {
+    padding: 2px 12px;
+    max-width: 100%;
+    overflow: auto;
+    /*max-height:150px; puede ajustarse con javascript*/
+    -moz-transition: width 0.5s;
+    -o-transition: width 0.5s;
+    -webkit-transition: width 0.5s;
+    transition: width 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+.modal-footer {
+    padding: 0;
+    background-color: purple;
+    color: white;
+    /*no se puede seleccionar el texto*/
+    -webkit-user-select: none; /* Chrome, Opera, Safari */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */
+}
+
+/*REVISAR EN CASO DE USAR OTROS HEADERS*/
+.modal-header h2 {
+    margin-top: 0.4em;
+    margin-bottom: 0.4em;
+}
+/* fin ajustes de la ventana modal */
+
+/* ajustes de impresión */
+
+@page {
+    margin: 0.4cm;
+}
+
+@media print {
+
+    * {
+        /*
+        ni transiciones
+        */
+        -o-transition: none !important;
+        -moz-transition: none !important;
+        -webkit-transition: none !important;
+        transition: none !important;
+        /*
+        ni animaciones
+        */
+        animation: none !important;
+    }
+    /* ocultar */
+    #BtnTop, .paleta, .loader, #pie, #BtnCerrarHistorial, #myModal {
+        display: none !important;
+    }
+
+    .contenedor {
+        margin: 16px 4px 4px 8px !important;
+        overflow: hidden !important;
+        max-width: none !important;
+    }
+
+    .fila {
+        overflow: hidden !important;
+    }
+
+    .columna {
+        font-size: 0px !important;
+    }
+
+    body {
+        background-color: transparent !important;
+        -webkit-print-color-adjust: exact;
+        color-adjust: exact;
+        color: black !important;
+        text-align: center !important;
+        margin: 0.5cm 0.3cm !important;
+        padding: 0.1cm !important;
+        border: 0.5px solid gray;
+    }
+
+    h1, h3 {
+        color: black !important;
+        margin: 12px;
+        max-width: 100%;
+        overflow: hidden !important;
+        text-align: center !important;
+    }
+}
+
+.loader {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    /*background: url('pageLoader.gif') 50% 50% no-repeat rgb(249,249,249);*/
+    background: rgb(179, 179, 179);
+    opacity: 0.8;
+    filter: Alpha(opacity=80); /* IE8 and earlier */
+    text-align: center;
+    /*centrar verticalmente*/
+    /* BROWSER DEFINITION */
+    display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox; /* TWEENER - IE 10 */
+    display: -webkit-flex; /* NEW - Chrome */
+    /* W3C DEFINITION */
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+}
+
+.sk-cube-grid {
+    width: 120px;
+    height: 120px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+    .sk-cube-grid .sk-cube {
+        width: 33%;
+        height: 33%;
+        background-color: #333;
+        float: left;
+        -moz-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+        -o-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+        -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+        animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+    }
+
+    .sk-cube-grid .sk-cube1 {
+        -o-animation-delay: 0.2s;
+        -moz-animation-delay: 0.2s;
+        -webkit-animation-delay: 0.2s;
+        animation-delay: 0.2s;
+    }
+
+    .sk-cube-grid .sk-cube2 {
+        -moz-animation-delay: 0.3s;
+        -o-animation-delay: 0.3s;
+        -webkit-animation-delay: 0.3s;
+        animation-delay: 0.3s;
+    }
+
+    .sk-cube-grid .sk-cube3 {
+        -moz-animation-delay: 0.4s;
+        -o-animation-delay: 0.4s;
+        -webkit-animation-delay: 0.4s;
+        animation-delay: 0.4s;
+    }
+
+    .sk-cube-grid .sk-cube4 {
+        -webkit-animation-delay: 0.1s;
+        animation-delay: 0.1s;
+    }
+
+    .sk-cube-grid .sk-cube5 {
+        -moz-animation-delay: 0.2s;
+        -o-animation-delay: 0.2s;
+        -webkit-animation-delay: 0.2s;
+        animation-delay: 0.2s;
+    }
+
+    .sk-cube-grid .sk-cube6 {
+        -moz-animation-delay: 0.3s;
+        -o-animation-delay: 0.3s;
+        -webkit-animation-delay: 0.3s;
+        animation-delay: 0.3s;
+    }
+
+    .sk-cube-grid .sk-cube7 {
+        -moz-animation-delay: 0s;
+        -o-animation-delay: 0s;
+        -webkit-animation-delay: 0s;
+        animation-delay: 0s;
+    }
+
+    .sk-cube-grid .sk-cube8 {
+        -moz-animation-delay: 0.1s;
+        -o-animation-delay: 0.1s;
+        -webkit-animation-delay: 0.1s;
+        animation-delay: 0.1s;
+    }
+
+    .sk-cube-grid .sk-cube9 {
+        -moz-animation-delay: 0.2s;
+        -o-animation-delay: 0.2s;
+        -webkit-animation-delay: 0.2s;
+        animation-delay: 0.2s;
+    }
+
+@-webkit-keyframes sk-cubeGridScaleDelay {
+    0%, 70%, 100% {
+        -webkit-transform: scale3D(1, 1, 1);
+        transform: scale3D(1, 1, 1);
+    }
+
+    35% {
+        -webkit-transform: scale3D(0, 0, 1);
+        transform: scale3D(0, 0, 1);
+    }
+}
+
+@-moz-keyframes sk-cubeGridScaleDelay {
+    0%, 70%, 100% {
+        -moz-transform: scale3D(1, 1, 1);
+        transform: scale3D(1, 1, 1);
+    }
+
+    35% {
+        -moz-transform: scale3D(0, 0, 1);
+        transform: scale3D(0, 0, 1);
+    }
+}
+
+@-o-keyframes sk-cubeGridScaleDelay {
+    0%, 70%, 100% {
+        -o-transform: scale3D(1, 1, 1);
+        transform: scale3D(1, 1, 1);
+    }
+
+    35% {
+        -o-transform: scale3D(0, 0, 1);
+        transform: scale3D(0, 0, 1);
+    }
+}
+
+@keyframes sk-cubeGridScaleDelay {
+    0%, 70%, 100% {
+        -webkit-transform: scale3D(1, 1, 1);
+        transform: scale3D(1, 1, 1);
+    }
+
+    35% {
+        -webkit-transform: scale3D(0, 0, 1);
+        transform: scale3D(0, 0, 1);
+    }
+}
+
+h1, h3 {
+    color: purple;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 70%;
+    overflow: auto;
+}
+/* unvisited link */
+a:link {
+    color: green;
+}
+
+/* visited link */
+a:visited {
+    color: red;
+}
+
+/* mouse over link */
+a:hover {
+    color: hotpink;
+}
+
+/* selected link */
+a:active {
+    color: orange;
+}
+
+.link {
+    font-style: italic;
+    font-size: 1em;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.contenedor {
+    /* sin filtro inicialmente */
+    -webkit-filter: none;
+    filter: none;
+    overflow: auto !important;
+    margin: 76px 0px 0px 0px;
+    width: 200px;
+    max-width: 88% !important;
+    /*border: 1px solid purple;*/
+    display: inline-block;
+    padding: 0px;
+    font-size: 0px;
+    /* COLOR LIENZO INICIAL */
+    background-color: #000000;
+    -moz-transition: background-color 0.6s;
+    -o-transition: background-color 0.6s;
+    -webkit-transition: background-color 0.6s;
+    transition: background-color 0.6s;
+}
+
+#pie {
+    margin-bottom: 76px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 70%;
+    overflow: auto;
+}
+
+#colorPixel {
+    min-width: 70px;
+    max-width: 20%;
+    display: inline-block;
+    margin-left: 4px;
+    margin-right: 4px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+#rellenoHistorial {
+    width: 1.2em;
+    height: 1.2em;
+    display: inline-block;
+    background-color: black;
+    padding: 0;
+    margin: 0;
+    margin-right: 4px;
+    text-align: center;
+    border: none;
+    opacity: 1;
+    visibility: visible;
+    font-size: 1.2em;
+    vertical-align: text-bottom;
+}
+
+#rellenoHistorial {
+    /* gradiente multicolor de arriba a abajo */
+    background: -webkit-linear-gradient(red, orange, yellow, green, blue, indigo, violet); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(red, orange, yellow, green, blue, indigo, violet); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(red, orange, yellow, green, blue, indigo, violet); /* For Fx 3.6 to 15 */
+    background: linear-gradient(red, orange, yellow, green, blue, indigo, violet); /* Standard syntax (must be last) */
+}
+
+#spanFilas, #spanColumnas {
+    display: inline-block;
+    padding: 0;
+    margin-left: 4px;
+    margin-right: 4px;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: center;
+    border: none;
+    opacity: 1;
+    visibility: visible;
+    font-size: 0.8em;
+    color: indigo;
+}
+
+.espacioDerecha {
+    display: inline-block;
+    padding: 0;
+    border: none;
+    margin: 0;
+    width: 8px;
+    min-width: 8px;
+    font-size: 1.2em;
+    opacity: 0;
+}
+/* selectores de filas y columnas */
+#selectFilas, #selectColumnas, #filtro {
+    margin: 6px 2px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    outline: none;
+    max-width: 50%;
+    padding: 0px 4px;
+    border: none;
+    background-color: #b3b3b3;
+    font-size: 1em;
+}
+
+    #selectFilas:focus, #selectColumnas:focus, #filtro:focus {
+        background-color: #cccccc !important;
+    }
+
+    #selectFilas:hover, #selectColumnas:hover, #filtro:hover {
+        background-color: #999999;
+    }
+
+#selectColumnas {
+    margin-right: 6px !important;
+}
+/* selector de filtro */
+#filtro {
+    margin: 4px 6px !important;
+}
+/*íconos de la barra */
+.paleta .fa, #BtnCerrarHistorial .fa {
+    /* no llevan texto ...*/
+    font-size: 1.2em;
+}
+/*botones de barra de herramientas*/
+#paletaArriba button, #paletaAbajo button {
+    visibility: visible;
+    -moz-transition: opacity 0.4s, visibility 0.4s, background-color 0.4s;
+    -o-transition: opacity 0.4s, visibility 0.4s, background-color 0.4s;
+    -webkit-transition: opacity 0.4s, visibility 0.4s, background-color 0.4s;
+    transition: opacity 0.4s, visibility 0.4s, background-color 0.4s;
+}
+
+
+.paleta button {
+    cursor: pointer;
+    font-family: Tahoma, Arial, sans-serif;
+    display: inline-block;
+    color: white;
+    background-color: purple;
+    padding: 12px;
+    margin: 8px 2px;
+    text-align: center;
+    border: 3px solid #666699;
+}
+
+#paletaHistorial button {
+    padding: 5px !important;
+    margin: 1px 2px !important;
+    visibility: visible;
+    -moz-transition: background-color 0.4s;
+    -o-transition: background-color 0.4s;
+    -webkit-transition: background-color 0.4s;
+    transition: background-color 0.4s;
+}
+
+.paleta button:first-child, #BtnAceptarLibre {
+    margin-left: 8px;
+}
+/* esto no funciona, es mejor un span al final de la clase espacioDerecha */
+/*
+            .paleta button:last-child {
+                margin-right: 8px;
+            }
+*/
+/* este truco para mostrar un padding bottom efectivo */
+#paletaHistorial:after {
+    content: "";
+    height: 12px; /* padding-bottom: ESTO PARA QUE SE VEA EN IE Y FIREFOX*/
+    display: block;
+}
+
+#BtnCerrarHistorial:active, #BtnCerrarHistorial:hover, #paletaAbajo button:active, #paletaAbajo button:hover, #paletaAbajo button:active, #paletaArriba button:hover, #colorPixel:active, #colorPixel:hover {
+    background-color: #999999;
+    color: purple;
+}
+
+#paletaHistorial button:active, #paletaHistorial button:hover {
+    background-color: #999999;
+}
+
+#BtnCerrarHistorial:hover, #BtnCerrarHistorial:active {
+    color: red;
+}
+
+/*LA BARRA DE NAVEGACIÓN*/
+.paleta {
+    background-color: gray;
+    z-index: 100;
+    position: fixed;
+    margin: 0;
+    padding: 0;
+    left: 0;
+    /*no se puede seleccionar el texto*/
+    -webkit-user-select: none; /* Chrome, Opera, Safari */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */
+}
+
+#paletaArriba {
+    top: 0 !important;
+    white-space: nowrap;
+    /* BROWSER DEFINITION */
+    display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox; /* TWEENER - IE 10 */
+    display: -webkit-flex; /* NEW - Chrome */
+    /* W3C DEFINITION */
+    display: flex;
+    display: inline-flex;
+    right: 0;
+    overflow: auto;
+    /* gradiente multicolor de arriba a abajo */
+    background: -webkit-linear-gradient( rgba(128, 128, 128, 1), rgba(128, 128, 128, 0.9) ); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(rgba(128, 128, 128, 1), rgba(128, 128, 128, 0.9) ); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(rgba(128, 128, 128, 1), rgba(128, 128, 128, 0.9) ); /* For Fx 3.6 to 15 */
+    background: linear-gradient(rgba(128, 128, 128, 1), rgba(128, 128, 128, 0.9) ); /* Standard syntax (must be last) */
+}
+
+#paletaAbajo {
+    bottom: 0 !important;
+    white-space: nowrap;
+    /* BROWSER DEFINITION */
+    display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox; /* TWEENER - IE 10 */
+    display: -webkit-flex; /* NEW - Chrome */
+    /* W3C DEFINITION */
+    display: flex;
+    display: inline-flex;
+    right: 0;
+    overflow: auto;
+    /* gradiente multicolor de arriba a abajo */
+    background: -webkit-linear-gradient( rgba(128, 128, 128, 0.9), rgba(128, 128, 128, 1) ); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(rgba(128, 128, 128, 0.9), rgba(128, 128, 128, 1) ); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(rgba(128, 128, 128, 0.9), rgba(128, 128, 128, 1) ); /* For Fx 3.6 to 15 */
+    background: linear-gradient(rgba(128, 128, 128, 0.9), rgba(128, 128, 128, 1) ); /* Standard syntax (must be last) */
+}
+
+#paletaHistorial {
+    top: 100px;
+    bottom: 100px;
+    -ms-overflow-x: hidden;
+    overflow-x: hidden -ms-overflow-y: auto;
+    overflow-y: auto !important;
+}
+
+#paletaHistorial, #BtnCerrarHistorial {
+    /*INICIAN INVISIBLES*/
+    visibility: hidden;
+    opacity: 0;
+    display: inline-block;
+    left: -300px;
+    -moz-transition: opacity 2s;
+    -o-transition: opacity 2s;
+    -webkit-transition: opacity 2s;
+    transition: opacity 2s;
+    width: 50px;
+}
+
+#BtnCerrarHistorial {
+    /* overflow: auto !important;  */
+    overflow: hidden;
+    top: 100px;
+    z-index: 2;
+    position: fixed;
+    /*no se puede seleccionar el texto*/
+    -webkit-user-select: none; /* Chrome, Opera, Safari */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */
+    cursor: pointer;
+    font-family: Tahoma, Arial, sans-serif;
+    padding: 6px;
+    margin: 0;
+    color: white;
+    background-color: rgba(128, 128, 128, 0.9);
+    text-align: center;
+    border: 3px solid rgba(128, 128, 128, 0);
+}
+
+
+body {
+    text-align: center;
+    background-color: #000000; /* negro*/
+}
+
+.columna {
+    /* SIN BORDE REDONDEADO*/
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    /*TIPO DE BORDE*/
+    border: 0.5px solid #000000;
+    width: 20px;
+    /*max-width: 20px;*/
+    height: 20px;
+    font-size: 0px;
+    display: inline-block;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    overflow-y: hidden; /*para que IE no muestre la barra cuando el ancho es 0*/
+    padding: 0px !important;
+    margin: 0px !important;
+    background-color: #ffffff; /*blanco*/
+    /* efecto animado al cambiar color */
+    -moz-transition: border-radius 0.6s, background-color 0.6s;
+    -o-transition: border-radius 0.6s, background-color 0.6s;
+    -webkit-transition: border-radius 0.6s, background-color 0.6s;
+    transition: border-radius 0.6s, background-color 0.6s;
+    /*no se puede seleccionar el texto*/
+    -webkit-user-select: none; /* Chrome, Opera, Safari */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */
+}
+
+.fila {
+    width: 100%;
+    max-width: 100%;
+    vertical-align: top;
+    font-size: 0px;
+    /*
+overflow-x: hidden; 
+    overflow-y: hidden;    
+    */
+    padding: 0px !important;
+    margin: 0px !important;
+    white-space: nowrap;
+    /* BROWSER DEFINITION */
+    display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox; /* TWEENER - IE 10 */
+    display: -webkit-flex; /* NEW - Chrome */
+    /* W3C DEFINITION */
+    display: flex;
+    display: inline-flex;
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box !important;
+}
+
+/*SNACKBAR INICIA */
+
+/* The snackbar - position it at the bottom and in the middle of the screen */
+#snackbar {
+    visibility: hidden; /* Hidden by default. Visible on click */
+    min-width: 250px; /* Set a default minimum width */
+    margin-left: -125px; /* Divide value of min-width by 2 */
+    background-color: #660066; /* background color */
+    color: white; /* White text color */
+    text-align: center; /* Centered text */
+    font-family: Verdana, Geneva, Tahoma, sans-serif; /*fuente*/
+    -moz-border-radius: 10px; /*borde redondeado*/
+    -webkit-border-radius: 10px; /*borde redondeado*/
+    border-radius: 10px; /*borde redondeado*/
+    padding: 16px; /* Padding */
+    position: fixed; /* Sit on top of the screen */
+    z-index: 500; /* ver cabeza de este CSS */
+    left: 50%; /* Center the snackbar */
+    bottom: 70px; /* 30px from the bottom */
+    /*SOMBRA*/
+    -moz-box-shadow: 5px 5px 3px #4d004d;
+    -webkit-box-shadow: 5px 5px 3px #4d004d;
+    box-shadow: 5px 5px 3px #4d004d;
+    /*no se puede seleccionar el texto*/
+    -webkit-user-select: none; /* Chrome, Opera, Safari */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */
+}
+
+    /* Show the snackbar when clicking on a button (class added with JavaScript) */
+    #snackbar.show {
+        visibility: visible; /* Show the snackbar */
+        /* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
+However, delay the fade out process for 2.5 seconds */
+        -moz-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        -o-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    }
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 70px;
+        opacity: 1;
+    }
+}
+
+@-o-keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 70px;
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 70px;
+        opacity: 1;
+    }
+}
+
+@keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 70px;
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeout {
+    from {
+        bottom: 70px;
+        opacity: 1;
+    }
+
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes fadeout {
+    from {
+        bottom: 70px;
+        opacity: 1;
+    }
+
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+
+@-o-keyframes fadeout {
+    from {
+        bottom: 70px;
+        opacity: 1;
+    }
+
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+
+@keyframes fadeout {
+    from {
+        bottom: 70px;
+        opacity: 1;
+    }
+
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+/*FIN SNACKBAR*/
+/*-------------*/
+
+/* inicia clase parpadea */
+.parpadea {
+    /*WEBKIT*/
+    -webkit-animation-name: parpadeo;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    /*MOZ*/
+    -moz-animation-name: parpadeo;
+    -moz-animation-duration: 1s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+    /*O*/
+    -o-animation-name: parpadeo;
+    -o-animation-duration: 1s;
+    -o-animation-timing-function: linear;
+    -o-animation-iteration-count: infinite;
+    /*ESTÁNDAR*/
+    animation-name: parpadeo;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes parpadeo {
+    0% {
+        opacity: 1.0;
+    }
+
+    50% {
+        opacity: 0.0;
+    }
+
+    100% {
+        opacity: 1.0;
+    }
+}
+
+@-moz-keyframes parpadeo {
+    0% {
+        opacity: 1.0;
+    }
+
+    50% {
+        opacity: 0.0;
+    }
+
+    100% {
+        opacity: 1.0;
+    }
+}
+
+@-o-keyframes parpadeo {
+    0% {
+        opacity: 1.0;
+    }
+
+    50% {
+        opacity: 0.0;
+    }
+
+    100% {
+        opacity: 1.0;
+    }
+}
+
+@keyframes parpadeo {
+    0% {
+        opacity: 1.0;
+    }
+
+    50% {
+        opacity: 0.0;
+    }
+
+    100% {
+        opacity: 1.0;
+    }
+}
+/*fin clase parpadear*/
+
+/* top button */
+#BtnTop {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 90px !important; /* Place the button at the middle of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 200; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: #660066; /* Set a background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 8px 10px; /* Some padding */
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px; /* Rounded corners */
+    font-size: 1.2em;
+    font-weight: bold;
+    /*SOMBRA*/
+    -moz-box-shadow: 4px 4px 3px #b300b3;
+    -webkit-box-shadow: 4px 4px 3px #b300b3;
+    box-shadow: 4px 4px 3px #b300b3;
+    /*no se puede seleccionar el texto*/
+    -webkit-user-select: none; /* Chrome, Opera, Safari */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */
+}
+
+    #BtnTop:hover {
+        background: #8c53c6; /* For browsers that do not support gradients */
+        background: -webkit-linear-gradient(left, #cc00cc, #660066); /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(right, #cc00cc, #660066); /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(right, #cc00cc, #660066); /* For Firefox 3.6 to 15 */
+        background: linear-gradient(to right, #cc00cc, #660066); /* Standard syntax (must be last) */
+    }
+/* INICIO CSS PARA INPUT RANGE PERSONALIZADO*/
+input[type=range] {
+    -webkit-appearance: none;
+    margin: 10px 0;
+    width: 97%;
+    border: none;
+}
+
+    input[type=range]:focus {
+        outline: none;
+    }
+
+    input[type=range]::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 12.8px;
+        cursor: pointer;
+        animate: 0.2s;
+        box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+        background: #9370DB;
+        border-radius: 25px;
+        border: 0px solid #000101;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+        box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+        border: 0px solid #000000;
+        height: 20px;
+        width: 39px;
+        border-radius: 7px;
+        background: #4B0082;
+        cursor: pointer;
+        -webkit-appearance: none;
+        margin-top: -3.6px;
+    }
+
+    input[type=range]:focus::-webkit-slider-runnable-track {
+        background: #7B68EE;
+    }
+
+    input[type=range]::-moz-range-track {
+        width: 100%;
+        height: 12.8px;
+        cursor: pointer;
+        animate: 0.2s;
+        box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+        background: #9370DB;
+        border-radius: 25px;
+        border: 0px solid #000101;
+    }
+
+    input[type=range]::-moz-range-thumb {
+        box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+        border: 0px solid #000000;
+        height: 20px;
+        width: 39px;
+        border-radius: 7px;
+        background: #4B0082;
+        cursor: pointer;
+    }
+
+    input[type=range]::-ms-track {
+        width: 100%;
+        height: 12.8px;
+        cursor: pointer;
+        animate: 0.2s;
+        background: transparent;
+        border-color: transparent;
+        border-width: 39px 0;
+        color: transparent;
+    }
+
+    input[type=range]::-ms-fill-lower {
+        background: #9370DB;
+        border: 0px solid #000101;
+        border-radius: 50px;
+        box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+    }
+
+    input[type=range]::-ms-fill-upper {
+        background: #9370DB;
+        border: 0px solid #000101;
+        border-radius: 50px;
+        box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+    }
+
+    input[type=range]::-ms-thumb {
+        box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+        border: 0px solid #000000;
+        height: 20px;
+        width: 39px;
+        border-radius: 7px;
+        background: #4B0082;
+        cursor: pointer;
+    }
+
+    input[type=range]:focus::-ms-fill-lower {
+        background: #7B68EE;
+    }
+
+    input[type=range]:focus::-ms-fill-upper {
+        background: #7B68EE;
+    }
+/* FIN CSS PARA INPUT RANGE PERSONALIZADO*/
+/* otro, el rojo */
+#rangoR::-webkit-slider-runnable-track {
+    /* rojo */
+    background: #ff0000;
+    background-image: -webkit-linear-gradient(left, #000000, #ff0000); /* For Safari 5.1 to 6.0 */
+    background-image: -o-linear-gradient(right, #000000, #ff0000); /* For Opera 11.1 to 12.0 */
+    background-image: -moz-linear-gradient(right, #000000, #ff0000); /* For Firefox 3.6 to 15 */
+    background-image: linear-gradient(to right, #000000, #ff0000); /* Standard syntax (must be last) */
+}
+
+#rangoR::-webkit-slider-thumb {
+    /* rojo más oscuro, dejando 3 */
+    background: #990000;
+}
+
+#rangoR:focus::-webkit-slider-runnable-track {
+    /* rojo más oscuro, el siguiente */
+    background: #e60000;
+    background-image: -webkit-linear-gradient(left, #000000, #e60000); /* For Safari 5.1 to 6.0 */
+    background-image: -o-linear-gradient(right, #000000, #e60000); /* For Opera 11.1 to 12.0 */
+    background-image: -moz-linear-gradient(right, #000000, #e60000); /* For Firefox 3.6 to 15 */
+    background-image: linear-gradient(to right, #000000, #e60000); /* Standard syntax (must be last) */
+}
+
+#rangoR::-moz-range-track {
+    /* rojo */
+    background: #ff0000;
+    background-image: -webkit-linear-gradient(left, #000000, #ff0000); /* For Safari 5.1 to 6.0 */
+    background-image: -o-linear-gradient(right, #000000, #ff0000); /* For Opera 11.1 to 12.0 */
+    background-image: -moz-linear-gradient(right, #000000, #ff0000); /* For Firefox 3.6 to 15 */
+    background-image: linear-gradient(to right, #000000, #ff0000); /* Standard syntax (must be last) */
+}
+
+#rangoR::-moz-range-thumb {
+    /* rojo más oscuro, dejando 3 */
+    background: #990000;
+}
+
+#rangoR::-ms-fill-lower {
+    /* rojo */
+    background: #ff0000;
+    background-image: -webkit-linear-gradient(left, #000000, #ff0000); /* For Safari 5.1 to 6.0 */
+    background-image: -o-linear-gradient(right, #000000, #ff0000); /* For Opera 11.1 to 12.0 */
+    background-image: -moz-linear-gradient(right, #000000, #ff0000); /* For Firefox 3.6 to 15 */
+    background-image: linear-gradient(to right, #000000, #ff0000); /* Standard syntax (must be last) */
+}
+
+#rangoR::-ms-fill-upper {
+    /* rojo */
+    background: #ff0000;
+    background-image: -webkit-linear-gradient(left, #000000, #ff0000); /* For Safari 5.1 to 6.0 */
+    background-image: -o-linear-gradient(right, #000000, #ff0000); /* For Opera 11.1 to 12.0 */
+    background-image: -moz-linear-gradient(right, #000000, #ff0000); /* For Firefox 3.6 to 15 */
+    background-image: linear-gradient(to right, #000000, #ff0000); /* Standard syntax (must be last) */
+}
+
+#rangoR::-ms-thumb {
+    /* rojo más oscuro, dejando 3 */
+    background: #990000;
+}
+
+#rangoR:focus::-ms-fill-lower {
+    /* rojo más oscuro, el siguiente */
+    background: #e60000;
+}
+
+#rangoR:focus::-ms-fill-upper {
+    /* rojo más oscuro, el siguiente */
+    background: #e60000;
+}
+
+/* otro, el verde */
+#rangoG::-webkit-slider-runnable-track {
+    /* VERDE LIME */
+    background: #00ff00;
+    background-image: -webkit-linear-gradient(left, #000000, #00ff00); /* For Safari 5.1 to 6.0 */
+    background-image: -o-linear-gradient(right, #000000, #00ff00); /* For Opera 11.1 to 12.0 */
+    background-image: -moz-linear-gradient(right, #000000, #00ff00); /* For Firefox 3.6 to 15 */
+    background-image: linear-gradient(to right, #000000, #00ff00); /* Standard syntax (must be last) */
+}
+
+#rangoG::-webkit-slider-thumb {
+    /* VERDE más oscuro, dejando 3 */
+    background: #009900;
+}
+
+#rangoG:focus::-webkit-slider-runnable-track {
+    /* VERDE más oscuro, el siguiente */
+    background: #00e600;
+    background-image: -webkit-linear-gradient(left, #000000, #00e600); /* For Safari 5.1 to 6.0 */
+    background-image: -o-linear-gradient(right, #000000, #00e600); /* For Opera 11.1 to 12.0 */
+    background-image: -moz-linear-gradient(right, #000000, #00e600); /* For Firefox 3.6 to 15 */
+    background-image: linear-gradient(to right, #000000, #00e600); /* Standard syntax (must be last) */
+}
+
+#rangoG::-moz-range-track {
+    /* VERDE LIME */
+    background: #00ff00;
+    background-image: -webkit-linear-gradient(left, #000000, #00ff00); /* For Safari 5.1 to 6.0 */
+    background-image: -o-linear-gradient(right, #000000, #00ff00); /* For Opera 11.1 to 12.0 */
+    background-image: -moz-linear-gradient(right, #000000, #00ff00); /* For Firefox 3.6 to 15 */
+    background-image: linear-gradient(to right, #000000, #00ff00); /* Standard syntax (must be last) */
+}
+
+#rangoG::-moz-range-thumb {
+    /* VERDE más oscuro, dejando 3 */
+    background: #009900;
+}
+
+#rangoG::-ms-fill-lower {
+    /* VERDE LIME */
+    background: #00ff00;
+    background-image: -webkit-linear-gradient(left, #000000, #00ff00); /* For Safari 5.1 to 6.0 */
+    background-image: -o-linear-gradient(right, #000000, #00ff00); /* For Opera 11.1 to 12.0 */
+    background-image: -moz-linear-gradient(right, #000000, #00ff00); /* For Firefox 3.6 to 15 */
+    background-image: linear-gradient(to right, #000000, #00ff00); /* Standard syntax (must be last) */
+}
+
+#rangoG::-ms-fill-upper {
+    /* VERDE LIME */
+    background: #00ff00;
+    background-image: -webkit-linear-gradient(left, #000000, #00ff00); /* For Safari 5.1 to 6.0 */
+    background-image: -o-linear-gradient(right, #000000, #00ff00); /* For Opera 11.1 to 12.0 */
+    background-image: -moz-linear-gradient(right, #000000, #00ff00); /* For Firefox 3.6 to 15 */
+    background-image: linear-gradient(to right, #000000, #00ff00); /* Standard syntax (must be last) */
+}
+
+#rangoG::-ms-thumb {
+    /* VERDE más oscuro, dejando 3 */
+    background: #009900;
+}
+
+#rangoG:focus::-ms-fill-lower {
+    /* VERDE más oscuro, el siguiente */
+    background: #00e600;
+    background-image: -webkit-linear-gradient(left, #000000, #00e600); /* For Safari 5.1 to 6.0 */
+    background-image: -o-linear-gradient(right, #000000, #00e600); /* For Opera 11.1 to 12.0 */
+    background-image: -moz-linear-gradient(right, #000000, #00e600); /* For Firefox 3.6 to 15 */
+    background-image: linear-gradient(to right, #000000, #00e600); /* Standard syntax (must be last) */
+}
+
+#rangoG:focus::-ms-fill-upper {
+    /* VERDE más oscuro, el siguiente */
+    background: #00e600;
+    background-image: -webkit-linear-gradient(left, #000000, #00e600); /* For Safari 5.1 to 6.0 */
+    background-image: -o-linear-gradient(right, #000000, #00e600); /* For Opera 11.1 to 12.0 */
+    background-image: -moz-linear-gradient(right, #000000, #00e600); /* For Firefox 3.6 to 15 */
+    background-image: linear-gradient(to right, #000000, #00e600); /* Standard syntax (must be last) */
+}
+
+/* otro, el azul */
+#rangoB::-webkit-slider-runnable-track {
+    /* AZUL */
+    background: #0000ff;
+    background-image: -webkit-linear-gradient(left, #000000, #0000ff); /* For Safari 5.1 to 6.0 */
+    background-image: -o-linear-gradient(right, #000000, #0000ff); /* For Opera 11.1 to 12.0 */
+    background-image: -moz-linear-gradient(right, #000000, #0000ff); /* For Firefox 3.6 to 15 */
+    background-image: linear-gradient(to right, #000000, #0000ff); /* Standard syntax (must be last) */
+}
+
+#rangoB::-webkit-slider-thumb {
+    /* AZUL más oscuro, dejando 3 */
+    background: #000099;
+}
+
+#rangoB:focus::-webkit-slider-runnable-track {
+    /* AZUL más oscuro, el siguiente */
+    background: #0000e6;
+    background-image: -webkit-linear-gradient(left, #000000, #0000e6); /* For Safari 5.1 to 6.0 */
+    background-image: -o-linear-gradient(right, #000000, #0000e6); /* For Opera 11.1 to 12.0 */
+    background-image: -moz-linear-gradient(right, #000000, #0000e6); /* For Firefox 3.6 to 15 */
+    background-image: linear-gradient(to right, #000000, #0000e6); /* Standard syntax (must be last) */
+}
+
+#rangoB::-moz-range-track {
+    /* AZUL */
+    background: #0000ff;
+    background-image: -webkit-linear-gradient(left, #000000, #0000ff); /* For Safari 5.1 to 6.0 */
+    background-image: -o-linear-gradient(right, #000000, #0000ff); /* For Opera 11.1 to 12.0 */
+    background-image: -moz-linear-gradient(right, #000000, #0000ff); /* For Firefox 3.6 to 15 */
+    background-image: linear-gradient(to right, #000000, #0000ff); /* Standard syntax (must be last) */
+}
+
+#rangoB::-moz-range-thumb {
+    /* AZUL más oscuro, dejando 3 */
+    background: #000099;
+}
+
+#rangoB::-ms-fill-lower {
+    /* AZUL */
+    background: #0000ff;
+    background-image: -webkit-linear-gradient(left, #000000, #0000ff); /* For Safari 5.1 to 6.0 */
+    background-image: -o-linear-gradient(right, #000000, #0000ff); /* For Opera 11.1 to 12.0 */
+    background-image: -moz-linear-gradient(right, #000000, #0000ff); /* For Firefox 3.6 to 15 */
+    background-image: linear-gradient(to right, #000000, #0000ff); /* Standard syntax (must be last) */
+}
+
+#rangoB::-ms-fill-upper {
+    /* AZUL */
+    background: #0000ff;
+    background-image: -webkit-linear-gradient(left, #000000, #0000ff); /* For Safari 5.1 to 6.0 */
+    background-image: -o-linear-gradient(right, #000000, #0000ff); /* For Opera 11.1 to 12.0 */
+    background-image: -moz-linear-gradient(right, #000000, #0000ff); /* For Firefox 3.6 to 15 */
+    background-image: linear-gradient(to right, #000000, #0000ff); /* Standard syntax (must be last) */
+}
+
+#rangoB::-ms-thumb {
+    /* AZUL más oscuro, dejando 3 */
+    background: #000099;
+}
+
+#rangoB:focus::-ms-fill-lower {
+    /* AZUL más oscuro, el siguiente */
+    background: #0000e6;
+    background-image: -webkit-linear-gradient(left, #000000, #0000e6); /* For Safari 5.1 to 6.0 */
+    background-image: -o-linear-gradient(right, #000000, #0000e6); /* For Opera 11.1 to 12.0 */
+    background-image: -moz-linear-gradient(right, #000000, #0000e6); /* For Firefox 3.6 to 15 */
+    background-image: linear-gradient(to right, #000000, #0000e6); /* Standard syntax (must be last) */
+}
+
+#rangoB:focus::-ms-fill-upper {
+    /* AZUL más oscuro, el siguiente */
+    background: #0000e6;
+    background-image: -webkit-linear-gradient(left, #000000, #0000e6); /* For Safari 5.1 to 6.0 */
+    background-image: -o-linear-gradient(right, #000000, #0000e6); /* For Opera 11.1 to 12.0 */
+    background-image: -moz-linear-gradient(right, #000000, #0000e6); /* For Firefox 3.6 to 15 */
+    background-image: linear-gradient(to right, #000000, #0000e6); /* Standard syntax (must be last) */
+}

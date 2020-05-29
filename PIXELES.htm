@@ -1,0 +1,148 @@
+﻿<!DOCTYPE HTML>
+<html lang="es" dir="ltr">
+<head>
+    <!-- update 31 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ARTE CON PIXELES">
+    <!-- jquery cargado desde servidor de Google -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Chrome, Firefox, OS y Opera -->
+    <meta name="theme-color" content="#000000">
+    <meta name="msapplication-navbutton-color" content="#000000">
+    <title>Arte con pixeles</title>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <script src="https://kit.fontawesome.com/c884319274.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="PIXELES.css" />
+    <script>
+        $(document).ready(function () {
+            // cuando carga la página
+            // oculta el loader unos segundos después
+            setTimeout(function () {
+                $(".loader").fadeOut("slow");
+            }, 2000);
+
+        });
+    </script>
+</head>
+<body>
+    <div class="loader">
+        <div class="sk-cube-grid">
+            <div class="sk-cube sk-cube1"></div>
+            <div class="sk-cube sk-cube2"></div>
+            <div class="sk-cube sk-cube3"></div>
+            <div class="sk-cube sk-cube4"></div>
+            <div class="sk-cube sk-cube5"></div>
+            <div class="sk-cube sk-cube6"></div>
+            <div class="sk-cube sk-cube7"></div>
+            <div class="sk-cube sk-cube8"></div>
+            <div class="sk-cube sk-cube9"></div>
+        </div>
+    </div>
+    <!-- inicia:  La ventana modal para múltiples usos -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content" id="modalContent">
+            <div class="modal-header" id="modalHeader">
+                <span class="close" title="Cerrar">×</span>
+                <h2 id="modalTitle">Ícono y título</h2>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- cada marco es un uso del Modal -->
+                <!-- radio de los bordes -->
+                <div id="marcoRadio" class="marco">
+                    <div id="muestraRadio"></div>
+                    <input id="rangoRadioBordes" type="range" min="0" max="50" value="0" step="1">
+                    <div id="divA">
+                        <span id="aIzquierda"><i id="icoCuadro" class="far fa-square"></i></span>
+                        <span id="aDerecha"><i id="icoCírculo" class="far fa-circle"></i></span>
+                    </div>
+                </div>
+                <!-- color rgb -->
+                <div id="marcoRGB" class="marco">
+                    <p id="rgbCaption">rgb - hex</p>
+                    <div id="contenedorRGB">
+                        <div id="contenedorR">
+                            <input id="rangoR" type="range" min="0" max="255" value="0" step="1">
+                        </div>
+                        <div id="contenedorG">
+                            <input id="rangoG" type="range" min="0" max="255" value="0" step="1">
+                        </div>
+                        <div id="contenedorB">
+                            <input id="rangoB" type="range" min="0" max="255" value="0" step="1">
+                        </div>
+                    </div>
+                </div>
+                <!-- GALERÍA DE COLORES -->
+                <div id="marcoGallery" class="marco">
+                    <p id="infoColor"> aquí va la descripción del color </p>
+                    <div id="contenedorGrupos">
+                        <button id="pink" class="accordion">Pink Colors</button>
+                        <div class="panel">
+                            <p>Colores rosa</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- INFORMACIÓN OPCIONAL EN CADA MODAL -->
+                <p id="infoModal"> <strong>Nota: </strong> <span id="spanInfoModal"> Información importante </span> </p>
+            </div>
+            <div class="modal-footer" id="modalFooter">
+                <button type="button" class="btn" id="BtnAceptar">Aceptar</button>
+            </div>
+        </div>
+    </div>
+    <!-- termina aquí la ventana modal para múltiples usos -->
+    <div class="paleta" id="paletaArriba">
+        <button id="BtnAumentar" title="Aumentar tamaño"><i class="fas fa-search-plus"></i></button>
+        <button id="BtnDisminuir" title="Disminuir tamaño"><i class="fas fa-search-minus"></i></button>
+        <button id="BtnRellenar" title="Pintar todos"><span id="relleno"></span><i class="fas fa-tint"></i></button>
+        <button id="BtnColorLienzo" title="Color del lienzo"><i class="fas fa-paint-roller"></i></button>
+        <button id="BtnColorRejilla" title="Color de la rejilla"><i class="fas fa-border-style"></i></button>
+        <button id="BtnGotero" title="Modo Relleno Selectivo"><i class="fas fa-eye-dropper"></i></button>
+        <button id="BtnBorrador" title="Modo Borrador"><i class="fas fa-eraser"></i></button>
+        <button id="BtnPincel" title="Modo Pincel"><i class="fas fa-paint-brush"></i></button>
+        <button id="BtnLibre" title="Modo Selección Libre"><i class="far fa-hand-pointer"></i></button>
+        <button id="BtnExtraerColor" title="Modo Extraer Color"><i class="fas fa-map-pin"></i></button>
+        <input type="color" name="colorPixel" title="Seleccione o escriba un color en hexadecimal" id="colorPixel" value="#000000" onchange="colorPixel()" oninput="colorPixel()">
+        <button id="BtnRGB" title="Color RGB"><i class="fas fa-palette"></i></button>
+        <button id="BtnGallery" title="Galería De Colores"><i class="fas fa-grip-horizontal"></i></button>
+        <button id="BtnHistorialColor" title="Historial de colores"><span id="rellenoHistorial"></span><i class="fas fa-history"></i></button>
+        <select id="filtro" onchange="AplicarFiltro()"> <option value="none" selected="">Sin filtro</option> <option value="blur(3px)">Blur (3px)</option> <option value="blur(5px)">Blur (5px)</option> <option value="brightness(200%)">Brightness (200%)</option> <option value="contrast(200%)">Contrast (200%)</option> <option value="drop-shadow(8px 8px 10px red)">Drop-Shadow (8px 8px 10px red)</option> <option value="grayscale(100%)">Grayscale (100%)</option> <option value="hue-rotate(90deg)">Hue-Rotate (90deg)</option> <option value="invert(100%)">Invert (100%)</option> <option value="opacity(30%)">Opacity (30%)</option> <option value="saturate(8)">Saturate (8)</option> <option value="sepia(100%)">Sepia (100%)</option> <option value="contrast(200%) brightness(150%)">Contrast (200%) Brightness (150%)</option> </select>
+        <span class="espacioDerecha"> </span>
+    </div>
+    <div class="paleta" id="paletaAbajo">
+        <button id="BtnActualizar" title="Borrar todo"><i class="fas fa-sync-alt"></i></button>
+        <button id="BtnRejilla" title="Alternar bordes"><i id="icoRejilla" class="far fa-plus-square"></i></button>
+        <button id="BtnRadioBordes" title="Radio del borde"><i id="icoCircular" class="far fa-circle"></i></button>
+        <button id="BtnDeshacer" title="Deshacer última acción"><i class="fas fa-undo"></i></button>
+        <span id="spanFilas">Filas</span>
+        <select title="Seleccione el número de filas" id="selectFilas" onchange="dimensionar()"></select>
+        <span id="spanColumnas">Cols.</span>
+        <select title="Seleccione el número de columnas" id="selectColumnas" onchange="dimensionar()"></select>
+        <button id="BtnImportar" title="Importar"><i class="fas fa-file-import"></i></button>
+        <button id="BtnExportar" title="Exportar"><i class="fas fa-share-square"></i></button>
+        <button id="BtnImprimir" title="Imprimir"><i class="fas fa-print"></i></button>
+        <button id="BtnAceptarLibre" title="Guardar cambios"><i class="fas fa-check"></i> Aceptar </button>
+        <button id="BtnCancelarLibre" title="Descartar cambios"><i class="far fa-window-close"></i> Cancelar </button>
+        <span class="espacioDerecha"> </span>
+    </div>
+    <button id="BtnCerrarHistorial" title="Cerrar historial"><i class="fas fa-window-close"></i></button>
+    <div class="paleta" id="paletaHistorial">
+        <br>
+        <button id="BtnColor0" title="#ffffff" onclick="colorHistorial(this.id)"><i class="fas fa-square"></i></button>
+        <br>
+    </div>
+    <div class="contenedor" id="contenedor">
+    </div>
+    <!-- el snackbar para los mensajes -->
+    <div id="snackbar">
+        Realizado
+    </div>
+    <button onclick="topFunction()" id="BtnTop" title="Subir"><i class="fas fa-arrow-up"></i></button>
+    <h1> <i class="fas fa-paint-brush"></i> Pixel</h1>
+    <h3>Coded by @deiner_db</h3>
+    <h2 id="pie" class="parpadea"> <a class="link" target="_blank" href="https://rawgit.com/deinerdb/PRUEBAS/master/INDEX.htm" title="Ir a página recomendada">Ver otras páginas del autor</a> </h2>
+    <script type="text/javascript" charset="utf-8" src="PIXELES.js"></script>
+</body>
+</html>
+
