@@ -1,5 +1,4 @@
-﻿// update 31
-//color inicial del pincel es negro
+﻿//color inicial del pincel es negro
 var colorActual = "#000000";
 var colorRejilla = "#000000";
 var usarBordes = true;
