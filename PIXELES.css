@@ -798,7 +798,11 @@ a:active {
     background: -moz-linear-gradient(red, orange, yellow, green, blue, indigo, violet); /* For Fx 3.6 to 15 */
     background: linear-gradient(red, orange, yellow, green, blue, indigo, violet); /* Standard syntax (must be last) */
 }
-
+/* Selecciona cualquier <input> no válido */
+#colorPixel:invalid {
+    background-color: darkred;
+    color: white;
+}
 #spanFilas, #spanColumnas {
     display: inline-block;
     padding: 0;
@@ -812,6 +816,7 @@ a:active {
     opacity: 1;
     visibility: visible;
     font-size: 0.8em;
+    cursor: default; /* por ie y edge */
     color: indigo;
     /*centrar verticalmente*/
     /* BROWSER DEFINITION */

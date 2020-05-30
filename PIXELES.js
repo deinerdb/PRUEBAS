@@ -34,6 +34,43 @@ var rgbTemp = "rgb(0, 0, 0)";
 var miR = 0;
 var miG = 0;
 var miB = 0;
+var hexValues = [];
+var i;
+//var str = "";
+for (i = 0; i <= 255; i++) {
+    hexValues[i] = i.toString(16).toLowerCase();
+    if (hexValues[i].length < 2) {
+        hexValues[i] = "0" + hexValues[i];
+    }
+    //str = str + hexValues[i] + " - ";
+}
+//alert("0 - 255:   " + str);
+// valida un valor hexadecimal como #0000ff
+// devuelve false si no está en ese formato
+function validarHex(hex) {    
+    hex = "" + hex;
+    if (hex.length != 7 || hex.substring(0, 1) != "#") {
+        // no es hexadecimal
+        return false;
+    }
+    var r;
+    var g;
+    var b;
+    r = hex.slice(1, 3);
+    g = hex.slice(3, 5);
+    b = hex.slice(5);
+    if (hexValues.indexOf(r) == -1) {
+        return false;
+    }
+    if (hexValues.indexOf(g) == -1) {
+        return false;
+    }
+    if (hexValues.indexOf(b) == -1) {
+        return false;
+    }
+    //todo bien
+    return true;
+}
 // ********** IMPORTANTE ***********
 // el tamaño máximo de la matriz es 50x50
 // puede cambiar estos dos parámetros para probar matrices más grandes
@@ -829,8 +866,15 @@ document.getElementById("BtnImportar").onclick = function () {
 //cambia el color seleccionado, llamada por selector o historial de colores
 function colorPixel() {
     // NO OLVIDAR QUE backgroundColor DEVUELVE RGB Y EL VALUE DEL INPUT COLOR ES HEXADECIMAL
+    var miValor = document.getElementById("colorPixel").value;
+    if (validarHex(miValor) == false) {
+        // no es un color válido, seguramente una entrada errada en ie o safari
+        document.getElementById("colorPixel").value = "#000000";
+        miValor = "#000000";
+        showSnackbar("Color no válido. Se estableció negro (#000000).");        
+    }
     //actualiza el color del pincel
-    colorActual = document.getElementById("colorPixel").value;
+    colorActual = miValor;
     //actualiza el color de rellenar todo junto al ícono de la gota
     document.getElementById("relleno").style.backgroundColor = colorActual;
     // resalta en el historial si existe
