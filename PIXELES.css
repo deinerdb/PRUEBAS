@@ -5,6 +5,87 @@ modal 300
 snack 500
 loader 9999
 */
+/* para el color hex modal */
+#muestraMarcoHex {
+    border: 2px inset gray;
+    background-color: #000000;
+    color: #ffffff;
+    margin: 6px auto 10px auto;
+    padding: 4px;
+    text-align: center;
+    overflow: auto;
+    width: 90%;
+    height: 70px;
+    font-size: 1.3em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /*centrar verticalmente*/
+    /* BROWSER DEFINITION */
+    display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox; /* TWEENER - IE 10 */
+    display: -webkit-flex; /* NEW - Chrome */
+    /* W3C DEFINITION */
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    /* anima */
+    /*WEBKIT*/
+    -webkit-animation-name: blancoynegro;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    /*MOZ*/
+    -moz-animation-name: blancoynegro;
+    -moz-animation-duration: 1s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+    /*O*/
+    -o-animation-name: blancoynegro;
+    -o-animation-duration: 1s;
+    -o-animation-timing-function: linear;
+    -o-animation-iteration-count: infinite;
+    /*ESTÁNDAR*/
+    animation-name: blancoynegro;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    /*SOMBRA*/
+    -moz-box-shadow: 5px 5px 3px #C0C0C0;
+    -webkit-box-shadow: 5px 5px 3px #C0C0C0;
+    box-shadow: 5px 5px 3px #C0C0C0;
+    /*no se puede seleccionar el texto*/
+    -webkit-user-select: none; /* Chrome, Opera, Safari */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */
+}
+#errorHex {
+    color: red;
+    font-weight: bold;
+    background-color: white;
+    font-size: 1.2em;
+    text-align: center;
+    overflow: auto;
+    max-width: 100%;
+    font-family: 'Courier New', Consolas, Courier, monospace;
+}
+#valorHex {
+    padding: 8px;
+    background-color: white;
+    color: black;
+    width: 25%;
+    min-width: 100px;
+    max-width: 90%;
+    overflow: auto;
+    margin: 12px 0px 1px 0px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.2em;    
+    text-align: left;
+}
+#valorHex:focus {    
+    background-color: skyblue;
+}
 /* para el accordion */
 .accordion {
     border: 2px solid #ffffff;
@@ -854,7 +935,9 @@ a:active {
     background-color: #b3b3b3;
     font-size: 1em;
 }
-
+#selectFilas, #selectColumnas {
+   min-width: 60px;
+}
     #selectFilas:focus, #selectColumnas:focus, #filtro:focus {
         background-color: #cccccc !important;
     }
@@ -869,7 +952,9 @@ a:active {
 /* selector de filtro */
 #filtro {
     margin: 4px 6px !important;
+    min-width: 100px;
 }
+
 /*íconos de la barra */
 .paleta .fa, #BtnCerrarHistorial .fa {
     /* no llevan texto ...*/

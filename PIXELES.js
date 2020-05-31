@@ -6,7 +6,7 @@ var fondoAplicado = "#ffffff";
 var colorLienzo = "#000000"
 var radioBorde = 0;
 // modal: radio, rgb, gallery, importar, exportar, filas, columnas
-var modalActual;
+var modalActual = "ninguno";
 //para guardar la última acción
 var lastRadioBorde = 0;
 var lastAction;
@@ -260,7 +260,9 @@ function ajustesResize() {
     document.getElementById("BtnCerrarHistorial").style.top = 0 + document.getElementById("paletaArriba").offsetHeight + "px";
     document.getElementById("paletaHistorial").style.top = 0 + document.getElementById("paletaArriba").offsetHeight + document.getElementById("BtnCerrarHistorial").offsetHeight + "px";
     document.getElementById("paletaHistorial").style.bottom = 0 + document.getElementById("paletaAbajo").offsetHeight + "px";
-    alturaModal();
+    if (modalActual != "ninguno") {
+        alturaModal();
+    }
 }
 // para los filtros
 function AplicarFiltro() {
@@ -287,14 +289,19 @@ AplicarFiltro();
 var modal = document.getElementById('myModal');
 // Get the <span> element that closes the modal 
 var span = document.getElementsByClassName("close")[0];
+// para cerrar el modal y controlar el actual
+function cerrarModal() {
+    modalActual = "ninguno";
+    modal.style.display = "none";
+}
 // When the user clicks on <span> (x), close the modal
 span.onclick = function () {
-    modal.style.display = "none";
+    cerrarModal();
 }
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function (event) {
     if (event.target == modal) {
-        modal.style.display = "none";
+        cerrarModal();
     }
 }
 
@@ -329,6 +336,13 @@ function aceptarModal() {
             // para otras actualizaciones
             colorPixel();
             break;
+        case "hex":
+            // actualiza el color actual según el hex seleccionado
+            // asigna el valor hexadecimal al input color
+            document.getElementById("colorPixel").value = hexTemp;
+            // para otras actualizaciones
+            colorPixel();
+            break;
         case "gallery":
             // actualiza el color actual según el elemento de la galería seleccionado
             // asigna el valor hexadecimal al input color
@@ -350,7 +364,7 @@ function aceptarModal() {
             break;
     }
     // cierra el modalActual
-    modal.style.display = "none";
+    cerrarModal();
 }
 // el botón aceptar del modal
 document.getElementById("BtnAceptar").onclick = function () {
@@ -358,8 +372,7 @@ document.getElementById("BtnAceptar").onclick = function () {
     aceptarModal();
 }
 // ajustar el modal según su uso
-// depende de modalActual
-// modal: radio, rgb, gallery, importar, exportar, filas, columnas
+// depende de modalActual, ver declaración al principio
 function showModal() {
     //muestra el modal    
     modal.style.display = "block";
@@ -400,6 +413,17 @@ function showModal() {
             $("#contenedorRGB").css("border-color", colorActual);
             // tambíen el ícono en el título es una muestra icoMuestraRGB
             $("#icoMuestraRGB").css("color", colorActual);
+            break;
+        case "hex":
+            $("#marcoHex").css("display", "block");
+            // info
+            document.getElementById("spanInfoModal").innerHTML = "Ingrese un color en formato hexadecimal (Ejemplo: #ff00ff). Puede usar mayúsculas o minúsculas.";
+            document.getElementById("modalTitle").innerHTML = "<i class='fas fa-hashtag'></i> Color Hexadecimal";
+            // inicialmente hex es el color actual
+            hexTemp = colorActual;
+            document.getElementById("valorHex").value = colorActual;
+            // LA MUESTRA DE COLOR, INICIA CON EL ACTUAL
+            $("#muestraMarcoHex").css("background-color", colorActual);
             break;
         case "gallery":
             $("#marcoGallery").css("display", "block");
@@ -792,6 +816,10 @@ function configurarSelects() {
 configurarSelects();
 //se muestra el historial de color
 document.getElementById("BtnHistorialColor").onclick = function () {
+    if (modoActual == "borrador") {
+        showSnackbar("Está en Modo Borrador...");
+        return;
+    }
     //oculta este botón
     document.getElementById("BtnHistorialColor").style.display = "none";
     // la barra se activa y el botón cerrar historial también
@@ -845,6 +873,12 @@ document.getElementById("BtnCerrarHistorial").onclick = function () {
 //se muestra el selector rgb de color
 document.getElementById("BtnRGB").onclick = function () {
     modalActual = "rgb";
+    //muestra el modal
+    showModal();
+}
+//se muestra el selector rgb de color
+document.getElementById("BtnHex").onclick = function () {
+    modalActual = "hex";
     //muestra el modal
     showModal();
 }
@@ -1008,6 +1042,8 @@ function cambiarModo(nuevoModo) {
             document.getElementById("BtnExtraerColor").style.border = "3px solid #666699";
             document.getElementById("colorPixel").style.display = "inline-block";
             document.getElementById("BtnRGB").style.display = "inline-block";
+            document.getElementById("BtnHex").style.display = "inline-block";
+            document.getElementById("BtnGallery").style.display = "inline-block";
             //muestra y oculta elementos
             document.getElementById("BtnAceptarLibre").style.display = "inline-block";
             document.getElementById("BtnCancelarLibre").style.display = "inline-block";
@@ -1055,6 +1091,8 @@ function cambiarModo(nuevoModo) {
             document.getElementById("BtnExtraerColor").style.border = "3px solid #666699";
             document.getElementById("colorPixel").style.display = "inline-block";
             document.getElementById("BtnRGB").style.display = "inline-block";
+            document.getElementById("BtnHex").style.display = "inline-block";
+            document.getElementById("BtnGallery").style.display = "inline-block";
             showSnackbar("Modo Pincel");
             break;
         case "borrador":
@@ -1065,6 +1103,9 @@ function cambiarModo(nuevoModo) {
             document.getElementById("BtnExtraerColor").style.border = "3px solid #666699";
             document.getElementById("colorPixel").style.display = "none";
             document.getElementById("BtnRGB").style.display = "none";
+            document.getElementById("BtnHex").style.display = "none";
+            document.getElementById("BtnGallery").style.display = "none";
+            cerrarHistorial();
             showSnackbar("Modo Borrador");
             break;
         case "relleno":
@@ -1075,6 +1116,8 @@ function cambiarModo(nuevoModo) {
             document.getElementById("BtnExtraerColor").style.border = "3px solid #666699";
             document.getElementById("colorPixel").style.display = "inline-block";
             document.getElementById("BtnRGB").style.display = "inline-block";
+            document.getElementById("BtnHex").style.display = "inline-block";
+            document.getElementById("BtnGallery").style.display = "inline-block";
             showSnackbar("Modo Relleno Selectivo");
             break;
         case "extraer":
@@ -1085,6 +1128,8 @@ function cambiarModo(nuevoModo) {
             document.getElementById("BtnGotero").style.border = "3px solid #666699";
             document.getElementById("colorPixel").style.display = "inline-block";
             document.getElementById("BtnRGB").style.display = "inline-block";
+            document.getElementById("BtnHex").style.display = "inline-block";
+            document.getElementById("BtnGallery").style.display = "inline-block";
             showSnackbar("Modo Extraer Color");
             break;
     }
