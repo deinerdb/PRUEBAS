@@ -10,12 +10,12 @@ loader 9999
     border: 2px inset gray;
     background-color: #000000;
     color: #ffffff;
-    margin: 6px auto 10px auto;
+    margin: 8px auto 10px auto;
     padding: 4px;
     text-align: center;
     overflow: auto;
     width: 90%;
-    height: 70px;
+    height: 64px;
     font-size: 1.3em;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     /*centrar verticalmente*/
@@ -75,17 +75,24 @@ loader 9999
     background-color: white;
     color: black;
     width: 25%;
-    min-width: 100px;
+    min-width: 120px;
     max-width: 90%;
     overflow: auto;
-    margin: 12px 0px 1px 0px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 12px 0px 4px 0px;
+    font-family: Consolas, Courier New, Courier, monospace ;
     font-size: 1.2em;    
     text-align: left;
 }
-#valorHex:focus {    
-    background-color: skyblue;
-}
+    #valorHex:focus {
+        background-color: #dcdcdc;
+        /*SOMBRA*/
+        -moz-box-shadow: 5px 5px 3px #C0C0C0;
+        -webkit-box-shadow: 5px 5px 3px #C0C0C0;
+        box-shadow: 5px 5px 3px #C0C0C0;
+    }
+    #valorHex:hover {
+        background-color: #dcdcdc;
+    }
 /* para el accordion */
 .accordion {
     border: 2px solid #ffffff;

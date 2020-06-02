@@ -424,6 +424,8 @@ function showModal() {
             document.getElementById("valorHex").value = colorActual;
             // LA MUESTRA DE COLOR, INICIA CON EL ACTUAL
             $("#muestraMarcoHex").css("background-color", colorActual);
+            // supone un color válido inicialmente, no hay error
+            $("#errorHex").css("display", "none");
             break;
         case "gallery":
             $("#marcoGallery").css("display", "block");
@@ -453,8 +455,32 @@ function showModal() {
     }
 }
 
-//  onresize, cuando cambia el tamaño de la pantalla
+// procesa las entradas en el campo valorHex
+function procesarEntradaHex() {
+    // recupera el valor del campo
+    var test = document.getElementById("valorHex").value;
+    // lo valida
+    if (validarHex(test) == false) {
+        // muestra el error
+        $("#errorHex").css("display", "block");
+        // asigna negro, color por defecto
+        hexTemp = "#000000";
+        // LA MUESTRA DE COLOR es negra
+        $("#muestraMarcoHex").css("background-color", "#000000");
+    } else {
+        // oculta el error msj
+        $("#errorHex").css("display", "none");
+        // captura el color ingresado
+        hexTemp = test;
+        // LA MUESTRA DE COLOR es el ingresado
+        $("#muestraMarcoHex").css("background-color", test);
+    }
+}
+//  eventos al cambiar valor hex
+document.getElementById("valorHex").addEventListener("input", procesarEntradaHex);
+document.getElementById("valorHex").addEventListener("change", procesarEntradaHex);
 
+//  onresize, cuando cambia el tamaño de la pantalla
 window.addEventListener("resize", ajustesResize);
 
 
