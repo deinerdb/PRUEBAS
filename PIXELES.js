@@ -312,7 +312,7 @@ function aceptarModalHex() {
     // para otras actualizaciones
     colorPixel();
 }
-//capturando pulsación de teclado en txtNumFrase...
+//capturando pulsación de teclado en campo valorHex...
 document.getElementById("valorHex").onkeydown = function (e) {
 
     var characterCode;
