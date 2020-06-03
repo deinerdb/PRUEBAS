@@ -304,7 +304,44 @@ window.onclick = function (event) {
         cerrarModal();
     }
 }
+// al hacer click en aceptar o presionar enter en el selector hex
+function aceptarModalHex() {
+    // actualiza el color actual según el hex seleccionado
+    // asigna el valor hexadecimal al input color
+    document.getElementById("colorPixel").value = hexTemp;
+    // para otras actualizaciones
+    colorPixel();
+}
+//capturando pulsación de teclado en txtNumFrase...
+document.getElementById("valorHex").onkeydown = function (e) {
 
+    var characterCode;
+    // e.key es la recomendación actual
+    if (e.key != undefined) {
+        if (e.key.toLowerCase() == "enter") {
+            characterCode = 13;
+        }
+        else {
+            characterCode = 0;
+        }
+    } else {
+        /* navegadores antiguos...  */
+        characterCode = e.which || e.charCode || e.keyCode || e.keyIdentifier || 0;
+    }
+
+    // solo si presionó Enter
+    if (characterCode == 13) {
+
+        //da el enfoque al botón,
+        //esto permite que se oculte el teclado en algunos móviles
+
+        document.getElementById("valorHex").blur();
+        document.getElementById("BtnAceptar").focus();
+        //ahora sí llama la función
+        aceptarModalHex();
+    }
+
+}
 // depende de modalActual
 // modal: radio, rgb, importar, exportar, filas, columnas
 function aceptarModal() {
@@ -337,11 +374,7 @@ function aceptarModal() {
             colorPixel();
             break;
         case "hex":
-            // actualiza el color actual según el hex seleccionado
-            // asigna el valor hexadecimal al input color
-            document.getElementById("colorPixel").value = hexTemp;
-            // para otras actualizaciones
-            colorPixel();
+            aceptarModalHex();
             break;
         case "gallery":
             // actualiza el color actual según el elemento de la galería seleccionado
