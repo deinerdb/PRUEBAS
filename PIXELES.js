@@ -450,7 +450,7 @@ function showModal() {
         case "hex":
             $("#marcoHex").css("display", "block");
             // info
-            document.getElementById("spanInfoModal").innerHTML = "Ingrese un color en formato hexadecimal (Ejemplo: #ff00ff). Puede usar mayúsculas o minúsculas.";
+            document.getElementById("spanInfoModal").innerHTML = "Ingrese un color en formato hexadecimal (Ejemplo: #ff00ff). Puede usar mayúsculas o minúsculas. Puede omitir el signo #.";
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-hashtag'></i> Color Hexadecimal";
             // inicialmente hex es el color actual
             hexTemp = colorActual;
@@ -492,6 +492,13 @@ function showModal() {
 function procesarEntradaHex() {
     // recupera el valor del campo
     var test = document.getElementById("valorHex").value;
+    if (test.length == 6 && test.indexOf("#") == -1) {
+        // si llega a 6 caracteres y no tiene #, se lo agrega
+        test = "#" + test;
+        document.getElementById("valorHex").value = test;
+    }
+    // es indiferente a las mayúsculas, siempre se almacena en minúsculas    
+    test = test.toLowerCase();
     // lo valida
     if (validarHex(test) == false) {
         // muestra el error
@@ -515,7 +522,13 @@ document.getElementById("valorHex").addEventListener("change", procesarEntradaHe
 
 //  onresize, cuando cambia el tamaño de la pantalla
 window.addEventListener("resize", ajustesResize);
-
+// previene pérdida de datos accidental
+window.addEventListener("beforeunload", function (event) {
+    // Cancela el evento según la recomendación actual.
+    event.preventDefault();
+  // Chrome requiere que returnValue sea establecido
+    event.returnValue = "Nadie quiere perder una obra de arte...";
+});
 
 // resalta el color actual en el historial de colores
 function resaltarActual() {
