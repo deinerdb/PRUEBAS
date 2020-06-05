@@ -1294,6 +1294,7 @@ function ajustarTamaño(incremento) {
 }
 // la llama para ajustes iniciales
 ajustarTamaño(1);
+ajustarTamaño(1);
 // todos los cuadritos blancos, borra todo
 document.getElementById("BtnActualizar").onclick = function () {
     if (ocupado == true) {
@@ -1604,7 +1605,7 @@ document.getElementById("BtnImprimir").onclick = function () {
 function imprimir() {
     //para permitir transiciones espera un poco...
     showSnackbar("Optimizando impresión...");
-    setTimeout(nowImprime, 3000);
+    setTimeout(nowImprime, 2000);
 }
 function nowImprime() {
     window.print();

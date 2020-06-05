@@ -149,9 +149,9 @@ loader 9999
 
 #rgbCaption {
     margin: 6px 0px;
-    font-weight: bolt;
+    font-weight: bold;
     color: purple;
-    font-size: 0.95em;
+    font-size: 0.98em;
     -webkit-transition: color 0.7s;
     -moz-transition: color 0.7s;
     -o-transition: color 0.7s;
@@ -160,7 +160,7 @@ loader 9999
 
 #infoColor {
     margin: 6px 0px;
-    font-weight: bolt;
+    font-weight: bold;
     color: purple;
     font-size: 0.95em;
     padding: 4px;
@@ -177,17 +177,40 @@ loader 9999
 }
 
     #contenedorRGB div {
-        /* Rounded corners iniciales */
+        /* Rounded corners  */
         -moz-border-radius: 5px;
         -webkit-border-radius: 5px;
         border-radius: 5px; /* Rounded corners */
     }
 
+#rangoR, #rangoG, #rangoB {
+    float: left;
+    width: 80%; /* The width is 80%, by default */    
+}
+.number-rgb-container {
+    float: left;
+    width: 20%; /* The width is 20%, by default */    
+    text-align: center;
+}
+.number-rgb {    
+    max-width: 97%;    
+}
+/* Use a media query to add a break point at 600px: */
+@media screen and (max-width:600px) {
+    #rangoR, #rangoG, #rangoB, .number-rgb-container {
+        float: none;
+        width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
+    }
+    .number-rgb-container {
+        text-align: left;
+    }
+}
 #contenedorR {
     border: 6px solid #ff0000;
     margin: 6px 0px;
     padding: 6px;
     background-color: #ffffff;
+    overflow:auto;
 }
 
 #contenedorG {
@@ -195,6 +218,7 @@ loader 9999
     margin: 6px 0px;
     padding: 6px;
     background-color: #ffffff;
+    overflow: auto;
 }
 
 #contenedorB {
@@ -202,6 +226,7 @@ loader 9999
     margin: 6px 0px;
     padding: 6px;
     background-color: #ffffff;
+    overflow: auto;
 }
 
 /* inicia clase seleccionado */
@@ -367,9 +392,9 @@ loader 9999
         color: white; /* Text color */
         cursor: pointer; /* Add a mouse pointer on hover */
         padding: 7px 12px; /* Some padding */
-        -moz-border-radius: 10px;
-        -webkit-border-radius: 10px;
-        border-radius: 10px; /* Rounded corners */
+        -moz-border-radius: 8px;
+        -webkit-border-radius: 8px;
+        border-radius: 8px; /* Rounded corners */
         /*SOMBRA*/
         -moz-box-shadow: 5px 5px 3px MediumPurple;
         -webkit-box-shadow: 5px 5px 3px MediumPurple;
@@ -418,7 +443,7 @@ loader 9999
 
     .btn:hover {
         background: #990099;
-        font-weight: bolt;
+        font-weight: bold;
     }
 /*mensaje de validación O INFORMACIÓN EN CADA MODAL */
 #infoModal {
