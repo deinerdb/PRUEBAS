@@ -262,6 +262,25 @@ function ajustesResize() {
     document.getElementById("paletaHistorial").style.bottom = 0 + document.getElementById("paletaAbajo").offsetHeight + "px";
     if (modalActual != "ninguno") {
         alturaModal();
+        if (modalActual == "rgb") {            
+            var marg = 0;
+            $(".number-rgb-container").css("margin-top", "0px");
+            $(".number-rgb-container").css("margin-bottom", "0px");
+            if ($('.number-rgb-container').css("float") == "left") {
+                marg = document.getElementsByClassName("contenedor-rgb-color")[0].scrollHeight - document.getElementsByClassName("number-rgb-container")[0].offsetHeight;
+                marg = marg / 2;
+                if (marg < 4 || isNaN(marg) == true) {
+                    marg = 4;
+                }
+            } else {
+                marg = 4;
+            }
+            //showSnackbar("m " + marg + " f " + $('.number-rgb-container').css("float"));
+            $(".number-rgb-container").css("margin-top", marg + "px");
+            $(".number-rgb-container").css("margin-bottom", marg + "px"); 
+            //$(".spanRGB").css("margin-top", marg + "px");
+            //$(".spanRGB").css("margin-bottom", marg + "px");
+        }   
     }
 }
 // para los filtros

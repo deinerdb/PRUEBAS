@@ -179,13 +179,23 @@ loader 9999
 
 #rangoR, #rangoG, #rangoB {
     float: left;
-    width: 79%; /* The width is 80%, by default */
+    width: 69%; /* The width is 80%, by default */
 }
 .number-rgb-container {
     float: left; 
     width: 20%; /* The width is 20%, by default */    
     text-align: center;    
-    margin: 4px 0px 4px 0px;    
+    margin: 4px 0px 4px 0px;
+    white-space: nowrap;
+}
+.spanRGB {
+    width: 40px;
+    min-width: 40px;
+    text-align: center;
+    padding: 0px 3px;
+    color: purple;
+    font-weight: bold;
+    font-family: Consolas, Courier New, Courier, monospace;
 }
 .number-rgb {
     font-family: Consolas, Courier New, Courier, monospace;
@@ -198,6 +208,7 @@ loader 9999
     background-color: white;
     margin: 0;
 }
+
     .number-rgb:focus {
         background-color: #dcdcdc;
         /*SOMBRA*/
@@ -214,6 +225,9 @@ loader 9999
     #rangoR, #rangoG, #rangoB, .number-rgb-container {
         float: none;
         width: 100%; /* The width is 100%, when the viewport is 600px or smaller */
+    }
+    .spanRGB {        
+        
     }
     .number-rgb {
         min-width: 30%;
