@@ -176,57 +176,76 @@ loader 9999
     border-right-width: 14px;
 }
 
-    #contenedorRGB div {
-        /* Rounded corners  */
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
-        border-radius: 5px; /* Rounded corners */
-    }
 
 #rangoR, #rangoG, #rangoB {
     float: left;
-    width: 80%; /* The width is 80%, by default */    
+    width: 79%; /* The width is 80%, by default */
 }
 .number-rgb-container {
-    float: left;
+    float: left; 
     width: 20%; /* The width is 20%, by default */    
-    text-align: center;
+    text-align: center;    
+    margin: 4px 0px 4px 0px;    
 }
-.number-rgb {    
-    max-width: 97%;    
+.number-rgb {
+    font-family: Consolas, Courier New, Courier, monospace;
+    font-size: 17px;
+    max-width: 97%; 
+    width: 100px;
+    min-width: 50%;
+    padding: 4px;
+    color: black;
+    background-color: white;
+    margin: 0;
 }
+    .number-rgb:focus {
+        background-color: #dcdcdc;
+        /*SOMBRA*/
+        -moz-box-shadow: 2px 2px 1.5px #C0C0C0;
+        -webkit-box-shadow: 2px 2px 1.5px #C0C0C0;
+        box-shadow: 2px 2px 1.5px #C0C0C0;
+    }
+
+    .number-rgb:hover {
+        background-color: #dcdcdc;
+    }
 /* Use a media query to add a break point at 600px: */
 @media screen and (max-width:600px) {
     #rangoR, #rangoG, #rangoB, .number-rgb-container {
         float: none;
-        width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
+        width: 100%; /* The width is 100%, when the viewport is 600px or smaller */
+    }
+    .number-rgb {
+        min-width: 30%;
     }
     .number-rgb-container {
         text-align: left;
     }
 }
-#contenedorR {
-    border: 6px solid #ff0000;
+.contenedor-rgb-color {
+    
     margin: 6px 0px;
     padding: 6px;
     background-color: #ffffff;
-    overflow:auto;
+    overflow: auto;
+    /* Rounded corners  */
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px; /* Rounded corners */
+    vertical-align: central;
+    
+   
+}
+#contenedorR {
+    border: 6px solid #ff0000;    
 }
 
 #contenedorG {
-    border: 6px solid #00ff00;
-    margin: 6px 0px;
-    padding: 6px;
-    background-color: #ffffff;
-    overflow: auto;
+    border: 6px solid #00ff00;    
 }
 
 #contenedorB {
-    border: 6px solid #0000ff;
-    margin: 6px 0px;
-    padding: 6px;
-    background-color: #ffffff;
-    overflow: auto;
+    border: 6px solid #0000ff;    
 }
 
 /* inicia clase seleccionado */

@@ -61,19 +61,19 @@
                 <div id="marcoRGB" class="marco">
                     <p id="rgbCaption">rgb - hex</p>
                     <div id="contenedorRGB">
-                        <div id="contenedorR">
+                        <div id="contenedorR" class="contenedor-rgb-color">
                             <input id="rangoR" type="range" min="0" max="255" value="0" step="1">
                             <div class="number-rgb-container">
                                 <input class="number-rgb" id="numberR" autocomplete="off" type="number" placeholder="0-255" step="1" min="0" max="255" maxlength="3">
                             </div>                            
                         </div>
-                        <div id="contenedorG">
+                        <div id="contenedorG" class="contenedor-rgb-color">
                             <input id="rangoG" type="range" min="0" max="255" value="0" step="1">
                             <div class="number-rgb-container">
                                 <input class="number-rgb" id="numberG" autocomplete="off" type="number" placeholder="0-255" step="1" min="0" max="255" maxlength="3">
                             </div>
                         </div>
-                        <div id="contenedorB">
+                        <div id="contenedorB" class="contenedor-rgb-color">
                             <input id="rangoB" type="range" min="0" max="255" value="0" step="1">
                             <div class="number-rgb-container">
                                 <input class="number-rgb" id="numberB" autocomplete="off" type="number" placeholder="0-255" step="1" min="0" max="255" maxlength="3">
@@ -111,9 +111,8 @@
     <div class="paleta" id="paletaArriba">
         <button id="BtnAumentar" title="Aumentar tamaño"><i class="fas fa-search-plus"></i></button>
         <button id="BtnDisminuir" title="Disminuir tamaño"><i class="fas fa-search-minus"></i></button>
-        <button id="BtnRellenar" title="Pintar todos"><span id="relleno"></span><i class="fas fa-tint"></i></button>
-        <button id="BtnColorLienzo" title="Color del lienzo"><i class="fas fa-paint-roller"></i></button>
-        <button id="BtnColorRejilla" title="Color de la rejilla"><i class="fas fa-border-style"></i></button>
+        <button id="BtnActualizar" title="Borrar todo"><i class="fas fa-sync-alt"></i></button>
+        <button id="BtnDeshacer" title="Deshacer última acción"><i class="fas fa-undo"></i></button>
         <button id="BtnGotero" title="Modo Relleno Selectivo"><i class="fas fa-eye-dropper"></i></button>
         <button id="BtnBorrador" title="Modo Borrador"><i class="fas fa-eraser"></i></button>
         <button id="BtnPincel" title="Modo Pincel"><i class="fas fa-paint-brush"></i></button>
@@ -142,10 +141,13 @@
         <span class="espacioDerecha"> </span>
     </div>
     <div class="paleta" id="paletaAbajo">
-        <button id="BtnActualizar" title="Borrar todo"><i class="fas fa-sync-alt"></i></button>
+        
         <button id="BtnRejilla" title="Alternar bordes"><i id="icoRejilla" class="far fa-plus-square"></i></button>
+        <button id="BtnColorRejilla" title="Color de la rejilla"><i class="fas fa-border-style"></i></button>
         <button id="BtnRadioBordes" title="Radio del borde"><i id="icoCircular" class="far fa-circle"></i></button>
-        <button id="BtnDeshacer" title="Deshacer última acción"><i class="fas fa-undo"></i></button>
+        <button id="BtnRellenar" title="Pintar todos"><span id="relleno"></span><i class="fas fa-tint"></i></button>
+        <button id="BtnColorLienzo" title="Color del lienzo"><i class="fas fa-paint-roller"></i></button>
+        
         <span id="spanFilas">Filas</span>
         <select title="Seleccione el número de filas" id="selectFilas" onchange="dimensionar()"></select>
         <span id="spanColumnas">Cols.</span>
