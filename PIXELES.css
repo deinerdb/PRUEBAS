@@ -179,20 +179,20 @@ loader 9999
 
 #rangoR, #rangoG, #rangoB {
     float: left;
-    width: 69%; /* The width is 80%, by default */
+    width: 75%; /* The width is 80%, by default */
 }
 .number-rgb-container {
     float: left; 
     width: 20%; /* The width is 20%, by default */    
     text-align: center;    
-    margin: 4px 0px 4px 0px;
-    white-space: nowrap;
+    margin: 4px 0px 4px 0px;    
+    white-space: nowrap;    
 }
 .spanRGB {
-    width: 40px;
-    min-width: 40px;
+    width: 30px;
+    min-width: 20px;
     text-align: center;
-    padding: 0px 3px;
+    padding: 0px 4px;    
     color: purple;
     font-weight: bold;
     font-family: Consolas, Courier New, Courier, monospace;
@@ -201,8 +201,8 @@ loader 9999
     font-family: Consolas, Courier New, Courier, monospace;
     font-size: 17px;
     max-width: 97%; 
-    width: 100px;
-    min-width: 50%;
+    width: 90px;
+    min-width: 40%;
     padding: 4px;
     color: black;
     background-color: white;
