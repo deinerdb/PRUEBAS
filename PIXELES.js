@@ -262,24 +262,58 @@ function ajustesResize() {
     document.getElementById("paletaHistorial").style.bottom = 0 + document.getElementById("paletaAbajo").offsetHeight + "px";
     if (modalActual != "ninguno") {
         alturaModal();
-        if (modalActual == "rgb") {            
+        if (modalActual == "rgb") { 
+            
+            // para definir margenes y centrar los elementos flotantes
             var marg = 0;
+            var margRango = 0; 
+            // 0 inicialmente
             $(".number-rgb-container").css("margin-top", "0px");
             $(".number-rgb-container").css("margin-bottom", "0px");
+            $("#rangoR").css("margin-top", "0px");
+            $("#rangoR").css("margin-bottom", "0px");
+            $("#rangoG").css("margin-top", "0px");
+            $("#rangoG").css("margin-bottom", "0px");
+            $("#rangoB").css("margin-top", "0px");
+            $("#rangoB").css("margin-bottom", "0px");
+            // compara las alturas
+            //var mayor;
+            //var alturaNumber = document.getElementsByClassName("number-rgb-container")[0].offsetHeight;
+            //var alturaRango = document.getElementById("rangoR").offsetHeight;
+            //if (alturaNumber >= alturaRango) {
+                //mayor = alturaNumber;
+            //} else {
+                //mayor = alturaRango;
+            //}
+            // le agrega los espacios necesarios
+            //mayor = 24 + mayor;
+            // ajusta altura de los contenedores
+            //$(".contenedor-rgb-color").css("height", mayor);
             if ($('.number-rgb-container').css("float") == "left") {
+                // centra verticalmente
                 marg = document.getElementsByClassName("contenedor-rgb-color")[0].scrollHeight - document.getElementsByClassName("number-rgb-container")[0].offsetHeight;
                 marg = marg / 2;
+                margRango = document.getElementsByClassName("contenedor-rgb-color")[0].scrollHeight - document.getElementById("rangoR").offsetHeight;
+                margRango = margRango / 2;
                 if (marg < 4 || isNaN(marg) == true) {
                     marg = 4;
                 }
+                if (margRango < 4 || isNaN(margRango) == true) {
+                    margRango = 4;
+                }
             } else {
-                marg = 4;
+                marg = 8;
+                margRango = 8;
             }
-            //showSnackbar("m " + marg + " f " + $('.number-rgb-container').css("float"));
+            //showSnackbar("m " + marg + " m ran " + margRango + " f " + $('.number-rgb-container').css("float"));
             $(".number-rgb-container").css("margin-top", marg + "px");
             $(".number-rgb-container").css("margin-bottom", marg + "px"); 
-            //$(".spanRGB").css("margin-top", marg + "px");
-            //$(".spanRGB").css("margin-bottom", marg + "px");
+            $("#rangoR").css("margin-top", margRango + "px");
+            $("#rangoR").css("margin-bottom", margRango + "px");
+            $("#rangoG").css("margin-top", margRango + "px");
+            $("#rangoG").css("margin-bottom", margRango + "px");
+            $("#rangoB").css("margin-top", margRango + "px");
+            $("#rangoB").css("margin-bottom", margRango + "px");
         }   
     }
 }

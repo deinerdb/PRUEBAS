@@ -178,21 +178,30 @@ loader 9999
 
 
 #rangoR, #rangoG, #rangoB {
+    margin-top: 4px;
+    margin-bottom:4px;
     float: left;
-    width: 75%; /* The width is 80%, by default */
+    width: 68%; /* The width is 80%, by default */    
+}
+.span-espacio {
+    float: left;
+    width: 2%;
+    min-width: 2%;
+    max-width: 2%;    
 }
 .number-rgb-container {
     float: left; 
-    width: 20%; /* The width is 20%, by default */    
+    width: 30%; /* The width is 20%, by default */    
     text-align: center;    
     margin: 4px 0px 4px 0px;    
     white-space: nowrap;    
 }
-.spanRGB {
-    width: 30px;
+.spanRGB {    
+    width: 20px;
     min-width: 20px;
     text-align: center;
-    padding: 0px 4px;    
+    padding: 0px;
+    margin: 0;
     color: purple;
     font-weight: bold;
     font-family: Consolas, Courier New, Courier, monospace;
@@ -200,10 +209,10 @@ loader 9999
 .number-rgb {
     font-family: Consolas, Courier New, Courier, monospace;
     font-size: 17px;
-    max-width: 97%; 
+    max-width: 90%; 
     width: 90px;
-    min-width: 40%;
-    padding: 4px;
+    min-width: 30%;
+    padding: 4px 2px;
     color: black;
     background-color: white;
     margin: 0;
@@ -226,14 +235,16 @@ loader 9999
         float: none;
         width: 100%; /* The width is 100%, when the viewport is 600px or smaller */
     }
-    .spanRGB {        
-        
+    .span-espacio  {
+        float: none;
+        display: none; 
     }
     .number-rgb {
         min-width: 30%;
     }
     .number-rgb-container {
         text-align: left;
+        padding-left: 8px;
     }
 }
 .contenedor-rgb-color {
