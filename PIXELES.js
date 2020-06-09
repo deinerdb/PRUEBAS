@@ -35,9 +35,11 @@ var miR = 0;
 var miG = 0;
 var miB = 0;
 var hexValues = [];
+var decValues = [];
 var i;
 //var str = "";
 for (i = 0; i <= 255; i++) {
+    decValues[i] = Number(i);
     hexValues[i] = i.toString(16).toLowerCase();
     if (hexValues[i].length < 2) {
         hexValues[i] = "0" + hexValues[i];
@@ -66,6 +68,16 @@ function validarHex(hex) {
         return false;
     }
     if (hexValues.indexOf(b) == -1) {
+        return false;
+    }
+    //todo bien
+    return true;
+}
+// valida una expresión numérica, 
+// retorna false si no está en el rango 0 - 255
+function validarDec(dec) {
+    dec = Number(dec);   
+    if (decValues.indexOf(dec) == -1) {
         return false;
     }
     //todo bien
@@ -134,17 +146,29 @@ getCírculo.onclick = function () {
 //radio cambia dinámicamente con el slider
 //input y change, redundantes por un bug en IE
 sliderRadio.oninput = function () {
-    document.getElementById("muestraRadio").style.borderRadius = this.value + "%";
+    actualizaRadio(this.value);
 }
 sliderRadio.onchange = function () {
-    document.getElementById("muestraRadio").style.borderRadius = this.value + "%";
+    actualizaRadio(this.value);
+}
+// para no repetirlo en input y change del slider radio
+function actualizaRadio(nuevoValor) {
+    var nuevo = nuevoValor;
+    nuevo = Number(nuevo);
+    var pos = decValues.indexOf(nuevo);    
+    if (pos == -1 || pos > 50) {
+        nuevo = 0;
+    } else {
+        nuevo = decValues[pos];
+    }
+    document.getElementById("muestraRadio").style.borderRadius = nuevo + "%";
 }
 var timerRGB;
 // ajustes rgb según los slider
+// requiere función validaComponenteRGB(idActual, idSincronizar, fuenteRoja)
 function actualizaRGB(componente) {
-    miR = document.getElementById("rangoR").value;
-    miG = document.getElementById("rangoG").value;
-    miB = document.getElementById("rangoB").value;
+    // variables globales miR miG miB ya tienen valores válidos
+    // pueden cambiar desde los rangos o los number
     rgbTemp = "rgb(" + miR + ", " + miG + ", " + miB + ")";
     hexTemp = convertirRGBaHexadecimal(rgbTemp);
     // cancela el timerRGB
@@ -155,16 +179,19 @@ function actualizaRGB(componente) {
             // rojo
             document.getElementById("rgbCaption").innerHTML = "Rojo = " + miR;
             document.getElementById("rgbCaption").style.color = "#ff0000";
+            $("#rangoR").attr("title", miR);
             break;
         case "g":
             // verde
             document.getElementById("rgbCaption").innerHTML = "Verde = " + miG;
             document.getElementById("rgbCaption").style.color = "#008000";
+            $("#rangoG").attr("title", miG);
             break;
         case "b":
             // azul
             document.getElementById("rgbCaption").innerHTML = "Azul = " + miB;
             document.getElementById("rgbCaption").style.color = "#0000ff";
+            $("#rangoB").attr("title", miB);
             break;
     }
     // rgbCaption MUESTRA EL COLOR ACTUAL EN RGB Y HEX
@@ -178,30 +205,60 @@ function actualizaRGB(componente) {
     // tambíen el ícono en el título es una muestra icoMuestraRGB
     $("#icoMuestraRGB").css("color", hexTemp);
 }
+// valida valores rgb en rangos y number
+// devuelve el valor normalizado o cero en caso de no ser válido
+// admite un parámetro para fuente roja en campo errado
+// primer id es el campo a validar, segundo id es el que se sincroniza
+function validaComponenteRGB(idActual, idSincronizar, fuenteRoja) {
+    var nuevo = document.getElementById(idActual).value;
+    nuevo = Number(nuevo);
+    var pos = decValues.indexOf(nuevo);    
+    if (pos == -1) {
+        // no es un valor válido entre 0 y 255
+        nuevo = 0; // le asigna el valor de negro, como recomienda la W3
+        // fuente roja
+        if (fuenteRoja == true) {
+            document.getElementById(idActual).style.color = "red";
+        }
+    } else {
+        nuevo = decValues[pos];
+        // fuente roja
+        if (fuenteRoja == true) {
+            document.getElementById(idActual).style.color = "black";
+        }
+    }
+    // sincroniza el otro control
+    document.getElementById(idSincronizar).value = nuevo;
+    // devuelve el valor normalizado, siempre válido
+    return nuevo;
+}
 // rgb cambia dinámicamente con los slider
 //input y change, redundantes por un bug en IE
 // rango rojo
 document.getElementById("rangoR").oninput = function () {
+    miR = validaComponenteRGB("rangoR", "numberR", false);
     actualizaRGB("r");
 }
 document.getElementById("rangoR").onchange = function () {
-    $("#rangoR").attr("title", document.getElementById("rangoR").value);
+    miR = validaComponenteRGB("rangoR", "numberR", false);
     actualizaRGB("r");
 }
 // rango verde
 document.getElementById("rangoG").oninput = function () {
+    miG = validaComponenteRGB("rangoG", "numberG", false);
     actualizaRGB("g");
 }
-document.getElementById("rangoG").onchange = function () {
-    $("#rangoG").attr("title", document.getElementById("rangoG").value);
+document.getElementById("rangoG").onchange = function () {   
+    miG = validaComponenteRGB("rangoG", "numberG", false);
     actualizaRGB("g");
 }
 // rango azul
 document.getElementById("rangoB").oninput = function () {
+    miB = validaComponenteRGB("rangoB", "numberB", false);
     actualizaRGB("b");
 }
-document.getElementById("rangoB").onchange = function () {
-    $("#rangoB").attr("title", document.getElementById("rangoB").value);
+document.getElementById("rangoB").onchange = function () {    
+    miB = validaComponenteRGB("rangoB", "numberB", false);
     actualizaRGB("b");
 }
 // extrae Rojo en entero de un valor hexadecimal
@@ -395,16 +452,24 @@ document.getElementById("valorHex").onkeydown = function (e) {
     }
 
 }
-// depende de modalActual
-// modal: radio, rgb, importar, exportar, filas, columnas
+// depende de modalActual/
 function aceptarModal() {
     switch (modalActual) {
         case "radio":
             // guarda para poder deshacer
             lastRadioBorde = radioBorde;
             lastAction = "CambiarRadioBordes";
+            //valida, porque en ie 9 input range se muestra como campo de texto
+            var nuevo = sliderRadio.value;
+            nuevo = Number(nuevo);
+            var pos = decValues.indexOf(nuevo);
+            if (pos == -1 || pos > 50) {
+                nuevo = 0;
+            } else {
+                nuevo = decValues[pos];
+            }
             // el nuevo valor
-            radioBorde = sliderRadio.value;
+            radioBorde = nuevo;
             //obtiene un array con todos los de la clase columna
             var x = document.getElementsByClassName("columna");
             var i;
@@ -485,20 +550,30 @@ function showModal() {
             document.getElementById("spanInfoModal").innerHTML = "Use los controles ROJO, VERDE Y AZUL para definir un color";
             // inicialmente hex es el color actual
             hexTemp = colorActual;
+            // ES NECESARIO SINCRONIZAR LAS VARIABLES GLOBALES
+            miR = rDesdeHex(colorActual);
+            miG = gDesdeHex(colorActual);
+            miB = bDesdeHex(colorActual);
             // LOS RANGOS rangoR, rangoG Y rangoB  TOMAN LOS VALORES DEL COLOR ACTUAL                
-            document.getElementById("rangoR").value = rDesdeHex(colorActual);
-            document.getElementById("rangoG").value = gDesdeHex(colorActual);
-            document.getElementById("rangoB").value = bDesdeHex(colorActual);
+            document.getElementById("rangoR").value = miR;
+            document.getElementById("rangoG").value = miG;
+            document.getElementById("rangoB").value = miB;
+            // LOS input number numberR numberG numberB  TOMAN LOS VALORES DEL COLOR ACTUAL
+            document.getElementById("numberR").value = miR;
+            document.getElementById("numberG").value = miG;
+            document.getElementById("numberB").value = miB;
+            // LOS input number numberR numberG numberB  SON VÁLIDOS, FUENTE NEGRA
+            $(".number-rgb").css("color", "#000000");
             // LOS RANGOS TIENEN SU TITLE INICIAL
-            $("#rangoR").attr("title", document.getElementById("rangoR").value);
-            $("#rangoG").attr("title", document.getElementById("rangoG").value);
-            $("#rangoB").attr("title", document.getElementById("rangoB").value);
+            $("#rangoR").attr("title", miR);
+            $("#rangoG").attr("title", miG);
+            $("#rangoB").attr("title", miB);
             // rgbCaption MUESTRA EL COLOR ACTUAL EN RGB Y HEX
-            document.getElementById("rgbCaption").innerHTML = document.getElementById("relleno").style.backgroundColor + " - " + colorActual;
+            document.getElementById("rgbCaption").innerHTML = "rgb(" + miR + ", "  + miG + ", " + miB + ") - " + colorActual;
             // LOS BORDES DE contenedorRGB SON LA MUESTRA DE COLOR, INICIAN CON EL ACTUAL
             $("#contenedorRGB").css("border-color", colorActual);
             // tambíen el ícono en el título es una muestra icoMuestraRGB
-            $("#icoMuestraRGB").css("color", colorActual);
+            $("#icoMuestraRGB").css("color", colorActual);            
             break;
         case "hex":
             $("#marcoHex").css("display", "block");
