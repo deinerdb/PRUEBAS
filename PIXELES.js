@@ -261,6 +261,35 @@ document.getElementById("rangoB").onchange = function () {
     miB = validaComponenteRGB("rangoB", "numberB", false);
     actualizaRGB("b");
 }
+// rgb cambia dinámicamente con los input number
+//input y change, redundantes por un bug en IE
+// number rojo
+document.getElementById("numberR").oninput = function () {
+    miR = validaComponenteRGB("numberR", "rangoR", true);
+    actualizaRGB("r");
+}
+document.getElementById("numberR").onchange = function () {
+    miR = validaComponenteRGB("numberR", "rangoR", true);
+    actualizaRGB("r");
+}
+// number verde
+document.getElementById("numberG").oninput = function () {
+    miG = validaComponenteRGB("numberG", "rangoG", true);
+    actualizaRGB("g");
+}
+document.getElementById("numberG").onchange = function () {
+    miG = validaComponenteRGB("numberG", "rangoG", true);
+    actualizaRGB("g");
+}
+// number AZUL
+document.getElementById("numberB").oninput = function () {
+    miB = validaComponenteRGB("numberB", "rangoB", true);
+    actualizaRGB("b");
+}
+document.getElementById("numberB").onchange = function () {
+    miB = validaComponenteRGB("numberB", "rangoB", true);
+    actualizaRGB("b");
+}
 // extrae Rojo en entero de un valor hexadecimal
 function rDesdeHex(hex) {
     var miR = 0;
@@ -448,7 +477,92 @@ document.getElementById("valorHex").onkeydown = function (e) {
         document.getElementById("valorHex").blur();
         document.getElementById("BtnAceptar").focus();
         //ahora sí llama la función
-        aceptarModalHex();
+        // no es necesario, focus a un btn dispara click
+        //aceptarModalHex();
+        
+    }
+
+}
+//capturando pulsación de teclado en campo numberR...
+document.getElementById("numberR").onkeydown = function (e) {
+
+    var characterCode;
+    // e.key es la recomendación actual
+    if (e.key != undefined) {
+        if (e.key.toLowerCase() == "enter") {
+            characterCode = 13;
+        }
+        else {
+            characterCode = 0;
+        }
+    } else {
+        /* navegadores antiguos...  */
+        characterCode = e.which || e.charCode || e.keyCode || e.keyIdentifier || 0;
+    }
+
+    // solo si presionó Enter
+    if (characterCode == 13) {
+
+        //da el enfoque al SIGUIENTE,
+       
+        document.getElementById("numberR").blur();
+        document.getElementById("numberG").focus();
+        
+    }
+
+}
+//capturando pulsación de teclado en campo numberG...
+document.getElementById("numberG").onkeydown = function (e) {
+
+    var characterCode;
+    // e.key es la recomendación actual
+    if (e.key != undefined) {
+        if (e.key.toLowerCase() == "enter") {
+            characterCode = 13;
+        }
+        else {
+            characterCode = 0;
+        }
+    } else {
+        /* navegadores antiguos...  */
+        characterCode = e.which || e.charCode || e.keyCode || e.keyIdentifier || 0;
+    }
+
+    // solo si presionó Enter
+    if (characterCode == 13) {
+
+        //da el enfoque al SIGUIENTE,
+
+        document.getElementById("numberG").blur();
+        document.getElementById("numberB").focus();
+
+    }
+
+}
+//capturando pulsación de teclado en campo numberB...
+document.getElementById("numberB").onkeydown = function (e) {
+
+    var characterCode;
+    // e.key es la recomendación actual
+    if (e.key != undefined) {
+        if (e.key.toLowerCase() == "enter") {
+            characterCode = 13;
+        }
+        else {
+            characterCode = 0;
+        }
+    } else {
+        /* navegadores antiguos...  */
+        characterCode = e.which || e.charCode || e.keyCode || e.keyIdentifier || 0;
+    }
+
+    // solo si presionó Enter
+    if (characterCode == 13) {
+
+        //da el enfoque al SIGUIENTE,
+
+        document.getElementById("numberB").blur();
+        document.getElementById("BtnAceptar").focus();
     }
 
 }
