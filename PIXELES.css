@@ -1177,7 +1177,10 @@ a:active {
 }
 
 #BtnCerrarHistorial {
-    /* overflow: auto !important;  */
+    /* SIN BORDE REDONDEADO*/
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
     overflow: hidden;
     top: 100px;
     z-index: 2;

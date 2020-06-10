@@ -96,7 +96,8 @@ var numFilas = 10;
 //***************************
 var permitirEvento = true;
 var arrayColoresUsados = [];
-arrayColoresUsados[0] = "#ffffff"; // blanco
+// si deseamos incluir el blanco inicialmente
+//arrayColoresUsados[0] = "#ffffff"; 
 // el estilo inicial del botón pincel 
 // indica que pintar es el modo preteterminado
 document.getElementById("BtnPincel").style.border = "3px solid #009900";
@@ -106,7 +107,8 @@ document.getElementById("BtnCancelarLibre").style.display = "none";
 // el relleno inicial es negro
 document.getElementById("relleno").style.backgroundColor = "#000000";
 //el primer botón del historial es blanco
-document.getElementById("BtnColor0").style.color = "#ffffff";
+// solo si es agregado en html
+//document.getElementById("BtnColor0").style.color = "#ffffff";
 // el estilo de borde del botón rejilla
 document.getElementById("BtnRejilla").style.border = "3px double #ffffff";
 // radio por defecto es cero
@@ -128,6 +130,45 @@ for (i = 0; i < acc.length; i++) {
             panel.style.maxHeight = panel.scrollHeight + "px";
         }
     });
+}
+// Lanza en pantalla completa en navegadores que lo soporten
+function launchFullScreen() {
+    var element = document.documentElement;
+    //var element = document.getElementById("contenedor");
+
+    if (element.requestFullScreen) {
+        element.requestFullScreen();
+    } else if (element.requestFullscreen) {
+        element.requestFullscreen();
+    } else if (element.mozRequestFullScreen) {
+        element.mozRequestFullScreen();
+    } else if (element.webkitRequestFullScreen) {
+        element.webkitRequestFullScreen();
+    } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullscreen();
+    } else if (element.msRequestFullscreen) {
+        element.msRequestFullscreen();
+    }
+}
+
+function cancelFullScreen() {
+
+    if (document.cancelFullScreen) {
+        document.cancelFullScreen();
+    } else if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+    } else if (document.webkitCancelFullScreen) {
+        document.webkitCancelFullScreen();
+    } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+    } else if (document.msCancelFullScreen) {
+        document.msCancelFullScreen();
+    } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+    }
+
 }
 //el input range del radio de los bordes y sus botones debajo
 var sliderRadio = document.getElementById("rangoRadioBordes");
@@ -993,8 +1034,11 @@ function procesarHistorial(colorUsado) {
     }
     resaltarActual();
 }
+// el blanco ya fue usado en el color inicial de los cuadritos
+procesarHistorial("#ffffff");
 // el negro ya fue usado en los bordes y el lienzo
 procesarHistorial("#000000");
+// lo anterior hace que el blanco y el negro aparezcan en el historial al abrir la página.
 // cuando hace click en un cuadrito
 function hacerClick(celda) {
     if (ocupado == true) {
@@ -1183,6 +1227,10 @@ function cerrarHistorial() {
 //se cierra el historial de color
 document.getElementById("BtnCerrarHistorial").onclick = function () {
     cerrarHistorial();
+}
+// pantalla completa
+document.getElementById("BtnPantallaCompleta").onclick = function () {
+    launchFullScreen();
 }
 //se muestra el selector rgb de color
 document.getElementById("BtnRGB").onclick = function () {
