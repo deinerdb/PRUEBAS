@@ -5,6 +5,20 @@ modal 300
 snack 500
 loader 9999
 */
+/*Stack Overflow: se sugiere para que las alturas funcionen*/
+html, body {
+    height: 100% !important;
+    min-height: 100%;
+}
+#pantalla {
+    /*border: 2px solid red;*/
+    overflow: auto;
+    padding: 0;
+    margin: 0;
+}
+#BtnSalirPantallaCompleta {
+    display: none;
+}
 /* para el color hex modal */
 #muestraMarcoHex {
     border: 2px inset gray;
@@ -15,7 +29,7 @@ loader 9999
     text-align: center;
     overflow: auto;
     width: 90%;
-    height: 64px; 
+    height: 64px;
     font-size: 1.3em;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     /*centrar verticalmente*/
@@ -898,9 +912,9 @@ a:active {
     -webkit-filter: none;
     filter: none;
     overflow: auto !important;
-    margin: 76px 0px 0px 0px;
+    margin: 80px 0px 0px 0px;
     width: 200px;
-    max-width: 88% !important;
+    max-width: 88%;
     /*border: 1px solid purple;*/
     display: inline-block;
     padding: 0px;

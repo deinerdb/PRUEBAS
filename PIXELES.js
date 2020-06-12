@@ -22,7 +22,7 @@ var lastColorRejilla;
 var lastNumColumnas;
 var lastNumFilas;
 var lastModo = "pincel";
-// modos: pincel, borrador, relleno, extraer, libre
+// modos: pincel, borrador, relleno, extraer, libre, pantallaCompleta
 var modoActual = "pincel";
 var tamaño = 20;
 var MAXSIZE = 100;
@@ -116,6 +116,7 @@ document.getElementById("rangoRadioBordes").value = 0;
 document.getElementById("muestraRadio").style.borderRadius = "0%";
 document.getElementById("relleno").style.borderRadius = "0%";
 document.getElementById("rellenoHistorial").style.borderRadius = "0%";
+
 // accordion
 var acc = document.getElementsByClassName("accordion");
 var i;
@@ -133,8 +134,8 @@ for (i = 0; i < acc.length; i++) {
 }
 // Lanza en pantalla completa en navegadores que lo soporten
 function launchFullScreen() {
-    var element = document.documentElement;
-    //var element = document.getElementById("contenedor");
+    //var element = document.documentElement;
+    var element = document.getElementById("pantalla");
 
     if (element.requestFullScreen) {
         element.requestFullScreen();
@@ -387,6 +388,16 @@ function ajustesResize() {
     document.getElementById("BtnCerrarHistorial").style.top = 0 + document.getElementById("paletaArriba").offsetHeight + "px";
     document.getElementById("paletaHistorial").style.top = 0 + document.getElementById("paletaArriba").offsetHeight + document.getElementById("BtnCerrarHistorial").offsetHeight + "px";
     document.getElementById("paletaHistorial").style.bottom = 0 + document.getElementById("paletaAbajo").offsetHeight + "px";
+    if (modoActual == "pantallaCompleta") {
+        $(".contenedor").css("margin", "0px");
+        $("#contenedor").css("max-width", "98%");
+    } else {
+        var margenArribaCont = 6 + document.getElementById("paletaArriba").offsetHeight;
+        $(".contenedor").css("margin", "0px");
+        $(".contenedor").css("margin-top", margenArribaCont + "px");
+        $("#contenedor").css("max-width", "88%");
+
+    }
     if (modalActual != "ninguno") {
         alturaModal();
         if (modalActual == "rgb") { 
@@ -459,11 +470,7 @@ function AplicarFiltro() {
     // activa el botón deshacer
     estadoBtnDeshacer(true);
 }
-// selecciona el valor por defecto del filtro
-document.getElementById("filtro").selectedIndex = 0;
-actualIndexFiltro = 0;
-lastIndexFiltro = 0;
-AplicarFiltro();
+
 //para el modal
 // Get the modal , múltiples usos
 var modal = document.getElementById('myModal');
@@ -811,6 +818,23 @@ window.addEventListener("beforeunload", function (event) {
     event.preventDefault();
   // Chrome requiere que returnValue sea establecido
     event.returnValue = "Nadie quiere perder una obra de arte...";
+});
+// al cargar la página
+window.addEventListener("load", function (event) {
+    // valores por defecto, inicializar
+    // selecciona el valor por defecto del filtro
+    document.getElementById("filtro").selectedIndex = 0;
+    actualIndexFiltro = 0;
+    lastIndexFiltro = 0;
+    AplicarFiltro();
+    // DIMENSIONA AL INICIAR LA PÁGINA con 10x10
+    //para que se agreguen al abrir la página     
+    configurarSelects(); 
+    dimensionar();
+    // radio por defecto es cero
+    document.getElementById("rangoRadioBordes").value = 0;
+    // el input color es negro por defecto, ie recuerda colores anteriores
+    document.getElementById("colorPixel").value = "#000000";
 });
 
 // resalta el color actual en el historial de colores
@@ -1170,8 +1194,7 @@ function configurarSelects() {
     numColumnas = 10;
     numFilas = 10;
 }
-//para que se agreguen al abrir la página 
-configurarSelects();
+
 //se muestra el historial de color
 document.getElementById("BtnHistorialColor").onclick = function () {
     if (modoActual == "borrador") {
@@ -1228,9 +1251,18 @@ function cerrarHistorial() {
 document.getElementById("BtnCerrarHistorial").onclick = function () {
     cerrarHistorial();
 }
-// pantalla completa
+// pantalla completa, entrar
 document.getElementById("BtnPantallaCompleta").onclick = function () {
+    lastModo = modoActual;
+    modoActual = "pantallaCompleta";
+    document.getElementById("BtnSalirPantallaCompleta").style.display = "block";
     launchFullScreen();
+}
+// pantalla completa, salir
+document.getElementById("BtnSalirPantallaCompleta").onclick = function () {    
+    cambiarModo(lastModo);
+    document.getElementById("BtnSalirPantallaCompleta").style.display = "none";
+    cancelFullScreen();
 }
 //se muestra el selector rgb de color
 document.getElementById("BtnRGB").onclick = function () {
@@ -1352,8 +1384,7 @@ function dimensionar() {
     // activa el botón deshacer
     estadoBtnDeshacer(true);
 }
-// DIMENSIONA AL INICIAR LA PÁGINA con 10x10
-dimensionar();
+
 // dasactiva el botón deshacer, no se ha hecho nada
 // nota que la primera vez que se llama dimensionar se activa, pero aquí se desactiva para que sea su estado inicial
 estadoBtnDeshacer(false);
