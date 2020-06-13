@@ -1,4 +1,5 @@
 /* z-index (niveles de capas)
+btn cerrar hist 2
 paleta 100
 btntop 200
 modal 300
@@ -17,12 +18,19 @@ html, body {
     margin: 0;
     /* oculto inicialmente */
     display: none;
+    background-color: #000000;
+}
+.oculto {
+    /* para ocultar dinámicamente elementos con display con prefijos*/
+    display: none !important;
 }
 #paletaFull {
     /* oculto por defecto */
     display: none;
     /* fijo en la pantalla completa */
     position: fixed;
+    /* sobre el dibujo */
+    z-index: 150;
     left: 12px;
     top: 12px;
     margin: 0;
@@ -41,7 +49,7 @@ html, body {
         display: inline-block;
         color: white;
         background-color: purple;
-        padding: 6px;
+        padding: 7px;
         margin: 6px 2px;
         text-align: center;
         border: 3px solid #666699;
@@ -52,7 +60,7 @@ html, body {
     }
     #paletaFull .fa {
         /* no llevan texto ...*/
-        font-size: 1.1em;
+        font-size: 1.15em;
     }
     #paletaFull button:hover, #paletaFull button:active {
         background-color: #999999;
@@ -730,16 +738,22 @@ html, body {
         animation: none !important;
     }
     /* ocultar */
-    #BtnTop, .paleta, .loader, #pie, #BtnCerrarHistorial, #myModal {
+    #BtnTop, .paleta, .loader, #pie, #BtnCerrarHistorial, #myModal, #snackbar, #paletaFull {
         display: none !important;
     }
-
+    #pantalla {
+        background-color: transparent !important;
+    }
+    
     .contenedor {
         margin: 16px 4px 4px 8px !important;
         overflow: hidden !important;
         max-width: none !important;
     }
-
+    html, body {
+        height: auto !important;
+        min-height: 0;
+    }
     .fila {
         overflow: hidden !important;
     }

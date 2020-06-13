@@ -22,8 +22,11 @@ var lastColorRejilla;
 var lastNumColumnas;
 var lastNumFilas;
 var lastModo = "pincel";
-// modos: pincel, borrador, relleno, extraer, libre, pantallaCompleta
+// modos: pincel, borrador, relleno, extraer, libre
 var modoActual = "pincel";
+// es como un modo, pero se gestiona diferente
+var pantallaCompleta = false;
+var timerCursor;
 var tamaño = 20;
 var MAXSIZE = 100;
 var MINSIZE = 4;
@@ -388,14 +391,16 @@ function ajustesResize() {
     document.getElementById("BtnCerrarHistorial").style.top = 0 + document.getElementById("paletaArriba").offsetHeight + "px";
     document.getElementById("paletaHistorial").style.top = 0 + document.getElementById("paletaArriba").offsetHeight + document.getElementById("BtnCerrarHistorial").offsetHeight + "px";
     document.getElementById("paletaHistorial").style.bottom = 0 + document.getElementById("paletaAbajo").offsetHeight + "px";
-    if (modoActual == "pantallaCompleta") {
-        $(".contenedor").css("margin", "0px");
-        $("#contenedor").css("max-width", "98%");
+    if (pantallaCompleta == true) {
+        $("#contenedor").css("margin", "0px");
+        $("#contenedor").css("max-width", "98%");        
     } else {
-        var margenArribaCont = 6 + document.getElementById("paletaArriba").offsetHeight;
+        var margenArribaCont = 8 + document.getElementById("paletaArriba").offsetHeight;
         $(".contenedor").css("margin", "0px");
         $(".contenedor").css("margin-top", margenArribaCont + "px");
-        $("#contenedor").css("max-width", "88%");
+        $("#contenedor").css("max-width", "88%");        
+        var espacioPie = 12 + document.getElementById("paletaAbajo").offsetHeight;
+        $("#pie").css("margin-bottom", espacioPie + "px");
 
     }
     if (modalActual != "ninguno") {
@@ -1067,8 +1072,8 @@ procesarHistorial("#000000");
 // lo anterior hace que el blanco y el negro aparezcan en el historial al abrir la página.
 // cuando hace click en un cuadrito
 function hacerClick(celda) {
-    if (ocupado == true) {
-        //sale si está ocupado
+    if (ocupado == true || pantallaCompleta == true) {
+        //sale si está ocupado o está en patalla completa
         return;
     }
     //click en un div, es decir, en un cuadrito  
@@ -1255,21 +1260,31 @@ document.getElementById("BtnCerrarHistorial").onclick = function () {
 }
 // pantalla completa, entrar
 document.getElementById("BtnPantallaCompleta").onclick = function () {
-    lastModo = modoActual;
-    modoActual = "pantallaCompleta";
+    pantallaCompleta = true;
     document.getElementById("paletaFull").style.display = "block";
     $("#pantalla").css("width", "100%");
     $("#pantalla").css("height", "100%");
+    $("#BtnCerrarHistorial").addClass("oculto");
+    $(".paleta").addClass("oculto");
+    $(":header").addClass("oculto");
+    $(".columna").css("cursor", "default");
     launchFullScreen();
+    showSnackbar("Pantalla completa activada");
 }
 // pantalla completa, salir
 document.getElementById("BtnSalirPantallaCompleta").onclick = function () {    
-    cambiarModo(lastModo);
+    pantallaCompleta = false;
     document.getElementById("paletaFull").style.display = "none";
     $("#pantalla").css("width", "auto");
     $("#pantalla").css("height", "auto");
+    $("#BtnCerrarHistorial").removeClass("oculto");
+    $(".paleta").removeClass("oculto");
+    $(":header").removeClass("oculto");
+    $(".columna").css("cursor", "pointer");    
     cancelFullScreen();
+    showSnackbar("Pantalla completa desactivada");
 }
+
 // aumenta el tamaño de todos los cuadritos
 document.getElementById("BtnAumentarFull").onclick = function () {
     ajustarTamaño(1);
