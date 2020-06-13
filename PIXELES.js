@@ -835,6 +835,8 @@ window.addEventListener("load", function (event) {
     document.getElementById("rangoRadioBordes").value = 0;
     // el input color es negro por defecto, ie recuerda colores anteriores
     document.getElementById("colorPixel").value = "#000000";
+    // muestra el contenedor pantalla, ya configurada
+    $("#pantalla").css("display", "block");
 });
 
 // resalta el color actual en el historial de colores
@@ -1255,14 +1257,26 @@ document.getElementById("BtnCerrarHistorial").onclick = function () {
 document.getElementById("BtnPantallaCompleta").onclick = function () {
     lastModo = modoActual;
     modoActual = "pantallaCompleta";
-    document.getElementById("BtnSalirPantallaCompleta").style.display = "block";
+    document.getElementById("paletaFull").style.display = "block";
+    $("#pantalla").css("width", "100%");
+    $("#pantalla").css("height", "100%");
     launchFullScreen();
 }
 // pantalla completa, salir
 document.getElementById("BtnSalirPantallaCompleta").onclick = function () {    
     cambiarModo(lastModo);
-    document.getElementById("BtnSalirPantallaCompleta").style.display = "none";
+    document.getElementById("paletaFull").style.display = "none";
+    $("#pantalla").css("width", "auto");
+    $("#pantalla").css("height", "auto");
     cancelFullScreen();
+}
+// aumenta el tamaño de todos los cuadritos
+document.getElementById("BtnAumentarFull").onclick = function () {
+    ajustarTamaño(1);
+}
+// disminuye el tamaño de todos los cuadritos
+document.getElementById("BtnDisminuirFull").onclick = function () {
+    ajustarTamaño(-1);
 }
 //se muestra el selector rgb de color
 document.getElementById("BtnRGB").onclick = function () {

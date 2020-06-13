@@ -15,10 +15,57 @@ html, body {
     overflow: auto;
     padding: 0;
     margin: 0;
-}
-#BtnSalirPantallaCompleta {
+    /* oculto inicialmente */
     display: none;
 }
+#paletaFull {
+    /* oculto por defecto */
+    display: none;
+    /* fijo en la pantalla completa */
+    position: fixed;
+    left: 12px;
+    top: 12px;
+    margin: 0;
+    padding: 0;
+    background-color: gray;
+    background-color: transparent;
+    /*no se puede seleccionar el texto*/
+    -webkit-user-select: none; /* Chrome, Opera, Safari */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */
+}
+    #paletaFull button {        
+        cursor: pointer;
+        font-family: Tahoma, Arial, sans-serif;
+        display: inline-block;
+        color: white;
+        background-color: purple;
+        padding: 6px;
+        margin: 6px 2px;
+        text-align: center;
+        border: 3px solid #666699;
+        -moz-transition: opacity 0.4s, visibility 0.4s, background-color 0.4s;
+        -o-transition: opacity 0.4s, visibility 0.4s, background-color 0.4s;
+        -webkit-transition: opacity 0.4s, visibility 0.4s, background-color 0.4s;
+        transition: opacity 0.4s, visibility 0.4s, background-color 0.4s;
+    }
+    #paletaFull .fa {
+        /* no llevan texto ...*/
+        font-size: 1.1em;
+    }
+    #paletaFull button:hover, #paletaFull button:active {
+        background-color: #999999;
+        color: purple;
+        /*sombra*/
+        -webkit-box-shadow: 1px 1px 3px gray, 0 0 6px MediumPurple;
+        -moz-box-shadow: 1px 1px 3px gray, 0 0 6px MediumPurple;
+        box-shadow: 1px 1px 3px gray, 0 0 6px MediumPurple;
+    }
+    
+    #BtnSalirPantallaCompleta {
+        /* el botón de salir */
+    }
 /* para el color hex modal */
 #muestraMarcoHex {
     border: 2px inset gray;
