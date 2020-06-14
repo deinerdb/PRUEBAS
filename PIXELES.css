@@ -970,9 +970,11 @@ a:active {
     font-style: italic;
     font-size: 1em;
     margin-left: 3px;
-    margin-right: 3px;
+    margin-right: 3px;    
 }
-
+button, i, a {
+    -webkit-tap-highlight-color: transparent;
+}
 .contenedor {
     /* sin filtro inicialmente */
     -webkit-filter: none;

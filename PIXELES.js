@@ -1300,16 +1300,24 @@ document.getElementById("BtnSalirPantallaCompleta").onclick = function () {
     $(":header").removeClass("oculto");
     // puntero
     document.getElementById("pantalla").style.cursor = "default";
-    $("#contenedor").css("cursor", "pointer");
+    $("#contenedor").css("cursor", "default");
     $(".columna").css("cursor", "pointer");
     // api
     cancelFullScreen();
     // informa
     showSnackbar("Pantalla completa desactivada");
 }
-//mueve el puntero y aparece
+//mueve el puntero y aparece el cursor y los botones
 document.getElementById("pantalla").onmousemove = function () { mostrarPuntero() };
 document.getElementById("contenedor").onmousemove = function () { mostrarPuntero() };
+// en eventos táctiles
+document.getElementById("pantalla").ontouchmove = function () { mostrarPuntero() };
+document.getElementById("contenedor").ontouchmove = function () { mostrarPuntero() };
+document.getElementById("pantalla").ontouchstart = function () { mostrarPuntero() };
+document.getElementById("contenedor").ontouchstart = function () { mostrarPuntero() };
+// cuando hace scroll
+document.getElementById("pantalla").onscroll = function () { mostrarPuntero() };
+document.getElementById("contenedor").onscroll = function () { mostrarPuntero() };
 // también cuando hace click fuera del dibujo
 document.getElementById("pantalla").onclick = function () { mostrarPuntero() };
 
