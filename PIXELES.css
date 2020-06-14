@@ -42,6 +42,11 @@ html, body {
     -moz-user-select: none; /* Firefox 2+ */
     -ms-user-select: none; /* IE 10+ */
     user-select: none; /* Standard syntax */
+    /* transición */
+    -moz-transition: top 0.4s;
+    -o-transition: top 0.4s;
+    -webkit-transition: top 0.4s;
+    transition: top 0.4s;
 }
     #paletaFull button {        
         cursor: pointer;

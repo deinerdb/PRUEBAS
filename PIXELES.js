@@ -392,7 +392,16 @@ function ajustesResize() {
     document.getElementById("paletaHistorial").style.top = 0 + document.getElementById("paletaArriba").offsetHeight + document.getElementById("BtnCerrarHistorial").offsetHeight + "px";
     document.getElementById("paletaHistorial").style.bottom = 0 + document.getElementById("paletaAbajo").offsetHeight + "px";
     if (pantallaCompleta == true) {
+        var h = window.innerHeight
+            || document.documentElement.clientHeight
+            || document.body.clientHeight;
         $("#contenedor").css("margin", "0px");
+        var margenArribaCont = h - document.getElementById("contenedor").offsetHeight;
+        margenArribaCont = margenArribaCont / 2;
+        if (isNaN(margenArribaCont) == true || margenArribaCont < 0) {
+            margenArribaCont = 0;
+        }
+        $("#contenedor").css("margin-top", margenArribaCont + "px");
         $("#contenedor").css("max-width", "98%");        
     } else {
         var margenArribaCont = 8 + document.getElementById("paletaArriba").offsetHeight;
@@ -1072,8 +1081,14 @@ procesarHistorial("#000000");
 // lo anterior hace que el blanco y el negro aparezcan en el historial al abrir la página.
 // cuando hace click en un cuadrito
 function hacerClick(celda) {
-    if (ocupado == true || pantallaCompleta == true) {
-        //sale si está ocupado o está en patalla completa
+    if (ocupado == true) {
+        //sale si está ocupado 
+        return;
+    }
+    if (pantallaCompleta == true) {
+        //sale si en patalla completa
+        // pero primero muestra el puntero y los botones, para los táctiles
+        mostrarPuntero();
         return;
     }
     //click en un div, es decir, en un cuadrito  
@@ -1267,24 +1282,60 @@ document.getElementById("BtnPantallaCompleta").onclick = function () {
     $("#BtnCerrarHistorial").addClass("oculto");
     $(".paleta").addClass("oculto");
     $(":header").addClass("oculto");
-    $(".columna").css("cursor", "default");
+    mostrarPuntero();
     launchFullScreen();
     showSnackbar("Pantalla completa activada");
 }
 // pantalla completa, salir
 document.getElementById("BtnSalirPantallaCompleta").onclick = function () {    
     pantallaCompleta = false;
+    // no se ocultará si estába pendiente
+    clearTimeout(timerCursor);
+    // ajustes css
     document.getElementById("paletaFull").style.display = "none";
     $("#pantalla").css("width", "auto");
     $("#pantalla").css("height", "auto");
     $("#BtnCerrarHistorial").removeClass("oculto");
     $(".paleta").removeClass("oculto");
     $(":header").removeClass("oculto");
-    $(".columna").css("cursor", "pointer");    
+    // puntero
+    document.getElementById("pantalla").style.cursor = "default";
+    $("#contenedor").css("cursor", "pointer");
+    $(".columna").css("cursor", "pointer");
+    // api
     cancelFullScreen();
+    // informa
     showSnackbar("Pantalla completa desactivada");
 }
+//mueve el puntero y aparece
+document.getElementById("pantalla").onmousemove = function () { mostrarPuntero() };
+document.getElementById("contenedor").onmousemove = function () { mostrarPuntero() };
+// también cuando hace click fuera del dibujo
+document.getElementById("pantalla").onclick = function () { mostrarPuntero() };
 
+function mostrarPuntero() {
+    // no se ocultará si estába pendiente
+    clearTimeout(timerCursor);
+    // sale si no es pantalla completa
+    if (pantallaCompleta == false) { return; }
+    // el puntero es visible
+    document.getElementById("pantalla").style.cursor = "default";
+    document.getElementById("contenedor").style.cursor = "default";
+    $(".columna").css("cursor", "default");
+    // también los botones
+    $("#paletaFull").css("top", "12px");
+    // programa que se oculte
+    timerCursor = setTimeout(ocultarPuntero, 3000);    
+}
+
+function ocultarPuntero() {
+    // oculta el puntero
+    document.getElementById("pantalla").style.cursor = "none";
+    document.getElementById("contenedor").style.cursor = "none";
+    $(".columna").css("cursor", "none");
+    // también los botones
+    $("#paletaFull").css("top", "-50px");
+}
 // aumenta el tamaño de todos los cuadritos
 document.getElementById("BtnAumentarFull").onclick = function () {
     ajustarTamaño(1);
