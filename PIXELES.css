@@ -1,5 +1,6 @@
 /* z-index (niveles de capas)
 btn cerrar hist 2
+resaltado 3
 paleta 100
 btntop 200
 modal 300
@@ -972,7 +973,7 @@ a:active {
     margin-left: 3px;
     margin-right: 3px;    
 }
-button, i, a {
+button, i, a, .columna {
     -webkit-tap-highlight-color: transparent;
 }
 .contenedor {
@@ -1286,6 +1287,87 @@ button, i, a {
 body {
     text-align: center;
     background-color: #000000; /* negro*/
+}
+.resaltado {
+    z-index: 3;
+    /*WEBKIT*/
+    -webkit-animation-name: resaltar;
+    -webkit-animation-duration: 0.4s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    /*MOZ*/
+    -moz-animation-name: resaltar;
+    -moz-animation-duration: 0.4s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+    /*O*/
+    -o-animation-name: resaltar;
+    -o-animation-duration: 0.4s;
+    -o-animation-timing-function: linear;
+    -o-animation-iteration-count: infinite;
+    /*ESTÁNDAR*/
+    animation-name: resaltar;
+    animation-duration: 0.4s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+@-webkit-keyframes resaltar {
+    0% {
+        -webkit-box-shadow: 0px 0px 0.3em #ffffff, 0px 0px 0.6em #990099, 0px 0px 0.9em #000000;
+        box-shadow: 0px 0px 0.3em #ffffff, 0px 0px 0.6em #990099, 0px 0px 0.9em #000000;
+    }
+
+    50% {
+        -webkit-box-shadow: 0px 0px 0.2em #ffffff, 0px 0px 0.4em #990099, 0px 0px 0.6em #000000;
+        box-shadow: 0px 0px 0.2em #ffffff, 0px 0px 0.4em #990099, 0px 0px 0.6em #000000;
+    }
+
+    100% {
+        -webkit-box-shadow: 0px 0px 0.1em #ffffff, 0px 0px 0.2em #990099, 0px 0px 0.4em #000000;
+        box-shadow: 0px 0px 0.1em #ffffff, 0px 0px 0.2em #990099, 0px 0px 0.4em #000000;
+    }
+}
+@-moz-keyframes resaltar {
+    0% {
+        -moz-box-shadow: 0px 0px 0.3em #ffffff, 0px 0px 0.6em #990099, 0px 0px 0.9em #000000;
+        box-shadow: 0px 0px 0.3em #ffffff, 0px 0px 0.6em #990099, 0px 0px 0.9em #000000;
+    }
+
+    50% {
+        -moz-box-shadow: 0px 0px 0.2em #ffffff, 0px 0px 0.4em #990099, 0px 0px 0.6em #000000;
+        box-shadow: 0px 0px 0.2em #ffffff, 0px 0px 0.4em #990099, 0px 0px 0.6em #000000;
+    }
+
+    100% {
+        -moz-box-shadow: 0px 0px 0.1em #ffffff, 0px 0px 0.2em #990099, 0px 0px 0.4em #000000;
+        box-shadow: 0px 0px 0.1em #ffffff, 0px 0px 0.2em #990099, 0px 0px 0.4em #000000;
+    }
+}
+@-o-keyframes resaltar {
+    0% {        
+        box-shadow: 0px 0px 0.3em #ffffff, 0px 0px 0.6em #990099, 0px 0px 0.9em #000000;
+    }
+
+    50% {
+        box-shadow: 0px 0px 0.2em #ffffff, 0px 0px 0.4em #990099, 0px 0px 0.6em #000000;
+    }
+
+    100% {
+        box-shadow: 0px 0px 0.1em #ffffff, 0px 0px 0.2em #990099, 0px 0px 0.4em #000000;
+    }
+}
+@keyframes resaltar {
+    0% {
+        box-shadow: 0px 0px 0.3em #ffffff, 0px 0px 0.6em #990099, 0px 0px 0.9em #000000;
+    }
+
+    50% {
+        box-shadow: 0px 0px 0.2em #ffffff, 0px 0px 0.4em #990099, 0px 0px 0.6em #000000;
+    }
+
+    100% {
+        box-shadow: 0px 0px 0.1em #ffffff, 0px 0px 0.2em #990099, 0px 0px 0.4em #000000;
+    }
 }
 
 .columna {

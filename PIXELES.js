@@ -26,7 +26,8 @@ var lastModo = "pincel";
 var modoActual = "pincel";
 // es como un modo, pero se gestiona diferente
 var pantallaCompleta = false;
-var timerCursor;
+var timerCursor = 0;
+var timerResaltar = 0;
 var tamaño = 20;
 var MAXSIZE = 100;
 var MINSIZE = 4;
@@ -1086,12 +1087,25 @@ function hacerClick(celda) {
         return;
     }
     if (pantallaCompleta == true) {
-        //sale si en patalla completa
+        //sale si está en patalla completa
         // pero primero muestra el puntero y los botones, para los táctiles
         mostrarPuntero();
         return;
     }
-    //click en un div, es decir, en un cuadrito  
+    // ahora sí...
+    // procesa el click en un div, es decir, en un cuadrito  
+    // resaltar con sombra el cuadrito
+    // cancela el temporizador en curso para eliminación de la clase
+    clearTimeout(timerResaltar);
+    // remueve inmediatamente cualquier resaltado
+    $(".resaltado").removeClass("resaltado");
+    // resalta el que recibe el click
+    $("[id = " + celda + "]").addClass("resaltado");
+    // inicia el temporizador para quitar el resaltado
+    timerResaltar = setTimeout(function () {
+        // remueve el resaltado de todos
+        $(".resaltado").removeClass("resaltado");
+    }, 400);
     ocupado = true;
     switch (modoActual) {
         case "libre":
@@ -1513,6 +1527,7 @@ function cambiarModo(nuevoModo) {
         document.getElementById("BtnImprimir").style.display = "inline-block";
         document.getElementById("BtnAceptarLibre").style.display = "none";
         document.getElementById("BtnCancelarLibre").style.display = "none";
+        document.getElementById("BtnPantallaCompleta").style.display = "inline-block";
     }
     switch (modoActual) {
         case "libre":
@@ -1548,6 +1563,7 @@ function cambiarModo(nuevoModo) {
             document.getElementById("BtnImportar").style.display = "none";
             document.getElementById("BtnExportar").style.display = "none";
             document.getElementById("BtnImprimir").style.display = "none";
+            document.getElementById("BtnPantallaCompleta").style.display = "none";
             //debe guardar los colores y los id      
             lastAction = "libre";
             lastArrayColor.length = 0;
