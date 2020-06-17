@@ -2,6 +2,8 @@
 btn cerrar hist 2
 resaltado 3
 paleta 100
+paleta full 150
+hover y active en paletas 180
 btntop 200
 modal 300
 snack 500
@@ -67,19 +69,8 @@ html, body {
     #paletaFull .fa {
         /* no llevan texto ...*/
         font-size: 1.15em;
-    }
-    #paletaFull button:hover, #paletaFull button:active {
-        background-color: #999999;
-        color: purple;
-        /*sombra*/
-        -webkit-box-shadow: 1px 1px 3px gray, 0 0 6px MediumPurple;
-        -moz-box-shadow: 1px 1px 3px gray, 0 0 6px MediumPurple;
-        box-shadow: 1px 1px 3px gray, 0 0 6px MediumPurple;
-    }
+    }    
     
-    #BtnSalirPantallaCompleta {
-        /* el botón de salir */
-    }
 /* para el color hex modal */
 #muestraMarcoHex {
     border: 2px inset gray;
@@ -722,6 +713,7 @@ html, body {
 }
 /* fin ajustes de la ventana modal */
 
+/* inicia */
 /* ajustes de impresión */
 
 @page {
@@ -749,6 +741,7 @@ html, body {
     }
     #pantalla {
         background-color: transparent !important;
+        overflow: hidden !important;        
     }
     
     .contenedor {
@@ -756,6 +749,7 @@ html, body {
         overflow: hidden !important;
         max-width: none !important;
     }
+    
     html, body {
         height: auto !important;
         min-height: 0;
@@ -787,7 +781,7 @@ html, body {
         text-align: center !important;
     }
 }
-
+/* fin print */
 .loader {
     position: fixed;
     left: 0px;
@@ -1101,10 +1095,6 @@ button, i, a, .columna {
         background-color: #cccccc !important;
     }
 
-    #selectFilas:hover, #selectColumnas:hover, #filtro:hover {
-        background-color: #999999;
-    }
-
 #selectColumnas {
     margin-right: 6px !important;
 }
@@ -1170,19 +1160,27 @@ button, i, a, .columna {
     display: block;
 }
 
-#BtnCerrarHistorial:active, #BtnCerrarHistorial:hover, #paletaAbajo button:active, #paletaAbajo button:hover, #paletaAbajo button:active, #paletaArriba button:hover, #colorPixel:active, #colorPixel:hover {
-    background-color: #999999;
-    color: purple;
+.paleta button:hover, #BtnCerrarHistorial:hover, #paletaFull button:hover, #colorPixel:hover, #selectFilas:hover, #selectColumnas:hover, #filtro:hover {
+    z-index: 180;
+    /* una sombra pequeña */
+    -moz-box-shadow: 0px 0px 0.2em #ffffff, 0px 0px 0.4em #990099, 0px 0px 0.6em #000000;
+    -webkit-box-shadow: 0px 0px 0.2em #ffffff, 0px 0px 0.4em #990099, 0px 0px 0.6em #000000;
+    box-shadow: 0px 0px 0.2em #ffffff, 0px 0px 0.4em #990099, 0px 0px 0.6em #000000;
 }
-
-#paletaHistorial button:active, #paletaHistorial button:hover {
-    background-color: #999999;
+.paleta button:active, #BtnCerrarHistorial:active, #paletaFull button:active, #colorPixel:active {
+    z-index: 180;
+    /* una sombra más grande */
+    -moz-box-shadow: 0px 0px 0.4em #ffffff, 0px 0px 0.9em #990099, 0px 0px 1.3em #000000;
+    -webkit-box-shadow: 0px 0px 0.4em #ffffff, 0px 0px 0.9em #990099, 0px 0px 1.3em #000000;
+    box-shadow: 0px 0px 0.4em #ffffff, 0px 0px 0.9em #990099, 0px 0px 1.3em #000000;
 }
 
 #BtnCerrarHistorial:hover, #BtnCerrarHistorial:active {
     color: red;
 }
-
+#BtnSalirPantallaCompleta:hover, #BtnSalirPantallaCompleta:active {
+    color: #009900;
+}
 /*LA BARRA DE NAVEGACIÓN*/
 .paleta {
     background-color: gray;

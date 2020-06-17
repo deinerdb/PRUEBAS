@@ -1298,6 +1298,7 @@ document.getElementById("BtnPantallaCompleta").onclick = function () {
     $(":header").addClass("oculto");
     mostrarPuntero();
     launchFullScreen();
+    ajustesResize();
     showSnackbar("Pantalla completa activada");
 }
 // pantalla completa, salir
@@ -1318,6 +1319,7 @@ document.getElementById("BtnSalirPantallaCompleta").onclick = function () {
     $(".columna").css("cursor", "pointer");
     // api
     cancelFullScreen();
+    ajustesResize();
     // informa
     showSnackbar("Pantalla completa desactivada");
 }
@@ -1715,6 +1717,8 @@ function ajustarTamaño(incremento) {
     // n VECES EL ANCHO DE UN CUADRITO
     //PERO OJO QUE maxWidth DEL CONTENEDOR ES 90%, NUNCA DESBORDA PANTALLA.
     document.getElementById("contenedor").style.width = anchoCont + "px";
+    // para centrado y otros ajustes
+    ajustesResize();
     ocupado = false;
 }
 // la llama para ajustes iniciales
