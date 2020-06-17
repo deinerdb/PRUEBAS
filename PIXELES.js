@@ -852,6 +852,8 @@ window.addEventListener("load", function (event) {
     document.getElementById("colorPixel").value = "#000000";
     // muestra el contenedor pantalla, ya configurada
     $("#pantalla").css("display", "block");
+    // scroll
+    topFunction();
 });
 
 // resalta el color actual en el historial de colores
@@ -1322,6 +1324,8 @@ document.getElementById("BtnSalirPantallaCompleta").onclick = function () {
     ajustesResize();
     // informa
     showSnackbar("Pantalla completa desactivada");
+    // un scrooll
+    topFunction();
 }
 //mueve el puntero y aparece el cursor y los botones
 document.getElementById("pantalla").onmousemove = function () { mostrarPuntero() };

@@ -1163,16 +1163,35 @@ button, i, a, .columna {
 .paleta button:hover, #BtnCerrarHistorial:hover, #paletaFull button:hover, #colorPixel:hover, #selectFilas:hover, #selectColumnas:hover, #filtro:hover {
     z-index: 180;
     /* una sombra pequeña */
-    -moz-box-shadow: 0px 0px 0.2em #ffffff, 0px 0px 0.4em #990099, 0px 0px 0.6em #000000;
-    -webkit-box-shadow: 0px 0px 0.2em #ffffff, 0px 0px 0.4em #990099, 0px 0px 0.6em #000000;
-    box-shadow: 0px 0px 0.2em #ffffff, 0px 0px 0.4em #990099, 0px 0px 0.6em #000000;
+    -moz-box-shadow: 0px 0px 0.3em #ffffff, 0px 0px 0.6em #e600e6;
+    -webkit-box-shadow: 0px 0px 0.3em #ffffff, 0px 0px 0.6em #e600e6;
+    box-shadow: 0px 0px 0.3em #ffffff, 0px 0px 0.6em #e600e6;
 }
+button, select, input {
+    /* remove outline */
+    outline: none;
+}
+    button:focus, input[type=color]:focus, select:focus {
+        /* outline por accesibilidad */
+        outline: 0.3px solid purple !important;
+        outline: 0.3px solid rgba(128, 0, 128, 0.7) !important;
+        outline-offset: 2px !important;
+    }    
+    /* remover puntitos en firefox focus */
+    button::-moz-focus-inner, input::-moz-focus-inner, select::-moz-focus-inner, select::-moz-focus-outer {
+        border: 0 !important;
+    }
+    select:-moz-focusring {
+        color: transparent;
+        text-shadow: 0 0 0 #000;
+    }
+
 .paleta button:active, #BtnCerrarHistorial:active, #paletaFull button:active, #colorPixel:active {
     z-index: 180;
     /* una sombra más grande */
-    -moz-box-shadow: 0px 0px 0.4em #ffffff, 0px 0px 0.9em #990099, 0px 0px 1.3em #000000;
-    -webkit-box-shadow: 0px 0px 0.4em #ffffff, 0px 0px 0.9em #990099, 0px 0px 1.3em #000000;
-    box-shadow: 0px 0px 0.4em #ffffff, 0px 0px 0.9em #990099, 0px 0px 1.3em #000000;
+    -moz-box-shadow: 0px 0px 0.7em #ffffff, 0px 0px 1.5em #e600e6;
+    -webkit-box-shadow: 0px 0px 0.7em #ffffff, 0px 0px 1.5em #e600e6;
+    box-shadow: 0px 0px 0.7em #ffffff, 0px 0px 1.5em #e600e6;
 }
 
 #BtnCerrarHistorial:hover, #BtnCerrarHistorial:active {
