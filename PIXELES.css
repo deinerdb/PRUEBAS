@@ -46,10 +46,10 @@ html, body {
     -ms-user-select: none; /* IE 10+ */
     user-select: none; /* Standard syntax */
     /* transición */
-    -moz-transition: top 0.4s;
-    -o-transition: top 0.4s;
-    -webkit-transition: top 0.4s;
-    transition: top 0.4s;
+    -moz-transition: top 0.6s;
+    -o-transition: top 0.6s;
+    -webkit-transition: top 0.6s;
+    transition: top 0.6s;
 }
     #paletaFull button {        
         cursor: pointer;
@@ -967,9 +967,23 @@ a:active {
     margin-left: 3px;
     margin-right: 3px;    
 }
-button, i, a, .columna {
+button, i, a, .columna, .contenedor {
     -webkit-tap-highlight-color: transparent;
 }
+#BtnColorRejilla {
+        padding: 2.5px;
+}
+    #BtnColorRejilla i {
+        border-style: solid;
+        border-top-color: #ff3300;
+        border-bottom-color: blue;
+        border-left-color: lime;
+        border-right-color: yellow;
+        border-width: 5px;
+        font-size: 12px;
+        padding: 6px;
+        margin: 2px;
+    }
 .contenedor {
     /* sin filtro inicialmente */
     -webkit-filter: none;

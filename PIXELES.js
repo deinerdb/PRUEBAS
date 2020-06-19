@@ -105,6 +105,10 @@ var arrayColoresUsados = [];
 // el estilo inicial del botón pincel 
 // indica que pintar es el modo preteterminado
 document.getElementById("BtnPincel").style.border = "3px solid #009900";
+// indica que zoom + es el modo preteterminado en pantalla completa
+var zoomIn = true;
+document.getElementById("BtnAumentarFull").style.border = "3px solid #009900";
+document.getElementById("BtnDisminuirFull").style.border = "3px solid #666699";
 // en el modo pincel no están estos
 document.getElementById("BtnAceptarLibre").style.display = "none";
 document.getElementById("BtnCancelarLibre").style.display = "none";
@@ -1090,8 +1094,10 @@ function hacerClick(celda) {
     }
     if (pantallaCompleta == true) {
         //sale si está en patalla completa
-        // pero primero muestra el puntero y los botones, para los táctiles
-        mostrarPuntero();
+        // pero primero hace zoom, luego muestra el puntero y los botones
+        //procesarZoom();
+        // la anterior línea se omite porque el evento se propaga al contenedor
+        mostrarPuntero();        
         return;
     }
     // ahora sí...
@@ -1289,6 +1295,38 @@ function cerrarHistorial() {
 document.getElementById("BtnCerrarHistorial").onclick = function () {
     cerrarHistorial();
 }
+function definirPuntero() {
+    // si hace zoom +
+    if (zoomIn == true) {
+        return "zoom-in";
+    } else {
+        // hace zoom -
+        return "zoom-out";
+    }
+}
+function mostrarPuntero() {
+    // no se ocultará si estába pendiente
+    clearTimeout(timerCursor);
+    // sale si no es pantalla completa
+    if (pantallaCompleta == false) { return; }
+    // el puntero es visible
+    document.getElementById("pantalla").style.cursor = definirPuntero();
+    document.getElementById("contenedor").style.cursor = definirPuntero();
+    $(".columna").css("cursor", definirPuntero());
+    // también los botones
+    $("#paletaFull").css("top", "12px");
+    // programa que se oculte
+    timerCursor = setTimeout(ocultarPuntero, 3000);
+}
+
+function ocultarPuntero() {
+    // oculta el puntero
+    document.getElementById("pantalla").style.cursor = "none";
+    document.getElementById("contenedor").style.cursor = "none";
+    $(".columna").css("cursor", "none");
+    // también los botones
+    $("#paletaFull").css("top", "-50px");
+}
 // pantalla completa, entrar
 document.getElementById("BtnPantallaCompleta").onclick = function () {
     pantallaCompleta = true;
@@ -1298,6 +1336,10 @@ document.getElementById("BtnPantallaCompleta").onclick = function () {
     $("#BtnCerrarHistorial").addClass("oculto");
     $(".paleta").addClass("oculto");
     $(":header").addClass("oculto");
+    // por defecto es zoom +
+    document.getElementById("BtnAumentarFull").style.border = "3px solid #009900";
+    document.getElementById("BtnDisminuirFull").style.border = "3px solid #666699";
+    zoomIn = true;
     mostrarPuntero();
     launchFullScreen();
     ajustesResize();
@@ -1339,38 +1381,45 @@ document.getElementById("contenedor").ontouchstart = function () { mostrarPunter
 document.getElementById("pantalla").onscroll = function () { mostrarPuntero() };
 document.getElementById("contenedor").onscroll = function () { mostrarPuntero() };
 // también cuando hace click fuera del dibujo
-document.getElementById("pantalla").onclick = function () { mostrarPuntero() };
+document.getElementById("pantalla").onclick = function () {
+    procesarZoom();
+    mostrarPuntero();    
+};
+// también cuando hace click en el contenedor del dibujo, si es que se puede
+document.getElementById("contenedor").onclick = function (event) {
+    procesarZoom();
+    mostrarPuntero();
+    event.stopPropagation();
+};
 
-function mostrarPuntero() {
-    // no se ocultará si estába pendiente
-    clearTimeout(timerCursor);
+// define zoom +
+document.getElementById("BtnAumentarFull").onclick = function (event) {
+    document.getElementById("BtnAumentarFull").style.border = "3px solid #009900";
+    document.getElementById("BtnDisminuirFull").style.border = "3px solid #666699";
+    zoomIn = true;
+    mostrarPuntero();
+    event.stopPropagation();
+}
+// define zoom -
+document.getElementById("BtnDisminuirFull").onclick = function (event) {
+    document.getElementById("BtnAumentarFull").style.border = "3px solid #666699";
+    document.getElementById("BtnDisminuirFull").style.border = "3px solid #009900";
+    zoomIn = false;
+    mostrarPuntero();
+    event.stopPropagation();
+}
+// al recibir solicitud de zoom, se verifica el estado de zoomIn
+function procesarZoom() {  
     // sale si no es pantalla completa
     if (pantallaCompleta == false) { return; }
-    // el puntero es visible
-    document.getElementById("pantalla").style.cursor = "default";
-    document.getElementById("contenedor").style.cursor = "default";
-    $(".columna").css("cursor", "default");
-    // también los botones
-    $("#paletaFull").css("top", "12px");
-    // programa que se oculte
-    timerCursor = setTimeout(ocultarPuntero, 3000);    
-}
-
-function ocultarPuntero() {
-    // oculta el puntero
-    document.getElementById("pantalla").style.cursor = "none";
-    document.getElementById("contenedor").style.cursor = "none";
-    $(".columna").css("cursor", "none");
-    // también los botones
-    $("#paletaFull").css("top", "-50px");
-}
-// aumenta el tamaño de todos los cuadritos
-document.getElementById("BtnAumentarFull").onclick = function () {
-    ajustarTamaño(1);
-}
-// disminuye el tamaño de todos los cuadritos
-document.getElementById("BtnDisminuirFull").onclick = function () {
-    ajustarTamaño(-1);
+    // ahora sí decide...
+    if (zoomIn == true) {
+        // hace zoom +
+        ajustarTamaño(1);
+    } else {
+        // hace zoom -
+        ajustarTamaño(-1);
+    }
 }
 //se muestra el selector rgb de color
 document.getElementById("BtnRGB").onclick = function () {
@@ -1522,6 +1571,7 @@ function cambiarModo(nuevoModo) {
         document.getElementById("filtro").style.display = "inline-block";
         document.getElementById("BtnActualizar").style.display = "inline-block";
         document.getElementById("BtnRejilla").style.display = "inline-block";
+        document.getElementById("BtnEstiloBorde").style.display = "inline-block";
         document.getElementById("BtnRadioBordes").style.display = "inline-block";
         document.getElementById("BtnDeshacer").style.display = "inline-block";
         document.getElementById("spanFilas").style.display = "inline-block";
@@ -1560,6 +1610,7 @@ function cambiarModo(nuevoModo) {
             document.getElementById("filtro").style.display = "none";
             document.getElementById("BtnActualizar").style.display = "none";
             document.getElementById("BtnRejilla").style.display = "none";
+            document.getElementById("BtnEstiloBorde").style.display = "none";
             document.getElementById("BtnRadioBordes").style.display = "none";
             document.getElementById("BtnDeshacer").style.display = "none";
             document.getElementById("spanFilas").style.display = "none";
@@ -1829,6 +1880,10 @@ document.getElementById("BtnRejilla").onclick = function () {
     // activa el botón deshacer
     estadoBtnDeshacer(true);
     ocupado = false;
+}
+// para definir ancho y tipo de borde
+document.getElementById("BtnEstiloBorde").onclick = function () {
+    alert("Ancho y tipo de borde... en construcción.")
 }
 // cambia el color de la rejilla
 document.getElementById("BtnColorRejilla").onclick = function () {
