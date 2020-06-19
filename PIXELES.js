@@ -391,7 +391,7 @@ function alturaModal() {
     bd.style.height = h + "px";
 }
 // ajustes según el tamaño de la pantalla
-function ajustesResize() {
+function ajustesResize() {    
     // el top del historial 
     document.getElementById("BtnCerrarHistorial").style.top = 0 + document.getElementById("paletaArriba").offsetHeight + "px";
     document.getElementById("paletaHistorial").style.top = 0 + document.getElementById("paletaArriba").offsetHeight + document.getElementById("BtnCerrarHistorial").offsetHeight + "px";

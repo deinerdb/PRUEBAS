@@ -971,7 +971,7 @@ button, i, a, .columna, .contenedor {
     -webkit-tap-highlight-color: transparent;
 }
 #BtnColorRejilla {
-        padding: 2.5px;
+        padding: 2.5px;        
 }
     #BtnColorRejilla i {
         border-style: solid;
@@ -1126,7 +1126,8 @@ button, i, a, .columna, .contenedor {
 /*botones de barra de herramientas*/
 #paletaArriba button, #paletaAbajo button {
     visibility: visible;
-    min-width: 44px;
+    /* para que conserven su forma en pantallas angostas */
+    min-width: 49px;
     -moz-transition: opacity 0.4s, visibility 0.4s, background-color 0.4s;
     -o-transition: opacity 0.4s, visibility 0.4s, background-color 0.4s;
     -webkit-transition: opacity 0.4s, visibility 0.4s, background-color 0.4s;
