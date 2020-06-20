@@ -203,7 +203,7 @@ html, body {
     transition: max-height 0.2s ease-out;
 }
 /* para el rgb */
-#icoMuestraRGB {
+#icoMuestraRGB, #icoMuestraHex, #icoMuestraGallery {
     border: 2px double #ffffff !important;
     padding: 0 !important;
     background-color: #87888b;

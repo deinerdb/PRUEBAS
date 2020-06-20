@@ -727,7 +727,7 @@ function showModal() {
             break;
         case "rgb":
             $("#marcoRGB").css("display", "block");
-            document.getElementById("modalTitle").innerHTML = "<i class='fas fa-palette'></i> Color RGB = <i id = 'icoMuestraRGB' class='fas fa-square'></i>";
+            document.getElementById("modalTitle").innerHTML = "<i class='fas fa-palette'></i> RGB: <i id = 'icoMuestraRGB' class='fas fa-square'></i>";
             document.getElementById("spanInfoModal").innerHTML = "Use los controles ROJO, VERDE Y AZUL para definir un color";
             // inicialmente hex es el color actual
             hexTemp = colorActual;
@@ -753,19 +753,21 @@ function showModal() {
             document.getElementById("rgbCaption").innerHTML = "rgb(" + miR + ", "  + miG + ", " + miB + ") - " + colorActual;
             // LOS BORDES DE contenedorRGB SON LA MUESTRA DE COLOR, INICIAN CON EL ACTUAL
             $("#contenedorRGB").css("border-color", colorActual);
-            // tambíen el ícono en el título es una muestra icoMuestraRGB
+            // también el ícono en el título es una muestra
             $("#icoMuestraRGB").css("color", colorActual);            
             break;
         case "hex":
             $("#marcoHex").css("display", "block");
             // info
             document.getElementById("spanInfoModal").innerHTML = "Ingrese un color en formato hexadecimal (Ejemplo: #ff00ff). Puede usar mayúsculas o minúsculas. Puede omitir el signo #.";
-            document.getElementById("modalTitle").innerHTML = "<i class='fas fa-hashtag'></i> Color Hexadecimal";
+            document.getElementById("modalTitle").innerHTML = "<i class='fas fa-hashtag'></i> Hexadecimal: <i id = 'icoMuestraHex' class='fas fa-square'></i>";
             // inicialmente hex es el color actual
             hexTemp = colorActual;
             document.getElementById("valorHex").value = colorActual;
             // LA MUESTRA DE COLOR, INICIA CON EL ACTUAL
             $("#muestraMarcoHex").css("background-color", colorActual);
+            // también el ícono en el título es una muestra
+            $("#icoMuestraHex").css("color", colorActual); 
             // supone un color válido inicialmente, no hay error
             $("#errorHex").css("display", "none");
             break;
@@ -773,14 +775,15 @@ function showModal() {
             $("#marcoGallery").css("display", "block");
             // no lleva info
             $("#infoModal").css("display", "none");
-            document.getElementById("modalTitle").innerHTML = "<i class='fas fa-grip-horizontal'></i> Galería de Colores";
+            document.getElementById("modalTitle").innerHTML = "<i class='fas fa-grip-horizontal'></i> Galería: <i id = 'icoMuestraGallery' class='fas fa-square'></i>";
             // inicialmente hex es el color actual
             hexTemp = colorActual;
             // rgbCaption MUESTRA EL COLOR ACTUAL EN RGB Y HEX
             document.getElementById("infoColor").innerHTML = document.getElementById("relleno").style.backgroundColor + " - " + colorActual;
             // LOS BORDES DE infoColor SON LA MUESTRA DE COLOR, INICIAN CON EL ACTUAL
             $("#infoColor").css("border-color", colorActual);
-
+            // también el ícono en el título es una muestra
+            $("#icoMuestraGallery").css("color", colorActual); 
             break;
         case "importar":
 
@@ -816,6 +819,8 @@ function procesarEntradaHex() {
         hexTemp = "#000000";
         // LA MUESTRA DE COLOR es negra
         $("#muestraMarcoHex").css("background-color", "#000000");
+        // también el ícono en el título es una muestra
+        $("#icoMuestraHex").css("color", "#000000"); 
     } else {
         // oculta el error msj
         $("#errorHex").css("display", "none");
@@ -823,6 +828,8 @@ function procesarEntradaHex() {
         hexTemp = test;
         // LA MUESTRA DE COLOR es el ingresado
         $("#muestraMarcoHex").css("background-color", test);
+        // también el ícono en el título es una muestra
+        $("#icoMuestraHex").css("color", test); 
     }
 }
 //  eventos al cambiar valor hex
