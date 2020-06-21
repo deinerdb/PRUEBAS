@@ -114,6 +114,7 @@ document.getElementById("BtnAceptarLibre").style.display = "none";
 document.getElementById("BtnCancelarLibre").style.display = "none";
 // el relleno inicial es negro
 document.getElementById("relleno").style.backgroundColor = "#000000";
+// la propiedad color de ciertos íconos es negra por defecto, desde css
 //el primer botón del historial es blanco
 // solo si es agregado en html
 //document.getElementById("BtnColor0").style.color = "#ffffff";
@@ -658,7 +659,7 @@ function aceptarModal() {
             for (i = 0; i < x.length; i++) {
                 x[i].style.borderRadius = radioBorde + "%";
             }
-            // floritura, lo aplica al relleno junto a la gota y el multicolor
+            // floritura, lo aplica al relleno junto al tanque y el multicolor
             document.getElementById("relleno").style.borderRadius = radioBorde + "%";
             document.getElementById("rellenoHistorial").style.borderRadius = radioBorde + "%";
             showSnackbar("Radio bordes: " + radioBorde + " %");
@@ -1168,6 +1169,10 @@ function hacerClick(celda) {
             document.getElementById("colorPixel").value = colorActual;
             // también al span de relleno
             document.getElementById("relleno").style.backgroundColor = colorActual;
+            // el color de ciertos íconos
+            document.getElementById("BtnRellenar").style.color = colorActual;
+            document.getElementById("BtnColorLienzo").style.color = colorActual;
+            document.getElementById("BtnColorRejilla").style.color = colorActual;
             // para el caso de los importados
             procesarHistorial(colorActual);
             // resalta en historial
@@ -1467,8 +1472,12 @@ function colorPixel() {
     }
     //actualiza el color del pincel
     colorActual = miValor;
-    //actualiza el color de rellenar todo junto al ícono de la gota
+    //actualiza el color de rellenar todo junto al ícono del tanque
     document.getElementById("relleno").style.backgroundColor = colorActual;
+    // el color de ciertos íconos
+    document.getElementById("BtnRellenar").style.color = colorActual;
+    document.getElementById("BtnColorLienzo").style.color = colorActual;
+    document.getElementById("BtnColorRejilla").style.color = colorActual;
     // resalta en el historial si existe
     resaltarActual();
     // en caso de estar en modo libre
@@ -1971,7 +1980,7 @@ document.getElementById("BtnDeshacer").onclick = function () {
             for (i = 0; i < x.length; i++) {
                 x[i].style.borderRadius = radioBorde + "%";
             }
-            // floritura, lo aplica al relleno junto a la gota
+            // floritura, lo aplica al relleno junto a al tanque y el multicolor
             document.getElementById("relleno").style.borderRadius = radioBorde + "%";
             document.getElementById("rellenoHistorial").style.borderRadius = radioBorde + "%";
             break;

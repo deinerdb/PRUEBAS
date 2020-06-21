@@ -6,6 +6,7 @@ paleta full 150
 hover y active en paletas 180
 btntop 200
 modal 300
+    hover y active miembros grupos color 320
 snack 500
 loader 9999
 */
@@ -160,6 +161,46 @@ html, body {
         background-color: #dcdcdc;
     }
 /* para el accordion */
+.contFamiliaColores {
+    background-color: white;   
+    margin: 0px;
+    padding: 4px 4px 16px 6px;
+    white-space: nowrap;
+    overflow: auto;
+    width: 100%;
+    max-width: 100%;
+    border: 2px solid purple; /* normal, del tema */
+    border-top-width: 0;
+    /*no se puede seleccionar el texto*/
+    -webkit-user-select: none; /* Chrome, Opera, Safari */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */
+}
+.miembroFamiliaColores {
+    width: 70px;
+    height: 70px;
+    cursor: pointer;
+    margin: 8px 6px 16px 0px;
+    /* el borde del seleccionado cambiará a #009900 */
+    border-style: solid;
+    border-color: white;
+    border-width: 4px;
+}
+    .miembroFamiliaColores:hover {
+        z-index: 320;
+        /* una sombra pequeña */
+        -moz-box-shadow: 0px 0px 0.6em #009900;
+        -webkit-box-shadow: 0px 0px 0.6em #009900;
+        box-shadow: 0px 0px 0.6em #009900;
+    }
+    .miembroFamiliaColores:active {
+        z-index: 320;
+        /* una sombra más grande */
+        -moz-box-shadow: 0px 0px 1.5em #009900;
+        -webkit-box-shadow: 0px 0px 1.5em #009900;
+        box-shadow: 0px 0px 1.5em #009900;
+    }
 .accordion {
     border: 2px solid #ffffff;
     cursor: pointer;
@@ -196,10 +237,14 @@ html, body {
 }
 
 .panel {
-    padding: 0 18px;
+    padding: 0px;
     background-color: #ffffff;
     max-height: 0;
-    overflow: hidden;
+    overflow: hidden;    
+    /* suave */
+    -moz-transition: max-height 0.2s ease-out;
+    -webkit-transition: max-height 0.2s ease-out;
+    -o-transition: max-height 0.2s ease-out;
     transition: max-height 0.2s ease-out;
 }
 /* para el rgb */
@@ -455,7 +500,20 @@ html, body {
     opacity: 1;
     visibility: visible;
     font-size: 1.2em;
-    vertical-align: text-bottom;
+    vertical-align: text-bottom;   
+    /* configurado, pero no lo mostraremos */
+    /* ajustar min-width del botón en caso de usarlo */
+    display: none;
+}
+#BtnRellenar, #BtnColorLienzo, #BtnColorRejilla {
+    /* una sombra para que se vea el ícono de cualquier color */
+    text-shadow: 0px 0px 2px #ffffff;
+    /* color inicial es negro */
+    color: #000000;
+}
+#paletaHistorial button {
+    /* una sombra para que se vea el ícono de cualquier color */
+    text-shadow: 0px 0px 2px #ffffff;
 }
 
 #aIzquierda {
@@ -1133,7 +1191,7 @@ button, i, a, .columna, .contenedor {
     -webkit-transition: opacity 0.4s, visibility 0.4s, background-color 0.4s;
     transition: opacity 0.4s, visibility 0.4s, background-color 0.4s;
 }
-#BtnRellenar, #BtnHistorialColor {
+#BtnHistorialColor { /* agregue aquí #BtnRellenar en caso de usar relleno */
     min-width: 62px !important;
 }
 
