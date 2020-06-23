@@ -162,7 +162,7 @@ html, body {
     }
 /* para el accordion */
 .contFamiliaColores {
-    background-color: white;   
+    background-color: white;
     margin: 0px;
     padding: 4px 4px 16px 6px;
     white-space: nowrap;
@@ -176,6 +176,10 @@ html, body {
     -moz-user-select: none; /* Firefox 2+ */
     -ms-user-select: none; /* IE 10+ */
     user-select: none; /* Standard syntax */
+    /* SIN BORDE REDONDEADO*/
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
 }
 .miembroFamiliaColores {
     width: 70px;
@@ -186,6 +190,10 @@ html, body {
     border-style: solid;
     border-color: white;
     border-width: 4px;
+    -moz-transition: -moz-box-shadow 0.2s;
+    -o-transition: box-shadow 0.2s;
+    -webkit-transition: -webkit-box-shadow 0.2s;
+    transition: box-shadow 0.2s;
 }
     .miembroFamiliaColores:hover {
         z-index: 320;
@@ -210,6 +218,10 @@ html, body {
     outline: none;
     font-size: 15px;
     transition: 0.4s;
+    /* SIN BORDE REDONDEADO*/
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
 }
 
 #pink {
@@ -237,10 +249,14 @@ html, body {
 }
 
 .panel {
+    /* SIN BORDE REDONDEADO*/
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
     padding: 0px;
     background-color: #ffffff;
     max-height: 0;
-    overflow: hidden;    
+    overflow: hidden;
     /* suave */
     -moz-transition: max-height 0.2s ease-out;
     -webkit-transition: max-height 0.2s ease-out;
@@ -269,15 +285,23 @@ html, body {
     transition: color 0.7s;
 }
 
-#infoColor {
+#contInfoGallery {
     margin: 6px 0px;
     font-weight: bold;
     color: purple;
+    background-color: white;
     font-size: 0.95em;
     padding: 4px;
     border: 4px solid #000000;
     border-bottom-width: 16px;
     border-right-width: 10px;
+    overflow: auto;
+}
+#contInfoGallery p {
+    margin: 2px 0px;
+    padding: 0;
+    border: none;
+    max-width: 100%;
 }
 
 #contenedorRGB {
@@ -510,6 +534,10 @@ html, body {
     text-shadow: 0px 0px 2px #ffffff;
     /* color inicial es negro */
     color: #000000;
+}
+#BtnColorRejilla i {
+    width: 34px !important;
+    height: 34px !important;
 }
 #paletaHistorial button {
     /* una sombra para que se vea el ícono de cualquier color */
@@ -1025,7 +1053,7 @@ a:active {
     margin-left: 3px;
     margin-right: 3px;    
 }
-button, i, a, .columna, .contenedor {
+button, i, a, .columna, .contenedor, .miembroFamiliaColores {
     -webkit-tap-highlight-color: transparent;
 }
 #BtnColorRejilla {
@@ -1193,6 +1221,10 @@ button, i, a, .columna, .contenedor {
 }
 #BtnHistorialColor { /* agregue aquí #BtnRellenar en caso de usar relleno */
     min-width: 62px !important;
+    -moz-transition: opacity 2s, -moz-box-shadow 0.2s;
+    -o-transition: opacity 2s, box-shadow 0.2s;
+    -webkit-transition: opacity 2s, -webkit-box-shadow 0.2s;
+    transition: opacity 2s, box-shadow 0.2s;
 }
 
 .paleta button {
@@ -1350,6 +1382,10 @@ button, select, input {
 }
 
 #BtnCerrarHistorial {
+    -moz-transition: opacity 2s, -moz-box-shadow 0.2s;
+    -o-transition: opacity 2s, box-shadow 0.2s;
+    -webkit-transition: opacity 2s, -webkit-box-shadow 0.2s;
+    transition: opacity 2s, box-shadow 0.2s;
     /* SIN BORDE REDONDEADO*/
     -moz-border-radius: 0;
     -webkit-border-radius: 0;

@@ -779,10 +779,10 @@ function showModal() {
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-grip-horizontal'></i> Galería: <i id = 'icoMuestraGallery' class='fas fa-square'></i>";
             // inicialmente hex es el color actual
             hexTemp = colorActual;
-            // rgbCaption MUESTRA EL COLOR ACTUAL EN RGB Y HEX
+            // SE MUESTRA EL COLOR ACTUAL EN RGB Y HEX
             document.getElementById("infoColor").innerHTML = document.getElementById("relleno").style.backgroundColor + " - " + colorActual;
-            // LOS BORDES DE infoColor SON LA MUESTRA DE COLOR, INICIAN CON EL ACTUAL
-            $("#infoColor").css("border-color", colorActual);
+            // LOS BORDES DE contInfoGallery SON LA MUESTRA DE COLOR, INICIAN CON EL ACTUAL
+            $("#contInfoGallery").css("border-color", colorActual);
             // también el ícono en el título es una muestra
             $("#icoMuestraGallery").css("color", colorActual); 
             break;
@@ -799,6 +799,8 @@ function showModal() {
 
             break;
     }
+    // sin importar cuál modal es... no estaría mal
+    ajustesResize();
 }
 
 // procesa las entradas en el campo valorHex
@@ -1903,6 +1905,8 @@ document.getElementById("BtnEstiloBorde").onclick = function () {
 }
 // cambia el color de la rejilla
 document.getElementById("BtnColorRejilla").onclick = function () {
+    // esto era para ajustar el ancho del ícono...
+    //this.title = "w " + document.getElementById("tint").offsetWidth + " h " + document.getElementById("tint").offsetHeight;
     if (ocupado == true) {
         //sale si está ocupado
         return;
