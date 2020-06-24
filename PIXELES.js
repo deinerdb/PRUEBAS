@@ -132,7 +132,8 @@ var i;
 
 for (i = 0; i < acc.length; i++) {
     acc[i].addEventListener("click", function () {
-        this.classList.toggle("active");
+        //this.classList.toggle("active");
+        $(this).toggleClass("active");
         var panel = this.nextElementSibling;
         if (panel.style.maxHeight) {
             panel.style.maxHeight = null;
@@ -776,15 +777,37 @@ function showModal() {
             $("#marcoGallery").css("display", "block");
             // no lleva info
             $("#infoModal").css("display", "none");
+            // título
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-grip-horizontal'></i> Galería: <i id = 'icoMuestraGallery' class='fas fa-square'></i>";
             // inicialmente hex es el color actual
             hexTemp = colorActual;
             // SE MUESTRA EL COLOR ACTUAL EN RGB Y HEX
             document.getElementById("infoColor").innerHTML = document.getElementById("relleno").style.backgroundColor + " - " + colorActual;
+            // el nombre inicial en blanco
+            document.getElementById("infoColorNombre").innerHTML = " - ";
+            // familia inicial en blanco
+            document.getElementById("infoColorFamilia").innerHTML = " - ";
             // LOS BORDES DE contInfoGallery SON LA MUESTRA DE COLOR, INICIAN CON EL ACTUAL
             $("#contInfoGallery").css("border-color", colorActual);
             // también el ícono en el título es una muestra
-            $("#icoMuestraGallery").css("color", colorActual); 
+            $("#icoMuestraGallery").css("color", colorActual);
+            // todos los acc se cierran            
+            var i;
+            var abierta = false;
+            var miacc = document.getElementsByClassName("accordion");
+            for (i = 0; i < miacc.length; i++) {
+                if (miacc[i].classList) {
+                    abierta = miacc[i].classList.contains("active");
+                } else {
+                    abierta = /\bactive\b/g.test(miacc[i].className); // For IE9 and earlier                    
+                }
+                if (abierta == true) {
+                    // poco ortodoxo, llamar un click
+                    miacc[i].click();
+                }
+            }
+            // ninguno está seleccionado por el momento, bordes blancos
+            $(".miembroFamiliaColores").css("border-color", "#ffffff");
             break;
         case "importar":
 
@@ -801,6 +824,10 @@ function showModal() {
     }
     // sin importar cuál modal es... no estaría mal
     ajustesResize();
+}
+// click en miembro familia colores
+function seleccionaMiembroFamilia(miembro) {    
+    alert("Color: " + miembro.dataset.color + " - Title: " + miembro.title);
 }
 
 // procesa las entradas en el campo valorHex

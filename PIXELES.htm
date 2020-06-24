@@ -98,15 +98,15 @@
                 <!-- GALERÍA DE COLORES -->
                 <div id="marcoGallery" class="marco">
                     <div id="contInfoGallery">
-                        <p id="infoColor"> aquí va la descripción del color </p>
-                        <p id="infoColorNombre"> aquí va el nombre del color </p>
-                        <p id="infoColorFamilia"> aquí va la familia del color </p>
+                        <p id="infoColor" title="Color actual en RGB y Hexadecimal"> aquí va la descripción del color </p>
+                        <p id="infoColorNombre" title="Nombre del color"> aquí va el nombre del color </p>
+                        <p id="infoColorFamilia" title="Familia del color"> aquí va la familia del color </p>
                     </div>                    
                     <div id="contenedorGrupos">
                         <button id="pink" class="accordion">Pink Colors</button>
-                        <div class="panel">
+                        <div class="panel" id="miPanel">
                             <div class="contFamiliaColores">
-                                <div class="miembroFamiliaColores" title="Pink - Pink Colors" style="background-color: #ffc0cb;"></div>
+                                <div class="miembroFamiliaColores" title="Pink - Pink Colors" style="background-color: #ffc0cb;" data-color="#ffc0cb" onclick="seleccionaMiembroFamilia(this)"></div>
                             </div>
                         </div>
                     </div>
@@ -157,7 +157,7 @@
         
         <button id="BtnRejilla" title="Alternar bordes"><i id="icoRejilla" class="far fa-plus-square"></i></button>
         <button id="BtnEstiloBorde" title="Ancho y tipo de borde"><i class="fas fa-border-style"></i></button>
-        <button id="BtnColorRejilla" title="Color de borde"><i id="tint" class="fas fa-tint"></i></button>        
+        <button id="BtnColorRejilla" title="Color de borde"><i class="fas fa-tint"></i></button>        
         <button id="BtnRadioBordes" title="Radio del borde"><i id="icoCircular" class="far fa-circle"></i></button>        
         <button id="BtnRellenar" title="Pintar todos"><span id="relleno"></span><i class="fas fa-fill-drip"></i></button>
         <button id="BtnColorLienzo" title="Color del lienzo"><i class="fas fa-paint-roller"></i></button>        

@@ -226,13 +226,8 @@ html, body {
 
 #pink {
     background-color: #FFC0CB;
-    color: #003f34;
+    color: #003f34;    
 }
-
-    #pink:after {
-        color: #003f34;
-    }
-
 .active, .accordion:hover {
     border: 2px solid purple;
 }
@@ -255,7 +250,7 @@ html, body {
     border-radius: 0;
     padding: 0px;
     background-color: #ffffff;
-    max-height: 0;
+    max-height: 0;    
     overflow: hidden;
     /* suave */
     -moz-transition: max-height 0.2s ease-out;
