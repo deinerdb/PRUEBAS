@@ -132,14 +132,7 @@ var i;
 
 for (i = 0; i < acc.length; i++) {
     acc[i].addEventListener("click", function () {
-        //this.classList.toggle("active");
-        $(this).toggleClass("active");
-        var panel = this.nextElementSibling;
-        if (panel.style.maxHeight) {
-            panel.style.maxHeight = null;
-        } else {
-            panel.style.maxHeight = panel.scrollHeight + "px";
-        }
+        clickAcc(this);
     });
 }
 // Lanza en pantalla completa en navegadores que lo soporten
@@ -791,6 +784,8 @@ function showModal() {
             $("#contInfoGallery").css("border-color", colorActual);
             // también el ícono en el título es una muestra
             $("#icoMuestraGallery").css("color", colorActual);
+            // elimina la clase seleccionado de todos
+            $(".miembroFamiliaColores").removeClass("miembroSeleccionado");
             // todos los acc se cierran            
             var i;
             var abierta = false;
@@ -803,11 +798,13 @@ function showModal() {
                 }
                 if (abierta == true) {
                     // poco ortodoxo, llamar un click
-                    miacc[i].click();
+                    //miacc[i].click();
+                    // mejor usar una función y llamarla también en el evento click
+                    clickAcc(miacc[i]);
                 }
             }
-            // ninguno está seleccionado por el momento, bordes blancos
-            $(".miembroFamiliaColores").css("border-color", "#ffffff");
+            // ninguno está seleccionado por el momento, bordes normales
+            $(".miembroFamiliaColores").css("border-color", "#666699");
             break;
         case "importar":
 
@@ -826,10 +823,44 @@ function showModal() {
     ajustesResize();
 }
 // click en miembro familia colores
-function seleccionaMiembroFamilia(miembro) {    
-    alert("Color: " + miembro.dataset.color + " - Title: " + miembro.title);
+function seleccionaMiembroFamilia(miembro) {
+    var miTitle;
+    var miNombre;
+    var miFamilia;
+    //  hex es el color actual
+    hexTemp = miembro.dataset.color;
+    // SE MUESTRA EL COLOR ACTUAL EN RGB Y HEX
+    miR = rDesdeHex(miembro.dataset.color);
+    miG = gDesdeHex(miembro.dataset.color);
+    miB = bDesdeHex(miembro.dataset.color);
+    document.getElementById("infoColor").innerHTML = "rgb(" + miR + ", " + miG + ", " + miB + ") - " + miembro.dataset.color;
+    // el nombre 
+    miTitle = miembro.title.split(" - ");
+    miNombre = miTitle[0];
+    document.getElementById("infoColorNombre").innerHTML = miNombre;
+    // familia
+    miFamilia = miTitle[1];
+    document.getElementById("infoColorFamilia").innerHTML = miFamilia;
+    // LOS BORDES DE contInfoGallery SON LA MUESTRA DE COLOR, EL ACTUAL
+    $("#contInfoGallery").css("border-color", miembro.dataset.color);
+    // también el ícono en el título es una muestra
+    $("#icoMuestraGallery").css("color", miembro.dataset.color);
+    // elimina la clase seleccionado de todos
+    $(".miembroFamiliaColores").removeClass("miembroSeleccionado");
+    // agrega la clase seleccionado al miembro actual
+    $(miembro).addClass("miembroSeleccionado");
 }
-
+// click en un elemento clase accordion
+function clickAcc(thisAcc) {
+    //thisAcc.classList.toggle("active");
+    $(thisAcc).toggleClass("active");
+    var panel = thisAcc.nextElementSibling;
+    if (panel.style.maxHeight) {
+        panel.style.maxHeight = null;
+    } else {
+        panel.style.maxHeight = panel.scrollHeight + "px";
+    }
+}
 // procesa las entradas en el campo valorHex
 function procesarEntradaHex() {
     // recupera el valor del campo
