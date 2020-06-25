@@ -188,10 +188,10 @@ html, body {
     margin: 8px 6px 16px 0px;
     /* el borde del seleccionado cambiará a #009900 */
     border: 4px solid #666699;
-    -moz-transition: -moz-box-shadow 0.2s, width 0.2s, height 0.2s;
-    -o-transition: box-shadow 0.2s, width 0.2s, height 0.2s;
-    -webkit-transition: -webkit-box-shadow 0.2s, width 0.2s, height 0.2s;
-    transition: box-shadow 0.2s, width 0.2s, height 0.2s;
+    -moz-transition: -moz-box-shadow 0.2s;
+    -o-transition: box-shadow 0.2s;
+    -webkit-transition: -webkit-box-shadow 0.2s;
+    transition: box-shadow 0.2s;
 }
     .miembroSeleccionado {
         /* el actual tiene un borde verde */
