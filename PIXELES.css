@@ -165,7 +165,7 @@ html, body {
     background-color: white;
     margin: 0px;
     padding: 4px 4px 16px 6px;
-    white-space: nowrap;
+    white-space: nowrap !important;
     overflow: auto;
     width: 100%;
     max-width: 100%;
@@ -180,8 +180,10 @@ html, body {
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
     border-radius: 0;
+    text-align: left;
 }
 .miembroFamiliaColores {
+    display: inline-block;
     width: 70px;
     height: 70px;
     cursor: pointer;
@@ -197,20 +199,20 @@ html, body {
         /* el actual tiene un borde verde */
         border-color: #009900 !important;       
     }
-    .miembroFamiliaColores:hover {
-        z-index: 320;
-        /* una sombra pequeña */
-        -moz-box-shadow: 0px 0px 0.6em #e600e6;
-        -webkit-box-shadow: 0px 0px 0.6em #e600e6;
-        box-shadow: 0px 0px 0.6em #e600e6;
-    }
-    .miembroFamiliaColores:active {
-        z-index: 320;
-        /* una sombra más grande */
-        -moz-box-shadow: 0px 0px 1.5em #e600e6;
-        -webkit-box-shadow: 0px 0px 1.5em #e600e6;
-        box-shadow: 0px 0px 1.5em #e600e6;
-    }
+.miembroFamiliaColores:hover {
+    z-index: 320;
+    /* una sombra pequeña */
+    -moz-box-shadow: 0px 0px 0.6em #52707a;
+    -webkit-box-shadow: 0px 0px 0.6em #52707a;
+    box-shadow: 0px 0px 0.6em #52707a;
+}
+.miembroFamiliaColores:active {
+    z-index: 320;
+    /* una sombra más grande */
+    -moz-box-shadow: 0px 0px 1.5em #52707a;
+    -webkit-box-shadow: 0px 0px 1.5em #52707a;
+    box-shadow: 0px 0px 1.5em #52707a;
+}
 .accordion {
     border: 2px solid #ffffff;
     cursor: pointer;

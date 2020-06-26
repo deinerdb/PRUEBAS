@@ -786,6 +786,8 @@ function showModal() {
             $("#icoMuestraGallery").css("color", colorActual);
             // elimina la clase seleccionado de todos
             $(".miembroFamiliaColores").removeClass("miembroSeleccionado");
+            // elimina la clase intermitente de todos los acc
+            $(".accordion").removeClass("seleccionado");
             // todos los acc se cierran            
             var i;
             var abierta = false;
@@ -805,6 +807,33 @@ function showModal() {
             }
             // ninguno está seleccionado por el momento, bordes normales
             $(".miembroFamiliaColores").css("border-color", "#666699");
+            // ahora busca el color actual
+            var miMiembro = document.getElementsByClassName("miembroFamiliaColores");
+            for (i = 0; i < miMiembro.length; i++) {
+                if (miMiembro[i].dataset.color == colorActual) {
+                    // lo marca como seleccionado
+                    $(miMiembro[i]).addClass("miembroSeleccionado");
+                    // muestra su nombre y familia
+                    // el nombre 
+                    var miTitle = miMiembro[i].title.split(" - ");
+                    var miNombre = miTitle[0];
+                    document.getElementById("infoColorNombre").innerHTML = miNombre;
+                    // familia
+                    var miFamilia = miTitle[1];
+                    document.getElementById("infoColorFamilia").innerHTML = miFamilia;
+                    // debemos identificar al abuelo
+                    var abuelo = $(miMiembro[i]).closest(".panel"); // es una colección                    
+                    // el acc es el elemento anterior al abuelo
+                    var vecinoAcc = abuelo[0].previousElementSibling;
+                    // ya tenemos identicado el acc vecino, ahora...
+                    // agrega la clase intermitente al acc                    
+                    $(vecinoAcc).addClass("seleccionado");
+                    // expande el acc de este miembro
+                    clickAcc(vecinoAcc);                    
+                    // hace scroll para que el miembro seleccionado sea visible                    
+                    $(miMiembro[i]).parent()[0].scrollLeft = miMiembro[i].offsetLeft;
+                }
+            }
             break;
         case "importar":
 
@@ -849,6 +878,15 @@ function seleccionaMiembroFamilia(miembro) {
     $(".miembroFamiliaColores").removeClass("miembroSeleccionado");
     // agrega la clase seleccionado al miembro actual
     $(miembro).addClass("miembroSeleccionado");
+    // elimina la clase intermitente de todos los acc
+    $(".accordion").removeClass("seleccionado");
+    // debemos identificar al abuelo
+    var abuelo = $(miembro).closest(".panel"); // es una colección                    
+    // el acc es el elemento anterior al abuelo
+    var vecinoAcc = abuelo[0].previousElementSibling;
+    // ya tenemos identicado el acc vecino, ahora...
+    // agrega la clase intermitente al acc                    
+    $(vecinoAcc).addClass("seleccionado");
 }
 // click en un elemento clase accordion
 function clickAcc(thisAcc) {
