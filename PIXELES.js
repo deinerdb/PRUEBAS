@@ -414,6 +414,18 @@ function ajustesResize() {
     }
     if (modalActual != "ninguno") {
         alturaModal();
+        // cuando está en galería
+        if (modalActual == "gallery") {
+            // recorre los paneles
+            var panel = document.getElementsByClassName("panel");
+            var i;
+            for (i = 0; i < panel.length; i++) {
+                if (panel[i].style.maxHeight) {
+                    // los páneles abiertos se ajustan a su contenido, para que se vea el scroll bar
+                    panel[i].style.maxHeight = panel[i].scrollHeight + "px";
+                }
+            }
+        }
         if (modalActual == "rgb") { 
             
             // para definir margenes y centrar los elementos flotantes
@@ -829,9 +841,13 @@ function showModal() {
                     // agrega la clase intermitente al acc                    
                     $(vecinoAcc).addClass("seleccionado");
                     // expande el acc de este miembro
-                    clickAcc(vecinoAcc);                    
-                    // hace scroll para que el miembro seleccionado sea visible                    
-                    $(miMiembro[i]).parent()[0].scrollLeft = miMiembro[i].offsetLeft;
+                    clickAcc(vecinoAcc); 
+                    // hace scroll para que el miembro seleccionado sea visible        
+                    if (i == 0) {
+                        $(miMiembro[i]).parent()[0].scrollLeft = 0;
+                    } else {
+                        $(miMiembro[i]).parent()[0].scrollLeft = miMiembro[i].offsetLeft - 8;
+                    }  
                 }
             }
             break;
