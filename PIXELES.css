@@ -231,6 +231,11 @@ html, body {
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
     border-radius: 0;
+    /*no se puede seleccionar el texto*/
+    -webkit-user-select: none; /* Chrome, Opera, Safari */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */
 }
 
     .active, .accordion:hover {
@@ -1579,7 +1584,7 @@ overflow-x: hidden;
 
 /* The snackbar - position it at the bottom and in the middle of the screen */
 #snackbar {
-    visibility: hidden; /* Hidden by default. Visible on click */
+    visibility: hidden; /* Hidden by default. Visible on click */    
     min-width: 250px; /* Set a default minimum width */
     margin-left: -125px; /* Divide value of min-width by 2 */
     background-color: #660066; /* background color */

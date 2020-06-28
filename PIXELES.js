@@ -31,6 +31,7 @@ var modoActual = "pincel";
 var pantallaCompleta = false;
 var timerCursor = 0;
 var timerResaltar = 0;
+var timerHistorial = 0;
 var tamaño = 20;
 var MAXSIZE = 100;
 var MINSIZE = 4;
@@ -115,6 +116,9 @@ var numFilas = 10;
 //***************************
 var permitirEvento = true;
 var arrayColoresUsados = [];
+// su estado: inicia oculto
+var historialMostrado = false;
+var prefiereHistorial = false;
 // si deseamos incluir el blanco inicialmente
 //arrayColoresUsados[0] = "#ffffff"; 
 // el estilo inicial del botón pincel 
@@ -1383,12 +1387,23 @@ function configurarSelects() {
     numColumnas = 10;
     numFilas = 10;
 }
-
 //se muestra el historial de color
-document.getElementById("BtnHistorialColor").onclick = function () {
+function mostrarHistorial(afectarPreferencia) {
     if (modoActual == "borrador") {
         showSnackbar("Está en Modo Borrador...");
         return;
+    }
+    // sale si ya está mostrado
+    if (historialMostrado == true) {
+        //return;
+    }
+    // indica el estado del historial
+    historialMostrado = true;
+    //cancela el timer que lo ocultaría
+    clearTimeout(timerHistorial);
+    // guarda la preferencia
+    if (modoActual != "borrador" && afectarPreferencia == true) {
+        prefiereHistorial = true;
     }
     //oculta este botón
     document.getElementById("BtnHistorialColor").style.display = "none";
@@ -1409,36 +1424,56 @@ document.getElementById("BtnHistorialColor").onclick = function () {
     ajustesResize();
     resaltarActual();
 }
+//se llama la función que muestra el historial de color
+document.getElementById("BtnHistorialColor").onclick = function () {
+    mostrarHistorial(true);
+}
 //se cierra el historial de color
-function cerrarHistorial() {
+function cerrarHistorial(afectarPreferencia) {
+    // sale si ya está oculto
+    if (historialMostrado == false) {
+        //return;
+    }
+    // indica el estado
+    historialMostrado = false;
+    //cancela el timer que lo ocultaría
+    clearTimeout(timerHistorial);
+    // guarda la preferencia
+    if (modoActual != "borrador" && afectarPreferencia == true) {
+        prefiereHistorial = false;
+    }
     // la barra se desactiva y el botón cerrar historial también
     document.getElementById("paletaHistorial").style.pointerEvents = "none";
     document.getElementById("BtnCerrarHistorial").disabled = true;
+    //muestra el botón en la paleta de arriba
+    // en caso que quiera esperar comente la siguiente línea
+    document.getElementById("BtnHistorialColor").style.display = "inline-block";
     // al rato
-    setTimeout(function () {
+    timerHistorial = setTimeout(function () {
+        // la paleta del historial
         //  lo oculta un poco después, para dar tiempo a la transición 
         document.getElementById("paletaHistorial").style.left = "-300px";
         document.getElementById("paletaHistorial").style.visibility = "hidden";
         //oculta la paleta de historial de color
-        // document.getElementById("paletaHistorial").style.display = "none";
+        // document.getElementById("paletaHistorial").style.display = "none";        
         //muestra el botón en la paleta de arriba
-        document.getElementById("BtnHistorialColor").style.display = "inline-block";
-    }, 2000);
-    document.getElementById("paletaHistorial").style.opacity = "0";
-    //oculta el botón de cerrar historial de color
-    //document.getElementById("BtnCerrarHistorial").style.display = "none";
-    setTimeout(function () {
+        // en caso que quiera esperar quite el comentario en la siguiente línea
+        //document.getElementById("BtnHistorialColor").style.display = "inline-block";
+        // el botón de cerrar historial
         //  lo oculta un poco después, para dar tiempo a la transición 
         document.getElementById("BtnCerrarHistorial").style.left = "-300px";
         document.getElementById("BtnCerrarHistorial").style.visibility = "hidden";
         //oculta la paleta de historial de color
         //document.getElementById("BtnCerrarHistorial").style.display = "none";
     }, 2000);
+    document.getElementById("paletaHistorial").style.opacity = "0";
+    //oculta el botón de cerrar historial de color
+    //document.getElementById("BtnCerrarHistorial").style.display = "none";    
     document.getElementById("BtnCerrarHistorial").style.opacity = "0";
 }
-//se cierra el historial de color
+//se llama la función que cierra el historial de color
 document.getElementById("BtnCerrarHistorial").onclick = function () {
-    cerrarHistorial();
+    cerrarHistorial(true);
 }
 function definirPuntero() {
     // si hace zoom +
@@ -1714,9 +1749,20 @@ function cambiarModo(nuevoModo) {
         // si son iguales, se sale
         return;
     }
+     
     // lo cambia, PERO PRIMERO GUARDA
     lastModo = modoActual;
     modoActual = nuevoModo;
+    // gestiona el historial de color
+    if (modoActual == "borrador") {        
+            cerrarHistorial(false);
+    } else {
+        if (prefiereHistorial == true) {
+            mostrarHistorial(false);
+        } else {
+            cerrarHistorial(false);
+        }
+    }
     // elimina las marcas x de todos
     $(".columna").html("");
     $(".columna").removeClass("seleccionado");
@@ -1822,7 +1868,6 @@ function cambiarModo(nuevoModo) {
             document.getElementById("BtnRGB").style.display = "none";
             document.getElementById("BtnHex").style.display = "none";
             document.getElementById("BtnGallery").style.display = "none";
-            cerrarHistorial();
             showSnackbar("Modo Borrador");
             break;
         case "relleno":
@@ -2268,17 +2313,13 @@ function nowImprime() {
 var tSnackBar = 0;
 function showSnackbar(msj) {
     //cancela el timer anterior
-    clearTimeout(tSnackBar);
-
+    clearTimeout(tSnackBar);    
     // Get the snackbar DIV
-    var x = document.getElementById("snackbar");
-
+    var x = document.getElementById("snackbar");    
     //mensaje modificado
-    x.innerHTML = msj;
-
+    x.innerHTML = msj;    
     // Add the "show" class to DIV
     x.className = "show";
-
     // After 3 seconds, remove the show class from DIV
     tSnackBar = setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
 }
@@ -2342,3 +2383,5 @@ function intentaAjustar() {
 setInterval("intentaAjustar()", 1000);
 // anima el btn historial
 setInterval("animarBtnHistorial()", 2000);
+// scroll
+topFunction();
