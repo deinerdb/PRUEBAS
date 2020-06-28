@@ -863,12 +863,8 @@ function showModal() {
                     $(vecinoAcc).addClass("seleccionado");
                     // expande el acc de este miembro
                     clickAcc(vecinoAcc); 
-                    // hace scroll para que el miembro seleccionado sea visible        
-                    if (i == 0) {
-                        $(miMiembro[i]).parent()[0].scrollLeft = 0;
-                    } else {
-                        $(miMiembro[i]).parent()[0].scrollLeft = miMiembro[i].offsetLeft - 8;
-                    }  
+                    // hace scroll para que el miembro seleccionado sea visible  
+                    $(miMiembro[i]).parent()[0].scrollLeft = miMiembro[i].offsetLeft - 4;                    
                 }
             }
             break;
