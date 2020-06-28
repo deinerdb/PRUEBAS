@@ -515,7 +515,7 @@ html, body {
     background-color: #009900;
 }
 
-#relleno, #muestraRadio, #rellenoHistorial {
+#relleno, #muestraRadio {
     /* Rounded corners iniciales */
     -moz-border-radius: 0px;
     -webkit-border-radius: 0px;
@@ -526,6 +526,7 @@ html, body {
     -webkit-transition: -webkit-border-radius 0.3s;
     transition: border-radius 0.3s;
 }
+
 
 #relleno {
     width: 1.2em;
@@ -545,9 +546,9 @@ html, body {
     /* ajustar min-width del botón en caso de usarlo */
     display: none;
 }
-#BtnRellenar, #BtnColorLienzo, #BtnColorRejilla {
+#BtnRellenar, #BtnColorLienzo, #BtnColorRejilla, #BtnGotero, #BtnPincel {
     /* una sombra para que se vea el ícono de cualquier color */
-    text-shadow: 0px 0px 2px #ffffff;
+    text-shadow: 0px 0px 2px #7fff7f;
     /* color inicial es negro */
     color: #000000;
 }
@@ -1139,15 +1140,17 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores {
     visibility: visible;
     font-size: 1.2em;
     vertical-align: text-bottom;
+    /* Rounded corners iniciales */
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px; /* Rounded corners */
+    /* sutil efecto */
+    -moz-transition: -moz-border-radius 0.3s, background-color 0.6s;
+    -o-transition: border-radius 0.3s, background-color 0.6s;
+    -webkit-transition: -webkit-border-radius 0.3s, background-color 0.6s;
+    transition: border-radius 0.3s, background-color 0.6s;
 }
 
-#rellenoHistorial {
-    /* gradiente multicolor de arriba a abajo */
-    background: -webkit-linear-gradient(red, orange, yellow, green, blue, indigo, violet); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(red, orange, yellow, green, blue, indigo, violet); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(red, orange, yellow, green, blue, indigo, violet); /* For Fx 3.6 to 15 */
-    background: linear-gradient(red, orange, yellow, green, blue, indigo, violet); /* Standard syntax (must be last) */
-}
 /* Selecciona cualquier <input> no válido */
 #colorPixel:invalid {
     background-color: darkred;

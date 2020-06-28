@@ -7,6 +7,9 @@ var colorLienzo = "#000000"
 var radioBorde = 0;
 // modal: radio, rgb, gallery, importar, exportar, filas, columnas
 var modalActual = "ninguno";
+// recuerda el scroll y lo restaura al cerrar el modal
+var miBodyScroll;
+var miDocumentScroll;
 //para guardar la última acción
 var lastRadioBorde = 0;
 var lastAction;
@@ -86,6 +89,18 @@ function validarDec(dec) {
     }
     //todo bien
     return true;
+}
+// anima el botón de historial color
+var idAnimarHistorial = 0;
+function animarBtnHistorial() {
+    if (arrayColoresUsados.length == 0) {
+        return;
+    }    
+    if (idAnimarHistorial > arrayColoresUsados.length - 1) {
+        idAnimarHistorial = 0;
+    }
+    document.getElementById("rellenoHistorial").style.backgroundColor = arrayColoresUsados[idAnimarHistorial];
+    idAnimarHistorial = 1 + idAnimarHistorial;
 }
 // ********** IMPORTANTE ***********
 // el tamaño máximo de la matriz es 50x50
@@ -506,6 +521,9 @@ var span = document.getElementsByClassName("close")[0];
 function cerrarModal() {
     modalActual = "ninguno";
     modal.style.display = "none";
+    //restaura el scroll
+    document.body.scrollTop = miBodyScroll; // For Chrome, Safari and Opera
+    document.documentElement.scrollTop = miDocumentScroll; // For IE and Firefox
 }
 // When the user clicks on <span> (x), close the modal
 span.onclick = function () {
@@ -713,6 +731,9 @@ document.getElementById("BtnAceptar").onclick = function () {
 // ajustar el modal según su uso
 // depende de modalActual, ver declaración al principio
 function showModal() {
+    // primero guarda el scroll de la página
+    miBodyScroll = document.body.scrollTop; // For Chrome, Safari and Opera
+    miDocumentScroll = document.documentElement.scrollTop; // For IE and Firefox
     //muestra el modal    
     modal.style.display = "block";
     //define su altura    
@@ -1287,6 +1308,8 @@ function hacerClick(celda) {
             document.getElementById("BtnRellenar").style.color = colorActual;
             document.getElementById("BtnColorLienzo").style.color = colorActual;
             document.getElementById("BtnColorRejilla").style.color = colorActual;
+            document.getElementById("BtnGotero").style.color = colorActual;
+            document.getElementById("BtnPincel").style.color = colorActual;
             // para el caso de los importados
             procesarHistorial(colorActual);
             // resalta en historial
@@ -1456,6 +1479,10 @@ function ocultarPuntero() {
 // pantalla completa, entrar
 document.getElementById("BtnPantallaCompleta").onclick = function () {
     pantallaCompleta = true;
+    // primero guarda el scroll de la página
+    miBodyScroll = document.body.scrollTop; // For Chrome, Safari and Opera
+    miDocumentScroll = document.documentElement.scrollTop; // For IE and Firefox
+    // ajustes css
     document.getElementById("paletaFull").style.display = "block";
     $("#pantalla").css("width", "100%");
     $("#pantalla").css("height", "100%");
@@ -1465,10 +1492,14 @@ document.getElementById("BtnPantallaCompleta").onclick = function () {
     // por defecto es zoom +
     document.getElementById("BtnAumentarFull").style.border = "3px solid #009900";
     document.getElementById("BtnDisminuirFull").style.border = "3px solid #666699";
+    // gestiona el puntero
     zoomIn = true;
     mostrarPuntero();
+    // api
     launchFullScreen();
+    // para que se centre enseguida
     ajustesResize();
+    // notifica
     showSnackbar("Pantalla completa activada");
 }
 // pantalla completa, salir
@@ -1492,8 +1523,12 @@ document.getElementById("BtnSalirPantallaCompleta").onclick = function () {
     ajustesResize();
     // informa
     showSnackbar("Pantalla completa desactivada");
-    // un scrooll
-    topFunction();
+    //restaura el scroll
+    setTimeout(function () {
+        document.body.scrollTop = miBodyScroll; // For Chrome, Safari and Opera
+        document.documentElement.scrollTop = miDocumentScroll; // For IE and Firefox
+    }, 2000);
+    
 }
 //mueve el puntero y aparece el cursor y los botones
 document.getElementById("pantalla").onmousemove = function () { mostrarPuntero() };
@@ -1592,6 +1627,8 @@ function colorPixel() {
     document.getElementById("BtnRellenar").style.color = colorActual;
     document.getElementById("BtnColorLienzo").style.color = colorActual;
     document.getElementById("BtnColorRejilla").style.color = colorActual;
+    document.getElementById("BtnGotero").style.color = colorActual;
+    document.getElementById("BtnPincel").style.color = colorActual;
     // resalta en el historial si existe
     resaltarActual();
     // en caso de estar en modo libre
@@ -2307,3 +2344,5 @@ function intentaAjustar() {
 }
 // ajuste permanente de tamaños
 setInterval("intentaAjustar()", 1000);
+// anima el btn historial
+setInterval("animarBtnHistorial()", 2000);
