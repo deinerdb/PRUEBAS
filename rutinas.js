@@ -17,24 +17,126 @@ function nowImprime() {
 }
 // PARA EL SNACKBAR
 //****************
-var tSnackBar = 0;
-function showSnackbar(msj) {
-    //cancela el timer anterior
-    clearTimeout(tSnackBar);
 
-    // Get the snackbar DIV
-    var x = document.getElementById("snackbar");
-
-    //mensaje modificado
-    x.innerHTML = msj;
-
-    // Add the "show" class to DIV
-    x.className = "show";
-    
-    // After 3 seconds, remove the show class from DIV
-    tSnackBar = setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+// Get the snackbar DIV
+var sBar = document.getElementById("snackbar");
+var tSnackBarSubiendo = 0;
+var tSnackBarBajando = 0;
+var tSnackBarCima = 0;
+var estadoSnackBar = "inactivo"; // inactivo, subiendo, cima, bajando
+var snackBarOpacity = 0;
+var snackBarBottom = 0;
+var contadorSnackBar = 0;
+// va subiendo el SnackBar
+function subirSnackBar() {
+    contadorSnackBar += 1;
+    // si llega a la cima, detiene la subida
+    if (contadorSnackBar > 25) {
+        // detiene el interval de subida
+        clearInterval(tSnackBarSubiendo);
+        // define el nuevo estado
+        estadoSnackBar = "cima";
+        // se queda en la cima unos segundos y luego empieza a bajar
+        tSnackBarCima = setTimeout(function () {
+            // define el nuevo estado
+            estadoSnackBar = "bajando";
+            contadorSnackBar = 25;
+            // por si acaso
+            clearInterval(tSnackBarBajando);
+            // establece las propiedades
+            sBar.style.opacity = 1;
+            sBar.style.bottom = "70px";
+            sBar.style.visibility = "visible";
+            // anima la bajada del SnackBar                
+            tSnackBarBajando = setInterval("bajarSnackBar()", 20);
+        }, 2000);
+        return;
+    }
+    // regla de 3:
+    // cuando contador es 25 la opacidad es 1
+    snackBarOpacity = contadorSnackBar / 25;
+    // cuando contador es 25 bottom es 70px
+    snackBarBottom = contadorSnackBar * 70 / 25;
+    // establece las propiedades
+    sBar.style.opacity = snackBarOpacity;
+    sBar.style.bottom = snackBarBottom + "px";
+}
+// va bajando el SnackBar
+function bajarSnackBar() {
+    contadorSnackBar -= 1;
+    // si llega al borde, deja de bajar
+    if (contadorSnackBar < 0) {
+        // detiene el interval de bajada
+        clearInterval(tSnackBarBajando);
+        // define el nuevo estado
+        estadoSnackBar = "inactivo";
+        // lo oculta
+        sBar.style.visibility = "hidden";
+        return;
+    }
+    // regla de 3:
+    // cuando contador es 25 la opacidad es 1
+    snackBarOpacity = contadorSnackBar / 25;
+    // cuando contador es 25 bottom es 70px
+    snackBarBottom = contadorSnackBar * 70 / 25;
+    // establece las propiedades
+    sBar.style.opacity = snackBarOpacity;
+    sBar.style.bottom = snackBarBottom + "px";
 }
 
+
+function showSnackbar(msj) {
+    //mensaje debe ser modificado inmediatamente, sin importar el estado
+    sBar.innerHTML = msj;
+    // toma acciones según el estado actual
+    switch (estadoSnackBar) {
+        case "inactivo":
+            // no hay mensaje en curso, empieza a subir
+            // define el nuevo estado
+            estadoSnackBar = "subiendo";
+            contadorSnackBar = 0;
+            // por si acaso
+            clearInterval(tSnackBarSubiendo);
+            // establece las propiedades
+            sBar.style.opacity = 0;
+            sBar.style.bottom = "0px";
+            sBar.style.visibility = "visible";
+            // anima la subida del SnackBar
+            tSnackBarSubiendo = setInterval("subirSnackBar()", 20);
+            break;
+        case "subiendo":
+            // va subiendo con un mensaje, ya fue modificado
+            // no se requiere acción
+            break;
+        case "cima":
+            // está en la cima, debe permanecer ahí un par de segundos
+            // cancela el tSnackBarCima
+            clearTimeout(tSnackBarCima);
+            // vuelve a iniciar la cuenta de los segundos
+            tSnackBarCima = setTimeout(function () {
+                // define el nuevo estado
+                estadoSnackBar = "bajando";
+                contadorSnackBar = 25;
+                // por si acaso
+                clearInterval(tSnackBarBajando);
+                // establece las propiedades
+                sBar.style.opacity = 1;
+                sBar.style.bottom = "70px";
+                sBar.style.visibility = "visible";
+                tSnackBarBajando = setInterval("bajarSnackBar()", 20);
+            }, 2000);
+            break;
+        case "bajando":
+            // va de bajada, debe detenerse y empezar a subir
+            // detiene el interval de bajada
+            clearInterval(tSnackBarBajando);
+            // define el nuevo estado
+            estadoSnackBar = "subiendo";
+            // anima la subida del SnackBar
+            tSnackBarSubiendo = setInterval("subirSnackBar()", 20);
+            break;
+    } // fin switch              
+} // showSnackbar
 
 // FIN SNACKBAR
 
