@@ -163,14 +163,15 @@ html, body {
 /* para el accordion y galería */
 .contFamiliaColores {
     background-color: white;
-    margin: 0px;
-    padding: 4px 4px 16px 6px;
+    margin: 0px !important;
+    padding: 4px 4px 4px 6px;
     white-space: nowrap !important;
     overflow: auto;
     width: 100%;
     max-width: 100%;
     border: 2px solid #cc00cc; /* normal, del tema */
     border-top-width: 0;
+    border-bottom-width: 0;
     /*no se puede seleccionar el texto*/
     -webkit-user-select: none; /* Chrome, Opera, Safari */
     -moz-user-select: none; /* Firefox 2+ */
@@ -182,12 +183,29 @@ html, body {
     border-radius: 0;
     text-align: left;
 }
+.divInfoColorSel {
+    text-align: left;
+    white-space: nowrap;
+    overflow: auto;
+    padding: 8px;
+    margin: 0px, 2px, 8px 8px;
+    border: 2px solid #cc00cc; /* normal, del tema */
+    border-top-width: 0;
+    color: purple;
+}
+    .divInfoColorSel i {
+        margin-right: 8px;
+        margin-left: 6px;
+        background-color: white;
+        color: purple;
+        font-size: 1.2em;
+    }
 .miembroFamiliaColores {
     display: inline-block;
     width: 70px;
     height: 70px;
     cursor: pointer;
-    margin: 8px 6px 16px 0px;
+    margin: 8px 6px 6px 0px;
     /* el borde del seleccionado cambiará a #009900 */
     border: 4px solid #666699;
     -moz-transition: -moz-box-shadow 0.2s, -moz-border-radius 0.2s;

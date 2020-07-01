@@ -805,14 +805,16 @@ function showModal() {
             break;
         case "gallery":
             $("#marcoGallery").css("display", "block");
-            // no lleva info
-            $("#infoModal").css("display", "none");
+            // sí lleva info
+            document.getElementById("spanInfoModal").innerHTML = "Aquí puede elegir entre 140 colores, organizados en 11 grupos del estándar HTML. Puede buscar los colores por su nombre en inglés y español.";
             // título
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-grip-horizontal'></i> Galería: <i id = 'icoMuestraGallery' class='fas fa-square'></i>";
             // inicialmente hex es el color actual
             hexTemp = colorActual;
             // SE MUESTRA EL COLOR ACTUAL EN RGB Y HEX
             document.getElementById("infoColor").innerHTML = document.getElementById("relleno").style.backgroundColor + " - " + colorActual;
+            // el detalle en cada panel es spanInfoColorSel
+            $(".spanInfoColorSel").html("Actual: " + document.getElementById("relleno").style.backgroundColor + " - " + colorActual);
             // el nombre inicial en blanco
             document.getElementById("infoColorNombre").innerHTML = " - ";
             // familia inicial en blanco
@@ -859,6 +861,8 @@ function showModal() {
                     // familia
                     var miFamilia = miTitle[2];
                     document.getElementById("infoColorFamilia").innerHTML = miFamilia;
+                    // el detalle en cada panel es spanInfoColorSel                    
+                    $(".spanInfoColorSel").html("Actual: " + document.getElementById("relleno").style.backgroundColor + " - " + colorActual + " - " + miNombre + " - " + miFamilia);
                     // debemos identificar al abuelo
                     var abuelo = $(miMiembro[i]).closest(".panel"); // es una colección                    
                     // el acc es el elemento anterior al abuelo
@@ -909,6 +913,8 @@ function seleccionaMiembroFamilia(miembro) {
     // familia
     miFamilia = miTitle[2];
     document.getElementById("infoColorFamilia").innerHTML = miFamilia;
+    // el detalle en cada panel es spanInfoColorSel                    
+    $(".spanInfoColorSel").html("Actual: " + document.getElementById("infoColor").innerHTML + " - " + miNombre + " - " + miFamilia);
     // LOS BORDES DE contInfoGallery SON LA MUESTRA DE COLOR, EL ACTUAL
     $("#contInfoGallery").css("border-color", miembro.dataset.color);
     // también el ícono en el título es una muestra
