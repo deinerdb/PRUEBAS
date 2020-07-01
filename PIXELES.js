@@ -853,10 +853,11 @@ function showModal() {
                     // muestra su nombre y familia
                     // el nombre 
                     var miTitle = miMiembro[i].title.split(" - ");
-                    var miNombre = miTitle[0];
+                    // 0 inglés, 1 español
+                    var miNombre = miTitle[0] + " (" + miTitle[1] + ")";
                     document.getElementById("infoColorNombre").innerHTML = miNombre;
                     // familia
-                    var miFamilia = miTitle[1];
+                    var miFamilia = miTitle[2];
                     document.getElementById("infoColorFamilia").innerHTML = miFamilia;
                     // debemos identificar al abuelo
                     var abuelo = $(miMiembro[i]).closest(".panel"); // es una colección                    
@@ -902,10 +903,11 @@ function seleccionaMiembroFamilia(miembro) {
     document.getElementById("infoColor").innerHTML = "rgb(" + miR + ", " + miG + ", " + miB + ") - " + miembro.dataset.color;
     // el nombre 
     miTitle = miembro.title.split(" - ");
-    miNombre = miTitle[0];
+    // 0 inglés, 1 español
+    var miNombre = miTitle[0] + " (" + miTitle[1] + ")";
     document.getElementById("infoColorNombre").innerHTML = miNombre;
     // familia
-    miFamilia = miTitle[1];
+    miFamilia = miTitle[2];
     document.getElementById("infoColorFamilia").innerHTML = miFamilia;
     // LOS BORDES DE contInfoGallery SON LA MUESTRA DE COLOR, EL ACTUAL
     $("#contInfoGallery").css("border-color", miembro.dataset.color);
@@ -1783,9 +1785,11 @@ function cambiarModo(nuevoModo) {
         document.getElementById("BtnEstiloBorde").style.display = "inline-block";
         document.getElementById("BtnRadioBordes").style.display = "inline-block";
         document.getElementById("BtnDeshacer").style.display = "inline-block";
-        document.getElementById("spanFilas").style.display = "inline-block";
+        //document.getElementById("spanFilas").style.display = "inline-block";
+        $("#spanFilas").removeClass("oculto");
         document.getElementById("selectFilas").style.display = "inline-block";
-        document.getElementById("spanColumnas").style.display = "inline-block";
+        //document.getElementById("spanColumnas").style.display = "inline-block";
+        $("#spanColumnas").removeClass("oculto");
         document.getElementById("selectColumnas").style.display = "inline-block";
         document.getElementById("BtnImportar").style.display = "inline-block";
         document.getElementById("BtnExportar").style.display = "inline-block";
@@ -1822,9 +1826,11 @@ function cambiarModo(nuevoModo) {
             document.getElementById("BtnEstiloBorde").style.display = "none";
             document.getElementById("BtnRadioBordes").style.display = "none";
             document.getElementById("BtnDeshacer").style.display = "none";
-            document.getElementById("spanFilas").style.display = "none";
+            //document.getElementById("spanFilas").style.display = "none";
+            $("#spanFilas").addClass("oculto");
             document.getElementById("selectFilas").style.display = "none";
-            document.getElementById("spanColumnas").style.display = "none";
+            //document.getElementById("spanColumnas").style.display = "none";
+            $("#spanColumnas").addClass("oculto");
             document.getElementById("selectColumnas").style.display = "none";
             document.getElementById("BtnImportar").style.display = "none";
             document.getElementById("BtnExportar").style.display = "none";

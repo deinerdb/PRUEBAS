@@ -269,17 +269,21 @@ html, body {
     transition: max-height 0.2s ease-out;
 }
 
-#pink {
+#accPink {
     background-color: #FFC0CB;
     color: #003f34;
 }
-#purple {
+#accPurple {
     background-color: #800080;
     color: #7fff7f;
 }
-#red {
+#accRed {
     background-color: #FF0000;
     color: #00ffff;
+}
+#accOrange {
+    background-color: #ffa500;
+    color: #005aff;
 }
 /*--------*/
 /* fin acc */
@@ -323,6 +327,7 @@ html, body {
     padding: 0;
     border: none;
     max-width: 100%;
+    white-space: nowrap;
 }
 
 #contenedorRGB {
