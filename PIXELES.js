@@ -823,6 +823,8 @@ function showModal() {
             $("#contInfoGallery").css("border-color", colorActual);
             // también el ícono en el título es una muestra
             $("#icoMuestraGallery").css("color", colorActual);
+            // también los íconos icoInfoColorSel son una muestra
+            $(".icoInfoColorSel").css("background-color", colorActual);
             // elimina la clase seleccionado de todos
             $(".miembroFamiliaColores").removeClass("miembroSeleccionado");
             // elimina la clase intermitente de todos los acc
@@ -919,6 +921,8 @@ function seleccionaMiembroFamilia(miembro) {
     $("#contInfoGallery").css("border-color", miembro.dataset.color);
     // también el ícono en el título es una muestra
     $("#icoMuestraGallery").css("color", miembro.dataset.color);
+    // también los íconos icoInfoColorSel son una muestra
+    $(".icoInfoColorSel").css("background-color", miembro.dataset.color);
     // elimina la clase seleccionado de todos
     $(".miembroFamiliaColores").removeClass("miembroSeleccionado");
     // agrega la clase seleccionado al miembro actual

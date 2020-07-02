@@ -196,9 +196,36 @@ html, body {
     .divInfoColorSel i {
         margin-right: 8px;
         margin-left: 6px;
-        background-color: white;
-        color: purple;
-        font-size: 1.2em;
+        background-color: purple;
+        color: black;
+        font-size: 16px;
+        padding: 6px 12px;
+        /* BORDE REDONDEADO*/
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+        border: 0.5px solid #cc00cc; /* normal, del tema */
+        /* anima */
+        /*WEBKIT*/
+        -webkit-animation-name: blancoynegro;
+        -webkit-animation-duration: 1s;
+        -webkit-animation-timing-function: linear;
+        -webkit-animation-iteration-count: infinite;
+        /*MOZ*/
+        -moz-animation-name: blancoynegro;
+        -moz-animation-duration: 1s;
+        -moz-animation-timing-function: linear;
+        -moz-animation-iteration-count: infinite;
+        /*O*/
+        -o-animation-name: blancoynegro;
+        -o-animation-duration: 1s;
+        -o-animation-timing-function: linear;
+        -o-animation-iteration-count: infinite;
+        /*ESTÁNDAR*/
+        animation-name: blancoynegro;
+        animation-duration: 1s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
     }
 .miembroFamiliaColores {
     display: inline-block;
