@@ -183,6 +183,57 @@ html, body {
     border-radius: 0;
     text-align: left;
 }
+#contbuscarColor {
+    text-align: left;
+    margin:0;
+    padding:0;
+    max-width: 100%;
+    border-width:0;
+}
+#buscarColor {
+    background-image: url('searchicon.png');
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    /*background-size: 20px 20px;*/
+    padding: 5px 8px 5px 40px;
+    background-color: white;
+    color: black;
+    width: 25%;
+    min-width: 210px;
+    max-width: 98%;
+    overflow: auto;
+    margin: 6px 0px 6px 0px;
+    font-family: Consolas, Courier New, Courier, monospace;
+    font-size: 18px;
+    text-align: left;
+    border: 2px solid #cc00cc;
+    border: 2px inset #cc00cc;
+    /* BORDE REDONDEADO*/
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    /* animado */
+    -moz-transition: -moz-box-shadow 0.3s, width 0.4s ease-in-out;
+    -o-transition: box-shadow 0.3s, width 0.4s ease-in-out;
+    -webkit-transition: -webkit-box-shadow 0.3s, width 0.4s ease-in-out;
+    transition: box-shadow 0.3s, width 0.4s ease-in-out;
+}
+
+    #buscarColor:focus {
+        /*background-color: #dcdcdc;*/
+        border-style: outset;        
+        /*SOMBRA*/
+        -moz-box-shadow: 5px 5px 3px #C0C0C0;
+        -webkit-box-shadow: 5px 5px 3px #C0C0C0;
+        box-shadow: 5px 5px 3px #C0C0C0;
+        /* animado */
+        width: 98%;
+    }
+
+    #buscarColor:hover {
+        /*background-color: #dcdcdc;*/
+        border-style: outset;        
+    }
 .divInfoColorSel {
     text-align: left;
     white-space: nowrap;
