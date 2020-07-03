@@ -871,11 +871,27 @@ function showModal() {
                     var vecinoAcc = abuelo[0].previousElementSibling;
                     // ya tenemos identicado el acc vecino, ahora...
                     // agrega la clase intermitente al acc                    
-                    $(vecinoAcc).addClass("seleccionado");
-                    // expande el acc de este miembro
+                    $(vecinoAcc).addClass("seleccionado");  
+                    // da tiempo a la transición y luego hace scroll hasta el acc
+                    var elemToScroll = $(miMiembro[i]).parent()[0];
+                    var miembroToScroll = miMiembro[i];
+                    //// expande el acc de este miembro
                     clickAcc(vecinoAcc); 
-                    // hace scroll para que el miembro seleccionado sea visible  
-                    $(miMiembro[i]).parent()[0].scrollLeft = miMiembro[i].offsetLeft - 4;                    
+                    setTimeout(function () {
+                        // hace scroll para que se vea este acc                        
+                        $('#modalBody').animate({
+                            scrollTop: $(vecinoAcc).offset().top - vecinoAcc.offsetHeight - 16
+                        }, 800);
+                    }, 400);
+                    
+                    // da tiempo a la animación del scroll y luego hace scroll hasta el color
+                    setTimeout(function () {                                           
+                        $(elemToScroll).animate({
+                            // hace scroll para que el miembro seleccionado en el acc sea visible
+                            scrollLeft: miembroToScroll.offsetLeft - 4
+                        }, 700);
+
+                    }, 1500);     
                 }
             }
             break;
@@ -983,7 +999,13 @@ function procesarEntradaHex() {
 //  eventos al cambiar valor hex
 document.getElementById("valorHex").addEventListener("input", procesarEntradaHex);
 document.getElementById("valorHex").addEventListener("change", procesarEntradaHex);
-
+//  eventos al cambiar valor buscarColor
+$("#buscarColor").focusin(function () {   
+    // hace scroll para que se vea el txt                        
+    $('#modalBody').animate({
+        scrollTop: 12 + document.getElementById("contInfoGallery").offsetHeight 
+    }, 600);
+});
 //  onresize, cuando cambia el tamaño de la pantalla
 window.addEventListener("resize", ajustesResize);
 // previene pérdida de datos accidental
