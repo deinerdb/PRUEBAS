@@ -242,7 +242,7 @@ html, body {
     margin: 0px, 2px, 8px 8px;
     border: 2px solid #cc00cc; /* normal, del tema */
     border-top-width: 0;
-    color: purple;
+    color: purple;    
 }
     .divInfoColorSel i {
         margin-right: 8px;
@@ -381,9 +381,40 @@ html, body {
     background-color: #ffa500;
     color: #005aff;
 }
+#accYellow {
+    background-color: #ffff00;
+    color: #0000ff;
+}
+#accGreen {
+    background-color: #008000;
+    color: #ff7fff;
+}
+#accCyan {
+    background-color: #00ffff;
+    color: #ff0000;
+}
+#accBlue {
+    background-color: #0000ff;
+    color: #ffff00;
+}
+#accBrown {
+    background-color: #8b4513;
+    color: #74baec;
+}
+#accWhite {
+    background-color: #ffffff;
+    color: #000000;
+    /*SOMBRA*/
+    -moz-box-shadow: 0px 0px 2px #C0C0C0 inset;
+    -webkit-box-shadow: 0px 0px 2px #C0C0C0 inset;
+    box-shadow: 0px 0px 2px #C0C0C0 inset;
+}
+#accGrey {
+    background-color: #808080;
+    color: #ffffff;
+}
 /*--------*/
 /* fin acc */
-
 /* para el rgb */
 #icoMuestraRGB, #icoMuestraHex, #icoMuestraGallery {
     border: 2px double #ffffff !important;
@@ -403,7 +434,7 @@ html, body {
     -webkit-transition: color 0.7s;
     -moz-transition: color 0.7s;
     -o-transition: color 0.7s;
-    transition: color 0.7s;
+    transition: color 0.7s;   
 }
 
 #contInfoGallery {
@@ -417,6 +448,10 @@ html, body {
     border-bottom-width: 16px;
     border-right-width: 10px;
     overflow: auto;
+    /*SOMBRA*/
+    -moz-box-shadow: 0px 0px 2px #C0C0C0 inset;
+    -webkit-box-shadow: 0px 0px 2px #C0C0C0 inset;
+    box-shadow: 0px 0px 2px #C0C0C0 inset;
 }
 #contInfoGallery p {
     margin: 2px 0px;

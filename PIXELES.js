@@ -851,7 +851,7 @@ function showModal() {
             // ahora busca el color actual
             var miMiembro = document.getElementsByClassName("miembroFamiliaColores");
             for (i = 0; i < miMiembro.length; i++) {
-                if (miMiembro[i].dataset.color == colorActual) {
+                if (miMiembro[i].dataset.color == colorActual) {   
                     // lo marca como seleccionado
                     $(miMiembro[i]).addClass("miembroSeleccionado");
                     // muestra su nombre y familia
@@ -891,7 +891,7 @@ function showModal() {
                             scrollLeft: miembroToScroll.offsetLeft - 4
                         }, 700);
 
-                    }, 1500);     
+                    }, 1500); 
                 }
             }
             break;
