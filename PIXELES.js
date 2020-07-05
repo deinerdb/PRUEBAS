@@ -849,9 +849,12 @@ function showModal() {
             // ninguno está seleccionado por el momento, bordes normales
             $(".miembroFamiliaColores").css("border-color", "#666699");
             // ahora busca el color actual
+            var miembroEncontrado = false;
             var miMiembro = document.getElementsByClassName("miembroFamiliaColores");
             for (i = 0; i < miMiembro.length; i++) {
-                if (miMiembro[i].dataset.color == colorActual) {   
+                if (miMiembro[i].dataset.color == colorActual) {
+                    // no busca más
+                    miembroEncontrado = true;
                     // lo marca como seleccionado
                     $(miMiembro[i]).addClass("miembroSeleccionado");
                     // muestra su nombre y familia
@@ -892,6 +895,10 @@ function showModal() {
                         }, 700);
 
                     }, 1500); 
+                }
+                if (miembroEncontrado == true) {
+                    // si ya lo encontró, sale del ciclo, no busca más
+                    break;
                 }
             }
             break;
