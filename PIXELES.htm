@@ -20,7 +20,7 @@
             setTimeout(function () {
                 $(".loader").fadeOut("slow");
                 // intentamos un scroll
-                topFunction();
+                topFunction();             
             }, 2000);
 
         });
@@ -314,7 +314,15 @@
                         <div class="panel">
                             <div class="contFamiliaColores">
                                 <div class="miembroFamiliaColores" title="Gainsboro - Gaisnboro - Grey Colors" style="background-color: #dcdcdc;" data-color="#dcdcdc" onclick="seleccionaMiembroFamilia(this)"></div>
-
+                                <div class="miembroFamiliaColores" title="LightGray - Gris Claro - Grey Colors" style="background-color: #d3d3d3;" data-color="#d3d3d3" onclick="seleccionaMiembroFamilia(this)"></div>
+                                <div class="miembroFamiliaColores" title="Silver - Plata - Grey Colors" style="background-color: #c0c0c0;" data-color="#c0c0c0" onclick="seleccionaMiembroFamilia(this)"></div>
+                                <div class="miembroFamiliaColores" title="DarkGray - Gris Oscuro - Grey Colors" style="background-color: #a9a9a9;" data-color="#a9a9a9" onclick="seleccionaMiembroFamilia(this)"></div>
+                                <div class="miembroFamiliaColores" title="DimGray - Gris Tenue - Grey Colors" style="background-color: #696969;" data-color="#696969" onclick="seleccionaMiembroFamilia(this)"></div>
+                                <div class="miembroFamiliaColores" title="Gray - Gris - Grey Colors" style="background-color: #808080;" data-color="#808080" onclick="seleccionaMiembroFamilia(this)"></div>
+                                <div class="miembroFamiliaColores" title="LightSlateGray - Gris Pizarra Claro - Grey Colors" style="background-color: #778899;" data-color="#778899" onclick="seleccionaMiembroFamilia(this)"></div>
+                                <div class="miembroFamiliaColores" title="SlateGray - Gris Pizarra - Grey Colors" style="background-color: #708090;" data-color="#708090" onclick="seleccionaMiembroFamilia(this)"></div>
+                                <div class="miembroFamiliaColores" title="DarkSlateGray - Gris Pizarra Oscuro - Grey Colors" style="background-color: #2f4f4f;" data-color="#2f4f4f" onclick="seleccionaMiembroFamilia(this)"></div>
+                                <div class="miembroFamiliaColores" title="Black - Negro - Grey Colors" style="background-color: #000000;" data-color="#000000" onclick="seleccionaMiembroFamilia(this)"></div>
                             </div>
                             <div class="divInfoColorSel" title="Detalle del color actual"> <i class="icoInfoColorSel parpadea fas fa-info"></i> <span class="spanInfoColorSel"> Descripción del color </span> </div>
                         </div>
@@ -356,6 +364,7 @@
             <option>#8b4513</option>
             <option>#000000</option>
         </datalist>
+        <button id="BtnRnd" title="Color Aleatorio"><i class="fas fa-dice"></i></button>
         <button id="BtnRGB" title="Color RGB"><i class="fas fa-palette"></i></button>
         <button id="BtnHex" title="Color Hexadecimal"><i class="fas fa-hashtag"></i></button>
         <button id="BtnGallery" title="Galería De Colores"><i class="fas fa-grip-horizontal"></i></button>
