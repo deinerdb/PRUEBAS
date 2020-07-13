@@ -527,9 +527,7 @@ function cerrarModal() {
     modal.style.display = "none";
     //restaura el scroll
     document.body.scrollTop = miBodyScroll; // For Chrome, Safari and Opera
-    document.documentElement.scrollTop = miDocumentScroll; // For IE and Firefox
-    // elimina la clase intermitente de todos los acc y de los cuadritos
-    $(".seleccionado").removeClass("seleccionado");
+    document.documentElement.scrollTop = miDocumentScroll; // For IE and Firefox    
 }
 // When the user clicks on <span> (x), close the modal
 span.onclick = function () {
@@ -811,6 +809,8 @@ function showModal() {
             document.getElementById("spanInfoModal").innerHTML = "Aquí puede elegir entre más de 140 colores, organizados en 11 grupos del estándar HTML. Puede buscar los colores por su nombre en inglés y español.";
             // título
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-grip-horizontal'></i> Galería: <i id = 'icoMuestraGallery' class='fas fa-square'></i>";
+            // nada que buscar todavía
+            document.getElementById("buscarColor").value = "";
             // inicialmente hex es el color actual
             hexTemp = colorActual;
             // SE MUESTRA EL COLOR ACTUAL EN RGB Y HEX
@@ -830,7 +830,7 @@ function showModal() {
             // elimina la clase seleccionado de todos
             $(".miembroFamiliaColores").removeClass("miembroSeleccionado");
             // elimina la clase intermitente de todos los acc
-            $(".accordion").removeClass("seleccionado");
+            $(".accordion").removeClass("seleccionadoAcc");
             // todos los acc se cierran            
             var i;
             var abierta = false;
@@ -876,7 +876,7 @@ function showModal() {
                     var vecinoAcc = abuelo[0].previousElementSibling;
                     // ya tenemos identicado el acc vecino, ahora...
                     // agrega la clase intermitente al acc                    
-                    $(vecinoAcc).addClass("seleccionado");  
+                    $(vecinoAcc).addClass("seleccionadoAcc");  
                     // da tiempo a la transición y luego hace scroll hasta el acc
                     var elemToScroll = $(miMiembro[i]).parent()[0];
                     var miembroToScroll = miMiembro[i];
@@ -953,14 +953,14 @@ function seleccionaMiembroFamilia(miembro) {
     // agrega la clase seleccionado al miembro actual
     $(miembro).addClass("miembroSeleccionado");
     // elimina la clase intermitente de todos los acc
-    $(".accordion").removeClass("seleccionado");
+    $(".accordion").removeClass("seleccionadoAcc");
     // debemos identificar al abuelo
     var abuelo = $(miembro).closest(".panel"); // es una colección                    
     // el acc es el elemento anterior al abuelo
     var vecinoAcc = abuelo[0].previousElementSibling;
     // ya tenemos identicado el acc vecino, ahora...
     // agrega la clase intermitente al acc                    
-    $(vecinoAcc).addClass("seleccionado");
+    $(vecinoAcc).addClass("seleccionadoAcc");
 }
 // click en un elemento clase accordion
 function clickAcc(thisAcc) {
@@ -1005,6 +1005,24 @@ function procesarEntradaHex() {
         $("#icoMuestraHex").css("color", test); 
     }
 }
+// procesa las entradas en el campo buscarColor
+function procesarEntradaBuscarColor() {
+    // recupera el valor del campo
+    var test = document.getElementById("buscarColor").value;
+    if (test.length > 0) {
+        // si hay algo, oculta acc y muestra resultados
+        document.getElementById("contenedorEncontrados").style.display = "block";
+        document.getElementById("contenedorGrupos").style.display = "none";
+    } else {
+        // si no hay nada, muestra los acc y oculta los resultados
+        document.getElementById("contenedorEncontrados").style.display = "none";
+        document.getElementById("contenedorGrupos").style.display = "block";
+    }
+    // es indiferente a las mayúsculas, siempre se almacena en minúsculas    
+    test = test.toLowerCase();
+    
+}
+
 //  eventos al cambiar valor hex
 document.getElementById("valorHex").addEventListener("input", procesarEntradaHex);
 document.getElementById("valorHex").addEventListener("change", procesarEntradaHex);
@@ -1015,6 +1033,8 @@ $("#buscarColor").focusin(function () {
         scrollTop: 12 + document.getElementById("contInfoGallery").offsetHeight 
     }, 600);
 });
+document.getElementById("buscarColor").addEventListener("input", procesarEntradaBuscarColor);
+document.getElementById("buscarColor").addEventListener("change", procesarEntradaBuscarColor);
 //  onresize, cuando cambia el tamaño de la pantalla
 window.addEventListener("resize", ajustesResize);
 // previene pérdida de datos accidental
