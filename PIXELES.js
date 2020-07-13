@@ -811,6 +811,8 @@ function showModal() {
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-grip-horizontal'></i> Galería: <i id = 'icoMuestraGallery' class='fas fa-square'></i>";
             // nada que buscar todavía
             document.getElementById("buscarColor").value = "";
+            document.getElementById("contenedorEncontrados").style.display = "none";
+            document.getElementById("contenedorGrupos").style.display = "block";
             // inicialmente hex es el color actual
             hexTemp = colorActual;
             // SE MUESTRA EL COLOR ACTUAL EN RGB Y HEX
