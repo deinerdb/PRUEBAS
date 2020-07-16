@@ -164,6 +164,23 @@ html, body {
 #contenedorEncontrados {
     /* oculto por defecto */
     display: none;
+    background-color: white;
+    margin: 12px 6px;
+    padding: 4px 4px 4px 12px;    
+    overflow: auto;
+    width: 98%;
+    max-width: 98%;
+    border: 1.5px solid #cc00cc; /* normal, del tema */    
+    /*no se puede seleccionar el texto*/
+    -webkit-user-select: none; /* Chrome, Opera, Safari */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */
+    /* SIN BORDE REDONDEADO*/
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    text-align: left;
 }
 #contenedorGrupos {
     /* visible por defecto */
@@ -286,7 +303,8 @@ html, body {
         animation-timing-function: linear;
         animation-iteration-count: infinite;
     }
-.miembroFamiliaColores {
+
+.miembroFamiliaColores, .miembroResultados {
     display: inline-block;
     width: 70px;
     height: 70px;
@@ -307,14 +325,14 @@ html, body {
     -webkit-border-radius: 50%;
     border-radius: 50%;
 }
-.miembroFamiliaColores:hover {
+.miembroFamiliaColores:hover, .miembroResultados:hover {
     z-index: 320;
     /* una sombra pequeña */
     -moz-box-shadow: 0px 0px 0.6em #52707a;
     -webkit-box-shadow: 0px 0px 0.6em #52707a;
     box-shadow: 0px 0px 0.6em #52707a;
 }
-.miembroFamiliaColores:active {
+.miembroFamiliaColores:active, .miembroResultados:active {
     z-index: 320;
     /* una sombra más grande */
     -moz-box-shadow: 0px 0px 1.5em #52707a;

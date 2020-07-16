@@ -1008,7 +1008,19 @@ function procesarEntradaHex() {
     }
 }
 // procesa las entradas en el campo buscarColor
+var buscandoColor = false;
+var timerBuscarColor = 0;
 function procesarEntradaBuscarColor() {
+    if (buscandoColor == true || modalActual != "gallery") {        
+        // cancela el temporizador en curso para la nueva búsqueda
+        clearTimeout(timerBuscarColor);
+        // inicia el temporizador para nueva búsqueda
+        timerBuscarColor = setTimeout(function () {
+            procesarEntradaBuscarColor();
+        }, 500);
+        return;
+    }
+    buscandoColor = true;   
     // recupera el valor del campo
     var test = document.getElementById("buscarColor").value;
     if (test.length > 0) {
@@ -1019,12 +1031,14 @@ function procesarEntradaBuscarColor() {
         // si no hay nada, muestra los acc y oculta los resultados
         document.getElementById("contenedorEncontrados").style.display = "none";
         document.getElementById("contenedorGrupos").style.display = "block";
-    }
+    }    
     // es indiferente a las mayúsculas, siempre se almacena en minúsculas    
     test = test.toLowerCase();
-    
-}
+    // recorre los colores de la galería
 
+    // al final indica que ya está desocupado
+    buscandoColor = false;
+}
 //  eventos al cambiar valor hex
 document.getElementById("valorHex").addEventListener("input", procesarEntradaHex);
 document.getElementById("valorHex").addEventListener("change", procesarEntradaHex);
