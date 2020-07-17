@@ -805,6 +805,8 @@ function showModal() {
             break;
         case "gallery":
             $("#marcoGallery").css("display", "block");
+            // oculta el error
+            $("#infoNoEncontrados").css("display", "none");   
             // sí lleva info
             document.getElementById("spanInfoModal").innerHTML = "Aquí puede elegir entre más de 140 colores, organizados en 11 grupos del estándar HTML. Puede buscar los colores por su nombre en inglés y español.";
             // título
@@ -831,6 +833,8 @@ function showModal() {
             $(".icoInfoColorSel").css("background-color", colorActual);
             // elimina la clase seleccionado de todos
             $(".miembroFamiliaColores").removeClass("miembroSeleccionado");
+            // elimina la clase seleccionado de los resultados también
+            $(".miembroResultados").removeClass("miembroSeleccionado");
             // elimina la clase intermitente de todos los acc
             $(".accordion").removeClass("seleccionadoAcc");
             // todos los acc se cierran            
@@ -852,9 +856,25 @@ function showModal() {
             }
             // ninguno está seleccionado por el momento, bordes normales
             $(".miembroFamiliaColores").css("border-color", "#666699");
-            // ahora busca el color actual
+            $(".miembroResultados").css("border-color", "#666699");
+            // ahora busca el color actual en los resultados, para resaltarlo
             var miembroEncontrado = false;
-            var miMiembro = document.getElementsByClassName("miembroFamiliaColores");
+            var miMiembro = document.getElementsByClassName("miembroResultados");
+            for (i = 0; i < miMiembro.length; i++) {
+                if (miMiembro[i].dataset.color == colorActual) {
+                    // no busca más
+                    miembroEncontrado = true;
+                    // lo marca como seleccionado
+                    $(miMiembro[i]).addClass("miembroSeleccionado");
+                }
+                if (miembroEncontrado == true) {
+                    // si ya lo encontró, sale del ciclo, no busca más
+                    break;
+                }
+            }
+            // ahora busca el color actual en los acc
+            miembroEncontrado = false;
+            miMiembro = document.getElementsByClassName("miembroFamiliaColores");
             for (i = 0; i < miMiembro.length; i++) {
                 if (miMiembro[i].dataset.color == colorActual) {
                     // no busca más
@@ -952,8 +972,25 @@ function seleccionaMiembroFamilia(miembro) {
     $(".icoInfoColorSel").css("background-color", miembro.dataset.color);
     // elimina la clase seleccionado de todos
     $(".miembroFamiliaColores").removeClass("miembroSeleccionado");
+    // elimina la clase seleccionado de los resultados también
+    $(".miembroResultados").removeClass("miembroSeleccionado");
     // agrega la clase seleccionado al miembro actual
     $(miembro).addClass("miembroSeleccionado");
+    // ahora busca el color actual en los resultados, para resaltarlo también
+    var miembroEncontrado = false;
+    var miMiembro = document.getElementsByClassName("miembroResultados");
+    for (i = 0; i < miMiembro.length; i++) {
+        if (miMiembro[i].dataset.color == hexTemp) {
+            // no busca más
+            miembroEncontrado = true;
+            // lo marca como seleccionado
+            $(miMiembro[i]).addClass("miembroSeleccionado");
+        }
+        if (miembroEncontrado == true) {
+            // si ya lo encontró, sale del ciclo, no busca más
+            break;
+        }
+    }
     // elimina la clase intermitente de todos los acc
     $(".accordion").removeClass("seleccionadoAcc");
     // debemos identificar al abuelo
@@ -963,6 +1000,89 @@ function seleccionaMiembroFamilia(miembro) {
     // ya tenemos identicado el acc vecino, ahora...
     // agrega la clase intermitente al acc                    
     $(vecinoAcc).addClass("seleccionadoAcc");
+}
+// click en miembro de los colores encontrados
+function seleccionaMiembroResultados(miembro) {
+    var miTitle;
+    var miNombre;
+    var miFamilia;
+    //  hex es el color actual
+    hexTemp = miembro.dataset.color;
+    // SE MUESTRA EL COLOR ACTUAL EN RGB Y HEX
+    miR = rDesdeHex(miembro.dataset.color);
+    miG = gDesdeHex(miembro.dataset.color);
+    miB = bDesdeHex(miembro.dataset.color);
+    document.getElementById("infoColor").innerHTML = "rgb(" + miR + ", " + miG + ", " + miB + ") - " + miembro.dataset.color;
+    // el nombre 
+    miTitle = miembro.title.split(" - ");
+    // 0 inglés, 1 español
+    var miNombre = miTitle[0] + " (" + miTitle[1] + ")";
+    document.getElementById("infoColorNombre").innerHTML = miNombre;
+    // familia
+    miFamilia = miTitle[2];
+    document.getElementById("infoColorFamilia").innerHTML = miFamilia;
+    // el detalle en cada panel es spanInfoColorSel                    
+    $(".spanInfoColorSel").html("Actual: " + document.getElementById("infoColor").innerHTML + " - " + miNombre + " - " + miFamilia);
+    // LOS BORDES DE contInfoGallery SON LA MUESTRA DE COLOR, EL ACTUAL
+    $("#contInfoGallery").css("border-color", miembro.dataset.color);
+    // también el ícono en el título es una muestra
+    $("#icoMuestraGallery").css("color", miembro.dataset.color);
+    // también los íconos icoInfoColorSel son una muestra
+    $(".icoInfoColorSel").css("background-color", miembro.dataset.color);
+    // elimina la clase seleccionado de todos
+    $(".miembroFamiliaColores").removeClass("miembroSeleccionado");
+    $(".miembroResultados").removeClass("miembroSeleccionado");
+    // elimina la clase intermitente de todos los acc
+    $(".accordion").removeClass("seleccionadoAcc");
+    // todos los acc se cierran            
+    var i;
+    var abierta = false;
+    var miacc = document.getElementsByClassName("accordion");
+    for (i = 0; i < miacc.length; i++) {
+        if (miacc[i].classList) {
+            abierta = miacc[i].classList.contains("active");
+        } else {
+            abierta = /\bactive\b/g.test(miacc[i].className); // For IE9 and earlier                    
+        }
+        if (abierta == true) {
+            // poco ortodoxo, llamar un click
+            //miacc[i].click();
+            // mejor usar una función y llamarla también en el evento click
+            clickAcc(miacc[i]);
+        }
+    }
+    // ninguno está seleccionado por el momento, bordes normales
+    $(".miembroFamiliaColores").css("border-color", "#666699");    
+    $(".miembroResultados").css("border-color", "#666699");
+    // agrega la clase seleccionado al miembro actual
+    $(miembro).addClass("miembroSeleccionado");
+    // identifica el miembro equivalente en los grupos
+    // ahora busca el color que acaba de ser seleccionado en los resultados en los acc
+    var miembroEncontrado = false;
+    var miMiembro = document.getElementsByClassName("miembroFamiliaColores");
+    for (i = 0; i < miMiembro.length; i++) {
+        if (miMiembro[i].dataset.color == hexTemp) {
+            // no busca más
+            miembroEncontrado = true;
+            // lo marca como seleccionado
+            $(miMiembro[i]).addClass("miembroSeleccionado");             
+            // debemos identificar al abuelo
+            var abuelo = $(miMiembro[i]).closest(".panel"); // es una colección                    
+            // el acc es el elemento anterior al abuelo
+            var vecinoAcc = abuelo[0].previousElementSibling;
+            // ya tenemos identicado el acc vecino, ahora...
+            // agrega la clase intermitente al acc                    
+            $(vecinoAcc).addClass("seleccionadoAcc");
+            //// expande el acc de este miembro
+            clickAcc(vecinoAcc);            
+            // no hace scroll hasta el acc
+            // tampoco hace scroll hasta el miembro dentro del acc
+        }
+        if (miembroEncontrado == true) {
+            // si ya lo encontró, sale del ciclo, no busca más
+            break;
+        }
+    }
 }
 // click en un elemento clase accordion
 function clickAcc(thisAcc) {
@@ -1011,7 +1131,11 @@ function procesarEntradaHex() {
 var buscandoColor = false;
 var timerBuscarColor = 0;
 function procesarEntradaBuscarColor() {
-    if (buscandoColor == true || modalActual != "gallery") {        
+    if (modalActual != "gallery") {
+        // sale si no está en galería
+        return;
+    }
+    if (buscandoColor == true) {        
         // cancela el temporizador en curso para la nueva búsqueda
         clearTimeout(timerBuscarColor);
         // inicia el temporizador para nueva búsqueda
@@ -1031,11 +1155,41 @@ function procesarEntradaBuscarColor() {
         // si no hay nada, muestra los acc y oculta los resultados
         document.getElementById("contenedorEncontrados").style.display = "none";
         document.getElementById("contenedorGrupos").style.display = "block";
+        // desocupado y sale
+        buscandoColor = false;
+        return;
     }    
     // es indiferente a las mayúsculas, siempre se almacena en minúsculas    
     test = test.toLowerCase();
     // recorre los colores de la galería
-
+    //obtiene un array con todos los de la clase miembroResultados
+    var x = document.getElementsByClassName("miembroResultados");
+    var i;
+    // para obtner el nombre en español e inglés
+    var miTitle = "";
+    var cantidadEncontrados = 0;
+    // oculta el error
+    $("#infoNoEncontrados").css("display", "none");   
+    //recorre todo el array y compara su color con el ingresado
+    for (i = 0; i < x.length; i++) {
+        // el nombre 
+        miTitle = x[i].title.split(" - ");
+        if (miTitle[0].toLowerCase().indexOf(test) == -1 && miTitle[1].toLowerCase().indexOf(test) == -1) {
+            // no coincide, lo oculta
+            x[i].style.display = "none";
+        } else {
+            // coincide, lo muestra
+            x[i].style.display = "inline-block";
+            cantidadEncontrados++;
+        }
+    }
+    if (cantidadEncontrados > 0) {
+        // oculta el error
+        $("#infoNoEncontrados").css("display", "none");        
+    } else {
+        // muestra el error
+        $("#infoNoEncontrados").css("display", "block");        
+    }
     // al final indica que ya está desocupado
     buscandoColor = false;
 }
@@ -1051,6 +1205,40 @@ $("#buscarColor").focusin(function () {
 });
 document.getElementById("buscarColor").addEventListener("input", procesarEntradaBuscarColor);
 document.getElementById("buscarColor").addEventListener("change", procesarEntradaBuscarColor);
+//capturando pulsación de teclado en campo buscarColor...
+document.getElementById("buscarColor").onkeydown = function (e) {
+
+    var characterCode;
+    // e.key es la recomendación actual
+    if (e.key != undefined) {
+        if (e.key.toLowerCase() == "enter") {
+            characterCode = 13;
+        }
+        else {
+            characterCode = 0;
+        }
+    } else {
+        /* navegadores antiguos...  */
+        characterCode = e.which || e.charCode || e.keyCode || e.keyIdentifier || 0;
+    }
+
+    // solo si presionó Enter
+    if (characterCode == 13) {
+
+        //da el enfoque al contenedor indicado,
+        //esto permite que se oculte el teclado en algunos móviles
+
+        if (document.getElementById("buscarColor").value.length == 0) {
+            // no hace nada, no hay nada que buscar
+            showSnackbar("Nada que buscar...");
+        } else {
+            document.getElementById("buscarColor").blur();
+            document.getElementById("contenedorEncontrados").focus();
+        }       
+
+    }
+
+}
 //  onresize, cuando cambia el tamaño de la pantalla
 window.addEventListener("resize", ajustesResize);
 // previene pérdida de datos accidental

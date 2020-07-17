@@ -108,7 +108,8 @@
                         <input id="buscarColor" type="search" maxlength="100" placeholder="Buscar color..." autocomplete="off" spellcheck="false">
                     </div>
                     <!-- resultados de búsqueda en galería -->
-                    <div id="contenedorEncontrados">  
+                    <div id="contenedorEncontrados">
+                        <p id="infoNoEncontrados">¡No se encontraron resultados!</p>
                         <div class="miembroResultados" title="Pink - Rosa - Pink Colors" style="background-color: #ffc0cb;" data-color="#ffc0cb" onclick="seleccionaMiembroResultados(this)"></div>
                         <div class="miembroResultados" title="LightPink - Rosa Suave - Pink Colors" style="background-color: #ffb6c1;" data-color="#ffb6c1" onclick="seleccionaMiembroResultados(this)"></div>
                         <div class="miembroResultados" title="PaleVioletRed - Rosa Pastel - Pink Colors" style="background-color: #db7093;" data-color="#db7093" onclick="seleccionaMiembroResultados(this)"></div>
@@ -261,6 +262,7 @@
                         <div class="miembroResultados" title="DarkSlateGray - Gris Pizarra Oscuro - Grey Colors" style="background-color: #2f4f4f;" data-color="#2f4f4f" onclick="seleccionaMiembroResultados(this)"></div>
                         <div class="miembroResultados" title="Black - Negro - Grey Colors" style="background-color: #000000;" data-color="#000000" onclick="seleccionaMiembroResultados(this)"></div>
 
+                        <div id="infoColorResultados" class="divInfoColorSel" title="Detalle del color actual"> <i class="icoInfoColorSel fas fa-info"></i> <span class="spanInfoColorSel"> Descripción del color </span> </div>
                     </div>
                         <div id="contenedorGrupos">
                             <!-- Pink -->
