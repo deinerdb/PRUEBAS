@@ -887,8 +887,8 @@ function showModal() {
                     // 0 inglés, 1 español
                     var miNombre = miTitle[0] + " (" + miTitle[1] + ")";
                     document.getElementById("infoColorNombre").innerHTML = miNombre;
-                    // familia
-                    var miFamilia = miTitle[2];
+                    // familia, tambíen en inglés y español
+                    var miFamilia = miTitle[2] + " (" + miMiembro[i].dataset.espfam + ")";
                     document.getElementById("infoColorFamilia").innerHTML = miFamilia;
                     // el detalle en cada panel es spanInfoColorSel                    
                     $(".spanInfoColorSel").html("Actual: " + document.getElementById("relleno").style.backgroundColor + " - " + colorActual + " - " + miNombre + " - " + miFamilia);
@@ -960,7 +960,7 @@ function seleccionaMiembroFamilia(miembro) {
     var miNombre = miTitle[0] + " (" + miTitle[1] + ")";
     document.getElementById("infoColorNombre").innerHTML = miNombre;
     // familia
-    miFamilia = miTitle[2];
+    miFamilia = miTitle[2] + " (" + miembro.dataset.espfam + ")";
     document.getElementById("infoColorFamilia").innerHTML = miFamilia;
     // el detalle en cada panel es spanInfoColorSel                    
     $(".spanInfoColorSel").html("Actual: " + document.getElementById("infoColor").innerHTML + " - " + miNombre + " - " + miFamilia);
@@ -1019,7 +1019,7 @@ function seleccionaMiembroResultados(miembro) {
     var miNombre = miTitle[0] + " (" + miTitle[1] + ")";
     document.getElementById("infoColorNombre").innerHTML = miNombre;
     // familia
-    miFamilia = miTitle[2];
+    miFamilia = miTitle[2] + " (" + miembro.dataset.espfam + ")";
     document.getElementById("infoColorFamilia").innerHTML = miFamilia;
     // el detalle en cada panel es spanInfoColorSel                    
     $(".spanInfoColorSel").html("Actual: " + document.getElementById("infoColor").innerHTML + " - " + miNombre + " - " + miFamilia);
@@ -1165,8 +1165,9 @@ function procesarEntradaBuscarColor() {
     //obtiene un array con todos los de la clase miembroResultados
     var x = document.getElementsByClassName("miembroResultados");
     var i;
-    // para obtner el nombre en español e inglés
+    // para obtener el nombre en español e inglés
     var miTitle = "";
+    var miFamEsp = "";
     var cantidadEncontrados = 0;
     // oculta el error
     $("#infoNoEncontrados").css("display", "none");   
@@ -1174,7 +1175,8 @@ function procesarEntradaBuscarColor() {
     for (i = 0; i < x.length; i++) {
         // el nombre 
         miTitle = x[i].title.split(" - ");
-        if (miTitle[0].toLowerCase().indexOf(test) == -1 && miTitle[1].toLowerCase().indexOf(test) == -1) {
+        miFamEsp = x[i].dataset.espfam.toLowerCase();
+        if (miTitle[0].toLowerCase().indexOf(test) == -1 && miTitle[1].toLowerCase().indexOf(test) == -1 && miTitle[2].toLowerCase().indexOf(test) == -1 && miFamEsp.indexOf(test) == -1) {
             // no coincide, lo oculta
             x[i].style.display = "none";
         } else {
