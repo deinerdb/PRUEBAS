@@ -327,6 +327,8 @@ html, body {
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
     border-radius: 50%;
+    /* un resaltado adicional */
+    border-style: outset;
 }
 .miembroFamiliaColores:hover, .miembroResultados:hover {
     z-index: 320;
@@ -1455,6 +1457,10 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores {
     text-align: center;
     border: 3px solid #666699;
 }
+.seleccionadoBtnModos {
+    /* el modo actual se marca con borde verde */
+    border: 3px solid #009900 !important;
+}
 
 #paletaHistorial button {
     padding: 5px !important;
@@ -1715,9 +1721,9 @@ body {
 
 .columna {
     /* SIN BORDE REDONDEADO*/
-    -moz-border-radius: 0;
-    -webkit-border-radius: 0;
-    border-radius: 0;
+    -moz-border-radius: 0%;
+    -webkit-border-radius: 0%;
+    border-radius: 0%;
     cursor: pointer;
     text-align: center;
     font-weight: bold;

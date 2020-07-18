@@ -4,7 +4,7 @@ var colorRejilla = "#000000";
 var usarBordes = true;
 var fondoAplicado = "#ffffff";
 var colorLienzo = "#000000"
-var radioBorde = 0;
+var radioBorde = "50%";
 // modal: radio, rgb, gallery, importar, exportar, filas, columnas
 var modalActual = "ninguno";
 // recuerda el scroll y lo restaura al cerrar el modal
@@ -25,7 +25,7 @@ var lastColorRejilla;
 var lastNumColumnas;
 var lastNumFilas;
 var lastModo = "pincel";
-// modos: pincel, borrador, relleno, extraer, libre
+// modos: pincel, borrador, relleno, extraer, libre, radio, sombra, opacidad
 var modoActual = "pincel";
 // es como un modo, pero se gestiona diferente
 var pantallaCompleta = false;
@@ -123,7 +123,7 @@ var prefiereHistorial = false;
 //arrayColoresUsados[0] = "#ffffff"; 
 // el estilo inicial del botón pincel 
 // indica que pintar es el modo preteterminado
-document.getElementById("BtnPincel").style.border = "3px solid #009900";
+$("#BtnPincel").addClass("seleccionadoBtnModos"); 
 // indica que zoom + es el modo preteterminado en pantalla completa
 var zoomIn = true;
 document.getElementById("BtnAumentarFull").style.border = "3px solid #009900";
@@ -1270,6 +1270,9 @@ window.addEventListener("load", function (event) {
     $("#pantalla").css("display", "block");
     // scroll
     topFunction();
+    // dasactiva el botón deshacer, no se ha hecho nada
+    // nota que la primera vez que se llama dimensionar se activa, pero aquí se desactiva para que sea su estado inicial
+    estadoBtnDeshacer(false);
 });
 
 // resalta el color actual en el historial de colores
@@ -1555,6 +1558,18 @@ function hacerClick(celda) {
             // activa el botón deshacer
             estadoBtnDeshacer(true);
             break;
+        case "radio":
+            // modo editor de radio de bordes
+            // guarda primero
+            lastID = celda;
+            //lastRadioBorde = document.getElementById(celda).style.borderRadius;
+            lastRadioBorde = $("[id = " + celda + "]").css('border-radius');            
+            lastAction = "CambiarRadioBordesCelda";
+            //ajusta el radio de la celda
+            document.getElementById(celda).style.borderRadius = radioBorde;            
+            // activa el botón deshacer
+            estadoBtnDeshacer(true);
+            break;
         case "borrador":
             //modo borrador
             //primero guarda
@@ -1662,6 +1677,10 @@ function mostrarHistorial(afectarPreferencia) {
         showSnackbar("Está en Modo Borrador...");
         return;
     }
+    if (modoActual == "radio") {
+        showSnackbar("Está en Modo Editor de Radios...");
+        return;
+    }
     // sale si ya está mostrado
     if (historialMostrado == true) {
         //return;
@@ -1671,7 +1690,7 @@ function mostrarHistorial(afectarPreferencia) {
     //cancela el timer que lo ocultaría
     clearTimeout(timerHistorial);
     // guarda la preferencia
-    if (modoActual != "borrador" && afectarPreferencia == true) {
+    if (modoActual != "borrador" && modoActual != "radio" && afectarPreferencia == true) {
         prefiereHistorial = true;
     }
     //oculta este botón
@@ -1708,7 +1727,7 @@ function cerrarHistorial(afectarPreferencia) {
     //cancela el timer que lo ocultaría
     clearTimeout(timerHistorial);
     // guarda la preferencia
-    if (modoActual != "borrador" && afectarPreferencia == true) {
+    if (modoActual != "borrador" && modoActual != "radio" && afectarPreferencia == true) {
         prefiereHistorial = false;
     }
     // la barra se desactiva y el botón cerrar historial también
@@ -2026,9 +2045,6 @@ function dimensionar() {
     estadoBtnDeshacer(true);
 }
 
-// dasactiva el botón deshacer, no se ha hecho nada
-// nota que la primera vez que se llama dimensionar se activa, pero aquí se desactiva para que sea su estado inicial
-estadoBtnDeshacer(false);
 //cambia el modo seleccionado, llamada por los botones de cambio de modo
 function cambiarModo(nuevoModo) {
     if (modoActual == nuevoModo) {
@@ -2040,7 +2056,7 @@ function cambiarModo(nuevoModo) {
     lastModo = modoActual;
     modoActual = nuevoModo;
     // gestiona el historial de color
-    if (modoActual == "borrador") {        
+    if (modoActual == "borrador" || modoActual == "radio") {        
             cerrarHistorial(false);
     } else {
         if (prefiereHistorial == true) {
@@ -2052,7 +2068,8 @@ function cambiarModo(nuevoModo) {
     // elimina las marcas x de todos
     $(".columna").html("");
     $(".columna").removeClass("seleccionado");
-
+    // elimina el modo seleccionado de todos los botones
+    $(".seleccionadoBtnModos").removeClass("seleccionadoBtnModos");
     if (modoActual != "libre") {
         //muestra y oculta elementos
         document.getElementById("BtnRellenar").style.display = "inline-block";
@@ -2084,11 +2101,8 @@ function cambiarModo(nuevoModo) {
     }
     switch (modoActual) {
         case "libre":
-            document.getElementById("BtnLibre").style.border = "3px solid #009900";
-            document.getElementById("BtnPincel").style.border = "3px solid #666699";
-            document.getElementById("BtnBorrador").style.border = "3px solid #666699";
-            document.getElementById("BtnGotero").style.border = "3px solid #666699";
-            document.getElementById("BtnExtraerColor").style.border = "3px solid #666699";
+            // agrega la clase seleccionado al btn del modo actual                    
+            $("#BtnLibre").addClass("seleccionadoBtnModos");            
             document.getElementById("colorPixel").style.display = "inline-block";
             document.getElementById("BtnRGB").style.display = "inline-block";
             document.getElementById("BtnHex").style.display = "inline-block";
@@ -2138,11 +2152,8 @@ function cambiarModo(nuevoModo) {
             showSnackbar("Modo Selección Libre");
             break;
         case "pincel":
-            document.getElementById("BtnPincel").style.border = "3px solid #009900";
-            document.getElementById("BtnLibre").style.border = "3px solid #666699";
-            document.getElementById("BtnBorrador").style.border = "3px solid #666699";
-            document.getElementById("BtnGotero").style.border = "3px solid #666699";
-            document.getElementById("BtnExtraerColor").style.border = "3px solid #666699";
+            // agrega la clase seleccionado al btn del modo actual                    
+            $("#BtnPincel").addClass("seleccionadoBtnModos"); 
             document.getElementById("colorPixel").style.display = "inline-block";
             document.getElementById("BtnRGB").style.display = "inline-block";
             document.getElementById("BtnHex").style.display = "inline-block";
@@ -2151,11 +2162,8 @@ function cambiarModo(nuevoModo) {
             showSnackbar("Modo Pincel");
             break;
         case "borrador":
-            document.getElementById("BtnBorrador").style.border = "3px solid #009900";
-            document.getElementById("BtnLibre").style.border = "3px solid #666699";
-            document.getElementById("BtnPincel").style.border = "3px solid #666699";
-            document.getElementById("BtnGotero").style.border = "3px solid #666699";
-            document.getElementById("BtnExtraerColor").style.border = "3px solid #666699";
+            // agrega la clase seleccionado al btn del modo actual                    
+            $("#BtnBorrador").addClass("seleccionadoBtnModos");            
             document.getElementById("colorPixel").style.display = "none";
             document.getElementById("BtnRGB").style.display = "none";
             document.getElementById("BtnHex").style.display = "none";
@@ -2163,12 +2171,19 @@ function cambiarModo(nuevoModo) {
             document.getElementById("BtnRnd").style.display = "none";
             showSnackbar("Modo Borrador");
             break;
+        case "radio":
+            // agrega la clase seleccionado al btn del modo actual                    
+            $("#BtnRadioBordes").addClass("seleccionadoBtnModos");            
+            document.getElementById("colorPixel").style.display = "none";
+            document.getElementById("BtnRGB").style.display = "none";
+            document.getElementById("BtnHex").style.display = "none";
+            document.getElementById("BtnGallery").style.display = "none";
+            document.getElementById("BtnRnd").style.display = "none";
+            showSnackbar("Modo Editor de Radios");
+            break;
         case "relleno":
-            document.getElementById("BtnGotero").style.border = "3px solid #009900";
-            document.getElementById("BtnLibre").style.border = "3px solid #666699";
-            document.getElementById("BtnPincel").style.border = "3px solid #666699";
-            document.getElementById("BtnBorrador").style.border = "3px solid #666699";
-            document.getElementById("BtnExtraerColor").style.border = "3px solid #666699";
+            // agrega la clase seleccionado al btn del modo actual                    
+            $("#BtnGotero").addClass("seleccionadoBtnModos");
             document.getElementById("colorPixel").style.display = "inline-block";
             document.getElementById("BtnRGB").style.display = "inline-block";
             document.getElementById("BtnHex").style.display = "inline-block";
@@ -2177,11 +2192,8 @@ function cambiarModo(nuevoModo) {
             showSnackbar("Modo Relleno Selectivo");
             break;
         case "extraer":
-            document.getElementById("BtnExtraerColor").style.border = "3px solid #009900";
-            document.getElementById("BtnLibre").style.border = "3px solid #666699";
-            document.getElementById("BtnPincel").style.border = "3px solid #666699";
-            document.getElementById("BtnBorrador").style.border = "3px solid #666699";
-            document.getElementById("BtnGotero").style.border = "3px solid #666699";
+            // agrega la clase seleccionado al btn del modo actual                    
+            $("#BtnExtraerColor").addClass("seleccionadoBtnModos");            
             document.getElementById("colorPixel").style.display = "inline-block";
             document.getElementById("BtnRGB").style.display = "inline-block";
             document.getElementById("BtnHex").style.display = "inline-block";
@@ -2338,11 +2350,19 @@ document.getElementById("BtnRellenar").onclick = function () {
     estadoBtnDeshacer(true);
     ocupado = false;
 }
-// alterna entre cuadrados y círculos
+// para ajustar el radio de los bordes
 document.getElementById("BtnRadioBordes").onclick = function () {
-    modalActual = "radio";
-    //muestra el modal
-    showModal();
+    if (modoActual == "radio") {
+        showSnackbar("En construcción...");
+        return;
+        // está en modo radio, entonces se puede ajustar el valor
+        modalActual = "radio";
+        //muestra el modal
+        showModal();
+    } else {
+        // pasa a modo radio
+        cambiarModo("radio");        
+    }    
 }
 // alterna entre con y sin bordes
 function alternarBordes(showMsj) {
@@ -2459,7 +2479,7 @@ document.getElementById("BtnDeshacer").onclick = function () {
             // alterna borde
             alternarBordes(false);
             break;
-        case "CambiarRadioBordes":
+        case "CambiarRadioBordesGlobal":
             // vuelve al radio anterior
             radioBorde = lastRadioBorde;
             //obtiene un array con todos los de la clase columna
@@ -2472,6 +2492,10 @@ document.getElementById("BtnDeshacer").onclick = function () {
             // floritura, lo aplica al relleno junto a al tanque y el multicolor
             document.getElementById("relleno").style.borderRadius = radioBorde + "%";
             document.getElementById("rellenoHistorial").style.borderRadius = radioBorde + "%";
+            break;
+        case "CambiarRadioBordesCelda":
+            // vuelve al radio anterior
+            document.getElementById(lastID).style.borderRadius = lastRadioBorde; 
             break;
         case "pintar":
             // deshace lo pintado
@@ -2788,3 +2812,6 @@ setInterval("intentaAjustar()", 1000);
 setInterval("animarBtnHistorial()", 2000);
 // scroll
 topFunction();
+// dasactiva el botón deshacer, no se ha hecho nada
+// nota que la primera vez que se llama dimensionar se activa, pero aquí se desactiva para que sea su estado inicial
+estadoBtnDeshacer(false);
