@@ -19,6 +19,7 @@ var lastColor;
 var lastID;
 var lastArrayID = [];
 var lastArrayColor = [];
+var lastArrayRadio = [];
 var lastFondoAplicado;
 var lastColorLienzo;
 var lastColorRejilla;
@@ -100,6 +101,13 @@ function animarBtnHistorial() {
     if (idAnimarHistorial > arrayColoresUsados.length - 1) {
         idAnimarHistorial = 0;
     }
+    // alterna círculo cuadro
+    if ($("#rellenoHistorial").css('border-radius') == "0%") {
+        document.getElementById("rellenoHistorial").style.borderRadius = "50%";
+    } else {
+        document.getElementById("rellenoHistorial").style.borderRadius = "0%";
+    }
+    // va cambiando el color
     document.getElementById("rellenoHistorial").style.backgroundColor = arrayColoresUsados[idAnimarHistorial];
     idAnimarHistorial = 1 + idAnimarHistorial;
 }
@@ -406,6 +414,7 @@ function alturaModal() {
 }
 // ajustes según el tamaño de la pantalla
 function ajustesResize() {    
+    //$("#BtnRadioBordes").attr("title", document.getElementById("BtnRadioBordes").offsetWidth);
     // el top del historial 
     document.getElementById("BtnCerrarHistorial").style.top = 0 + document.getElementById("paletaArriba").offsetHeight + "px";
     document.getElementById("paletaHistorial").style.top = 0 + document.getElementById("paletaArriba").offsetHeight + document.getElementById("BtnCerrarHistorial").offsetHeight + "px";
@@ -665,10 +674,7 @@ document.getElementById("numberB").onkeydown = function (e) {
 // depende de modalActual/
 function aceptarModal() {
     switch (modalActual) {
-        case "radio":
-            // guarda para poder deshacer
-            lastRadioBorde = radioBorde;
-            lastAction = "CambiarRadioBordes";
+        case "radio":            
             //valida, porque en ie 9 input range se muestra como campo de texto
             var nuevo = sliderRadio.value;
             nuevo = Number(nuevo);
@@ -679,18 +685,32 @@ function aceptarModal() {
                 nuevo = decValues[pos];
             }
             // el nuevo valor
-            radioBorde = nuevo;
+            radioBorde = nuevo + "%";            
+            // ahora decide si lo aplica individualmente o a todos
+            var decideRadioGlobal = document.getElementById("myCheckRadioGlobal").checked;
+            if (decideRadioGlobal == false) {
+                // ya asignó el valor, se aplicará al hacer click en cada celda
+                // informa y sale
+                // nada que deshacer
+                showSnackbar("Radio bordes: " + radioBorde);
+                break;
+            }
+            // en este punto sabemos que se aplicará a todos...
             //obtiene un array con todos los de la clase columna
             var x = document.getElementsByClassName("columna");
             var i;
-            //recorre todo el array y les aplica el estilo de borde
+            //debe guardar los radios y los id      
+            lastAction = "CambiarRadioBordesGlobal";
+            lastArrayRadio.length = 0;
+            lastArrayID.length = 0;
+            //recorre todo el array y les aplica el radio de borde
             for (i = 0; i < x.length; i++) {
-                x[i].style.borderRadius = radioBorde + "%";
-            }
-            // floritura, lo aplica al relleno junto al tanque y el multicolor
-            document.getElementById("relleno").style.borderRadius = radioBorde + "%";
-            document.getElementById("rellenoHistorial").style.borderRadius = radioBorde + "%";
-            showSnackbar("Radio bordes: " + radioBorde + " %");
+                //guardar los id y los bordes al mismo tiempo que recorre los cuadritos
+                lastArrayID[lastArrayID.length] = x[i].id;
+                lastArrayRadio[lastArrayRadio.length] = $("[id = " + x[i].id + "]").css('border-radius');
+                x[i].style.borderRadius = radioBorde;
+            }            
+            showSnackbar("Radio bordes: " + radioBorde);
             // puede deshacer
             estadoBtnDeshacer(true);
             break;
@@ -753,9 +773,13 @@ function showModal() {
         case "radio":
             $("#marcoRadio").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<i class='far fa-circle'></i> Radio del borde";
-            document.getElementById("spanInfoModal").innerHTML = "Use el control para ajustar el radio de los bordes";
-            sliderRadio.value = radioBorde;
-            document.getElementById("muestraRadio").style.borderRadius = radioBorde + "%";
+            document.getElementById("spanInfoModal").innerHTML = "Use el control para definir el radio de los bordes que se aplicará";
+            // le quita el singo % a la variable y lo asigna al slider
+            sliderRadio.value = radioBorde.slice(0, radioBorde.length - 1);
+            // la muestra se ajusta
+            document.getElementById("muestraRadio").style.borderRadius = radioBorde;
+            // por defecto, no será global
+            document.getElementById("myCheckRadioGlobal").checked = false;
             break;
         case "rgb":
             $("#marcoRGB").css("display", "block");
@@ -2069,7 +2093,7 @@ function cambiarModo(nuevoModo) {
     $(".columna").html("");
     $(".columna").removeClass("seleccionado");
     // elimina el modo seleccionado de todos los botones
-    $(".seleccionadoBtnModos").removeClass("seleccionadoBtnModos");
+    $(".seleccionadoBtnModos").removeClass("seleccionadoBtnModos");    
     if (modoActual != "libre") {
         //muestra y oculta elementos
         document.getElementById("BtnRellenar").style.display = "inline-block";
@@ -2352,16 +2376,15 @@ document.getElementById("BtnRellenar").onclick = function () {
 }
 // para ajustar el radio de los bordes
 document.getElementById("BtnRadioBordes").onclick = function () {
-    if (modoActual == "radio") {
-        showSnackbar("En construcción...");
-        return;
+    if (modoActual == "radio") { 
         // está en modo radio, entonces se puede ajustar el valor
-        modalActual = "radio";
+        modalActual = "radio"; 
         //muestra el modal
         showModal();
     } else {
         // pasa a modo radio
-        cambiarModo("radio");        
+        cambiarModo("radio");
+        // en modo radio se ve la respectiva flecha en el btn radio
     }    
 }
 // alterna entre con y sin bordes
@@ -2479,22 +2502,17 @@ document.getElementById("BtnDeshacer").onclick = function () {
             // alterna borde
             alternarBordes(false);
             break;
-        case "CambiarRadioBordesGlobal":
-            // vuelve al radio anterior
-            radioBorde = lastRadioBorde;
+        case "CambiarRadioBordesGlobal":            
             //obtiene un array con todos los de la clase columna
             var x = document.getElementsByClassName("columna");
             var i;
-            //recorre todo el array y les aplica el estilo de borde
-            for (i = 0; i < x.length; i++) {
-                x[i].style.borderRadius = radioBorde + "%";
+            //recorre todo el array y les aplica el estilo de borde guardado         
+            for (i = 0; i < lastArrayID.length; i++) {
+                document.getElementById(lastArrayID[i]).style.borderRadius = lastArrayRadio[i];
             }
-            // floritura, lo aplica al relleno junto a al tanque y el multicolor
-            document.getElementById("relleno").style.borderRadius = radioBorde + "%";
-            document.getElementById("rellenoHistorial").style.borderRadius = radioBorde + "%";
             break;
         case "CambiarRadioBordesCelda":
-            // vuelve al radio anterior
+            // vuelve al radio anterior el cuadrito que cambió
             document.getElementById(lastID).style.borderRadius = lastRadioBorde; 
             break;
         case "pintar":

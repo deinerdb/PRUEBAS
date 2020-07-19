@@ -760,7 +760,18 @@ html, body {
     /* una sombra para que se vea el ícono de cualquier color */
     text-shadow: 0px 0px 2px #ffffff;
 }
-
+#icoCircularFlecha {
+    margin-left: 5px;
+    display: none;
+}
+/* para dar cabida a la flechita */
+#BtnRadioBordes.seleccionadoBtnModos {
+    min-width: 56px !important;
+    width: 56px !important;
+}
+.seleccionadoBtnModos #icoCircularFlecha {
+    display: inline-block !important;
+}
 #aIzquierda {
     font-size: 1.4em;
     color: purple;
@@ -1341,14 +1352,14 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores {
     font-size: 1.2em;
     vertical-align: text-bottom;
     /* Rounded corners iniciales */
-    -moz-border-radius: 0px;
-    -webkit-border-radius: 0px;
-    border-radius: 0px; /* Rounded corners */
+    -moz-border-radius: 0%;
+    -webkit-border-radius: 0%;
+    border-radius: 0%; /* Rounded corners */
     /* sutil efecto */
-    -moz-transition: -moz-border-radius 0.3s, background-color 0.6s;
-    -o-transition: border-radius 0.3s, background-color 0.6s;
-    -webkit-transition: -webkit-border-radius 0.3s, background-color 0.6s;
-    transition: border-radius 0.3s, background-color 0.6s;
+    -moz-transition: -moz-border-radius 0.6s, background-color 0.6s;
+    -o-transition: border-radius 0.6s, background-color 0.6s;
+    -webkit-transition: -webkit-border-radius 0.6s, background-color 0.6s;
+    transition: border-radius 0.6s, background-color 0.6s;
 }
 
 /* Selecciona cualquier <input> no válido */
@@ -2260,3 +2271,82 @@ input[type=range] {
     background-image: -moz-linear-gradient(right, #000000, #0000e6); /* For Firefox 3.6 to 15 */
     background-image: linear-gradient(to right, #000000, #0000e6); /* Standard syntax (must be last) */
 }
+
+/*/ INICIO css para el checkbox personalizado*/
+/* propios de pixeles */
+#checkRadioGlobal{
+    text-align: left;
+    margin: 26px 4px 12px 24px;
+}
+/* The container */
+.contenedorCheckbox {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 18px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: purple;
+}
+
+    /* Hide the browser's default checkbox */
+    .contenedorCheckbox input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: lavender; /*lavender*/
+}
+
+/* On mouse-over, add a grey background color */
+.contenedorCheckbox:hover input ~ .checkmark {
+    background-color: #bfbff2; /*un poco más oscuro que el lavender*/
+}
+
+/* When the checkbox is checked, add a mediumpurple background */
+.contenedorCheckbox input:checked ~ .checkmark {
+    background-color: mediumpurple; /*  mediumpurple */
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.contenedorCheckbox input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.contenedorCheckbox .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -ms-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+/*/ FIN css para el checkbox personalizado*/
