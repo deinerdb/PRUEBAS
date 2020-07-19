@@ -1351,10 +1351,23 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores {
     visibility: visible;
     font-size: 1.2em;
     vertical-align: text-bottom;
-    /* Rounded corners iniciales */
-    -moz-border-radius: 0%;
-    -webkit-border-radius: 0%;
-    border-radius: 0%; /* Rounded corners */
+    /* SIN BORDE REDONDEADO, especificados por un bug de moz */
+    /* arriba izquierda*/
+    -webkit-border-top-left-radius: 0%;
+    -moz-border-radius-topleft: 0%;
+    border-top-left-radius: 0%;
+    /* arriba derecha */
+    -moz-border-radius-topright: 0%;
+    -webkit-border-top-right-radius: 0%;
+    border-top-right-radius: 0%;
+    /* abajo izquierda */
+    -moz-border-radius-bottomleft: 0%;
+    -webkit-border-bottom-left-radius: 0%;
+    border-bottom-left-radius: 0%;
+    /* abajo derecha */
+    -moz-border-radius-bottomright: 0%;
+    -webkit-border-bottom-right-radius: 0%;
+    border-bottom-right-radius: 0%;
     /* sutil efecto */
     -moz-transition: -moz-border-radius 0.6s, background-color 0.6s;
     -o-transition: border-radius 0.6s, background-color 0.6s;
@@ -1731,10 +1744,24 @@ body {
 }
 
 .columna {
-    /* SIN BORDE REDONDEADO*/
-    -moz-border-radius: 0%;
-    -webkit-border-radius: 0%;
-    border-radius: 0%;
+    /* SIN BORDE REDONDEADO, especificados por un bug de moz */
+    /* arriba izquierda*/
+    -webkit-border-top-left-radius: 0%;
+    -moz-border-radius-topleft: 0%;
+    border-top-left-radius: 0%;
+    /* arriba derecha */
+    -moz-border-radius-topright: 0%;
+    -webkit-border-top-right-radius: 0%;
+    border-top-right-radius: 0%;
+    /* abajo izquierda */
+    -moz-border-radius-bottomleft: 0%;
+    -webkit-border-bottom-left-radius: 0%;
+    border-bottom-left-radius: 0%;
+    /* abajo derecha */
+    -moz-border-radius-bottomright: 0%;
+    -webkit-border-bottom-right-radius: 0%;
+    border-bottom-right-radius: 0%;
+    /* cursor */
     cursor: pointer;
     text-align: center;
     font-weight: bold;
