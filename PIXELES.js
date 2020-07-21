@@ -101,22 +101,24 @@ function animarBtnHistorial() {
     if (idAnimarHistorial > arrayColoresUsados.length - 1) {
         idAnimarHistorial = 0;
     }
+
     // alterna círculo cuadro
+    var rell = document.getElementById("rellenoHistorial");
     if ($("#rellenoHistorial").css('borderBottomLeftRadius') == "0%") {
-        document.getElementById("rellenoHistorial").style.borderRadius = "50%";
-        document.getElementById("rellenoHistorial").style.borderBottomLeftRadius = "50%";
-        document.getElementById("rellenoHistorial").style.borderBottomRightRadius = "50%";
-        document.getElementById("rellenoHistorial").style.borderTopLeftRadius = "50%";
-        document.getElementById("rellenoHistorial").style.borderTopRightRadius = "50%";
+        //document.getElementById("rellenoHistorial").style.borderRadius = "50%";
+        rell.style.borderBottomLeftRadius = "50%";
+        rell.style.borderBottomRightRadius = "50%";
+        rell.style.borderTopLeftRadius = "50%";
+        rell.style.borderTopRightRadius = "50%";
     } else {
-        document.getElementById("rellenoHistorial").style.borderRadius = "0%";
-        document.getElementById("rellenoHistorial").style.borderBottomLeftRadius = "0%";
-        document.getElementById("rellenoHistorial").style.borderBottomRightRadius = "0%";
-        document.getElementById("rellenoHistorial").style.borderTopLeftRadius = "0%";
-        document.getElementById("rellenoHistorial").style.borderTopRightRadius = "0%";        
+        //document.getElementById("rellenoHistorial").style.borderRadius = "0%";
+        rell.style.borderBottomLeftRadius = "0%";
+        rell.style.borderBottomRightRadius = "0%";
+        rell.style.borderTopLeftRadius = "0%";
+        rell.style.borderTopRightRadius = "0%";        
     }
     // va cambiando el color
-    document.getElementById("rellenoHistorial").style.backgroundColor = arrayColoresUsados[idAnimarHistorial];
+    rell.style.backgroundColor = arrayColoresUsados[idAnimarHistorial];
     idAnimarHistorial = 1 + idAnimarHistorial;
 }
 // ********** IMPORTANTE ***********
@@ -395,19 +397,21 @@ function bDesdeHex(hex) {
     return miB;
 }
 // ajustes según la disponibilidad de deshacer
-function estadoBtnDeshacer(activar) {
+function estadoBtnDeshacer(activar, captionBtn) {
     if (activar == true) {
         // activa el botón deshacer
         document.getElementById("BtnDeshacer").disabled = false;
         document.getElementById("BtnDeshacer").style.opacity = "1";
-        document.getElementById("BtnDeshacer").style.cursor = "pointer";
+        document.getElementById("BtnDeshacer").style.cursor = "pointer";        
     } else {
         // dasactiva el botón deshacer
         // porque solo se puede deshacer una sola vez
         document.getElementById("BtnDeshacer").disabled = true;
         document.getElementById("BtnDeshacer").style.opacity = "0.5";
         document.getElementById("BtnDeshacer").style.cursor = "not-allowed";
+        captionBtn = "No se puede deshacer";
     }
+    document.getElementById("BtnDeshacer").setAttribute("title", captionBtn);
 }
 function alturaModal() {
     var h = window.innerHeight
@@ -530,7 +534,7 @@ function AplicarFiltro() {
     // Safari 6.0 - 9.0
     document.getElementById("contenedor").style.WebkitFilter = y[x].value;
     // activa el botón deshacer
-    estadoBtnDeshacer(true);
+    estadoBtnDeshacer(true, "Deshacer filtro");
 }
 
 //para el modal
@@ -700,7 +704,7 @@ function aceptarModal() {
                 // ya asignó el valor, se aplicará al hacer click en cada celda
                 // informa y sale
                 // nada que deshacer
-                showSnackbar("Radio bordes: " + radioBorde);
+                showSnackbar("Radio aplicado al hacer click: " + radioBorde);
                 break;
             }
             // en este punto sabemos que se aplicará a todos...
@@ -716,15 +720,15 @@ function aceptarModal() {
                 //guardar los id y los bordes al mismo tiempo que recorre los cuadritos
                 lastArrayID[lastArrayID.length] = x[i].id;
                 lastArrayRadio[lastArrayRadio.length] = $("[id = " + x[i].id + "]").css('borderBottomLeftRadius');
-                x[i].style.borderRadius = radioBorde;
+                //x[i].style.borderRadius = radioBorde;
                 x[i].style.borderBottomLeftRadius = radioBorde;
                 x[i].style.borderBottomRightRadius = radioBorde;
                 x[i].style.borderTopLeftRadius = radioBorde;
                 x[i].style.borderTopRightRadius = radioBorde;
             }            
-            showSnackbar("Radio bordes: " + radioBorde);
+            showSnackbar("Radio aplicado a todos los bordes: " + radioBorde);
             // puede deshacer
-            estadoBtnDeshacer(true);
+            estadoBtnDeshacer(true, "Deshacer cambio global de radios");
             break;
         case "rgb":
             // actualiza el color actual según el rgb seleccionado
@@ -1503,7 +1507,7 @@ function rellenarZona(colorViejo, colorNuevo, miID) {
     // colorActual está en hexadecimal
     procesarHistorial(colorActual);
     // activa el botón deshacer
-    estadoBtnDeshacer(true);
+    estadoBtnDeshacer(true, "Deshacer relleno selectivo");
 }
 //procesan los colores usados para el historial de color
 // color usado debe ser hexadecimal
@@ -1592,7 +1596,7 @@ function hacerClick(celda) {
             //procesa el historial de colores
             procesarHistorial(colorActual);
             // activa el botón deshacer
-            estadoBtnDeshacer(true);
+            estadoBtnDeshacer(true, "Deshacer pincelada");
             break;
         case "radio":
             // modo editor de radio de bordes
@@ -1602,13 +1606,14 @@ function hacerClick(celda) {
             lastRadioBorde = $("[id = " + celda + "]").css('borderBottomLeftRadius');            
             lastAction = "CambiarRadioBordesCelda";
             //ajusta el radio de la celda
-            document.getElementById(celda).style.borderRadius = radioBorde;
-            document.getElementById(celda).style.borderBottomLeftRadius = radioBorde;
-            document.getElementById(celda).style.borderBottomRightRadius = radioBorde;
-            document.getElementById(celda).style.borderTopLeftRadius = radioBorde;
-            document.getElementById(celda).style.borderTopRightRadius = radioBorde;
+            //document.getElementById(celda).style.borderRadius = radioBorde;
+            var miCeldaRadio = document.getElementById(celda);
+            miCeldaRadio.style.borderBottomLeftRadius = radioBorde;
+            miCeldaRadio.style.borderBottomRightRadius = radioBorde;
+            miCeldaRadio.style.borderTopLeftRadius = radioBorde;
+            miCeldaRadio.style.borderTopRightRadius = radioBorde;
             // activa el botón deshacer
-            estadoBtnDeshacer(true);
+            estadoBtnDeshacer(true, "Deshacer radio de los bordes");
             break;
         case "borrador":
             //modo borrador
@@ -1619,7 +1624,7 @@ function hacerClick(celda) {
             //borra
             document.getElementById(celda).style.backgroundColor = fondoAplicado;
             // activa el botón deshacer
-            estadoBtnDeshacer(true);
+            estadoBtnDeshacer(true, "Deshacer borrado");
             break;
         case "extraer":
             //modo extraer color             
@@ -2082,7 +2087,7 @@ function dimensionar() {
     //PERO OJO QUE maxWidth DEL CONTENEDOR ES 90%, NUNCA DESBORDA PANTALLA.
     document.getElementById("contenedor").style.width = anchoCont + "px";
     // activa el botón deshacer
-    estadoBtnDeshacer(true);
+    estadoBtnDeshacer(true, "Deshacer dimensionado");
 }
 
 //cambia el modo seleccionado, llamada por los botones de cambio de modo
@@ -2246,7 +2251,7 @@ function cambiarModo(nuevoModo) {
 //se selecciona ACEPTAR en el modo libre
 document.getElementById("BtnAceptarLibre").onclick = function () {
     cambiarModo(lastModo);
-    estadoBtnDeshacer(true);
+    estadoBtnDeshacer(true, "Deshacer cambios del modo libre");
 }
 //se selecciona CANCELAR en el modo libre
 document.getElementById("BtnCancelarLibre").onclick = function () {
@@ -2358,7 +2363,7 @@ document.getElementById("BtnActualizar").onclick = function () {
     lastFondoAplicado = fondoAplicado;
     fondoAplicado = "#ffffff";
     // activa el botón deshacer
-    estadoBtnDeshacer(true);
+    estadoBtnDeshacer(true, "Deshacer borrar todo");
     ocupado = false;
 }
 //aplica a todos los cuadros el relleno del color actual
@@ -2387,7 +2392,7 @@ document.getElementById("BtnRellenar").onclick = function () {
     // historial de colorActual
     procesarHistorial(colorActual);
     // activa el botón deshacer
-    estadoBtnDeshacer(true);
+    estadoBtnDeshacer(true, "Deshacer relleno global");
     ocupado = false;
 }
 // para ajustar el radio de los bordes
@@ -2440,7 +2445,7 @@ document.getElementById("BtnRejilla").onclick = function () {
     // guarda para poder deshacer
     lastAction = "alternarBordes";
     // activa el botón deshacer
-    estadoBtnDeshacer(true);
+    estadoBtnDeshacer(true, "Deshacer alternar bordes");
     ocupado = false;
 }
 // para definir ancho y tipo de borde
@@ -2476,7 +2481,7 @@ document.getElementById("BtnColorRejilla").onclick = function () {
     procesarHistorial(colorRejilla);
     showSnackbar("Color bordes: " + colorRejilla);
     // activa el botón deshacer
-    estadoBtnDeshacer(true);
+    estadoBtnDeshacer(true, "Deshacer color de bordes");
     ocupado = false;
 }
 // cambia el color del lienzo
@@ -2491,7 +2496,7 @@ document.getElementById("BtnColorLienzo").onclick = function () {
     // historial actualizado
     procesarHistorial(colorLienzo);
     showSnackbar("Color del lienzo: " + colorLienzo);
-    estadoBtnDeshacer(true);
+    estadoBtnDeshacer(true, "Deshacer color de lienzo");
 }
 
 // deshace la última acción
@@ -2501,6 +2506,7 @@ document.getElementById("BtnDeshacer").onclick = function () {
         return;
     }
     ocupado = true;
+    var mensaje = "";
     switch (lastAction) {
         case "filtrar":
             // deshace el filtro
@@ -2512,40 +2518,48 @@ document.getElementById("BtnDeshacer").onclick = function () {
             document.getElementById("contenedor").style.filter = y[x].value;
             // Safari 6.0 - 9.0
             document.getElementById("contenedor").style.WebkitFilter = y[x].value;
-
+            mensaje = "Se deshizo el filtro aplicado";
             break;
         case "alternarBordes":
             // alterna borde
             alternarBordes(false);
+            mensaje = "Se deshizo alternar bordes";
             break;
         case "CambiarRadioBordesGlobal":            
             //obtiene un array con todos los de la clase columna
             var x = document.getElementsByClassName("columna");
             var i;
+            var elemRadio;
             //recorre todo el array y les aplica el estilo de borde guardado         
             for (i = 0; i < lastArrayID.length; i++) {
-                document.getElementById(lastArrayID[i]).style.borderRadius = lastArrayRadio[i];
-                document.getElementById(lastArrayID[i]).style.borderBottomLeftRadius = lastArrayRadio[i];
-                document.getElementById(lastArrayID[i]).style.borderBottomRightRadius = lastArrayRadio[i];
-                document.getElementById(lastArrayID[i]).style.borderTopLeftRadius = lastArrayRadio[i];
-                document.getElementById(lastArrayID[i]).style.borderTopRightRadius = lastArrayRadio[i];
+                //document.getElementById(lastArrayID[i]).style.borderRadius = lastArrayRadio[i];
+                elemRadio = document.getElementById(lastArrayID[i]);
+                elemRadio.style.borderBottomLeftRadius = lastArrayRadio[i];
+                elemRadio.style.borderBottomRightRadius = lastArrayRadio[i];
+                elemRadio.style.borderTopLeftRadius = lastArrayRadio[i];
+                elemRadio.style.borderTopRightRadius = lastArrayRadio[i];
             }
+            mensaje = "Se deshizo cambio de radio de bordes global";
             break;
         case "CambiarRadioBordesCelda":
             // vuelve al radio anterior el cuadrito que cambió
-            document.getElementById(lastID).style.borderRadius = lastRadioBorde;
-            document.getElementById(lastID).style.borderBottomLeftRadius = lastRadioBorde;
-            document.getElementById(lastID).style.borderBottomRightRadius = lastRadioBorde;
-            document.getElementById(lastID).style.borderTopLeftRadius = lastRadioBorde;
-            document.getElementById(lastID).style.borderTopRightRadius = lastRadioBorde;
+            //document.getElementById(lastID).style.borderRadius = lastRadioBorde;
+            var elemRadio = document.getElementById(lastID);
+            elemRadio.style.borderBottomLeftRadius = lastRadioBorde;
+            elemRadio.style.borderBottomRightRadius = lastRadioBorde;
+            elemRadio.style.borderTopLeftRadius = lastRadioBorde;
+            elemRadio.style.borderTopRightRadius = lastRadioBorde;
+            mensaje = "Se deshizo radio de bordes";
             break;
         case "pintar":
             // deshace lo pintado
             document.getElementById(lastID).style.backgroundColor = lastColor;
+            mensaje = "Se deshizo la pincelada";
             break;
         case "borrar":
             // deshace lo borrado
             document.getElementById(lastID).style.backgroundColor = lastColor;
+            mensaje = "Se deshizo el borrado";
             break;
         case "rellenar":
             // deshace el relleno
@@ -2555,6 +2569,7 @@ document.getElementById("BtnDeshacer").onclick = function () {
             for (i = 0; i < lastArrayID.length; i++) {
                 document.getElementById(lastArrayID[i]).style.backgroundColor = lastArrayColor[i];
             }
+            mensaje = "Se deshizo el relleno global";
             break;
         case "libre":
             // deshace cualquier cambio de color            
@@ -2563,11 +2578,13 @@ document.getElementById("BtnDeshacer").onclick = function () {
             for (i = 0; i < lastArrayID.length; i++) {
                 document.getElementById(lastArrayID[i]).style.backgroundColor = lastArrayColor[i];
             }
+            mensaje = "Se deshicieron los cambios del modo libre";
             break;
         case "cambiarColorLienzo":
             // deshace el color aplicado
             colorLienzo = lastColorLienzo;
             document.getElementById("contenedor").style.backgroundColor = colorLienzo;
+            mensaje = "Se deshizo el color del lienzo";
             break;
         case "cambiarColorRejilla":
             // deshace el color de la rejilla
@@ -2585,6 +2602,7 @@ document.getElementById("BtnDeshacer").onclick = function () {
             for (i = 0; i < x.length; i++) {
                 x[i].style.border = miBorde;
             }
+            mensaje = "Se deshizo el color de los bordes";
             break;
         case "dimensionar":
             // deshace el ajuste de filas y columnas
@@ -2623,6 +2641,7 @@ document.getElementById("BtnDeshacer").onclick = function () {
             //PERO OJO QUE maxWidth DEL CONTENEDOR ES 90%, NUNCA DESBORDA PANTALLA.
             document.getElementById("contenedor").style.width = anchoCont + "px";
             permitirEvento = true;
+            mensaje = "Se deshizo el dimensionado";
             break;
         case "actualizar":
             // deshace el limpiado total
@@ -2633,6 +2652,7 @@ document.getElementById("BtnDeshacer").onclick = function () {
             for (i = 0; i < lastArrayID.length; i++) {
                 document.getElementById(lastArrayID[i]).style.backgroundColor = lastArrayColor[i];
             }
+            mensaje = "Se deshizo el borrado total";
             break;
         case "rellenarSelectivo":
             var i;
@@ -2640,10 +2660,13 @@ document.getElementById("BtnDeshacer").onclick = function () {
             for (i = 0; i < lastArrayID.length; i++) {
                 document.getElementById(lastArrayID[i]).style.backgroundColor = lastArrayColor[i];
             }
+            mensaje = "Se deshizo el relleno selectivo";
             break;
         default:
-            showSnackbar("No se pudo deshacer");
+            mensaje = "No se pudo deshacer";
     }
+    // informa
+    showSnackbar(mensaje);
     // desactiva el btn deshacer, solo se puede hacer una vez
     estadoBtnDeshacer(false);
     ocupado = false;
