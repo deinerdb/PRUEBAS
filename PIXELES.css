@@ -716,10 +716,7 @@ html, body {
 }
 
 #relleno, #muestraRadio {
-    /* Rounded corners iniciales */
-    -moz-border-radius: 0px;
-    -webkit-border-radius: 0px;
-    border-radius: 0px; /* Rounded corners */
+    /* Rounded corners iniciales manejados por data-radio */    
     /* sutil efecto */
     -moz-transition: -moz-border-radius 0.3s;
     -o-transition: border-radius 0.3s;
@@ -1351,23 +1348,7 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores {
     visibility: visible;
     font-size: 1.2em;
     vertical-align: text-bottom;
-    /* SIN BORDE REDONDEADO, especificados por un bug de moz */
-    /* arriba izquierda*/
-    -webkit-border-top-left-radius: 0%;
-    -moz-border-radius-topleft: 0%;
-    border-top-left-radius: 0%;
-    /* arriba derecha */
-    -moz-border-radius-topright: 0%;
-    -webkit-border-top-right-radius: 0%;
-    border-top-right-radius: 0%;
-    /* abajo izquierda */
-    -moz-border-radius-bottomleft: 0%;
-    -webkit-border-bottom-left-radius: 0%;
-    border-bottom-left-radius: 0%;
-    /* abajo derecha */
-    -moz-border-radius-bottomright: 0%;
-    -webkit-border-bottom-right-radius: 0%;
-    border-bottom-right-radius: 0%;
+    /* bordes manejados con data-radio */    
     /* sutil efecto */
     -moz-transition: -moz-border-radius 0.6s, background-color 0.6s;
     -o-transition: border-radius 0.6s, background-color 0.6s;
@@ -1742,25 +1723,20 @@ body {
         box-shadow: 0px 0px 0.1em #ffffff, 0px 0px 0.2em #990099, 0px 0px 0.4em #000000;
     }
 }
-
-.columna {
-    /* SIN BORDE REDONDEADO, especificados por un bug de moz */
-    /* arriba izquierda*/
-    -webkit-border-top-left-radius: 0%;
-    -moz-border-radius-topleft: 0%;
-    border-top-left-radius: 0%;
-    /* arriba derecha */
-    -moz-border-radius-topright: 0%;
-    -webkit-border-top-right-radius: 0%;
-    border-top-right-radius: 0%;
-    /* abajo izquierda */
-    -moz-border-radius-bottomleft: 0%;
-    -webkit-border-bottom-left-radius: 0%;
-    border-bottom-left-radius: 0%;
-    /* abajo derecha */
-    -moz-border-radius-bottomright: 0%;
-    -webkit-border-bottom-right-radius: 0%;
-    border-bottom-right-radius: 0%;
+/* para los bordes redondeados, caso por caso entero de 0% a 50% */
+/* más código, pero mejor rendimiento */
+*[data-radio='0%'] {
+    -moz-border-radius: 0% !important;
+    -webkit-border-radius: 0% !important;
+    border-radius: 0% !important;
+}
+*[data-radio='50%'] {
+    -moz-border-radius: 50% !important;
+    -webkit-border-radius: 50% !important;
+    border-radius: 50% !important;
+}
+.columna {   
+    /* radios manejados con data-radio */
     /* cursor */
     cursor: pointer;
     text-align: center;

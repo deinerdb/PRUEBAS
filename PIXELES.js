@@ -11,7 +11,7 @@ var modalActual = "ninguno";
 var miBodyScroll;
 var miDocumentScroll;
 //para guardar la última acción
-var lastRadioBorde = 0;
+var lastRadioBorde = "0%";
 var lastAction;
 var lastIndexFiltro;
 var actualIndexFiltro;
@@ -103,19 +103,11 @@ function animarBtnHistorial() {
     }
 
     // alterna círculo cuadro
-    var rell = document.getElementById("rellenoHistorial");
-    if ($("#rellenoHistorial").css('borderBottomLeftRadius') == "0%") {
-        //document.getElementById("rellenoHistorial").style.borderRadius = "50%";
-        rell.style.borderBottomLeftRadius = "50%";
-        rell.style.borderBottomRightRadius = "50%";
-        rell.style.borderTopLeftRadius = "50%";
-        rell.style.borderTopRightRadius = "50%";
+    var rell = document.getElementById("rellenoHistorial");    
+    if (rell.dataset.radio == "0%") {
+        rell.dataset.radio = "50%";        
     } else {
-        //document.getElementById("rellenoHistorial").style.borderRadius = "0%";
-        rell.style.borderBottomLeftRadius = "0%";
-        rell.style.borderBottomRightRadius = "0%";
-        rell.style.borderTopLeftRadius = "0%";
-        rell.style.borderTopRightRadius = "0%";        
+        rell.dataset.radio = "0%";              
     }
     // va cambiando el color
     rell.style.backgroundColor = arrayColoresUsados[idAnimarHistorial];
@@ -159,7 +151,7 @@ document.getElementById("relleno").style.backgroundColor = "#000000";
 document.getElementById("BtnRejilla").style.border = "3px double #ffffff";
 // radio por defecto es 50 %
 document.getElementById("rangoRadioBordes").value = 50;
-document.getElementById("muestraRadio").style.borderRadius = "50%";
+//document.getElementById("muestraRadio").style.borderRadius = "50%";
 //document.getElementById("relleno").style.borderRadius = "50%";
 //document.getElementById("rellenoHistorial").style.borderRadius = "50%";
 
@@ -218,12 +210,12 @@ var getCírculo = document.getElementById("icoCírculo");
 getCuadro.onclick = function () {
     // cero radio                   
     sliderRadio.value = 0;
-    document.getElementById("muestraRadio").style.borderRadius = 0 + "%";
+    document.getElementById("muestraRadio").dataset.radio = "0%";
 }
 getCírculo.onclick = function () {
     // 50% radio                   
     sliderRadio.value = 50;
-    document.getElementById("muestraRadio").style.borderRadius = 50 + "%";
+    document.getElementById("muestraRadio").dataset.radio = "50%";
 }
 //radio cambia dinámicamente con el slider
 //input y change, redundantes por un bug en IE
@@ -243,7 +235,8 @@ function actualizaRadio(nuevoValor) {
     } else {
         nuevo = decValues[pos];
     }
-    document.getElementById("muestraRadio").style.borderRadius = nuevo + "%";
+    var miValor = nuevo + "%";
+    document.getElementById("muestraRadio").dataset.radio = miValor;
 }
 var timerRGB;
 // ajustes rgb según los slider
@@ -718,13 +711,9 @@ function aceptarModal() {
             //recorre todo el array y les aplica el radio de borde
             for (i = 0; i < x.length; i++) {
                 //guardar los id y los bordes al mismo tiempo que recorre los cuadritos
-                lastArrayID[lastArrayID.length] = x[i].id;
-                lastArrayRadio[lastArrayRadio.length] = $("[id = " + x[i].id + "]").css('borderBottomLeftRadius');
-                //x[i].style.borderRadius = radioBorde;
-                x[i].style.borderBottomLeftRadius = radioBorde;
-                x[i].style.borderBottomRightRadius = radioBorde;
-                x[i].style.borderTopLeftRadius = radioBorde;
-                x[i].style.borderTopRightRadius = radioBorde;
+                lastArrayID[lastArrayID.length] = x[i].id;                
+                lastArrayRadio[lastArrayRadio.length] = x[i].dataset.radio;                
+                x[i].dataset.radio = radioBorde;
             }            
             showSnackbar("Radio aplicado a todos los bordes: " + radioBorde);
             // puede deshacer
@@ -793,7 +782,7 @@ function showModal() {
             // le quita el singo % a la variable y lo asigna al slider
             sliderRadio.value = radioBorde.slice(0, radioBorde.length - 1);
             // la muestra se ajusta
-            document.getElementById("muestraRadio").style.borderRadius = radioBorde;
+            document.getElementById("muestraRadio").dataset.radio = radioBorde;
             // por defecto, no será global
             document.getElementById("myCheckRadioGlobal").checked = false;
             break;
@@ -1602,16 +1591,11 @@ function hacerClick(celda) {
             // modo editor de radio de bordes
             // guarda primero
             lastID = celda;
-            //lastRadioBorde = document.getElementById(celda).style.borderRadius;
-            lastRadioBorde = $("[id = " + celda + "]").css('borderBottomLeftRadius');            
+            var miCeldaRadio = document.getElementById(celda);                      
+            lastRadioBorde = miCeldaRadio.dataset.radio;
             lastAction = "CambiarRadioBordesCelda";
             //ajusta el radio de la celda
-            //document.getElementById(celda).style.borderRadius = radioBorde;
-            var miCeldaRadio = document.getElementById(celda);
-            miCeldaRadio.style.borderBottomLeftRadius = radioBorde;
-            miCeldaRadio.style.borderBottomRightRadius = radioBorde;
-            miCeldaRadio.style.borderTopLeftRadius = radioBorde;
-            miCeldaRadio.style.borderTopRightRadius = radioBorde;
+            miCeldaRadio.dataset.radio = radioBorde;            
             // activa el botón deshacer
             estadoBtnDeshacer(true, "Deshacer radio de los bordes");
             break;
@@ -1677,6 +1661,7 @@ function crearCuadritos() {
             miColumna.setAttribute("class", "columna");
             miID = "f" + fila + "c" + columna;
             miColumna.id = miID;
+            miColumna.dataset.radio = "0%";
             miColumna.addEventListener("click", function () { hacerClick(this.id); });
             // por las x
             miColumna.style.fontSize = tamaño * 0.8 + "px";
@@ -2528,27 +2513,16 @@ document.getElementById("BtnDeshacer").onclick = function () {
         case "CambiarRadioBordesGlobal":            
             //obtiene un array con todos los de la clase columna
             var x = document.getElementsByClassName("columna");
-            var i;
-            var elemRadio;
+            var i;            
             //recorre todo el array y les aplica el estilo de borde guardado         
-            for (i = 0; i < lastArrayID.length; i++) {
-                //document.getElementById(lastArrayID[i]).style.borderRadius = lastArrayRadio[i];
-                elemRadio = document.getElementById(lastArrayID[i]);
-                elemRadio.style.borderBottomLeftRadius = lastArrayRadio[i];
-                elemRadio.style.borderBottomRightRadius = lastArrayRadio[i];
-                elemRadio.style.borderTopLeftRadius = lastArrayRadio[i];
-                elemRadio.style.borderTopRightRadius = lastArrayRadio[i];
+            for (i = 0; i < lastArrayID.length; i++) {                
+                document.getElementById(lastArrayID[i]).dataset.radio = lastArrayRadio[i];
             }
             mensaje = "Se deshizo cambio de radio de bordes global";
             break;
         case "CambiarRadioBordesCelda":
-            // vuelve al radio anterior el cuadrito que cambió
-            //document.getElementById(lastID).style.borderRadius = lastRadioBorde;
-            var elemRadio = document.getElementById(lastID);
-            elemRadio.style.borderBottomLeftRadius = lastRadioBorde;
-            elemRadio.style.borderBottomRightRadius = lastRadioBorde;
-            elemRadio.style.borderTopLeftRadius = lastRadioBorde;
-            elemRadio.style.borderTopRightRadius = lastRadioBorde;
+            // vuelve al radio anterior el cuadrito que cambió            
+            document.getElementById(lastID).dataset.radio = lastRadioBorde;
             mensaje = "Se deshizo radio de bordes";
             break;
         case "pintar":
