@@ -151,6 +151,7 @@ document.getElementById("relleno").style.backgroundColor = "#000000";
 document.getElementById("BtnRejilla").style.border = "3px double #ffffff";
 // radio por defecto es 50 %
 document.getElementById("rangoRadioBordes").value = 50;
+// el texto de la muestra está en html y su radio se maneja con data-radio
 //document.getElementById("muestraRadio").style.borderRadius = "50%";
 //document.getElementById("relleno").style.borderRadius = "50%";
 //document.getElementById("rellenoHistorial").style.borderRadius = "50%";
@@ -207,15 +208,18 @@ function cancelFullScreen() {
 var sliderRadio = document.getElementById("rangoRadioBordes");
 var getCuadro = document.getElementById("icoCuadro");
 var getCírculo = document.getElementById("icoCírculo");
+var getMuestraRadio = document.getElementById("muestraRadio");
 getCuadro.onclick = function () {
     // cero radio                   
     sliderRadio.value = 0;
-    document.getElementById("muestraRadio").dataset.radio = "0%";
+    getMuestraRadio.dataset.radio = "0%";
+    getMuestraRadio.innerHTML = "0%";
 }
 getCírculo.onclick = function () {
     // 50% radio                   
     sliderRadio.value = 50;
-    document.getElementById("muestraRadio").dataset.radio = "50%";
+    getMuestraRadio.dataset.radio = "50%";
+    getMuestraRadio.innerHTML = "50%";
 }
 //radio cambia dinámicamente con el slider
 //input y change, redundantes por un bug en IE
@@ -236,7 +240,8 @@ function actualizaRadio(nuevoValor) {
         nuevo = decValues[pos];
     }
     var miValor = nuevo + "%";
-    document.getElementById("muestraRadio").dataset.radio = miValor;
+    getMuestraRadio.dataset.radio = miValor;
+    getMuestraRadio.innerHTML = miValor;
 }
 var timerRGB;
 // ajustes rgb según los slider
@@ -782,7 +787,7 @@ function showModal() {
             // le quita el singo % a la variable y lo asigna al slider
             sliderRadio.value = radioBorde.slice(0, radioBorde.length - 1);
             // la muestra se ajusta
-            document.getElementById("muestraRadio").dataset.radio = radioBorde;
+            getMuestraRadio.dataset.radio = radioBorde;
             // por defecto, no será global
             document.getElementById("myCheckRadioGlobal").checked = false;
             break;
@@ -1658,7 +1663,7 @@ function crearCuadritos() {
         // recorre columnas
         for (columna = 1; columna <= MAXNUMCOLUMNAS; columna++) {
             miColumna = document.createElement("DIV");
-            miColumna.setAttribute("class", "columna");
+            miColumna.setAttribute("class", "columna radio");
             miID = "f" + fila + "c" + columna;
             miColumna.id = miID;
             miColumna.dataset.radio = "0%";
