@@ -708,6 +708,11 @@ html, body {
 /*fin clase seleccionado*/
 
 #muestraRadio {
+    /* Rounded corners iniciales */
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    /*---*/
     border: 4px solid #990000;
     margin: 12px auto 24px auto;
     padding: 0;
@@ -732,13 +737,12 @@ html, body {
     flex-direction: column;
 }
 
-#relleno, #muestraRadio {
-    /* Rounded corners iniciales manejados por data-radio */    
+#relleno, #muestraRadio {    
     /* sutil efecto */
-    -moz-transition: -moz-border-radius 0.3s;
-    -o-transition: border-radius 0.3s;
-    -webkit-transition: -webkit-border-radius 0.3s;
-    transition: border-radius 0.3s;    
+    -moz-transition: -moz-border-radius 0.2s;
+    -o-transition: border-radius 0.2s;
+    -webkit-transition: -webkit-border-radius 0.2s;
+    transition: border-radius 0.2s;
 }
 
 
@@ -1365,7 +1369,11 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores {
     visibility: visible;
     font-size: 1.2em;
     vertical-align: text-bottom;
-    /* bordes manejados con data-radio */    
+    /* bordes manejados con data-radio */
+    /* Rounded corners iniciales */
+    -moz-border-radius: 0%;
+    -webkit-border-radius: 0%;
+    border-radius: 0%;
     /* sutil efecto */
     -moz-transition: -moz-border-radius 0.6s, background-color 0.6s;
     -o-transition: border-radius 0.6s, background-color 0.6s;
@@ -1740,316 +1748,11 @@ body {
         box-shadow: 0px 0px 0.1em #ffffff, 0px 0px 0.2em #990099, 0px 0px 0.4em #000000;
     }
 }
-/* para los bordes redondeados, caso por caso entero de 0% a 50% */
-/* más código, pero mejor rendimiento */
-.radio[data-radio='0%'] {
-    -moz-border-radius: 0%;
-    -webkit-border-radius: 0%;
-    border-radius: 0%;
-}
-
-.radio[data-radio='1%'] {
-    -moz-border-radius: 1%;
-    -webkit-border-radius: 1%;
-    border-radius: 1%;
-}
-
-.radio[data-radio='2%'] {
-    -moz-border-radius: 2%;
-    -webkit-border-radius: 2%;
-    border-radius: 2%;
-}
-
-.radio[data-radio='3%'] {
-    -moz-border-radius: 3%;
-    -webkit-border-radius: 3%;
-    border-radius: 3%;
-}
-
-.radio[data-radio='4%'] {
-    -moz-border-radius: 4%;
-    -webkit-border-radius: 4%;
-    border-radius: 4%;
-}
-
-.radio[data-radio='5%'] {
-    -moz-border-radius: 5%;
-    -webkit-border-radius: 5%;
-    border-radius: 5%;
-}
-
-.radio[data-radio='6%'] {
-    -moz-border-radius: 6%;
-    -webkit-border-radius: 6%;
-    border-radius: 6%;
-}
-
-.radio[data-radio='7%'] {
-    -moz-border-radius: 7%;
-    -webkit-border-radius: 7%;
-    border-radius: 7%;
-}
-
-.radio[data-radio='8%'] {
-    -moz-border-radius: 8%;
-    -webkit-border-radius: 8%;
-    border-radius: 8%;
-}
-
-.radio[data-radio='9%'] {
-    -moz-border-radius: 9%;
-    -webkit-border-radius: 9%;
-    border-radius: 9%;
-}
-
-.radio[data-radio='10%'] {
-    -moz-border-radius: 10%;
-    -webkit-border-radius: 10%;
-    border-radius: 10%;
-}
-
-.radio[data-radio='11%'] {
-    -moz-border-radius: 11%;
-    -webkit-border-radius: 11%;
-    border-radius: 11%;
-}
-
-.radio[data-radio='12%'] {
-    -moz-border-radius: 12%;
-    -webkit-border-radius: 12%;
-    border-radius: 12%;
-}
-
-.radio[data-radio='13%'] {
-    -moz-border-radius: 13%;
-    -webkit-border-radius: 13%;
-    border-radius: 13%;
-}
-
-.radio[data-radio='14%'] {
-    -moz-border-radius: 14%;
-    -webkit-border-radius: 14%;
-    border-radius: 14%;
-}
-
-.radio[data-radio='15%'] {
-    -moz-border-radius: 15%;
-    -webkit-border-radius: 15%;
-    border-radius: 15%;
-}
-
-.radio[data-radio='16%'] {
-    -moz-border-radius: 16%;
-    -webkit-border-radius: 16%;
-    border-radius: 16%;
-}
-
-.radio[data-radio='17%'] {
-    -moz-border-radius: 17%;
-    -webkit-border-radius: 17%;
-    border-radius: 17%;
-}
-
-.radio[data-radio='18%'] {
-    -moz-border-radius: 18%;
-    -webkit-border-radius: 18%;
-    border-radius: 18%;
-}
-
-.radio[data-radio='19%'] {
-    -moz-border-radius: 19%;
-    -webkit-border-radius: 19%;
-    border-radius: 19%;
-}
-
-.radio[data-radio='20%'] {
-    -moz-border-radius: 20%;
-    -webkit-border-radius: 20%;
-    border-radius: 20%;
-}
-
-.radio[data-radio='21%'] {
-    -moz-border-radius: 21%;
-    -webkit-border-radius: 21%;
-    border-radius: 21%;
-}
-
-.radio[data-radio='22%'] {
-    -moz-border-radius: 22%;
-    -webkit-border-radius: 22%;
-    border-radius: 22%;
-}
-
-.radio[data-radio='23%'] {
-    -moz-border-radius: 23%;
-    -webkit-border-radius: 23%;
-    border-radius: 23%;
-}
-
-.radio[data-radio='24%'] {
-    -moz-border-radius: 24%;
-    -webkit-border-radius: 24%;
-    border-radius: 24%;
-}
-
-.radio[data-radio='25%'] {
-    -moz-border-radius: 25%;
-    -webkit-border-radius: 25%;
-    border-radius: 25%;
-}
-
-.radio[data-radio='26%'] {
-    -moz-border-radius: 26%;
-    -webkit-border-radius: 26%;
-    border-radius: 26%;
-}
-
-.radio[data-radio='27%'] {
-    -moz-border-radius: 27%;
-    -webkit-border-radius: 27%;
-    border-radius: 27%;
-}
-
-.radio[data-radio='28%'] {
-    -moz-border-radius: 28%;
-    -webkit-border-radius: 28%;
-    border-radius: 28%;
-}
-
-.radio[data-radio='29%'] {
-    -moz-border-radius: 29%;
-    -webkit-border-radius: 29%;
-    border-radius: 29%;
-}
-
-.radio[data-radio='30%'] {
-    -moz-border-radius: 30%;
-    -webkit-border-radius: 30%;
-    border-radius: 30%;
-}
-
-.radio[data-radio='31%'] {
-    -moz-border-radius: 31%;
-    -webkit-border-radius: 31%;
-    border-radius: 31%;
-}
-
-.radio[data-radio='32%'] {
-    -moz-border-radius: 32%;
-    -webkit-border-radius: 32%;
-    border-radius: 32%;
-}
-
-.radio[data-radio='33%'] {
-    -moz-border-radius: 33%;
-    -webkit-border-radius: 33%;
-    border-radius: 33%;
-}
-
-.radio[data-radio='34%'] {
-    -moz-border-radius: 34%;
-    -webkit-border-radius: 34%;
-    border-radius: 34%;
-}
-
-.radio[data-radio='35%'] {
-    -moz-border-radius: 35%;
-    -webkit-border-radius: 35%;
-    border-radius: 35%;
-}
-
-.radio[data-radio='36%'] {
-    -moz-border-radius: 36%;
-    -webkit-border-radius: 36%;
-    border-radius: 36%;
-}
-
-.radio[data-radio='37%'] {
-    -moz-border-radius: 37%;
-    -webkit-border-radius: 37%;
-    border-radius: 37%;
-}
-
-.radio[data-radio='38%'] {
-    -moz-border-radius: 38%;
-    -webkit-border-radius: 38%;
-    border-radius: 38%;
-}
-
-.radio[data-radio='39%'] {
-    -moz-border-radius: 39%;
-    -webkit-border-radius: 39%;
-    border-radius: 39%;
-}
-
-.radio[data-radio='40%'] {
-    -moz-border-radius: 40%;
-    -webkit-border-radius: 40%;
-    border-radius: 40%;
-}
-
-.radio[data-radio='41%'] {
-    -moz-border-radius: 41%;
-    -webkit-border-radius: 41%;
-    border-radius: 41%;
-}
-
-.radio[data-radio='42%'] {
-    -moz-border-radius: 42%;
-    -webkit-border-radius: 42%;
-    border-radius: 42%;
-}
-
-.radio[data-radio='43%'] {
-    -moz-border-radius: 43%;
-    -webkit-border-radius: 43%;
-    border-radius: 43%;
-}
-
-.radio[data-radio='44%'] {
-    -moz-border-radius: 44%;
-    -webkit-border-radius: 44%;
-    border-radius: 44%;
-}
-
-.radio[data-radio='45%'] {
-    -moz-border-radius: 45%;
-    -webkit-border-radius: 45%;
-    border-radius: 45%;
-}
-
-.radio[data-radio='46%'] {
-    -moz-border-radius: 46%;
-    -webkit-border-radius: 46%;
-    border-radius: 46%;
-}
-
-.radio[data-radio='47%'] {
-    -moz-border-radius: 47%;
-    -webkit-border-radius: 47%;
-    border-radius: 47%;
-}
-
-.radio[data-radio='48%'] {
-    -moz-border-radius: 48%;
-    -webkit-border-radius: 48%;
-    border-radius: 48%;
-}
-
-.radio[data-radio='49%'] {
-    -moz-border-radius: 49%;
-    -webkit-border-radius: 49%;
-    border-radius: 49%;
-}
-
-.radio[data-radio='50%'] {
-    -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
-}
 
 .columna {   
-    /* radios manejados con data-radio */
+    /* radios manejados con data-radio para cada elemento */
+    /* ver rutina crear cuadritos */
+    /*----*/
     /* cursor */
     cursor: pointer;
     text-align: center;
