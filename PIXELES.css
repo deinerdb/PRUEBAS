@@ -778,7 +778,7 @@ html, body {
     /* una sombra para que se vea el ícono de cualquier color */
     text-shadow: 0px 0px 2px #ffffff;
 }
-#icoCircularFlecha {
+#icoCircularFlecha, #icoLienzoFlecha {
     margin-left: 5px;
     display: none;
 }
@@ -787,7 +787,12 @@ html, body {
     min-width: 56px !important;
     width: 56px !important;
 }
-.seleccionadoBtnModos #icoCircularFlecha {
+/* para dar cabida a la flechita */
+#BtnColorLienzo.seleccionadoBtnModos {
+    min-width: 56px !important;
+    width: 56px !important;
+}
+.seleccionadoBtnModos #icoCircularFlecha, .seleccionadoBtnModos #icoLienzoFlecha {
     display: inline-block !important;
 }
 #aIzquierda {
@@ -1328,12 +1333,9 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores {
     display: inline-block;
     padding: 0px;
     font-size: 0px;
-    /* COLOR LIENZO INICIAL */
-    background-color: #000000;
-    -moz-transition: background-color 0.6s;
-    -o-transition: background-color 0.6s;
-    -webkit-transition: background-color 0.6s;
-    transition: background-color 0.6s;
+    /* COLOR LIENZO INICIAL, esto no será visible */
+    /* porque ahora los lienzos son individuales */
+    background-color: #000000;    
 }
 
 #pie {
@@ -1748,7 +1750,19 @@ body {
         box-shadow: 0px 0px 0.1em #ffffff, 0px 0px 0.2em #990099, 0px 0px 0.4em #000000;
     }
 }
-
+.lienzo {
+    /* solo es un contenedor para manejar el color del lienzo individualmente */
+    border: none;
+    padding: 0;
+    margin: 0;
+    /* un efecto que genera lentitud en IE grrrr */    
+        /*
+    -moz-transition: background-color 0.6s;
+    -o-transition: background-color 0.6s;
+    -webkit-transition: background-color 0.6s;
+    transition: background-color 0.6s;
+        */
+}
 .columna {   
     /* radios manejados con data-radio para cada elemento */
     /* ver rutina crear cuadritos */

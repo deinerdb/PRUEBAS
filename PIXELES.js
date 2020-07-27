@@ -3,9 +3,9 @@ var colorActual = "#000000";
 var colorRejilla = "#000000";
 var usarBordes = true;
 var fondoAplicado = "#ffffff";
-var colorLienzo = "#000000"
+var colorLienzo = "#000000" // ahora es individual
 var radioBorde = "50%";
-// modal: radio, rgb, gallery, importar, exportar, filas, columnas
+// modal: radio, rgb, gallery, importar, exportar, filas, columnas, lienzo
 var modalActual = "ninguno";
 // recuerda el scroll y lo restaura al cerrar el modal
 var miBodyScroll;
@@ -20,6 +20,7 @@ var lastID;
 var lastArrayID = [];
 var lastArrayColor = [];
 var lastArrayRadio = [];
+var lastArrayLienzo = [];
 var lastFondoAplicado;
 var lastColorLienzo;
 var lastColorRejilla;
@@ -808,6 +809,9 @@ function showModal() {
             getMuestraRadio.innerHTML = radioBorde;
             // por defecto, no será global
             document.getElementById("myCheckRadioGlobal").checked = false;
+            break;
+        case "lienzo":
+            
             break;
         case "rgb":
             $("#marcoRGB").css("display", "block");
@@ -1610,6 +1614,32 @@ function hacerClick(celda) {
             // activa el botón deshacer
             estadoBtnDeshacer(true, "Deshacer pincelada");
             break;
+        case "lienzo":
+            showSnackbar("En construcción");
+            break;
+            // modo lienzo
+            // guarda para poder deshacer
+            lastAction = "cambiarColorLienzo"
+            lastColorLienzo = colorLienzo;
+            //el nuevo valor
+            colorLienzo = colorActual;
+            // pinta el lienzo
+            document.getElementById("contenedor").style.backgroundColor = colorLienzo;
+            // historial actualizado
+            procesarHistorial(colorLienzo);
+            showSnackbar("Color del lienzo: " + colorLienzo);
+            estadoBtnDeshacer(true, "Deshacer color de lienzo");
+            // guarda primero
+            lastID = celda;
+            lastColor = document.getElementById(celda).style.backgroundColor;
+            lastAction = "pintar";
+            //pinta la celda
+            document.getElementById(celda).style.backgroundColor = colorActual;
+            //procesa el historial de colores
+            procesarHistorial(colorActual);
+            // activa el botón deshacer
+            estadoBtnDeshacer(true, "Deshacer pincelada");
+            break;
         case "radio":
             // modo editor de radio de bordes
             // guarda primero
@@ -1674,27 +1704,47 @@ function crearCuadritos() {
     var fila;
     var columna;
     var miFila;
+    var miLienzo;
     var miColumna;
     var miID;
     // recorre filas
     for (fila = 1; fila <= MAXNUMFILAS; fila++) {
+        // crea la fila
         miFila = document.createElement("DIV");
+        // le agrega la clase
         miFila.setAttribute("class", "fila");
+        // la añade al contenedor
         document.getElementById("contenedor").appendChild(miFila);
         // recorre columnas
         for (columna = 1; columna <= MAXNUMCOLUMNAS; columna++) {
+            // crea el lienzo
+            miLienzo = document.createElement("DIV");
+            // le agrega la clase
+            miLienzo.setAttribute("class", "lienzo");
+            // color lienzo por defecto, su hijo lo guarda en el dataset            
+            miLienzo.style.backgroundColor = "#000000";
+            // crea cuadrito
             miColumna = document.createElement("DIV");
+            // la clase de los cuadritos es columna
             miColumna.setAttribute("class", "columna");
+            // llevan id
             miID = "f" + fila + "c" + columna;
             miColumna.id = miID;
+            // para la gestión del radio del borde
             miColumna.dataset.radio = "0%";
             miColumna.style.MozBorderRadius = "0%";
             miColumna.style.webkitBorderRadius = "0%";
             miColumna.style.borderRadius = "0%";
+            // para gestionar el color de su respectivo lienzo, parent
+            miColumna.dataset.colorlienzo = "#000000";
+            // le adjunta el evento click
             miColumna.addEventListener("click", function () { hacerClick(this.id); });
-            // por las x
+            // por las x, define tamaño de fuente
             miColumna.style.fontSize = tamaño * 0.8 + "px";
-            miFila.appendChild(miColumna);
+            // agrega el cuadrito a su lienzo
+            miLienzo.appendChild(miColumna);
+            // agrega el lienzo a su fila
+            miFila.appendChild(miLienzo);
         }
     }
 }
@@ -2240,6 +2290,16 @@ function cambiarModo(nuevoModo) {
             document.getElementById("BtnRnd").style.display = "none";
             showSnackbar("Modo Editor de Radios");
             break;
+        case "lienzo":
+            // agrega la clase seleccionado al btn del modo actual                    
+            $("#BtnColorLienzo").addClass("seleccionadoBtnModos");
+            document.getElementById("colorPixel").style.display = "inline-block";
+            document.getElementById("BtnRGB").style.display = "inline-block";
+            document.getElementById("BtnHex").style.display = "inline-block";
+            document.getElementById("BtnGallery").style.display = "inline-block";
+            document.getElementById("BtnRnd").style.display = "inline-block";
+            showSnackbar("Modo Color Lienzo");
+            break;
         case "relleno":
             // agrega la clase seleccionado al btn del modo actual                    
             $("#BtnGotero").addClass("seleccionadoBtnModos");
@@ -2499,18 +2559,19 @@ document.getElementById("BtnColorRejilla").onclick = function () {
     ocupado = false;
 }
 // cambia el color del lienzo
-document.getElementById("BtnColorLienzo").onclick = function () {
-    // guarda para poder deshacer
-    lastAction = "cambiarColorLienzo"
-    lastColorLienzo = colorLienzo;
-    //el nuevo valor
-    colorLienzo = colorActual;
-    // pinta el lienzo
-    document.getElementById("contenedor").style.backgroundColor = colorLienzo;
-    // historial actualizado
-    procesarHistorial(colorLienzo);
-    showSnackbar("Color del lienzo: " + colorLienzo);
-    estadoBtnDeshacer(true, "Deshacer color de lienzo");
+document.getElementById("BtnColorLienzo").onclick = function () {    
+    if (modoActual == "lienzo") {
+        showSnackbar("Modal en construcción");
+        return;
+        // está en modo lienzo, entonces se puede ajustar el valor
+        modalActual = "lienzo";
+        //muestra el modal
+        showModal();
+    } else {
+        // pasa a modo lienzo
+        cambiarModo("lienzo");
+        // en modo lienzo se ve la respectiva flecha en el btn lienzo
+    }    
 }
 
 // deshace la última acción
