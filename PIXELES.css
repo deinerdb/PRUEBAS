@@ -1,6 +1,7 @@
 /* z-index (niveles de capas)
-btn cerrar hist 2
-resaltado 3
+btn cerrar hist 20
+lienzos resaltados 4
+cuadrito resaltado 5
 paleta 100
 paleta full 150
 hover y active en paletas 180
@@ -13,7 +14,7 @@ loader 9999
 /*Stack Overflow: se sugiere para que las alturas funcionen*/
 html, body {
     height: 100% !important;
-    min-height: 100%;
+    min-height: 100%;    
 }
 #pantalla {
     /*border: 2px solid red;*/
@@ -71,7 +72,61 @@ html, body {
         /* no llevan texto ...*/
         font-size: 1.15em;
     }    
-    
+/* para el modal lienzo */
+#muestraMarcoLienzo {
+    border: 2px inset gray;
+    background-color: #000000;
+    color: #ffffff;
+    margin: 8px auto 14px auto;
+    padding: 4px;
+    text-align: center;
+    overflow: auto;
+    width: 90%;
+    height: 64px;
+    font-size: 1.3em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /*centrar verticalmente*/
+    /* BROWSER DEFINITION */
+    display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox; /* TWEENER - IE 10 */
+    display: -webkit-flex; /* NEW - Chrome */
+    /* W3C DEFINITION */
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    /* anima */
+    /*WEBKIT*/
+    -webkit-animation-name: blancoynegro;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    /*MOZ*/
+    -moz-animation-name: blancoynegro;
+    -moz-animation-duration: 1s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+    /*O*/
+    -o-animation-name: blancoynegro;
+    -o-animation-duration: 1s;
+    -o-animation-timing-function: linear;
+    -o-animation-iteration-count: infinite;
+    /*ESTÁNDAR*/
+    animation-name: blancoynegro;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    /*SOMBRA*/
+    -moz-box-shadow: 5px 5px 3px #C0C0C0;
+    -webkit-box-shadow: 5px 5px 3px #C0C0C0;
+    box-shadow: 5px 5px 3px #C0C0C0;
+    /*no se puede seleccionar el texto*/
+    -webkit-user-select: none; /* Chrome, Opera, Safari */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */
+}
 /* para el color hex modal */
 #muestraMarcoHex {
     border: 2px inset gray;
@@ -1647,7 +1702,7 @@ button, select, input {
     border-radius: 0;
     overflow: hidden;
     top: 100px;
-    z-index: 2;
+    z-index: 20;
     position: fixed;
     /*no se puede seleccionar el texto*/
     -webkit-user-select: none; /* Chrome, Opera, Safari */
@@ -1670,7 +1725,7 @@ body {
     background-color: #000000; /* negro*/
 }
 .resaltado {
-    z-index: 3;
+    z-index: 5;
     /*WEBKIT*/
     -webkit-animation-name: resaltar;
     -webkit-animation-duration: 0.4s;
@@ -1754,7 +1809,7 @@ body {
     /* solo es un contenedor para manejar el color del lienzo individualmente */
     border: none;
     padding: 0;
-    margin: 0;
+    margin: 0;    
     /* un efecto que genera lentitud en IE grrrr */    
         /*
     -moz-transition: background-color 0.6s;

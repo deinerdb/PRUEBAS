@@ -697,6 +697,9 @@ document.getElementById("numberB").onkeydown = function (e) {
 // depende de modalActual/
 function aceptarModal() {
     switch (modalActual) {
+        case "lienzo":
+            showSnackbar("En construcción");
+            break;
         case "radio":            
             //valida, porque en ie 9 input range se muestra como campo de texto
             var nuevo = sliderRadio.value;
@@ -811,7 +814,11 @@ function showModal() {
             document.getElementById("myCheckRadioGlobal").checked = false;
             break;
         case "lienzo":
-            
+            $("#marcoLienzo").css("display", "block");
+            document.getElementById("modalTitle").innerHTML = "<i class='fas fa-paint-roller'></i> Color de Lienzo";
+            document.getElementById("spanInfoModal").innerHTML = "El color del lienzo de cada pixel se aprecia cuando sus bordes son curvos. Puede aplicar el color actual individualmente o a todos los lienzos.";
+            // LA MUESTRA DE COLOR INDICA EL COLOR ACTUAL
+            $("#muestraMarcoLienzo").css("background-color", colorActual);
             break;
         case "rgb":
             $("#marcoRGB").css("display", "block");
@@ -1572,20 +1579,25 @@ function hacerClick(celda) {
         return;
     }
     // ahora sí...
+    ocupado = true;
     // procesa el click en un div, es decir, en un cuadrito  
     // resaltar con sombra el cuadrito
     // cancela el temporizador en curso para eliminación de la clase
     clearTimeout(timerResaltar);
     // remueve inmediatamente cualquier resaltado
     $(".resaltado").removeClass("resaltado");
+    // z index del lienzo del cuadrito actual sube
+    $("[id = " + celda + "]").parent().css("z-index","4");
     // resalta el que recibe el click
     $("[id = " + celda + "]").addClass("resaltado");
     // inicia el temporizador para quitar el resaltado
     timerResaltar = setTimeout(function () {
         // remueve el resaltado de todos
         $(".resaltado").removeClass("resaltado");
+        // z index del lienzo del cuadrito actual vuelve a la normalidad
+        $("[id = " + celda + "]").parent().css("z-index", "auto");
     }, 400);
-    ocupado = true;
+    
     switch (modoActual) {
         case "libre":
             //modo selección libre
@@ -2561,8 +2573,6 @@ document.getElementById("BtnColorRejilla").onclick = function () {
 // cambia el color del lienzo
 document.getElementById("BtnColorLienzo").onclick = function () {    
     if (modoActual == "lienzo") {
-        showSnackbar("Modal en construcción");
-        return;
         // está en modo lienzo, entonces se puede ajustar el valor
         modalActual = "lienzo";
         //muestra el modal
