@@ -33,6 +33,7 @@ var modoActual = "pincel";
 var pantallaCompleta = false;
 var timerCursor = 0;
 var timerResaltar = 0;
+var timerResaltarDeshacer = 0;
 var timerHistorial = 0;
 var tamaño = 20;
 var MAXSIZE = 100;
@@ -819,6 +820,8 @@ function showModal() {
             document.getElementById("spanInfoModal").innerHTML = "El color del lienzo de cada pixel se aprecia cuando sus bordes son curvos. Puede aplicar el color actual individualmente o a todos los lienzos.";
             // LA MUESTRA DE COLOR INDICA EL COLOR ACTUAL
             $("#muestraMarcoLienzo").css("background-color", colorActual);
+            // por defecto, será global
+            document.getElementById("miCheckLienzoGlobal").checked = true;
             break;
         case "rgb":
             $("#marcoRGB").css("display", "block");
@@ -1584,6 +1587,8 @@ function hacerClick(celda) {
     // resaltar con sombra el cuadrito
     // cancela el temporizador en curso para eliminación de la clase
     clearTimeout(timerResaltar);
+    // y el temporal de deshacer también
+    clearTimeout(timerResaltarDeshacer);
     // remueve inmediatamente cualquier resaltado
     $(".resaltado").removeClass("resaltado");
     // también de los lienzos
@@ -1628,31 +1633,22 @@ function hacerClick(celda) {
             // activa el botón deshacer
             estadoBtnDeshacer(true, "Deshacer pincelada");
             break;
-        case "lienzo":
-            showSnackbar("En construcción");
-            break;
-            // modo lienzo
+        case "lienzo":            
+            // modo lienzo, individual
             // guarda para poder deshacer
-            lastAction = "cambiarColorLienzo"
-            lastColorLienzo = colorLienzo;
+            lastAction = "cambiarColorLienzo";
+            lastID = celda;
+            lastColorLienzo = document.getElementById(celda).dataset.colorlienzo;            
             //el nuevo valor
             colorLienzo = colorActual;
-            // pinta el lienzo
-            document.getElementById("contenedor").style.backgroundColor = colorLienzo;
+            // pinta el lienzo del cuadrito actual
+            $("[id = " + celda + "]").parent().css("background-color", colorLienzo);            
+            // guarda el valor en el dataset
+            document.getElementById(celda).dataset.colorlienzo = colorLienzo;
             // historial actualizado
             procesarHistorial(colorLienzo);
-            showSnackbar("Color del lienzo: " + colorLienzo);
-            estadoBtnDeshacer(true, "Deshacer color de lienzo");
-            // guarda primero
-            lastID = celda;
-            lastColor = document.getElementById(celda).style.backgroundColor;
-            lastAction = "pintar";
-            //pinta la celda
-            document.getElementById(celda).style.backgroundColor = colorActual;
-            //procesa el historial de colores
-            procesarHistorial(colorActual);
-            // activa el botón deshacer
-            estadoBtnDeshacer(true, "Deshacer pincelada");
+            showSnackbar("Color del lienzo aplicado: " + colorLienzo);
+            estadoBtnDeshacer(true, "Deshacer color de lienzo individual");            
             break;
         case "radio":
             // modo editor de radio de bordes
@@ -2670,8 +2666,15 @@ document.getElementById("BtnDeshacer").onclick = function () {
         case "cambiarColorLienzo":
             // deshace el color aplicado
             colorLienzo = lastColorLienzo;
-            document.getElementById("contenedor").style.backgroundColor = colorLienzo;
-            mensaje = "Se deshizo el color del lienzo";
+            // restaura el dataset
+            document.getElementById(lastID).dataset.colorlienzo = colorLienzo;
+            // cambia el color del lienzo
+            $("[id = " + lastID + "]").parent().addClass("resaltadoLienzo");
+            $("[id = " + lastID + "]").parent().css("background-color", colorLienzo);
+            timerResaltarDeshacer = setTimeout(function () { 
+                $("[id = " + lastID + "]").parent().removeClass("resaltadoLienzo");
+            }, 400);
+            mensaje = "Se deshizo el color del lienzo de la celda";
             break;
         case "cambiarColorRejilla":
             // deshace el color de la rejilla
