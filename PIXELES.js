@@ -143,7 +143,7 @@ var prefiereHistorial = false;
 $("#BtnPincel").addClass("seleccionadoBtnModos"); 
 // indica que zoom + es el modo preteterminado en pantalla completa
 var zoomIn = true;
-document.getElementById("BtnAumentarFull").style.border = "3px solid #009900";
+document.getElementById("BtnAumentarFull").style.border = "3px outset #009900";
 document.getElementById("BtnDisminuirFull").style.border = "3px solid #666699";
 // en el modo pincel no están estos
 document.getElementById("BtnAceptarLibre").style.display = "none";
@@ -1354,7 +1354,7 @@ function resaltarActual() {
         //alert("color sel" + colorSeleccionado);
         if (miBtn.style.color == colorSeleccionado) {
             // le aplica el borde resaltado
-            miBtn.style.border = "3px solid #009900";
+            miBtn.style.border = "3px outset #009900";
         } else {
             // les aplica el borde normal
             miBtn.style.border = "3px solid #666699";
@@ -1586,16 +1586,18 @@ function hacerClick(celda) {
     clearTimeout(timerResaltar);
     // remueve inmediatamente cualquier resaltado
     $(".resaltado").removeClass("resaltado");
-    // z index del lienzo del cuadrito actual sube
-    $("[id = " + celda + "]").parent().css("z-index","4");
+    // también de los lienzos
+    $(".resaltadoLienzo").removeClass("resaltadoLienzo");
+    // z index del lienzo del cuadrito actual sube al agregar la clase
+    $("[id = " + celda + "]").parent().addClass("resaltadoLienzo");
     // resalta el que recibe el click
     $("[id = " + celda + "]").addClass("resaltado");
     // inicia el temporizador para quitar el resaltado
     timerResaltar = setTimeout(function () {
         // remueve el resaltado de todos
         $(".resaltado").removeClass("resaltado");
-        // z index del lienzo del cuadrito actual vuelve a la normalidad
-        $("[id = " + celda + "]").parent().css("z-index", "auto");
+        // también de los lienzos
+        $(".resaltadoLienzo").removeClass("resaltadoLienzo");
     }, 400);
     
     switch (modoActual) {
@@ -1930,7 +1932,7 @@ document.getElementById("BtnPantallaCompleta").onclick = function () {
     $(".paleta").addClass("oculto");
     $(":header").addClass("oculto");
     // por defecto es zoom +
-    document.getElementById("BtnAumentarFull").style.border = "3px solid #009900";
+    document.getElementById("BtnAumentarFull").style.border = "3px outset #009900";
     document.getElementById("BtnDisminuirFull").style.border = "3px solid #666699";
     // gestiona el puntero
     zoomIn = true;
@@ -1995,7 +1997,7 @@ document.getElementById("contenedor").onclick = function (event) {
 
 // define zoom +
 document.getElementById("BtnAumentarFull").onclick = function (event) {
-    document.getElementById("BtnAumentarFull").style.border = "3px solid #009900";
+    document.getElementById("BtnAumentarFull").style.border = "3px outset #009900";
     document.getElementById("BtnDisminuirFull").style.border = "3px solid #666699";
     zoomIn = true;
     mostrarPuntero();
@@ -2004,7 +2006,7 @@ document.getElementById("BtnAumentarFull").onclick = function (event) {
 // define zoom -
 document.getElementById("BtnDisminuirFull").onclick = function (event) {
     document.getElementById("BtnAumentarFull").style.border = "3px solid #666699";
-    document.getElementById("BtnDisminuirFull").style.border = "3px solid #009900";
+    document.getElementById("BtnDisminuirFull").style.border = "3px outset #009900";
     zoomIn = false;
     mostrarPuntero();
     event.stopPropagation();
