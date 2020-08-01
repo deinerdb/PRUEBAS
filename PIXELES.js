@@ -2034,6 +2034,23 @@ document.getElementById("BtnRnd").onclick = function () {
     // para otras actualizaciones
     colorPixel();
 }
+//se pasa a un color opuesto al actual
+document.getElementById("BtnOpuesto").onclick = function () {
+    var miRGB;
+    var miHex;
+    miR = Number(rDesdeHex(colorActual));
+    miG = Number(gDesdeHex(colorActual));
+    miB = Number(bDesdeHex(colorActual));
+    miR = 255 - miR;
+    miG = 255 - miG;
+    miB = 255 - miB;
+    miRGB = "rgb(" + miR + ", " + miG + ", " + miB + ")";
+    miHex = convertirRGBaHexadecimal(miRGB);
+    // asigna el valor hexadecimal al input color
+    document.getElementById("colorPixel").value = miHex;
+    // para otras actualizaciones
+    colorPixel();
+}
 //se muestra el selector rgb de color
 document.getElementById("BtnRGB").onclick = function () {
     modalActual = "rgb";
@@ -2227,6 +2244,7 @@ function cambiarModo(nuevoModo) {
             document.getElementById("BtnHex").style.display = "inline-block";
             document.getElementById("BtnGallery").style.display = "inline-block";
             document.getElementById("BtnRnd").style.display = "inline-block";
+            document.getElementById("BtnOpuesto").style.display = "inline-block";
             //muestra y oculta elementos
             document.getElementById("BtnAceptarLibre").style.display = "inline-block";
             document.getElementById("BtnCancelarLibre").style.display = "inline-block";
@@ -2278,6 +2296,7 @@ function cambiarModo(nuevoModo) {
             document.getElementById("BtnHex").style.display = "inline-block";
             document.getElementById("BtnGallery").style.display = "inline-block";
             document.getElementById("BtnRnd").style.display = "inline-block";
+            document.getElementById("BtnOpuesto").style.display = "inline-block";
             showSnackbar("Modo Pincel");
             break;
         case "borrador":
@@ -2288,6 +2307,7 @@ function cambiarModo(nuevoModo) {
             document.getElementById("BtnHex").style.display = "none";
             document.getElementById("BtnGallery").style.display = "none";
             document.getElementById("BtnRnd").style.display = "none";
+            document.getElementById("BtnOpuesto").style.display = "none";
             showSnackbar("Modo Borrador");
             break;
         case "radio":
@@ -2298,6 +2318,7 @@ function cambiarModo(nuevoModo) {
             document.getElementById("BtnHex").style.display = "none";
             document.getElementById("BtnGallery").style.display = "none";
             document.getElementById("BtnRnd").style.display = "none";
+            document.getElementById("BtnOpuesto").style.display = "none";
             showSnackbar("Modo Editor de Radios");
             break;
         case "lienzo":
@@ -2308,6 +2329,7 @@ function cambiarModo(nuevoModo) {
             document.getElementById("BtnHex").style.display = "inline-block";
             document.getElementById("BtnGallery").style.display = "inline-block";
             document.getElementById("BtnRnd").style.display = "inline-block";
+            document.getElementById("BtnOpuesto").style.display = "inline-block";
             showSnackbar("Modo Color Lienzo");
             break;
         case "relleno":
@@ -2318,6 +2340,7 @@ function cambiarModo(nuevoModo) {
             document.getElementById("BtnHex").style.display = "inline-block";
             document.getElementById("BtnGallery").style.display = "inline-block";
             document.getElementById("BtnRnd").style.display = "inline-block";
+            document.getElementById("BtnOpuesto").style.display = "inline-block";
             showSnackbar("Modo Relleno Selectivo");
             break;
         case "extraer":
@@ -2328,6 +2351,7 @@ function cambiarModo(nuevoModo) {
             document.getElementById("BtnHex").style.display = "inline-block";
             document.getElementById("BtnGallery").style.display = "inline-block";
             document.getElementById("BtnRnd").style.display = "inline-block";
+            document.getElementById("BtnOpuesto").style.display = "inline-block";
             showSnackbar("Modo Extraer Color");
             break;
     }
