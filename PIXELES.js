@@ -2743,7 +2743,7 @@ document.getElementById("BtnDeshacer").onclick = function () {
             // deshace el color aplicado globalmente            
             var i; 
             var colorLienzoAnterior;
-            var idLienzo;
+            var idLienzoAnterior;
             // una pequeña animación con la opacidad
             $("#contenedor").animate({ opacity: "0.2" }, 200);            
             //recorre todo el array y les aplica el color de lienzo guardado         
