@@ -556,8 +556,12 @@ var modal = document.getElementById('myModal');
 var span = document.getElementsByClassName("close")[0];
 // para cerrar el modal y controlar el actual
 function cerrarModal() {
-    modalActual = "ninguno";
     modal.style.display = "none";
+    if (modalActual == "lienzo") {
+        // una pequeña animación con la opacidad
+        $("#contenedor").animate({ opacity: "1" }, 2000);
+    }    
+    modalActual = "ninguno";    
     //restaura el scroll
     document.body.scrollTop = miBodyScroll; // For Chrome, Safari and Opera
     document.documentElement.scrollTop = miDocumentScroll; // For IE and Firefox    
@@ -699,7 +703,40 @@ document.getElementById("numberB").onkeydown = function (e) {
 function aceptarModal() {
     switch (modalActual) {
         case "lienzo":
-            showSnackbar("En construcción");
+            //NADA QUE VALIDAR, el color actual está definido            
+            // el nuevo valor
+            colorLienzo = colorActual;
+            // ahora decide si lo aplica individualmente o a todos
+            var decideLienzoGlobal = document.getElementById("miCheckLienzoGlobal").checked;
+            if (decideLienzoGlobal == false) {
+                // el color actual se aplicará al hacer click en cada celda
+                // informa y sale
+                // nada que deshacer
+                showSnackbar("Color de lienzo al hacer click: " + colorLienzo);
+                break;
+            }
+            // en este punto sabemos que se aplicará a todos...
+            //obtiene un array con todos los de la clase columna
+            var x = document.getElementsByClassName("columna");
+            var i;
+            //debe guardar los radios y los id      
+            lastAction = "CambiarColorLienzoGlobal";
+            lastArrayLienzo.length = 0;
+            lastArrayID.length = 0;
+            //recorre todo el array y les aplica el color de lienzo
+            for (i = 0; i < x.length; i++) {
+                //guardar los id y el color anterior de lienzo al mismo tiempo que recorre los cuadritos
+                lastArrayID[lastArrayID.length] = x[i].id;
+                lastArrayLienzo[lastArrayLienzo.length] = x[i].dataset.colorlienzo;
+                x[i].dataset.colorlienzo = colorLienzo;                
+                $("[id = " + x[i].id + "]").parent().css("background-color", colorLienzo);
+            }
+            // se procesa el historial
+            procesarHistorial(colorActual);
+            // informa
+            showSnackbar("Color aplicado a todos los lienzos: " + colorLienzo);
+            // puede deshacer
+            estadoBtnDeshacer(true, "Deshacer color de lienzo global");            
             break;
         case "radio":            
             //valida, porque en ie 9 input range se muestra como campo de texto
@@ -822,6 +859,8 @@ function showModal() {
             $("#muestraMarcoLienzo").css("background-color", colorActual);
             // por defecto, será global
             document.getElementById("miCheckLienzoGlobal").checked = true;
+            // para animarla al cerrar: opacidad ajustada
+            $("#contenedor").css("opacity", "0");
             break;
         case "rgb":
             $("#marcoRGB").css("display", "block");
@@ -2699,6 +2738,24 @@ document.getElementById("BtnDeshacer").onclick = function () {
                 $("[id = " + lastID + "]").parent().removeClass("resaltadoLienzo");
             }, 400);
             mensaje = "Se deshizo el color del lienzo de la celda";
+            break;
+        case "CambiarColorLienzoGlobal":
+            // deshace el color aplicado globalmente            
+            var i; 
+            var colorLienzoAnterior;
+            var idLienzo;
+            // una pequeña animación con la opacidad
+            $("#contenedor").animate({ opacity: "0.2" }, 200);            
+            //recorre todo el array y les aplica el color de lienzo guardado         
+            for (i = 0; i < lastArrayID.length; i++) {
+                colorLienzoAnterior = lastArrayLienzo[i];
+                idLienzoAnterior = lastArrayID[i];
+                document.getElementById(idLienzoAnterior).dataset.colorlienzo = colorLienzoAnterior;
+                $("[id = " + idLienzoAnterior + "]").parent().css("background-color", colorLienzoAnterior);
+            } 
+            mensaje = "Se deshizo el color del lienzo global";
+            // el resto de la animación
+            $("#contenedor").animate({ opacity: "1" }, 1000);
             break;
         case "cambiarColorRejilla":
             // deshace el color de la rejilla
