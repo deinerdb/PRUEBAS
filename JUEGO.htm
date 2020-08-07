@@ -369,7 +369,7 @@
                     </div>
                     <br />
                     <button id="iniciar" title="Iniciar juego (tecla ENTER)" class="button" onclick="Jugar()"><span>Iniciar </span></button>
-                    <span id="info" title="El mayor puntaje obtenido (no se guarda)" class="info" >¡ Nuevo récord !</span>
+                    <span id="info" title="Puntaje mayor en este dispositivo" class="info" >¡ Nuevo récord !</span>
                 </div>
                 <script>
 
@@ -389,9 +389,21 @@
                     var jugando = false;
                     var colorObst = "#004d00"; //color por defecto es un verde obscuro
                     var aceleraX = -1;
-                    var puntajeMayor = 0;
-
-
+                    var puntajeMayor;
+                    if (typeof (Storage) !== "undefined") {
+                        // si soporta almacenamiento, recupera el valor
+                        if (localStorage.puntajemayorjuegopruebas) {
+                            // hay valor almacenado, lo recupera
+                            puntajeMayor = Number(localStorage.puntajemayorjuegopruebas);
+                        } else {
+                            // si no hay valor almacenado, asume 0
+                            localStorage.puntajemayorjuegopruebas = 0;
+                            puntajeMayor = 0;
+                        }                        
+                    } else {
+                        // si no lo soporta, asume 0
+                        puntajeMayor = 0;
+                    }
                     // Lanza en pantalla completa en navegadores que lo soporten
                     function launchFullScreen() {
 
@@ -883,6 +895,13 @@
                         //actualiza info sobre puntaje mayor
                         document.getElementById("info").style.display = "inline-block";                        
                         document.getElementById("info").innerHTML = "Su récord es: " + puntajeMayor;
+                        if (typeof (Storage) !== "undefined") {
+                            // si soporta almacenamiento, guarda el valor                            
+                            localStorage.puntajemayorjuegopruebas = puntajeMayor;                             
+                        } else {
+                            // si no lo soporta, asume 0
+                            // simplemente no lo guarda
+                        }
 
                     }
                     
