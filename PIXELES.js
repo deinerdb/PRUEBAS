@@ -699,6 +699,28 @@ document.getElementById("numberB").onkeydown = function (e) {
     }
 
 }
+// al hacer click en aceptar con la opción aplicar lienzo global
+function aplicarLienzoGlobal() {
+    //obtiene un array con todos los de la clase columna
+    var x = document.getElementsByClassName("columna");
+    var i;
+    //debe guardar los radios y los id      
+    lastAction = "CambiarColorLienzoGlobal";
+    lastArrayLienzo.length = 0;
+    lastArrayID.length = 0;
+    //recorre todo el array y les aplica el color de lienzo
+    for (i = 0; i < x.length; i++) {
+        //guardar los id y el color anterior de lienzo al mismo tiempo que recorre los cuadritos
+        lastArrayID[lastArrayID.length] = x[i].id;
+        lastArrayLienzo[lastArrayLienzo.length] = x[i].dataset.colorlienzo;
+        x[i].dataset.colorlienzo = colorLienzo;
+        $("[id = " + x[i].id + "]").parent().css("background-color", colorLienzo);
+    }
+    // se procesa el historial
+    procesarHistorial(colorActual);
+    // oculta el loader
+    $(".loader").fadeOut("fast");
+}
 // depende de modalActual/
 function aceptarModal() {
     switch (modalActual) {
@@ -716,23 +738,10 @@ function aceptarModal() {
                 break;
             }
             // en este punto sabemos que se aplicará a todos...
-            //obtiene un array con todos los de la clase columna
-            var x = document.getElementsByClassName("columna");
-            var i;
-            //debe guardar los radios y los id      
-            lastAction = "CambiarColorLienzoGlobal";
-            lastArrayLienzo.length = 0;
-            lastArrayID.length = 0;
-            //recorre todo el array y les aplica el color de lienzo
-            for (i = 0; i < x.length; i++) {
-                //guardar los id y el color anterior de lienzo al mismo tiempo que recorre los cuadritos
-                lastArrayID[lastArrayID.length] = x[i].id;
-                lastArrayLienzo[lastArrayLienzo.length] = x[i].dataset.colorlienzo;
-                x[i].dataset.colorlienzo = colorLienzo;                
-                $("[id = " + x[i].id + "]").parent().css("background-color", colorLienzo);
-            }
-            // se procesa el historial
-            procesarHistorial(colorActual);
+            // muestra un loader...
+            $(".loader").fadeIn("fast", function () {
+                aplicarLienzoGlobal();
+            });   
             // informa
             showSnackbar("Color aplicado a todos los lienzos: " + colorLienzo);
             // puede deshacer
