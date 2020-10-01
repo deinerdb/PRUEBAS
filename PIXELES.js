@@ -717,9 +717,7 @@ function aplicarLienzoGlobal() {
         $("[id = " + x[i].id + "]").parent().css("background-color", colorLienzo);
     }
     // se procesa el historial
-    procesarHistorial(colorActual);
-    // oculta el loader
-    $(".loader").fadeOut("fast");
+    procesarHistorial(colorActual);    
 }
 // depende de modalActual/
 function aceptarModal() {
@@ -739,9 +737,12 @@ function aceptarModal() {
             }
             // en este punto sabemos que se aplicará a todos...
             // muestra un loader...
-            $(".loader").fadeIn("fast", function () {
+            $(".loader").css("display", "flex");
+            setTimeout( function () {
                 aplicarLienzoGlobal();
-            });   
+                // oculta el loader
+                $(".loader").css("display", "none");
+            }, 0);
             // informa
             showSnackbar("Color aplicado a todos los lienzos: " + colorLienzo);
             // puede deshacer

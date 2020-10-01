@@ -1174,6 +1174,9 @@ html, body {
     }
 }
 /* fin print */
+.loader2{
+    display: none;
+}
 .loader {
     position: fixed;
     left: 0px;
