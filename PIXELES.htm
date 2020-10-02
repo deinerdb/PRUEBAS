@@ -18,7 +18,7 @@
             // cuando carga la página
             // oculta el loader unos segundos después
             setTimeout(function () {
-                $(".loader").fadeOut("slow");
+                $(".loader").addClass("oculto");
                 // intentamos un scroll
                 topFunction();             
             }, 2000);            
@@ -26,10 +26,7 @@
         });
     </script>
 </head>
-<body>
-    <div class="loader2">
-        
-    </div>
+<body>    
     <div class="loader">
         <div class="sk-cube-grid">
             <div class="sk-cube sk-cube1"></div>

@@ -737,16 +737,16 @@ function aceptarModal() {
             }
             // en este punto sabemos que se aplicará a todos...
             // muestra un loader...
-            $(".loader").css("display", "flex");
+            $(".loader").removeClass("oculto");
             setTimeout( function () {
                 aplicarLienzoGlobal();
                 // oculta el loader
-                $(".loader").css("display", "none");
-            }, 0);
-            // informa
-            showSnackbar("Color aplicado a todos los lienzos: " + colorLienzo);
-            // puede deshacer
-            estadoBtnDeshacer(true, "Deshacer color de lienzo global");            
+                $(".loader").addClass("oculto");
+                // informa
+                showSnackbar("Color aplicado a todos los lienzos: " + colorLienzo);
+                // puede deshacer
+                estadoBtnDeshacer(true, "Deshacer color de lienzo global");
+            }, 0);                        
             break;
         case "radio":            
             //valida, porque en ie 9 input range se muestra como campo de texto
@@ -2756,16 +2756,25 @@ document.getElementById("BtnDeshacer").onclick = function () {
             var idLienzoAnterior;
             // una pequeña animación con la opacidad
             $("#contenedor").animate({ opacity: "0.2" }, 200);            
-            //recorre todo el array y les aplica el color de lienzo guardado         
-            for (i = 0; i < lastArrayID.length; i++) {
-                colorLienzoAnterior = lastArrayLienzo[i];
-                idLienzoAnterior = lastArrayID[i];
-                document.getElementById(idLienzoAnterior).dataset.colorlienzo = colorLienzoAnterior;
-                $("[id = " + idLienzoAnterior + "]").parent().css("background-color", colorLienzoAnterior);
-            } 
+            //recorre todo el array y les aplica el color de lienzo guardado   
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
             mensaje = "Se deshizo el color del lienzo global";
-            // el resto de la animación
-            $("#contenedor").animate({ opacity: "1" }, 1000);
+            setTimeout(function () {
+
+                for (i = 0; i < lastArrayID.length; i++) {
+                    colorLienzoAnterior = lastArrayLienzo[i];
+                    idLienzoAnterior = lastArrayID[i];
+                    document.getElementById(idLienzoAnterior).dataset.colorlienzo = colorLienzoAnterior;
+                    $("[id = " + idLienzoAnterior + "]").parent().css("background-color", colorLienzoAnterior);
+                } 
+               
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // el resto de la animación
+                $("#contenedor").animate({ opacity: "1" }, 1000);
+            }, 0);
+            
             break;
         case "cambiarColorRejilla":
             // deshace el color de la rejilla
