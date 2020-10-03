@@ -1198,7 +1198,14 @@ html, body {
     align-content: center;
     flex-direction: column;
 }
-
+    .loader h3 {
+        text-align: center;
+        width: 100%;
+        color: #e600e6;
+        font-family: Courier New, Courier, monospace;
+        font-weight: bold;
+        text-shadow: 2px 2px 3px #ffffff;
+    }
 .sk-cube-grid {
     width: 120px;
     height: 120px;

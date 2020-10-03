@@ -2196,29 +2196,39 @@ function dimensionar() {
     x = document.getElementById("selectFilas").selectedIndex;
     y = document.getElementById("selectFilas").options;
     numFilas = Number(y[x].value);
-    //alert("filas " + numFilas + " columnas " + numColumnas);    
-    //recorre todos los cuadritos, por id    
-    for (miFila = 1; miFila <= MAXNUMFILAS; miFila++) {
-        for (miColumna = 1; miColumna <= MAXNUMCOLUMNAS; miColumna++) {
-            //construye el id
-            miID = "f" + miFila + "c" + miColumna;
-            //si está dentro del tamaño especificado lo hace visible
-            // y si no, lo oculta            
-            if (miFila <= numFilas && miColumna <= numColumnas) {
-                // visible
-                document.getElementById(miID).style.display = "inline-block";
-            } else {
-                // no visible
-                document.getElementById(miID).style.display = "none";
-            }
-            // primero guardar
-            lastArrayID[lastArrayID.length] = miID;
-            lastArrayColor[lastArrayColor.length] = document.getElementById(miID).style.backgroundColor;
-            // de paso los coloca blancos a todos
-            document.getElementById(miID).style.backgroundColor = "#ffffff";
+    // muestra un loader...
+    $(".loader").removeClass("oculto");
+    setTimeout(function () {
+        // código alta exigencia
+        //alert("filas " + numFilas + " columnas " + numColumnas);    
+        //recorre todos los cuadritos, por id    
+        for (miFila = 1; miFila <= MAXNUMFILAS; miFila++) {
+            for (miColumna = 1; miColumna <= MAXNUMCOLUMNAS; miColumna++) {
+                //construye el id
+                miID = "f" + miFila + "c" + miColumna;
+                //si está dentro del tamaño especificado lo hace visible
+                // y si no, lo oculta            
+                if (miFila <= numFilas && miColumna <= numColumnas) {
+                    // visible
+                    document.getElementById(miID).style.display = "inline-block";
+                } else {
+                    // no visible
+                    document.getElementById(miID).style.display = "none";
+                }
+                // primero guardar
+                lastArrayID[lastArrayID.length] = miID;
+                lastArrayColor[lastArrayColor.length] = document.getElementById(miID).style.backgroundColor;
+                // de paso los coloca blancos a todos
+                document.getElementById(miID).style.backgroundColor = "#ffffff";
 
+            }
         }
-    }
+        // oculta el loader
+        $(".loader").addClass("oculto");
+        // otras tareas
+
+    }, 0);  
+    
     //ahora el fondo es blanco
     fondoAplicado = "#ffffff";
     //ajusta el contenedor de los cuadritos
@@ -2468,21 +2478,31 @@ function ajustarTamaño(incremento) {
     anchoBordes = 0.01 * tamaño;
     var x = document.getElementsByClassName("columna");
     var i;
-    //ajusta todos los cuadritos
-    for (i = 0; i < x.length; i++) {
-        //ancho
-        x[i].style.width = tamaño + "px";
-        x[i].style.maxWidth = tamaño + "px";
-        x[i].style.minWidth = tamaño + "px";
-        //alto
-        x[i].style.height = tamaño + "px";
-        x[i].style.maxHeight = tamaño + "px";
-        x[i].style.minHeight = tamaño + "px";
-        // el ancho del borde
-        x[i].style.borderWidth = anchoBordes + "px";
-        // la fuente, para las x
-        x[i].style.fontSize = tamaño * 0.8 + "px";
-    }
+    // muestra un loader...
+    $(".loader").removeClass("oculto");
+    setTimeout(function () {
+        // código alta exigencia
+        //ajusta todos los cuadritos
+        for (i = 0; i < x.length; i++) {
+            //ancho
+            x[i].style.width = tamaño + "px";
+            x[i].style.maxWidth = tamaño + "px";
+            x[i].style.minWidth = tamaño + "px";
+            //alto
+            x[i].style.height = tamaño + "px";
+            x[i].style.maxHeight = tamaño + "px";
+            x[i].style.minHeight = tamaño + "px";
+            // el ancho del borde
+            x[i].style.borderWidth = anchoBordes + "px";
+            // la fuente, para las x
+            x[i].style.fontSize = tamaño * 0.8 + "px";
+        }
+        // oculta el loader
+        $(".loader").addClass("oculto");
+        // otras tareas
+
+    }, 0);  
+    
 
     //ajusta el contenedor de los cuadritos
     var anchoCont = tamaño * numColumnas;
@@ -2628,18 +2648,28 @@ document.getElementById("BtnColorRejilla").onclick = function () {
     } else {
         miBorde = anchoBordes + "px solid " + colorRejilla;
     }
-    //obtiene un array con todos los de la clase columna
-    var x = document.getElementsByClassName("columna");
-    var i;
-    //recorre todo el array y les aplica el estilo de borde
-    for (i = 0; i < x.length; i++) {
-        x[i].style.border = miBorde;
-    }
-    procesarHistorial(colorRejilla);
-    showSnackbar("Color bordes: " + colorRejilla);
-    // activa el botón deshacer
-    estadoBtnDeshacer(true, "Deshacer color de bordes");
-    ocupado = false;
+    // muestra un loader...
+    $(".loader").removeClass("oculto");
+    setTimeout(function () {
+        // código alta exigencia
+        //obtiene un array con todos los de la clase columna
+        var x = document.getElementsByClassName("columna");
+        var i;
+        //recorre todo el array y les aplica el estilo de borde
+        for (i = 0; i < x.length; i++) {
+            x[i].style.border = miBorde;
+        }
+        procesarHistorial(colorRejilla);
+        // oculta el loader
+        $(".loader").addClass("oculto");
+        // otras tareas
+        showSnackbar("Color bordes: " + colorRejilla);
+        // activa el botón deshacer
+        estadoBtnDeshacer(true, "Deshacer color de bordes");
+        ocupado = false;
+    }, 0);  
+    
+   
 }
 // cambia el color del lienzo
 document.getElementById("BtnColorLienzo").onclick = function () {    
@@ -2785,52 +2815,73 @@ document.getElementById("BtnDeshacer").onclick = function () {
             } else {
                 miBorde = anchoBordes + "px solid " + colorRejilla;
             }
-            //obtiene un array con todos los de la clase columna
-            var x = document.getElementsByClassName("columna");
-            var i;
-            //recorre todo el array y les aplica el estilo de borde
-            for (i = 0; i < x.length; i++) {
-                x[i].style.border = miBorde;
-            }
             mensaje = "Se deshizo el color de los bordes";
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia
+                //obtiene un array con todos los de la clase columna
+                var x = document.getElementsByClassName("columna");
+                var i;
+                //recorre todo el array y les aplica el estilo de borde
+                for (i = 0; i < x.length; i++) {
+                    x[i].style.border = miBorde;
+                }
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+
+            }, 0);  
+            
+            
             break;
         case "dimensionar":
-            // deshace el ajuste de filas y columnas
-            fondoAplicado = lastFondoAplicado;
-            numFilas = lastNumFilas;
-            numColumnas = lastNumColumnas;
-            permitirEvento = false;
-            document.getElementById("selectFilas").selectedIndex = numFilas - 1;
-            document.getElementById("selectColumnas").selectedIndex = numColumnas - 1;
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia
+                // deshace el ajuste de filas y columnas
+                fondoAplicado = lastFondoAplicado;
+                numFilas = lastNumFilas;
+                numColumnas = lastNumColumnas;
+                permitirEvento = false;
+                document.getElementById("selectFilas").selectedIndex = numFilas - 1;
+                document.getElementById("selectColumnas").selectedIndex = numColumnas - 1;
 
-            var miID;
-            var miFila;
-            var miColumna;
-            for (miFila = 1; miFila <= MAXNUMFILAS; miFila++) {
-                for (miColumna = 1; miColumna <= MAXNUMCOLUMNAS; miColumna++) {
-                    //construye el id
-                    miID = "f" + miFila + "c" + miColumna;
-                    //si está dentro del tamaño especificado lo hace visible
-                    // y si no, lo oculta            
-                    if (miFila <= numFilas && miColumna <= numColumnas) {
-                        // visible
-                        document.getElementById(miID).style.display = "inline-block";
-                    } else {
-                        // no visible
-                        document.getElementById(miID).style.display = "none";
+                var miID;
+                var miFila;
+                var miColumna;
+                for (miFila = 1; miFila <= MAXNUMFILAS; miFila++) {
+                    for (miColumna = 1; miColumna <= MAXNUMCOLUMNAS; miColumna++) {
+                        //construye el id
+                        miID = "f" + miFila + "c" + miColumna;
+                        //si está dentro del tamaño especificado lo hace visible
+                        // y si no, lo oculta            
+                        if (miFila <= numFilas && miColumna <= numColumnas) {
+                            // visible
+                            document.getElementById(miID).style.display = "inline-block";
+                        } else {
+                            // no visible
+                            document.getElementById(miID).style.display = "none";
+                        }
                     }
                 }
-            }
-            //recorre los array y les aplica el color guardado
-            for (i = 0; i < lastArrayID.length; i++) {
-                document.getElementById(lastArrayID[i]).style.backgroundColor = lastArrayColor[i];
-            }
-            //ajusta el contenedor de los cuadritos
-            var anchoCont = tamaño * numColumnas;
-            // n VECES EL ANCHO DE UN CUADRITO
-            //PERO OJO QUE maxWidth DEL CONTENEDOR ES 90%, NUNCA DESBORDA PANTALLA.
-            document.getElementById("contenedor").style.width = anchoCont + "px";
-            permitirEvento = true;
+                //recorre los array y les aplica el color guardado
+                for (i = 0; i < lastArrayID.length; i++) {
+                    document.getElementById(lastArrayID[i]).style.backgroundColor = lastArrayColor[i];
+                }
+                //ajusta el contenedor de los cuadritos
+                var anchoCont = tamaño * numColumnas;
+                // n VECES EL ANCHO DE UN CUADRITO
+                //PERO OJO QUE maxWidth DEL CONTENEDOR ES 90%, NUNCA DESBORDA PANTALLA.
+                document.getElementById("contenedor").style.width = anchoCont + "px";
+                permitirEvento = true;
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+
+            }, 0);  
+            
             mensaje = "Se deshizo el dimensionado";
             break;
         case "actualizar":
