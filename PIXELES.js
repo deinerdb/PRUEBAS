@@ -770,26 +770,34 @@ function aceptarModal() {
                 break;
             }
             // en este punto sabemos que se aplicará a todos...
-            //obtiene un array con todos los de la clase columna
-            var x = document.getElementsByClassName("columna");
-            var i;
-            //debe guardar los radios y los id      
-            lastAction = "CambiarRadioBordesGlobal";
-            lastArrayRadio.length = 0;
-            lastArrayID.length = 0;
-            //recorre todo el array y les aplica el radio de borde
-            for (i = 0; i < x.length; i++) {
-                //guardar los id y los bordes al mismo tiempo que recorre los cuadritos
-                lastArrayID[lastArrayID.length] = x[i].id;                
-                lastArrayRadio[lastArrayRadio.length] = x[i].dataset.radio;                
-                x[i].dataset.radio = radioBorde;
-                x[i].style.MozBorderRadius = radioBorde;
-                x[i].style.webkitBorderRadius = radioBorde;
-                x[i].style.borderRadius = radioBorde;
-            }            
-            showSnackbar("Radio aplicado a todos los bordes: " + radioBorde);
-            // puede deshacer
-            estadoBtnDeshacer(true, "Deshacer cambio global de radios");
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia
+                //obtiene un array con todos los de la clase columna
+                var x = document.getElementsByClassName("columna");
+                var i;
+                //debe guardar los radios y los id      
+                lastAction = "CambiarRadioBordesGlobal";
+                lastArrayRadio.length = 0;
+                lastArrayID.length = 0;
+                //recorre todo el array y les aplica el radio de borde
+                for (i = 0; i < x.length; i++) {
+                    //guardar los id y los bordes al mismo tiempo que recorre los cuadritos
+                    lastArrayID[lastArrayID.length] = x[i].id;
+                    lastArrayRadio[lastArrayRadio.length] = x[i].dataset.radio;
+                    x[i].dataset.radio = radioBorde;
+                    x[i].style.MozBorderRadius = radioBorde;
+                    x[i].style.webkitBorderRadius = radioBorde;
+                    x[i].style.borderRadius = radioBorde;
+                }            
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+                showSnackbar("Radio aplicado a todos los bordes: " + radioBorde);
+                // puede deshacer
+                estadoBtnDeshacer(true, "Deshacer cambio global de radios");
+            }, 0);  
             break;
         case "rgb":
             // actualiza el color actual según el rgb seleccionado
@@ -1376,7 +1384,7 @@ window.addEventListener("load", function (event) {
     // DIMENSIONA AL INICIAR LA PÁGINA con 10x10
     //para que se agreguen al abrir la página     
     configurarSelects(); 
-    dimensionar();
+    dimensionar(false);
     // radio por defecto es 50, para que tenga efecto al hacer click en modo radio al iniciar
     document.getElementById("rangoRadioBordes").value = 50;
     // el input color es negro por defecto, ie recuerda colores anteriores
@@ -2063,10 +2071,14 @@ function procesarZoom() {
     // ahora sí decide...
     if (zoomIn == true) {
         // hace zoom +
-        ajustarTamaño(1);
+        ajustarTamaño(1, false);
+        // para que se centre enseguida
+        ajustesResize();
     } else {
         // hace zoom -
-        ajustarTamaño(-1);
+        ajustarTamaño(-1, false);
+        // para que se centre enseguida
+        ajustesResize();
     }
 }
 //se selecciona un color aleatorio
@@ -2170,7 +2182,7 @@ function colorHistorial(btnId) {
     //cerrarHistorial();
 }
 // ajusta el número de filas y columnas visibles
-function dimensionar() {
+function dimensionar(mostrarLoader) {
     // sale si es por código
     if (permitirEvento == false) {
         return;
@@ -2197,7 +2209,9 @@ function dimensionar() {
     y = document.getElementById("selectFilas").options;
     numFilas = Number(y[x].value);
     // muestra un loader...
-    $(".loader").removeClass("oculto");
+    if (mostrarLoader == true) {
+        $(".loader").removeClass("oculto");
+    }    
     setTimeout(function () {
         // código alta exigencia
         //alert("filas " + numFilas + " columnas " + numColumnas);    
@@ -2224,7 +2238,9 @@ function dimensionar() {
             }
         }
         // oculta el loader
-        $(".loader").addClass("oculto");
+        if (mostrarLoader == true) {
+            $(".loader").addClass("oculto");
+        }        
         // otras tareas
 
     }, 0);  
@@ -2454,7 +2470,7 @@ document.getElementById("BtnExtraerColor").onclick = function () {
 }
 
 // se ajusta el tamaño de los cuadritos
-function ajustarTamaño(incremento) {
+function ajustarTamaño(incremento, mostrarLoader) {
     if (ocupado == true) {
         //sale si está ocupado
         return;
@@ -2479,7 +2495,10 @@ function ajustarTamaño(incremento) {
     var x = document.getElementsByClassName("columna");
     var i;
     // muestra un loader...
-    $(".loader").removeClass("oculto");
+    if (mostrarLoader == true) {
+        $(".loader").removeClass("oculto");
+    }
+    
     setTimeout(function () {
         // código alta exigencia
         //ajusta todos los cuadritos
@@ -2498,7 +2517,9 @@ function ajustarTamaño(incremento) {
             x[i].style.fontSize = tamaño * 0.8 + "px";
         }
         // oculta el loader
-        $(".loader").addClass("oculto");
+        if (mostrarLoader == true) {
+            $(".loader").addClass("oculto");
+        }        
         // otras tareas
 
     }, 0);  
@@ -2514,8 +2535,8 @@ function ajustarTamaño(incremento) {
     ocupado = false;
 }
 // la llama para ajustes iniciales
-ajustarTamaño(1);
-ajustarTamaño(1);
+ajustarTamaño(1, false);
+ajustarTamaño(1, false);
 // todos los cuadritos blancos, borra todo
 document.getElementById("BtnActualizar").onclick = function () {
     if (ocupado == true) {
@@ -2554,23 +2575,33 @@ document.getElementById("BtnRellenar").onclick = function () {
     lastAction = "rellenar";
     lastArrayColor.length = 0;
     lastArrayID.length = 0;
-    //obtiene un array con todos los de la clase columna
-    var x = document.getElementsByClassName("columna");
-    var i;
-    //recorre todo el array y les aplica el color actual a todos los cuadritos
-    for (i = 0; i < x.length; i++) {
-        //guardar los id y los colores al mismo tiempo que recorre los cuadritos
-        lastArrayID[lastArrayID.length] = x[i].id;
-        lastArrayColor[lastArrayColor.length] = x[i].style.backgroundColor;
-        x[i].style.backgroundColor = colorActual;
-    }
-    lastFondoAplicado = fondoAplicado;
-    fondoAplicado = colorActual;
-    // historial de colorActual
-    procesarHistorial(colorActual);
-    // activa el botón deshacer
-    estadoBtnDeshacer(true, "Deshacer relleno global");
-    ocupado = false;
+    // muestra un loader...
+    $(".loader").removeClass("oculto");
+    setTimeout(function () {
+        // código alta exigencia
+        //obtiene un array con todos los de la clase columna
+        var x = document.getElementsByClassName("columna");
+        var i;
+        //recorre todo el array y les aplica el color actual a todos los cuadritos
+        for (i = 0; i < x.length; i++) {
+            //guardar los id y los colores al mismo tiempo que recorre los cuadritos
+            lastArrayID[lastArrayID.length] = x[i].id;
+            lastArrayColor[lastArrayColor.length] = x[i].style.backgroundColor;
+            x[i].style.backgroundColor = colorActual;
+        }
+        lastFondoAplicado = fondoAplicado;
+        fondoAplicado = colorActual;
+        // historial de colorActual
+        procesarHistorial(colorActual);
+        // activa el botón deshacer
+        estadoBtnDeshacer(true, "Deshacer relleno global");
+        ocupado = false;
+        // oculta el loader
+        $(".loader").addClass("oculto");
+        // otras tareas
+
+    }, 0);  
+    
 }
 // para ajustar el radio de los bordes
 document.getElementById("BtnRadioBordes").onclick = function () {
@@ -2588,28 +2619,44 @@ document.getElementById("BtnRadioBordes").onclick = function () {
 // alterna entre con y sin bordes
 function alternarBordes(showMsj) {
     var miBorde;
+    var miMsj = "Bordes alternados";
     if (usarBordes == true) {
         usarBordes = false;
         document.getElementById("icoRejilla").setAttribute("class", "fa fa-stop");
         miBorde = "none";
         if (showMsj == true) {
-            showSnackbar("Sin bordes");
+            miMsj = "Sin bordes";
+            //showSnackbar("Sin bordes");
         }
     } else {
         usarBordes = true;
         document.getElementById("icoRejilla").setAttribute("class", "fa fa-plus-square-o");
         miBorde = anchoBordes + "px solid " + colorRejilla;
         if (showMsj == true) {
-            showSnackbar("Con bordes");
+            miMsj = "Con bordes";
+            //showSnackbar("Con bordes");
         }
     }
-    //obtiene un array con todos los de la clase columna
-    var x = document.getElementsByClassName("columna");
-    var i;
-    //recorre todo el array y les aplica el estilo de borde
-    for (i = 0; i < x.length; i++) {
-        x[i].style.border = miBorde;
-    }
+    // muestra un loader...
+    $(".loader").removeClass("oculto");
+    setTimeout(function () {
+        // código alta exigencia
+        //obtiene un array con todos los de la clase columna
+        var x = document.getElementsByClassName("columna");
+        var i;
+        //recorre todo el array y les aplica el estilo de borde
+        for (i = 0; i < x.length; i++) {
+            x[i].style.border = miBorde;
+        }
+        // oculta el loader
+        $(".loader").addClass("oculto");
+        // otras tareas
+        if (showMsj == true) {
+            showSnackbar(miMsj);
+        }
+        
+    }, 0);  
+    
 }
 // alterna entre con o sin rejilla
 document.getElementById("BtnRejilla").onclick = function () {
@@ -2711,22 +2758,31 @@ document.getElementById("BtnDeshacer").onclick = function () {
             alternarBordes(false);
             mensaje = "Se deshizo alternar bordes";
             break;
-        case "CambiarRadioBordesGlobal":            
-            //obtiene un array con todos los de la clase columna
-            var x = document.getElementsByClassName("columna");
-            var i; 
-            var miElemRadio;
-            var miLastRadio;
-            //recorre todo el array y les aplica el estilo de borde guardado         
-            for (i = 0; i < lastArrayID.length; i++) {  
-                miElemRadio = document.getElementById(lastArrayID[i]);
-                miLastRadio = lastArrayRadio[i];
-                miElemRadio.dataset.radio = miLastRadio;
-                miElemRadio.style.MozBorderRadius = miLastRadio;
-                miElemRadio.style.webkitBorderRadius = miLastRadio;
-                miElemRadio.style.borderRadius = miLastRadio;
-            }
+        case "CambiarRadioBordesGlobal":
             mensaje = "Se deshizo cambio de radio de bordes global";
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia
+                //obtiene un array con todos los de la clase columna
+                var x = document.getElementsByClassName("columna");
+                var i;
+                var miElemRadio;
+                var miLastRadio;
+                //recorre todo el array y les aplica el estilo de borde guardado         
+                for (i = 0; i < lastArrayID.length; i++) {
+                    miElemRadio = document.getElementById(lastArrayID[i]);
+                    miLastRadio = lastArrayRadio[i];
+                    miElemRadio.dataset.radio = miLastRadio;
+                    miElemRadio.style.MozBorderRadius = miLastRadio;
+                    miElemRadio.style.webkitBorderRadius = miLastRadio;
+                    miElemRadio.style.borderRadius = miLastRadio;
+                }
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+
+            }, 0);  
             break;
         case "CambiarRadioBordesCelda":
             var miElemRadio = document.getElementById(lastID);
@@ -2748,14 +2804,23 @@ document.getElementById("BtnDeshacer").onclick = function () {
             mensaje = "Se deshizo el borrado";
             break;
         case "rellenar":
-            // deshace el relleno
-            fondoAplicado = lastFondoAplicado;
-            var i;
-            //recorre los array y les aplica el color guardado
-            for (i = 0; i < lastArrayID.length; i++) {
-                document.getElementById(lastArrayID[i]).style.backgroundColor = lastArrayColor[i];
-            }
             mensaje = "Se deshizo el relleno global";
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia
+                // deshace el relleno
+                fondoAplicado = lastFondoAplicado;
+                var i;
+                //recorre los array y les aplica el color guardado
+                for (i = 0; i < lastArrayID.length; i++) {
+                    document.getElementById(lastArrayID[i]).style.backgroundColor = lastArrayColor[i];
+                }
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+
+            }, 0);  
             break;
         case "libre":
             // deshace cualquier cambio de color            
@@ -2915,11 +2980,11 @@ document.getElementById("BtnDeshacer").onclick = function () {
 
 // aumenta el tamaño de todos los cuadritos
 document.getElementById("BtnAumentar").onclick = function () {
-    ajustarTamaño(1);
+    ajustarTamaño(1, true);
 }
 // disminuye el tamaño de todos los cuadritos
 document.getElementById("BtnDisminuir").onclick = function () {
-    ajustarTamaño(-1);
+    ajustarTamaño(-1, true);
 }
 // imprime
 document.getElementById("BtnImprimir").onclick = function () {
