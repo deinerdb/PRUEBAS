@@ -111,11 +111,15 @@ function animarBtnHistorial() {
         rell.style.MozBorderRadius = "50%";
         rell.style.webkitBorderRadius = "50%";
         rell.style.borderRadius = "50%";
+        // de paso alterna el ícono de ancho bordes
+        document.getElementById("icoAnchoBordes").setAttribute("class", "fas fa-window-minimize");
     } else {
         rell.dataset.radio = "0%";
         rell.style.MozBorderRadius = "0%";
         rell.style.webkitBorderRadius = "0%";
         rell.style.borderRadius = "0%";
+        // de paso alterna el ícono de ancho bordes
+        document.getElementById("icoAnchoBordes").setAttribute("class", "far fa-window-minimize");
     }
     // va cambiando el color
     rell.style.backgroundColor = arrayColoresUsados[idAnimarHistorial];
@@ -2294,7 +2298,8 @@ function cambiarModo(nuevoModo) {
         document.getElementById("filtro").style.display = "inline-block";
         document.getElementById("BtnActualizar").style.display = "inline-block";
         document.getElementById("BtnRejilla").style.display = "inline-block";
-        document.getElementById("BtnEstiloBorde").style.display = "inline-block";
+        document.getElementById("BtnTipoBorde").style.display = "inline-block";
+        document.getElementById("BtnAnchoBorde").style.display = "inline-block";
         document.getElementById("BtnRadioBordes").style.display = "inline-block";
         document.getElementById("BtnDeshacer").style.display = "inline-block";
         //document.getElementById("spanFilas").style.display = "inline-block";
@@ -2334,7 +2339,8 @@ function cambiarModo(nuevoModo) {
             document.getElementById("filtro").style.display = "none";
             document.getElementById("BtnActualizar").style.display = "none";
             document.getElementById("BtnRejilla").style.display = "none";
-            document.getElementById("BtnEstiloBorde").style.display = "none";
+            document.getElementById("BtnTipoBorde").style.display = "none";
+            document.getElementById("BtnAnchoBorde").style.display = "none";
             document.getElementById("BtnRadioBordes").style.display = "none";
             document.getElementById("BtnDeshacer").style.display = "none";
             //document.getElementById("spanFilas").style.display = "none";
@@ -2672,9 +2678,13 @@ document.getElementById("BtnRejilla").onclick = function () {
     estadoBtnDeshacer(true, "Deshacer alternar bordes");
     ocupado = false;
 }
-// para definir ancho y tipo de borde
-document.getElementById("BtnEstiloBorde").onclick = function () {
-    alert("Ancho y tipo de borde... en construcción.")
+// para definir tipo de borde
+document.getElementById("BtnTipoBorde").onclick = function () {
+    alert("Tipo de bordes... en construcción.")
+}
+// para definir ancho de borde
+document.getElementById("BtnAnchoBorde").onclick = function () {
+    alert("Ancho de bordes... en construcción.")
 }
 // cambia el color de la rejilla
 document.getElementById("BtnColorRejilla").onclick = function () {
