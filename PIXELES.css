@@ -837,6 +837,15 @@ html, body {
     margin-left: 5px;
     display: none;
 }
+#icoAnchoBorde {
+    border: none;    
+    width: 36px;
+    height: 36px;
+    margin: 0;
+}
+#BtnAnchoBorde{
+    padding: 0;
+}
 /* para dar cabida a la flechita */
 #BtnRadioBordes.seleccionadoBtnModos {
     min-width: 56px !important;

@@ -112,14 +112,14 @@ function animarBtnHistorial() {
         rell.style.webkitBorderRadius = "50%";
         rell.style.borderRadius = "50%";
         // de paso alterna el ícono de ancho bordes
-        document.getElementById("icoAnchoBordes").setAttribute("class", "fas fa-window-minimize");
+        //document.getElementById("icoAnchoBordes").setAttribute("class", "fas fa-window-minimize");
     } else {
         rell.dataset.radio = "0%";
         rell.style.MozBorderRadius = "0%";
         rell.style.webkitBorderRadius = "0%";
         rell.style.borderRadius = "0%";
         // de paso alterna el ícono de ancho bordes
-        document.getElementById("icoAnchoBordes").setAttribute("class", "far fa-window-minimize");
+        //document.getElementById("icoAnchoBordes").setAttribute("class", "far fa-window-minimize");
     }
     // va cambiando el color
     rell.style.backgroundColor = arrayColoresUsados[idAnimarHistorial];
@@ -2086,7 +2086,7 @@ function procesarZoom() {
     }
 }
 //se selecciona un color aleatorio
-document.getElementById("BtnRnd").onclick = function () {
+document.getElementById("BtnRnd").onclick = function () {    
     var miRGB;
     var miHex;
     miR = Math.floor(Math.random() * 256); 

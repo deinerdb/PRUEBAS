@@ -558,7 +558,16 @@
         
         <button id="BtnRejilla" title="Alternar bordes"><i id="icoRejilla" class="far fa-plus-square"></i></button>
         <button id="BtnTipoBorde" title="Tipo de bordes"><i class="fas fa-border-style"></i></button>
-        <button id="BtnAnchoBorde" title="Ancho de bordes"><i id="icoAnchoBordes" class="fas fa-window-minimize"></i></button>
+        <!-- <button id="BtnAnchoBorde" title="Ancho de bordes"><i id="icoAnchoBordes" class="fas fa-window-minimize"></i></button> -->
+        <button id="BtnAnchoBorde" title="Ancho de bordes">
+            <svg id="icoAnchoBorde" height="36" width="36">
+                <line x1="6" y1="6" x2="30" y2="6" style="stroke:rgb(255,255,255);stroke-width:0.6" />
+                <line x1="6" y1="12" x2="30" y2="12" style="stroke:rgb(255,255,255);stroke-width:1.5" />
+                <line x1="6" y1="20" x2="30" y2="20" style="stroke:rgb(255,255,255);stroke-width:2.8" />
+                <line x1="6" y1="30" x2="30" y2="30" style="stroke:rgb(255,255,255);stroke-width:5.8" />
+                |||
+            </svg>
+        </button>
         <button id="BtnColorRejilla" title="Color de borde"><i class="fas fa-tint"></i></button>        
         <button id="BtnRadioBordes" title="Radio del borde"><i id="icoCircular" class="far fa-circle"></i><i id="icoCircularFlecha" class="fas fa-caret-down"></i></button>        
         <button id="BtnRellenar" title="Pintar todos"><span id="relleno"></span><i class="fas fa-fill-drip"></i></button>
