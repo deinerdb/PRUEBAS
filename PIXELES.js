@@ -154,6 +154,7 @@ document.getElementById("BtnDisminuirFull").style.border = "3px solid #666699";
 document.getElementById("BtnAceptarLibre").style.display = "none";
 document.getElementById("BtnCancelarLibre").style.display = "none";
 document.getElementById("BtnBorrarLibre").style.display = "none";
+document.getElementById("BtnExpandirLibre").style.display = "none";
 // el relleno inicial es negro
 document.getElementById("relleno").style.backgroundColor = "#000000";
 // la propiedad color de ciertos íconos es negra por defecto, desde css
@@ -2315,6 +2316,7 @@ function cambiarModo(nuevoModo) {
         document.getElementById("BtnAceptarLibre").style.display = "none";
         document.getElementById("BtnCancelarLibre").style.display = "none";
         document.getElementById("BtnBorrarLibre").style.display = "none";
+        document.getElementById("BtnExpandirLibre").style.display = "none";
         document.getElementById("BtnPantallaCompleta").style.display = "inline-block";
     }
     switch (modoActual) {
@@ -2331,6 +2333,7 @@ function cambiarModo(nuevoModo) {
             document.getElementById("BtnAceptarLibre").style.display = "inline-block";
             document.getElementById("BtnCancelarLibre").style.display = "inline-block";
             document.getElementById("BtnBorrarLibre").style.display = "inline-block";
+            document.getElementById("BtnExpandirLibre").style.display = "inline-block";
             document.getElementById("BtnRellenar").style.display = "none";
             document.getElementById("BtnColorLienzo").style.display = "none";
             document.getElementById("BtnColorRejilla").style.display = "none";
@@ -2464,20 +2467,95 @@ document.getElementById("BtnBorrarLibre").onclick = function () {
         // código alta exigencia
         var x = document.getElementsByClassName("seleccionado");
         var i;
+        var msj = "¡Hecho!";
         var miCuadrito;
-        for (i = 0; i < x.length; i++) {
-            miCuadrito = x[i];
-            miCuadrito.innerHTML = "";
-            //$("[id = " + miCuadrito.id + "]").removeClass("seleccionado");
-            miCuadrito.style.backgroundColor = lastArrayColor[lastArrayID.indexOf(miCuadrito.id)];
-        }
-        $(".seleccionado").removeClass("seleccionado");
+        if (x.length < 1) {
+            msj = "No hay ninguno seleccionado";
+        } else {
+            for (i = 0; i < x.length; i++) {
+                miCuadrito = x[i];
+                miCuadrito.innerHTML = "";
+                //$("[id = " + miCuadrito.id + "]").removeClass("seleccionado");
+                miCuadrito.style.backgroundColor = lastArrayColor[lastArrayID.indexOf(miCuadrito.id)];
+            }
+            $(".seleccionado").removeClass("seleccionado");
+            msj = "Selección borrada";
+        }        
         // oculta el loader
         $(".loader").addClass("oculto");
         // otras tareas
-
+        showSnackbar(msj);
     }, 0);
     
+}
+// en modo libre, expande la selección actual
+document.getElementById("BtnExpandirLibre").onclick = function () {
+    // muestra un loader...
+    $(".loader").removeClass("oculto");
+    setTimeout(function () {
+        // código alta exigencia
+        var msj;
+        var x = document.getElementsByClassName("seleccionado");
+        var cantSeleccionado = x.length;
+        // deben estar seleccionados por lo menos 2 cuadritos
+        if (cantSeleccionado < 2) {
+            msj = "Seleccione varios para poder expandir";
+        } else {
+            // procede a expandir la selección
+            var i;
+            var miCuadrito;
+            var colMenor = Infinity;
+            var colMayor = -Infinity;
+            var filaMenor = Infinity;
+            var filaMayor = -Infinity;
+            var miFila;
+            var miCol;
+            var str;
+            var res;
+            var miID;
+            // busca las filas y columnas mayores y menores recorriendo los seleccionados
+            for (i = 0; i < x.length; i++) {                                
+                miCuadrito = x[i];
+                str = "" + miCuadrito.id;
+                res = str.substring(1);
+                res = res.split("c");
+                miFila = res[0];
+                miCol = res[1];
+                miFila = Number(miFila);
+                miCol = Number(miCol);
+                if (miFila > filaMayor) {
+                    filaMayor = miFila;
+                }
+                if (miFila < filaMenor) {
+                    filaMenor = miFila;
+                }
+                if (miCol > colMayor) {
+                    colMayor = miCol;
+                }
+                if (miCol < colMenor) {
+                    colMenor = miCol;
+                }                
+            }            
+            // forma el cuadrado de selección con los valores límite encontrados y les aplica los cambios
+            for (miFila = filaMenor; miFila <= filaMayor; miFila++) {
+                for (miCol = colMenor; miCol <= colMayor; miCol++) {
+                    miID = "f" + miFila + "c" + miCol;
+                    miCuadrito = document.getElementById(miID);
+                    if (miCuadrito.innerHTML == "") {
+                        miCuadrito.innerHTML = "×";
+                        $("[id = " + miID + "]").addClass("seleccionado");
+                        miCuadrito.style.backgroundColor = colorActual;
+                    }
+                }
+            }
+            msj = "Selección expandida";
+        }
+        // oculta el loader
+        $(".loader").addClass("oculto");
+        // otras tareas
+        showSnackbar(msj);
+    }, 0);
+
 }
 //se selecciona el modo libre
 document.getElementById("BtnLibre").onclick = function () {
