@@ -1218,6 +1218,11 @@ html, body {
         font-family: Courier New, Courier, monospace;
         font-weight: bold;
         text-shadow: 2px 2px 3px #ffffff;
+        /*no se puede seleccionar el texto*/
+        -webkit-user-select: none; /* Chrome, Opera, Safari */
+        -moz-user-select: none; /* Firefox 2+ */
+        -ms-user-select: none; /* IE 10+ */
+        user-select: none; /* Standard syntax */
     }
 .sk-cube-grid {
     width: 120px;
