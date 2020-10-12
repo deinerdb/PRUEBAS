@@ -1213,7 +1213,8 @@ html, body {
     .loader h3 {
         text-align: center;
         width: 100%;
-        color: #e600e6;
+        /* color: #e600e6; */
+        color: indigo;
         font-family: Courier New, Courier, monospace;
         font-weight: bold;
         text-shadow: 2px 2px 3px #ffffff;
@@ -1921,6 +1922,7 @@ overflow-x: hidden;
 /* The snackbar - position it at the bottom and in the middle of the screen */
 #snackbar {
     visibility: hidden; /* Hidden by default. Visible on click */    
+    width: 250px; /* siempre igual, siempre centrado */
     min-width: 250px; /* Set a default minimum width */
     margin-left: -125px; /* Divide value of min-width by 2 */
     background-color: #660066; /* background color */

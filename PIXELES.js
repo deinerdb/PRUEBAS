@@ -153,6 +153,7 @@ document.getElementById("BtnDisminuirFull").style.border = "3px solid #666699";
 // en el modo pincel no están estos
 document.getElementById("BtnAceptarLibre").style.display = "none";
 document.getElementById("BtnCancelarLibre").style.display = "none";
+document.getElementById("BtnBorrarLibre").style.display = "none";
 // el relleno inicial es negro
 document.getElementById("relleno").style.backgroundColor = "#000000";
 // la propiedad color de ciertos íconos es negra por defecto, desde css
@@ -2313,6 +2314,7 @@ function cambiarModo(nuevoModo) {
         document.getElementById("BtnImprimir").style.display = "inline-block";
         document.getElementById("BtnAceptarLibre").style.display = "none";
         document.getElementById("BtnCancelarLibre").style.display = "none";
+        document.getElementById("BtnBorrarLibre").style.display = "none";
         document.getElementById("BtnPantallaCompleta").style.display = "inline-block";
     }
     switch (modoActual) {
@@ -2328,6 +2330,7 @@ function cambiarModo(nuevoModo) {
             //muestra y oculta elementos
             document.getElementById("BtnAceptarLibre").style.display = "inline-block";
             document.getElementById("BtnCancelarLibre").style.display = "inline-block";
+            document.getElementById("BtnBorrarLibre").style.display = "inline-block";
             document.getElementById("BtnRellenar").style.display = "none";
             document.getElementById("BtnColorLienzo").style.display = "none";
             document.getElementById("BtnColorRejilla").style.display = "none";
@@ -2452,6 +2455,29 @@ document.getElementById("BtnCancelarLibre").onclick = function () {
         document.getElementById(lastArrayID[i]).style.backgroundColor = lastArrayColor[i];
     }
     estadoBtnDeshacer(false);
+}
+// en modo libre, se borra la selección actual
+document.getElementById("BtnBorrarLibre").onclick = function () {
+    // muestra un loader...
+    $(".loader").removeClass("oculto");
+    setTimeout(function () {
+        // código alta exigencia
+        var x = document.getElementsByClassName("seleccionado");
+        var i;
+        var miCuadrito;
+        for (i = 0; i < x.length; i++) {
+            miCuadrito = x[i];
+            miCuadrito.innerHTML = "";
+            //$("[id = " + miCuadrito.id + "]").removeClass("seleccionado");
+            miCuadrito.style.backgroundColor = lastArrayColor[lastArrayID.indexOf(miCuadrito.id)];
+        }
+        $(".seleccionado").removeClass("seleccionado");
+        // oculta el loader
+        $(".loader").addClass("oculto");
+        // otras tareas
+
+    }, 0);
+    
 }
 //se selecciona el modo libre
 document.getElementById("BtnLibre").onclick = function () {
@@ -2605,7 +2631,7 @@ document.getElementById("BtnRellenar").onclick = function () {
         // oculta el loader
         $(".loader").addClass("oculto");
         // otras tareas
-
+        showSnackbar("Relleno global aplicado");
     }, 0);  
     
 }
