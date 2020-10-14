@@ -5,7 +5,7 @@ var usarBordes = true;
 var fondoAplicado = "#ffffff";
 var colorLienzo = "#000000" // ahora es individual
 var radioBorde = "50%";
-// modal: radio, rgb, gallery, importar, exportar, filas, columnas, lienzo
+// modal: ninguno, radio, rgb, gallery, importar, exportar, filas, columnas, lienzo, anchoBordes
 var modalActual = "ninguno";
 // recuerda el scroll y lo restaura al cerrar el modal
 var miBodyScroll;
@@ -754,6 +754,9 @@ function aceptarModal() {
                 estadoBtnDeshacer(true, "Deshacer color de lienzo global");
             }, 0);                        
             break;
+        case "anchoBordes":
+            showSnackbar("En construcción...");
+            break;
         case "radio":            
             //valida, porque en ie 9 input range se muestra como campo de texto
             var nuevo = sliderRadio.value;
@@ -861,6 +864,11 @@ function showModal() {
     // por defecto visible
     $("#infoModal").css("display", "block");
     switch (modalActual) {
+        case "anchoBordes":
+            $("#marcoAnchoBordes").css("display", "block");
+            document.getElementById("modalTitle").innerHTML = "<svg id='icoAnchoBordesModal' height='24' width='24'>< line x1= '4' y1= '4' x2= '20' y2= '4' style= 'stroke:rgb(255,255,255);stroke-width:0.5' /><line x1='4' y1='8' x2='20' y2='8' style='stroke:rgb(255,255,255);stroke-width:1' /><line x1='4' y1='13.3333' x2='20' y2='13.3333' style='stroke:rgb(255,255,255);stroke-width:1.8666' /><line x1='4' y1='20' x2='20' y2='20' style='stroke:rgb(255,255,255);stroke-width:3.8666' />|||</svg >Ancho de los bordes";
+            document.getElementById("spanInfoModal").innerHTML = "Use el control para definir el ancho de los bordes que se aplicará";
+            break;
         case "radio":
             $("#marcoRadio").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<i class='far fa-circle'></i> Radio del borde";
@@ -2301,7 +2309,7 @@ function cambiarModo(nuevoModo) {
         document.getElementById("BtnActualizar").style.display = "inline-block";
         document.getElementById("BtnRejilla").style.display = "inline-block";
         document.getElementById("BtnTipoBorde").style.display = "inline-block";
-        document.getElementById("BtnAnchoBorde").style.display = "inline-block";
+        document.getElementById("BtnAnchoBordes").style.display = "inline-block";
         document.getElementById("BtnRadioBordes").style.display = "inline-block";
         document.getElementById("BtnDeshacer").style.display = "inline-block";
         //document.getElementById("spanFilas").style.display = "inline-block";
@@ -2346,7 +2354,7 @@ function cambiarModo(nuevoModo) {
             document.getElementById("BtnActualizar").style.display = "none";
             document.getElementById("BtnRejilla").style.display = "none";
             document.getElementById("BtnTipoBorde").style.display = "none";
-            document.getElementById("BtnAnchoBorde").style.display = "none";
+            document.getElementById("BtnAnchoBordes").style.display = "none";
             document.getElementById("BtnRadioBordes").style.display = "none";
             document.getElementById("BtnDeshacer").style.display = "none";
             //document.getElementById("spanFilas").style.display = "none";
@@ -2713,6 +2721,13 @@ document.getElementById("BtnRellenar").onclick = function () {
     }, 0);  
     
 }
+// para ajustar el ANCHO de los bordes
+document.getElementById("BtnAnchoBordes").onclick = function () {    
+    // define y muetra el modal de ancho bordes
+    modalActual = "anchoBordes";
+    //muestra el modal
+    showModal();    
+}
 // para ajustar el radio de los bordes
 document.getElementById("BtnRadioBordes").onclick = function () {
     if (modoActual == "radio") { 
@@ -2785,10 +2800,6 @@ document.getElementById("BtnRejilla").onclick = function () {
 // para definir tipo de borde
 document.getElementById("BtnTipoBorde").onclick = function () {
     alert("Tipo de bordes... en construcción.")
-}
-// para definir ancho de borde
-document.getElementById("BtnAnchoBorde").onclick = function () {
-    alert("Ancho de bordes... en construcción.")
 }
 // cambia el color de la rejilla
 document.getElementById("BtnColorRejilla").onclick = function () {

@@ -837,14 +837,21 @@ html, body {
     margin-left: 5px;
     display: none;
 }
-#icoAnchoBorde {
+#icoAnchoBordes {
     border: none;    
     width: 24px;
     height: 24px;
     margin: 0;
-
 }
-#BtnAnchoBorde{
+#icoAnchoBordesModal {
+    border: none;
+    width: 24px;
+    height: 24px;
+    margin: 0;
+    /* va con texto a la derecha ...*/
+    margin-right: 6px;
+}
+#BtnAnchoBordes{
     padding: 0;
     text-align: center;
 
