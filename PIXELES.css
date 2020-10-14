@@ -1434,7 +1434,7 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores {
 }
 
 #colorPixel {
-    min-width: 70px;
+    min-width: 73px;
     max-width: 20%;
     display: inline-block;
     margin-left: 4px;
@@ -1443,6 +1443,9 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores {
     margin-bottom: auto;
     padding: 2px 4px;
     font-family: Consolas, Courier New, Courier, monospace;
+    border: 1px solid #000000;
+    border-bottom-width: 5px;
+    border-right-width: 3px;
 }
 
 #rellenoHistorial {

@@ -2165,6 +2165,8 @@ function colorPixel() {
     }
     //actualiza el color del pincel
     colorActual = miValor;
+    // actualiza el borde del input color
+    document.getElementById("colorPixel").style.borderColor = colorActual;
     //actualiza el color de rellenar todo junto al ícono del tanque
     document.getElementById("relleno").style.backgroundColor = colorActual;
     // el color de ciertos íconos
