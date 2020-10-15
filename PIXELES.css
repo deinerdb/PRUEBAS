@@ -760,7 +760,36 @@ html, body {
         color: #000000;
     }
 }
+#rangoAnchoBordes {
+    margin-bottom: 24px;
+}
 /*fin clase seleccionado*/
+#muestraAnchoBordes {
+    border-style: solid;
+    border-color: #000000;
+    border-width: 3px;
+    margin: 12px auto 24px auto;
+    padding: 0;
+    width: 100px;
+    height: 100px;
+    background-color: #ffffff;
+    color: #4b0082;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    /*centrar verticalmente*/
+    /* BROWSER DEFINITION */
+    display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox; /* TWEENER - IE 10 */
+    display: -webkit-flex; /* NEW - Chrome */
+    /* W3C DEFINITION */
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+}
 
 #muestraRadio {
     /* Rounded corners iniciales */
@@ -1434,7 +1463,7 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores {
 }
 
 #colorPixel {
-    min-width: 73px;
+    min-width: 75px;
     max-width: 20%;
     display: inline-block;
     margin-left: 4px;
@@ -1445,7 +1474,7 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores {
     font-family: Consolas, Courier New, Courier, monospace;
     border: 1px solid #000000;
     border-bottom-width: 5px;
-    border-right-width: 3px;
+    border-right-width: 5px;
 }
 
 #rellenoHistorial {

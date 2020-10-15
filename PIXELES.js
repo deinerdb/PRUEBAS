@@ -39,6 +39,7 @@ var tamaño = 20;
 var MAXSIZE = 100;
 var MINSIZE = 4;
 var anchoBordes;
+var factorAnchoBordes = 0.01; // es 1/100
 var ocupado = false;
 var hexTemp = "#000000";
 var rgbTemp = "rgb(0, 0, 0)";
@@ -218,6 +219,10 @@ function cancelFullScreen() {
     }
 
 }
+//el input range del ancho de los bordes
+var sliderAnchoBordes = document.getElementById("rangoAnchoBordes");
+// la muestra del ancho de los bordes
+var getMuestraAnchoBordes = document.getElementById("muestraAnchoBordes");
 //el input range del radio de los bordes y sus botones debajo
 var sliderRadio = document.getElementById("rangoRadioBordes");
 var getCuadro = document.getElementById("icoCuadro");
@@ -868,6 +873,12 @@ function showModal() {
             $("#marcoAnchoBordes").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<svg id='icoAnchoBordesModal' height='24' width='24'>< line x1= '4' y1= '4' x2= '20' y2= '4' style= 'stroke:rgb(255,255,255);stroke-width:0.5' /><line x1='4' y1='8' x2='20' y2='8' style='stroke:rgb(255,255,255);stroke-width:1' /><line x1='4' y1='13.3333' x2='20' y2='13.3333' style='stroke:rgb(255,255,255);stroke-width:1.8666' /><line x1='4' y1='20' x2='20' y2='20' style='stroke:rgb(255,255,255);stroke-width:3.8666' />|||</svg >Ancho de los bordes";
             document.getElementById("spanInfoModal").innerHTML = "Use el control para definir el ancho de los bordes que se aplicará";
+            // el slider muestra el porcentaje, no el factor
+            sliderAnchoBordes.value = factorAnchoBordes * 100;
+            // ajusta la muestra
+            var anchoMuestra = 100 * factorAnchoBordes; // muestra tiene 100px de ancho
+            getMuestraAnchoBordes.style.borderWidth = anchoMuestra + "px";
+            getMuestraAnchoBordes.innerHTML = sliderAnchoBordes.value + "%";
             break;
         case "radio":
             $("#marcoRadio").css("display", "block");
@@ -2611,7 +2622,8 @@ function ajustarTamaño(incremento, mostrarLoader) {
     tamaño = Number(tamaño) + incremento;
     //define el ancho de los bordes
     // ANTES 0.005
-    anchoBordes = 0.01 * tamaño;
+    //anchoBordes = 0.01 * tamaño;
+    anchoBordes = factorAnchoBordes * tamaño;
     var x = document.getElementsByClassName("columna");
     var i;
     // muestra un loader...
