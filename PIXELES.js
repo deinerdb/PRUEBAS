@@ -872,7 +872,7 @@ function showModal() {
         case "anchoBordes":
             $("#marcoAnchoBordes").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<svg id='icoAnchoBordesModal' height='24' width='24'>< line x1= '4' y1= '4' x2= '20' y2= '4' style= 'stroke:rgb(255,255,255);stroke-width:0.5' /><line x1='4' y1='8' x2='20' y2='8' style='stroke:rgb(255,255,255);stroke-width:1' /><line x1='4' y1='13.3333' x2='20' y2='13.3333' style='stroke:rgb(255,255,255);stroke-width:1.8666' /><line x1='4' y1='20' x2='20' y2='20' style='stroke:rgb(255,255,255);stroke-width:3.8666' />|||</svg >Ancho de los bordes";
-            document.getElementById("spanInfoModal").innerHTML = "Use el control para definir el ancho de los bordes que se aplicará. Algunos dispositivos no muestran los bordes muy delgados.";
+            document.getElementById("spanInfoModal").innerHTML = "Use el control para definir el ancho de los bordes que se aplicará. Los bordes muy delgados podrían no ser visibles en algunos dispositivos.";
             // el slider muestra el porcentaje, no el factor
             sliderAnchoBordes.value = factorAnchoBordes * 100;
             // ajusta la muestra
@@ -1763,6 +1763,8 @@ function hacerClick(celda) {
             colorActual = convertirRGBaHexadecimal(document.getElementById(celda).style.backgroundColor);
             // asigna el valor hexadecimal al input color
             document.getElementById("colorPixel").value = colorActual;
+            // actualiza el borde del input color
+            document.getElementById("colorPixel").style.borderColor = colorActual;
             // también al span de relleno
             document.getElementById("relleno").style.backgroundColor = colorActual;
             // el color de ciertos íconos
@@ -2164,8 +2166,9 @@ document.getElementById("BtnExportar").onclick = function () {
 document.getElementById("BtnImportar").onclick = function () {
     alert("En construcción");
 }
-//cambia el color seleccionado, llamada por selector o historial de colores
+//cambia el color seleccionado, llamada por selectores o historial de colores
 function colorPixel() {
+    // OJO: CÓDIGO PARALELO EN MODO EXTRAER
     // NO OLVIDAR QUE backgroundColor DEVUELVE RGB Y EL VALUE DEL INPUT COLOR ES HEXADECIMAL
     var miValor = document.getElementById("colorPixel").value;
     if (validarHex(miValor) == false) {
