@@ -872,7 +872,7 @@ function showModal() {
         case "anchoBordes":
             $("#marcoAnchoBordes").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<svg id='icoAnchoBordesModal' height='24' width='24'>< line x1= '4' y1= '4' x2= '20' y2= '4' style= 'stroke:rgb(255,255,255);stroke-width:0.5' /><line x1='4' y1='8' x2='20' y2='8' style='stroke:rgb(255,255,255);stroke-width:1' /><line x1='4' y1='13.3333' x2='20' y2='13.3333' style='stroke:rgb(255,255,255);stroke-width:1.8666' /><line x1='4' y1='20' x2='20' y2='20' style='stroke:rgb(255,255,255);stroke-width:3.8666' />|||</svg >Ancho de los bordes";
-            document.getElementById("spanInfoModal").innerHTML = "Use el control para definir el ancho de los bordes que se aplicará";
+            document.getElementById("spanInfoModal").innerHTML = "Use el control para definir el ancho de los bordes que se aplicará. Algunos dispositivos no muestran los bordes muy delgados.";
             // el slider muestra el porcentaje, no el factor
             sliderAnchoBordes.value = factorAnchoBordes * 100;
             // ajusta la muestra
