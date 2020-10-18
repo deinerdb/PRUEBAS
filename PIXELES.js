@@ -48,8 +48,10 @@ var miG = 0;
 var miB = 0;
 var hexValues = [];
 var decValues = [];
+var anchoValues = [];
 var i;
 //var str = "";
+// llena vectores para validación extricta
 for (i = 0; i <= 255; i++) {
     decValues[i] = Number(i);
     hexValues[i] = i.toString(16).toLowerCase();
@@ -58,7 +60,11 @@ for (i = 0; i <= 255; i++) {
     }
     //str = str + hexValues[i] + " - ";
 }
-//alert("0 - 255:   " + str);
+for (i = 1; i <= 80; i++) {
+    anchoValues[i - 1] = i / 4; 
+    //str = str + anchoValues[i - 1] + " - ";
+}
+//alert("0.25 - 20:   " + str);
 // valida un valor hexadecimal como #0000ff
 // devuelve false si no está en ese formato
 function validarHex(hex) {    
@@ -223,6 +229,30 @@ function cancelFullScreen() {
 var sliderAnchoBordes = document.getElementById("rangoAnchoBordes");
 // la muestra del ancho de los bordes
 var getMuestraAnchoBordes = document.getElementById("muestraAnchoBordes");
+// para no repetirlo en input y change del slider ancho bordes
+function actualizaAnchoBordes(nuevoValor) {
+    var nuevo = nuevoValor;
+    nuevo = Number(nuevo);
+    var pos = anchoValues.indexOf(nuevo);
+    if (pos == -1) {
+        nuevo = 1;
+    } else {
+        nuevo = anchoValues[pos];
+    }    
+    // ajusta la muestra
+    // 120 * nuevo / 100.
+    var anchoMuestra = nuevo * 1.2; // muestra tiene 120px de ancho
+    getMuestraAnchoBordes.style.borderWidth = anchoMuestra + "px";
+    getMuestraAnchoBordes.innerHTML = nuevo + "%";
+}
+//ancho de bordes cambia dinámicamente con el slider
+//input y change, redundantes por un bug en IE
+sliderAnchoBordes.oninput = function () {
+    actualizaAnchoBordes(this.value);
+}
+sliderAnchoBordes.onchange = function () {
+    actualizaAnchoBordes(this.value);
+}
 //el input range del radio de los bordes y sus botones debajo
 var sliderRadio = document.getElementById("rangoRadioBordes");
 var getCuadro = document.getElementById("icoCuadro");
@@ -871,12 +901,12 @@ function showModal() {
     switch (modalActual) {
         case "anchoBordes":
             $("#marcoAnchoBordes").css("display", "block");
-            document.getElementById("modalTitle").innerHTML = "<svg id='icoAnchoBordesModal' height='24' width='24'>< line x1= '4' y1= '4' x2= '20' y2= '4' style= 'stroke:rgb(255,255,255);stroke-width:0.5' /><line x1='4' y1='8' x2='20' y2='8' style='stroke:rgb(255,255,255);stroke-width:1' /><line x1='4' y1='13.3333' x2='20' y2='13.3333' style='stroke:rgb(255,255,255);stroke-width:1.8666' /><line x1='4' y1='20' x2='20' y2='20' style='stroke:rgb(255,255,255);stroke-width:3.8666' />|||</svg >Ancho de los bordes";
-            document.getElementById("spanInfoModal").innerHTML = "Use el control para definir el ancho de los bordes que se aplicará. Los bordes muy delgados podrían no ser visibles en algunos dispositivos.";
+            document.getElementById("modalTitle").innerHTML = "<svg id='icoAnchoBordesModal' height='24' width='24'>< line x1= '4' y1= '4' x2= '20' y2= '4' style= 'stroke:rgb(255,255,255);stroke-width:0.7' /><line x1='4' y1='8' x2='20' y2='8' style='stroke:rgb(255,255,255);stroke-width:1' /><line x1='4' y1='13.3333' x2='20' y2='13.3333' style='stroke:rgb(255,255,255);stroke-width:1.8666' /><line x1='4' y1='20' x2='20' y2='20' style='stroke:rgb(255,255,255);stroke-width:3.8666' />|||</svg >Ancho de los bordes";
+            document.getElementById("spanInfoModal").innerHTML = "Use el control para definir el ancho de los bordes como un porcentaje del tamaño del pixel (0,25% - 20%). Los bordes muy delgados podrían no ser visibles en algunos dispositivos.";
             // el slider muestra el porcentaje, no el factor
             sliderAnchoBordes.value = factorAnchoBordes * 100;
             // ajusta la muestra
-            var anchoMuestra = 100 * factorAnchoBordes; // muestra tiene 100px de ancho
+            var anchoMuestra = 120 * factorAnchoBordes; // muestra tiene 120px de ancho
             getMuestraAnchoBordes.style.borderWidth = anchoMuestra + "px";
             getMuestraAnchoBordes.innerHTML = sliderAnchoBordes.value + "%";
             break;

@@ -770,11 +770,11 @@ html, body {
     border-width: 3px;
     margin: 12px auto 24px auto;
     padding: 0;
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     background-color: #ffffff;
     color: #4b0082;
-    font-size: 16px;
+    font-size: 14px;
     text-align: center;
     font-weight: bold;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
