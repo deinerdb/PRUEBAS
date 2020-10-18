@@ -1915,9 +1915,7 @@ body {
     /*max-width: 20px;*/
     height: 20px;
     font-size: 0px; /*luego se ajusta por js */
-    line-height: 1;
     font-family: Consolas, 'Courier New', Courier, monospace;
-    display: inline-block;
     overflow-x: hidden; /* Disable horizontal scroll */
     overflow-y: hidden; /*para que IE no muestre la barra cuando el ancho es 0*/
     padding: 0px !important;
@@ -1933,6 +1931,17 @@ body {
     -moz-user-select: none; /* Firefox 2+ */
     -ms-user-select: none; /* IE 10+ */
     user-select: none; /* Standard syntax */
+    / /*centrar verticalmente*/
+    /* BROWSER DEFINITION */
+    display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox; /* TWEENER - IE 10 */
+    display: -webkit-flex; /* NEW - Chrome */
+    /* W3C DEFINITION */
+    display: flex;
+    justify-content: center !important;
+    align-content: center !important;
+    flex-direction: column !important;   
 }
 
 .fila {

@@ -1899,7 +1899,7 @@ function crearCuadritos() {
             // le adjunta el evento click
             miColumna.addEventListener("click", function () { hacerClick(this.id); });
             // por las x, define tamaño de fuente
-            miColumna.style.fontSize = tamaño * 0.7 + "px";
+            miColumna.style.fontSize = tamaño * 0.6 + "px";            
             // agrega el cuadrito a su lienzo
             miLienzo.appendChild(miColumna);
             // agrega el lienzo a su fila
@@ -2319,10 +2319,12 @@ function dimensionar(mostrarLoader) {
                 // y si no, lo oculta            
                 if (miFila <= numFilas && miColumna <= numColumnas) {
                     // visible
-                    document.getElementById(miID).style.display = "inline-block";
+                    //document.getElementById(miID).style.display = "inline-block";
+                    $("[id = " + miID + "]").removeClass("oculto");
                 } else {
                     // no visible
-                    document.getElementById(miID).style.display = "none";
+                    //document.getElementById(miID).style.display = "none";
+                    $("[id = " + miID + "]").addClass("oculto");
                 }
                 // primero guardar
                 lastArrayID[lastArrayID.length] = miID;
@@ -2714,7 +2716,7 @@ function ajustarTamaño(incremento, mostrarLoader) {
             // el ancho del borde
             x[i].style.borderWidth = anchoBordes + "px";
             // la fuente, para las x
-            x[i].style.fontSize = tamaño * 0.7 + "px";
+            x[i].style.fontSize = tamaño * 0.6 + "px";            
         }
         // oculta el loader
         if (mostrarLoader == true) {
@@ -3152,10 +3154,12 @@ document.getElementById("BtnDeshacer").onclick = function () {
                         // y si no, lo oculta            
                         if (miFila <= numFilas && miColumna <= numColumnas) {
                             // visible
-                            document.getElementById(miID).style.display = "inline-block";
+                            //document.getElementById(miID).style.display = "inline-block";
+                            $("[id = " + miID + "]").removeClass("oculto");
                         } else {
                             // no visible
-                            document.getElementById(miID).style.display = "none";
+                            //document.getElementById(miID).style.display = "none";
+                            $("[id = " + miID + "]").addClass("oculto");
                         }
                     }
                 }
