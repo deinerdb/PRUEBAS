@@ -40,6 +40,7 @@ var MAXSIZE = 100;
 var MINSIZE = 4;
 var anchoBordes;
 var factorAnchoBordes = 0.01; // es 1/100
+var lastFactorAnchoBordes = 0.01;
 var ocupado = false;
 var hexTemp = "#000000";
 var rgbTemp = "rgb(0, 0, 0)";
@@ -790,7 +791,41 @@ function aceptarModal() {
             }, 0);                        
             break;
         case "anchoBordes":
-            showSnackbar("En construcción...");
+            //valida, porque en ie 9 input range se muestra como campo de texto
+            var nuevo = sliderAnchoBordes.value;
+            nuevo = Number(nuevo);
+            var pos = anchoValues.indexOf(nuevo);
+            if (pos == -1) {
+                nuevo = 1;
+            } else {
+                nuevo = anchoValues[pos];
+            }    
+            // el nuevo valor global
+            // primero lo guarda para poder deshacer
+            lastFactorAnchoBordes = factorAnchoBordes;
+            lastAction = "CambiarAnchoBordes";
+            factorAnchoBordes = nuevo / 100; // global, esto es usado en ajustarTamaño()            
+            // se aplicará a todos...
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia
+                //obtiene un array con todos los de la clase columna
+                var x = document.getElementsByClassName("columna");
+                var i;
+                // tamaño es global, el factor acaba de definirse
+                anchoBordes = tamaño * factorAnchoBordes;
+                //recorre todo el array y les aplica el ancho de borde
+                for (i = 0; i < x.length; i++) { 
+                    x[i].style.borderWidth = anchoBordes + "px";
+                }
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+                showSnackbar("Ancho de bordes: " + nuevo + "%");
+                // puede deshacer
+                estadoBtnDeshacer(true, "Deshacer ancho de los bordes");
+            }, 0);  
             break;
         case "radio":            
             //valida, porque en ie 9 input range se muestra como campo de texto
@@ -1864,7 +1899,7 @@ function crearCuadritos() {
             // le adjunta el evento click
             miColumna.addEventListener("click", function () { hacerClick(this.id); });
             // por las x, define tamaño de fuente
-            miColumna.style.fontSize = tamaño * 0.8 + "px";
+            miColumna.style.fontSize = tamaño * 0.7 + "px";
             // agrega el cuadrito a su lienzo
             miLienzo.appendChild(miColumna);
             // agrega el lienzo a su fila
@@ -2655,7 +2690,7 @@ function ajustarTamaño(incremento, mostrarLoader) {
     tamaño = Number(tamaño) + incremento;
     //define el ancho de los bordes
     // ANTES 0.005
-    //anchoBordes = 0.01 * tamaño;
+    //anchoBordes = factorAnchoBordes * tamaño, inicialmente 0.01 * tamaño;
     anchoBordes = factorAnchoBordes * tamaño;
     var x = document.getElementsByClassName("columna");
     var i;
@@ -2679,7 +2714,7 @@ function ajustarTamaño(incremento, mostrarLoader) {
             // el ancho del borde
             x[i].style.borderWidth = anchoBordes + "px";
             // la fuente, para las x
-            x[i].style.fontSize = tamaño * 0.8 + "px";
+            x[i].style.fontSize = tamaño * 0.7 + "px";
         }
         // oculta el loader
         if (mostrarLoader == true) {
@@ -2930,6 +2965,29 @@ document.getElementById("BtnDeshacer").onclick = function () {
             alternarBordes(false);
             mensaje = "Se deshizo alternar bordes";
             break;
+        case "CambiarAnchoBordes":
+            mensaje = "Se deshizo el ancho de los bordes";
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia
+                //obtiene un array con todos los de la clase columna
+                var x = document.getElementsByClassName("columna");
+                var i;
+                // restaura el factor
+                factorAnchoBordes = lastFactorAnchoBordes;
+                // define el ancho nuevamente
+                anchoBordes = tamaño * factorAnchoBordes;
+                //recorre todo el array y les aplica el ancho del borde         
+                for (i = 0; i < x.length; i++) {
+                    x[i].style.borderWidth = anchoBordes + "px";
+                }
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+
+            }, 0);  
+            break;
         case "CambiarRadioBordesGlobal":
             mensaje = "Se deshizo cambio de radio de bordes global";
             // muestra un loader...
@@ -3068,9 +3126,7 @@ document.getElementById("BtnDeshacer").onclick = function () {
                 $(".loader").addClass("oculto");
                 // otras tareas
 
-            }, 0);  
-            
-            
+            }, 0); 
             break;
         case "dimensionar":
             // muestra un loader...

@@ -1901,7 +1901,7 @@ body {
     transition: background-color 0.6s;
         */
 }
-.columna {   
+.columna {
     /* radios manejados con data-radio para cada elemento */
     /* ver rutina crear cuadritos */
     /*----*/
@@ -1914,7 +1914,9 @@ body {
     width: 20px;
     /*max-width: 20px;*/
     height: 20px;
-    font-size: 0px;
+    font-size: 0px; /*luego se ajusta por js */
+    line-height: 1;
+    font-family: Consolas, 'Courier New', Courier, monospace;
     display: inline-block;
     overflow-x: hidden; /* Disable horizontal scroll */
     overflow-y: hidden; /*para que IE no muestre la barra cuando el ancho es 0*/
