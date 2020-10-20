@@ -1757,7 +1757,8 @@ function hacerClick(celda) {
             //modo selección libre
             var miCuadrito = document.getElementById(celda)
             if (miCuadrito.innerHTML == "") {
-                miCuadrito.innerHTML = "×";
+                //miCuadrito.innerHTML = "×";
+                miCuadrito.innerHTML = "X";
                 $("[id = " + celda + "]").addClass("seleccionado");
                 miCuadrito.style.backgroundColor = colorActual;
                 procesarHistorial(colorActual);
@@ -2633,7 +2634,8 @@ document.getElementById("BtnExpandirLibre").onclick = function () {
                     miID = "f" + miFila + "c" + miCol;
                     miCuadrito = document.getElementById(miID);
                     if (miCuadrito.innerHTML == "") {
-                        miCuadrito.innerHTML = "×";
+                        //miCuadrito.innerHTML = "×";
+                        miCuadrito.innerHTML = "X";
                         $("[id = " + miID + "]").addClass("seleccionado");
                         miCuadrito.style.backgroundColor = colorActual;
                     }
