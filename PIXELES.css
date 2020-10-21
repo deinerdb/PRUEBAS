@@ -1,5 +1,6 @@
 /* z-index (niveles de capas)
 btn cerrar hist 20
+lienzos seleccionados 3
 lienzos resaltados 4
 cuadrito resaltado 5
 paleta 100
@@ -75,8 +76,8 @@ html, body {
 /* para el modal lienzo */
 #muestraMarcoLienzo {
     border: 2px inset gray;
-    background-color: #000000;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: #000000;
     margin: 8px auto 18px auto;
     padding: 4px;
     text-align: center;
@@ -658,6 +659,12 @@ html, body {
 
 /* inicia clase seleccionado */
 .seleccionado {
+    /* en lugar de una x se usa outline */
+    outline-style: dotted;
+    outline-color: black;
+    outline-width: medium;    
+    /* lo trae al frente un poco */
+    z-index: 3;
     color: #000000;
     /* anima */
     /*WEBKIT*/
@@ -708,56 +715,68 @@ html, body {
 @-webkit-keyframes blancoynegro {
     0% {
         color: #000000;
+        outline-color: #000000;
     }
 
     50% {
         color: #ffffff;
+        outline-color: #ffffff;
     }
 
     100% {
         color: #000000;
+        outline-color: #000000;
     }
 }
 
 @-moz-keyframes blancoynegro {
     0% {
         color: #000000;
+        outline-color: #000000;
     }
 
     50% {
         color: #ffffff;
+        outline-color: #ffffff;
     }
 
     100% {
         color: #000000;
+        outline-color: #000000;
     }
 }
 
 @-o-keyframes blancoynegro {
     0% {
         color: #000000;
+        outline-color: #000000;
     }
 
     50% {
         color: #ffffff;
+        outline-color: #ffffff;
     }
 
     100% {
         color: #000000;
+        outline-color: #000000;
     }
 }
 
 @keyframes blancoynegro {
     0% {
         color: #000000;
+        outline-color: #000000;        
     }
 
     50% {
         color: #ffffff;
+        outline-color: #ffffff;        
     }
 
     100% {
         color: #000000;
+        outline-color: #000000;        
     }
 }
 #rangoAnchoBordes {
@@ -1451,7 +1470,7 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores {
     font-size: 0px;
     /* COLOR LIENZO INICIAL, esto no será visible */
     /* porque ahora los lienzos son individuales */
-    background-color: #000000;    
+    background-color: #ffffff;    
 }
 
 #pie {

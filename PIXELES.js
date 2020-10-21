@@ -3,7 +3,7 @@ var colorActual = "#000000";
 var colorRejilla = "#000000";
 var usarBordes = true;
 var fondoAplicado = "#ffffff";
-var colorLienzo = "#000000" // ahora es individual
+var colorLienzo = "#ffffff" // ahora es individual
 var radioBorde = "50%";
 // modal: ninguno, radio, rgb, gallery, importar, exportar, filas, columnas, lienzo, anchoBordes
 var modalActual = "ninguno";
@@ -1709,9 +1709,9 @@ function procesarHistorial(colorUsado) {
     }
     resaltarActual();
 }
-// el blanco ya fue usado en el color inicial de los cuadritos
+// el blanco ya fue usado en el color inicial de los cuadritos y de los lienzos
 procesarHistorial("#ffffff");
-// el negro ya fue usado en los bordes y el lienzo
+// el negro ya fue usado en los bordes
 procesarHistorial("#000000");
 // lo anterior hace que el blanco y el negro aparezcan en el historial al abrir la página.
 // cuando hace click en un cuadrito
@@ -1755,17 +1755,15 @@ function hacerClick(celda) {
     switch (modoActual) {
         case "libre":
             //modo selección libre
-            var miCuadrito = document.getElementById(celda)
-            if (miCuadrito.innerHTML == "") {
-                //miCuadrito.innerHTML = "×";
-                miCuadrito.innerHTML = "X";
-                $("[id = " + celda + "]").addClass("seleccionado");
-                miCuadrito.style.backgroundColor = colorActual;
-                procesarHistorial(colorActual);
-            } else {
-                miCuadrito.innerHTML = "";
-                $("[id = " + celda + "]").removeClass("seleccionado");
+            var miCuadrito = document.getElementById(celda);
+            var miLienzo = $("[id = " + celda + "]").parent()[0];
+            if ( $(miLienzo).hasClass("seleccionado") ) {                
+                $(miLienzo).removeClass("seleccionado");
                 miCuadrito.style.backgroundColor = lastArrayColor[lastArrayID.indexOf(celda)];
+            } else {               
+                $(miLienzo).addClass("seleccionado");
+                miCuadrito.style.backgroundColor = colorActual;
+                procesarHistorial(colorActual);                
             }
             break;
         case "pincel":
@@ -1882,7 +1880,7 @@ function crearCuadritos() {
             // le agrega la clase
             miLienzo.setAttribute("class", "lienzo");
             // color lienzo por defecto, su hijo lo guarda en el dataset            
-            miLienzo.style.backgroundColor = "#000000";
+            miLienzo.style.backgroundColor = "#ffffff";
             // crea cuadrito
             miColumna = document.createElement("DIV");
             // la clase de los cuadritos es columna
@@ -1896,7 +1894,7 @@ function crearCuadritos() {
             miColumna.style.webkitBorderRadius = "0%";
             miColumna.style.borderRadius = "0%";
             // para gestionar el color de su respectivo lienzo, parent
-            miColumna.dataset.colorlienzo = "#000000";
+            miColumna.dataset.colorlienzo = "#ffffff";
             // le adjunta el evento click
             miColumna.addEventListener("click", function () { hacerClick(this.id); });
             // por las x, define tamaño de fuente
@@ -2259,7 +2257,8 @@ function colorPixel() {
     resaltarActual();
     // en caso de estar en modo libre
     if (modoActual == "libre") {
-        $(".seleccionado").css("background-color", colorActual);
+        // los hijos de los lienzos con la clase seleccionados se colorean
+        $(".seleccionado").children().css("background-color", colorActual);
         if (document.getElementsByClassName("seleccionado").length) {
             // solo lo procesa si hay seleccionados
             procesarHistorial(colorActual);
@@ -2375,8 +2374,8 @@ function cambiarModo(nuevoModo) {
         }
     }
     // elimina las marcas x de todos
-    $(".columna").html("");
-    $(".columna").removeClass("seleccionado");
+    //$(".columna").html("");
+    $(".lienzo").removeClass("seleccionado");
     // elimina el modo seleccionado de todos los botones
     $(".seleccionadoBtnModos").removeClass("seleccionadoBtnModos");    
     if (modoActual != "libre") {
@@ -2565,9 +2564,8 @@ document.getElementById("BtnBorrarLibre").onclick = function () {
             msj = "No hay ninguno seleccionado";
         } else {
             for (i = 0; i < x.length; i++) {
-                miCuadrito = x[i];
-                miCuadrito.innerHTML = "";
-                //$("[id = " + miCuadrito.id + "]").removeClass("seleccionado");
+                // la referencia al pixel hijo
+                miCuadrito = $(x[i]).children()[0];
                 miCuadrito.style.backgroundColor = lastArrayColor[lastArrayID.indexOf(miCuadrito.id)];
             }
             $(".seleccionado").removeClass("seleccionado");
@@ -2607,8 +2605,10 @@ document.getElementById("BtnExpandirLibre").onclick = function () {
             var miID;
             // busca las filas y columnas mayores y menores recorriendo los seleccionados
             for (i = 0; i < x.length; i++) {                                
-                miCuadrito = x[i];
-                str = "" + miCuadrito.id;
+                //miCuadrito = $(x[i]).children()[0];
+                miID = $(x[i]).children()[0].id;
+                //str = "" + miCuadrito.id;
+                str = "" + miID;
                 res = str.substring(1);
                 res = res.split("c");
                 miFila = res[0];
@@ -2633,10 +2633,9 @@ document.getElementById("BtnExpandirLibre").onclick = function () {
                 for (miCol = colMenor; miCol <= colMayor; miCol++) {
                     miID = "f" + miFila + "c" + miCol;
                     miCuadrito = document.getElementById(miID);
-                    if (miCuadrito.innerHTML == "") {
-                        //miCuadrito.innerHTML = "×";
-                        miCuadrito.innerHTML = "X";
-                        $("[id = " + miID + "]").addClass("seleccionado");
+                    var miLienzo = $("[id = " + miID + "]").parent()[0];
+                    if ( $(miLienzo).hasClass("seleccionado") == false ) {                                                
+                        $(miLienzo).addClass("seleccionado");
                         miCuadrito.style.backgroundColor = colorActual;
                     }
                 }
