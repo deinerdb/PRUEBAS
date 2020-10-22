@@ -20,6 +20,8 @@
             // cuando carga la página
             // oculta el loader unos segundos después
             setTimeout(function () {
+                // muestra el contenedor pantalla, ya configurada
+                $("#pantalla").css("display", "block");
                 $(".loader").addClass("oculto");
                 // intentamos un scroll
                 topFunction();             

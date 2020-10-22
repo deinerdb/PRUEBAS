@@ -39,8 +39,8 @@ var tamaño = 20;
 var MAXSIZE = 100;
 var MINSIZE = 4;
 var anchoBordes;
-var factorAnchoBordes = 0.01; // es 1/100
-var lastFactorAnchoBordes = 0.01;
+var factorAnchoBordes = 0.05; // es 5/100
+var lastFactorAnchoBordes = 0.05;
 var ocupado = false;
 var hexTemp = "#000000";
 var rgbTemp = "rgb(0, 0, 0)";
@@ -1478,9 +1478,7 @@ window.addEventListener("load", function (event) {
     // radio por defecto es 50, para que tenga efecto al hacer click en modo radio al iniciar
     document.getElementById("rangoRadioBordes").value = 50;
     // el input color es negro por defecto, ie recuerda colores anteriores
-    document.getElementById("colorPixel").value = "#000000";
-    // muestra el contenedor pantalla, ya configurada
-    $("#pantalla").css("display", "block");
+    document.getElementById("colorPixel").value = "#000000";    
     // scroll
     topFunction();
     // dasactiva el botón deshacer, no se ha hecho nada
@@ -2693,7 +2691,7 @@ function ajustarTamaño(incremento, mostrarLoader) {
     tamaño = Number(tamaño) + incremento;
     //define el ancho de los bordes
     // ANTES 0.005
-    //anchoBordes = factorAnchoBordes * tamaño, inicialmente 0.01 * tamaño;
+    //anchoBordes = factorAnchoBordes * tamaño, inicialmente 0.05 * tamaño;
     anchoBordes = factorAnchoBordes * tamaño;
     var x = document.getElementsByClassName("columna");
     var i;
@@ -2738,6 +2736,8 @@ function ajustarTamaño(incremento, mostrarLoader) {
     ocupado = false;
 }
 // la llama para ajustes iniciales
+ajustarTamaño(1, false);
+ajustarTamaño(1, false);
 ajustarTamaño(1, false);
 ajustarTamaño(1, false);
 // todos los cuadritos blancos, borra todo
