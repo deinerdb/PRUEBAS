@@ -2534,19 +2534,39 @@ function cambiarModo(nuevoModo) {
 }
 //se selecciona ACEPTAR en el modo libre
 document.getElementById("BtnAceptarLibre").onclick = function () {
-    cambiarModo(lastModo);
-    estadoBtnDeshacer(true, "Deshacer cambios del modo libre");
+    // muestra un loader...
+    $(".loader").removeClass("oculto");
+    setTimeout(function () {
+        // código alta exigencia
+        cambiarModo(lastModo);
+        estadoBtnDeshacer(true, "Deshacer cambios del modo libre");
+        // oculta el loader
+        $(".loader").addClass("oculto");
+        // otras tareas
+
+    }, 0);  
+   
 }
 //se selecciona CANCELAR en el modo libre
 document.getElementById("BtnCancelarLibre").onclick = function () {
-    cambiarModo(lastModo);
-    // deshace cualquier cambio de color            
-    var i;
-    //recorre los array y les aplica el color guardado
-    for (i = 0; i < lastArrayID.length; i++) {
-        document.getElementById(lastArrayID[i]).style.backgroundColor = lastArrayColor[i];
-    }
-    estadoBtnDeshacer(false);
+    // muestra un loader...
+    $(".loader").removeClass("oculto");
+    setTimeout(function () {
+        // código alta exigencia
+        cambiarModo(lastModo);
+        // deshace cualquier cambio de color            
+        var i;
+        //recorre los array y les aplica el color guardado
+        for (i = 0; i < lastArrayID.length; i++) {
+            document.getElementById(lastArrayID[i]).style.backgroundColor = lastArrayColor[i];
+        }
+        estadoBtnDeshacer(false);
+        // oculta el loader
+        $(".loader").addClass("oculto");
+        // otras tareas
+
+    }, 0);  
+    
 }
 // en modo libre, se borra la selección actual
 document.getElementById("BtnBorrarLibre").onclick = function () {
@@ -2949,7 +2969,7 @@ document.getElementById("BtnDeshacer").onclick = function () {
         return;
     }
     ocupado = true;
-    var mensaje = "";
+    var mensaje = "¡Hecho!";
     switch (lastAction) {
         case "filtrar":
             // deshace el filtro
@@ -3056,13 +3076,23 @@ document.getElementById("BtnDeshacer").onclick = function () {
             }, 0);  
             break;
         case "libre":
-            // deshace cualquier cambio de color            
-            var i;
-            //recorre los array y les aplica el color guardado
-            for (i = 0; i < lastArrayID.length; i++) {
-                document.getElementById(lastArrayID[i]).style.backgroundColor = lastArrayColor[i];
-            }
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
             mensaje = "Se deshicieron los cambios del modo libre";
+            setTimeout(function () {
+                // código alta exigencia
+                // deshace cualquier cambio de color            
+                var i;
+                //recorre los array y les aplica el color guardado
+                for (i = 0; i < lastArrayID.length; i++) {
+                    document.getElementById(lastArrayID[i]).style.backgroundColor = lastArrayColor[i];
+                }                
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+
+            }, 0);  
+            
             break;
         case "cambiarColorLienzo":
             // deshace el color aplicado
@@ -3134,6 +3164,7 @@ document.getElementById("BtnDeshacer").onclick = function () {
         case "dimensionar":
             // muestra un loader...
             $(".loader").removeClass("oculto");
+            mensaje = "Se deshizo el dimensionado";
             setTimeout(function () {
                 // código alta exigencia
                 // deshace el ajuste de filas y columnas
@@ -3178,9 +3209,8 @@ document.getElementById("BtnDeshacer").onclick = function () {
                 $(".loader").addClass("oculto");
                 // otras tareas
 
-            }, 0);  
+            }, 0);              
             
-            mensaje = "Se deshizo el dimensionado";
             break;
         case "actualizar":
             // deshace el limpiado total
