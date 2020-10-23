@@ -35,12 +35,12 @@ var timerCursor = 0;
 var timerResaltar = 0;
 var timerResaltarDeshacer = 0;
 var timerHistorial = 0;
-var tamaño = 20;
+var tamaño = 23;
 var MAXSIZE = 100;
 var MINSIZE = 4;
 var anchoBordes;
-var factorAnchoBordes = 0.05; // es 5/100
-var lastFactorAnchoBordes = 0.05;
+var factorAnchoBordes = 0.04; // es 4/100
+var lastFactorAnchoBordes = 0.04;
 var ocupado = false;
 var hexTemp = "#000000";
 var rgbTemp = "rgb(0, 0, 0)";
@@ -1896,7 +1896,7 @@ function crearCuadritos() {
             // le adjunta el evento click
             miColumna.addEventListener("click", function () { hacerClick(this.id); });
             // por las x, define tamaño de fuente
-            miColumna.style.fontSize = tamaño * 0.6 + "px";            
+            //miColumna.style.fontSize = tamaño * 0.6 + "px";            
             // agrega el cuadrito a su lienzo
             miLienzo.appendChild(miColumna);
             // agrega el lienzo a su fila
@@ -2317,12 +2317,12 @@ function dimensionar(mostrarLoader) {
                 // y si no, lo oculta            
                 if (miFila <= numFilas && miColumna <= numColumnas) {
                     // visible
-                    //document.getElementById(miID).style.display = "inline-block";
-                    $("[id = " + miID + "]").removeClass("oculto");
+                    document.getElementById(miID).style.display = "inline-block";
+                    //$("[id = " + miID + "]").removeClass("oculto");
                 } else {
                     // no visible
-                    //document.getElementById(miID).style.display = "none";
-                    $("[id = " + miID + "]").addClass("oculto");
+                    document.getElementById(miID).style.display = "none";
+                    //$("[id = " + miID + "]").addClass("oculto");
                 }
                 // primero guardar
                 lastArrayID[lastArrayID.length] = miID;
@@ -2710,8 +2710,8 @@ function ajustarTamaño(incremento, mostrarLoader) {
     }
     tamaño = Number(tamaño) + incremento;
     //define el ancho de los bordes
-    // ANTES 0.005
-    //anchoBordes = factorAnchoBordes * tamaño, inicialmente 0.05 * tamaño;
+    // 4% por defecto
+    //anchoBordes = factorAnchoBordes * tamaño, inicialmente 0.04 * tamaño;
     anchoBordes = factorAnchoBordes * tamaño;
     var x = document.getElementsByClassName("columna");
     var i;
@@ -2735,7 +2735,7 @@ function ajustarTamaño(incremento, mostrarLoader) {
             // el ancho del borde
             x[i].style.borderWidth = anchoBordes + "px";
             // la fuente, para las x
-            x[i].style.fontSize = tamaño * 0.6 + "px";            
+            //x[i].style.fontSize = tamaño * 0.6 + "px";            
         }
         // oculta el loader
         if (mostrarLoader == true) {
@@ -2756,9 +2756,7 @@ function ajustarTamaño(incremento, mostrarLoader) {
     ocupado = false;
 }
 // la llama para ajustes iniciales
-ajustarTamaño(1, false);
-ajustarTamaño(1, false);
-ajustarTamaño(1, false);
+// inicial css es 23px, quedará en 24px con este ajuste
 ajustarTamaño(1, false);
 // todos los cuadritos blancos, borra todo
 document.getElementById("BtnActualizar").onclick = function () {
@@ -3186,12 +3184,12 @@ document.getElementById("BtnDeshacer").onclick = function () {
                         // y si no, lo oculta            
                         if (miFila <= numFilas && miColumna <= numColumnas) {
                             // visible
-                            //document.getElementById(miID).style.display = "inline-block";
-                            $("[id = " + miID + "]").removeClass("oculto");
+                            document.getElementById(miID).style.display = "inline-block";
+                            //$("[id = " + miID + "]").removeClass("oculto");
                         } else {
                             // no visible
-                            //document.getElementById(miID).style.display = "none";
-                            $("[id = " + miID + "]").addClass("oculto");
+                            document.getElementById(miID).style.display = "none";
+                            //$("[id = " + miID + "]").addClass("oculto");
                         }
                     }
                 }
