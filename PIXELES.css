@@ -779,7 +779,7 @@ html, body {
         outline-color: #000000;        
     }
 }
-#rangoAnchoBordes {
+#rangoAnchoBordes, #rangoZoom {
     margin-bottom: 24px;
 }
 /*fin clase seleccionado*/
