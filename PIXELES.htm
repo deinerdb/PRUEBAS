@@ -87,10 +87,17 @@
                         <span class="checkmark"></span>
                     </label>
                 </div>
+                <!-- ajuste zoom -->
+                <div id="marcoZoom" class="marco">
+                    <div id="contMuestraZoom">
+                        <div id="muestraZoom"></div>
+                    </div>
+                    <input id="rangoZoom" type="range" min="4" max="100" value="24" step="1">     
+                </div>
                 <!-- ancho de los bordes -->
                 <div id="marcoAnchoBordes" class="marco">
-                    <div id="muestraAnchoBordes">1%</div>
-                    <input id="rangoAnchoBordes" type="range" min="0.25" max="20" value="1" step="0.25">                   
+                    <div id="muestraAnchoBordes">4%</div>
+                    <input id="rangoAnchoBordes" type="range" min="0.25" max="20" value="4" step="0.25">                   
                 </div>
                 <!-- color rgb -->
                 <div id="marcoRGB" class="marco">
@@ -530,6 +537,7 @@
     <!-- termina aquí la ventana modal para múltiples usos -->
     <div class="paleta" id="paletaArriba">        
         <button id="BtnDisminuir" title="Disminuir tamaño"><i class="fas fa-search-minus"></i></button>
+        <button id="BtnSetZoom" title="Ajuste rápido de tamaño"><i class="fas fa-eye"></i></button>
         <button id="BtnAumentar" title="Aumentar tamaño"><i class="fas fa-search-plus"></i></button>
         <button id="BtnPantallaCompleta" title="Pantalla Completa"><i class="fas fa-expand"></i></button>
         <button id="BtnActualizar" title="Borrar todo"><i class="fas fa-sync-alt"></i></button>

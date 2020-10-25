@@ -5,7 +5,7 @@ var usarBordes = true;
 var fondoAplicado = "#ffffff";
 var colorLienzo = "#ffffff" // ahora es individual
 var radioBorde = "50%";
-// modal: ninguno, radio, rgb, gallery, importar, exportar, filas, columnas, lienzo, anchoBordes
+// modal: ninguno, radio, rgb, gallery, importar, exportar, filas, columnas, lienzo, anchoBordes, zoom
 var modalActual = "ninguno";
 // recuerda el scroll y lo restaura al cerrar el modal
 var miBodyScroll;
@@ -226,6 +226,42 @@ function cancelFullScreen() {
     }
 
 }
+//el input range del tamaño de los pixeles, zoom
+var sliderZoom = document.getElementById("rangoZoom");
+// la muestra del tamaño de los pixeles, zoom
+var getMuestraZoom = document.getElementById("muestraZoom");
+// para no repetirlo en input y change del slider zoom
+function actualizaSliderZoom(nuevoValor) {
+    var nuevo = nuevoValor;
+    nuevo = Number(nuevo);
+    var pos = decValues.indexOf(nuevo);
+    if (pos == -1 || pos > 100 || pos < 4) {
+        nuevo = 24;
+    } else {
+        nuevo = decValues[pos];
+    }
+    // ajusta la muestra solamente
+    // borde proporcional
+    var muestraAncho = nuevo * 0.05;
+    getMuestraZoom.style.borderWidth = muestraAncho + "px";
+    //ancho
+    getMuestraZoom.style.width = nuevo + "px";
+    getMuestraZoom.style.maxWidth = nuevo + "px";
+    getMuestraZoom.style.minWidth = nuevo + "px";
+    //alto
+    getMuestraZoom.style.height = nuevo + "px";
+    getMuestraZoom.style.maxHeight = nuevo + "px";
+    getMuestraZoom.style.minHeight = nuevo + "px";
+}
+// tamaño o zoom cambia dinámicamente con el slider
+//input y change, redundantes por un bug en IE
+sliderZoom.oninput = function () {
+    actualizaSliderZoom(this.value);
+}
+sliderZoom.onchange = function () {
+    actualizaSliderZoom(this.value);
+}
+
 //el input range del ancho de los bordes
 var sliderAnchoBordes = document.getElementById("rangoAnchoBordes");
 // la muestra del ancho de los bordes
@@ -764,6 +800,9 @@ function aplicarLienzoGlobal() {
 // depende de modalActual/
 function aceptarModal() {
     switch (modalActual) {
+        case "zoom":
+            showSnackbar("En construcción");
+            break;
         case "lienzo":
             //NADA QUE VALIDAR, el color actual está definido            
             // el nuevo valor
@@ -944,6 +983,25 @@ function showModal() {
             var anchoMuestra = 120 * factorAnchoBordes; // muestra tiene 120px de ancho
             getMuestraAnchoBordes.style.borderWidth = anchoMuestra + "px";
             getMuestraAnchoBordes.innerHTML = sliderAnchoBordes.value + "%";
+            break;
+        case "zoom":
+            $("#marcoZoom").css("display", "block");
+            document.getElementById("modalTitle").innerHTML = "<i class='fas fa-eye'></i> Ajustar tamaño";
+            document.getElementById("spanInfoModal").innerHTML = "Use el control para definir rápidamente el tamaño de los pixeles";
+            // el rango toma el valor actual
+            sliderZoom.value = tamaño;
+            // ajusta la muestra
+            // borde proporcional
+            var muestraAncho = tamaño * 0.05;
+            getMuestraZoom.style.borderWidth = muestraAncho + "px";
+            //ancho
+            getMuestraZoom.style.width = tamaño + "px";
+            getMuestraZoom.style.maxWidth = tamaño + "px";
+            getMuestraZoom.style.minWidth = tamaño + "px";
+            //alto
+            getMuestraZoom.style.height = tamaño + "px";
+            getMuestraZoom.style.maxHeight = tamaño + "px";
+            getMuestraZoom.style.minHeight = tamaño + "px";
             break;
         case "radio":
             $("#marcoRadio").css("display", "block");
@@ -1896,7 +1954,8 @@ function crearCuadritos() {
             // le adjunta el evento click
             miColumna.addEventListener("click", function () { hacerClick(this.id); });
             // por las x, define tamaño de fuente
-            //miColumna.style.fontSize = tamaño * 0.6 + "px";            
+            // TAMBIÉN POR LAS SOMBRAS EN UNIDADES em
+            miColumna.style.fontSize = tamaño * 0.8 + "px";            
             // agrega el cuadrito a su lienzo
             miLienzo.appendChild(miColumna);
             // agrega el lienzo a su fila
@@ -2735,7 +2794,8 @@ function ajustarTamaño(incremento, mostrarLoader) {
             // el ancho del borde
             x[i].style.borderWidth = anchoBordes + "px";
             // la fuente, para las x
-            //x[i].style.fontSize = tamaño * 0.6 + "px";            
+            // también para las sombras en unidades em
+            x[i].style.fontSize = tamaño * 0.8 + "px";            
         }
         // oculta el loader
         if (mostrarLoader == true) {
@@ -3246,6 +3306,12 @@ document.getElementById("BtnAumentar").onclick = function () {
 // disminuye el tamaño de todos los cuadritos
 document.getElementById("BtnDisminuir").onclick = function () {
     ajustarTamaño(-1, true);
+}
+// ajusta rápidamente el tamaño de todos los cuadritos
+document.getElementById("BtnSetZoom").onclick = function () {
+    modalActual = "zoom";
+    //muestra el modal
+    showModal();
 }
 // imprime
 document.getElementById("BtnImprimir").onclick = function () {
