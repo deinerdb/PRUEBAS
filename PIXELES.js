@@ -230,6 +230,8 @@ function cancelFullScreen() {
 var sliderZoom = document.getElementById("rangoZoom");
 // la muestra del tamaño de los pixeles, zoom
 var getMuestraZoom = document.getElementById("muestraZoom");
+// su etiqueta
+var getEtiquetaZoom = document.getElementById("etiquetaZoom");
 // para no repetirlo en input y change del slider zoom
 function actualizaSliderZoom(nuevoValor) {
     var nuevo = nuevoValor;
@@ -244,6 +246,8 @@ function actualizaSliderZoom(nuevoValor) {
     // borde proporcional
     var muestraAncho = nuevo * 0.05;
     getMuestraZoom.style.borderWidth = muestraAncho + "px";
+    // la etiqueta
+    getEtiquetaZoom.innerHTML = nuevo + " px";
     //ancho
     getMuestraZoom.style.width = nuevo + "px";
     getMuestraZoom.style.maxWidth = nuevo + "px";
@@ -782,7 +786,7 @@ function aplicarLienzoGlobal() {
     //obtiene un array con todos los de la clase columna
     var x = document.getElementsByClassName("columna");
     var i;
-    //debe guardar los radios y los id      
+    //debe guardar los colores de los lienzos y sus id      
     lastAction = "CambiarColorLienzoGlobal";
     lastArrayLienzo.length = 0;
     lastArrayID.length = 0;
@@ -801,7 +805,30 @@ function aplicarLienzoGlobal() {
 function aceptarModal() {
     switch (modalActual) {
         case "zoom":
-            showSnackbar("En construcción");
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia
+                //valida, porque en ie 9 input range se muestra como campo de texto
+                var nuevo = sliderZoom.value;
+                nuevo = Number(nuevo);
+                var pos = decValues.indexOf(nuevo);
+                if (pos == -1 || pos > 100 || pos < 4) {
+                    nuevo = 24;
+                } else {
+                    nuevo = decValues[pos];
+                }
+                // nuevo ya tiene un valor válido
+                // actualiza la variable global de tamaño
+                tamaño = nuevo;
+                // llama la rutina para refrescar tamaño de todos los pixeles
+                // incremento cero y sin loader
+                ajustarTamaño(0, false);
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+                showSnackbar("Tamaño: " + nuevo + " px");
+            }, 0);  
             break;
         case "lienzo":
             //NADA QUE VALIDAR, el color actual está definido            
@@ -987,13 +1014,15 @@ function showModal() {
         case "zoom":
             $("#marcoZoom").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-eye'></i> Ajustar tamaño";
-            document.getElementById("spanInfoModal").innerHTML = "Use el control para definir rápidamente el tamaño de los pixeles";
+            document.getElementById("spanInfoModal").innerHTML = "Use el control para definir rápidamente el tamaño de la cuadrícula en pixeles.";
             // el rango toma el valor actual
             sliderZoom.value = tamaño;
             // ajusta la muestra
             // borde proporcional
             var muestraAncho = tamaño * 0.05;
             getMuestraZoom.style.borderWidth = muestraAncho + "px";
+            // la etiqueta
+            getEtiquetaZoom.innerHTML = tamaño + " px";
             //ancho
             getMuestraZoom.style.width = tamaño + "px";
             getMuestraZoom.style.maxWidth = tamaño + "px";
@@ -2767,6 +2796,8 @@ function ajustarTamaño(incremento, mostrarLoader) {
         ocupado = false;
         return;
     }
+    // incremento puede ser 1, -1 o 0
+    // si es 0 simplemente se refresca el tamaño
     tamaño = Number(tamaño) + incremento;
     //define el ancho de los bordes
     // 4% por defecto
