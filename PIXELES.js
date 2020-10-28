@@ -278,7 +278,7 @@ function actualizaAnchoBordes(nuevoValor) {
     nuevo = Number(nuevo);
     var pos = anchoValues.indexOf(nuevo);
     if (pos == -1) {
-        nuevo = 1;
+        nuevo = 4;
     } else {
         nuevo = anchoValues[pos];
     }    
@@ -814,6 +814,8 @@ function aplicarLienzoGlobal() {
 function aceptarModal() {
     switch (modalActual) {
         case "zoom":
+            // dice "yo me encargo"
+            restauraOpacidad = false;
             // muestra un loader...
             $(".loader").removeClass("oculto");
             setTimeout(function () {
@@ -837,6 +839,8 @@ function aceptarModal() {
                 $(".loader").addClass("oculto");
                 // otras tareas
                 showSnackbar("Tamaño: " + nuevo + " px");
+                // anima
+                document.getElementById('contenedor').style.opacity = "1";
             }, 0);  
             break;
         case "lienzo":
@@ -879,7 +883,7 @@ function aceptarModal() {
             nuevo = Number(nuevo);
             var pos = anchoValues.indexOf(nuevo);
             if (pos == -1) {
-                nuevo = 1;
+                nuevo = 4;
             } else {
                 nuevo = anchoValues[pos];
             }    
@@ -1055,6 +1059,9 @@ function showModal() {
             getMuestraZoom.style.height = tamaño + "px";
             getMuestraZoom.style.maxHeight = tamaño + "px";
             getMuestraZoom.style.minHeight = tamaño + "px";
+            // para animarla al cerrar: opacidad ajustada
+            restauraOpacidad = true;
+            $("#contenedor").css("opacity", "0");
             break;
         case "radio":
             $("#marcoRadio").css("display", "block");
