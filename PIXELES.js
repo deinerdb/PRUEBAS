@@ -1,4 +1,6 @@
-﻿//color inicial del pincel es negro
+﻿// para controlar una animación
+var restauraOpacidad = true;
+//color inicial del pincel es negro
 var colorActual = "#000000";
 var colorRejilla = "#000000";
 var usarBordes = true;
@@ -639,10 +641,17 @@ var span = document.getElementsByClassName("close")[0];
 // para cerrar el modal y controlar el actual
 function cerrarModal() {
     modal.style.display = "none";
-    if (modalActual == "lienzo") {
+    //if (modalActual == "lienzo") {
         // una pequeña animación con la opacidad
-        $("#contenedor").animate({ opacity: "1" }, 2000);
-    }    
+        //$("#contenedor").animate({ opacity: "1" }, 2000);
+        // por transition css
+        //document.getElementById('contenedor').style.opacity = "1";
+    //}
+    if (restauraOpacidad == true) {
+        document.getElementById('contenedor').style.opacity = "1";
+    } else {
+        // no hace nada por el momento
+    }
     modalActual = "ninguno";    
     //restaura el scroll
     document.body.scrollTop = miBodyScroll; // For Chrome, Safari and Opera
@@ -831,6 +840,8 @@ function aceptarModal() {
             }, 0);  
             break;
         case "lienzo":
+            // dice "yo me encargo"
+            restauraOpacidad = false;
             //NADA QUE VALIDAR, el color actual está definido            
             // el nuevo valor
             colorLienzo = colorActual;
@@ -840,7 +851,9 @@ function aceptarModal() {
                 // el color actual se aplicará al hacer click en cada celda
                 // informa y sale
                 // nada que deshacer
-                showSnackbar("Color de lienzo al hacer click: " + colorLienzo);
+                showSnackbar("Color de lienzo al hacer click: " + colorLienzo);                
+                // anima
+                document.getElementById('contenedor').style.opacity = "1";
                 break;
             }
             // en este punto sabemos que se aplicará a todos...
@@ -854,9 +867,13 @@ function aceptarModal() {
                 showSnackbar("Color aplicado a todos los lienzos: " + colorLienzo);
                 // puede deshacer
                 estadoBtnDeshacer(true, "Deshacer color de lienzo global");
+                // anima
+                document.getElementById('contenedor').style.opacity = "1";
             }, 0);                        
             break;
         case "anchoBordes":
+            // dice "yo me encargo"
+            restauraOpacidad = false;
             //valida, porque en ie 9 input range se muestra como campo de texto
             var nuevo = sliderAnchoBordes.value;
             nuevo = Number(nuevo);
@@ -891,6 +908,8 @@ function aceptarModal() {
                 showSnackbar("Ancho de bordes: " + nuevo + "%");
                 // puede deshacer
                 estadoBtnDeshacer(true, "Deshacer ancho de los bordes");
+                // anima
+                document.getElementById('contenedor').style.opacity = "1";
             }, 0);  
             break;
         case "radio":            
@@ -988,7 +1007,9 @@ function showModal() {
     // primero guarda el scroll de la página
     miBodyScroll = document.body.scrollTop; // For Chrome, Safari and Opera
     miDocumentScroll = document.documentElement.scrollTop; // For IE and Firefox
-    //muestra el modal    
+    // para la animación, por defecto no se cambia la opacidad
+    restauraOpacidad = false;
+    //muestra el modal
     modal.style.display = "block";
     //define su altura    
     alturaModal();
@@ -1010,6 +1031,9 @@ function showModal() {
             var anchoMuestra = 120 * factorAnchoBordes; // muestra tiene 120px de ancho
             getMuestraAnchoBordes.style.borderWidth = anchoMuestra + "px";
             getMuestraAnchoBordes.innerHTML = sliderAnchoBordes.value + "%";
+            // para animarla al cerrar: opacidad ajustada
+            restauraOpacidad = true;
+            $("#contenedor").css("opacity", "0");
             break;
         case "zoom":
             $("#marcoZoom").css("display", "block");
@@ -1055,6 +1079,7 @@ function showModal() {
             // por defecto, será global
             document.getElementById("miCheckLienzoGlobal").checked = true;
             // para animarla al cerrar: opacidad ajustada
+            restauraOpacidad = true;
             $("#contenedor").css("opacity", "0");
             break;
         case "rgb":
@@ -3202,7 +3227,8 @@ document.getElementById("BtnDeshacer").onclick = function () {
             var colorLienzoAnterior;
             var idLienzoAnterior;
             // una pequeña animación con la opacidad
-            $("#contenedor").animate({ opacity: "0.2" }, 200);            
+            //$("#contenedor").animate({ opacity: "0.2" }, 200);            
+            document.getElementById('contenedor').style.opacity = "0";
             //recorre todo el array y les aplica el color de lienzo guardado   
             // muestra un loader...
             $(".loader").removeClass("oculto");
@@ -3219,7 +3245,8 @@ document.getElementById("BtnDeshacer").onclick = function () {
                 // oculta el loader
                 $(".loader").addClass("oculto");
                 // el resto de la animación
-                $("#contenedor").animate({ opacity: "1" }, 1000);
+                //$("#contenedor").animate({ opacity: "1" }, 1000);
+                document.getElementById('contenedor').style.opacity = "1";
             }, 0);
             
             break;

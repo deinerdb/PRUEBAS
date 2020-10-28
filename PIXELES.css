@@ -1506,7 +1506,12 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores {
     font-size: 0px;
     /* COLOR LIENZO INICIAL, esto no será visible */
     /* porque ahora los lienzos son individuales */
-    background-color: #ffffff;    
+    background-color: #ffffff;
+    /* PARA LA ANIMACIÓN */
+    -moz-transition: opacity 2s;
+    -o-transition: opacity 2s;
+    -webkit-transition: opacity 2s;
+    transition: opacity 2s;
 }
 
 #pie {
