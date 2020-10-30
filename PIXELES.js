@@ -522,8 +522,14 @@ function alturaModal() {
 }
 // ajustes según el tamaño de la pantalla
 function ajustesResize() {    
+    // para obtener anchos mínimos de botones al diseñar
     //$("#BtnRadioBordes").attr("title", document.getElementById("BtnRadioBordes").offsetWidth);
-    // el top del historial 
+    // ajusta el infoTemporal
+    var infoTemp = document.getElementById("infoTemporal");
+    infoTemp.style.marginLeft = -infoTemp.offsetWidth / 2 + "px";
+    infoTemp.style.top = 20 + document.getElementById("paletaArriba").offsetHeight + "px";
+    document.getElementById("BtnCerrarHistorial").style.top 
+    // el top del historial    
     document.getElementById("BtnCerrarHistorial").style.top = 0 + document.getElementById("paletaArriba").offsetHeight + "px";
     document.getElementById("paletaHistorial").style.top = 0 + document.getElementById("paletaArriba").offsetHeight + document.getElementById("BtnCerrarHistorial").offsetHeight + "px";
     document.getElementById("paletaHistorial").style.bottom = 0 + document.getElementById("paletaAbajo").offsetHeight + "px";
@@ -3235,7 +3241,7 @@ document.getElementById("BtnDeshacer").onclick = function () {
             var idLienzoAnterior;
             // una pequeña animación con la opacidad
             //$("#contenedor").animate({ opacity: "0.2" }, 200);            
-            document.getElementById('contenedor').style.opacity = "0";
+            //document.getElementById('contenedor').style.opacity = "0";
             //recorre todo el array y les aplica el color de lienzo guardado   
             // muestra un loader...
             $(".loader").removeClass("oculto");
@@ -3253,7 +3259,8 @@ document.getElementById("BtnDeshacer").onclick = function () {
                 $(".loader").addClass("oculto");
                 // el resto de la animación
                 //$("#contenedor").animate({ opacity: "1" }, 1000);
-                document.getElementById('contenedor').style.opacity = "1";
+                //document.getElementById('contenedor').style.opacity = "1";
+                showInfoTemporal();
             }, 0);
             
             break;
@@ -3559,6 +3566,16 @@ function manejarbtn() {
 function topFunction() {
     document.body.scrollTop = 0; // For Chrome, Safari and Opera
     document.documentElement.scrollTop = 0; // For IE and Firefox
+}
+// FUNCIÓN QUE muestra el infoTemporal
+function showInfoTemporal() {
+    var infoTemp = document.getElementById("infoTemporal");
+    //ajustesResize();
+    infoTemp.style.display = "block";    
+    infoTemp.style.marginLeft = -infoTemp.offsetWidth / 2 + "px";
+    setTimeout(function () {
+        infoTemp.style.display = "none";
+    }, 3000);  
 }
 //***********************************
 // FUNCIÓN QUE ajusta todo si está desocupado

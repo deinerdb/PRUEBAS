@@ -8,8 +8,9 @@ paleta full 150
 hover y active en paletas 180
 btntop 200
 modal 300
-    hover y active miembros grupos color 320
+hover y active miembros grupos color 320
 snack 500
+infoTemporal 600
 loader 9999
 */
 /*Stack Overflow: se sugiere para que las alturas funcionen*/
@@ -17,6 +18,40 @@ html, body {
     height: 100% !important;
     min-height: 100%;    
 }
+#infoTemporal {
+    display: none;
+    border: 2px outset #330066;
+    border: 2px outset rgba(51,0,102,0.8);
+    position: fixed;
+    z-index: 600;
+    width: 70%;
+    top: 72px;
+    left: 50%;
+    padding: 10px 4px;
+    color: #ffffff;
+    background-color: #4d0099;
+    background-color: rgba(77,0,153,0.6);
+    font-family: Consolas, New, Courier, monospace;
+    font-size: 18px;
+    text-shadow: 2px 2px 3px #000000;
+    text-align: center;
+    /*SOMBRA*/
+    -moz-box-shadow: 5px 5px 3px #7300e6;
+    -moz-box-shadow: 5px 5px 3px rgba(115,0,230,0.8);
+    -webkit-box-shadow: 5px 5px 3px #7300e6;
+    -webkit-box-shadow: 5px 5px 3px rgba(115,0,230,0.8);
+    box-shadow: 5px 5px 3px #7300e6;
+    box-shadow: 5px 5px 3px rgba(115,0,230,0.8);
+    -moz-border-radius: 10px; /*borde redondeado*/
+    -webkit-border-radius: 10px; /*borde redondeado*/
+    border-radius: 10px; /*borde redondeado*/
+    /*no se puede seleccionar el texto*/
+    -webkit-user-select: none; /* Chrome, Opera, Safari */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */
+}
+
 #pantalla {
     /*border: 2px solid red;*/
     overflow: auto;
