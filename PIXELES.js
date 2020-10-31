@@ -494,20 +494,21 @@ function bDesdeHex(hex) {
 }
 // ajustes según la disponibilidad de deshacer
 function estadoBtnDeshacer(activar, captionBtn) {
+    var getBtnDeshacer = document.getElementById("BtnDeshacer");
     if (activar == true) {
         // activa el botón deshacer
-        document.getElementById("BtnDeshacer").disabled = false;
-        document.getElementById("BtnDeshacer").style.opacity = "1";
-        document.getElementById("BtnDeshacer").style.cursor = "pointer";        
+        getBtnDeshacer.disabled = false;
+        getBtnDeshacer.style.opacity = "1";
+        getBtnDeshacer.style.cursor = "pointer";        
     } else {
         // dasactiva el botón deshacer
         // porque solo se puede deshacer una sola vez
-        document.getElementById("BtnDeshacer").disabled = true;
-        document.getElementById("BtnDeshacer").style.opacity = "0.5";
-        document.getElementById("BtnDeshacer").style.cursor = "not-allowed";
+        getBtnDeshacer.disabled = true;
+        getBtnDeshacer.style.opacity = "0.5";
+        getBtnDeshacer.style.cursor = "not-allowed";
         captionBtn = "No se puede deshacer";
     }
-    document.getElementById("BtnDeshacer").setAttribute("title", captionBtn);
+    getBtnDeshacer.setAttribute("title", captionBtn);
 }
 function alturaModal() {
     var h = window.innerHeight
@@ -524,15 +525,23 @@ function alturaModal() {
 function ajustesResize() {    
     // para obtener anchos mínimos de botones al diseñar
     //$("#BtnRadioBordes").attr("title", document.getElementById("BtnRadioBordes").offsetWidth);
-    // ajusta el infoTemporal
+    // referencias
     var infoTemp = document.getElementById("infoTemporal");
-    infoTemp.style.marginLeft = -infoTemp.offsetWidth / 2 + "px";
-    infoTemp.style.top = 20 + document.getElementById("paletaArriba").offsetHeight + "px";
-    document.getElementById("BtnCerrarHistorial").style.top 
+    var getPaletaArriba = document.getElementById("paletaArriba");
+    var getPaletaAbajo = document.getElementById("paletaAbajo");
+    var getPaletaHistorial = document.getElementById("paletaHistorial");
+    var getBtnCerrarHistorial = document.getElementById("BtnCerrarHistorial");
+    // ajusta el infoTemporal
+    
+    if (window.getComputedStyle(infoTemp).display === "block") {
+        infoTemp.style.marginLeft = -infoTemp.offsetWidth / 2 + "px";
+        infoTemp.style.top = 40 + getPaletaArriba.offsetHeight + "px";
+    }
+            
     // el top del historial    
-    document.getElementById("BtnCerrarHistorial").style.top = 0 + document.getElementById("paletaArriba").offsetHeight + "px";
-    document.getElementById("paletaHistorial").style.top = 0 + document.getElementById("paletaArriba").offsetHeight + document.getElementById("BtnCerrarHistorial").offsetHeight + "px";
-    document.getElementById("paletaHistorial").style.bottom = 0 + document.getElementById("paletaAbajo").offsetHeight + "px";
+    getBtnCerrarHistorial.style.top = 0 + getPaletaArriba.offsetHeight + "px";
+    getPaletaHistorial.style.top = 0 + getPaletaArriba.offsetHeight + getBtnCerrarHistorial.offsetHeight + "px";
+    getPaletaHistorial.style.bottom = 0 + getPaletaAbajo.offsetHeight + "px";
     if (pantallaCompleta == true) {
         var h = window.innerHeight
             || document.documentElement.clientHeight
@@ -546,13 +555,13 @@ function ajustesResize() {
         $("#contenedor").css("margin-top", margenArribaCont + "px");
         $("#contenedor").css("max-width", "98%");        
     } else {
-        var margenArribaCont = 8 + document.getElementById("paletaArriba").offsetHeight;
+        var margenArribaCont = 8 + getPaletaArriba.offsetHeight;
         $(".contenedor").css("margin", "0px");
         $(".contenedor").css("margin-top", margenArribaCont + "px");
         $("#contenedor").css("max-width", "88%");        
-        var espacioPie = 12 + document.getElementById("paletaAbajo").offsetHeight;
+        var espacioPie = 12 + getPaletaAbajo.offsetHeight;
         $("#pie").css("margin-bottom", espacioPie + "px");
-
+        
     }
     if (modalActual != "ninguno") {
         alturaModal();
@@ -3259,8 +3268,7 @@ document.getElementById("BtnDeshacer").onclick = function () {
                 $(".loader").addClass("oculto");
                 // el resto de la animación
                 //$("#contenedor").animate({ opacity: "1" }, 1000);
-                //document.getElementById('contenedor').style.opacity = "1";
-                showInfoTemporal();
+                //document.getElementById('contenedor').style.opacity = "1";                
             }, 0);
             
             break;
@@ -3366,6 +3374,7 @@ document.getElementById("BtnDeshacer").onclick = function () {
     }
     // informa
     showSnackbar(mensaje);
+    showInfoTemporal();
     // desactiva el btn deshacer, solo se puede hacer una vez
     estadoBtnDeshacer(false);
     ocupado = false;
@@ -3567,15 +3576,42 @@ function topFunction() {
     document.body.scrollTop = 0; // For Chrome, Safari and Opera
     document.documentElement.scrollTop = 0; // For IE and Firefox
 }
+
 // FUNCIÓN QUE muestra el infoTemporal
+var timerCerrarTemporal = 0;
+var timerMostrarTemporal = 0;
+var timerOpacAumTemporal = 0;
+var timerOpacDismTemporal = 0;
+
 function showInfoTemporal() {
+    // empieza siempre de cero
+    clearTimeout(timerCerrarTemporal);
+    clearTimeout(timerMostrarTemporal); 
+    clearTimeout(timerOpacAumTemporal);
+    clearTimeout(timerOpacDismTemporal);
+    // una referencia al elemento
     var infoTemp = document.getElementById("infoTemporal");
-    //ajustesResize();
-    infoTemp.style.display = "block";    
-    infoTemp.style.marginLeft = -infoTemp.offsetWidth / 2 + "px";
-    setTimeout(function () {
+    infoTemp.style.display = "none";
+    infoTemp.style.opacity = "0";
+    // ahora sí... lo muestra 
+    timerMostrarTemporal = setTimeout(function () {  
+        infoTemp.style.display = "block";
+        // lo posiciona
+        infoTemp.style.marginLeft = -infoTemp.offsetWidth / 2 + "px";
+        infoTemp.style.top = 40 + getPaletaArriba.offsetHeight + "px";        
+    }, 2000);
+    // opacidad 1 para que se vea, css transition 0.5 seg
+    timerOpacAumTemporal = setTimeout(function () {
+        infoTemp.style.opacity = "1";
+    }, 2020); 
+    // opacidad 0 para que se empiece a ocultar
+    timerOpacDismTemporal = setTimeout(function () {
+        infoTemp.style.opacity = "0";
+    }, 4520);
+    // lo cierra
+    timerCerrarTemporal = setTimeout(function () {
         infoTemp.style.display = "none";
-    }, 3000);  
+    }, 5020);  
 }
 //***********************************
 // FUNCIÓN QUE ajusta todo si está desocupado

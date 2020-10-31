@@ -18,16 +18,37 @@ html, body {
     height: 100% !important;
     min-height: 100%;    
 }
+
+/* The close button */
+.closeTemporal {
+    margin-left: 8px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 12px;
+    cursor: pointer;
+    /* transición */
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+}
+
+    /* When moving the mouse over the close button */
+    .closeTemporal:hover {
+        color: red;
+    }
 #infoTemporal {
     display: none;
     border: 2px outset #330066;
-    border: 2px outset rgba(51,0,102,0.8);
+    border: 2px outset rgba(51,0,102,0.6);
     position: fixed;
     z-index: 600;
     width: 70%;
     top: 72px;
     left: 50%;
-    padding: 10px 4px;
+    padding: 12px;
     color: #ffffff;
     background-color: #4d0099;
     background-color: rgba(77,0,153,0.6);
@@ -50,6 +71,11 @@ html, body {
     -moz-user-select: none; /* Firefox 2+ */
     -ms-user-select: none; /* IE 10+ */
     user-select: none; /* Standard syntax */
+    /* transición */
+    -moz-transition: opacity 0.5s, top 0.5s;
+    -o-transition: opacity 0.5s, top 0.5s;
+    -webkit-transition: opacity 0.5s, top 0.5s;
+    transition: opacity 0.5s, top 0.5s;
 }
 
 #pantalla {
