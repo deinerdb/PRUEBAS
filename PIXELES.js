@@ -7,6 +7,7 @@ var getBtnCerrarHistorial = document.getElementById("BtnCerrarHistorial");
 var getContenedor = document.getElementById("contenedor");
 var getPantalla = document.getElementById("pantalla");
 var getPie = document.getElementById("pie");
+var getBtnHistorialColor = document.getElementById("BtnHistorialColor");
 
 // para controlar una animación
 var restauraOpacidad = true;
@@ -202,20 +203,21 @@ for (i = 0; i < acc.length; i++) {
 // Lanza en pantalla completa en navegadores que lo soporten
 function launchFullScreen() {
     //var element = document.documentElement;
-    var element = document.getElementById("pantalla");
+    //var element = document.getElementById("pantalla");
+    // ya tenemos la referencia a pantalla en getPantalla
 
-    if (element.requestFullScreen) {
-        element.requestFullScreen();
-    } else if (element.requestFullscreen) {
-        element.requestFullscreen();
-    } else if (element.mozRequestFullScreen) {
-        element.mozRequestFullScreen();
-    } else if (element.webkitRequestFullScreen) {
-        element.webkitRequestFullScreen();
-    } else if (element.webkitRequestFullscreen) {
-        element.webkitRequestFullscreen();
-    } else if (element.msRequestFullscreen) {
-        element.msRequestFullscreen();
+    if (getPantalla.requestFullScreen) {
+        getPantalla.requestFullScreen();
+    } else if (getPantalla.requestFullscreen) {
+        getPantalla.requestFullscreen();
+    } else if (getPantalla.mozRequestFullScreen) {
+        getPantalla.mozRequestFullScreen();
+    } else if (getPantalla.webkitRequestFullScreen) {
+        getPantalla.webkitRequestFullScreen();
+    } else if (getPantalla.webkitRequestFullscreen) {
+        getPantalla.webkitRequestFullscreen();
+    } else if (getPantalla.msRequestFullscreen) {
+        getPantalla.msRequestFullscreen();
     }
 }
 
@@ -567,7 +569,13 @@ function ajustesResize() {
         var espacioPie = 12 + getPaletaAbajo.offsetHeight;
         $(getPie).css("margin-bottom", espacioPie + "px");        
     }
-    if (modalActual != "ninguno") {
+    if (modalActual == "ninguno") {
+        // ajusta el contenedor a su contendido, sin scroll
+        // por un bug en tv LG
+        getContenedor.width = getContenedor.scrollWidth + "px";
+        getContenedor.height = getContenedor.scrollHeight + "px";
+    }
+    else {
         alturaModal();
         // cuando está en galería
         if (modalActual == "gallery") {
@@ -852,8 +860,8 @@ function aceptarModal() {
                 // actualiza la variable global de tamaño
                 tamaño = nuevo;
                 // llama la rutina para refrescar tamaño de todos los pixeles
-                // incremento cero y sin loader
-                ajustarTamaño(0, false);
+                // incremento cero y sin loader ni notificación
+                ajustarTamaño(0, false, false);
                 // oculta el loader
                 $(".loader").addClass("oculto");
                 // otras tareas
@@ -928,6 +936,8 @@ function aceptarModal() {
                 // oculta el loader
                 $(".loader").addClass("oculto");
                 // otras tareas
+                // ajusta todo
+                ajustesResize();
                 showSnackbar("Ancho de bordes: " + nuevo + "%");
                 // puede deshacer
                 estadoBtnDeshacer(true, "Deshacer ancho de los bordes");
@@ -981,6 +991,8 @@ function aceptarModal() {
                 // oculta el loader
                 $(".loader").addClass("oculto");
                 // otras tareas
+                // ajusta todo
+                ajustesResize();
                 showSnackbar("Radio aplicado a todos los bordes: " + radioBorde);
                 // puede deshacer
                 estadoBtnDeshacer(true, "Deshacer cambio global de radios");
@@ -2098,7 +2110,7 @@ function mostrarHistorial(afectarPreferencia) {
         prefiereHistorial = true;
     }
     //oculta este botón
-    document.getElementById("BtnHistorialColor").style.display = "none";
+    getBtnHistorialColor.style.display = "none";
     // la barra se activa y el botón cerrar historial también
     getPaletaHistorial.style.pointerEvents = "auto";
     getBtnCerrarHistorial.disabled = false;
@@ -2117,7 +2129,7 @@ function mostrarHistorial(afectarPreferencia) {
     resaltarActual();
 }
 //se llama la función que muestra el historial de color
-document.getElementById("BtnHistorialColor").onclick = function () {
+getBtnHistorialColor.onclick = function () {
     mostrarHistorial(true);
 }
 //se cierra el historial de color
@@ -2139,7 +2151,9 @@ function cerrarHistorial(afectarPreferencia) {
     BtnCerrarHistorial.disabled = true;
     //muestra el botón en la paleta de arriba
     // en caso que quiera esperar comente la siguiente línea
-    document.getElementById("BtnHistorialColor").style.display = "inline-block";
+    getBtnHistorialColor.style.display = "inline-block";
+    // la paleta crece
+    ajustesResize();
     // al rato
     timerHistorial = setTimeout(function () {
         // la paleta del historial
@@ -2150,7 +2164,7 @@ function cerrarHistorial(afectarPreferencia) {
         // getPaletaHistorial.style.display = "none";
         //muestra el botón en la paleta de arriba
         // en caso que quiera esperar quite el comentario en la siguiente línea
-        //document.getElementById("BtnHistorialColor").style.display = "inline-block";
+        //getBtnHistorialColor.style.display = "inline-block";
         // el botón de cerrar historial
         //  lo oculta un poco después, para dar tiempo a la transición 
         BtnCerrarHistorial.style.left = "-300px";
@@ -2299,12 +2313,12 @@ function procesarZoom() {
     // ahora sí decide...
     if (zoomIn == true) {
         // hace zoom +
-        ajustarTamaño(1, false);
+        ajustarTamaño(1, false, true);
         // para que se centre enseguida
         ajustesResize();
     } else {
         // hace zoom -
-        ajustarTamaño(-1, false);
+        ajustarTamaño(-1, false, true);
         // para que se centre enseguida
         ajustesResize();
     }
@@ -2483,6 +2497,8 @@ function dimensionar(mostrarLoader) {
         // MAXNUMFILAS VECES EL ANCHO DE UN CUADRITO
         //PERO OJO QUE maxWidth DEL CONTENEDOR ES 90%, NUNCA DESBORDA PANTALLA.
         getContenedor.style.width = anchoCont + "px";
+        // posiciona inmediatamente
+        ajustesResize();
         // activa el botón deshacer
         estadoBtnDeshacer(true, "Deshacer dimensionado");
     }, 0);
@@ -2827,7 +2843,7 @@ document.getElementById("BtnExtraerColor").onclick = function () {
 }
 
 // se ajusta el tamaño de los cuadritos
-function ajustarTamaño(incremento, mostrarLoader) {
+function ajustarTamaño(incremento, mostrarLoader, notificar) {
     if (ocupado == true) {
         //sale si está ocupado
         return;
@@ -2886,15 +2902,19 @@ function ajustarTamaño(incremento, mostrarLoader) {
         var anchoCont = tamaño * numColumnas;
         // n VECES EL ANCHO DE UN CUADRITO
         //PERO OJO QUE maxWidth DEL CONTENEDOR ES 90%, NUNCA DESBORDA PANTALLA.
-        getContenedor.style.width = anchoCont + "px";
+        getContenedor.style.width = anchoCont + "px"; // ajustesResize lo ajusta también
         // para centrado y otros ajustes
         ajustesResize();
+        // otras tareas
+        if (notificar == true) {
+            showSnackbar("Tamaño: " + tamaño + " px");
+        }        
         ocupado = false;
     }, 0); 
 }
-// la llama para ajustes iniciales
+// la llama para ajustes iniciales, incremento 1, sin loader ni notificación
 // inicial css es 23px, quedará en 24px con este ajuste
-ajustarTamaño(1, false);
+ajustarTamaño(1, false, false);
 // todos los cuadritos blancos, borra todo
 document.getElementById("BtnActualizar").onclick = function () {
     if (ocupado == true) {
@@ -3381,11 +3401,11 @@ document.getElementById("BtnDeshacer").onclick = function () {
 
 // aumenta el tamaño de todos los cuadritos
 document.getElementById("BtnAumentar").onclick = function () {
-    ajustarTamaño(1, true);
+    ajustarTamaño(1, true, true);
 }
 // disminuye el tamaño de todos los cuadritos
 document.getElementById("BtnDisminuir").onclick = function () {
-    ajustarTamaño(-1, true);
+    ajustarTamaño(-1, true, true);
 }
 // ajusta rápidamente el tamaño de todos los cuadritos
 document.getElementById("BtnSetZoom").onclick = function () {
