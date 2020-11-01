@@ -1,4 +1,14 @@
-﻿// para controlar una animación
+﻿// referencias (más memoria, menos recorridos del DOM)
+var infoTemp = document.getElementById("infoTemporal");
+var getPaletaArriba = document.getElementById("paletaArriba");
+var getPaletaAbajo = document.getElementById("paletaAbajo");
+var getPaletaHistorial = document.getElementById("paletaHistorial");
+var getBtnCerrarHistorial = document.getElementById("BtnCerrarHistorial");
+var getContenedor = document.getElementById("contenedor");
+var getPantalla = document.getElementById("pantalla");
+var getPie = document.getElementById("pie");
+
+// para controlar una animación
 var restauraOpacidad = true;
 //color inicial del pincel es negro
 var colorActual = "#000000";
@@ -522,17 +532,12 @@ function alturaModal() {
     bd.style.height = h + "px";
 }
 // ajustes según el tamaño de la pantalla
+// referencias están al inicio del script
 function ajustesResize() {    
     // para obtener anchos mínimos de botones al diseñar
     //$("#BtnRadioBordes").attr("title", document.getElementById("BtnRadioBordes").offsetWidth);
-    // referencias
-    var infoTemp = document.getElementById("infoTemporal");
-    var getPaletaArriba = document.getElementById("paletaArriba");
-    var getPaletaAbajo = document.getElementById("paletaAbajo");
-    var getPaletaHistorial = document.getElementById("paletaHistorial");
-    var getBtnCerrarHistorial = document.getElementById("BtnCerrarHistorial");
-    // ajusta el infoTemporal
     
+    // ajusta el infoTemporal, solo si es visible    
     if (window.getComputedStyle(infoTemp).display === "block") {
         infoTemp.style.marginLeft = -infoTemp.offsetWidth / 2 + "px";
         infoTemp.style.top = 40 + getPaletaArriba.offsetHeight + "px";
@@ -546,22 +551,21 @@ function ajustesResize() {
         var h = window.innerHeight
             || document.documentElement.clientHeight
             || document.body.clientHeight;
-        $("#contenedor").css("margin", "0px");
-        var margenArribaCont = h - document.getElementById("contenedor").offsetHeight;
+        $(getContenedor).css("margin", "0px");
+        var margenArribaCont = h - getContenedor.offsetHeight;
         margenArribaCont = margenArribaCont / 2;
         if (isNaN(margenArribaCont) == true || margenArribaCont < 0) {
             margenArribaCont = 0;
         }
-        $("#contenedor").css("margin-top", margenArribaCont + "px");
-        $("#contenedor").css("max-width", "98%");        
+        $(getContenedor).css("margin-top", margenArribaCont + "px");
+        $(getContenedor).css("max-width", "98%");        
     } else {
         var margenArribaCont = 8 + getPaletaArriba.offsetHeight;
-        $(".contenedor").css("margin", "0px");
-        $(".contenedor").css("margin-top", margenArribaCont + "px");
-        $("#contenedor").css("max-width", "88%");        
+        $(getContenedor).css("margin", "0px");
+        $(getContenedor).css("margin-top", margenArribaCont + "px");
+        $(getContenedor).css("max-width", "88%");        
         var espacioPie = 12 + getPaletaAbajo.offsetHeight;
-        $("#pie").css("margin-bottom", espacioPie + "px");
-        
+        $(getPie).css("margin-bottom", espacioPie + "px");        
     }
     if (modalActual != "ninguno") {
         alturaModal();
@@ -641,9 +645,9 @@ function AplicarFiltro() {
     lastIndexFiltro = actualIndexFiltro;
     actualIndexFiltro = document.getElementById("filtro").selectedIndex;
     // sintaxis estándar
-    document.getElementById("contenedor").style.filter = y[x].value;
+    getContenedor.style.filter = y[x].value;
     // Safari 6.0 - 9.0
-    document.getElementById("contenedor").style.WebkitFilter = y[x].value;
+    getContenedor.style.WebkitFilter = y[x].value;
     // activa el botón deshacer
     estadoBtnDeshacer(true, "Deshacer filtro");
 }
@@ -658,12 +662,12 @@ function cerrarModal() {
     modal.style.display = "none";
     //if (modalActual == "lienzo") {
         // una pequeña animación con la opacidad
-        //$("#contenedor").animate({ opacity: "1" }, 2000);
+        //$(getContenedor).animate({ opacity: "1" }, 2000);
         // por transition css
-        //document.getElementById('contenedor').style.opacity = "1";
+        //getContenedor.style.opacity = "1";
     //}
     if (restauraOpacidad == true) {
-        document.getElementById('contenedor').style.opacity = "1";
+        getContenedor.style.opacity = "1";
     } else {
         // no hace nada por el momento
     }
@@ -855,7 +859,7 @@ function aceptarModal() {
                 // otras tareas
                 showSnackbar("Tamaño: " + nuevo + " px");
                 // anima
-                document.getElementById('contenedor').style.opacity = "1";
+                getContenedor.style.opacity = "1";
             }, 0);  
             break;
         case "lienzo":
@@ -872,7 +876,7 @@ function aceptarModal() {
                 // nada que deshacer
                 showSnackbar("Color de lienzo al hacer click: " + colorLienzo);                
                 // anima
-                document.getElementById('contenedor').style.opacity = "1";
+                getContenedor.style.opacity = "1";
                 break;
             }
             // en este punto sabemos que se aplicará a todos...
@@ -887,7 +891,7 @@ function aceptarModal() {
                 // puede deshacer
                 estadoBtnDeshacer(true, "Deshacer color de lienzo global");
                 // anima
-                document.getElementById('contenedor').style.opacity = "1";
+                getContenedor.style.opacity = "1";
             }, 0);                        
             break;
         case "anchoBordes":
@@ -928,7 +932,7 @@ function aceptarModal() {
                 // puede deshacer
                 estadoBtnDeshacer(true, "Deshacer ancho de los bordes");
                 // anima
-                document.getElementById('contenedor').style.opacity = "1";
+                getContenedor.style.opacity = "1";
             }, 0);  
             break;
         case "radio":            
@@ -1052,7 +1056,7 @@ function showModal() {
             getMuestraAnchoBordes.innerHTML = sliderAnchoBordes.value + "%";
             // para animarla al cerrar: opacidad ajustada
             restauraOpacidad = true;
-            $("#contenedor").css("opacity", "0");
+            $(getContenedor).css("opacity", "0");
             break;
         case "zoom":
             $("#marcoZoom").css("display", "block");
@@ -1076,7 +1080,7 @@ function showModal() {
             getMuestraZoom.style.minHeight = tamaño + "px";
             // para animarla al cerrar: opacidad ajustada
             restauraOpacidad = true;
-            $("#contenedor").css("opacity", "0");
+            $(getContenedor).css("opacity", "0");
             break;
         case "radio":
             $("#marcoRadio").css("display", "block");
@@ -1102,7 +1106,7 @@ function showModal() {
             document.getElementById("miCheckLienzoGlobal").checked = true;
             // para animarla al cerrar: opacidad ajustada
             restauraOpacidad = true;
-            $("#contenedor").css("opacity", "0");
+            $(getContenedor).css("opacity", "0");
             break;
         case "rgb":
             $("#marcoRGB").css("display", "block");
@@ -1835,7 +1839,7 @@ function procesarHistorial(colorUsado) {
         //el evento es agregado a cada uno
         nuevo.addEventListener("click", function () { colorHistorial(this.id); });
         // lo agrega al dom     
-        document.getElementById("paletaHistorial").appendChild(nuevo);
+        getPaletaHistorial.appendChild(nuevo);
         // corrige un bug
         // mayor ancho para disimularlo.
     }
@@ -2004,7 +2008,7 @@ function crearCuadritos() {
         // le agrega la clase
         miFila.setAttribute("class", "fila");
         // la añade al contenedor
-        document.getElementById("contenedor").appendChild(miFila);
+        getContenedor.appendChild(miFila);
         // recorre columnas
         for (columna = 1; columna <= MAXNUMCOLUMNAS; columna++) {
             // crea el lienzo
@@ -2096,18 +2100,18 @@ function mostrarHistorial(afectarPreferencia) {
     //oculta este botón
     document.getElementById("BtnHistorialColor").style.display = "none";
     // la barra se activa y el botón cerrar historial también
-    document.getElementById("paletaHistorial").style.pointerEvents = "auto";
-    document.getElementById("BtnCerrarHistorial").disabled = false;
+    getPaletaHistorial.style.pointerEvents = "auto";
+    getBtnCerrarHistorial.disabled = false;
     //muestra la paleta de historial de color
-    //document.getElementById("paletaHistorial").style.display = "block";
-    document.getElementById("paletaHistorial").style.left = "0px";
-    document.getElementById("paletaHistorial").style.visibility = "visible";
-    document.getElementById("paletaHistorial").style.opacity = "0.9";
+    //getPaletaHistorial.style.display = "block";
+    getPaletaHistorial.style.left = "0px";
+    getPaletaHistorial.style.visibility = "visible";
+    getPaletaHistorial.style.opacity = "0.9";
     //muestra el botón para cerrar historial de color
-    //document.getElementById("BtnCerrarHistorial").style.display = "inline-block";
-    document.getElementById("BtnCerrarHistorial").style.left = "0px";
-    document.getElementById("BtnCerrarHistorial").style.visibility = "visible";
-    document.getElementById("BtnCerrarHistorial").style.opacity = "1";
+    //BtnCerrarHistorial.style.display = "inline-block";
+    BtnCerrarHistorial.style.left = "0px";
+    BtnCerrarHistorial.style.visibility = "visible";
+    BtnCerrarHistorial.style.opacity = "1";
     // para definir sus posiciones y apariencia
     ajustesResize();
     resaltarActual();
@@ -2131,8 +2135,8 @@ function cerrarHistorial(afectarPreferencia) {
         prefiereHistorial = false;
     }
     // la barra se desactiva y el botón cerrar historial también
-    document.getElementById("paletaHistorial").style.pointerEvents = "none";
-    document.getElementById("BtnCerrarHistorial").disabled = true;
+    getPaletaHistorial.style.pointerEvents = "none";
+    BtnCerrarHistorial.disabled = true;
     //muestra el botón en la paleta de arriba
     // en caso que quiera esperar comente la siguiente línea
     document.getElementById("BtnHistorialColor").style.display = "inline-block";
@@ -2140,27 +2144,27 @@ function cerrarHistorial(afectarPreferencia) {
     timerHistorial = setTimeout(function () {
         // la paleta del historial
         //  lo oculta un poco después, para dar tiempo a la transición 
-        document.getElementById("paletaHistorial").style.left = "-300px";
-        document.getElementById("paletaHistorial").style.visibility = "hidden";
+        getPaletaHistorial.style.left = "-300px";
+        getPaletaHistorial.style.visibility = "hidden";
         //oculta la paleta de historial de color
-        // document.getElementById("paletaHistorial").style.display = "none";        
+        // getPaletaHistorial.style.display = "none";
         //muestra el botón en la paleta de arriba
         // en caso que quiera esperar quite el comentario en la siguiente línea
         //document.getElementById("BtnHistorialColor").style.display = "inline-block";
         // el botón de cerrar historial
         //  lo oculta un poco después, para dar tiempo a la transición 
-        document.getElementById("BtnCerrarHistorial").style.left = "-300px";
-        document.getElementById("BtnCerrarHistorial").style.visibility = "hidden";
+        BtnCerrarHistorial.style.left = "-300px";
+        BtnCerrarHistorial.style.visibility = "hidden";
         //oculta la paleta de historial de color
-        //document.getElementById("BtnCerrarHistorial").style.display = "none";
+        //BtnCerrarHistorial.style.display = "none";
     }, 2000);
-    document.getElementById("paletaHistorial").style.opacity = "0";
+    getPaletaHistorial.style.opacity = "0";
     //oculta el botón de cerrar historial de color
-    //document.getElementById("BtnCerrarHistorial").style.display = "none";    
-    document.getElementById("BtnCerrarHistorial").style.opacity = "0";
+    //BtnCerrarHistorial.style.display = "none";
+    BtnCerrarHistorial.style.opacity = "0";
 }
 //se llama la función que cierra el historial de color
-document.getElementById("BtnCerrarHistorial").onclick = function () {
+BtnCerrarHistorial.onclick = function () {
     cerrarHistorial(true);
 }
 function definirPuntero() {
@@ -2178,8 +2182,8 @@ function mostrarPuntero() {
     // sale si no es pantalla completa
     if (pantallaCompleta == false) { return; }
     // el puntero es visible
-    document.getElementById("pantalla").style.cursor = definirPuntero();
-    document.getElementById("contenedor").style.cursor = definirPuntero();
+    getPantalla.style.cursor = definirPuntero();
+    getContenedor.style.cursor = definirPuntero();
     $(".columna").css("cursor", definirPuntero());
     // también los botones
     $("#paletaFull").css("top", "12px");
@@ -2189,8 +2193,8 @@ function mostrarPuntero() {
 
 function ocultarPuntero() {
     // oculta el puntero
-    document.getElementById("pantalla").style.cursor = "none";
-    document.getElementById("contenedor").style.cursor = "none";
+    getPantalla.style.cursor = "none";
+    getContenedor.style.cursor = "none";
     $(".columna").css("cursor", "none");
     // también los botones
     $("#paletaFull").css("top", "-50px");
@@ -2203,9 +2207,9 @@ document.getElementById("BtnPantallaCompleta").onclick = function () {
     miDocumentScroll = document.documentElement.scrollTop; // For IE and Firefox
     // ajustes css
     document.getElementById("paletaFull").style.display = "block";
-    $("#pantalla").css("width", "100%");
-    $("#pantalla").css("height", "100%");
-    $("#BtnCerrarHistorial").addClass("oculto");
+    $(getPantalla).css("width", "100%");
+    $(getPantalla).css("height", "100%");
+    $(getBtnCerrarHistorial).addClass("oculto");
     $(".paleta").addClass("oculto");
     $(":header").addClass("oculto");
     // por defecto es zoom +
@@ -2228,14 +2232,14 @@ document.getElementById("BtnSalirPantallaCompleta").onclick = function () {
     clearTimeout(timerCursor);
     // ajustes css
     document.getElementById("paletaFull").style.display = "none";
-    $("#pantalla").css("width", "auto");
-    $("#pantalla").css("height", "auto");
-    $("#BtnCerrarHistorial").removeClass("oculto");
+    $(getPantalla).css("width", "auto");
+    $(getPantalla).css("height", "auto");
+    $(getBtnCerrarHistorial).removeClass("oculto");
     $(".paleta").removeClass("oculto");
     $(":header").removeClass("oculto");
     // puntero
-    document.getElementById("pantalla").style.cursor = "default";
-    $("#contenedor").css("cursor", "default");
+    getPantalla.style.cursor = "default";
+    $(getContenedor).css("cursor", "default");
     $(".columna").css("cursor", "pointer");
     // api
     cancelFullScreen();
@@ -2250,23 +2254,23 @@ document.getElementById("BtnSalirPantallaCompleta").onclick = function () {
     
 }
 //mueve el puntero y aparece el cursor y los botones
-document.getElementById("pantalla").onmousemove = function () { mostrarPuntero() };
-document.getElementById("contenedor").onmousemove = function () { mostrarPuntero() };
+getPantalla.onmousemove = function () { mostrarPuntero() };
+getContenedor.onmousemove = function () { mostrarPuntero() };
 // en eventos táctiles
-document.getElementById("pantalla").ontouchmove = function () { mostrarPuntero() };
-document.getElementById("contenedor").ontouchmove = function () { mostrarPuntero() };
-document.getElementById("pantalla").ontouchstart = function () { mostrarPuntero() };
-document.getElementById("contenedor").ontouchstart = function () { mostrarPuntero() };
+getPantalla.ontouchmove = function () { mostrarPuntero() };
+getContenedor.ontouchmove = function () { mostrarPuntero() };
+getPantalla.ontouchstart = function () { mostrarPuntero() };
+getContenedor.ontouchstart = function () { mostrarPuntero() };
 // cuando hace scroll
-document.getElementById("pantalla").onscroll = function () { mostrarPuntero() };
-document.getElementById("contenedor").onscroll = function () { mostrarPuntero() };
+getPantalla.onscroll = function () { mostrarPuntero() };
+getContenedor.onscroll = function () { mostrarPuntero() };
 // también cuando hace click fuera del dibujo
-document.getElementById("pantalla").onclick = function () {
+getPantalla.onclick = function () {
     procesarZoom();
     mostrarPuntero();    
 };
 // también cuando hace click en el contenedor del dibujo, si es que se puede
-document.getElementById("contenedor").onclick = function (event) {
+getContenedor.onclick = function (event) {
     procesarZoom();
     mostrarPuntero();
     event.stopPropagation();
@@ -2472,18 +2476,16 @@ function dimensionar(mostrarLoader) {
             $(".loader").addClass("oculto");
         }        
         // otras tareas
-
-    }, 0);  
-    
-    //ahora el fondo es blanco
-    fondoAplicado = "#ffffff";
-    //ajusta el contenedor de los cuadritos
-    var anchoCont = tamaño * numColumnas;
-    // MAXNUMFILAS VECES EL ANCHO DE UN CUADRITO
-    //PERO OJO QUE maxWidth DEL CONTENEDOR ES 90%, NUNCA DESBORDA PANTALLA.
-    document.getElementById("contenedor").style.width = anchoCont + "px";
-    // activa el botón deshacer
-    estadoBtnDeshacer(true, "Deshacer dimensionado");
+        //ahora el fondo es blanco
+        fondoAplicado = "#ffffff";
+        //ajusta el contenedor de los cuadritos
+        var anchoCont = tamaño * numColumnas;
+        // MAXNUMFILAS VECES EL ANCHO DE UN CUADRITO
+        //PERO OJO QUE maxWidth DEL CONTENEDOR ES 90%, NUNCA DESBORDA PANTALLA.
+        getContenedor.style.width = anchoCont + "px";
+        // activa el botón deshacer
+        estadoBtnDeshacer(true, "Deshacer dimensionado");
+    }, 0);
 }
 
 //cambia el modo seleccionado, llamada por los botones de cambio de modo
@@ -2880,18 +2882,15 @@ function ajustarTamaño(incremento, mostrarLoader) {
             $(".loader").addClass("oculto");
         }        
         // otras tareas
-
-    }, 0);  
-    
-
-    //ajusta el contenedor de los cuadritos
-    var anchoCont = tamaño * numColumnas;
-    // n VECES EL ANCHO DE UN CUADRITO
-    //PERO OJO QUE maxWidth DEL CONTENEDOR ES 90%, NUNCA DESBORDA PANTALLA.
-    document.getElementById("contenedor").style.width = anchoCont + "px";
-    // para centrado y otros ajustes
-    ajustesResize();
-    ocupado = false;
+        //ajusta el contenedor de los cuadritos
+        var anchoCont = tamaño * numColumnas;
+        // n VECES EL ANCHO DE UN CUADRITO
+        //PERO OJO QUE maxWidth DEL CONTENEDOR ES 90%, NUNCA DESBORDA PANTALLA.
+        getContenedor.style.width = anchoCont + "px";
+        // para centrado y otros ajustes
+        ajustesResize();
+        ocupado = false;
+    }, 0); 
 }
 // la llama para ajustes iniciales
 // inicial css es 23px, quedará en 24px con este ajuste
@@ -3114,9 +3113,9 @@ document.getElementById("BtnDeshacer").onclick = function () {
             var x = document.getElementById("filtro").selectedIndex;
             var y = document.getElementById("filtro").options;
             // sintaxis estándar
-            document.getElementById("contenedor").style.filter = y[x].value;
+            getContenedor.style.filter = y[x].value;
             // Safari 6.0 - 9.0
-            document.getElementById("contenedor").style.WebkitFilter = y[x].value;
+            getContenedor.style.WebkitFilter = y[x].value;
             mensaje = "Se deshizo el filtro aplicado";
             break;
         case "alternarBordes":
@@ -3249,8 +3248,8 @@ document.getElementById("BtnDeshacer").onclick = function () {
             var colorLienzoAnterior;
             var idLienzoAnterior;
             // una pequeña animación con la opacidad
-            //$("#contenedor").animate({ opacity: "0.2" }, 200);            
-            //document.getElementById('contenedor').style.opacity = "0";
+            //$(getContenedor).animate({ opacity: "0.2" }, 200);
+            //getContenedor.style.opacity = "0";
             //recorre todo el array y les aplica el color de lienzo guardado   
             // muestra un loader...
             $(".loader").removeClass("oculto");
@@ -3267,8 +3266,8 @@ document.getElementById("BtnDeshacer").onclick = function () {
                 // oculta el loader
                 $(".loader").addClass("oculto");
                 // el resto de la animación
-                //$("#contenedor").animate({ opacity: "1" }, 1000);
-                //document.getElementById('contenedor').style.opacity = "1";                
+                //$(getContenedor).animate({ opacity: "1" }, 1000);
+                //getContenedor.style.opacity = "1";
             }, 0);
             
             break;
@@ -3341,7 +3340,7 @@ document.getElementById("BtnDeshacer").onclick = function () {
                 var anchoCont = tamaño * numColumnas;
                 // n VECES EL ANCHO DE UN CUADRITO
                 //PERO OJO QUE maxWidth DEL CONTENEDOR ES 90%, NUNCA DESBORDA PANTALLA.
-                document.getElementById("contenedor").style.width = anchoCont + "px";
+                getContenedor.style.width = anchoCont + "px";
                 permitirEvento = true;
                 // oculta el loader
                 $(".loader").addClass("oculto");
@@ -3589,8 +3588,8 @@ function showInfoTemporal() {
     clearTimeout(timerMostrarTemporal); 
     clearTimeout(timerOpacAumTemporal);
     clearTimeout(timerOpacDismTemporal);
-    // una referencia al elemento
-    var infoTemp = document.getElementById("infoTemporal");
+    // una referencia al elemento, ya es global
+    //var infoTemp = document.getElementById("infoTemporal");
     infoTemp.style.display = "none";
     infoTemp.style.opacity = "0";
     // ahora sí... lo muestra 
