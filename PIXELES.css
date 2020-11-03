@@ -1581,6 +1581,7 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores {
     margin-right: auto;
     max-width: 70%;
     overflow: auto;
+    opacity: 0.2;
 }
 
 #colorPixel {

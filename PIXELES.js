@@ -8,6 +8,22 @@ var getContenedor = document.getElementById("contenedor");
 var getPantalla = document.getElementById("pantalla");
 var getPie = document.getElementById("pie");
 var getBtnHistorialColor = document.getElementById("BtnHistorialColor");
+var getBtnRellenar = document.getElementById("BtnRellenar");
+var getBtnColorLienzo = document.getElementById("BtnColorLienzo");
+var getBtnColorRejilla = document.getElementById("BtnColorRejilla");
+var getBtnGotero = document.getElementById("BtnGotero");
+var getBtnBorrador = document.getElementById("BtnBorrador");
+var getBtnPincel = document.getElementById("BtnPincel");
+var getBtnLibre = document.getElementById("BtnLibre");
+var getBtnExtraerColor = document.getElementById("BtnExtraerColor");
+var getFiltro = document.getElementById("filtro");
+var getBtnActualizar = document.getElementById("BtnActualizar");
+var getBtnRejilla = document.getElementById("BtnRejilla");
+var getBtnTipoBorde = document.getElementById("BtnTipoBorde");
+var getBtnAnchoBordes = document.getElementById("BtnAnchoBordes");
+var getBtnRadioBordes = document.getElementById("BtnRadioBordes");
+var getBtnDeshacer = document.getElementById("BtnDeshacer");
+
 
 // para controlar una animación
 var restauraOpacidad = true;
@@ -166,7 +182,7 @@ var prefiereHistorial = false;
 //arrayColoresUsados[0] = "#ffffff"; 
 // el estilo inicial del botón pincel 
 // indica que pintar es el modo preteterminado
-$("#BtnPincel").addClass("seleccionadoBtnModos"); 
+$(getBtnPincel).addClass("seleccionadoBtnModos"); 
 // indica que zoom + es el modo preteterminado en pantalla completa
 var zoomIn = true;
 document.getElementById("BtnAumentarFull").style.border = "3px outset #009900";
@@ -183,7 +199,7 @@ document.getElementById("relleno").style.backgroundColor = "#000000";
 // solo si es agregado en html
 //document.getElementById("BtnColor0").style.color = "#ffffff";
 // el estilo de borde del botón rejilla
-document.getElementById("BtnRejilla").style.border = "3px double #ffffff";
+getBtnRejilla.style.border = "3px double #ffffff";
 // radio por defecto es 50 %
 document.getElementById("rangoRadioBordes").value = 50;
 // el texto de la muestra está en html, en css tiene su valor inicial de 50
@@ -505,8 +521,7 @@ function bDesdeHex(hex) {
     return miB;
 }
 // ajustes según la disponibilidad de deshacer
-function estadoBtnDeshacer(activar, captionBtn) {
-    var getBtnDeshacer = document.getElementById("BtnDeshacer");
+function estadoBtnDeshacer(activar, captionBtn) {    
     if (activar == true) {
         // activa el botón deshacer
         getBtnDeshacer.disabled = false;
@@ -646,12 +661,12 @@ function ajustesResize() {
 }
 // para los filtros
 function AplicarFiltro() {
-    var x = document.getElementById("filtro").selectedIndex;
-    var y = document.getElementById("filtro").options;
+    var x = getFiltro.selectedIndex;
+    var y = getFiltro.options;
     // guarda
     lastAction = "filtrar";
     lastIndexFiltro = actualIndexFiltro;
-    actualIndexFiltro = document.getElementById("filtro").selectedIndex;
+    actualIndexFiltro = getFiltro.selectedIndex;
     // sintaxis estándar
     getContenedor.style.filter = y[x].value;
     // Safari 6.0 - 9.0
@@ -1617,7 +1632,7 @@ window.addEventListener("beforeunload", function (event) {
 window.addEventListener("load", function (event) {
     // valores por defecto, inicializar
     // selecciona el valor por defecto del filtro
-    document.getElementById("filtro").selectedIndex = 0;
+    getFiltro.selectedIndex = 0;
     actualIndexFiltro = 0;
     lastIndexFiltro = 0;
     AplicarFiltro();
@@ -1980,11 +1995,11 @@ function hacerClick(celda) {
             // también al span de relleno
             document.getElementById("relleno").style.backgroundColor = colorActual;
             // el color de ciertos íconos
-            document.getElementById("BtnRellenar").style.color = colorActual;
-            document.getElementById("BtnColorLienzo").style.color = colorActual;
-            document.getElementById("BtnColorRejilla").style.color = colorActual;
-            document.getElementById("BtnGotero").style.color = colorActual;
-            document.getElementById("BtnPincel").style.color = colorActual;
+            getBtnRellenar.style.color = colorActual;
+            getBtnColorLienzo.style.color = colorActual;
+            getBtnColorRejilla.style.color = colorActual;
+            getBtnGotero.style.color = colorActual;
+            getBtnPincel.style.color = colorActual;
             // para el caso de los importados
             procesarHistorial(colorActual);
             // resalta en historial
@@ -2399,11 +2414,11 @@ function colorPixel() {
     //actualiza el color de rellenar todo junto al ícono del tanque
     document.getElementById("relleno").style.backgroundColor = colorActual;
     // el color de ciertos íconos
-    document.getElementById("BtnRellenar").style.color = colorActual;
-    document.getElementById("BtnColorLienzo").style.color = colorActual;
-    document.getElementById("BtnColorRejilla").style.color = colorActual;
-    document.getElementById("BtnGotero").style.color = colorActual;
-    document.getElementById("BtnPincel").style.color = colorActual;
+    getBtnRellenar.style.color = colorActual;
+    getBtnColorLienzo.style.color = colorActual;
+    getBtnColorRejilla.style.color = colorActual;
+    getBtnGotero.style.color = colorActual;
+    getBtnPincel.style.color = colorActual;
     // resalta en el historial si existe
     resaltarActual();
     // en caso de estar en modo libre
@@ -2531,21 +2546,21 @@ function cambiarModo(nuevoModo) {
     $(".seleccionadoBtnModos").removeClass("seleccionadoBtnModos");    
     if (modoActual != "libre") {
         //muestra y oculta elementos
-        document.getElementById("BtnRellenar").style.display = "inline-block";
-        document.getElementById("BtnColorLienzo").style.display = "inline-block";
-        document.getElementById("BtnColorRejilla").style.display = "inline-block";
-        document.getElementById("BtnGotero").style.display = "inline-block";
-        document.getElementById("BtnBorrador").style.display = "inline-block";
-        document.getElementById("BtnPincel").style.display = "inline-block";
-        document.getElementById("BtnLibre").style.display = "inline-block";
-        document.getElementById("BtnExtraerColor").style.display = "inline-block";
-        document.getElementById("filtro").style.display = "inline-block";
-        document.getElementById("BtnActualizar").style.display = "inline-block";
-        document.getElementById("BtnRejilla").style.display = "inline-block";
-        document.getElementById("BtnTipoBorde").style.display = "inline-block";
-        document.getElementById("BtnAnchoBordes").style.display = "inline-block";
-        document.getElementById("BtnRadioBordes").style.display = "inline-block";
-        document.getElementById("BtnDeshacer").style.display = "inline-block";
+        getBtnRellenar.style.display = "inline-block";
+        getBtnColorLienzo.style.display = "inline-block";
+        getBtnColorRejilla.style.display = "inline-block";
+        getBtnGotero.style.display = "inline-block";
+        getBtnBorrador.style.display = "inline-block";
+        getBtnPincel.style.display = "inline-block";
+        getBtnLibre.style.display = "inline-block";
+        getBtnExtraerColor.style.display = "inline-block";
+        getFiltro.style.display = "inline-block";
+        getBtnActualizar.style.display = "inline-block";
+        getBtnRejilla.style.display = "inline-block";
+        getBtnTipoBorde.style.display = "inline-block";
+        getBtnAnchoBordes.style.display = "inline-block";
+        getBtnRadioBordes.style.display = "inline-block";
+        getBtnDeshacer.style.display = "inline-block";
         //document.getElementById("spanFilas").style.display = "inline-block";
         $("#spanFilas").removeClass("oculto");
         document.getElementById("selectFilas").style.display = "inline-block";
@@ -2564,7 +2579,7 @@ function cambiarModo(nuevoModo) {
     switch (modoActual) {
         case "libre":
             // agrega la clase seleccionado al btn del modo actual                    
-            $("#BtnLibre").addClass("seleccionadoBtnModos");            
+            $(getBtnLibre).addClass("seleccionadoBtnModos");            
             document.getElementById("colorPixel").style.display = "inline-block";
             document.getElementById("BtnRGB").style.display = "inline-block";
             document.getElementById("BtnHex").style.display = "inline-block";
@@ -2576,21 +2591,21 @@ function cambiarModo(nuevoModo) {
             document.getElementById("BtnCancelarLibre").style.display = "inline-block";
             document.getElementById("BtnBorrarLibre").style.display = "inline-block";
             document.getElementById("BtnExpandirLibre").style.display = "inline-block";
-            document.getElementById("BtnRellenar").style.display = "none";
-            document.getElementById("BtnColorLienzo").style.display = "none";
-            document.getElementById("BtnColorRejilla").style.display = "none";
-            document.getElementById("BtnGotero").style.display = "none";
-            document.getElementById("BtnBorrador").style.display = "none";
-            document.getElementById("BtnPincel").style.display = "none";
-            document.getElementById("BtnLibre").style.display = "none";
-            document.getElementById("BtnExtraerColor").style.display = "none";
-            document.getElementById("filtro").style.display = "none";
-            document.getElementById("BtnActualizar").style.display = "none";
-            document.getElementById("BtnRejilla").style.display = "none";
-            document.getElementById("BtnTipoBorde").style.display = "none";
-            document.getElementById("BtnAnchoBordes").style.display = "none";
-            document.getElementById("BtnRadioBordes").style.display = "none";
-            document.getElementById("BtnDeshacer").style.display = "none";
+            getBtnRellenar.style.display = "none";
+            getBtnColorLienzo.style.display = "none";
+            getBtnColorRejilla.style.display = "none";
+            getBtnGotero.style.display = "none";
+            getBtnBorrador.style.display = "none";
+            getBtnPincel.style.display = "none";
+            getBtnLibre.style.display = "none";
+            getBtnExtraerColor.style.display = "none";
+            getFiltro.style.display = "none";
+            getBtnActualizar.style.display = "none";
+            getBtnRejilla.style.display = "none";
+            getBtnTipoBorde.style.display = "none";
+            getBtnAnchoBordes.style.display = "none";
+            getBtnRadioBordes.style.display = "none";
+            getBtnDeshacer.style.display = "none";
             //document.getElementById("spanFilas").style.display = "none";
             $("#spanFilas").addClass("oculto");
             document.getElementById("selectFilas").style.display = "none";
@@ -2619,7 +2634,7 @@ function cambiarModo(nuevoModo) {
             break;
         case "pincel":
             // agrega la clase seleccionado al btn del modo actual                    
-            $("#BtnPincel").addClass("seleccionadoBtnModos"); 
+            $(getBtnPincel).addClass("seleccionadoBtnModos"); 
             document.getElementById("colorPixel").style.display = "inline-block";
             document.getElementById("BtnRGB").style.display = "inline-block";
             document.getElementById("BtnHex").style.display = "inline-block";
@@ -2630,7 +2645,7 @@ function cambiarModo(nuevoModo) {
             break;
         case "borrador":
             // agrega la clase seleccionado al btn del modo actual                    
-            $("#BtnBorrador").addClass("seleccionadoBtnModos");            
+            $(getBtnBorrador).addClass("seleccionadoBtnModos");            
             document.getElementById("colorPixel").style.display = "none";
             document.getElementById("BtnRGB").style.display = "none";
             document.getElementById("BtnHex").style.display = "none";
@@ -2641,7 +2656,7 @@ function cambiarModo(nuevoModo) {
             break;
         case "radio":
             // agrega la clase seleccionado al btn del modo actual                    
-            $("#BtnRadioBordes").addClass("seleccionadoBtnModos");            
+            $(getBtnRadioBordes).addClass("seleccionadoBtnModos");            
             document.getElementById("colorPixel").style.display = "none";
             document.getElementById("BtnRGB").style.display = "none";
             document.getElementById("BtnHex").style.display = "none";
@@ -2652,7 +2667,7 @@ function cambiarModo(nuevoModo) {
             break;
         case "lienzo":
             // agrega la clase seleccionado al btn del modo actual                    
-            $("#BtnColorLienzo").addClass("seleccionadoBtnModos");
+            $(getBtnColorLienzo).addClass("seleccionadoBtnModos");
             document.getElementById("colorPixel").style.display = "inline-block";
             document.getElementById("BtnRGB").style.display = "inline-block";
             document.getElementById("BtnHex").style.display = "inline-block";
@@ -2663,7 +2678,7 @@ function cambiarModo(nuevoModo) {
             break;
         case "relleno":
             // agrega la clase seleccionado al btn del modo actual                    
-            $("#BtnGotero").addClass("seleccionadoBtnModos");
+            $(getBtnGotero).addClass("seleccionadoBtnModos");
             document.getElementById("colorPixel").style.display = "inline-block";
             document.getElementById("BtnRGB").style.display = "inline-block";
             document.getElementById("BtnHex").style.display = "inline-block";
@@ -2674,7 +2689,7 @@ function cambiarModo(nuevoModo) {
             break;
         case "extraer":
             // agrega la clase seleccionado al btn del modo actual                    
-            $("#BtnExtraerColor").addClass("seleccionadoBtnModos");            
+            $(getBtnExtraerColor).addClass("seleccionadoBtnModos");            
             document.getElementById("colorPixel").style.display = "inline-block";
             document.getElementById("BtnRGB").style.display = "inline-block";
             document.getElementById("BtnHex").style.display = "inline-block";
@@ -2821,24 +2836,24 @@ document.getElementById("BtnExpandirLibre").onclick = function () {
 
 }
 //se selecciona el modo libre
-document.getElementById("BtnLibre").onclick = function () {
+getBtnLibre.onclick = function () {
     cambiarModo("libre");
 }
 //se selecciona el pincel
-document.getElementById("BtnPincel").onclick = function () {
+getBtnPincel.onclick = function () {
     cambiarModo("pincel");
 }
 //se selecciona el borrador
-document.getElementById("BtnBorrador").onclick = function () {
+getBtnBorrador.onclick = function () {
     cambiarModo("borrador");
 }
 //se selecciona el modo relleno, el gotero
-document.getElementById("BtnGotero").onclick = function () {
+getBtnGotero.onclick = function () {
     cambiarModo("relleno");
 }
 // se selecciona el modo extraer color
 // extrae el color de la celda seleccionada y lo convierte en el color actual
-document.getElementById("BtnExtraerColor").onclick = function () {
+getBtnExtraerColor.onclick = function () {
     cambiarModo("extraer");
 }
 
@@ -2916,7 +2931,7 @@ function ajustarTamaño(incremento, mostrarLoader, notificar) {
 // inicial css es 23px, quedará en 24px con este ajuste
 ajustarTamaño(1, false, false);
 // todos los cuadritos blancos, borra todo
-document.getElementById("BtnActualizar").onclick = function () {
+getBtnActualizar.onclick = function () {
     if (ocupado == true) {
         //sale si está ocupado
         return;
@@ -2943,7 +2958,7 @@ document.getElementById("BtnActualizar").onclick = function () {
     ocupado = false;
 }
 //aplica a todos los cuadros el relleno del color actual
-document.getElementById("BtnRellenar").onclick = function () {
+getBtnRellenar.onclick = function () {
     if (ocupado == true) {
         //sale si está ocupado
         return;
@@ -2982,14 +2997,14 @@ document.getElementById("BtnRellenar").onclick = function () {
     
 }
 // para ajustar el ANCHO de los bordes
-document.getElementById("BtnAnchoBordes").onclick = function () {    
+getBtnAnchoBordes.onclick = function () {    
     // define y muetra el modal de ancho bordes
     modalActual = "anchoBordes";
     //muestra el modal
     showModal();    
 }
 // para ajustar el radio de los bordes
-document.getElementById("BtnRadioBordes").onclick = function () {
+getBtnRadioBordes.onclick = function () {
     if (modoActual == "radio") { 
         // está en modo radio, entonces se puede ajustar el valor
         modalActual = "radio"; 
@@ -3044,7 +3059,7 @@ function alternarBordes(showMsj) {
     
 }
 // alterna entre con o sin rejilla
-document.getElementById("BtnRejilla").onclick = function () {
+getBtnRejilla.onclick = function () {
     if (ocupado == true) {
         //sale si está ocupado
         return;
@@ -3058,11 +3073,11 @@ document.getElementById("BtnRejilla").onclick = function () {
     ocupado = false;
 }
 // para definir tipo de borde
-document.getElementById("BtnTipoBorde").onclick = function () {
+getBtnTipoBorde.onclick = function () {
     alert("Tipo de bordes... en construcción.")
 }
 // cambia el color de la rejilla
-document.getElementById("BtnColorRejilla").onclick = function () {
+getBtnColorRejilla.onclick = function () {
     // esto era para ajustar el ancho del ícono...
     //this.title = "w " + document.getElementById("tint").offsetWidth + " h " + document.getElementById("tint").offsetHeight;
     if (ocupado == true) {
@@ -3104,7 +3119,7 @@ document.getElementById("BtnColorRejilla").onclick = function () {
    
 }
 // cambia el color del lienzo
-document.getElementById("BtnColorLienzo").onclick = function () {    
+getBtnColorLienzo.onclick = function () {    
     if (modoActual == "lienzo") {
         // está en modo lienzo, entonces se puede ajustar el valor
         modalActual = "lienzo";
@@ -3118,7 +3133,7 @@ document.getElementById("BtnColorLienzo").onclick = function () {
 }
 
 // deshace la última acción
-document.getElementById("BtnDeshacer").onclick = function () {
+getBtnDeshacer.onclick = function () {
     if (ocupado == true) {
         //sale si está ocupado
         return;
@@ -3129,9 +3144,9 @@ document.getElementById("BtnDeshacer").onclick = function () {
         case "filtrar":
             // deshace el filtro
             actualIndexFiltro = lastIndexFiltro;
-            document.getElementById("filtro").selectedIndex = lastIndexFiltro;
-            var x = document.getElementById("filtro").selectedIndex;
-            var y = document.getElementById("filtro").options;
+            getFiltro.selectedIndex = lastIndexFiltro;
+            var x = getFiltro.selectedIndex;
+            var y = getFiltro.options;
             // sintaxis estándar
             getContenedor.style.filter = y[x].value;
             // Safari 6.0 - 9.0
@@ -3430,6 +3445,7 @@ function nowImprime() {
 
 // Get the snackbar DIV
 var sBar = document.getElementById("snackbar");
+// también se usa en esta web getPie
 var tSnackBarSubiendo = 0;
 var tSnackBarBajando = 0;
 var tSnackBarCima = 0;
@@ -3482,6 +3498,8 @@ function bajarSnackBar() {
         estadoSnackBar = "inactivo";
         // lo oculta
         sBar.style.visibility = "hidden";
+        // ya no es una distracción
+        $(getPie).addClass("parpadea");
         return;
     }
     // regla de 3:
@@ -3498,6 +3516,8 @@ function bajarSnackBar() {
 function showSnackbar(msj) {
     //mensaje debe ser modificado inmediatamente, sin importar el estado
     sBar.innerHTML = msj;
+    // evita una distracción
+    $(getPie).removeClass("parpadea");
     // toma acciones según el estado actual
     switch (estadoSnackBar) {
         case "inactivo":
@@ -3611,7 +3631,7 @@ function showInfoTemporal() {
     // una referencia al elemento, ya es global
     //var infoTemp = document.getElementById("infoTemporal");
     infoTemp.style.display = "none";
-    infoTemp.style.opacity = "0";
+    infoTemp.style.opacity = "0";   
     // ahora sí... lo muestra 
     timerMostrarTemporal = setTimeout(function () {  
         infoTemp.style.display = "block";
@@ -3629,7 +3649,7 @@ function showInfoTemporal() {
     }, 4520);
     // lo cierra
     timerCerrarTemporal = setTimeout(function () {
-        infoTemp.style.display = "none";
+        infoTemp.style.display = "none";        
     }, 5020);  
 }
 //***********************************
