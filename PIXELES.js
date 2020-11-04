@@ -23,6 +23,24 @@ var getBtnTipoBorde = document.getElementById("BtnTipoBorde");
 var getBtnAnchoBordes = document.getElementById("BtnAnchoBordes");
 var getBtnRadioBordes = document.getElementById("BtnRadioBordes");
 var getBtnDeshacer = document.getElementById("BtnDeshacer");
+var getSpanFilas = document.getElementById("spanFilas");
+var getSelectFilas = document.getElementById("selectFilas"); // listaFilas
+var getSpanColumnas = document.getElementById("spanColumnas");
+var getSelectColumnas = document.getElementById("selectColumnas"); // listaColumnas
+var getBtnImportar = document.getElementById("BtnImportar");
+var getBtnExportar = document.getElementById("BtnExportar");
+var getBtnImprimir = document.getElementById("BtnImprimir");
+var getBtnAceptarLibre = document.getElementById("BtnAceptarLibre");
+var getBtnCancelarLibre = document.getElementById("BtnCancelarLibre");
+var getBtnBorrarLibre = document.getElementById("BtnBorrarLibre");
+var getBtnExpandirLibre = document.getElementById("BtnExpandirLibre");
+var getBtnPantallaCompleta = document.getElementById("BtnPantallaCompleta");
+var getcolorPixel = document.getElementById("colorPixel");
+var getBtnRGB = document.getElementById("BtnRGB");
+var getBtnHex = document.getElementById("BtnHex");
+var getBtnGallery = document.getElementById("BtnGallery");
+var getBtnRnd = document.getElementById("BtnRnd");
+var getBtnOpuesto = document.getElementById("BtnOpuesto");
 
 
 // para controlar una animación
@@ -188,10 +206,10 @@ var zoomIn = true;
 document.getElementById("BtnAumentarFull").style.border = "3px outset #009900";
 document.getElementById("BtnDisminuirFull").style.border = "3px solid #666699";
 // en el modo pincel no están estos
-document.getElementById("BtnAceptarLibre").style.display = "none";
-document.getElementById("BtnCancelarLibre").style.display = "none";
-document.getElementById("BtnBorrarLibre").style.display = "none";
-document.getElementById("BtnExpandirLibre").style.display = "none";
+getBtnAceptarLibre.style.display = "none";
+getBtnCancelarLibre.style.display = "none";
+getBtnBorrarLibre.style.display = "none";
+getBtnExpandirLibre.style.display = "none";
 // el relleno inicial es negro
 document.getElementById("relleno").style.backgroundColor = "#000000";
 // la propiedad color de ciertos íconos es negra por defecto, desde css
@@ -713,7 +731,7 @@ window.onclick = function (event) {
 function aceptarModalHex() {
     // actualiza el color actual según el hex seleccionado
     // asigna el valor hexadecimal al input color
-    document.getElementById("colorPixel").value = hexTemp;
+    getcolorPixel.value = hexTemp;
     // para otras actualizaciones
     colorPixel();
 }
@@ -1016,7 +1034,7 @@ function aceptarModal() {
         case "rgb":
             // actualiza el color actual según el rgb seleccionado
             // asigna el valor hexadecimal al input color
-            document.getElementById("colorPixel").value = hexTemp;
+            getcolorPixel.value = hexTemp;
             // para otras actualizaciones
             colorPixel();
             break;
@@ -1026,7 +1044,7 @@ function aceptarModal() {
         case "gallery":
             // actualiza el color actual según el elemento de la galería seleccionado
             // asigna el valor hexadecimal al input color
-            document.getElementById("colorPixel").value = hexTemp;
+            getcolorPixel.value = hexTemp;
             // para otras actualizaciones
             colorPixel();
             break;
@@ -1643,7 +1661,7 @@ window.addEventListener("load", function (event) {
     // radio por defecto es 50, para que tenga efecto al hacer click en modo radio al iniciar
     document.getElementById("rangoRadioBordes").value = 50;
     // el input color es negro por defecto, ie recuerda colores anteriores
-    document.getElementById("colorPixel").value = "#000000";    
+    getcolorPixel.value = "#000000";    
     // scroll
     topFunction();
     // dasactiva el botón deshacer, no se ha hecho nada
@@ -1989,9 +2007,9 @@ function hacerClick(celda) {
             //modo extraer color             
             colorActual = convertirRGBaHexadecimal(document.getElementById(celda).style.backgroundColor);
             // asigna el valor hexadecimal al input color
-            document.getElementById("colorPixel").value = colorActual;
+            getcolorPixel.value = colorActual;
             // actualiza el borde del input color
-            document.getElementById("colorPixel").style.borderColor = colorActual;
+            getcolorPixel.style.borderColor = colorActual;
             // también al span de relleno
             document.getElementById("relleno").style.backgroundColor = colorActual;
             // el color de ciertos íconos
@@ -2079,26 +2097,24 @@ function configurarSelects() {
     var fila;
     var columna;
     var x;
-    var y;
-    var listaFilas = document.getElementById("selectFilas");
-    var listaColumnas = document.getElementById("selectColumnas");
+    var y;  
     // agrega selectores de número de filas
     for (fila = 1; fila <= MAXNUMFILAS; fila++) {
         x = document.createElement("option");
         x.text = fila;
         x.value = fila;
-        listaFilas.add(x, fila - 1);
+        getSelectFilas.add(x, fila - 1);
     }
     // agrega selectores de número de columnas
     for (columna = 1; columna <= MAXNUMCOLUMNAS; columna++) {
         y = document.createElement("option");
         y.text = columna;
         y.value = columna;
-        listaColumnas.add(y, columna - 1);
+        getSelectColumnas.add(y, columna - 1);
     }
     // selecciona los valores por defecto
-    listaFilas.selectedIndex = 9; // 10 filas
-    listaColumnas.selectedIndex = 9; // 10 columnas
+    getSelectFilas.selectedIndex = 9; // 10 filas
+    getSelectColumnas.selectedIndex = 9; // 10 columnas
     numColumnas = 10;
     numFilas = 10;
 }
@@ -2229,7 +2245,7 @@ function ocultarPuntero() {
     $("#paletaFull").css("top", "-50px");
 }
 // pantalla completa, entrar
-document.getElementById("BtnPantallaCompleta").onclick = function () {
+getBtnPantallaCompleta.onclick = function () {
     pantallaCompleta = true;
     // primero guarda el scroll de la página
     miBodyScroll = document.body.scrollTop; // For Chrome, Safari and Opera
@@ -2339,7 +2355,7 @@ function procesarZoom() {
     }
 }
 //se selecciona un color aleatorio
-document.getElementById("BtnRnd").onclick = function () {    
+getBtnRnd.onclick = function () {    
     var miRGB;
     var miHex;
     miR = Math.floor(Math.random() * 256); 
@@ -2348,12 +2364,12 @@ document.getElementById("BtnRnd").onclick = function () {
     miRGB = "rgb(" + miR + ", " + miG + ", " + miB + ")";
     miHex = convertirRGBaHexadecimal(miRGB);
     // asigna el valor hexadecimal al input color
-    document.getElementById("colorPixel").value = miHex;
+    getcolorPixel.value = miHex;
     // para otras actualizaciones
     colorPixel();
 }
 //se pasa a un color opuesto al actual
-document.getElementById("BtnOpuesto").onclick = function () {
+getBtnOpuesto.onclick = function () {
     var miRGB;
     var miHex;
     miR = Number(rDesdeHex(colorActual));
@@ -2365,52 +2381,52 @@ document.getElementById("BtnOpuesto").onclick = function () {
     miRGB = "rgb(" + miR + ", " + miG + ", " + miB + ")";
     miHex = convertirRGBaHexadecimal(miRGB);
     // asigna el valor hexadecimal al input color
-    document.getElementById("colorPixel").value = miHex;
+    getcolorPixel.value = miHex;
     // para otras actualizaciones
     colorPixel();
 }
 //se muestra el selector rgb de color
-document.getElementById("BtnRGB").onclick = function () {
+getBtnRGB.onclick = function () {
     modalActual = "rgb";
     //muestra el modal
     showModal();
 }
-//se muestra el selector rgb de color
-document.getElementById("BtnHex").onclick = function () {
+//se muestra el selector hexadecimal de color
+getBtnHex.onclick = function () {
     modalActual = "hex";
     //muestra el modal
     showModal();
 }
-//se muestra el selector rgb de color
-document.getElementById("BtnGallery").onclick = function () {
+//se muestra el selector de galería de colores
+getBtnGallery.onclick = function () {
     modalActual = "gallery";
     //muestra el modal
     showModal();
 }
 //se muestra la ventana con opciones para exportar
-document.getElementById("BtnExportar").onclick = function () {
+getBtnExportar.onclick = function () {
     alert("En construcción");
 
 }
 //se muestra la ventana con opciones para importar
-document.getElementById("BtnImportar").onclick = function () {
+getBtnImportar.onclick = function () {
     alert("En construcción");
 }
 //cambia el color seleccionado, llamada por selectores o historial de colores
 function colorPixel() {
     // OJO: CÓDIGO PARALELO EN MODO EXTRAER
     // NO OLVIDAR QUE backgroundColor DEVUELVE RGB Y EL VALUE DEL INPUT COLOR ES HEXADECIMAL
-    var miValor = document.getElementById("colorPixel").value;
+    var miValor = getcolorPixel.value;
     if (validarHex(miValor) == false) {
         // no es un color válido, seguramente una entrada errada en ie o safari
-        document.getElementById("colorPixel").value = "#000000";
+        getcolorPixel.value = "#000000";
         miValor = "#000000";
         showSnackbar("Color no válido. Se estableció negro (#000000).");        
     }
     //actualiza el color del pincel
     colorActual = miValor;
     // actualiza el borde del input color
-    document.getElementById("colorPixel").style.borderColor = colorActual;
+    getcolorPixel.style.borderColor = colorActual;
     //actualiza el color de rellenar todo junto al ícono del tanque
     document.getElementById("relleno").style.backgroundColor = colorActual;
     // el color de ciertos íconos
@@ -2436,7 +2452,7 @@ function colorPixel() {
 // recibe el id del botón como parámetro
 function colorHistorial(btnId) {
     //actualiza el color del selector
-    document.getElementById("colorPixel").value = document.getElementById(btnId).title;
+    getcolorPixel.value = document.getElementById(btnId).title;
     // para otras actualizaciones de colorPixel
     colorPixel();
     // quite cometario en la siguiente línea para cerrar el historial al escoger un color
@@ -2463,11 +2479,11 @@ function dimensionar(mostrarLoader) {
     lastArrayColor.length = 0;
     lastArrayID.length = 0;
     //lee los valores de los selectores de filas y columnas
-    x = document.getElementById("selectColumnas").selectedIndex;
-    y = document.getElementById("selectColumnas").options;
+    x = getSelectColumnas.selectedIndex;
+    y = getSelectColumnas.options;
     numColumnas = Number(y[x].value);
-    x = document.getElementById("selectFilas").selectedIndex;
-    y = document.getElementById("selectFilas").options;
+    x = getSelectFilas.selectedIndex;
+    y = getSelectFilas.options;
     numFilas = Number(y[x].value);
     // muestra un loader...
     if (mostrarLoader == true) {
@@ -2561,36 +2577,36 @@ function cambiarModo(nuevoModo) {
         getBtnAnchoBordes.style.display = "inline-block";
         getBtnRadioBordes.style.display = "inline-block";
         getBtnDeshacer.style.display = "inline-block";
-        //document.getElementById("spanFilas").style.display = "inline-block";
-        $("#spanFilas").removeClass("oculto");
-        document.getElementById("selectFilas").style.display = "inline-block";
-        //document.getElementById("spanColumnas").style.display = "inline-block";
-        $("#spanColumnas").removeClass("oculto");
-        document.getElementById("selectColumnas").style.display = "inline-block";
-        document.getElementById("BtnImportar").style.display = "inline-block";
-        document.getElementById("BtnExportar").style.display = "inline-block";
-        document.getElementById("BtnImprimir").style.display = "inline-block";
-        document.getElementById("BtnAceptarLibre").style.display = "none";
-        document.getElementById("BtnCancelarLibre").style.display = "none";
-        document.getElementById("BtnBorrarLibre").style.display = "none";
-        document.getElementById("BtnExpandirLibre").style.display = "none";
-        document.getElementById("BtnPantallaCompleta").style.display = "inline-block";
+        //getSpanFilas.style.display = "inline-block";
+        $(getSpanFilas).removeClass("oculto");
+        getSelectFilas.style.display = "inline-block";
+        //getSpanColumnas.style.display = "inline-block";
+        $(getSpanColumnas).removeClass("oculto");
+        getSelectColumnas.style.display = "inline-block";
+        getBtnImportar.style.display = "inline-block";
+        getBtnExportar.style.display = "inline-block";
+        getBtnImprimir.style.display = "inline-block";
+        getBtnAceptarLibre.style.display = "none";
+        getBtnCancelarLibre.style.display = "none";
+        getBtnBorrarLibre.style.display = "none";
+        getBtnExpandirLibre.style.display = "none";
+        getBtnPantallaCompleta.style.display = "inline-block";
     }
     switch (modoActual) {
         case "libre":
             // agrega la clase seleccionado al btn del modo actual                    
             $(getBtnLibre).addClass("seleccionadoBtnModos");            
-            document.getElementById("colorPixel").style.display = "inline-block";
-            document.getElementById("BtnRGB").style.display = "inline-block";
-            document.getElementById("BtnHex").style.display = "inline-block";
-            document.getElementById("BtnGallery").style.display = "inline-block";
-            document.getElementById("BtnRnd").style.display = "inline-block";
-            document.getElementById("BtnOpuesto").style.display = "inline-block";
+            getcolorPixel.style.display = "inline-block";
+            getBtnRGB.style.display = "inline-block";
+            getBtnHex.style.display = "inline-block";
+            getBtnGallery.style.display = "inline-block";
+            getBtnRnd.style.display = "inline-block";
+            getBtnOpuesto.style.display = "inline-block";
             //muestra y oculta elementos
-            document.getElementById("BtnAceptarLibre").style.display = "inline-block";
-            document.getElementById("BtnCancelarLibre").style.display = "inline-block";
-            document.getElementById("BtnBorrarLibre").style.display = "inline-block";
-            document.getElementById("BtnExpandirLibre").style.display = "inline-block";
+            getBtnAceptarLibre.style.display = "inline-block";
+            getBtnCancelarLibre.style.display = "inline-block";
+            getBtnBorrarLibre.style.display = "inline-block";
+            getBtnExpandirLibre.style.display = "inline-block";
             getBtnRellenar.style.display = "none";
             getBtnColorLienzo.style.display = "none";
             getBtnColorRejilla.style.display = "none";
@@ -2606,16 +2622,16 @@ function cambiarModo(nuevoModo) {
             getBtnAnchoBordes.style.display = "none";
             getBtnRadioBordes.style.display = "none";
             getBtnDeshacer.style.display = "none";
-            //document.getElementById("spanFilas").style.display = "none";
-            $("#spanFilas").addClass("oculto");
-            document.getElementById("selectFilas").style.display = "none";
-            //document.getElementById("spanColumnas").style.display = "none";
-            $("#spanColumnas").addClass("oculto");
-            document.getElementById("selectColumnas").style.display = "none";
-            document.getElementById("BtnImportar").style.display = "none";
-            document.getElementById("BtnExportar").style.display = "none";
-            document.getElementById("BtnImprimir").style.display = "none";
-            document.getElementById("BtnPantallaCompleta").style.display = "none";
+            //getSpanFilas.style.display = "none";
+            $(getSpanFilas).addClass("oculto");
+            getSelectFilas.style.display = "none";
+            //getSpanColumnas.style.display = "none";
+            $(getSpanColumnas).addClass("oculto");
+            getSelectColumnas.style.display = "none";
+            getBtnImportar.style.display = "none";
+            getBtnExportar.style.display = "none";
+            getBtnImprimir.style.display = "none";
+            getBtnPantallaCompleta.style.display = "none";
             //debe guardar los colores y los id      
             lastAction = "libre";
             lastArrayColor.length = 0;
@@ -2623,7 +2639,7 @@ function cambiarModo(nuevoModo) {
             //obtiene un array con todos los de la clase columna
             var x = document.getElementsByClassName("columna");
             var i;
-            //recorre todo el array y les aplica el color actual a todos los cuadritos
+            //recorre todo el array y guarda los id y los colores
             for (i = 0; i < x.length; i++) {
                 //guardar los id y los colores
                 lastArrayID[lastArrayID.length] = x[i].id;
@@ -2635,73 +2651,73 @@ function cambiarModo(nuevoModo) {
         case "pincel":
             // agrega la clase seleccionado al btn del modo actual                    
             $(getBtnPincel).addClass("seleccionadoBtnModos"); 
-            document.getElementById("colorPixel").style.display = "inline-block";
-            document.getElementById("BtnRGB").style.display = "inline-block";
-            document.getElementById("BtnHex").style.display = "inline-block";
-            document.getElementById("BtnGallery").style.display = "inline-block";
-            document.getElementById("BtnRnd").style.display = "inline-block";
-            document.getElementById("BtnOpuesto").style.display = "inline-block";
+            getcolorPixel.style.display = "inline-block";
+            getBtnRGB.style.display = "inline-block";
+            getBtnHex.style.display = "inline-block";
+            getBtnGallery.style.display = "inline-block";
+            getBtnRnd.style.display = "inline-block";
+            getBtnOpuesto.style.display = "inline-block";
             showSnackbar("Modo Pincel");
             break;
         case "borrador":
             // agrega la clase seleccionado al btn del modo actual                    
             $(getBtnBorrador).addClass("seleccionadoBtnModos");            
-            document.getElementById("colorPixel").style.display = "none";
-            document.getElementById("BtnRGB").style.display = "none";
-            document.getElementById("BtnHex").style.display = "none";
-            document.getElementById("BtnGallery").style.display = "none";
-            document.getElementById("BtnRnd").style.display = "none";
-            document.getElementById("BtnOpuesto").style.display = "none";
+            getcolorPixel.style.display = "none";
+            getBtnRGB.style.display = "none";
+            getBtnHex.style.display = "none";
+            getBtnGallery.style.display = "none";
+            getBtnRnd.style.display = "none";
+            getBtnOpuesto.style.display = "none";
             showSnackbar("Modo Borrador");
             break;
         case "radio":
             // agrega la clase seleccionado al btn del modo actual                    
             $(getBtnRadioBordes).addClass("seleccionadoBtnModos");            
-            document.getElementById("colorPixel").style.display = "none";
-            document.getElementById("BtnRGB").style.display = "none";
-            document.getElementById("BtnHex").style.display = "none";
-            document.getElementById("BtnGallery").style.display = "none";
-            document.getElementById("BtnRnd").style.display = "none";
-            document.getElementById("BtnOpuesto").style.display = "none";
+            getcolorPixel.style.display = "none";
+            getBtnRGB.style.display = "none";
+            getBtnHex.style.display = "none";
+            getBtnGallery.style.display = "none";
+            getBtnRnd.style.display = "none";
+            getBtnOpuesto.style.display = "none";
             showSnackbar("Modo Editor de Radios");
             break;
         case "lienzo":
             // agrega la clase seleccionado al btn del modo actual                    
             $(getBtnColorLienzo).addClass("seleccionadoBtnModos");
-            document.getElementById("colorPixel").style.display = "inline-block";
-            document.getElementById("BtnRGB").style.display = "inline-block";
-            document.getElementById("BtnHex").style.display = "inline-block";
-            document.getElementById("BtnGallery").style.display = "inline-block";
-            document.getElementById("BtnRnd").style.display = "inline-block";
-            document.getElementById("BtnOpuesto").style.display = "inline-block";
+            getcolorPixel.style.display = "inline-block";
+            getBtnRGB.style.display = "inline-block";
+            getBtnHex.style.display = "inline-block";
+            getBtnGallery.style.display = "inline-block";
+            getBtnRnd.style.display = "inline-block";
+            getBtnOpuesto.style.display = "inline-block";
             showSnackbar("Modo Color Lienzo");
             break;
         case "relleno":
             // agrega la clase seleccionado al btn del modo actual                    
             $(getBtnGotero).addClass("seleccionadoBtnModos");
-            document.getElementById("colorPixel").style.display = "inline-block";
-            document.getElementById("BtnRGB").style.display = "inline-block";
-            document.getElementById("BtnHex").style.display = "inline-block";
-            document.getElementById("BtnGallery").style.display = "inline-block";
-            document.getElementById("BtnRnd").style.display = "inline-block";
-            document.getElementById("BtnOpuesto").style.display = "inline-block";
+            getcolorPixel.style.display = "inline-block";
+            getBtnRGB.style.display = "inline-block";
+            getBtnHex.style.display = "inline-block";
+            getBtnGallery.style.display = "inline-block";
+            getBtnRnd.style.display = "inline-block";
+            getBtnOpuesto.style.display = "inline-block";
             showSnackbar("Modo Relleno Selectivo");
             break;
         case "extraer":
             // agrega la clase seleccionado al btn del modo actual                    
             $(getBtnExtraerColor).addClass("seleccionadoBtnModos");            
-            document.getElementById("colorPixel").style.display = "inline-block";
-            document.getElementById("BtnRGB").style.display = "inline-block";
-            document.getElementById("BtnHex").style.display = "inline-block";
-            document.getElementById("BtnGallery").style.display = "inline-block";
-            document.getElementById("BtnRnd").style.display = "inline-block";
-            document.getElementById("BtnOpuesto").style.display = "inline-block";
+            getcolorPixel.style.display = "inline-block";
+            getBtnRGB.style.display = "inline-block";
+            getBtnHex.style.display = "inline-block";
+            getBtnGallery.style.display = "inline-block";
+            getBtnRnd.style.display = "inline-block";
+            getBtnOpuesto.style.display = "inline-block";
             showSnackbar("Modo Extraer Color");
             break;
     }
 }
 //se selecciona ACEPTAR en el modo libre
-document.getElementById("BtnAceptarLibre").onclick = function () {
+getBtnAceptarLibre.onclick = function () {
     // muestra un loader...
     $(".loader").removeClass("oculto");
     setTimeout(function () {
@@ -2716,7 +2732,7 @@ document.getElementById("BtnAceptarLibre").onclick = function () {
    
 }
 //se selecciona CANCELAR en el modo libre
-document.getElementById("BtnCancelarLibre").onclick = function () {
+getBtnCancelarLibre.onclick = function () {
     // muestra un loader...
     $(".loader").removeClass("oculto");
     setTimeout(function () {
@@ -2737,7 +2753,7 @@ document.getElementById("BtnCancelarLibre").onclick = function () {
     
 }
 // en modo libre, se borra la selección actual
-document.getElementById("BtnBorrarLibre").onclick = function () {
+getBtnBorrarLibre.onclick = function () {
     // muestra un loader...
     $(".loader").removeClass("oculto");
     setTimeout(function () {
@@ -2765,7 +2781,7 @@ document.getElementById("BtnBorrarLibre").onclick = function () {
     
 }
 // en modo libre, expande la selección actual
-document.getElementById("BtnExpandirLibre").onclick = function () {
+getBtnExpandirLibre.onclick = function () {
     // muestra un loader...
     $(".loader").removeClass("oculto");
     setTimeout(function () {
@@ -3344,8 +3360,8 @@ getBtnDeshacer.onclick = function () {
                 numFilas = lastNumFilas;
                 numColumnas = lastNumColumnas;
                 permitirEvento = false;
-                document.getElementById("selectFilas").selectedIndex = numFilas - 1;
-                document.getElementById("selectColumnas").selectedIndex = numColumnas - 1;
+                getSelectFilas.selectedIndex = numFilas - 1;
+                getSelectColumnas.selectedIndex = numColumnas - 1;
 
                 var miID;
                 var miFila;
@@ -3429,7 +3445,7 @@ document.getElementById("BtnSetZoom").onclick = function () {
     showModal();
 }
 // imprime
-document.getElementById("BtnImprimir").onclick = function () {
+getBtnImprimir.onclick = function () {
     imprimir();
 }
 function imprimir() {
