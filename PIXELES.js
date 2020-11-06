@@ -6,6 +6,8 @@ var getPaletaHistorial = document.getElementById("paletaHistorial");
 var getBtnCerrarHistorial = document.getElementById("BtnCerrarHistorial");
 var getContenedor = document.getElementById("contenedor");
 var getPantalla = document.getElementById("pantalla");
+// el pie tiene un margen especial
+// también se le cambia su visibilidad, opacidad o se le oculta según se necesite
 var getPie = document.getElementById("pie");
 var getBtnHistorialColor = document.getElementById("BtnHistorialColor");
 var getBtnRellenar = document.getElementById("BtnRellenar");
@@ -41,6 +43,9 @@ var getBtnHex = document.getElementById("BtnHex");
 var getBtnGallery = document.getElementById("BtnGallery");
 var getBtnRnd = document.getElementById("BtnRnd");
 var getBtnOpuesto = document.getElementById("BtnOpuesto");
+var getmodalBody = document.getElementById("modalBody");
+var getmodalFooter = document.getElementById("modalFooter");
+var getmodalHeader = document.getElementById("modalHeader");
 
 
 // para controlar una animación
@@ -559,12 +564,12 @@ function alturaModal() {
     var h = window.innerHeight
         || document.documentElement.clientHeight
         || document.body.clientHeight;
-    var bd = document.getElementById("modalBody");
-    var ft = document.getElementById("modalFooter");
-    var hd = document.getElementById("modalHeader");
+    //var bd = document.getElementById("modalBody");
+    //var ft = document.getElementById("modalFooter");
+    //var hd = document.getElementById("modalHeader");
     // mejor define altura descontando título y footer.
-    h = 0.82 * (h - 30 - hd.scrollHeight - ft.scrollHeight);
-    bd.style.height = h + "px";
+    h = 0.82 * (h - 30 - getmodalHeader.scrollHeight - getmodalFooter.scrollHeight);
+    getmodalBody.style.height = h + "px";
 }
 // ajustes según el tamaño de la pantalla
 // referencias están al inicio del script
@@ -700,6 +705,9 @@ var modal = document.getElementById('myModal');
 var span = document.getElementsByClassName("close")[0];
 // para cerrar el modal y controlar el actual
 function cerrarModal() {
+    // restaura el pie
+    getPie.style.display = "block";
+    // oculta el modal
     modal.style.display = "none";
     //if (modalActual == "lienzo") {
         // una pequeña animación con la opacidad
@@ -1079,10 +1087,12 @@ function showModal() {
     restauraOpacidad = false;
     //muestra el modal
     modal.style.display = "block";
+    // oculta el pie para liberar recursos
+    getPie.style.display = "none";
     //define su altura    
     alturaModal();
     // scroll
-    document.getElementById("modalBody").scrollTop = 0;
+    getmodalBody.scrollTop = 0;
     // OCULTA TODOS LOS MARCOS
     $(".marco").css("display", "none");
     // ahora hace ajustes iniciales según su uso
@@ -1302,7 +1312,7 @@ function showModal() {
                     clickAcc(vecinoAcc); 
                     setTimeout(function () {
                         // hace scroll para que se vea este acc                        
-                        $('#modalBody').animate({
+                        $(getmodalBody).animate({
                             scrollTop: $(vecinoAcc).offset().top - vecinoAcc.offsetHeight - 16
                         }, 800);
                     }, 400);
@@ -1597,7 +1607,7 @@ document.getElementById("valorHex").addEventListener("change", procesarEntradaHe
 //  eventos al cambiar valor buscarColor
 $("#buscarColor").focusin(function () {   
     // hace scroll para que se vea el txt                        
-    $('#modalBody').animate({
+    $(getmodalBody).animate({
         scrollTop: 12 + document.getElementById("contInfoGallery").offsetHeight 
     }, 600);
 });
@@ -2562,6 +2572,8 @@ function cambiarModo(nuevoModo) {
     $(".seleccionadoBtnModos").removeClass("seleccionadoBtnModos");    
     if (modoActual != "libre") {
         //muestra y oculta elementos
+        // muestra el pie
+        getPie.style.visibility = "visible";
         getBtnRellenar.style.display = "inline-block";
         getBtnColorLienzo.style.display = "inline-block";
         getBtnColorRejilla.style.display = "inline-block";
@@ -2595,7 +2607,9 @@ function cambiarModo(nuevoModo) {
     switch (modoActual) {
         case "libre":
             // agrega la clase seleccionado al btn del modo actual                    
-            $(getBtnLibre).addClass("seleccionadoBtnModos");            
+            $(getBtnLibre).addClass("seleccionadoBtnModos");   
+            // el pie distrae
+            getPie.style.visibility = "hidden";
             getcolorPixel.style.display = "inline-block";
             getBtnRGB.style.display = "inline-block";
             getBtnHex.style.display = "inline-block";
@@ -2715,6 +2729,7 @@ function cambiarModo(nuevoModo) {
             showSnackbar("Modo Extraer Color");
             break;
     }
+    ajustesResize();
 }
 //se selecciona ACEPTAR en el modo libre
 getBtnAceptarLibre.onclick = function () {
