@@ -1,4 +1,5 @@
 ﻿// referencias (más memoria, menos recorridos del DOM)
+var getColumnas; // toma valor después de crear los cuadritos
 var getRelleno = document.getElementById("relleno");
 var infoTemp = document.getElementById("infoTemporal");
 var getPaletaArriba = document.getElementById("paletaArriba");
@@ -7,6 +8,11 @@ var getPaletaHistorial = document.getElementById("paletaHistorial");
 var getBtnCerrarHistorial = document.getElementById("BtnCerrarHistorial");
 var getContenedor = document.getElementById("contenedor");
 var getPantalla = document.getElementById("pantalla");
+//para el modal
+// Get the modal , múltiples usos
+var modal = document.getElementById('myModal');
+// Get the <span> element that closes the modal 
+var span = document.getElementsByClassName("close")[0];
 // el pie tiene un margen especial
 // también se le cambia su visibilidad, opacidad o se le oculta según se necesite
 var getPie = document.getElementById("pie");
@@ -685,25 +691,20 @@ function ajustesResize() {
 }
 // para los filtros
 function AplicarFiltro() {
-    var x = getFiltro.selectedIndex;
+    var xsel = getFiltro.selectedIndex;
     var y = getFiltro.options;
     // guarda
     lastAction = "filtrar";
     lastIndexFiltro = actualIndexFiltro;
     actualIndexFiltro = getFiltro.selectedIndex;
     // sintaxis estándar
-    getContenedor.style.filter = y[x].value;
+    getContenedor.style.filter = y[xsel].value;
     // Safari 6.0 - 9.0
-    getContenedor.style.WebkitFilter = y[x].value;
+    getContenedor.style.WebkitFilter = y[xsel].value;
     // activa el botón deshacer
     estadoBtnDeshacer(true, "Deshacer filtro");
 }
 
-//para el modal
-// Get the modal , múltiples usos
-var modal = document.getElementById('myModal');
-// Get the <span> element that closes the modal 
-var span = document.getElementsByClassName("close")[0];
 // para cerrar el modal y controlar el actual
 function cerrarModal() {
     // restaura el pie
@@ -862,20 +863,21 @@ document.getElementById("numberB").onkeydown = function (e) {
 // al hacer click en aceptar con la opción aplicar lienzo global
 function aplicarLienzoGlobal() {
     //obtiene un array con todos los de la clase columna
-    var x = document.getElementsByClassName("columna");
+    // optimizada getColumnas
+    //var x = document.getElementsByClassName("columna");
     var i;
     //debe guardar los colores de los lienzos y sus id      
     lastAction = "CambiarColorLienzoGlobal";
     lastArrayLienzo.length = 0;
     lastArrayID.length = 0;
     //recorre todo el array y les aplica el color de lienzo
-    for (i = 0; i < x.length; i++) {
+    for (i = 0; i < getColumnas.length; i++) {
         //guardar los id y el color anterior de lienzo al mismo tiempo que recorre los cuadritos
-        lastArrayID[lastArrayID.length] = x[i].id;
-        lastArrayLienzo[lastArrayLienzo.length] = x[i].dataset.colorlienzo;
-        x[i].dataset.colorlienzo = colorLienzo;
-        //$("[id = " + x[i].id + "]").parent().css("background-color", colorLienzo);
-        $(x[i]).parent().css("background-color", colorLienzo);
+        lastArrayID[lastArrayID.length] = getColumnas[i].id;
+        lastArrayLienzo[lastArrayLienzo.length] = getColumnas[i].dataset.colorlienzo;
+        getColumnas[i].dataset.colorlienzo = colorLienzo;
+        //$("[id = " + getColumnas[i].id + "]").parent().css("background-color", colorLienzo);
+        $(getColumnas[i]).parent().css("background-color", colorLienzo);
     }
     // se procesa el historial
     procesarHistorial(colorActual);    
@@ -968,13 +970,14 @@ function aceptarModal() {
             setTimeout(function () {
                 // código alta exigencia
                 //obtiene un array con todos los de la clase columna
-                var x = document.getElementsByClassName("columna");
+                // getColumnas
+                //var x = document.getElementsByClassName("columna");
                 var i;
                 // tamaño es global, el factor acaba de definirse
                 anchoBordes = tamaño * factorAnchoBordes;
                 //recorre todo el array y les aplica el ancho de borde
-                for (i = 0; i < x.length; i++) { 
-                    x[i].style.borderWidth = anchoBordes + "px";
+                for (i = 0; i < getColumnas.length; i++) { 
+                    getColumnas[i].style.borderWidth = anchoBordes + "px";
                 }
                 // oculta el loader
                 $(".loader").addClass("oculto");
@@ -1015,21 +1018,22 @@ function aceptarModal() {
             setTimeout(function () {
                 // código alta exigencia
                 //obtiene un array con todos los de la clase columna
-                var x = document.getElementsByClassName("columna");
+                // getColumnas
+                //var x = document.getElementsByClassName("columna");
                 var i;
                 //debe guardar los radios y los id      
                 lastAction = "CambiarRadioBordesGlobal";
                 lastArrayRadio.length = 0;
                 lastArrayID.length = 0;
                 //recorre todo el array y les aplica el radio de borde
-                for (i = 0; i < x.length; i++) {
+                for (i = 0; i < getColumnas.length; i++) {
                     //guardar los id y los bordes al mismo tiempo que recorre los cuadritos
-                    lastArrayID[lastArrayID.length] = x[i].id;
-                    lastArrayRadio[lastArrayRadio.length] = x[i].dataset.radio;
-                    x[i].dataset.radio = radioBorde;
-                    x[i].style.MozBorderRadius = radioBorde;
-                    x[i].style.webkitBorderRadius = radioBorde;
-                    x[i].style.borderRadius = radioBorde;
+                    lastArrayID[lastArrayID.length] = getColumnas[i].id;
+                    lastArrayRadio[lastArrayRadio.length] = getColumnas[i].dataset.radio;
+                    getColumnas[i].dataset.radio = radioBorde;
+                    getColumnas[i].style.MozBorderRadius = radioBorde;
+                    getColumnas[i].style.webkitBorderRadius = radioBorde;
+                    getColumnas[i].style.borderRadius = radioBorde;
                 }            
                 // oculta el loader
                 $(".loader").addClass("oculto");
@@ -1772,6 +1776,7 @@ function rellenarZona(colorViejo, colorNuevo, miID) {
     var filaVecino;
     var columnaVecino;
     var idVecino;
+    var getVecino;
     var salir = false;
     var str;
     var res;
@@ -1791,14 +1796,15 @@ function rellenarZona(colorViejo, colorNuevo, miID) {
             idVecino = "f" + filaVecino + "c" + columnaVecino;
             // si existe y si es del colorViejo la contagia
             if (existeCelda(idVecino) == true) {
-                if (filaVecino > 0 && document.getElementById(idVecino).style.backgroundColor == colorViejo) {
+                getVecino = document.getElementById(idVecino);
+                if (filaVecino > 0 && getVecino.style.backgroundColor == colorViejo) {
                     // lo agrega a nuevos contagios
                     arrayNuevosContagios[arrayNuevosContagios.length] = idVecino;
                     //guardar los id y los colores para poder deshacer
                     lastArrayID[lastArrayID.length] = idVecino;
                     lastArrayColor[lastArrayColor.length] = colorViejo;
                     // lo rellena
-                    document.getElementById(idVecino).style.backgroundColor = colorNuevo;
+                    getVecino.style.backgroundColor = colorNuevo;
                 }
             }
             // abajo
@@ -1807,14 +1813,15 @@ function rellenarZona(colorViejo, colorNuevo, miID) {
             idVecino = "f" + filaVecino + "c" + columnaVecino;
             // si existe y si es del colorViejo la contagia
             if (existeCelda(idVecino) == true) {
-                if (filaVecino <= numFilas && document.getElementById(idVecino).style.backgroundColor == colorViejo) {
+                getVecino = document.getElementById(idVecino);
+                if (filaVecino <= numFilas && getVecino.style.backgroundColor == colorViejo) {
                     // lo agrega a nuevos contagios
                     arrayNuevosContagios[arrayNuevosContagios.length] = idVecino;
                     //guardar los id y los colores para poder deshacer
                     lastArrayID[lastArrayID.length] = idVecino;
                     lastArrayColor[lastArrayColor.length] = colorViejo;
                     // lo rellena
-                    document.getElementById(idVecino).style.backgroundColor = colorNuevo;
+                    getVecino.style.backgroundColor = colorNuevo;
                 }
             }
             // derecha
@@ -1823,14 +1830,15 @@ function rellenarZona(colorViejo, colorNuevo, miID) {
             idVecino = "f" + filaVecino + "c" + columnaVecino;
             // si existe y si es del colorViejo la contagia
             if (existeCelda(idVecino) == true) {
-                if (columnaVecino <= numColumnas && document.getElementById(idVecino).style.backgroundColor == colorViejo) {
+                getVecino = document.getElementById(idVecino);
+                if (columnaVecino <= numColumnas && getVecino.style.backgroundColor == colorViejo) {
                     // lo agrega a nuevos contagios
                     arrayNuevosContagios[arrayNuevosContagios.length] = idVecino;
                     //guardar los id y los colores para poder deshacer
                     lastArrayID[lastArrayID.length] = idVecino;
                     lastArrayColor[lastArrayColor.length] = colorViejo;
                     // lo rellena
-                    document.getElementById(idVecino).style.backgroundColor = colorNuevo;
+                    getVecino.style.backgroundColor = colorNuevo;
                 }
             }
             // izquierda
@@ -1839,14 +1847,15 @@ function rellenarZona(colorViejo, colorNuevo, miID) {
             idVecino = "f" + filaVecino + "c" + columnaVecino;
             // si existe y si es del colorViejo la contagia
             if (existeCelda(idVecino) == true) {
-                if (columnaVecino > 0 && document.getElementById(idVecino).style.backgroundColor == colorViejo) {
+                getVecino = document.getElementById(idVecino);
+                if (columnaVecino > 0 && getVecino.style.backgroundColor == colorViejo) {
                     // lo agrega a nuevos contagios
                     arrayNuevosContagios[arrayNuevosContagios.length] = idVecino;
                     //guardar los id y los colores para poder deshacer
                     lastArrayID[lastArrayID.length] = idVecino;
                     lastArrayColor[lastArrayColor.length] = colorViejo;
                     // lo rellena
-                    document.getElementById(idVecino).style.backgroundColor = colorNuevo;
+                    getVecino.style.backgroundColor = colorNuevo;
                 }
             }
         }
@@ -2111,19 +2120,26 @@ function crearCuadritos() {
 
 //para que se creen al abrir la página 
 crearCuadritos();
+// la referencia
+// declarada al inicio
+//obtiene un array con todos los de la clase columna
+// para evitar recorridos al dom en algunas rutinas, optimizando
+getColumnas = document.getElementsByClassName("columna");
+// para probar su cantidad
+//alert("cantidad " + getColumnas.length);
 // agrega los números de los selectores de filas y columnas al DOM
 // SE LLAMA JUSTO DESPÚES DE DECLARARLA, AL ABRIR LA PÁGINA
 function configurarSelects() {
     var fila;
     var columna;
-    var x;
+    var xsel;
     var y;  
     // agrega selectores de número de filas
     for (fila = 1; fila <= MAXNUMFILAS; fila++) {
-        x = document.createElement("option");
-        x.text = fila;
-        x.value = fila;
-        getSelectFilas.add(x, fila - 1);
+        xsel = document.createElement("option");
+        xsel.text = fila;
+        xsel.value = fila;
+        getSelectFilas.add(xsel, fila - 1);
     }
     // agrega selectores de número de columnas
     for (columna = 1; columna <= MAXNUMCOLUMNAS; columna++) {
@@ -2488,7 +2504,7 @@ function dimensionar(mostrarLoader) {
     var miFila;
     var miColumna;
     var miID;
-    var x;
+    var xsel;
     var y;
     // primero guarda todo para poder deshacer
     lastNumFilas = numFilas;
@@ -2499,12 +2515,12 @@ function dimensionar(mostrarLoader) {
     lastArrayColor.length = 0;
     lastArrayID.length = 0;
     //lee los valores de los selectores de filas y columnas
-    x = getSelectColumnas.selectedIndex;
+    xsel = getSelectColumnas.selectedIndex;
     y = getSelectColumnas.options;
-    numColumnas = Number(y[x].value);
-    x = getSelectFilas.selectedIndex;
+    numColumnas = Number(y[xsel].value);
+    xsel = getSelectFilas.selectedIndex;
     y = getSelectFilas.options;
-    numFilas = Number(y[x].value);
+    numFilas = Number(y[xsel].value);
     // muestra un loader...
     if (mostrarLoader == true) {
         $(".loader").removeClass("oculto");
@@ -2661,13 +2677,14 @@ function cambiarModo(nuevoModo) {
             lastArrayColor.length = 0;
             lastArrayID.length = 0;
             //obtiene un array con todos los de la clase columna
-            var x = document.getElementsByClassName("columna");
+            //getColumnas
+            //var x = document.getElementsByClassName("columna");
             var i;
             //recorre todo el array y guarda los id y los colores
-            for (i = 0; i < x.length; i++) {
+            for (i = 0; i < getColumnas.length; i++) {
                 //guardar los id y los colores
-                lastArrayID[lastArrayID.length] = x[i].id;
-                lastArrayColor[lastArrayColor.length] = x[i].style.backgroundColor;
+                lastArrayID[lastArrayID.length] = getColumnas[i].id;
+                lastArrayColor[lastArrayColor.length] = getColumnas[i].style.backgroundColor;
             }
             // informa
             showSnackbar("Modo Selección Libre");
@@ -2925,7 +2942,8 @@ function ajustarTamaño(incremento, mostrarLoader, notificar) {
     // 4% por defecto
     //anchoBordes = factorAnchoBordes * tamaño, inicialmente 0.04 * tamaño;
     anchoBordes = factorAnchoBordes * tamaño;
-    var x = document.getElementsByClassName("columna");
+    // getColumnas
+    //var x = document.getElementsByClassName("columna");
     var i;
     // muestra un loader...
     if (mostrarLoader == true) {
@@ -2935,20 +2953,20 @@ function ajustarTamaño(incremento, mostrarLoader, notificar) {
     setTimeout(function () {
         // código alta exigencia
         //ajusta todos los cuadritos
-        for (i = 0; i < x.length; i++) {
+        for (i = 0; i < getColumnas.length; i++) {
             //ancho
-            x[i].style.width = tamaño + "px";
-            x[i].style.maxWidth = tamaño + "px";
-            x[i].style.minWidth = tamaño + "px";
+            getColumnas[i].style.width = tamaño + "px";
+            getColumnas[i].style.maxWidth = tamaño + "px";
+            getColumnas[i].style.minWidth = tamaño + "px";
             //alto
-            x[i].style.height = tamaño + "px";
-            x[i].style.maxHeight = tamaño + "px";
-            x[i].style.minHeight = tamaño + "px";
+            getColumnas[i].style.height = tamaño + "px";
+            getColumnas[i].style.maxHeight = tamaño + "px";
+            getColumnas[i].style.minHeight = tamaño + "px";
             // el ancho del borde
-            x[i].style.borderWidth = anchoBordes + "px";
+            getColumnas[i].style.borderWidth = anchoBordes + "px";
             // la fuente, para las x
             // también para las sombras en unidades em
-            x[i].style.fontSize = tamaño * 0.8 + "px";            
+            getColumnas[i].style.fontSize = tamaño * 0.8 + "px";            
         }
         // oculta el loader
         if (mostrarLoader == true) {
@@ -2984,14 +3002,15 @@ getBtnActualizar.onclick = function () {
     lastArrayColor.length = 0;
     lastArrayID.length = 0;
     //obtiene un array con todos los de la clase columna
-    var x = document.getElementsByClassName("columna");
+    // getColumnas
+    //var x = document.getElementsByClassName("columna");
     var i;
     //recorre todo el array y borra todos los cuadritos
-    for (i = 0; i < x.length; i++) {
+    for (i = 0; i < getColumnas.length; i++) {
         //guardar los id y los colores al mismo tiempo que recorre los cuadritos
-        lastArrayID[lastArrayID.length] = x[i].id;
-        lastArrayColor[lastArrayColor.length] = x[i].style.backgroundColor;
-        x[i].style.backgroundColor = "#ffffff";
+        lastArrayID[lastArrayID.length] = getColumnas[i].id;
+        lastArrayColor[lastArrayColor.length] = getColumnas[i].style.backgroundColor;
+        getColumnas[i].style.backgroundColor = "#ffffff";
     }
     lastFondoAplicado = fondoAplicado;
     fondoAplicado = "#ffffff";
@@ -3015,14 +3034,15 @@ getBtnRellenar.onclick = function () {
     setTimeout(function () {
         // código alta exigencia
         //obtiene un array con todos los de la clase columna
-        var x = document.getElementsByClassName("columna");
+        // getColumnas
+        //var x = document.getElementsByClassName("columna");
         var i;
         //recorre todo el array y les aplica el color actual a todos los cuadritos
-        for (i = 0; i < x.length; i++) {
+        for (i = 0; i < getColumnas.length; i++) {
             //guardar los id y los colores al mismo tiempo que recorre los cuadritos
-            lastArrayID[lastArrayID.length] = x[i].id;
-            lastArrayColor[lastArrayColor.length] = x[i].style.backgroundColor;
-            x[i].style.backgroundColor = colorActual;
+            lastArrayID[lastArrayID.length] = getColumnas[i].id;
+            lastArrayColor[lastArrayColor.length] = getColumnas[i].style.backgroundColor;
+            getColumnas[i].style.backgroundColor = colorActual;
         }
         lastFondoAplicado = fondoAplicado;
         fondoAplicado = colorActual;
@@ -3187,12 +3207,12 @@ getBtnDeshacer.onclick = function () {
             // deshace el filtro
             actualIndexFiltro = lastIndexFiltro;
             getFiltro.selectedIndex = lastIndexFiltro;
-            var x = getFiltro.selectedIndex;
+            var xsel = getFiltro.selectedIndex;
             var y = getFiltro.options;
             // sintaxis estándar
-            getContenedor.style.filter = y[x].value;
+            getContenedor.style.filter = y[xsel].value;
             // Safari 6.0 - 9.0
-            getContenedor.style.WebkitFilter = y[x].value;
+            getContenedor.style.WebkitFilter = y[xsel].value;
             mensaje = "Se deshizo el filtro aplicado";
             break;
         case "alternarBordes":
