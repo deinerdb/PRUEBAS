@@ -1,4 +1,5 @@
 ﻿// referencias (más memoria, menos recorridos del DOM)
+var getRelleno = document.getElementById("relleno");
 var infoTemp = document.getElementById("infoTemporal");
 var getPaletaArriba = document.getElementById("paletaArriba");
 var getPaletaAbajo = document.getElementById("paletaAbajo");
@@ -216,7 +217,7 @@ getBtnCancelarLibre.style.display = "none";
 getBtnBorrarLibre.style.display = "none";
 getBtnExpandirLibre.style.display = "none";
 // el relleno inicial es negro
-document.getElementById("relleno").style.backgroundColor = "#000000";
+getRelleno.style.backgroundColor = "#000000";
 // la propiedad color de ciertos íconos es negra por defecto, desde css
 //el primer botón del historial es blanco
 // solo si es agregado en html
@@ -227,7 +228,7 @@ getBtnRejilla.style.border = "3px double #ffffff";
 document.getElementById("rangoRadioBordes").value = 50;
 // el texto de la muestra está en html, en css tiene su valor inicial de 50
 //document.getElementById("muestraRadio").style.borderRadius = "50%";
-//document.getElementById("relleno").style.borderRadius = "50%";
+//getRelleno.style.borderRadius = "50%";
 //document.getElementById("rellenoHistorial").style.borderRadius = "50%";
 
 // accordion
@@ -873,7 +874,8 @@ function aplicarLienzoGlobal() {
         lastArrayID[lastArrayID.length] = x[i].id;
         lastArrayLienzo[lastArrayLienzo.length] = x[i].dataset.colorlienzo;
         x[i].dataset.colorlienzo = colorLienzo;
-        $("[id = " + x[i].id + "]").parent().css("background-color", colorLienzo);
+        //$("[id = " + x[i].id + "]").parent().css("background-color", colorLienzo);
+        $(x[i]).parent().css("background-color", colorLienzo);
     }
     // se procesa el historial
     procesarHistorial(colorActual);    
@@ -1224,9 +1226,9 @@ function showModal() {
             // inicialmente hex es el color actual
             hexTemp = colorActual;
             // SE MUESTRA EL COLOR ACTUAL EN RGB Y HEX
-            document.getElementById("infoColor").innerHTML = document.getElementById("relleno").style.backgroundColor + " - " + colorActual;
+            document.getElementById("infoColor").innerHTML = getRelleno.style.backgroundColor + " - " + colorActual;
             // el detalle en cada panel es spanInfoColorSel
-            $(".spanInfoColorSel").html("Actual: " + document.getElementById("relleno").style.backgroundColor + " - " + colorActual);
+            $(".spanInfoColorSel").html("Actual: " + getRelleno.style.backgroundColor + " - " + colorActual);
             // el nombre inicial en blanco
             document.getElementById("infoColorNombre").innerHTML = " - ";
             // familia inicial en blanco
@@ -1297,7 +1299,7 @@ function showModal() {
                     var miFamilia = miTitle[2] + " (" + miMiembro[i].dataset.espfam + ")";
                     document.getElementById("infoColorFamilia").innerHTML = miFamilia;
                     // el detalle en cada panel es spanInfoColorSel                    
-                    $(".spanInfoColorSel").html("Actual: " + document.getElementById("relleno").style.backgroundColor + " - " + colorActual + " - " + miNombre + " - " + miFamilia);
+                    $(".spanInfoColorSel").html("Actual: " + getRelleno.style.backgroundColor + " - " + colorActual + " - " + miNombre + " - " + miFamilia);
                     // debemos identificar al abuelo
                     var abuelo = $(miMiembro[i]).closest(".panel"); // es una colección                    
                     // el acc es el elemento anterior al abuelo
@@ -1684,7 +1686,7 @@ function resaltarActual() {
     var i;
     var miID;
     var miBtn;
-    var colorSeleccionado = document.getElementById("relleno").style.backgroundColor;
+    var colorSeleccionado = getRelleno.style.backgroundColor;
     //recorre los botones del historial    
     for (i = 0; i < arrayColoresUsados.length; i++) {
         miID = "BtnColor" + i;
@@ -1931,10 +1933,14 @@ function hacerClick(celda) {
     $(".resaltado").removeClass("resaltado");
     // también de los lienzos
     $(".resaltadoLienzo").removeClass("resaltadoLienzo");
+    // para usar la referencia en toda esta la rutina
+    var miCuadrito = document.getElementById(celda);
     // z index del lienzo del cuadrito actual sube al agregar la clase
-    $("[id = " + celda + "]").parent().addClass("resaltadoLienzo");
+    //$("[id = " + celda + "]").parent().addClass("resaltadoLienzo");
+    $(miCuadrito).parent().addClass("resaltadoLienzo");
     // resalta el que recibe el click
-    $("[id = " + celda + "]").addClass("resaltado");
+    //$("[id = " + celda + "]").addClass("resaltado");
+    $(miCuadrito).addClass("resaltado");
     // inicia el temporizador para quitar el resaltado
     timerResaltar = setTimeout(function () {
         // remueve el resaltado de todos
@@ -1946,8 +1952,9 @@ function hacerClick(celda) {
     switch (modoActual) {
         case "libre":
             //modo selección libre
-            var miCuadrito = document.getElementById(celda);
-            var miLienzo = $("[id = " + celda + "]").parent()[0];
+            //var miCuadrito = document.getElementById(celda);
+            //var miLienzo = $("[id = " + celda + "]").parent()[0];
+            var miLienzo = $(miCuadrito).parent()[0];
             if ( $(miLienzo).hasClass("seleccionado") ) {                
                 $(miLienzo).removeClass("seleccionado");
                 miCuadrito.style.backgroundColor = lastArrayColor[lastArrayID.indexOf(celda)];
@@ -1961,10 +1968,10 @@ function hacerClick(celda) {
             // modo pincel
             // guarda primero
             lastID = celda;
-            lastColor = document.getElementById(celda).style.backgroundColor;
+            lastColor = miCuadrito.style.backgroundColor;
             lastAction = "pintar";
             //pinta la celda
-            document.getElementById(celda).style.backgroundColor = colorActual;
+            miCuadrito.style.backgroundColor = colorActual;
             //procesa el historial de colores
             procesarHistorial(colorActual);
             // activa el botón deshacer
@@ -1972,16 +1979,18 @@ function hacerClick(celda) {
             break;
         case "lienzo":            
             // modo lienzo, individual
+            //var miCuadrito = document.getElementById(celda);
             // guarda para poder deshacer
             lastAction = "cambiarColorLienzo";
             lastID = celda;
-            lastColorLienzo = document.getElementById(celda).dataset.colorlienzo;            
+            lastColorLienzo = miCuadrito.dataset.colorlienzo;            
             //el nuevo valor
             colorLienzo = colorActual;
             // pinta el lienzo del cuadrito actual
-            $("[id = " + celda + "]").parent().css("background-color", colorLienzo);            
+            //$("[id = " + celda + "]").parent().css("background-color", colorLienzo);            
+            $(miCuadrito).parent().css("background-color", colorLienzo);            
             // guarda el valor en el dataset
-            document.getElementById(celda).dataset.colorlienzo = colorLienzo;
+            miCuadrito.dataset.colorlienzo = colorLienzo;
             // historial actualizado
             procesarHistorial(colorLienzo);
             showSnackbar("Color del lienzo aplicado: " + colorLienzo);
@@ -1991,14 +2000,15 @@ function hacerClick(celda) {
             // modo editor de radio de bordes
             // guarda primero
             lastID = celda;
-            var miCeldaRadio = document.getElementById(celda);                      
-            lastRadioBorde = miCeldaRadio.dataset.radio;
+            // usemos miCuadrito
+            //var miCeldaRadio = document.getElementById(celda);                      
+            lastRadioBorde = miCuadrito.dataset.radio;
             lastAction = "CambiarRadioBordesCelda";
             //ajusta el radio de la celda
-            miCeldaRadio.dataset.radio = radioBorde;
-            miCeldaRadio.style.MozBorderRadius = radioBorde;
-            miCeldaRadio.style.webkitBorderRadius = radioBorde;
-            miCeldaRadio.style.borderRadius = radioBorde;
+            miCuadrito.dataset.radio = radioBorde;
+            miCuadrito.style.MozBorderRadius = radioBorde;
+            miCuadrito.style.webkitBorderRadius = radioBorde;
+            miCuadrito.style.borderRadius = radioBorde;
             // activa el botón deshacer
             estadoBtnDeshacer(true, "Deshacer radio de los bordes");
             break;
@@ -2006,22 +2016,22 @@ function hacerClick(celda) {
             //modo borrador
             //primero guarda
             lastID = celda;
-            lastColor = document.getElementById(celda).style.backgroundColor;
+            lastColor = miCuadrito.style.backgroundColor;
             lastAction = "borrar";
             //borra
-            document.getElementById(celda).style.backgroundColor = fondoAplicado;
+            miCuadrito.style.backgroundColor = fondoAplicado;
             // activa el botón deshacer
             estadoBtnDeshacer(true, "Deshacer borrado");
             break;
         case "extraer":
             //modo extraer color             
-            colorActual = convertirRGBaHexadecimal(document.getElementById(celda).style.backgroundColor);
+            colorActual = convertirRGBaHexadecimal(miCuadrito.style.backgroundColor);
             // asigna el valor hexadecimal al input color
             getcolorPixel.value = colorActual;
             // actualiza el borde del input color
             getcolorPixel.style.borderColor = colorActual;
             // también al span de relleno
-            document.getElementById("relleno").style.backgroundColor = colorActual;
+            getRelleno.style.backgroundColor = colorActual;
             // el color de ciertos íconos
             getBtnRellenar.style.color = colorActual;
             getBtnColorLienzo.style.color = colorActual;
@@ -2038,11 +2048,11 @@ function hacerClick(celda) {
         case "relleno":
             // parámetros: colorViejo, colorNuevo, miID
             // document.getElementById(celda).style.backgroundColor es RGB
-            // document.getElementById("relleno").style.backgroundColor es colorActual en RGB
+            // getRelleno.style.backgroundColor es colorActual en RGB
             // colorActual es hexadecimal
             //alert("pasa viejo " + document.getElementById(celda).style.backgroundColor);
-            //alert("pasa nuevo " + document.getElementById("relleno").style.backgroundColor);
-            rellenarZona(document.getElementById(celda).style.backgroundColor, document.getElementById("relleno").style.backgroundColor, celda);
+            //alert("pasa nuevo " + getRelleno.style.backgroundColor);
+            rellenarZona(miCuadrito.style.backgroundColor, getRelleno.style.backgroundColor, celda);
             break;
     }
     ocupado = false;
@@ -2438,7 +2448,7 @@ function colorPixel() {
     // actualiza el borde del input color
     getcolorPixel.style.borderColor = colorActual;
     //actualiza el color de rellenar todo junto al ícono del tanque
-    document.getElementById("relleno").style.backgroundColor = colorActual;
+    getRelleno.style.backgroundColor = colorActual;
     // el color de ciertos íconos
     getBtnRellenar.style.color = colorActual;
     getBtnColorLienzo.style.color = colorActual;
@@ -2850,7 +2860,8 @@ getBtnExpandirLibre.onclick = function () {
                 for (miCol = colMenor; miCol <= colMayor; miCol++) {
                     miID = "f" + miFila + "c" + miCol;
                     miCuadrito = document.getElementById(miID);
-                    var miLienzo = $("[id = " + miID + "]").parent()[0];
+                    //var miLienzo = $("[id = " + miID + "]").parent()[0];
+                    var miLienzo = $(miCuadrito).parent()[0];
                     if ( $(miLienzo).hasClass("seleccionado") == false ) {                                                
                         $(miLienzo).addClass("seleccionado");
                         miCuadrito.style.backgroundColor = colorActual;
@@ -3219,7 +3230,7 @@ getBtnDeshacer.onclick = function () {
             setTimeout(function () {
                 // código alta exigencia
                 //obtiene un array con todos los de la clase columna
-                var x = document.getElementsByClassName("columna");
+                //var x = document.getElementsByClassName("columna");
                 var i;
                 var miElemRadio;
                 var miLastRadio;
@@ -3298,13 +3309,17 @@ getBtnDeshacer.onclick = function () {
         case "cambiarColorLienzo":
             // deshace el color aplicado
             colorLienzo = lastColorLienzo;
+            var miCuadrito = document.getElementById(lastID);
             // restaura el dataset
-            document.getElementById(lastID).dataset.colorlienzo = colorLienzo;
+            miCuadrito.dataset.colorlienzo = colorLienzo;
             // cambia el color del lienzo
-            $("[id = " + lastID + "]").parent().addClass("resaltadoLienzo");
-            $("[id = " + lastID + "]").parent().css("background-color", colorLienzo);
+            //$("[id = " + lastID + "]").parent().addClass("resaltadoLienzo");
+            $(miCuadrito).parent().addClass("resaltadoLienzo");
+            //$("[id = " + lastID + "]").parent().css("background-color", colorLienzo);
+            $(miCuadrito).parent().css("background-color", colorLienzo);
             timerResaltarDeshacer = setTimeout(function () { 
-                $("[id = " + lastID + "]").parent().removeClass("resaltadoLienzo");
+                //$("[id = " + lastID + "]").parent().removeClass("resaltadoLienzo");
+                $(miCuadrito).parent().removeClass("resaltadoLienzo");
             }, 400);
             mensaje = "Se deshizo el color del lienzo de la celda";
             break;
@@ -3321,12 +3336,13 @@ getBtnDeshacer.onclick = function () {
             $(".loader").removeClass("oculto");
             mensaje = "Se deshizo el color del lienzo global";
             setTimeout(function () {
-
+                var miCuadrito;
                 for (i = 0; i < lastArrayID.length; i++) {
                     colorLienzoAnterior = lastArrayLienzo[i];
                     idLienzoAnterior = lastArrayID[i];
-                    document.getElementById(idLienzoAnterior).dataset.colorlienzo = colorLienzoAnterior;
-                    $("[id = " + idLienzoAnterior + "]").parent().css("background-color", colorLienzoAnterior);
+                    miCuadrito = document.getElementById(idLienzoAnterior);
+                    miCuadrito.dataset.colorlienzo = colorLienzoAnterior;
+                    $(miCuadrito).parent().css("background-color", colorLienzoAnterior);
                 } 
                
                 // oculta el loader
