@@ -26,6 +26,7 @@ var getBtnPincel = document.getElementById("BtnPincel");
 var getBtnLibre = document.getElementById("BtnLibre");
 var getBtnExtraerColor = document.getElementById("BtnExtraerColor");
 var getFiltro = document.getElementById("filtro");
+var getSelectFondo = document.getElementById("selectFondo");
 var getBtnActualizar = document.getElementById("BtnActualizar");
 var getBtnRejilla = document.getElementById("BtnRejilla");
 var getBtnTipoBorde = document.getElementById("BtnTipoBorde");
@@ -703,6 +704,13 @@ function AplicarFiltro() {
     getContenedor.style.WebkitFilter = y[xsel].value;
     // activa el botón deshacer
     estadoBtnDeshacer(true, "Deshacer filtro");
+}
+// para el fondo de la página
+function aplicarFondo() {
+    var xsel = getSelectFondo.selectedIndex;
+    var y = getSelectFondo.options;    
+    // nuevo valor es y[xsel].value;
+    
 }
 
 // para cerrar el modal y controlar el actual
@@ -1670,6 +1678,9 @@ window.addEventListener("load", function (event) {
     actualIndexFiltro = 0;
     lastIndexFiltro = 0;
     AplicarFiltro();
+    // valor inicial del fondo
+    getSelectFondo.selectedIndex = 0;
+    aplicarFondo();
     // DIMENSIONA AL INICIAR LA PÁGINA con 10x10
     //para que se agreguen al abrir la página     
     configurarSelects(); 
@@ -2120,7 +2131,7 @@ function crearCuadritos() {
 
 //para que se creen al abrir la página 
 crearCuadritos();
-// la referencia
+// la referencia:
 // declarada al inicio
 //obtiene un array con todos los de la clase columna
 // para evitar recorridos al dom en algunas rutinas, optimizando
@@ -3104,11 +3115,12 @@ function alternarBordes(showMsj) {
     setTimeout(function () {
         // código alta exigencia
         //obtiene un array con todos los de la clase columna
-        var x = document.getElementsByClassName("columna");
+        // getColumnas
+        // var x = document.getElementsByClassName("columna");
         var i;
         //recorre todo el array y les aplica el estilo de borde
-        for (i = 0; i < x.length; i++) {
-            x[i].style.border = miBorde;
+        for (i = 0; i < getColumnas.length; i++) {
+            getColumnas[i].style.border = miBorde;
         }
         // oculta el loader
         $(".loader").addClass("oculto");
@@ -3162,11 +3174,12 @@ getBtnColorRejilla.onclick = function () {
     setTimeout(function () {
         // código alta exigencia
         //obtiene un array con todos los de la clase columna
-        var x = document.getElementsByClassName("columna");
+        // getColumnas
+        //var x = document.getElementsByClassName("columna");
         var i;
         //recorre todo el array y les aplica el estilo de borde
-        for (i = 0; i < x.length; i++) {
-            x[i].style.border = miBorde;
+        for (i = 0; i < getColumnas.length; i++) {
+            getColumnas[i].style.border = miBorde;
         }
         procesarHistorial(colorRejilla);
         // oculta el loader
@@ -3227,15 +3240,16 @@ getBtnDeshacer.onclick = function () {
             setTimeout(function () {
                 // código alta exigencia
                 //obtiene un array con todos los de la clase columna
-                var x = document.getElementsByClassName("columna");
+                // getColumnas
+                //var x = document.getElementsByClassName("columna");
                 var i;
                 // restaura el factor
                 factorAnchoBordes = lastFactorAnchoBordes;
                 // define el ancho nuevamente
                 anchoBordes = tamaño * factorAnchoBordes;
                 //recorre todo el array y les aplica el ancho del borde         
-                for (i = 0; i < x.length; i++) {
-                    x[i].style.borderWidth = anchoBordes + "px";
+                for (i = 0; i < getColumnas.length; i++) {
+                    getColumnas[i].style.borderWidth = anchoBordes + "px";
                 }
                 // oculta el loader
                 $(".loader").addClass("oculto");
@@ -3388,11 +3402,12 @@ getBtnDeshacer.onclick = function () {
             setTimeout(function () {
                 // código alta exigencia
                 //obtiene un array con todos los de la clase columna
-                var x = document.getElementsByClassName("columna");
+                // getColumnas
+                //var x = document.getElementsByClassName("columna");
                 var i;
                 //recorre todo el array y les aplica el estilo de borde
-                for (i = 0; i < x.length; i++) {
-                    x[i].style.border = miBorde;
+                for (i = 0; i < getColumnas.length; i++) {
+                    getColumnas[i].style.border = miBorde;
                 }
                 // oculta el loader
                 $(".loader").addClass("oculto");

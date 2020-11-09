@@ -1669,7 +1669,7 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores {
     opacity: 0;
 }
 /* selectores de filas y columnas */
-#selectFilas, #selectColumnas, #filtro {
+#selectFilas, #selectColumnas, #filtro, #selectFondo {
     margin: 6px 2px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
@@ -1684,17 +1684,17 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores {
 #selectFilas, #selectColumnas {
    min-width: 60px;
 }
-    #selectFilas:focus, #selectColumnas:focus, #filtro:focus {
+    #selectFilas:focus, #selectColumnas:focus, #filtro:focus, #selectFondo:focus {
         background-color: #cccccc !important;
     }
 
 #selectColumnas {
     margin-right: 6px !important;
 }
-/* selector de filtro */
-#filtro {
+/* selectores de filtro y de fondo */
+#filtro, #selectFondo {
     margin: 4px 6px !important;
-    min-width: 100px;
+    min-width: 110px;
 }
 
 /*íconos de la barra */
@@ -1773,7 +1773,7 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores {
     display: block;
 }
 
-.paleta button:hover, #BtnCerrarHistorial:hover, #paletaFull button:hover, #colorPixel:hover, #selectFilas:hover, #selectColumnas:hover, #filtro:hover {
+.paleta button:hover, #BtnCerrarHistorial:hover, #paletaFull button:hover, #colorPixel:hover, #selectFilas:hover, #selectColumnas:hover, #filtro:hover, #selectFondo:hover {
     z-index: 180;
     /* una sombra pequeña */
     -moz-box-shadow: 0px 0px 0.3em #ffffff, 0px 0px 0.6em #e600e6;
