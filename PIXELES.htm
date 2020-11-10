@@ -29,7 +29,7 @@
         });        
     </script>
 </head>
-<body>    
+<body class="sinFondo">    
     <div class="loader">
         <h3>Espere...</h3>
         <div class="sk-cube-grid">
@@ -572,7 +572,29 @@
         <button id="BtnGallery" title="Galería De Colores"><i class="fas fa-grip-horizontal"></i></button>
         <button id="BtnHistorialColor" title="Historial de colores"><span id="rellenoHistorial" data-radio="0%"></span><i class="fas fa-history"></i></button>
         <select id="filtro" title="No compatible con Internet Explorer y otros navegadores" onchange="AplicarFiltro()"> <option value="none" selected="">Sin filtro</option> <option value="blur(3px)">Blur (3px)</option> <option value="blur(5px)">Blur (5px)</option> <option value="brightness(200%)">Brightness (200%)</option> <option value="contrast(200%)">Contrast (200%)</option> <option value="drop-shadow(8px 8px 10px red)">Drop-Shadow (8px 8px 10px red)</option> <option value="grayscale(100%)">Grayscale (100%)</option> <option value="hue-rotate(90deg)">Hue-Rotate (90deg)</option> <option value="invert(100%)">Invert (100%)</option> <option value="opacity(30%)">Opacity (30%)</option> <option value="saturate(8)">Saturate (8)</option> <option value="sepia(100%)">Sepia (100%)</option> <option value="contrast(200%) brightness(150%)">Contrast (200%) Brightness (150%)</option> </select>
-        <select id="selectFondo" title="Fondo de la página" onchange="aplicarFondo()"> <option value="none" selected="">Sin fondo</option></select>
+        <select id="selectFondo" title="Fondo de la página" onchange="aplicarFondo()">
+            <option value="sinFondo" selected="">Sin fondo</option>
+            <option value="puzzle">Puzzle</option>
+            <option value="overcast">Overcast</option>
+            <option value="topography">Topography</option>
+            <option value="hideout">Hideout</option>
+            <option value="graph">Graph</option>
+            <option value="squares">Squares</option>
+            <option value="triangles">Triangles</option>
+            <option value="piano">Piano</option>
+            <option value="dominos">Dominos</option>
+            <option value="hexagons">Hexagons</option>
+            <option value="food">Food</option>
+            <option value="floor">Floor</option>
+            <option value="anchors">Anchors</option>
+            <option value="wall">Wall</option>
+            <option value="cogs">Cogs</option>
+            <option value="glamorous">Glamorous</option>
+            <option value="boxes">Boxes</option>
+            <option value="circuit">Circuit</option>
+            <option value="bubbles">Bubbles</option>
+            <option value="leaf">Leaf</option>
+        </select>
         <span class="espacioDerecha"> </span>
     </div>
     <div class="paleta" id="paletaAbajo">
@@ -630,8 +652,8 @@
         
     </div>    
     <button onclick="topFunction()" id="BtnTop" title="Subir"><i class="fas fa-arrow-up"></i></button>
-    <h1> <i class="fas fa-paint-brush"></i> Pixeles</h1>
-    <h3>Coded by @deiner_db</h3>
+    <h1 class="hFirma"> <i class="fas fa-paint-brush"></i> Pixeles</h1>
+    <h3 class="hFirma">Coded by @deiner_db</h3>
     <h2 id="pie" class="parpadea"> <a class="link" target="_blank" href="INDEX.htm" title="Ir a página recomendada">Ver otras páginas del autor</a> </h2>
     <script type="text/javascript" charset="utf-8" src="PIXELES.js"></script>
 </body>

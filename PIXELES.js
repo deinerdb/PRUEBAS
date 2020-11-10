@@ -709,8 +709,8 @@ function AplicarFiltro() {
 function aplicarFondo() {
     var xsel = getSelectFondo.selectedIndex;
     var y = getSelectFondo.options;    
-    // nuevo valor es y[xsel].value;
-    
+    var nuevoFondo = y[xsel].value;
+    document.body.setAttribute("class", nuevoFondo);
 }
 
 // para cerrar el modal y controlar el actual
