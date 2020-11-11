@@ -1689,7 +1689,7 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores {
    min-width: 60px;
 }
     #selectFilas:focus, #selectColumnas:focus, #filtro:focus, #selectFondo:focus {
-        background-color: #cccccc !important;
+        background-color: #e6e6fa !important;
     }
 
 #selectColumnas {

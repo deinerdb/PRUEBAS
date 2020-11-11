@@ -709,8 +709,15 @@ function AplicarFiltro() {
 function aplicarFondo() {
     var xsel = getSelectFondo.selectedIndex;
     var y = getSelectFondo.options;    
+    // obtiene el valor actual de la lista
     var nuevoFondo = y[xsel].value;
+    // aplica la clase al body
     document.body.setAttribute("class", nuevoFondo);
+    // guarda la preferencia
+    if (typeof (Storage) !== "undefined") {
+        // si soporta almacenamiento, guarda el valor                            
+        localStorage.fondopixeles = nuevoFondo;
+    }
 }
 
 // para cerrar el modal y controlar el actual
@@ -1679,7 +1686,24 @@ window.addEventListener("load", function (event) {
     lastIndexFiltro = 0;
     AplicarFiltro();
     // valor inicial del fondo
-    getSelectFondo.selectedIndex = 0;
+    var miFondo = "sinFondo";
+    if (typeof (Storage) !== "undefined") {
+        // si soporta almacenamiento, recupera el valor
+        if (localStorage.fondopixeles) {
+            // hay valor almacenado, lo recupera
+            miFondo = localStorage.fondopixeles;
+        } else {
+            // si no hay valor almacenado, asume index 0... clase sinFondo y lo guarda
+            localStorage.fondopixeles = "sinFondo";
+            miFondo = "sinFondo";
+        }
+    } else {
+        // si no lo soporta, asume clase sin fondo y no guarda
+        miFondo = "sinFondo";
+    }
+    // el fondo se selecciona en la lista select
+    getSelectFondo.value = miFondo;
+    // se aplica la clase al body
     aplicarFondo();
     // DIMENSIONA AL INICIAR LA PÁGINA con 10x10
     //para que se agreguen al abrir la página     
