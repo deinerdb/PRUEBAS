@@ -978,8 +978,13 @@ html, body {
     /* una sombra para que se vea el ícono de cualquier color */
     text-shadow: 0px 0px 2px #ffffff;
 }
-#icoCircularFlecha, #icoLienzoFlecha {
+#icoLienzoFlecha {
     margin-left: 5px;
+    display: none;
+}
+#icoCircularFlecha {
+    margin-left: 2px;
+    margin-right: 5px;
     display: none;
 }
 #icoAnchoBordes {
@@ -1001,19 +1006,29 @@ html, body {
     text-align: center;
 
 }
-/* para dar cabida a la flechita */
+/* para dar cabida a la flechita y la info */
 #BtnRadioBordes.seleccionadoBtnModos {
-    min-width: 56px !important;
-    width: 56px !important;
+    min-width: 83px !important;    
+    width: 83px !important;    
+}
+/* la info del radio */
+#spanInfoRadio {
+    margin-left: 4px;
+    margin-right: 3px;
+    display: none;
+    /* texto variable, fuente monoespaciada */
+    font-family: Consolas, Courier New, Courier, monospace;
+    font-size: 0.9em;
 }
 /* para dar cabida a la flechita */
 #BtnColorLienzo.seleccionadoBtnModos {
     min-width: 56px !important;
     width: 56px !important;
 }
-.seleccionadoBtnModos #icoCircularFlecha, .seleccionadoBtnModos #icoLienzoFlecha {
+.seleccionadoBtnModos #icoCircularFlecha, .seleccionadoBtnModos #icoLienzoFlecha, .seleccionadoBtnModos #spanInfoRadio {
     display: inline-block !important;
 }
+
 #aIzquierda {
     font-size: 1.4em;
     color: purple;

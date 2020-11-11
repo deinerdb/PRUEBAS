@@ -32,6 +32,7 @@ var getBtnRejilla = document.getElementById("BtnRejilla");
 var getBtnTipoBorde = document.getElementById("BtnTipoBorde");
 var getBtnAnchoBordes = document.getElementById("BtnAnchoBordes");
 var getBtnRadioBordes = document.getElementById("BtnRadioBordes");
+var getSpanInfoRadio = document.getElementById("spanInfoRadio");
 var getBtnDeshacer = document.getElementById("BtnDeshacer");
 var getSpanFilas = document.getElementById("spanFilas");
 var getSelectFilas = document.getElementById("selectFilas"); // listaFilas
@@ -64,7 +65,11 @@ var colorRejilla = "#000000";
 var usarBordes = true;
 var fondoAplicado = "#ffffff";
 var colorLienzo = "#ffffff" // ahora es individual
+// radio que se aplica por defecto en modo radio
+// pero el inicial de clase columna es 0%
 var radioBorde = "50%";
+// la info junto al botón
+getSpanInfoRadio.innerHTML = radioBorde;
 // modal: ninguno, radio, rgb, gallery, importar, exportar, filas, columnas, lienzo, anchoBordes, zoom
 var modalActual = "ninguno";
 // recuerda el scroll y lo restaura al cerrar el modal
@@ -714,10 +719,16 @@ function aplicarFondo() {
     // aplica la clase al body
     document.body.setAttribute("class", nuevoFondo);
     // guarda la preferencia
-    if (typeof (Storage) !== "undefined") {
-        // si soporta almacenamiento, guarda el valor                            
-        localStorage.fondopixeles = nuevoFondo;
+    // protegido por protocolo file en ie
+    try {
+        if(typeof (Storage) !== "undefined") {
+            // si soporta almacenamiento, guarda el valor                            
+            localStorage.fondopixeles = nuevoFondo;
+        }
     }
+    catch (err) {
+        // simplemente no guarda, no reporta
+    }    
 }
 
 // para cerrar el modal y controlar el actual
@@ -1017,7 +1028,9 @@ function aceptarModal() {
                 nuevo = decValues[pos];
             }
             // el nuevo valor
-            radioBorde = nuevo + "%";            
+            radioBorde = nuevo + "%";  
+            // la info junto al botón
+            getSpanInfoRadio.innerHTML = radioBorde;
             // ahora decide si lo aplica individualmente o a todos
             var decideRadioGlobal = document.getElementById("myCheckRadioGlobal").checked;
             if (decideRadioGlobal == false) {
@@ -1687,20 +1700,26 @@ window.addEventListener("load", function (event) {
     AplicarFiltro();
     // valor inicial del fondo
     var miFondo = "sinFondo";
-    if (typeof (Storage) !== "undefined") {
-        // si soporta almacenamiento, recupera el valor
-        if (localStorage.fondopixeles) {
-            // hay valor almacenado, lo recupera
-            miFondo = localStorage.fondopixeles;
+    // protegido por protocolo file en ie
+    try {
+        if (typeof (Storage) !== "undefined") {
+            // si soporta almacenamiento, recupera el valor
+            if (localStorage.fondopixeles) {
+                // hay valor almacenado, lo recupera
+                miFondo = localStorage.fondopixeles;
+            } else {
+                // si no hay valor almacenado, asume index 0... clase sinFondo y lo guarda
+                localStorage.fondopixeles = "sinFondo";
+                miFondo = "sinFondo";
+            }
         } else {
-            // si no hay valor almacenado, asume index 0... clase sinFondo y lo guarda
-            localStorage.fondopixeles = "sinFondo";
+            // si no lo soporta, asume clase sin fondo y no guarda
             miFondo = "sinFondo";
         }
-    } else {
-        // si no lo soporta, asume clase sin fondo y no guarda
-        miFondo = "sinFondo";
     }
+    catch (err) {
+        miFondo = "sinFondo";
+    }    
     // el fondo se selecciona en la lista select
     getSelectFondo.value = miFondo;
     // se aplica la clase al body
