@@ -8,6 +8,8 @@ var getPaletaHistorial = document.getElementById("paletaHistorial");
 var getBtnCerrarHistorial = document.getElementById("BtnCerrarHistorial");
 var getContenedor = document.getElementById("contenedor");
 var getPantalla = document.getElementById("pantalla");
+// la muestra del tipo de bordes
+var getMuestraTipoBordes = document.getElementById("muestraTipoBordes");
 //para el modal
 // Get the modal , múltiples usos
 var modal = document.getElementById('myModal');
@@ -106,6 +108,8 @@ var MINSIZE = 4;
 var anchoBordes;
 var factorAnchoBordes = 0.04; // es 4/100
 var lastFactorAnchoBordes = 0.04;
+var tipoBordes = "solid";
+var lastTipoBorde = "solid";
 var ocupado = false;
 var hexTemp = "#000000";
 var rgbTemp = "rgb(0, 0, 0)";
@@ -911,6 +915,9 @@ function aplicarLienzoGlobal() {
 // depende de modalActual/
 function aceptarModal() {
     switch (modalActual) {
+        case "tipoBordes":
+            showSnackbar("En construcción...");
+            break;
         case "zoom":
             // dice "yo me encargo"
             restauraOpacidad = false;
@@ -1133,6 +1140,19 @@ function showModal() {
     // por defecto visible
     $("#infoModal").css("display", "block");
     switch (modalActual) {
+        case "tipoBordes":
+            $("#marcoTipoBordes").css("display", "block");
+            document.getElementById("modalTitle").innerHTML = "<i class='fas fa-border-style'></i> Tipo de borde";
+            document.getElementById("spanInfoModal").innerHTML = "Seleccione el tipo de borde que se aplicará a todos los pixeles. El tipo de borde se aprecia mejor cuando los bordes son de mayor grosor. Recuerde usar la opción 'Con Bordes' para percibir los cambios.";
+            // se selecciona el option con el valor actual
+            
+            // ajusta la muestra            
+            getMuestraTipoBordes.style.borderStyle = tipoBordes;
+            
+            // para animarla al cerrar: opacidad ajustada
+            restauraOpacidad = true;
+            $(getContenedor).css("opacity", "0");
+            break;
         case "anchoBordes":
             $("#marcoAnchoBordes").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<svg id='icoAnchoBordesModal' height='24' width='24'>< line x1= '4' y1= '4' x2= '20' y2= '4' style= 'stroke:rgb(255,255,255);stroke-width:0.7' /><line x1='4' y1='8' x2='20' y2='8' style='stroke:rgb(255,255,255);stroke-width:1' /><line x1='4' y1='13.3333' x2='20' y2='13.3333' style='stroke:rgb(255,255,255);stroke-width:1.8666' /><line x1='4' y1='20' x2='20' y2='20' style='stroke:rgb(255,255,255);stroke-width:3.8666' />|||</svg >Ancho de los bordes";
@@ -3114,7 +3134,7 @@ getBtnRellenar.onclick = function () {
 }
 // para ajustar el ANCHO de los bordes
 getBtnAnchoBordes.onclick = function () {    
-    // define y muetra el modal de ancho bordes
+    // define y muestra el modal de ancho bordes
     modalActual = "anchoBordes";
     //muestra el modal
     showModal();    
@@ -3147,7 +3167,7 @@ function alternarBordes(showMsj) {
     } else {
         usarBordes = true;
         document.getElementById("icoRejilla").setAttribute("class", "fa fa-plus-square-o");
-        miBorde = anchoBordes + "px solid " + colorRejilla;
+        miBorde = anchoBordes + "px " + tipoBordes + " " + colorRejilla;
         if (showMsj == true) {
             miMsj = "Con bordes";
             //showSnackbar("Con bordes");
@@ -3191,7 +3211,10 @@ getBtnRejilla.onclick = function () {
 }
 // para definir tipo de borde
 getBtnTipoBorde.onclick = function () {
-    alert("Tipo de bordes... en construcción.")
+    // define y muestra el modal de tipo de bordes
+    modalActual = "tipoBordes";
+    //muestra el modal
+    showModal();    
 }
 // cambia el color de la rejilla
 getBtnColorRejilla.onclick = function () {
@@ -3210,7 +3233,7 @@ getBtnColorRejilla.onclick = function () {
     if (usarBordes == false) {
         miBorde = "none";
     } else {
-        miBorde = anchoBordes + "px solid " + colorRejilla;
+        miBorde = anchoBordes + "px " + tipoBordes + " " + colorRejilla;
     }
     // muestra un loader...
     $(".loader").removeClass("oculto");
@@ -3436,8 +3459,8 @@ getBtnDeshacer.onclick = function () {
             var miBorde;
             if (usarBordes == false) {
                 miBorde = "none";
-            } else {
-                miBorde = anchoBordes + "px solid " + colorRejilla;
+            } else {               
+                miBorde = anchoBordes + "px " + tipoBordes + " " + colorRejilla;
             }
             mensaje = "Se deshizo el color de los bordes";
             // muestra un loader...
