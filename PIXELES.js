@@ -109,7 +109,7 @@ var anchoBordes;
 var factorAnchoBordes = 0.04; // es 4/100
 var lastFactorAnchoBordes = 0.04;
 var tipoBordes = "solid";
-var lastTipoBorde = "solid";
+var lastTipoBordes = "solid";
 var ocupado = false;
 var hexTemp = "#000000";
 var rgbTemp = "rgb(0, 0, 0)";
