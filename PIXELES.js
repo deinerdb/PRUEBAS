@@ -8,6 +8,7 @@ var getPaletaHistorial = document.getElementById("paletaHistorial");
 var getBtnCerrarHistorial = document.getElementById("BtnCerrarHistorial");
 var getContenedor = document.getElementById("contenedor");
 var getPantalla = document.getElementById("pantalla");
+var getRellenoHist = document.getElementById("rellenoHistorial");
 // la muestra del tipo de bordes
 var getMuestraTipoBordes = document.getElementById("muestraTipoBordes");
 //para el modal
@@ -181,25 +182,24 @@ function animarBtnHistorial() {
         idAnimarHistorial = 0;
     }
 
-    // alterna círculo cuadro
-    var rell = document.getElementById("rellenoHistorial");    
-    if (rell.dataset.radio == "0%") {
-        rell.dataset.radio = "50%";        
-        rell.style.MozBorderRadius = "50%";
-        rell.style.webkitBorderRadius = "50%";
-        rell.style.borderRadius = "50%";
+    // alterna círculo cuadro        
+    if (getRellenoHist.dataset.radio == "0%") {
+        getRellenoHist.dataset.radio = "50%";        
+        getRellenoHist.style.MozBorderRadius = "50%";
+        getRellenoHist.style.webkitBorderRadius = "50%";
+        getRellenoHist.style.borderRadius = "50%";
         // de paso alterna el ícono de ancho bordes
         //document.getElementById("icoAnchoBordes").setAttribute("class", "fas fa-window-minimize");
     } else {
-        rell.dataset.radio = "0%";
-        rell.style.MozBorderRadius = "0%";
-        rell.style.webkitBorderRadius = "0%";
-        rell.style.borderRadius = "0%";
+        getRellenoHist.dataset.radio = "0%";
+        getRellenoHist.style.MozBorderRadius = "0%";
+        getRellenoHist.style.webkitBorderRadius = "0%";
+        getRellenoHist.style.borderRadius = "0%";
         // de paso alterna el ícono de ancho bordes
         //document.getElementById("icoAnchoBordes").setAttribute("class", "far fa-window-minimize");
     }
     // va cambiando el color
-    rell.style.backgroundColor = arrayColoresUsados[idAnimarHistorial];
+    getRellenoHist.style.backgroundColor = arrayColoresUsados[idAnimarHistorial];
     idAnimarHistorial = 1 + idAnimarHistorial;
 }
 // ********** IMPORTANTE ***********
@@ -1144,8 +1144,8 @@ function showModal() {
             $("#marcoTipoBordes").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-border-style'></i> Tipo de borde";
             document.getElementById("spanInfoModal").innerHTML = "Seleccione el tipo de borde que se aplicará a todos los pixeles. El tipo de borde se aprecia mejor cuando los bordes son de mayor grosor. Recuerde usar la opción 'Con Bordes' para percibir los cambios.";
-            // se selecciona el option con el valor actual
-            
+            // se selecciona el option con el valor actual            
+            //document.getElementById("miCheckLienzoGlobal").checked = true;
             // ajusta la muestra            
             getMuestraTipoBordes.style.borderStyle = tipoBordes;
             

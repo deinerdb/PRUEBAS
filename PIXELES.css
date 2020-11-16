@@ -1028,7 +1028,7 @@ html, body {
     display: none;
     /* texto variable, fuente monoespaciada */
     font-family: Consolas, Courier New, Courier, monospace;
-    font-size: 0.9em;
+    font-size: 0.95em;
 }
 /* para dar cabida a la flechita */
 #BtnColorLienzo.seleccionadoBtnModos {
@@ -1529,7 +1529,7 @@ html, body {
 }
 
 .hFirma {
-    color: purple;
+    color: #cc00cc;
     margin-left: auto;
     margin-right: auto;
     max-width: 70%;
@@ -2609,9 +2609,14 @@ input[type=range] {
 }
 /* INICIO CSS PARA RADIOS PERSONALIZADOS */
 /* PROPIOS DE PIXELES */
-#checkLienzoIndividual, #checkLienzoGlobal {
+#checkLienzoIndividual, #checkLienzoGlobal, #checkSolid, #checkDotted, #checkDashed, #checkDouble, #checkGroove, #checkRidge, #checkInset, #checkOutset {
     text-align: left;
     margin: 26px 4px 12px 24px;
+    font-family: Consolas, Courier New, Courier, monospace;
+}
+/* el último */
+#checkOutset, #checkLienzoGlobal {
+    margin-bottom: 28px;
 }
 /* The radio container */
 .containerR {
@@ -2643,10 +2648,13 @@ input[type=range] {
     height: 25px;
     width: 25px;
     background-color: lavender;
+    /* BORDE REDONDEADO*/
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
     border-radius: 50%;
 }
 
-/* On mouse-over, add a grey background color */
+/* On mouse-over, add a diferent background color */
 .containerR:hover input ~ .checkmarkR {
     background-color: #bfbff2; /* un poco más oscuro que lavender */
 }
@@ -2674,6 +2682,9 @@ input[type=range] {
     left: 9px;
     width: 8px;
     height: 8px;
+    /* BORDE REDONDEADO*/
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
     border-radius: 50%;
     background: white;
 }
