@@ -872,13 +872,24 @@ html, body {
 }
 #muestraTipoBordes {
     border-style: solid;
-    border-color: #8b0000;
+    border-color: #008000;
     border-width: 5px;
     margin: 12px auto 24px auto;
     padding: 0;
     width: 110px;
     height: 110px;
     background-color: #ffffff;
+}
+@media screen and (min-width:700px){
+    #marcoTipoBordes .containerR {
+        float: left;
+        width: 45% !important;
+    }
+}
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
 }
 #contMuestraZoom {
     text-align: center;

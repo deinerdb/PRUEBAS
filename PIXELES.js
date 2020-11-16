@@ -111,6 +111,7 @@ var factorAnchoBordes = 0.04; // es 4/100
 var lastFactorAnchoBordes = 0.04;
 var tipoBordes = "solid";
 var lastTipoBordes = "solid";
+var tempVarios = "";
 var ocupado = false;
 var hexTemp = "#000000";
 var rgbTemp = "rgb(0, 0, 0)";
@@ -409,6 +410,15 @@ function actualizaRadio(nuevoValor) {
     getMuestraRadio.style.borderRadius = miValor;
     getMuestraRadio.innerHTML = miValor;
 }
+
+// cuando selecciona tipos de bordes en el modal
+function seleccionaTipoBordes(miTipo) {
+    //lo guarda en la temporal
+    tempVarios = miTipo;
+    // ajusta la muestra
+    getMuestraTipoBordes.style.borderStyle = miTipo;
+}
+
 var timerRGB;
 // ajustes rgb según los slider
 // requiere función validaComponenteRGB(idActual, idSincronizar, fuenteRoja)
@@ -916,7 +926,35 @@ function aplicarLienzoGlobal() {
 function aceptarModal() {
     switch (modalActual) {
         case "tipoBordes":
-            showSnackbar("En construcción...");
+            // tempVarios contiene el valor seleccionado
+            // dice "yo me encargo"
+            restauraOpacidad = false;
+            // primero lo guarda para poder deshacer
+            lastTipoBordes = tipoBordes;
+            lastAction = "CambiarTipoBordes";
+            // temporal pasa a ser el valor actual
+            tipoBordes = tempVarios;
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {                
+                //obtiene un array con todos los de la clase columna
+                // getColumnas                
+                var i;                
+                //recorre todo el array y les aplica el ancho de borde
+                for (i = 0; i < getColumnas.length; i++) {
+                    getColumnas[i].style.borderStyle = tipoBordes;
+                }
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+                // ajusta todo
+                ajustesResize();
+                showSnackbar("Tipo de bordes: " + tipoBordes.toUpperCase());
+                // puede deshacer
+                estadoBtnDeshacer(true, "Deshacer tipo de bordes");
+                // anima
+                getContenedor.style.opacity = "1";
+            }, 0);  
             break;
         case "zoom":
             // dice "yo me encargo"
@@ -1145,10 +1183,19 @@ function showModal() {
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-border-style'></i> Tipo de borde";
             document.getElementById("spanInfoModal").innerHTML = "Seleccione el tipo de borde que se aplicará a todos los pixeles. El tipo de borde se aprecia mejor cuando los bordes son de mayor grosor. Recuerde usar la opción 'Con Bordes' para percibir los cambios.";
             // se selecciona el option con el valor actual            
-            //document.getElementById("miCheckLienzoGlobal").checked = true;
+            var xCheck = document.getElementsByName("checkTipoBordes");
+            var i;
+            for (i = 0; i < xCheck.length; i++) {
+                if (xCheck[i].value == tipoBordes) {
+                    // el que coincide con el estilo actual
+                    xCheck[i].checked = true;
+                    break;
+                }
+            }
             // ajusta la muestra            
             getMuestraTipoBordes.style.borderStyle = tipoBordes;
-            
+            // la variable temporal toma el valor actual
+            tempVarios = tipoBordes;
             // para animarla al cerrar: opacidad ajustada
             restauraOpacidad = true;
             $(getContenedor).css("opacity", "0");
@@ -3298,6 +3345,26 @@ getBtnDeshacer.onclick = function () {
             // alterna borde
             alternarBordes(false);
             mensaje = "Se deshizo alternar bordes";
+            break;
+        case "CambiarTipoBordes":
+            mensaje = "Se deshizo el tipo de bordes";
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {                
+                //obtiene un array con todos los de la clase columna
+                // getColumnas                
+                var i;
+                // restaura la variable global
+                tipoBordes = lastTipoBordes;                
+                //recorre todo el array y les aplica el ancho del borde         
+                for (i = 0; i < getColumnas.length; i++) {
+                    getColumnas[i].style.borderStyle = tipoBordes;
+                }
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+
+            }, 0);  
             break;
         case "CambiarAnchoBordes":
             mensaje = "Se deshizo el ancho de los bordes";
