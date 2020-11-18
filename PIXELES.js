@@ -73,7 +73,7 @@ var colorLienzo = "#ffffff" // ahora es individual
 var radioBorde = "50%";
 // la info junto al botón
 getSpanInfoRadio.innerHTML = radioBorde;
-// modal: ninguno, radio, rgb, gallery, importar, exportar, filas, columnas, lienzo, anchoBordes, zoom
+// modal: ninguno, radio, rgb, gallery, importar, exportar, filas, columnas, lienzo, anchoBordes, zoom, tipoBordes, colorBordes
 var modalActual = "ninguno";
 // recuerda el scroll y lo restaura al cerrar el modal
 var miBodyScroll;
@@ -925,6 +925,9 @@ function aplicarLienzoGlobal() {
 // depende de modalActual/
 function aceptarModal() {
     switch (modalActual) {
+        case "colorBordes":
+            showSnackbar("En construcción...");
+            break;
         case "tipoBordes":
             // tempVarios contiene el valor seleccionado
             // dice "yo me encargo"
@@ -1178,6 +1181,18 @@ function showModal() {
     // por defecto visible
     $("#infoModal").css("display", "block");
     switch (modalActual) {
+        case "colorBordes":
+            $("#marcoColorBordes").css("display", "block");
+            document.getElementById("modalTitle").innerHTML = "<i class='fas fa-tint'></i> Color de Bordes";
+            document.getElementById("spanInfoModal").innerHTML = "El color del borde de cada pixel se aprecia cuando sus bordes son visibles y gruesos. Puede aplicar el color actual individualmente o a todos los pixeles. El efecto de algunos tipos de borde depende del color.";
+            // LA MUESTRA DE COLOR INDICA EL COLOR ACTUAL
+            $("#muestraMarcoColorBordes").css("background-color", colorActual);
+            // por defecto, será global
+            document.getElementById("miCheckColorBordesGlobal").checked = true;
+            // para animarla al cerrar: opacidad ajustada
+            restauraOpacidad = true;
+            $(getContenedor).css("opacity", "0");
+            break;
         case "tipoBordes":
             $("#marcoTipoBordes").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-border-style'></i> Tipo de borde";
@@ -2107,6 +2122,9 @@ function hacerClick(celda) {
             // activa el botón deshacer
             estadoBtnDeshacer(true, "Deshacer pincelada");
             break;
+        case "colorBordes":
+            showSnackbar("En construcción...");
+            break;
         case "lienzo":            
             // modo lienzo, individual
             //var miCuadrito = document.getElementById(celda);
@@ -2854,6 +2872,17 @@ function cambiarModo(nuevoModo) {
             getBtnOpuesto.style.display = "inline-block";
             showSnackbar("Modo Color Lienzo");
             break;
+        case "colorBordes":
+            // agrega la clase seleccionado al btn del modo actual                    
+            $(getBtnColorRejilla).addClass("seleccionadoBtnModos");
+            getcolorPixel.style.display = "inline-block";
+            getBtnRGB.style.display = "inline-block";
+            getBtnHex.style.display = "inline-block";
+            getBtnGallery.style.display = "inline-block";
+            getBtnRnd.style.display = "inline-block";
+            getBtnOpuesto.style.display = "inline-block";
+            showSnackbar("Modo Color Bordes");
+            break;
         case "relleno":
             // agrega la clase seleccionado al btn del modo actual                    
             $(getBtnGotero).addClass("seleccionadoBtnModos");
@@ -3263,15 +3292,19 @@ getBtnTipoBorde.onclick = function () {
     //muestra el modal
     showModal();    
 }
-// cambia el color de la rejilla
+// para cambiar el color de los bordes, individual o globalmente
 getBtnColorRejilla.onclick = function () {
-    // esto era para ajustar el ancho del ícono...
-    //this.title = "w " + document.getElementById("tint").offsetWidth + " h " + document.getElementById("tint").offsetHeight;
-    if (ocupado == true) {
-        //sale si está ocupado
-        return;
+    if (modoActual == "colorBordes") {
+        // está en modo colorBordes, entonces se puede decidir si se aplica global o no
+        modalActual = "colorBordes";
+        //muestra el modal
+        showModal();
+    } else {
+        // pasa a modo colorBordes
+        cambiarModo("colorBordes");
+        // en este modo se ve la respectiva flecha en el btn
     }
-    ocupado = true;
+    return;
     // guarda para poder deshacer
     lastAction = "cambiarColorRejilla";
     lastColorRejilla = colorRejilla;
@@ -3301,7 +3334,7 @@ getBtnColorRejilla.onclick = function () {
         showSnackbar("Color bordes: " + colorRejilla);
         // activa el botón deshacer
         estadoBtnDeshacer(true, "Deshacer color de bordes");
-        ocupado = false;
+        
     }, 0);  
     
    

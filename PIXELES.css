@@ -135,7 +135,7 @@ html, body {
         font-size: 1.15em;
     }    
 /* para el modal lienzo */
-#muestraMarcoLienzo {
+#muestraMarcoLienzo, #muestraMarcoColorBordes {
     border: 2px inset gray;
     background-color: #ffffff;
     color: #000000;
@@ -991,7 +991,7 @@ html, body {
     /* color inicial es negro */
     color: #000000;
 }
-#BtnColorRejilla i {
+#icoColorBorde {
     width: 34px !important;
     height: 34px !important;
 }
@@ -1008,6 +1008,11 @@ html, body {
     margin-right: 5px;
     display: none;
 }
+#icoColorBordeFlecha {
+    margin-left: 5px;
+    display: none;
+}
+
 #icoAnchoBordes {
     border: none;    
     width: 24px;
@@ -1046,7 +1051,7 @@ html, body {
     min-width: 56px !important;
     width: 56px !important;
 }
-.seleccionadoBtnModos #icoCircularFlecha, .seleccionadoBtnModos #icoLienzoFlecha, .seleccionadoBtnModos #spanInfoRadio {
+.seleccionadoBtnModos #icoCircularFlecha, .seleccionadoBtnModos #icoLienzoFlecha, .seleccionadoBtnModos #spanInfoRadio, .seleccionadoBtnModos #icoColorBordeFlecha {
     display: inline-block !important;
 }
 
@@ -1578,7 +1583,7 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores {
 #BtnColorRejilla {
         padding: 2.5px;        
 }
-    #BtnColorRejilla i {
+    #icoColorBorde {
         border-style: solid;
         border-top-color: #ff3300;
         border-bottom-color: blue;
@@ -2620,13 +2625,13 @@ input[type=range] {
 }
 /* INICIO CSS PARA RADIOS PERSONALIZADOS */
 /* PROPIOS DE PIXELES */
-#checkLienzoIndividual, #checkLienzoGlobal, #checkSolid, #checkDotted, #checkDashed, #checkDouble, #checkGroove, #checkRidge, #checkInset, #checkOutset {
+#checkColorBordesIndividual, #checkColorBordesGlobal, #checkLienzoIndividual, #checkLienzoGlobal, #checkSolid, #checkDotted, #checkDashed, #checkDouble, #checkGroove, #checkRidge, #checkInset, #checkOutset {
     text-align: left;
     margin: 26px 4px 12px 24px;
     font-family: Consolas, Courier New, Courier, monospace;
 }
-/* el último */
-#checkOutset, #checkLienzoGlobal {
+/* el último de cada grupo */
+#checkOutset, #checkLienzoGlobal, #checkColorBordesGlobal {
     margin-bottom: 28px;
 }
 /* The radio container */

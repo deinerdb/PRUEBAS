@@ -73,8 +73,23 @@
                         Aplicar a todo
                         <input type="radio" checked="checked" name="checkLienzo" id="miCheckLienzoGlobal">
                         <span class="checkmarkR"></span>
+                    </label>                    
+                </div>
+                <!-- color de los bordes -->
+                <div id="marcoColorBordes" class="marco">
+                    <div id="muestraMarcoColorBordes">
+                        MUESTRA
+                    </div>
+                    <label class="containerR" id="checkColorBordesIndividual">
+                        Aplicar individualmente
+                        <input type="radio" name="checkColorBordes" id="miCheckColorBordesIndividual">
+                        <span class="checkmarkR"></span>
                     </label>
-                    
+                    <label class="containerR" id="checkColorBordesGlobal">
+                        Aplicar a todo
+                        <input type="radio" checked="checked" name="checkColorBordes" id="miCheckColorBordesGlobal">
+                        <span class="checkmarkR"></span>
+                    </label>
                 </div>
                 <!-- radio de los bordes -->
                 <div id="marcoRadio" class="marco">
@@ -657,7 +672,7 @@
                 |||
             </svg>
         </button>
-        <button id="BtnColorRejilla" title="Color de borde"><i class="fas fa-tint"></i></button>        
+        <button id="BtnColorRejilla" title="Color de borde"><i id="icoColorBorde" class="fas fa-tint"></i><i id="icoColorBordeFlecha" class="fas fa-caret-down"></i></button>        
         <button id="BtnRadioBordes" title="Radio del borde"><i id="icoCircular" class="far fa-circle"></i><span id="spanInfoRadio">50%</span><i id="icoCircularFlecha" class="fas fa-caret-down"></i></button>        
         <button id="BtnRellenar" title="Pintar todos"><span id="relleno"></span><i class="fas fa-fill-drip"></i></button>
         <button id="BtnColorLienzo" title="Color del lienzo"><i class="fas fa-paint-roller"></i><i id="icoLienzoFlecha" class="fas fa-caret-down"></i></button>        
