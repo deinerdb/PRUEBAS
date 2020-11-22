@@ -31,7 +31,6 @@ var getBtnExtraerColor = document.getElementById("BtnExtraerColor");
 var getFiltro = document.getElementById("filtro");
 var getSelectFondo = document.getElementById("selectFondo");
 var getBtnActualizar = document.getElementById("BtnActualizar");
-var getBtnRejilla = document.getElementById("BtnRejilla");
 var getBtnTipoBorde = document.getElementById("BtnTipoBorde");
 var getBtnAnchoBordes = document.getElementById("BtnAnchoBordes");
 var getBtnRadioBordes = document.getElementById("BtnRadioBordes");
@@ -89,6 +88,7 @@ var lastArrayID = [];
 var lastArrayColor = [];
 var lastArrayRadio = [];
 var lastArrayLienzo = [];
+var lastArrayColorBordes = [];
 var lastFondoAplicado;
 var lastColorLienzo;
 var lastColorRejilla;
@@ -239,8 +239,6 @@ getRelleno.style.backgroundColor = "#000000";
 //el primer botón del historial es blanco
 // solo si es agregado en html
 //document.getElementById("BtnColor0").style.color = "#ffffff";
-// el estilo de borde del botón rejilla
-getBtnRejilla.style.border = "3px double #ffffff";
 // radio por defecto es 50 %
 document.getElementById("rangoRadioBordes").value = 50;
 // el texto de la muestra está en html, en css tiene su valor inicial de 50
@@ -925,8 +923,49 @@ function aplicarLienzoGlobal() {
 // depende de modalActual/
 function aceptarModal() {
     switch (modalActual) {
-        case "colorBordes":
-            showSnackbar("En construcción...");
+        case "colorBordes":            
+            // dice "yo me encargo"
+            restauraOpacidad = false;
+            // nada que validar, colorActual es según la muestra
+            // ahora decide si lo aplica individualmente o a todos
+            var decideColorBordesGlobal = document.getElementById("miCheckColorBordesGlobal").checked;
+            if (decideColorBordesGlobal == false) {
+                // ya asignó el valor del color, se aplicará a los bordes al hacer click en cada celda
+                // informa y sale
+                // nada que deshacer
+                showSnackbar("Color aplicado en bordes al hacer click: " + colorActual);
+                // anima
+                getContenedor.style.opacity = "1";
+                break;
+            }
+            // en este punto sabemos que se aplicará a todos los bordes...
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {                
+                var i;
+                //debe guardar los colores de cada borde y los id      
+                lastAction = "cambiarColorRejillaGlobal";
+                lastArrayColorBordes.length = 0;
+                lastArrayID.length = 0;
+                //recorre todo el array y les aplica el color de bordes
+                for (i = 0; i < getColumnas.length; i++) {
+                    //guardar los id y los colores de bordes al mismo tiempo que recorre los cuadritos
+                    lastArrayID[lastArrayID.length] = getColumnas[i].id;
+                    lastArrayColorBordes[lastArrayColorBordes.length] = getColumnas[i].dataset.colorBordes;
+                    getColumnas[i].dataset.colorBordes = colorActual;                    
+                    getColumnas[i].style.borderColor = colorActual;
+                }
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+                // ajusta todo
+                ajustesResize();
+                showSnackbar("Color aplicado a todos los bordes: " + colorActual);
+                // puede deshacer
+                estadoBtnDeshacer(true, "Deshacer cambio global de color de bordes");
+                // anima
+                getContenedor.style.opacity = "1";
+            }, 0);  
             break;
         case "tipoBordes":
             // tempVarios contiene el valor seleccionado
@@ -2123,7 +2162,15 @@ function hacerClick(celda) {
             estadoBtnDeshacer(true, "Deshacer pincelada");
             break;
         case "colorBordes":
-            showSnackbar("En construcción...");
+            // guarda para poder deshacer
+            lastID = celda;
+            lastAction = "cambiarColorRejillaIndividual";
+            lastColorRejilla = miCuadrito.dataset.colorBordes;
+            // aplica el color actual
+            miCuadrito.style.borderColor = colorActual;
+            miCuadrito.dataset.colorBordes = colorActual;
+            // activa el botón deshacer
+            estadoBtnDeshacer(true, "Deshacer color de bordes");
             break;
         case "lienzo":            
             // modo lienzo, individual
@@ -2244,6 +2291,8 @@ function crearCuadritos() {
             miColumna.style.borderRadius = "0%";
             // para gestionar el color de su respectivo lienzo, parent
             miColumna.dataset.colorlienzo = "#ffffff";
+            // para gestionar su color de bordes
+            miColumna.dataset.colorBordes = "#000000";
             // le adjunta el evento click
             miColumna.addEventListener("click", function () { hacerClick(this.id); });
             // por las x, define tamaño de fuente
@@ -2748,8 +2797,7 @@ function cambiarModo(nuevoModo) {
         getBtnLibre.style.display = "inline-block";
         getBtnExtraerColor.style.display = "inline-block";
         getFiltro.style.display = "inline-block";
-        getBtnActualizar.style.display = "inline-block";
-        getBtnRejilla.style.display = "inline-block";
+        getBtnActualizar.style.display = "inline-block";        
         getBtnTipoBorde.style.display = "inline-block";
         getBtnAnchoBordes.style.display = "inline-block";
         getBtnRadioBordes.style.display = "inline-block";
@@ -2795,8 +2843,7 @@ function cambiarModo(nuevoModo) {
             getBtnLibre.style.display = "none";
             getBtnExtraerColor.style.display = "none";
             getFiltro.style.display = "none";
-            getBtnActualizar.style.display = "none";
-            getBtnRejilla.style.display = "none";
+            getBtnActualizar.style.display = "none";            
             getBtnTipoBorde.style.display = "none";
             getBtnAnchoBordes.style.display = "none";
             getBtnRadioBordes.style.display = "none";
@@ -3228,64 +3275,9 @@ getBtnRadioBordes.onclick = function () {
         // en modo radio se ve la respectiva flecha en el btn radio
     }    
 }
-// alterna entre con y sin bordes
-function alternarBordes(showMsj) {
-    var miBorde;
-    var miMsj = "Bordes alternados";
-    if (usarBordes == true) {
-        usarBordes = false;
-        document.getElementById("icoRejilla").setAttribute("class", "fa fa-stop");
-        miBorde = "none";
-        if (showMsj == true) {
-            miMsj = "Sin bordes";
-            //showSnackbar("Sin bordes");
-        }
-    } else {
-        usarBordes = true;
-        document.getElementById("icoRejilla").setAttribute("class", "fa fa-plus-square-o");
-        miBorde = anchoBordes + "px " + tipoBordes + " " + colorRejilla;
-        if (showMsj == true) {
-            miMsj = "Con bordes";
-            //showSnackbar("Con bordes");
-        }
-    }
-    // muestra un loader...
-    $(".loader").removeClass("oculto");
-    setTimeout(function () {
-        // código alta exigencia
-        //obtiene un array con todos los de la clase columna
-        // getColumnas
-        // var x = document.getElementsByClassName("columna");
-        var i;
-        //recorre todo el array y les aplica el estilo de borde
-        for (i = 0; i < getColumnas.length; i++) {
-            getColumnas[i].style.border = miBorde;
-        }
-        // oculta el loader
-        $(".loader").addClass("oculto");
-        // otras tareas
-        if (showMsj == true) {
-            showSnackbar(miMsj);
-        }
-        
-    }, 0);  
-    
-}
-// alterna entre con o sin rejilla
-getBtnRejilla.onclick = function () {
-    if (ocupado == true) {
-        //sale si está ocupado
-        return;
-    }
-    ocupado = true;
-    alternarBordes(true);
-    // guarda para poder deshacer
-    lastAction = "alternarBordes";
-    // activa el botón deshacer
-    estadoBtnDeshacer(true, "Deshacer alternar bordes");
-    ocupado = false;
-}
+
 // para definir tipo de borde
+// incluido el tipo "none"
 getBtnTipoBorde.onclick = function () {
     // define y muestra el modal de tipo de bordes
     modalActual = "tipoBordes";
@@ -3373,12 +3365,7 @@ getBtnDeshacer.onclick = function () {
             // Safari 6.0 - 9.0
             getContenedor.style.WebkitFilter = y[xsel].value;
             mensaje = "Se deshizo el filtro aplicado";
-            break;
-        case "alternarBordes":
-            // alterna borde
-            alternarBordes(false);
-            mensaje = "Se deshizo alternar bordes";
-            break;
+            break;        
         case "CambiarTipoBordes":
             mensaje = "Se deshizo el tipo de bordes";
             // muestra un loader...
@@ -3434,7 +3421,7 @@ getBtnDeshacer.onclick = function () {
                 var i;
                 var miElemRadio;
                 var miLastRadio;
-                //recorre todo el array y les aplica el estilo de borde guardado         
+                //recorre todo el array y les aplica el estilo de radio borde guardado         
                 for (i = 0; i < lastArrayID.length; i++) {
                     miElemRadio = document.getElementById(lastArrayID[i]);
                     miLastRadio = lastArrayRadio[i];
@@ -3553,27 +3540,28 @@ getBtnDeshacer.onclick = function () {
             }, 0);
             
             break;
-        case "cambiarColorRejilla":
-            // deshace el color de la rejilla
-            colorRejilla = lastColorRejilla;
-            var miBorde;
-            if (usarBordes == false) {
-                miBorde = "none";
-            } else {               
-                miBorde = anchoBordes + "px " + tipoBordes + " " + colorRejilla;
-            }
-            mensaje = "Se deshizo el color de los bordes";
+        case "cambiarColorRejillaIndividual":
+            // deshace el color de bordes de la celda
+            var miCuadrito = document.getElementById(lastID);
+            miCuadrito.style.borderColor = lastColorRejilla;
+            miCuadrito.dataset.colorBordes = lastColorRejilla;
+            mensaje = "Se deshizo el color de bordes";
+            break;
+        case "cambiarColorRejillaGlobal":
+            // deshace el color de la rejilla de todos los pixeles
+            mensaje = "Se deshizo el color global de los bordes";
             // muestra un loader...
             $(".loader").removeClass("oculto");
-            setTimeout(function () {
-                // código alta exigencia
-                //obtiene un array con todos los de la clase columna
-                // getColumnas
-                //var x = document.getElementsByClassName("columna");
+            setTimeout(function () {                
                 var i;
+                var miElemColorBordes;
+                var miLastColorBordes;
                 //recorre todo el array y les aplica el estilo de borde
-                for (i = 0; i < getColumnas.length; i++) {
-                    getColumnas[i].style.border = miBorde;
+                for (i = 0; i < lastArrayID.length; i++) {
+                    miElemColorBordes = document.getElementById(lastArrayID[i]);
+                    miLastColorBordes = lastArrayColorBordes[i];
+                    miElemColorBordes.dataset.colorBordes = miLastColorBordes;                    
+                    miElemColorBordes.style.borderColor = miLastColorBordes;
                 }
                 // oculta el loader
                 $(".loader").addClass("oculto");

@@ -871,14 +871,14 @@ html, body {
     flex-direction: column;
 }
 #muestraTipoBordes {
+    background-color: #dcdcdc;
     border-style: solid;
     border-color: #008000;
     border-width: 5px;
     margin: 12px auto 24px auto;
     padding: 0;
     width: 110px;
-    height: 110px;
-    background-color: #ffffff;
+    height: 110px;    
 }
 @media screen and (min-width:700px){
     #marcoTipoBordes .containerR {
@@ -1581,8 +1581,12 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores {
     -webkit-tap-highlight-color: transparent;
 }
 #BtnColorRejilla {
-        padding: 2.5px;        
+    padding: 2.5px;   
 }
+    #BtnColorRejilla.seleccionadoBtnModos {
+        min-width: 72px !important;
+        width: 72px !important;
+    }
     #icoColorBorde {
         border-style: solid;
         border-top-color: #ff3300;
@@ -2625,7 +2629,7 @@ input[type=range] {
 }
 /* INICIO CSS PARA RADIOS PERSONALIZADOS */
 /* PROPIOS DE PIXELES */
-#checkColorBordesIndividual, #checkColorBordesGlobal, #checkLienzoIndividual, #checkLienzoGlobal, #checkSolid, #checkDotted, #checkDashed, #checkDouble, #checkGroove, #checkRidge, #checkInset, #checkOutset {
+#checkColorBordesIndividual, #checkColorBordesGlobal, #checkLienzoIndividual, #checkLienzoGlobal, #checkNone, #checkSolid, #checkDotted, #checkDashed, #checkDouble, #checkGroove, #checkRidge, #checkInset, #checkOutset {
     text-align: left;
     margin: 26px 4px 12px 24px;
     font-family: Consolas, Courier New, Courier, monospace;

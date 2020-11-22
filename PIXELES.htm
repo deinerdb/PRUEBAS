@@ -121,6 +121,11 @@
                 <!-- TIPO DE BORDES -->
                 <div id="marcoTipoBordes" class="marco">
                     <div id="muestraTipoBordes"></div>
+                    <label class="containerR" id="checkNone">
+                        None (Ninguno)
+                        <input type="radio" name="checkTipoBordes" id="miCheckNone" value="none" onclick="seleccionaTipoBordes(this.value);">
+                        <span class="checkmarkR"></span>
+                    </label>
                     <label class="containerR" id="checkSolid">
                         Solid (Continuo)
                         <input type="radio" name="checkTipoBordes" id="miCheckSolid" value="solid" onclick="seleccionaTipoBordes(this.value);">
@@ -658,11 +663,8 @@
         </select>
         <span class="espacioDerecha"> </span>
     </div>
-    <div class="paleta" id="paletaAbajo">
-        
-        <button id="BtnRejilla" title="Alternar bordes"><i id="icoRejilla" class="far fa-plus-square"></i></button>
-        <button id="BtnTipoBorde" title="Tipo de bordes"><i class="fas fa-border-style"></i></button>
-        <!-- <button id="BtnAnchoBorde" title="Ancho de bordes"><i id="icoAnchoBordes" class="fas fa-window-minimize"></i></button> -->
+    <div class="paleta" id="paletaAbajo">   
+        <button id="BtnTipoBorde" title="Tipo de bordes"><i class="fas fa-border-style"></i></button>        
         <button id="BtnAnchoBordes" title="Ancho de bordes">
             <svg id="icoAnchoBordes" height="24" width="24">
                 <line x1="4" y1="4" x2="20" y2="4" style="stroke:rgb(255,255,255);stroke-width:0.5" />
