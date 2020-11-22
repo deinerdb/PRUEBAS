@@ -11,6 +11,9 @@ var getPantalla = document.getElementById("pantalla");
 var getRellenoHist = document.getElementById("rellenoHistorial");
 // la muestra del tipo de bordes
 var getMuestraTipoBordes = document.getElementById("muestraTipoBordes");
+// muestra especial ExtraerDesde
+var getMuestraMarcoExtraerLienzo = document.getElementById("muestraMarcoExtraerLienzo");
+var getMuestraMarcoExtraerPixel = document.getElementById("muestraMarcoExtraerPixel");
 //para el modal
 // Get the modal , múltiples usos
 var modal = document.getElementById('myModal');
@@ -28,6 +31,7 @@ var getBtnBorrador = document.getElementById("BtnBorrador");
 var getBtnPincel = document.getElementById("BtnPincel");
 var getBtnLibre = document.getElementById("BtnLibre");
 var getBtnExtraerColor = document.getElementById("BtnExtraerColor");
+var getSpanInfoExtraer = document.getElementById("spanInfoExtraer");
 var getFiltro = document.getElementById("filtro");
 var getSelectFondo = document.getElementById("selectFondo");
 var getBtnActualizar = document.getElementById("BtnActualizar");
@@ -70,8 +74,11 @@ var colorLienzo = "#ffffff" // ahora es individual
 // radio que se aplica por defecto en modo radio
 // pero el inicial de clase columna es 0%
 var radioBorde = "50%";
-// la info junto al botón
+// la info junto al botón radio
 getSpanInfoRadio.innerHTML = radioBorde;
+// la info junto al botón extraer
+var ExtraerDesde = "Pixel"; // Pixel, Lienzo, Bordes
+getSpanInfoExtraer.innerHTML = ExtraerDesde; //  por defecto
 // modal: ninguno, radio, rgb, gallery, importar, exportar, filas, columnas, lienzo, anchoBordes, zoom, tipoBordes, colorBordes
 var modalActual = "ninguno";
 // recuerda el scroll y lo restaura al cerrar el modal
@@ -416,7 +423,32 @@ function seleccionaTipoBordes(miTipo) {
     // ajusta la muestra
     getMuestraTipoBordes.style.borderStyle = miTipo;
 }
-
+// formato a la muestra ExtraerDesde
+function ajustarMuestraExtraer(desde) {
+    // primero todo por defecto
+    getMuestraMarcoExtraerLienzo.style.backgroundColor = "#dcdcdc";
+    getMuestraMarcoExtraerPixel.style.backgroundColor = "#a9a9a9";
+    getMuestraMarcoExtraerPixel.style.borderColor = "#696969";
+    // ahora resalta según la opción seleccionada
+    switch (desde) {
+        case "Pixel":
+            getMuestraMarcoExtraerPixel.style.backgroundColor = "#228b22";
+            break;
+        case "Lienzo":
+            getMuestraMarcoExtraerLienzo.style.backgroundColor = "#228b22";
+            break;
+        case "Bordes":
+            getMuestraMarcoExtraerPixel.style.borderColor = "#228b22";
+            break;
+    }
+}
+// cuando selecciona ExtraerDesde en el modal
+function seleccionaExtraerDesde(desde) {
+    //lo guarda en la temporal
+    tempVarios = desde;
+    // ajusta la muestra
+    ajustarMuestraExtraer(desde);
+}
 var timerRGB;
 // ajustes rgb según los slider
 // requiere función validaComponenteRGB(idActual, idSincronizar, fuenteRoja)
@@ -600,7 +632,7 @@ function alturaModal() {
 // referencias están al inicio del script
 function ajustesResize() {    
     // para obtener anchos mínimos de botones al diseñar
-    //$("#BtnRadioBordes").attr("title", document.getElementById("BtnRadioBordes").offsetWidth);
+    //$("#BtnExtraerColor").attr("title", document.getElementById("BtnExtraerColor").offsetWidth);
     
     // ajusta el infoTemporal, solo si es visible    
     if (window.getComputedStyle(infoTemp).display === "block") {
@@ -951,10 +983,12 @@ function aceptarModal() {
                 for (i = 0; i < getColumnas.length; i++) {
                     //guardar los id y los colores de bordes al mismo tiempo que recorre los cuadritos
                     lastArrayID[lastArrayID.length] = getColumnas[i].id;
-                    lastArrayColorBordes[lastArrayColorBordes.length] = getColumnas[i].dataset.colorBordes;
-                    getColumnas[i].dataset.colorBordes = colorActual;                    
+                    lastArrayColorBordes[lastArrayColorBordes.length] = getColumnas[i].dataset.colorbordes;
+                    getColumnas[i].dataset.colorbordes = colorActual;                    
                     getColumnas[i].style.borderColor = colorActual;
                 }
+                // se procesa el historial
+                procesarHistorial(colorActual);
                 // oculta el loader
                 $(".loader").addClass("oculto");
                 // otras tareas
@@ -966,6 +1000,19 @@ function aceptarModal() {
                 // anima
                 getContenedor.style.opacity = "1";
             }, 0);  
+            break;
+        case "extraer":
+            // dice "yo me encargo"
+            restauraOpacidad = false;
+            // temporal pasa a ser el valor actual
+            ExtraerDesde = tempVarios;
+            // la info
+            getSpanInfoExtraer.innerHTML = ExtraerDesde;
+            // notifica la opción
+            showSnackbar("Extraer desde: " + ExtraerDesde.toUpperCase());
+            // anima
+            getContenedor.style.opacity = "1";
+            // nada que deshacer
             break;
         case "tipoBordes":
             // tempVarios contiene el valor seleccionado
@@ -1220,6 +1267,28 @@ function showModal() {
     // por defecto visible
     $("#infoModal").css("display", "block");
     switch (modalActual) {
+        case "extraer":
+            $("#marcoExtraer").css("display", "block");
+            document.getElementById("modalTitle").innerHTML = "<i class='fas fa-map-pin'></i> Extraer Color";
+            document.getElementById("spanInfoModal").innerHTML = "Seleccione si desea extraer el color del pixel, del lienzo o de los bordes. Al hacer click en un pixel cambiará el color actual según la opción seleccionada.";
+            // se selecciona el option con el valor actual            
+            var xCheck = document.getElementsByName("checkExtraer");
+            var i;
+            for (i = 0; i < xCheck.length; i++) {
+                if (xCheck[i].value == ExtraerDesde) {
+                    // el que coincide con la opción actual
+                    xCheck[i].checked = true;
+                    break;
+                }
+            }
+            // ajusta la muestra o indicador
+            ajustarMuestraExtraer(ExtraerDesde);
+            // la variable temporal toma el valor actual
+            tempVarios = ExtraerDesde;
+            // para animarla al cerrar: opacidad ajustada
+            restauraOpacidad = true;
+            $(getContenedor).css("opacity", "0");
+            break;
         case "colorBordes":
             $("#marcoColorBordes").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-tint'></i> Color de Bordes";
@@ -2165,10 +2234,12 @@ function hacerClick(celda) {
             // guarda para poder deshacer
             lastID = celda;
             lastAction = "cambiarColorRejillaIndividual";
-            lastColorRejilla = miCuadrito.dataset.colorBordes;
+            lastColorRejilla = miCuadrito.dataset.colorbordes;
             // aplica el color actual
             miCuadrito.style.borderColor = colorActual;
-            miCuadrito.dataset.colorBordes = colorActual;
+            miCuadrito.dataset.colorbordes = colorActual;
+            // se procesa el historial
+            procesarHistorial(colorActual);
             // activa el botón deshacer
             estadoBtnDeshacer(true, "Deshacer color de bordes");
             break;
@@ -2219,8 +2290,18 @@ function hacerClick(celda) {
             estadoBtnDeshacer(true, "Deshacer borrado");
             break;
         case "extraer":
-            //modo extraer color             
-            colorActual = convertirRGBaHexadecimal(miCuadrito.style.backgroundColor);
+            //modo extraer color según opción ExtraerDesde
+            switch (ExtraerDesde) {
+                case "Pixel":
+                    colorActual = convertirRGBaHexadecimal(miCuadrito.style.backgroundColor);
+                    break;
+                case "Lienzo":
+                    colorActual = miCuadrito.dataset.colorlienzo;
+                    break;
+                case "Bordes":
+                    colorActual = miCuadrito.dataset.colorbordes;
+                    break;
+            }            
             // asigna el valor hexadecimal al input color
             getcolorPixel.value = colorActual;
             // actualiza el borde del input color
@@ -2233,12 +2314,12 @@ function hacerClick(celda) {
             getBtnColorRejilla.style.color = colorActual;
             getBtnGotero.style.color = colorActual;
             getBtnPincel.style.color = colorActual;
-            // para el caso de los importados
+            // en especial para el caso de los importados
             procesarHistorial(colorActual);
             // resalta en historial
             resaltarActual();
             // informa
-            showSnackbar("Extraído: " + colorActual);
+            showSnackbar("Extraído desde " + ExtraerDesde + ": " + colorActual);
             break;
         case "relleno":
             // parámetros: colorViejo, colorNuevo, miID
@@ -2292,7 +2373,7 @@ function crearCuadritos() {
             // para gestionar el color de su respectivo lienzo, parent
             miColumna.dataset.colorlienzo = "#ffffff";
             // para gestionar su color de bordes
-            miColumna.dataset.colorBordes = "#000000";
+            miColumna.dataset.colorbordes = "#000000";
             // le adjunta el evento click
             miColumna.addEventListener("click", function () { hacerClick(this.id); });
             // por las x, define tamaño de fuente
@@ -3108,9 +3189,18 @@ getBtnGotero.onclick = function () {
     cambiarModo("relleno");
 }
 // se selecciona el modo extraer color
-// extrae el color de la celda seleccionada y lo convierte en el color actual
+// extrae el color del pixel, lienzo o bordes y lo convierte en el color actual
 getBtnExtraerColor.onclick = function () {
-    cambiarModo("extraer");
+    if (modoActual == "extraer") {
+        // está en modo extraer, entonces se puede ajustar la opción ExtraerDesde
+        modalActual = "extraer";
+        //muestra el modal
+        showModal();
+    } else {
+        // pasa a modo extraer
+        cambiarModo("extraer");
+        // en modo extraer se ve la respectiva flecha en el btn extraer y su info
+    }        
 }
 
 // se ajusta el tamaño de los cuadritos
@@ -3544,7 +3634,7 @@ getBtnDeshacer.onclick = function () {
             // deshace el color de bordes de la celda
             var miCuadrito = document.getElementById(lastID);
             miCuadrito.style.borderColor = lastColorRejilla;
-            miCuadrito.dataset.colorBordes = lastColorRejilla;
+            miCuadrito.dataset.colorbordes = lastColorRejilla;
             mensaje = "Se deshizo el color de bordes";
             break;
         case "cambiarColorRejillaGlobal":
@@ -3560,7 +3650,7 @@ getBtnDeshacer.onclick = function () {
                 for (i = 0; i < lastArrayID.length; i++) {
                     miElemColorBordes = document.getElementById(lastArrayID[i]);
                     miLastColorBordes = lastArrayColorBordes[i];
-                    miElemColorBordes.dataset.colorBordes = miLastColorBordes;                    
+                    miElemColorBordes.dataset.colorbordes = miLastColorBordes;                    
                     miElemColorBordes.style.borderColor = miLastColorBordes;
                 }
                 // oculta el loader

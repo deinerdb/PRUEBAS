@@ -134,6 +134,28 @@ html, body {
         /* no llevan texto ...*/
         font-size: 1.15em;
     }    
+/* muestra especial en ExtraerDesde */
+#muestraMarcoExtraerLienzo {
+    border: none;
+    padding: 0;
+    margin: 8px auto 18px auto;
+    text-align: center;
+    width: 120px;
+    height: 120px;
+    background-color: #dcdcdc;
+}
+#muestraMarcoExtraerPixel {
+    border: 5px solid #696969;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #a9a9a9;
+    /* Rounded corners iniciales */
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
 /* para el modal lienzo */
 #muestraMarcoLienzo, #muestraMarcoColorBordes {
     border: 2px inset gray;
@@ -1008,6 +1030,11 @@ html, body {
     margin-right: 5px;
     display: none;
 }
+#icoExtraerFlecha {
+    margin-left: 2px;
+    margin-right: 5px;
+    display: none;
+}
 #icoColorBordeFlecha {
     margin-left: 5px;
     display: none;
@@ -1032,13 +1059,27 @@ html, body {
     text-align: center;
 
 }
-/* para dar cabida a la flechita y la info */
+/* para dar cabida a la flechita y la info del Radio*/
 #BtnRadioBordes.seleccionadoBtnModos {
     min-width: 83px !important;    
     width: 83px !important;    
 }
+/* para dar cabida a la flechita y la info de Extraer*/
+#BtnExtraerColor.seleccionadoBtnModos {
+    min-width: 101px !important;
+    width: 101px !important;
+}
 /* la info del radio */
 #spanInfoRadio {
+    margin-left: 4px;
+    margin-right: 3px;
+    display: none;
+    /* texto variable, fuente monoespaciada */
+    font-family: Consolas, Courier New, Courier, monospace;
+    font-size: 0.95em;
+}
+/* la info de Extraer */
+#spanInfoExtraer {
     margin-left: 4px;
     margin-right: 3px;
     display: none;
@@ -1051,7 +1092,7 @@ html, body {
     min-width: 56px !important;
     width: 56px !important;
 }
-.seleccionadoBtnModos #icoCircularFlecha, .seleccionadoBtnModos #icoLienzoFlecha, .seleccionadoBtnModos #spanInfoRadio, .seleccionadoBtnModos #icoColorBordeFlecha {
+.seleccionadoBtnModos #icoExtraerFlecha, .seleccionadoBtnModos #icoCircularFlecha, .seleccionadoBtnModos #icoLienzoFlecha, .seleccionadoBtnModos #spanInfoRadio, .seleccionadoBtnModos #spanInfoExtraer, .seleccionadoBtnModos #icoColorBordeFlecha {
     display: inline-block !important;
 }
 
@@ -2629,13 +2670,13 @@ input[type=range] {
 }
 /* INICIO CSS PARA RADIOS PERSONALIZADOS */
 /* PROPIOS DE PIXELES */
-#checkColorBordesIndividual, #checkColorBordesGlobal, #checkLienzoIndividual, #checkLienzoGlobal, #checkNone, #checkSolid, #checkDotted, #checkDashed, #checkDouble, #checkGroove, #checkRidge, #checkInset, #checkOutset {
+#checkExtraerDesdePixel, #checkExtraerDesdeLienzo, #checkExtraerDesdeBordes, #checkColorBordesIndividual, #checkColorBordesGlobal, #checkLienzoIndividual, #checkLienzoGlobal, #checkNone, #checkSolid, #checkDotted, #checkDashed, #checkDouble, #checkGroove, #checkRidge, #checkInset, #checkOutset {
     text-align: left;
     margin: 26px 4px 12px 24px;
     font-family: Consolas, Courier New, Courier, monospace;
 }
 /* el último de cada grupo */
-#checkOutset, #checkLienzoGlobal, #checkColorBordesGlobal {
+#checkOutset, #checkLienzoGlobal, #checkColorBordesGlobal, #checkExtraerDesdeBordes {
     margin-bottom: 28px;
 }
 /* The radio container */

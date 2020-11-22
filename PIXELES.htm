@@ -59,6 +59,28 @@
             </div>
             <div class="modal-body" id="modalBody">
                 <!-- cada marco es un uso del Modal -->
+                <!-- ExtraerDesde -->
+                <div id="marcoExtraer" class="marco">
+                    <div id="muestraMarcoExtraerLienzo">
+                        <div id="muestraMarcoExtraerPixel">
+                        </div>
+                    </div>
+                    <label class="containerR" id="checkExtraerDesdePixel">
+                        Extraer del pixel
+                        <input type="radio" name="checkExtraer" id="micheckExtraerDesdePixel" value="Pixel" onclick="seleccionaExtraerDesde(this.value);">
+                        <span class="checkmarkR"></span>
+                    </label>
+                    <label class="containerR" id="checkExtraerDesdeLienzo">
+                        Extraer del lienzo
+                        <input type="radio" name="checkExtraer" id="micheckExtraerDesdeLienzo" value="Lienzo" onclick="seleccionaExtraerDesde(this.value);">
+                        <span class="checkmarkR"></span>
+                    </label>
+                    <label class="containerR" id="checkExtraerDesdeBordes">
+                        Extraer de los bordes
+                        <input type="radio" name="checkExtraer" id="micheckExtraerDesdeBordes" value="Bordes" onclick="seleccionaExtraerDesde(this.value);">
+                        <span class="checkmarkR"></span>
+                    </label>
+                </div>
                 <!-- color de los lienzos -->
                 <div id="marcoLienzo" class="marco">
                     <div id="muestraMarcoLienzo">
@@ -615,7 +637,7 @@
         <button id="BtnBorrador" title="Modo Borrador"><i class="fas fa-eraser"></i></button>
         <button id="BtnPincel" title="Modo Pincel"><i class="fas fa-paint-brush"></i></button>
         <button id="BtnLibre" title="Modo Selección Libre"><i class="far fa-hand-pointer"></i></button>
-        <button id="BtnExtraerColor" title="Modo Extraer Color"><i class="fas fa-map-pin"></i></button>
+        <button id="BtnExtraerColor" title="Modo Extraer Color"><i id="icoExtraer" class="fas fa-map-pin"></i><span id="spanInfoExtraer">Lienzo</span><i id="icoExtraerFlecha" class="fas fa-caret-down"></i></button>
         <input type="color" list="presetColors" name="colorPixel" title="Seleccione o escriba un color en hexadecimal" id="colorPixel" value="#000000" onchange="colorPixel()" >
         <datalist id="presetColors">
             <option>#ffffff</option>
