@@ -1351,6 +1351,7 @@ html, body {
 }
 /* fin ajustes de la ventana modal */
 
+/* --------------------------- */
 /* inicia */
 /* ajustes de impresión */
 
@@ -1397,7 +1398,8 @@ html, body {
     }
 
     .columna {
-        font-size: 0px !important;
+        /* ESTO AFECTARÍA LAS SOMBRAS */
+        /* font-size: 0px !important; */
     }
 
     body {
@@ -1411,15 +1413,19 @@ html, body {
         border: 0.5px solid gray;
     }
 
-    .hFirma {
+    .hFirma {        
         color: black !important;
         margin: 12px;
         max-width: 100%;
         overflow: hidden !important;
         text-align: center !important;
+        /* PORQUE EL FONDO ES BLANCO */
+        text-shadow: none !important;
     }
 }
 /* fin print */
+/* FIN AJUSTES DE IMPRESIÓN */
+/* --------------------------- */
 .loader {
     position: fixed;
     left: 0px;
