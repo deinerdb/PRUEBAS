@@ -27,6 +27,7 @@ var getBtnRellenar = document.getElementById("BtnRellenar");
 var getBtnColorLienzo = document.getElementById("BtnColorLienzo");
 var getBtnColorRejilla = document.getElementById("BtnColorRejilla");
 var getBtnGotero = document.getElementById("BtnGotero");
+var getBtnReemplazar = document.getElementById("BtnReemplazar");
 var getBtnBorrador = document.getElementById("BtnBorrador");
 var getBtnPincel = document.getElementById("BtnPincel");
 var getBtnLibre = document.getElementById("BtnLibre");
@@ -102,7 +103,7 @@ var lastColorRejilla;
 var lastNumColumnas;
 var lastNumFilas;
 var lastModo = "pincel";
-// modos: pincel, borrador, relleno, extraer, libre, radio, sombra, opacidad
+// modos: pincel, borrador, relleno, extraer, libre, radio, sombra, opacidad, reemplazar
 var modoActual = "pincel";
 // es como un modo, pero se gestiona diferente
 var pantallaCompleta = false;
@@ -2330,6 +2331,9 @@ function hacerClick(celda) {
             //alert("pasa nuevo " + getRelleno.style.backgroundColor);
             rellenarZona(miCuadrito.style.backgroundColor, getRelleno.style.backgroundColor, celda);
             break;
+        case "reemplazar":
+            showSnackbar("En construcción");
+            break;
     }
     ocupado = false;
 }
@@ -2873,6 +2877,7 @@ function cambiarModo(nuevoModo) {
         getBtnColorLienzo.style.display = "inline-block";
         getBtnColorRejilla.style.display = "inline-block";
         getBtnGotero.style.display = "inline-block";
+        getBtnReemplazar.style.display = "inline-block";
         getBtnBorrador.style.display = "inline-block";
         getBtnPincel.style.display = "inline-block";
         getBtnLibre.style.display = "inline-block";
@@ -2919,6 +2924,7 @@ function cambiarModo(nuevoModo) {
             getBtnColorLienzo.style.display = "none";
             getBtnColorRejilla.style.display = "none";
             getBtnGotero.style.display = "none";
+            getBtnReemplazar.style.display = "none";
             getBtnBorrador.style.display = "none";
             getBtnPincel.style.display = "none";
             getBtnLibre.style.display = "none";
@@ -3021,6 +3027,17 @@ function cambiarModo(nuevoModo) {
             getBtnRnd.style.display = "inline-block";
             getBtnOpuesto.style.display = "inline-block";
             showSnackbar("Modo Relleno Selectivo");
+            break;
+        case "reemplazar":
+            // agrega la clase seleccionado al btn del modo actual                    
+            $(getBtnReemplazar).addClass("seleccionadoBtnModos");
+            getcolorPixel.style.display = "inline-block";
+            getBtnRGB.style.display = "inline-block";
+            getBtnHex.style.display = "inline-block";
+            getBtnGallery.style.display = "inline-block";
+            getBtnRnd.style.display = "inline-block";
+            getBtnOpuesto.style.display = "inline-block";
+            showSnackbar("Modo Reemplazar Color");
             break;
         case "extraer":
             // agrega la clase seleccionado al btn del modo actual                    
@@ -3187,6 +3204,10 @@ getBtnBorrador.onclick = function () {
 //se selecciona el modo relleno, el gotero
 getBtnGotero.onclick = function () {
     cambiarModo("relleno");
+}
+//se selecciona el modo reemplazar color, los binoculares
+getBtnReemplazar.onclick = function () {
+    cambiarModo("reemplazar");
 }
 // se selecciona el modo extraer color
 // extrae el color del pixel, lienzo o bordes y lo convierte en el color actual
