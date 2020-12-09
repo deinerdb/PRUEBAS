@@ -25,7 +25,9 @@
                 $("#pantalla").css("display", "block");
                 $(".loader").addClass("oculto");
                 // intentamos un scroll
-                topFunction();             
+                topFunction();
+                // nota que la primera vez que se llama dimensionar se activa, pero aquí se desactiva para que sea su estado inicial
+                estadoBtnDeshacer(false);
             }, 2000);
         });        
     </script>

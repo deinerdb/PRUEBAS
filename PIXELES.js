@@ -1927,7 +1927,7 @@ window.addEventListener("load", function (event) {
     topFunction();
     // dasactiva el botón deshacer, no se ha hecho nada
     // nota que la primera vez que se llama dimensionar se activa, pero aquí se desactiva para que sea su estado inicial
-    estadoBtnDeshacer(false);
+    estadoBtnDeshacer(false)
 });
 
 // resalta el color actual en el historial de colores
@@ -1990,6 +1990,43 @@ function existeCelda(idCelda) {
         //sí existe
         return true;
     }
+}
+// buscar y reemplazar color
+function reemplazarColor(colorViejo, colorNuevo, miID) {
+    if (colorViejo == colorNuevo) {
+        // no veo necesaria ninguna acción
+        showSnackbar("Colores son iguales");
+        return;
+    }
+    //debe guardar los colores y los id      
+    lastAction = "reemplazar";
+    lastArrayColor.length = 0;
+    lastArrayID.length = 0;    
+    var i;    
+    // muestra un loader...
+    $(".loader").removeClass("oculto");
+    setTimeout(function () {
+        // código alta exigencia        
+        var i;        
+        //recorre todo el array, busca el color de la celda seleccionada y lo reemplaza por el actual
+        for (i = 0; i < getColumnas.length; i++) {            
+            if (getColumnas[i].style.backgroundColor == colorViejo) {
+                //guardar los id y los colores solo cuando hay cambio
+                lastArrayID[lastArrayID.length] = getColumnas[i].id;
+                //lastArrayColor[lastArrayColor.length] = getColumnas[i].style.backgroundColor;
+                lastArrayColor[lastArrayColor.length] = colorViejo;
+                getColumnas[i].style.backgroundColor = colorNuevo;
+            }            
+        }
+        // historial de colorActual
+        procesarHistorial(colorActual);
+        // activa el botón deshacer
+        estadoBtnDeshacer(true, "Deshacer reemplazar color");       
+        // oculta el loader
+        $(".loader").addClass("oculto");
+        // otras tareas
+        showSnackbar("Color reemplazado");
+    }, 0); 
 }
 // relleno de selección
 function rellenarZona(colorViejo, colorNuevo, miID) {
@@ -2326,13 +2363,12 @@ function hacerClick(celda) {
             // parámetros: colorViejo, colorNuevo, miID
             // document.getElementById(celda).style.backgroundColor es RGB
             // getRelleno.style.backgroundColor es colorActual en RGB
-            // colorActual es hexadecimal
-            //alert("pasa viejo " + document.getElementById(celda).style.backgroundColor);
-            //alert("pasa nuevo " + getRelleno.style.backgroundColor);
+            // colorActual es hexadecimal            
             rellenarZona(miCuadrito.style.backgroundColor, getRelleno.style.backgroundColor, celda);
             break;
         case "reemplazar":
-            showSnackbar("En construcción");
+            // parámetros: colorViejo, colorNuevo, miID
+            reemplazarColor(miCuadrito.style.backgroundColor, getRelleno.style.backgroundColor, celda);
             break;
     }
     ocupado = false;
@@ -3584,6 +3620,24 @@ getBtnDeshacer.onclick = function () {
                 // otras tareas
 
             }, 0);  
+            break;
+        case "reemplazar":
+            mensaje = "Se deshizo el reemplazo de color";
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia
+                // deshace el reemplazo                
+                var i;
+                //recorre los array y aplica el color guardado
+                for (i = 0; i < lastArrayID.length; i++) {
+                    document.getElementById(lastArrayID[i]).style.backgroundColor = lastArrayColor[i];
+                }
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+
+            }, 0);
             break;
         case "libre":
             // muestra un loader...
