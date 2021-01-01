@@ -40,6 +40,9 @@ var getBtnTipoBorde = document.getElementById("BtnTipoBorde");
 var getBtnAnchoBordes = document.getElementById("BtnAnchoBordes");
 var getBtnRadioBordes = document.getElementById("BtnRadioBordes");
 var getSpanInfoRadio = document.getElementById("spanInfoRadio");
+var getBtnOpacidad = document.getElementById("BtnOpacidad");
+var getSpanInfoOpacidad = document.getElementById("spanInfoOpacidad");
+var getPMuestraOpacidad = document.getElementById("pMuestraOpacidad");
 var getBtnDeshacer = document.getElementById("BtnDeshacer");
 var getSpanFilas = document.getElementById("spanFilas");
 var getSelectFilas = document.getElementById("selectFilas"); // listaFilas
@@ -77,10 +80,15 @@ var colorLienzo = "#ffffff" // ahora es individual
 var radioBorde = "50%";
 // la info junto al botón radio
 getSpanInfoRadio.innerHTML = radioBorde;
+// opacidad que se aplica por defecto en modo opacidad
+// pero la inicial de clase columna es 100%
+var opacidad = 0.5;
+// la info junto al botón opacidad
+getSpanInfoOpacidad.innerHTML = opacidad * 100 + "%";
 // la info junto al botón extraer
 var ExtraerDesde = "Pixel"; // Pixel, Lienzo, Bordes
 getSpanInfoExtraer.innerHTML = ExtraerDesde; //  por defecto
-// modal: ninguno, radio, rgb, gallery, importar, exportar, filas, columnas, lienzo, anchoBordes, zoom, tipoBordes, colorBordes
+// modal: ninguno, radio, rgb, gallery, importar, exportar, filas, columnas, lienzo, anchoBordes, zoom, tipoBordes, colorBordes, opacidad
 var modalActual = "ninguno";
 // recuerda el scroll y lo restaura al cerrar el modal
 var miBodyScroll;
@@ -249,6 +257,8 @@ getRelleno.style.backgroundColor = "#000000";
 //document.getElementById("BtnColor0").style.color = "#ffffff";
 // radio por defecto es 50 %
 document.getElementById("rangoRadioBordes").value = 50;
+// opacidad por defecto es 50 %
+document.getElementById("rangoOpacidad").value = 50;
 // el texto de la muestra está en html, en css tiene su valor inicial de 50
 //document.getElementById("muestraRadio").style.borderRadius = "50%";
 //getRelleno.style.borderRadius = "50%";
@@ -303,6 +313,37 @@ function cancelFullScreen() {
     }
 
 }
+// opacidad
+//el input range de la opacidad
+var sliderOpacidad = document.getElementById("rangoOpacidad");
+// la muestra de la opacidad
+var getMuestraOpacidad = document.getElementById("muestraOpacidad");
+// para no repetirlo en input y change del slider de opacidad
+function actualizaOpacidad(nuevoValor) {
+    var nuevo = nuevoValor;
+    nuevo = Number(nuevo);
+    var pos = decValues.indexOf(nuevo);
+    if (pos == -1 || pos > 100) {
+        nuevo = 100;
+    } else {
+        nuevo = decValues[pos];
+    }
+    // ajusta la muestra    
+    var opacidadMuestra = nuevo / 100; // muestra tiene 120px de ancho
+    getMuestraOpacidad.style.opacity = opacidadMuestra;
+    getMuestraOpacidad.innerHTML = nuevo + "%";
+    getPMuestraOpacidad.innerHTML = nuevo + "%";
+}
+// opacidad cambia dinámicamente con el slider
+//input y change, redundantes por un bug en IE
+sliderOpacidad.oninput = function () {
+    actualizaOpacidad(this.value);
+}
+sliderOpacidad.onchange = function () {
+    actualizaOpacidad(this.value);
+}
+
+// zoom
 //el input range del tamaño de los pixeles, zoom
 var sliderZoom = document.getElementById("rangoZoom");
 // la muestra del tamaño de los pixeles, zoom
@@ -956,6 +997,9 @@ function aplicarLienzoGlobal() {
 // depende de modalActual/
 function aceptarModal() {
     switch (modalActual) {
+        case "opacidad":
+            showSnackbar("En construcción...");
+            break;
         case "colorBordes":            
             // dice "yo me encargo"
             restauraOpacidad = false;
@@ -1268,6 +1312,22 @@ function showModal() {
     // por defecto visible
     $("#infoModal").css("display", "block");
     switch (modalActual) {
+        case "opacidad":
+            $("#marcoOpacidad").css("display", "block");
+            document.getElementById("modalTitle").innerHTML = "<i class='fas fa-adjust'></i> Opacidad";
+            document.getElementById("spanInfoModal").innerHTML = "Utilice el control para ajustar la opacidad. Puede aplicar el nivel seleccionado de opacidad individualmente o a todos los pixeles.";
+            // LA MUESTRA INDICA la opacidad actual
+            $("#muestraOpacidad").css("opacity", opacidad);
+            getMuestraOpacidad.innerHTML = opacidad * 100 + "%";
+            getPMuestraOpacidad.innerHTML = opacidad * 100 + "%";
+            // ajusta el slider
+            sliderOpacidad.value = opacidad * 100;
+            // por defecto, será global
+            document.getElementById("myCheckOpacidadGlobal").checked = true;
+            // para animarla al cerrar: opacidad ajustada
+            restauraOpacidad = true;
+            $(getContenedor).css("opacity", "0");
+            break;
         case "extraer":
             $("#marcoExtraer").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-map-pin'></i> Extraer Color";
@@ -1921,6 +1981,8 @@ window.addEventListener("load", function (event) {
     dimensionar(false);
     // radio por defecto es 50, para que tenga efecto al hacer click en modo radio al iniciar
     document.getElementById("rangoRadioBordes").value = 50;
+    // opacidad por defecto es 50, para que tenga efecto al hacer click en modo opacidad al iniciar
+    document.getElementById("rangoOpacidad").value = 50;
     // el input color es negro por defecto, ie recuerda colores anteriores
     getcolorPixel.value = "#000000";    
     // scroll
@@ -2241,6 +2303,9 @@ function hacerClick(celda) {
     }, 400);
     
     switch (modoActual) {
+        case "opacidad":
+            showSnackbar("En construcción...");
+            break;
         case "libre":
             //modo selección libre
             //var miCuadrito = document.getElementById(celda);
@@ -2473,6 +2538,10 @@ function mostrarHistorial(afectarPreferencia) {
         showSnackbar("Está en Modo Editor de Radios...");
         return;
     }
+    if (modoActual == "opacidad") {
+        showSnackbar("Está en Modo Editor de Opacidad...");
+        return;
+    }
     // sale si ya está mostrado
     if (historialMostrado == true) {
         //return;
@@ -2482,7 +2551,7 @@ function mostrarHistorial(afectarPreferencia) {
     //cancela el timer que lo ocultaría
     clearTimeout(timerHistorial);
     // guarda la preferencia
-    if (modoActual != "borrador" && modoActual != "radio" && afectarPreferencia == true) {
+    if (modoActual != "borrador" && modoActual != "radio" && modoActual != "opacidad" && afectarPreferencia == true) {
         prefiereHistorial = true;
     }
     //oculta este botón
@@ -2519,7 +2588,7 @@ function cerrarHistorial(afectarPreferencia) {
     //cancela el timer que lo ocultaría
     clearTimeout(timerHistorial);
     // guarda la preferencia
-    if (modoActual != "borrador" && modoActual != "radio" && afectarPreferencia == true) {
+    if (modoActual != "borrador" && modoActual != "radio" && modoActual != "opacidad" && afectarPreferencia == true) {
         prefiereHistorial = false;
     }
     // la barra se desactiva y el botón cerrar historial también
@@ -2891,7 +2960,7 @@ function cambiarModo(nuevoModo) {
     lastModo = modoActual;
     modoActual = nuevoModo;
     // gestiona el historial de color
-    if (modoActual == "borrador" || modoActual == "radio") {        
+    if (modoActual == "borrador" || modoActual == "radio" || modoActual == "opacidad") {        
             cerrarHistorial(false);
     } else {
         if (prefiereHistorial == true) {
@@ -2923,6 +2992,7 @@ function cambiarModo(nuevoModo) {
         getBtnTipoBorde.style.display = "inline-block";
         getBtnAnchoBordes.style.display = "inline-block";
         getBtnRadioBordes.style.display = "inline-block";
+        getBtnOpacidad.style.display = "inline-block";
         getBtnDeshacer.style.display = "inline-block";
         //getSpanFilas.style.display = "inline-block";
         $(getSpanFilas).removeClass("oculto");
@@ -2970,6 +3040,7 @@ function cambiarModo(nuevoModo) {
             getBtnTipoBorde.style.display = "none";
             getBtnAnchoBordes.style.display = "none";
             getBtnRadioBordes.style.display = "none";
+            getBtnOpacidad.style.display = "none";
             getBtnDeshacer.style.display = "none";
             //getSpanFilas.style.display = "none";
             $(getSpanFilas).addClass("oculto");
@@ -3019,6 +3090,17 @@ function cambiarModo(nuevoModo) {
             getBtnRnd.style.display = "none";
             getBtnOpuesto.style.display = "none";
             showSnackbar("Modo Borrador");
+            break;
+        case "opacidad":
+            // agrega la clase seleccionado al btn del modo actual                    
+            $(getBtnOpacidad).addClass("seleccionadoBtnModos");
+            getcolorPixel.style.display = "none";
+            getBtnRGB.style.display = "none";
+            getBtnHex.style.display = "none";
+            getBtnGallery.style.display = "none";
+            getBtnRnd.style.display = "none";
+            getBtnOpuesto.style.display = "none";
+            showSnackbar("Modo Editor de Opacidad");
             break;
         case "radio":
             // agrega la clase seleccionado al btn del modo actual                    
@@ -3421,6 +3503,19 @@ getBtnRadioBordes.onclick = function () {
         cambiarModo("radio");
         // en modo radio se ve la respectiva flecha en el btn radio
     }    
+}
+// para ajustar la opacidad
+getBtnOpacidad.onclick = function () {
+    if (modoActual == "opacidad") {
+        // está en modo opacidad, entonces se puede ajustar el valor
+        modalActual = "opacidad";
+        //muestra el modal
+        showModal();
+    } else {
+        // pasa a modo opacidad
+        cambiarModo("opacidad");
+        // en modo opacidad se ve la respectiva flecha en el btn opacidad
+    }
 }
 
 // para definir tipo de borde
