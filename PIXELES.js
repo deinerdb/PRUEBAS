@@ -43,6 +43,9 @@ var getSpanInfoRadio = document.getElementById("spanInfoRadio");
 var getBtnOpacidad = document.getElementById("BtnOpacidad");
 var getSpanInfoOpacidad = document.getElementById("spanInfoOpacidad");
 var getPMuestraOpacidad = document.getElementById("pMuestraOpacidad");
+var getBtnSombras = document.getElementById("BtnSombras");
+var getSpanInfoSombras = document.getElementById("spanInfoSombras");
+var getSelectSombras = document.getElementById("selectSombras");
 var getBtnDeshacer = document.getElementById("BtnDeshacer");
 var getSpanFilas = document.getElementById("spanFilas");
 var getSelectFilas = document.getElementById("selectFilas"); // listaFilas
@@ -85,10 +88,14 @@ getSpanInfoRadio.innerHTML = radioBorde;
 var opacidad = 0.5;
 // la info junto al botón opacidad
 getSpanInfoOpacidad.innerHTML = opacidad * 100 + "%";
+// sombra por defecto
+var sombras = "s0000";
+// info sombras
+$("#spanInfoSombras").attr("class", "s0000");
 // la info junto al botón extraer
 var ExtraerDesde = "Pixel"; // Pixel, Lienzo, Bordes
 getSpanInfoExtraer.innerHTML = ExtraerDesde; //  por defecto
-// modal: ninguno, radio, rgb, gallery, importar, exportar, filas, columnas, lienzo, anchoBordes, zoom, tipoBordes, colorBordes, opacidad
+// modal: ninguno, radio, rgb, gallery, importar, exportar, filas, columnas, lienzo, anchoBordes, zoom, tipoBordes, colorBordes, opacidad, sombras
 var modalActual = "ninguno";
 // recuerda el scroll y lo restaura al cerrar el modal
 var miBodyScroll;
@@ -113,7 +120,7 @@ var lastColorRejilla;
 var lastNumColumnas;
 var lastNumFilas;
 var lastModo = "pincel";
-// modos: pincel, borrador, relleno, extraer, libre, radio, sombra, opacidad, reemplazar
+// modos: pincel, borrador, relleno, extraer, libre, radio, sombras, opacidad, reemplazar, lienzo, colorBordes, 
 var modoActual = "pincel";
 // es como un modo, pero se gestiona diferente
 var pantallaCompleta = false;
@@ -314,6 +321,13 @@ function cancelFullScreen() {
         document.msExitFullscreen();
     }
 
+}
+// sombras
+// la muestra de la sombra
+var getMuestraSombras = document.getElementById("muestraSombras");
+// cambia las sombras, llamada desde html en el selector
+function actualizaSombras() {
+    // 
 }
 // opacidad
 //el input range de la opacidad
@@ -999,6 +1013,9 @@ function aplicarLienzoGlobal() {
 // depende de modalActual/
 function aceptarModal() {
     switch (modalActual) {
+        case "sombras":
+            showSnackbar("Pendiente...");
+            break;
         case "opacidad":
             //valida, porque en ie 9 input range se muestra como campo de texto
             var nuevo = sliderOpacidad.value;
@@ -1361,6 +1378,20 @@ function showModal() {
     // por defecto visible
     $("#infoModal").css("display", "block");
     switch (modalActual) {
+        case "sombras":
+            $("#marcoSombras").css("display", "block");
+            document.getElementById("modalTitle").innerHTML = "<i class='fas fa-sun'></i> Sombras";
+            document.getElementById("spanInfoModal").innerHTML = "Seleccione un estilo de sombras de la lista y aplíquelo individualmente o a todos los pixeles.";
+            // LA MUESTRA INDICA la sombra actual
+            $("#muestraSombras").attr("class", sombras);  
+            // la lista indica la sombra actual
+            getSelectSombras.value = sombras;
+            // por defecto, será global
+            document.getElementById("myCheckSombrasGlobal").checked = true;
+            // para animarla al cerrar: opacidad ajustada
+            restauraOpacidad = true;
+            $(getContenedor).css("opacity", "0");
+            break;
         case "opacidad":
             $("#marcoOpacidad").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-adjust'></i> Opacidad";
@@ -2354,6 +2385,9 @@ function hacerClick(celda) {
     }, 400);
     
     switch (modoActual) {
+        case "sombras":
+            showSnackbar("Pendiente...");
+            break;
         case "opacidad":
             // guarda primero
             lastID = celda;
@@ -2602,6 +2636,10 @@ function mostrarHistorial(afectarPreferencia) {
         showSnackbar("Está en Modo Editor de Opacidad...");
         return;
     }
+    if (modoActual == "sombras") {
+        showSnackbar("Está en Modo Editor de Sombras...");
+        return;
+    }
     // sale si ya está mostrado
     if (historialMostrado == true) {
         //return;
@@ -2611,7 +2649,7 @@ function mostrarHistorial(afectarPreferencia) {
     //cancela el timer que lo ocultaría
     clearTimeout(timerHistorial);
     // guarda la preferencia
-    if (modoActual != "borrador" && modoActual != "radio" && modoActual != "opacidad" && afectarPreferencia == true) {
+    if (modoActual != "borrador" && modoActual != "radio" && modoActual != "opacidad" && modoActual != "sombras"  && afectarPreferencia == true) {
         prefiereHistorial = true;
     }
     //oculta este botón
@@ -2648,7 +2686,7 @@ function cerrarHistorial(afectarPreferencia) {
     //cancela el timer que lo ocultaría
     clearTimeout(timerHistorial);
     // guarda la preferencia
-    if (modoActual != "borrador" && modoActual != "radio" && modoActual != "opacidad" && afectarPreferencia == true) {
+    if (modoActual != "borrador" && modoActual != "radio" && modoActual != "opacidad" && modoActual != "sombras"  && afectarPreferencia == true) {
         prefiereHistorial = false;
     }
     // la barra se desactiva y el botón cerrar historial también
@@ -3020,7 +3058,7 @@ function cambiarModo(nuevoModo) {
     lastModo = modoActual;
     modoActual = nuevoModo;
     // gestiona el historial de color
-    if (modoActual == "borrador" || modoActual == "radio" || modoActual == "opacidad") {        
+    if (modoActual == "borrador" || modoActual == "radio" || modoActual == "opacidad" || modoActual == "sombras") {        
             cerrarHistorial(false);
     } else {
         if (prefiereHistorial == true) {
@@ -3053,6 +3091,7 @@ function cambiarModo(nuevoModo) {
         getBtnAnchoBordes.style.display = "inline-block";
         getBtnRadioBordes.style.display = "inline-block";
         getBtnOpacidad.style.display = "inline-block";
+        getBtnSombras.style.display = "inline-block";
         getBtnDeshacer.style.display = "inline-block";
         //getSpanFilas.style.display = "inline-block";
         $(getSpanFilas).removeClass("oculto");
@@ -3101,6 +3140,7 @@ function cambiarModo(nuevoModo) {
             getBtnAnchoBordes.style.display = "none";
             getBtnRadioBordes.style.display = "none";
             getBtnOpacidad.style.display = "none";
+            getBtnSombras.style.display = "none";
             getBtnDeshacer.style.display = "none";
             //getSpanFilas.style.display = "none";
             $(getSpanFilas).addClass("oculto");
@@ -3161,6 +3201,17 @@ function cambiarModo(nuevoModo) {
             getBtnRnd.style.display = "none";
             getBtnOpuesto.style.display = "none";
             showSnackbar("Modo Editor de Opacidad");
+            break;
+        case "sombras":
+            // agrega la clase seleccionado al btn del modo actual                    
+            $(getBtnSombras).addClass("seleccionadoBtnModos");
+            getcolorPixel.style.display = "none";
+            getBtnRGB.style.display = "none";
+            getBtnHex.style.display = "none";
+            getBtnGallery.style.display = "none";
+            getBtnRnd.style.display = "none";
+            getBtnOpuesto.style.display = "none";
+            showSnackbar("Modo Editor de Sombras");
             break;
         case "radio":
             // agrega la clase seleccionado al btn del modo actual                    
@@ -3577,7 +3628,19 @@ getBtnOpacidad.onclick = function () {
         // en modo opacidad se ve la respectiva flecha en el btn opacidad
     }
 }
-
+// para ajustar la opacidad
+getBtnSombras.onclick = function () {
+    if (modoActual == "sombras") {
+        // está en modo sombras, entonces se puede ajustar el estilo
+        modalActual = "sombras";
+        //muestra el modal
+        showModal();
+    } else {
+        // pasa a modo sombras
+        cambiarModo("sombras");
+        // en modo sombras se ve la respectiva flecha en el btn sombras
+    }
+}
 // para definir tipo de borde
 // incluido el tipo "none"
 getBtnTipoBorde.onclick = function () {
@@ -4221,19 +4284,19 @@ function showInfoTemporal() {
         // lo posiciona
         infoTemp.style.marginLeft = -infoTemp.offsetWidth / 2 + "px";
         infoTemp.style.top = 40 + getPaletaArriba.offsetHeight + "px";        
-    }, 2000);
+    }, 500);
     // opacidad 1 para que se vea, css transition 0.5 seg
     timerOpacAumTemporal = setTimeout(function () {
         infoTemp.style.opacity = "1";
-    }, 2020); 
+    }, 520); 
     // opacidad 0 para que se empiece a ocultar
     timerOpacDismTemporal = setTimeout(function () {
         infoTemp.style.opacity = "0";
-    }, 4520);
+    }, 3020);
     // lo cierra
     timerCerrarTemporal = setTimeout(function () {
         infoTemp.style.display = "none";        
-    }, 5020);  
+    }, 3520);  
 }
 //***********************************
 // FUNCIÓN QUE ajusta todo si está desocupado

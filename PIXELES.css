@@ -949,10 +949,63 @@ html, body {
     text-align: center;
     font-weight: bold;
 }
+#muestraSombras {
+    /* Rounded corners iniciales */
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    /*---*/
+    border: 3px solid #990000;
+    margin: 12px auto 24px auto;
+    padding: 0;
+    width: 100px;
+    height: 100px;
+    background-color: #009900;
+    color: #ff66ff;
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    /*centrar verticalmente*/
+    /* BROWSER DEFINITION */
+    display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox; /* TWEENER - IE 10 */
+    display: -webkit-flex; /* NEW - Chrome */
+    /* W3C DEFINITION */
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+}
+#pInfoSombras {
+    margin: 12px 0 12px 4px;
+    color: purple;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    width: 100%;
+    text-align:left;
+}
+#selectSombras {
+    margin: 12px 2px 24px 2px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    outline: none;
+    width: 100%;
+    max-width: 100%;
+    padding: 12px 20px;
+    border: none;
+    background-color: #ffe6ff;
+    font-size: larger;
+}
+    #selectSombras:focus {
+        background-color: lavender !important;
+    }
 #contMuestrasOpacidad {
     margin: 12px 0 12px 0;
-    text-align:center;
-    width:100%;
+    text-align: center;
+    width: 100%;
     white-space: nowrap;
     font-size: 0;
     overflow: auto;
@@ -1104,6 +1157,11 @@ html, body {
     margin-right: 5px;
     display: none;
 }
+#icoSombrasFlecha {
+    margin-left: 2px;
+    margin-right: 5px;
+    display: none;
+}
 #icoExtraerFlecha {
     margin-left: 2px;
     margin-right: 5px;
@@ -1143,6 +1201,16 @@ html, body {
     min-width: 83px !important;
     width: 83px !important;
 }
+/* para dar cabida a la flechita y la info de las sombras */
+#BtnSombras.seleccionadoBtnModos {
+    min-width: 83px !important;
+    width: 83px !important;
+}
+/* para dar cabida a la flechita de color lienzo */
+#BtnColorLienzo.seleccionadoBtnModos {
+    min-width: 56px !important;
+    width: 56px !important;
+}
 /* para dar cabida a la flechita y la info de Extraer*/
 #BtnExtraerColor.seleccionadoBtnModos {
     min-width: 101px !important;
@@ -1166,6 +1234,15 @@ html, body {
     font-family: Consolas, Courier New, Courier, monospace;
     font-size: 0.95em;
 }
+/* la info de las sombras */
+#spanInfoSombras {
+    margin-left: 4px;
+    margin-right: 3px;
+    display: none;
+    /* texto variable, fuente monoespaciada */
+    font-family: Consolas, Courier New, Courier, monospace;
+    font-size: 0.95em;
+}
 /* la info de Extraer */
 #spanInfoExtraer {
     margin-left: 4px;
@@ -1175,12 +1252,8 @@ html, body {
     font-family: Consolas, Courier New, Courier, monospace;
     font-size: 0.95em;
 }
-/* para dar cabida a la flechita */
-#BtnColorLienzo.seleccionadoBtnModos {
-    min-width: 56px !important;
-    width: 56px !important;
-}
-.seleccionadoBtnModos #icoExtraerFlecha, .seleccionadoBtnModos #icoCircularFlecha, .seleccionadoBtnModos #icoOpacidadFlecha , .seleccionadoBtnModos #icoLienzoFlecha, .seleccionadoBtnModos #spanInfoRadio, .seleccionadoBtnModos #spanInfoOpacidad , .seleccionadoBtnModos #spanInfoExtraer, .seleccionadoBtnModos #icoColorBordeFlecha {
+
+.seleccionadoBtnModos #icoExtraerFlecha, .seleccionadoBtnModos #icoCircularFlecha, .seleccionadoBtnModos #icoOpacidadFlecha , .seleccionadoBtnModos #icoSombrasFlecha , .seleccionadoBtnModos #icoLienzoFlecha, .seleccionadoBtnModos #spanInfoRadio, .seleccionadoBtnModos #spanInfoOpacidad, .seleccionadoBtnModos #spanInfoSombras , .seleccionadoBtnModos #spanInfoExtraer, .seleccionadoBtnModos #icoColorBordeFlecha {
     display: inline-block !important;
 }
 
@@ -2852,6 +2925,10 @@ input[type=range] {
 #checkOpacidadGlobal {
     text-align: left;
     margin: 26px 4px 12px 24px;
+}
+#checkSombrasGlobal {
+    text-align: left;
+    margin: 8px 4px 12px 24px;
 }
 /* The container */
 .contenedorCheckbox {

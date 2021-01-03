@@ -61,6 +61,27 @@
             </div>
             <div class="modal-body" id="modalBody">
                 <!-- cada marco es un uso del Modal -->
+                <!-- selector de sombras -->
+                <div id="marcoSombras" class="marco">                    
+                    <div id="muestraSombras"></div>
+                    <p id="pInfoSombras">Seleccione el estilo de sombras:</p>
+                    <select id="selectSombras" title="Estilo de sombras" onchange="actualizaSombras()">
+                        <option value="s0000" selected="">Sin sombras</option>
+                        <option value="s1000">Arriba</option>
+                        <option value="s0100">Derecha</option>
+                        <option value="s0010">Abajo</option>
+                        <option value="s0001">Izquierda</option>
+                        <option value="s1001">Arriba e izquierda</option>
+                        <option value="s1100">Arriba y derecha</option>
+                        <option value="s0110">Abajo y derecha</option>
+                        <option value="s0011">Abajo e izquierda</option>
+                    </select>
+                    <label class="contenedorCheckbox" id="checkSombrasGlobal">
+                        Aplicar a todo
+                        <input type="checkbox" id="myCheckSombrasGlobal">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
                 <!-- selector de opacidad -->
                 <div id="marcoOpacidad" class="marco">
                     <div id="contMuestrasOpacidad">
@@ -716,6 +737,7 @@
         <button id="BtnColorRejilla" title="Color de borde"><i id="icoColorBorde" class="fas fa-tint"></i><i id="icoColorBordeFlecha" class="fas fa-caret-down"></i></button>        
         <button id="BtnRadioBordes" title="Radio del borde"><i id="icoCircular" class="far fa-circle"></i><span id="spanInfoRadio">50%</span><i id="icoCircularFlecha" class="fas fa-caret-down"></i></button>        
         <button id="BtnOpacidad" title="Opacidad"><i id="icoOpacidad" class="fas fa-adjust"></i><span id="spanInfoOpacidad">50%</span><i id="icoOpacidadFlecha" class="fas fa-caret-down"></i></button>        
+        <button id="BtnSombras" title="Sombras"><i id="icoSombras" class="fas fa-sun"></i><span id="spanInfoSombras"></span><i id="icoSombrasFlecha" class="fas fa-caret-down"></i></button>
         <button id="BtnRellenar" title="Pintar todos"><span id="relleno"></span><i class="fas fa-fill-drip"></i></button>
         <button id="BtnColorLienzo" title="Color del lienzo"><i class="fas fa-paint-roller"></i><i id="icoLienzoFlecha" class="fas fa-caret-down"></i></button>        
         <span id="spanFilas">Filas</span>
