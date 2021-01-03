@@ -94,6 +94,7 @@ var modalActual = "ninguno";
 var miBodyScroll;
 var miDocumentScroll;
 //para guardar la última acción
+var lastOpacidad = 1;
 var lastRadioBorde = "0%";
 var lastAction;
 var lastIndexFiltro;
@@ -103,6 +104,7 @@ var lastID;
 var lastArrayID = [];
 var lastArrayColor = [];
 var lastArrayRadio = [];
+var lastArrayOpacidad = [];
 var lastArrayLienzo = [];
 var lastArrayColorBordes = [];
 var lastFondoAplicado;
@@ -998,7 +1000,54 @@ function aplicarLienzoGlobal() {
 function aceptarModal() {
     switch (modalActual) {
         case "opacidad":
-            showSnackbar("En construcción...");
+            //valida, porque en ie 9 input range se muestra como campo de texto
+            var nuevo = sliderOpacidad.value;
+            nuevo = Number(nuevo);
+            var pos = decValues.indexOf(nuevo);
+            if (pos == -1 || pos > 100) {
+                nuevo = 100;
+            } else {
+                nuevo = decValues[pos];
+            }
+            // el nuevo valor            
+            opacidad = nuevo / 100;      
+            // la info junto al botón
+            getSpanInfoOpacidad.innerHTML = nuevo + "%";
+            // ahora decide si la aplica individualmente o a todos
+            var decideOpacidadGlobal = document.getElementById("myCheckOpacidadGlobal").checked;
+            if (decideOpacidadGlobal == false) {
+                // ya asignó el valor, se aplicará al hacer click en cada celda
+                // informa y sale
+                // nada que deshacer
+                showSnackbar("Opacidad aplicada al hacer click: " + nuevo + "%");
+                break;
+            }
+            // en este punto sabemos que se aplicará a todos...
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia                
+                var i;
+                //debe guardar las opacidades y los id      
+                lastAction = "CambiarOpacidadGlobal";
+                lastArrayOpacidad.length = 0;
+                lastArrayID.length = 0;
+                //recorre todo el array y les aplica la opacidad actual
+                for (i = 0; i < getColumnas.length; i++) {
+                    //guardar los id y los bordes al mismo tiempo que recorre los cuadritos
+                    lastArrayID[lastArrayID.length] = getColumnas[i].id;
+                    lastArrayOpacidad[lastArrayOpacidad.length] = getColumnas[i].style.opacity;                    
+                    getColumnas[i].style.opacity = opacidad;
+                }
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+                // ajusta todo
+                ajustesResize();
+                showSnackbar("Opacidad global aplicada: " + nuevo + "%");
+                // puede deshacer
+                estadoBtnDeshacer(true, "Deshacer cambio global de opacidad");
+            }, 0);  
             break;
         case "colorBordes":            
             // dice "yo me encargo"
@@ -1318,10 +1367,12 @@ function showModal() {
             document.getElementById("spanInfoModal").innerHTML = "Utilice el control para ajustar la opacidad. Puede aplicar el nivel seleccionado de opacidad individualmente o a todos los pixeles.";
             // LA MUESTRA INDICA la opacidad actual
             $("#muestraOpacidad").css("opacity", opacidad);
-            getMuestraOpacidad.innerHTML = opacidad * 100 + "%";
-            getPMuestraOpacidad.innerHTML = opacidad * 100 + "%";
-            // ajusta el slider
-            sliderOpacidad.value = opacidad * 100;
+            var opacActual = opacidad * 100;
+            opacActual = opacActual.toFixed(0); // sin decimales
+            getMuestraOpacidad.innerHTML = opacActual + "%";
+            getPMuestraOpacidad.innerHTML = opacActual + "%";
+            // ajusta el slider, sin decimales, de 0 a 100            
+            sliderOpacidad.value = opacActual;
             // por defecto, será global
             document.getElementById("myCheckOpacidadGlobal").checked = true;
             // para animarla al cerrar: opacidad ajustada
@@ -2304,7 +2355,14 @@ function hacerClick(celda) {
     
     switch (modoActual) {
         case "opacidad":
-            showSnackbar("En construcción...");
+            // guarda primero
+            lastID = celda;
+            lastOpacidad = miCuadrito.style.opacity;
+            lastAction = "CambiarOpacidadIndividual";
+            // cambia la opacidad de la celda
+            miCuadrito.style.opacity = opacidad;            
+            // activa el botón deshacer
+            estadoBtnDeshacer(true, "Deshacer opacidad");
             break;
         case "libre":
             //modo selección libre
@@ -2475,6 +2533,8 @@ function crearCuadritos() {
             miColumna.style.MozBorderRadius = "0%";
             miColumna.style.webkitBorderRadius = "0%";
             miColumna.style.borderRadius = "0%";
+            // opacidad inicial es 1
+            miColumna.style.opacity = "1";
             // para gestionar el color de su respectivo lienzo, parent
             miColumna.dataset.colorlienzo = "#ffffff";
             // para gestionar su color de bordes
@@ -3691,6 +3751,33 @@ getBtnDeshacer.onclick = function () {
             // deshace lo pintado
             document.getElementById(lastID).style.backgroundColor = lastColor;
             mensaje = "Se deshizo la pincelada";
+            break;
+        case "CambiarOpacidadIndividual":
+            // deshace la opacidad
+            document.getElementById(lastID).style.opacity = lastOpacidad;
+            mensaje = "Se deshizo la opacidad";
+            break;
+        case "CambiarOpacidadGlobal":
+            // deshace la opacidad de todos los afectados
+            mensaje = "Se deshizo cambio de opacidad global";
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia                
+                var i;
+                var miElemOpacidad;
+                var miLastOpacidad;
+                //recorre todo el array y les aplica la opacidad guardada
+                for (i = 0; i < lastArrayID.length; i++) {
+                    miElemOpacidad = document.getElementById(lastArrayID[i]);
+                    miLastOpacidad = lastArrayOpacidad[i]; 
+                    miElemOpacidad.style.opacity = miLastOpacidad;
+                }
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+
+            }, 0);  
             break;
         case "borrar":
             // deshace lo borrado

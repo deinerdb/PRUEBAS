@@ -1180,7 +1180,7 @@ html, body {
     min-width: 56px !important;
     width: 56px !important;
 }
-.seleccionadoBtnModos #icoExtraerFlecha, .seleccionadoBtnModos #icoCircularFlecha, .seleccionadoBtnModos #icoLienzoFlecha, .seleccionadoBtnModos #spanInfoRadio, .seleccionadoBtnModos #spanInfoOpacidad , .seleccionadoBtnModos #spanInfoExtraer, .seleccionadoBtnModos #icoColorBordeFlecha {
+.seleccionadoBtnModos #icoExtraerFlecha, .seleccionadoBtnModos #icoCircularFlecha, .seleccionadoBtnModos #icoOpacidadFlecha , .seleccionadoBtnModos #icoLienzoFlecha, .seleccionadoBtnModos #spanInfoRadio, .seleccionadoBtnModos #spanInfoOpacidad , .seleccionadoBtnModos #spanInfoExtraer, .seleccionadoBtnModos #icoColorBordeFlecha {
     display: inline-block !important;
 }
 
