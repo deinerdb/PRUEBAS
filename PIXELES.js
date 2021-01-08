@@ -2558,7 +2558,8 @@ function crearCuadritos() {
             // crea cuadrito
             miColumna = document.createElement("DIV");
             // la clase de los cuadritos es columna
-            miColumna.setAttribute("class", "columna");
+            // la clase por defecto de sombras es s0000 (sin sombras)
+            miColumna.setAttribute("class", "columna s0000");
             // llevan id
             miID = "f" + fila + "c" + columna;
             miColumna.id = miID;

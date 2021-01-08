@@ -18,6 +18,14 @@ html, body {
     height: 100% !important;
     min-height: 100%;    
 }
+/* SOMBRAS */
+/* clases para las sombras */
+.s0000 {
+    /* SIN SOMBRA */
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;    
+}
 
 /* The close button */
 .closeTemporal {
