@@ -88,10 +88,10 @@ getSpanInfoRadio.innerHTML = radioBorde;
 var opacidad = 0.5;
 // la info junto al botón opacidad
 getSpanInfoOpacidad.innerHTML = opacidad * 100 + "%";
-// sombra por defecto
-var sombras = "s0000";
-// info sombras
-$("#spanInfoSombras").attr("class", "s0000");
+// sombra por defecto abajo izquierda
+var sombras = "s0011";
+// info sombras ajustado
+$(getSpanInfoSombras).attr("class", sombras);
 // la info junto al botón extraer
 var ExtraerDesde = "Pixel"; // Pixel, Lienzo, Bordes
 getSpanInfoExtraer.innerHTML = ExtraerDesde; //  por defecto
@@ -327,7 +327,8 @@ function cancelFullScreen() {
 var getMuestraSombras = document.getElementById("muestraSombras");
 // cambia las sombras, llamada desde html en el selector
 function actualizaSombras() {
-    // 
+    // ajusta la muestra
+    getMuestraSombras.setAttribute("class", getSelectSombras.value);
 }
 // opacidad
 //el input range de la opacidad
@@ -1383,11 +1384,11 @@ function showModal() {
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-sun'></i> Sombras";
             document.getElementById("spanInfoModal").innerHTML = "Seleccione un estilo de sombras de la lista y aplíquelo individualmente o a todos los pixeles.";
             // LA MUESTRA INDICA la sombra actual
-            $("#muestraSombras").attr("class", sombras);  
+            $(getMuestraSombras).attr("class", sombras);  
             // la lista indica la sombra actual
             getSelectSombras.value = sombras;
-            // por defecto, será global
-            document.getElementById("myCheckSombrasGlobal").checked = true;
+            // por defecto, no será global
+            document.getElementById("myCheckSombrasGlobal").checked = false;
             // para animarla al cerrar: opacidad ajustada
             restauraOpacidad = true;
             $(getContenedor).css("opacity", "0");

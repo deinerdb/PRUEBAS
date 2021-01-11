@@ -26,7 +26,102 @@ html, body {
     -webkit-box-shadow: none;
     box-shadow: none;    
 }
-
+#spanInfoSombras.s0000 {
+    border: none;
+}
+.s1000 {
+    /* SOMBRA ARRIBA */
+    /* NEGRA */
+    -moz-box-shadow: 0em 0.125em 0.25em 0 #000000 inset;
+    -webkit-box-shadow: 0em 0.125em 0.25em 0 #000000 inset;
+    box-shadow: 0em 0.125em 0.25em 0 #000000 inset;
+    /* NEGRA CON TRANSPARENCIA */
+    -moz-box-shadow: 0em 0.125em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
+    -webkit-box-shadow: 0em 0.125em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
+    box-shadow: 0em 0.125em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
+}
+.s0100 {
+    /* SOMBRA DERECHA */
+    /* NEGRA */
+    -moz-box-shadow: -0.125em 0em 0.25em 0 #000000 inset;
+    -webkit-box-shadow: -0.125em 0em 0.25em 0 #000000 inset;
+    box-shadow: -0.125em 0em 0.25em 0 #000000 inset;
+    /* NEGRA CON TRANSPARENCIA */
+    -moz-box-shadow: -0.125em 0em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
+    -webkit-box-shadow: -0.125em 0em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
+    box-shadow: -0.125em 0em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
+}
+.s0010 {
+    /* SOMBRA ABAJO */
+    /* NEGRA */
+    -moz-box-shadow: 0em -0.125em 0.25em 0 #000000 inset;
+    -webkit-box-shadow: 0em -0.125em 0.25em 0 #000000 inset;
+    box-shadow: 0em -0.125em 0.25em 0 #000000 inset;
+    /* NEGRA CON TRANSPARENCIA */
+    -moz-box-shadow: 0em -0.125em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
+    -webkit-box-shadow: 0em -0.125em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
+    box-shadow: 0em -0.125em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
+}
+.s0001 {
+    /* SOMBRA IZQUIERDA */
+    /* NEGRA */
+    -moz-box-shadow: 0.125em 0em 0.25em 0 #000000 inset;
+    -webkit-box-shadow: 0.125em 0em 0.25em 0 #000000 inset;
+    box-shadow: 0.125em 0em 0.25em 0 #000000 inset;
+    /* NEGRA CON TRANSPARENCIA */
+    -moz-box-shadow: 0.125em 0em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
+    -webkit-box-shadow: 0.125em 0em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
+    box-shadow: 0.125em 0em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
+}
+.s1001 {
+    /* SOMBRA ARRIBA IZQUIERDA */
+    /* NEGRA */
+    -moz-box-shadow: 0.125em 0.125em 0.25em 0 #000000 inset;
+    -webkit-box-shadow: 0.125em 0.125em 0.25em 0 #000000 inset;
+    box-shadow: 0.125em 0.125em 0.25em 0 #000000 inset;
+    /* NEGRA CON TRANSPARENCIA */
+    -moz-box-shadow: 0.125em 0.125em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
+    -webkit-box-shadow: 0.125em 0.125em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
+    box-shadow: 0.125em 0.125em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
+}
+.s1100 {
+    /* SOMBRA ARRIBA DERECHA */
+    /* NEGRA */
+    -moz-box-shadow: -0.125em 0.125em 0.25em 0 #000000 inset;
+    -webkit-box-shadow: -0.125em 0.125em 0.25em 0 #000000 inset;
+    box-shadow: -0.125em 0.125em 0.25em 0 #000000 inset;
+    /* NEGRA CON TRANSPARENCIA */
+    -moz-box-shadow: -0.125em 0.125em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
+    -webkit-box-shadow: -0.125em 0.125em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
+    box-shadow: -0.125em 0.125em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
+}
+.s0110 {
+    /* SOMBRA ABAJO DERECHA */
+    /* NEGRA */
+    -moz-box-shadow: -0.125em -0.125em 0.25em 0 #000000 inset;
+    -webkit-box-shadow: -0.125em -0.125em 0.25em 0 #000000 inset;
+    box-shadow: -0.125em -0.125em 0.25em 0 #000000 inset;
+    /* NEGRA CON TRANSPARENCIA */
+    -moz-box-shadow: -0.125em -0.125em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
+    -webkit-box-shadow: -0.125em -0.125em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
+    box-shadow: -0.125em -0.125em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
+}
+.s0011 {
+    /* SOMBRA ABAJO IZQUIERDA */
+    /* NEGRA */
+    -moz-box-shadow: 0.125em -0.125em 0.25em 0 #000000 inset;
+    -webkit-box-shadow: 0.125em -0.125em 0.25em 0 #000000 inset;
+    box-shadow: 0.125em -0.125em 0.25em 0 #000000 inset;
+    /* NEGRA CON TRANSPARENCIA */
+    -moz-box-shadow: 0.125em -0.125em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
+    -webkit-box-shadow: 0.125em -0.125em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
+    box-shadow: 0.125em -0.125em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
+}
+#spanInfoSombras.s0011 {
+    /* ABAJO IZQUIERDA */
+    border-left: 3px solid #595959;
+    border-bottom: 3px solid #595959;
+}
 /* The close button */
 .closeTemporal {
     margin-left: 8px;
@@ -962,6 +1057,7 @@ html, body {
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
+    
     /*---*/
     border: 3px solid #990000;
     margin: 12px auto 24px auto;
@@ -970,21 +1066,7 @@ html, body {
     height: 100px;
     background-color: #009900;
     color: #ff66ff;
-    font-size: 20px;
-    text-align: center;
-    font-weight: bold;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    /*centrar verticalmente*/
-    /* BROWSER DEFINITION */
-    display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
-    display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
-    display: -ms-flexbox; /* TWEENER - IE 10 */
-    display: -webkit-flex; /* NEW - Chrome */
-    /* W3C DEFINITION */
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    flex-direction: column;
+    font-size: 80px;
 }
 #pInfoSombras {
     margin: 12px 0 12px 4px;
@@ -1206,13 +1288,13 @@ html, body {
 }
 /* para dar cabida a la flechita y la info de la opacidad */
 #BtnOpacidad.seleccionadoBtnModos {
-    min-width: 83px !important;
-    width: 83px !important;
+    min-width: 87px !important;
+    width: 87px !important;
 }
 /* para dar cabida a la flechita y la info de las sombras */
 #BtnSombras.seleccionadoBtnModos {
-    min-width: 83px !important;
-    width: 83px !important;
+    min-width: 84px !important;
+    width: 84px !important;
 }
 /* para dar cabida a la flechita de color lienzo */
 #BtnColorLienzo.seleccionadoBtnModos {
@@ -1244,9 +1326,15 @@ html, body {
 }
 /* la info de las sombras */
 #spanInfoSombras {
-    margin-left: 4px;
-    margin-right: 3px;
+    margin-left: 6px;
+    margin-right: 5px;
+    margin-top: auto;
+    margin-bottom: auto;
     display: none;
+    border: none;
+    width: 16px;
+    height: 16px;
+    background-color: #ffffff;
     /* texto variable, fuente monoespaciada */
     font-family: Consolas, Courier New, Courier, monospace;
     font-size: 0.95em;
