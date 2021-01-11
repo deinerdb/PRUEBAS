@@ -1334,10 +1334,10 @@ html, body {
     border: none;
     width: 16px;
     height: 16px;
+    font-size: 12.8px; /* 80% del tamáño, para las clases de sombra */
     background-color: #ffffff;
     /* texto variable, fuente monoespaciada */
-    font-family: Consolas, Courier New, Courier, monospace;
-    font-size: 0.95em;
+    font-family: Consolas, Courier New, Courier, monospace;    
 }
 /* la info de Extraer */
 #spanInfoExtraer {
