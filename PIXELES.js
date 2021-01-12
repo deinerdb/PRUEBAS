@@ -1028,7 +1028,7 @@ function aceptarModal() {
                 // informa y sale
                 // nada que deshacer
                 //showSnackbar("Sombra aplicada al hacer click: " + $("#selectSombras option:selected").text());
-                showSnackbar("Sombra aplicada al hacer click: " + getSelectSombras.options[getSelectSombras.selectedIndex].text);                
+                showSnackbar("Sombras aplicadas al hacer click: " + getSelectSombras.options[getSelectSombras.selectedIndex].text);                
                 break;
             }
             // en este punto sabemos que se aplicará a todos...
@@ -1057,7 +1057,7 @@ function aceptarModal() {
                 // otras tareas
                 // ajusta todo
                 ajustesResize();
-                showSnackbar("Sombras aplicadas a todos los bordes: " + getSelectSombras.options[getSelectSombras.selectedIndex].text);
+                showSnackbar("Sombra global aplicada: " + getSelectSombras.options[getSelectSombras.selectedIndex].text);
                 // puede deshacer
                 estadoBtnDeshacer(true, "Deshacer cambio global de sombras");
             }, 0); 
