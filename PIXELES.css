@@ -40,6 +40,10 @@ html, body {
     -webkit-box-shadow: 0em 0.125em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
     box-shadow: 0em 0.125em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
 }
+#spanInfoSombras.s1000 {
+    /* ARRIBA */
+    border-top: 2.5px solid #595959;;
+}
 .s0100 {
     /* SOMBRA DERECHA */
     /* NEGRA */
@@ -50,6 +54,10 @@ html, body {
     -moz-box-shadow: -0.125em 0em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
     -webkit-box-shadow: -0.125em 0em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
     box-shadow: -0.125em 0em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
+}
+#spanInfoSombras.s0100 {
+    /* DERECHA */
+    border-right: 2.5px solid #595959;
 }
 .s0010 {
     /* SOMBRA ABAJO */
@@ -62,6 +70,10 @@ html, body {
     -webkit-box-shadow: 0em -0.125em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
     box-shadow: 0em -0.125em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
 }
+#spanInfoSombras.s0010 {
+    /* ARRIBA ABAJO */
+    border-bottom: 2.5px solid #595959;
+}
 .s0001 {
     /* SOMBRA IZQUIERDA */
     /* NEGRA */
@@ -72,6 +84,10 @@ html, body {
     -moz-box-shadow: 0.125em 0em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
     -webkit-box-shadow: 0.125em 0em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
     box-shadow: 0.125em 0em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
+}
+#spanInfoSombras.s0001 {
+    /* IZQUIERDA */    
+    border-left: 2.5px solid #595959;
 }
 .s1001 {
     /* SOMBRA ARRIBA IZQUIERDA */
@@ -84,6 +100,11 @@ html, body {
     -webkit-box-shadow: 0.125em 0.125em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
     box-shadow: 0.125em 0.125em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
 }
+#spanInfoSombras.s1001 {
+    /* ARRIBA IZQUIERDA */
+    border-top: 2.5px solid #595959;
+    border-left: 2.5px solid #595959;
+}
 .s1100 {
     /* SOMBRA ARRIBA DERECHA */
     /* NEGRA */
@@ -95,6 +116,11 @@ html, body {
     -webkit-box-shadow: -0.125em 0.125em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
     box-shadow: -0.125em 0.125em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
 }
+#spanInfoSombras.s1100 {
+    /* ARRIBA DERECHA */
+    border-right: 2.5px solid #595959;
+    border-top: 2.5px solid #595959;
+}
 .s0110 {
     /* SOMBRA ABAJO DERECHA */
     /* NEGRA */
@@ -105,6 +131,11 @@ html, body {
     -moz-box-shadow: -0.125em -0.125em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
     -webkit-box-shadow: -0.125em -0.125em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
     box-shadow: -0.125em -0.125em 0.25em 0 rgba(0, 0, 0, 0.6) inset;
+}
+#spanInfoSombras.s0110 {
+    /* ABAJO DERECHA */
+    border-right: 2.5px solid #595959;
+    border-bottom: 2.5px solid #595959;
 }
 .s0011 {
     /* SOMBRA ABAJO IZQUIERDA */
@@ -119,8 +150,8 @@ html, body {
 }
 #spanInfoSombras.s0011 {
     /* ABAJO IZQUIERDA */
-    border-left: 3px solid #595959;
-    border-bottom: 3px solid #595959;
+    border-left: 2.5px solid #595959;
+    border-bottom: 2.5px solid #595959;
 }
 /* The close button */
 .closeTemporal {
@@ -1335,9 +1366,7 @@ html, body {
     width: 16px;
     height: 16px;
     font-size: 12.8px; /* 80% del tamáño, para las clases de sombra */
-    background-color: #ffffff;
-    /* texto variable, fuente monoespaciada */
-    font-family: Consolas, Courier New, Courier, monospace;    
+    background-color: #ffffff;    
 }
 /* la info de Extraer */
 #spanInfoExtraer {

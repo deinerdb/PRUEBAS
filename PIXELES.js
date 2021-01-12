@@ -103,6 +103,7 @@ var miDocumentScroll;
 //para guardar la última acción
 var lastOpacidad = 1;
 var lastRadioBorde = "0%";
+var lastSombras = "s0000";
 var lastAction;
 var lastIndexFiltro;
 var actualIndexFiltro;
@@ -111,6 +112,7 @@ var lastID;
 var lastArrayID = [];
 var lastArrayColor = [];
 var lastArrayRadio = [];
+var lastArraySombras = [];
 var lastArrayOpacidad = [];
 var lastArrayLienzo = [];
 var lastArrayColorBordes = [];
@@ -328,7 +330,7 @@ var getMuestraSombras = document.getElementById("muestraSombras");
 // cambia las sombras, llamada desde html en el selector
 function actualizaSombras() {
     // ajusta la muestra
-    getMuestraSombras.setAttribute("class", getSelectSombras.value);
+    getMuestraSombras.setAttribute("class", getSelectSombras.value);    
 }
 // opacidad
 //el input range de la opacidad
@@ -1015,7 +1017,50 @@ function aplicarLienzoGlobal() {
 function aceptarModal() {
     switch (modalActual) {
         case "sombras":
-            showSnackbar("Pendiente...");
+            // captura el valor nuevo del select
+            sombras = getSelectSombras.value;           
+            // la info junto al botón
+            getSpanInfoSombras.setAttribute("class", sombras);
+            // ahora decide si lo aplica individualmente o a todos
+            var decideSombrasGlobal = document.getElementById("myCheckSombrasGlobal").checked;
+            if (decideSombrasGlobal == false) {
+                // ya asignó el valor, se aplicará al hacer click en cada celda
+                // informa y sale
+                // nada que deshacer
+                //showSnackbar("Sombra aplicada al hacer click: " + $("#selectSombras option:selected").text());
+                showSnackbar("Sombra aplicada al hacer click: " + getSelectSombras.options[getSelectSombras.selectedIndex].text);                
+                break;
+            }
+            // en este punto sabemos que se aplicará a todos...
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia
+                var i;
+                //debe guardar los estilos de sombras y los id      
+                lastAction = "CambiarSombrasGlobal";
+                lastArraySombras.length = 0;
+                lastArrayID.length = 0;
+                //recorre todo el array y les aplica el estilo de sombras
+                for (i = 0; i < getColumnas.length; i++) {
+                    //guardar los id y los estilos de sombras al mismo tiempo que recorre los cuadritos
+                    lastArrayID[lastArrayID.length] = getColumnas[i].id;
+                    lastArraySombras[lastArraySombras.length] = getColumnas[i].dataset.sombras;
+                    getColumnas[i].dataset.sombras = sombras;
+                    // remueve todas las clases de sombras
+                    $(getColumnas[i]).removeClass("s0000 s1000 s0100 s0010 s0001 s1001 s1100 s0110 s0011");
+                    // agrega la clase actual de sombras
+                    $(getColumnas[i]).addClass(sombras);                    
+                }
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+                // ajusta todo
+                ajustesResize();
+                showSnackbar("Sombras aplicadas a todos los bordes: " + getSelectSombras.options[getSelectSombras.selectedIndex].text);
+                // puede deshacer
+                estadoBtnDeshacer(true, "Deshacer cambio global de sombras");
+            }, 0); 
             break;
         case "opacidad":
             //valida, porque en ie 9 input range se muestra como campo de texto
@@ -2387,7 +2432,20 @@ function hacerClick(celda) {
     
     switch (modoActual) {
         case "sombras":
-            showSnackbar("Pendiente...");
+            // modo editor de sombras
+            // guarda primero
+            lastID = celda;
+            // usemos miCuadrito                                  
+            lastSombras = miCuadrito.dataset.sombras;
+            lastAction = "CambiarSombrasCelda";
+            //ajusta el estilo de sombras de la celda
+            miCuadrito.dataset.sombras = sombras;            
+            // remueve todas las clases de sombras
+            $(miCuadrito).removeClass("s0000 s1000 s0100 s0010 s0001 s1001 s1100 s0110 s0011");
+            // agrega la clase actual de sombras
+            $(miCuadrito).addClass(sombras);     
+            // activa el botón deshacer
+            estadoBtnDeshacer(true, "Deshacer estilo de sombras");
             break;
         case "opacidad":
             // guarda primero
@@ -2564,6 +2622,8 @@ function crearCuadritos() {
             // llevan id
             miID = "f" + fila + "c" + columna;
             miColumna.id = miID;
+            // para la gestión de la sombra
+            miColumna.dataset.sombras = "s0000";
             // para la gestión del radio del borde
             miColumna.dataset.radio = "0%";
             miColumna.style.MozBorderRadius = "0%";
@@ -3776,6 +3836,41 @@ getBtnDeshacer.onclick = function () {
                 // otras tareas
 
             }, 0);  
+            break;
+        case "CambiarSombrasGlobal":
+            mensaje = "Se deshizo cambio de sombras global";
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia
+                var i;
+                var miElemSombras;
+                var miLastSombras;
+                //recorre todo el array y les aplica el estilo de sombras guardado         
+                for (i = 0; i < lastArrayID.length; i++) {
+                    miElemSombras = document.getElementById(lastArrayID[i]);
+                    miLastSombras = lastArraySombras[i];
+                    miElemSombras.dataset.sombras = miLastSombras;                    
+                    // remueve todas las clases de sombras
+                    $(miElemSombras).removeClass("s0000 s1000 s0100 s0010 s0001 s1001 s1100 s0110 s0011");
+                    // agrega la clase actual de sombras
+                    $(miElemSombras).addClass(miLastSombras);           
+                }
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+
+            }, 0);
+            break;
+        case "CambiarSombrasCelda":
+            var miElemSombras = document.getElementById(lastID);
+            // vuelve al estilo de sombras anterior el cuadrito que cambió            
+            miElemSombras.dataset.sombras = lastSombras;            
+            // remueve todas las clases de sombras
+            $(miElemSombras).removeClass("s0000 s1000 s0100 s0010 s0001 s1001 s1100 s0110 s0011");
+            // agrega la clase actual de sombras
+            $(miElemSombras).addClass(lastSombras);
+            mensaje = "Se deshizo estilo de sombras";
             break;
         case "CambiarRadioBordesGlobal":
             mensaje = "Se deshizo cambio de radio de bordes global";
