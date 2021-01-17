@@ -724,8 +724,8 @@ html, body {
 }
 /*--------*/
 /* fin acc */
-/* para el rgb */
-#icoMuestraRGB, #icoMuestraHex, #icoMuestraGallery {
+/* para rgb, hex, gallery, hsl... */
+#icoMuestraRGB, #icoMuestraHSL, #icoMuestraHex, #icoMuestraGallery {
     border: 2px double #ffffff !important;
     padding: 0 !important;
     background-color: #87888b;
@@ -745,7 +745,12 @@ html, body {
     -o-transition: color 0.7s;
     transition: color 0.7s;   
 }
-
+#hslCaption {
+    margin: 6px 0px;
+    font-weight: bold;
+    color: purple;
+    font-size: 0.98em;   
+}
 #contInfoGallery {
     margin: 6px 0px;
     font-weight: bold;
@@ -776,13 +781,23 @@ html, body {
     border-bottom-width: 30px;
     border-right-width: 14px;
 }
-
-
+#contenedorHSL {
+    padding: 2px 6px;
+    border: 6px solid #000000;
+    border-bottom-width: 30px;
+    border-right-width: 14px;
+}
 #rangoR, #rangoG, #rangoB {
     margin-top: 4px;
     margin-bottom:4px;
     float: left;
     width: 68%; /* The width is 80%, by default */    
+}
+#rangoH, #rangoS, #rangoL {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    float: left;
+    width: 68%; /* The width is 80%, by default */
 }
 .span-espacio {
     float: left;
@@ -797,7 +812,24 @@ html, body {
     margin: 4px 0px 4px 0px;    
     white-space: nowrap;    
 }
+.number-hsl-container {
+    float: left;
+    width: 30%; /* The width is 20%, by default */
+    text-align: center;
+    margin: 4px 0px 4px 0px;
+    white-space: nowrap;
+}
 .spanRGB {    
+    width: 20px;
+    min-width: 20px;
+    text-align: center;
+    padding: 0px;
+    margin: 0;
+    color: purple;
+    font-weight: bold;
+    font-family: Consolas, Courier New, Courier, monospace;
+}
+.spanHSL {
     width: 20px;
     min-width: 20px;
     text-align: center;
@@ -818,7 +850,17 @@ html, body {
     background-color: white;
     margin: 0;
 }
-
+.number-hsl {
+    font-family: Consolas, Courier New, Courier, monospace;
+    font-size: 17px;
+    max-width: 90%;
+    width: 90px;
+    min-width: 30%;
+    padding: 4px 2px;
+    color: black;
+    background-color: white;
+    margin: 0;
+}
     .number-rgb:focus {
         background-color: #dcdcdc;
         /*SOMBRA*/
@@ -826,13 +868,22 @@ html, body {
         -webkit-box-shadow: 2px 2px 1.5px #C0C0C0;
         box-shadow: 2px 2px 1.5px #C0C0C0;
     }
-
+    .number-hsl:focus {
+        background-color: #dcdcdc;
+        /*SOMBRA*/
+        -moz-box-shadow: 2px 2px 1.5px #C0C0C0;
+        -webkit-box-shadow: 2px 2px 1.5px #C0C0C0;
+        box-shadow: 2px 2px 1.5px #C0C0C0;
+    }
     .number-rgb:hover {
+        background-color: #dcdcdc;
+    }
+    .number-hsl:hover {
         background-color: #dcdcdc;
     }
 /* Use a media query to add a break point at 600px: */
 @media screen and (max-width:600px) {
-    #rangoR, #rangoG, #rangoB, .number-rgb-container {
+    #rangoR, #rangoG, #rangoB, .number-rgb-container, #rangoH, #rangoS, #rangoL, .number-hsl-container {
         float: none;
         width: 100%; /* The width is 100%, when the viewport is 600px or smaller */
     }
@@ -840,13 +891,14 @@ html, body {
         float: none;
         display: none; 
     }
-    .number-rgb {
+    .number-rgb, .number-hsl {
         min-width: 30%;
     }
-    .number-rgb-container {
+    .number-rgb-container, .number-hsl-container {
         text-align: left;
         padding-left: 8px;
     }
+
 }
 .contenedor-rgb-color {
     
@@ -858,10 +910,20 @@ html, body {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px; /* Rounded corners */
-    vertical-align: central;
-    
-   
+    vertical-align: central;    
 }
+.contenedor-hsl-color {
+    margin: 6px 0px;
+    padding: 6px;
+    background-color: #ffffff;
+    overflow: auto;
+    /* Rounded corners  */
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px; /* Rounded corners */
+    vertical-align: central;
+}
+/* bordes rojo, verde y azul */
 #contenedorR {
     border: 6px solid #ff0000;    
 }
@@ -873,7 +935,19 @@ html, body {
 #contenedorB {
     border: 6px solid #0000ff;    
 }
+/* inicialmente bordes grises */
+/* cambiarán dinámicamente */
+#contenedorH {
+    border: 6px solid #d3d3d3;
+}
 
+#contenedorS {
+    border: 6px solid #d3d3d3;
+}
+
+#contenedorL {
+    border: 6px solid #d3d3d3;
+}
 /* inicia clase seleccionado */
 .seleccionado {
     /* en lugar de una x se usa outline */
@@ -1312,10 +1386,23 @@ html, body {
     text-align: center;
 
 }
+/* TIENE TEXTO */
+#BtnRGB {
+    min-width: 70px !important;
+    width: 70px !important;
+    font-family: Consolas, Courier New, Courier, monospace;
+}
+/* TIENE TEXTO */
+#BtnHSL {
+    min-width: 70px !important;
+    width: 70px !important;
+    font-family: Consolas, Courier New, Courier, monospace;
+}
+
 /* para dar cabida a la flechita y la info del Radio*/
 #BtnRadioBordes.seleccionadoBtnModos {
-    min-width: 83px !important;    
-    width: 83px !important;    
+    min-width: 83px !important;
+    width: 83px !important;
 }
 /* para dar cabida a la flechita y la info de la opacidad */
 #BtnOpacidad.seleccionadoBtnModos {

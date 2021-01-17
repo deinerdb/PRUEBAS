@@ -61,6 +61,7 @@ var getBtnExpandirLibre = document.getElementById("BtnExpandirLibre");
 var getBtnPantallaCompleta = document.getElementById("BtnPantallaCompleta");
 var getcolorPixel = document.getElementById("colorPixel");
 var getBtnRGB = document.getElementById("BtnRGB");
+var getBtnHSL = document.getElementById("BtnHSL");
 var getBtnHex = document.getElementById("BtnHex");
 var getBtnGallery = document.getElementById("BtnGallery");
 var getBtnRnd = document.getElementById("BtnRnd");
@@ -693,7 +694,7 @@ function alturaModal() {
 // referencias están al inicio del script
 function ajustesResize() {    
     // para obtener anchos mínimos de botones al diseñar
-    //$("#BtnExtraerColor").attr("title", document.getElementById("BtnExtraerColor").offsetWidth);
+    //$("#BtnHSL").attr("title", document.getElementById("BtnHSL").offsetWidth);
     
     // ajusta el infoTemporal, solo si es visible    
     if (window.getComputedStyle(infoTemp).display === "block") {
@@ -745,9 +746,46 @@ function ajustesResize() {
                 }
             }
         }
-        if (modalActual == "rgb") { 
-            
-            // para definir margenes y centrar los elementos flotantes
+        if (modalActual == "hsl") {
+            // para definir márgenes y centrar los elementos flotantes
+            var marg = 0;
+            var margRango = 0;
+            // 0 inicialmente
+            $(".number-hsl-container").css("margin-top", "0px");
+            $(".number-hsl-container").css("margin-bottom", "0px");
+            $("#rangoH").css("margin-top", "0px");
+            $("#rangoH").css("margin-bottom", "0px");
+            $("#rangoS").css("margin-top", "0px");
+            $("#rangoS").css("margin-bottom", "0px");
+            $("#rangoL").css("margin-top", "0px");
+            $("#rangoL").css("margin-bottom", "0px");
+            if ($('.number-hsl-container').css("float") == "left") {
+                // centra verticalmente
+                marg = document.getElementsByClassName("contenedor-hsl-color")[0].scrollHeight - document.getElementsByClassName("number-hsl-container")[0].offsetHeight;
+                marg = marg / 2;
+                margRango = document.getElementsByClassName("contenedor-hsl-color")[0].scrollHeight - document.getElementById("rangoH").offsetHeight;
+                margRango = margRango / 2;
+                if (marg < 4 || isNaN(marg) == true) {
+                    marg = 4;
+                }
+                if (margRango < 4 || isNaN(margRango) == true) {
+                    margRango = 4;
+                }
+            } else {
+                marg = 8;
+                margRango = 8;
+            }
+            $(".number-hsl-container").css("margin-top", marg + "px");
+            $(".number-hsl-container").css("margin-bottom", marg + "px");
+            $("#rangoH").css("margin-top", margRango + "px");
+            $("#rangoH").css("margin-bottom", margRango + "px");
+            $("#rangoS").css("margin-top", margRango + "px");
+            $("#rangoS").css("margin-bottom", margRango + "px");
+            $("#rangoL").css("margin-top", margRango + "px");
+            $("#rangoL").css("margin-bottom", margRango + "px");
+        }
+        if (modalActual == "rgb") {             
+            // para definir márgenes y centrar los elementos flotantes
             var marg = 0;
             var margRango = 0; 
             // 0 inicialmente
@@ -758,20 +796,7 @@ function ajustesResize() {
             $("#rangoG").css("margin-top", "0px");
             $("#rangoG").css("margin-bottom", "0px");
             $("#rangoB").css("margin-top", "0px");
-            $("#rangoB").css("margin-bottom", "0px");
-            // compara las alturas
-            //var mayor;
-            //var alturaNumber = document.getElementsByClassName("number-rgb-container")[0].offsetHeight;
-            //var alturaRango = document.getElementById("rangoR").offsetHeight;
-            //if (alturaNumber >= alturaRango) {
-                //mayor = alturaNumber;
-            //} else {
-                //mayor = alturaRango;
-            //}
-            // le agrega los espacios necesarios
-            //mayor = 24 + mayor;
-            // ajusta altura de los contenedores
-            //$(".contenedor-rgb-color").css("height", mayor);
+            $("#rangoB").css("margin-bottom", "0px");        
             if ($('.number-rgb-container').css("float") == "left") {
                 // centra verticalmente
                 marg = document.getElementsByClassName("contenedor-rgb-color")[0].scrollHeight - document.getElementsByClassName("number-rgb-container")[0].offsetHeight;
@@ -787,8 +812,7 @@ function ajustesResize() {
             } else {
                 marg = 8;
                 margRango = 8;
-            }
-            //showSnackbar("m " + marg + " m ran " + margRango + " f " + $('.number-rgb-container').css("float"));
+            }            
             $(".number-rgb-container").css("margin-top", marg + "px");
             $(".number-rgb-container").css("margin-bottom", marg + "px"); 
             $("#rangoR").css("margin-top", margRango + "px");
@@ -1016,6 +1040,14 @@ function aplicarLienzoGlobal() {
 // depende de modalActual/
 function aceptarModal() {
     switch (modalActual) {
+        case "hsl":
+            showSnackbar("En desarrollo...");
+            // actualiza el color actual según el hsl seleccionado
+            // asigna el valor hexadecimal al input color
+            getcolorPixel.value = hexTemp;
+            // para otras actualizaciones
+            colorPixel();
+            break;
         case "sombras":
             // captura el valor nuevo del select
             sombras = getSelectSombras.value;           
@@ -1424,6 +1456,37 @@ function showModal() {
     // por defecto visible
     $("#infoModal").css("display", "block");
     switch (modalActual) {
+        case "hsl":
+            $("#marcoHSL").css("display", "block");
+            document.getElementById("modalTitle").innerHTML = "<i class='fas fa-sliders-h'></i> HSL: <i id = 'icoMuestraHSL' class='fas fa-square'></i>";
+            document.getElementById("spanInfoModal").innerHTML = "Use los controles de Ángulo (<strong>H</strong>ue), Saturación (<strong>S</strong>aturation) y Luminosidad (<strong>L</strong>ightness) para definir un color HSL";
+            // inicialmente hex es el color actual
+            hexTemp = colorActual;
+            // ES NECESARIO SINCRONIZAR LAS VARIABLES GLOBALES
+            //miR = rDesdeHex(colorActual);
+            //miG = gDesdeHex(colorActual);
+            //miB = bDesdeHex(colorActual);
+            // LOS RANGOS rangoR, rangoG Y rangoB  TOMAN LOS VALORES DEL COLOR ACTUAL                
+            //document.getElementById("rangoR").value = miR;
+            //document.getElementById("rangoG").value = miG;
+            //document.getElementById("rangoB").value = miB;
+            // LOS input number numberR numberG numberB  TOMAN LOS VALORES DEL COLOR ACTUAL
+            //document.getElementById("numberR").value = miR;
+            //document.getElementById("numberG").value = miG;
+            //document.getElementById("numberB").value = miB;
+            // LOS input number numberH numberS numberL  SON VÁLIDOS, FUENTE NEGRA
+            $(".number-hsl").css("color", "#000000");
+            // LOS RANGOS TIENEN SU TITLE INICIAL
+            //$("#rangoR").attr("title", miR);
+            //$("#rangoG").attr("title", miG);
+            //$("#rangoB").attr("title", miB);
+            // rgbCaption MUESTRA EL COLOR ACTUAL EN RGB Y HEX
+            //document.getElementById("rgbCaption").innerHTML = "rgb(" + miR + ", " + miG + ", " + miB + ") - " + colorActual;
+            // LOS BORDES DE contenedorRGB SON LA MUESTRA DE COLOR, INICIAN CON EL ACTUAL
+            $("#contenedorHSL").css("border-color", colorActual);
+            // también el ícono en el título es una muestra
+            $("#icoMuestraHSL").css("color", colorActual);
+            break;
         case "sombras":
             $("#marcoSombras").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-sun'></i> Sombras";
@@ -1578,7 +1641,7 @@ function showModal() {
             break;
         case "rgb":
             $("#marcoRGB").css("display", "block");
-            document.getElementById("modalTitle").innerHTML = "<i class='fas fa-palette'></i> RGB: <i id = 'icoMuestraRGB' class='fas fa-square'></i>";
+            document.getElementById("modalTitle").innerHTML = "<i class='fas fa-sliders-h'></i> RGB: <i id = 'icoMuestraRGB' class='fas fa-square'></i>";
             document.getElementById("spanInfoModal").innerHTML = "Use los controles ROJO, VERDE Y AZUL para definir un color";
             // inicialmente hex es el color actual
             hexTemp = colorActual;
@@ -2965,6 +3028,12 @@ getBtnRGB.onclick = function () {
     //muestra el modal
     showModal();
 }
+//se muestra el selector HSL de color
+getBtnHSL.onclick = function () {
+    modalActual = "hsl";
+    //muestra el modal
+    showModal();
+}
 //se muestra el selector hexadecimal de color
 getBtnHex.onclick = function () {
     modalActual = "hex";
@@ -3178,6 +3247,7 @@ function cambiarModo(nuevoModo) {
             getPie.style.visibility = "hidden";
             getcolorPixel.style.display = "inline-block";
             getBtnRGB.style.display = "inline-block";
+            getBtnHSL.style.display = "inline-block";
             getBtnHex.style.display = "inline-block";
             getBtnGallery.style.display = "inline-block";
             getBtnRnd.style.display = "inline-block";
@@ -3236,6 +3306,7 @@ function cambiarModo(nuevoModo) {
             $(getBtnPincel).addClass("seleccionadoBtnModos"); 
             getcolorPixel.style.display = "inline-block";
             getBtnRGB.style.display = "inline-block";
+            getBtnHSL.style.display = "inline-block";
             getBtnHex.style.display = "inline-block";
             getBtnGallery.style.display = "inline-block";
             getBtnRnd.style.display = "inline-block";
@@ -3247,6 +3318,7 @@ function cambiarModo(nuevoModo) {
             $(getBtnBorrador).addClass("seleccionadoBtnModos");            
             getcolorPixel.style.display = "none";
             getBtnRGB.style.display = "none";
+            getBtnHSL.style.display = "none";
             getBtnHex.style.display = "none";
             getBtnGallery.style.display = "none";
             getBtnRnd.style.display = "none";
@@ -3258,6 +3330,7 @@ function cambiarModo(nuevoModo) {
             $(getBtnOpacidad).addClass("seleccionadoBtnModos");
             getcolorPixel.style.display = "none";
             getBtnRGB.style.display = "none";
+            getBtnHSL.style.display = "none";
             getBtnHex.style.display = "none";
             getBtnGallery.style.display = "none";
             getBtnRnd.style.display = "none";
@@ -3269,6 +3342,7 @@ function cambiarModo(nuevoModo) {
             $(getBtnSombras).addClass("seleccionadoBtnModos");
             getcolorPixel.style.display = "none";
             getBtnRGB.style.display = "none";
+            getBtnHSL.style.display = "none";
             getBtnHex.style.display = "none";
             getBtnGallery.style.display = "none";
             getBtnRnd.style.display = "none";
@@ -3280,6 +3354,7 @@ function cambiarModo(nuevoModo) {
             $(getBtnRadioBordes).addClass("seleccionadoBtnModos");            
             getcolorPixel.style.display = "none";
             getBtnRGB.style.display = "none";
+            getBtnHSL.style.display = "none";
             getBtnHex.style.display = "none";
             getBtnGallery.style.display = "none";
             getBtnRnd.style.display = "none";
@@ -3291,6 +3366,7 @@ function cambiarModo(nuevoModo) {
             $(getBtnColorLienzo).addClass("seleccionadoBtnModos");
             getcolorPixel.style.display = "inline-block";
             getBtnRGB.style.display = "inline-block";
+            getBtnHSL.style.display = "inline-block";
             getBtnHex.style.display = "inline-block";
             getBtnGallery.style.display = "inline-block";
             getBtnRnd.style.display = "inline-block";
@@ -3302,6 +3378,7 @@ function cambiarModo(nuevoModo) {
             $(getBtnColorRejilla).addClass("seleccionadoBtnModos");
             getcolorPixel.style.display = "inline-block";
             getBtnRGB.style.display = "inline-block";
+            getBtnHSL.style.display = "inline-block";
             getBtnHex.style.display = "inline-block";
             getBtnGallery.style.display = "inline-block";
             getBtnRnd.style.display = "inline-block";
@@ -3313,6 +3390,7 @@ function cambiarModo(nuevoModo) {
             $(getBtnGotero).addClass("seleccionadoBtnModos");
             getcolorPixel.style.display = "inline-block";
             getBtnRGB.style.display = "inline-block";
+            getBtnHSL.style.display = "inline-block";
             getBtnHex.style.display = "inline-block";
             getBtnGallery.style.display = "inline-block";
             getBtnRnd.style.display = "inline-block";
@@ -3324,6 +3402,7 @@ function cambiarModo(nuevoModo) {
             $(getBtnReemplazar).addClass("seleccionadoBtnModos");
             getcolorPixel.style.display = "inline-block";
             getBtnRGB.style.display = "inline-block";
+            getBtnHSL.style.display = "inline-block";
             getBtnHex.style.display = "inline-block";
             getBtnGallery.style.display = "inline-block";
             getBtnRnd.style.display = "inline-block";
@@ -3335,6 +3414,7 @@ function cambiarModo(nuevoModo) {
             $(getBtnExtraerColor).addClass("seleccionadoBtnModos");            
             getcolorPixel.style.display = "inline-block";
             getBtnRGB.style.display = "inline-block";
+            getBtnHSL.style.display = "inline-block";
             getBtnHex.style.display = "inline-block";
             getBtnGallery.style.display = "inline-block";
             getBtnRnd.style.display = "inline-block";
