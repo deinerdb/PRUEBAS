@@ -2819,6 +2819,83 @@ input[type=range] {
         background: #7B68EE;
     }
 /* FIN CSS PARA INPUT RANGE PERSONALIZADO*/
+/* INICIO HSL */
+/* otro, el MULTICOLOR H DE HSL */
+#rangoH::-webkit-slider-runnable-track {
+    /* MULTICOLOR */
+    background: #d8bfd8;
+    background-image: -webkit-linear-gradient(left, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Safari 5.1 to 6.0 */
+    background-image: -o-linear-gradient(right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Opera 11.1 to 12.0 */
+    background-image: -moz-linear-gradient(right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Firefox 3.6 to 15 */
+    background-image: linear-gradient(to right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* Standard syntax (must be last) */
+}
+
+#rangoH::-webkit-slider-thumb {
+    /* OSCURO , POR DEFECTO */
+    
+}
+
+#rangoH:focus::-webkit-slider-runnable-track {
+    /* MULTICOLOR  */
+    background: #d8bfd8;
+    background-image: -webkit-linear-gradient(left, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Safari 5.1 to 6.0 */
+    background-image: -o-linear-gradient(right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Opera 11.1 to 12.0 */
+    background-image: -moz-linear-gradient(right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Firefox 3.6 to 15 */
+    background-image: linear-gradient(to right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* Standard syntax (must be last) */
+}
+
+
+#rangoH::-moz-range-track {
+    /* MULTICOLOR  */
+    background: #d8bfd8;
+    background-image: -webkit-linear-gradient(left, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Safari 5.1 to 6.0 */
+    background-image: -o-linear-gradient(right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Opera 11.1 to 12.0 */
+    background-image: -moz-linear-gradient(right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Firefox 3.6 to 15 */
+    background-image: linear-gradient(to right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* Standard syntax (must be last) */
+}
+
+#rangoH::-moz-range-thumb {
+    /* EL OSCURO POR DEFECTO */    
+}
+
+#rangoH::-ms-fill-lower {
+    /* MULTICOLOR  */
+    background: #d8bfd8;
+}
+#rangoH::-ms-fill {
+    /* MULTICOLOR  */
+    background: #d8bfd8;
+    background-image: -webkit-linear-gradient(left, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Safari 5.1 to 6.0 */
+    background-image: -o-linear-gradient(right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Opera 11.1 to 12.0 */
+    background-image: -moz-linear-gradient(right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Firefox 3.6 to 15 */
+    background-image: linear-gradient(to right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* Standard syntax (must be last) */
+}
+
+#rangoH::-ms-fill-upper {
+    /* MULTICOLOR  */
+    background: #d8bfd8;
+}
+
+#rangoH::-ms-thumb {
+    /* MÁS OSCURO POR DEFECTO */
+}
+
+#rangoH:focus::-ms-fill-lower {
+    /* MULTICOLOR  */
+    background: #d8bfd8;
+}
+
+#rangoH:focus::-ms-fill-upper {
+    /* MULTICOLOR  */
+    background: #d8bfd8;
+}
+/* FIN H DE HSL */
+
+/* FIN S DE HSL */
+
+/* FIN L DE HSL */
+
+/* INICIO RGB */
 /* otro, el rojo */
 #rangoR::-webkit-slider-runnable-track {
     /* rojo */
