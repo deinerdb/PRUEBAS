@@ -146,6 +146,9 @@ var rgbTemp = "rgb(0, 0, 0)";
 var miR = 0;
 var miG = 0;
 var miB = 0;
+var miH = 0;
+var miS = 100;
+var miL = 50;
 var hexValues = [];
 var decValues = [];
 var anchoValues = [];
@@ -661,6 +664,44 @@ function bDesdeHex(hex) {
     miB = hex.slice(5);
     miB = parseInt(miB, 16);
     return miB;
+}
+// convierte rgb en hsl 
+function rgbToHsl(r, g, b) {
+    var min, max, i, l, s, maxcolor, h, rgb = [];
+    rgb[0] = r / 255;
+    rgb[1] = g / 255;
+    rgb[2] = b / 255;
+    min = rgb[0];
+    max = rgb[0];
+    maxcolor = 0;
+    for (i = 0; i < rgb.length - 1; i++) {
+        if (rgb[i + 1] <= min) { min = rgb[i + 1]; }
+        if (rgb[i + 1] >= max) { max = rgb[i + 1]; maxcolor = i + 1; }
+    }
+    if (maxcolor == 0) {
+        h = (rgb[1] - rgb[2]) / (max - min);
+    }
+    if (maxcolor == 1) {
+        h = 2 + (rgb[2] - rgb[0]) / (max - min);
+    }
+    if (maxcolor == 2) {
+        h = 4 + (rgb[0] - rgb[1]) / (max - min);
+    }
+    if (isNaN(h)) { h = 0; }
+    h = h * 60;
+    if (h < 0) { h = h + 360; }
+    l = (min + max) / 2;
+    if (min == max) {
+        s = 0;
+    } else {
+        if (l < 0.5) {
+            s = (max - min) / (max + min);
+        } else {
+            s = (max - min) / (2 - max - min);
+        }
+    }
+    s = s;
+    return { h: h, s: s, l: l };
 }
 // ajustes según la disponibilidad de deshacer
 function estadoBtnDeshacer(activar, captionBtn) {    
@@ -1463,17 +1504,24 @@ function showModal() {
             // inicialmente hex es el color actual
             hexTemp = colorActual;
             // ES NECESARIO SINCRONIZAR LAS VARIABLES GLOBALES
-            //miR = rDesdeHex(colorActual);
-            //miG = gDesdeHex(colorActual);
-            //miB = bDesdeHex(colorActual);
-            // LOS RANGOS rangoR, rangoG Y rangoB  TOMAN LOS VALORES DEL COLOR ACTUAL                
-            //document.getElementById("rangoR").value = miR;
-            //document.getElementById("rangoG").value = miG;
-            //document.getElementById("rangoB").value = miB;
-            // LOS input number numberR numberG numberB  TOMAN LOS VALORES DEL COLOR ACTUAL
-            //document.getElementById("numberR").value = miR;
-            //document.getElementById("numberG").value = miG;
-            //document.getElementById("numberB").value = miB;
+            miR = rDesdeHex(colorActual);
+            miG = gDesdeHex(colorActual);
+            miB = bDesdeHex(colorActual);
+            var actualHSL = rgbToHsl(miR, miG, miB);
+            //miH = Number(actualHSL.h.toFixed(0));
+            miH = Math.round(actualHSL.h);
+            //miS = Number((actualHSL.s * 100).toFixed(0));
+            miS = Math.round(actualHSL.s * 100);
+            //miL = Number((actualHSL.l * 100).toFixed(0));
+            miL = Math.round(actualHSL.l * 100);
+            // LOS RANGOS rangoH, rangoS y rangoL  TOMAN LOS VALORES DEL COLOR ACTUAL                
+            document.getElementById("rangoH").value = miH;
+            document.getElementById("rangoS").value = miS;
+            document.getElementById("rangoL").value = miL;
+            // LOS input number numberH numberS numberL  TOMAN LOS VALORES DEL COLOR ACTUAL
+            document.getElementById("numberH").value = miH;
+            document.getElementById("numberS").value = miS;
+            document.getElementById("numberL").value = miL;
             // LOS input number numberH numberS numberL  SON VÁLIDOS, FUENTE NEGRA
             $(".number-hsl").css("color", "#000000");
             // LOS RANGOS TIENEN SU TITLE INICIAL

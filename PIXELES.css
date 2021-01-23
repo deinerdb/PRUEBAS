@@ -1997,7 +1997,7 @@ a:active {
     margin-left: 3px;
     margin-right: 3px;    
 }
-button, i, a, .columna, .contenedor, .miembroFamiliaColores {
+button, i, a, .columna, .contenedor, .miembroFamiliaColores, input {
     -webkit-tap-highlight-color: transparent;
 }
 #BtnColorRejilla {
@@ -2831,10 +2831,12 @@ input[type=range] {
 }
 
 #rangoH::-webkit-slider-thumb {
-    /* OSCURO , POR DEFECTO */
-    
+    /* OSCURO , POR DEFECTO */    
 }
-
+#rangoH:active::-webkit-slider-thumb {
+    /* transparente al presionarlo */
+    opacity:0.3;    
+}
 #rangoH:focus::-webkit-slider-runnable-track {
     /* MULTICOLOR  */
     background: #d8bfd8;
@@ -2857,9 +2859,12 @@ input[type=range] {
 #rangoH::-moz-range-thumb {
     /* EL OSCURO POR DEFECTO */    
 }
-
+#rangoH:active::-moz-range-thumb {
+    /* transparente al presionarlo */
+    opacity: 0.3;
+}
 #rangoH::-ms-fill-lower {
-    /* MULTICOLOR  */
+    /* NO MULTICOLOR EN IE  */
     background: #d8bfd8;
 }
 #rangoH::-ms-fill {
@@ -2872,21 +2877,24 @@ input[type=range] {
 }
 
 #rangoH::-ms-fill-upper {
-    /* MULTICOLOR  */
+    /* NO MULTICOLOR EN IE  */
     background: #d8bfd8;
 }
 
 #rangoH::-ms-thumb {
     /* MÁS OSCURO POR DEFECTO */
 }
-
+#rangoH:active::-ms-thumb {
+    /* transparente al presionarlo */
+    opacity: 0.3;
+}
 #rangoH:focus::-ms-fill-lower {
-    /* MULTICOLOR  */
+    /* NO MULTICOLOR EN IE  */
     background: #d8bfd8;
 }
 
 #rangoH:focus::-ms-fill-upper {
-    /* MULTICOLOR  */
+    /* NO MULTICOLOR EN IE  */
     background: #d8bfd8;
 }
 /* FIN H DE HSL */
