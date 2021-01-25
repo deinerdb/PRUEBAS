@@ -740,6 +740,7 @@ html, body {
     font-weight: bold;
     color: purple;
     font-size: 0.98em;
+    font-family: Consolas, Courier New, Courier, monospace;
     -webkit-transition: color 0.7s;
     -moz-transition: color 0.7s;
     -o-transition: color 0.7s;
@@ -749,7 +750,8 @@ html, body {
     margin: 6px 0px;
     font-weight: bold;
     color: purple;
-    font-size: 0.98em;   
+    font-size: 0.98em;
+    font-family: Consolas, Courier New, Courier, monospace;
 }
 #contInfoGallery {
     margin: 6px 0px;
@@ -2820,6 +2822,32 @@ input[type=range] {
     }
 /* FIN CSS PARA INPUT RANGE PERSONALIZADO*/
 /* INICIO HSL */
+:root {
+    /* atributos personalizados para el gradiente de saturación */
+    --color-sat0: hsl(0, 0%, 50%);
+    --color-sat10: hsl(0, 10%, 50%);
+    --color-sat20: hsl(0, 20%, 50%);
+    --color-sat30: hsl(0, 30%, 50%);
+    --color-sat40: hsl(0, 40%, 50%);
+    --color-sat50: hsl(0, 50%, 50%);
+    --color-sat60: hsl(0, 60%, 50%);
+    --color-sat70: hsl(0, 70%, 50%);
+    --color-sat80: hsl(0, 80%, 50%);
+    --color-sat90: hsl(0, 90%, 50%);
+    --color-sat100: hsl(0, 100%, 50%);
+    /* atributos personalizados para el gradiente de luminosidad */
+    --color-lum0: hsl(0, 100%, 0%);
+    --color-lum10: hsl(0, 100%, 10%);
+    --color-lum20: hsl(0, 100%, 20%);
+    --color-lum30: hsl(0, 100%, 30%);
+    --color-lum40: hsl(0, 100%, 40%);
+    --color-lum50: hsl(0, 100%, 50%);
+    --color-lum60: hsl(0, 100%, 60%);
+    --color-lum70: hsl(0, 100%, 70%);
+    --color-lum80: hsl(0, 100%, 80%);
+    --color-lum90: hsl(0, 100%, 90%);
+    --color-lum100: hsl(0, 100%, 100%);
+}
 /* otro, el MULTICOLOR H DE HSL */
 #rangoH::-webkit-slider-runnable-track {
     /* MULTICOLOR */
@@ -2833,9 +2861,10 @@ input[type=range] {
 #rangoH::-webkit-slider-thumb {
     /* OSCURO , POR DEFECTO */    
 }
-#rangoH:active::-webkit-slider-thumb {
-    /* transparente al presionarlo */
-    opacity:0.3;    
+#rangoH:hover::-webkit-slider-thumb {
+    /* transparente y con borde al presionarlo */
+    background-color: rgba(75, 0, 130, 0.2);
+    border: 1.5px solid purple;
 }
 #rangoH:focus::-webkit-slider-runnable-track {
     /* MULTICOLOR  */
@@ -2859,24 +2888,20 @@ input[type=range] {
 #rangoH::-moz-range-thumb {
     /* EL OSCURO POR DEFECTO */    
 }
-#rangoH:active::-moz-range-thumb {
-    /* transparente al presionarlo */
-    opacity: 0.3;
+#rangoH:hover::-moz-range-thumb {
+    /* transparente y con borde al presionarlo */
+    background-color: rgba(75, 0, 130, 0.2);
+    border: 1.5px solid purple;
 }
 #rangoH::-ms-fill-lower {
     /* NO MULTICOLOR EN IE  */
     background: #d8bfd8;
 }
 #rangoH::-ms-fill {
-    /* MULTICOLOR  */
+    /* NO MULTICOLOR EN IE  */
     background: #d8bfd8;
-    background-image: -webkit-linear-gradient(left, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Safari 5.1 to 6.0 */
-    background-image: -o-linear-gradient(right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Opera 11.1 to 12.0 */
-    background-image: -moz-linear-gradient(right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Firefox 3.6 to 15 */
-    background-image: linear-gradient(to right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* Standard syntax (must be last) */
 }
-
-#rangoH::-ms-fill-upper {
+    #rangoH::-ms-fill-upper {
     /* NO MULTICOLOR EN IE  */
     background: #d8bfd8;
 }
@@ -2884,9 +2909,10 @@ input[type=range] {
 #rangoH::-ms-thumb {
     /* MÁS OSCURO POR DEFECTO */
 }
-#rangoH:active::-ms-thumb {
-    /* transparente al presionarlo */
-    opacity: 0.3;
+#rangoH:hover::-ms-thumb {
+    /* transparente y con borde al presionarlo */
+    background-color: rgba(75, 0, 130, 0.2);
+    border: 1.5px solid purple;
 }
 #rangoH:focus::-ms-fill-lower {
     /* NO MULTICOLOR EN IE  */
@@ -2898,9 +2924,174 @@ input[type=range] {
     background: #d8bfd8;
 }
 /* FIN H DE HSL */
+/* ---- */
+/* otro, el MULTICOLOR S DE HSL */
+#rangoS::-webkit-slider-runnable-track {
+    /* MULTICOLOR */
+    background: #d8bfd8;
+    background-image: -webkit-linear-gradient(left, var(--color-sat0), var(--color-sat10), var(--color-sat20), var(--color-sat30), var(--color-sat40), var(--color-sat50), var(--color-sat60), var(--color-sat70), var(--color-sat80), var(--color-sat90), var(--color-sat100));
+    background-image: -o-linear-gradient(right, var(--color-sat0), var(--color-sat10), var(--color-sat20), var(--color-sat30), var(--color-sat40), var(--color-sat50), var(--color-sat60), var(--color-sat70), var(--color-sat80), var(--color-sat90), var(--color-sat100));
+    background-image: -moz-linear-gradient(right, var(--color-sat0), var(--color-sat10), var(--color-sat20), var(--color-sat30), var(--color-sat40), var(--color-sat50), var(--color-sat60), var(--color-sat70), var(--color-sat80), var(--color-sat90), var(--color-sat100));
+    background-image: linear-gradient(to right, var(--color-sat0), var(--color-sat10), var(--color-sat20), var(--color-sat30), var(--color-sat40), var(--color-sat50), var(--color-sat60), var(--color-sat70), var(--color-sat80), var(--color-sat90), var(--color-sat100));
+}
 
+#rangoS::-webkit-slider-thumb {
+    /* OSCURO , POR DEFECTO */
+}
+
+#rangoS:hover::-webkit-slider-thumb {
+    /* transparente y con borde al presionarlo */
+    background-color: rgba(75, 0, 130, 0.2);
+    border: 1.5px solid purple;
+}
+
+#rangoS:focus::-webkit-slider-runnable-track {
+    /* MULTICOLOR */
+    background: #d8bfd8;
+    background-image: -webkit-linear-gradient(left, var(--color-sat0), var(--color-sat10), var(--color-sat20), var(--color-sat30), var(--color-sat40), var(--color-sat50), var(--color-sat60), var(--color-sat70), var(--color-sat80), var(--color-sat90), var(--color-sat100));
+    background-image: -o-linear-gradient(right, var(--color-sat0), var(--color-sat10), var(--color-sat20), var(--color-sat30), var(--color-sat40), var(--color-sat50), var(--color-sat60), var(--color-sat70), var(--color-sat80), var(--color-sat90), var(--color-sat100));
+    background-image: -moz-linear-gradient(right, var(--color-sat0), var(--color-sat10), var(--color-sat20), var(--color-sat30), var(--color-sat40), var(--color-sat50), var(--color-sat60), var(--color-sat70), var(--color-sat80), var(--color-sat90), var(--color-sat100));
+    background-image: linear-gradient(to right, var(--color-sat0), var(--color-sat10), var(--color-sat20), var(--color-sat30), var(--color-sat40), var(--color-sat50), var(--color-sat60), var(--color-sat70), var(--color-sat80), var(--color-sat90), var(--color-sat100));
+}
+
+#rangoS::-moz-range-track {
+    /* MULTICOLOR */
+    background: #d8bfd8;
+    background-image: -webkit-linear-gradient(left, var(--color-sat0), var(--color-sat10), var(--color-sat20), var(--color-sat30), var(--color-sat40), var(--color-sat50), var(--color-sat60), var(--color-sat70), var(--color-sat80), var(--color-sat90), var(--color-sat100));
+    background-image: -o-linear-gradient(right, var(--color-sat0), var(--color-sat10), var(--color-sat20), var(--color-sat30), var(--color-sat40), var(--color-sat50), var(--color-sat60), var(--color-sat70), var(--color-sat80), var(--color-sat90), var(--color-sat100));
+    background-image: -moz-linear-gradient(right, var(--color-sat0), var(--color-sat10), var(--color-sat20), var(--color-sat30), var(--color-sat40), var(--color-sat50), var(--color-sat60), var(--color-sat70), var(--color-sat80), var(--color-sat90), var(--color-sat100));
+    background-image: linear-gradient(to right, var(--color-sat0), var(--color-sat10), var(--color-sat20), var(--color-sat30), var(--color-sat40), var(--color-sat50), var(--color-sat60), var(--color-sat70), var(--color-sat80), var(--color-sat90), var(--color-sat100));
+}
+
+#rangoS::-moz-range-thumb {
+    /* EL OSCURO POR DEFECTO */
+}
+
+#rangoS:hover::-moz-range-thumb {
+    /* transparente y con borde al presionarlo */
+    background-color: rgba(75, 0, 130, 0.2);
+    border: 1.5px solid purple;
+}
+
+#rangoS::-ms-fill-lower {
+    /* NO MULTICOLOR EN IE  */
+    background: #d8bfd8;
+}
+
+#rangoS::-ms-fill {
+    /* NO MULTICOLOR EN IE  */
+    background: #d8bfd8;
+}
+#rangoS::-ms-fill-upper {
+    /* NO MULTICOLOR EN IE  */
+    background: #d8bfd8;
+}
+
+#rangoS::-ms-thumb {
+    /* MÁS OSCURO POR DEFECTO */
+}
+
+#rangoS:hover::-ms-thumb {
+    /* transparente y con borde al presionarlo */
+    background-color: rgba(75, 0, 130, 0.2);
+    border: 1.5px solid purple;
+}
+
+#rangoS:focus::-ms-fill-lower {
+    /* NO MULTICOLOR EN IE  */
+    background: #d8bfd8;
+}
+
+#rangoS:focus::-ms-fill-upper {
+    /* NO MULTICOLOR EN IE  */
+    background: #d8bfd8;
+}
 /* FIN S DE HSL */
+/* ---- */
+/* otro, el MULTICOLOR L DE HSL */
+#rangoL::-webkit-slider-runnable-track {
+    /* MULTICOLOR */
+    background: #d8bfd8;
+    background-image: -webkit-linear-gradient(left, var(--color-lum0), var(--color-lum10), var(--color-lum20), var(--color-lum30), var(--color-lum40), var(--color-lum50), var(--color-lum60), var(--color-lum70), var(--color-lum80), var(--color-lum90), var(--color-lum100));
+    background-image: -o-linear-gradient(right, var(--color-lum0), var(--color-lum10), var(--color-lum20), var(--color-lum30), var(--color-lum40), var(--color-lum50), var(--color-lum60), var(--color-lum70), var(--color-lum80), var(--color-lum90), var(--color-lum100));
+    background-image: -moz-linear-gradient(right, var(--color-lum0), var(--color-lum10), var(--color-lum20), var(--color-lum30), var(--color-lum40), var(--color-lum50), var(--color-lum60), var(--color-lum70), var(--color-lum80), var(--color-lum90), var(--color-lum100));
+    background-image: linear-gradient(to right, var(--color-lum0), var(--color-lum10), var(--color-lum20), var(--color-lum30), var(--color-lum40), var(--color-lum50), var(--color-lum60), var(--color-lum70), var(--color-lum80), var(--color-lum90), var(--color-lum100));
+}
 
+
+#rangoL::-webkit-slider-thumb {
+    /* OSCURO , POR DEFECTO */
+}
+
+#rangoL:hover::-webkit-slider-thumb {
+    /* transparente y con borde al presionarlo */
+    background-color: rgba(75, 0, 130, 0.2);
+    border: 1.5px solid purple;
+}
+
+#rangoL:focus::-webkit-slider-runnable-track {
+    /* MULTICOLOR */
+    background: #d8bfd8;
+    background-image: -webkit-linear-gradient(left, var(--color-lum0), var(--color-lum10), var(--color-lum20), var(--color-lum30), var(--color-lum40), var(--color-lum50), var(--color-lum60), var(--color-lum70), var(--color-lum80), var(--color-lum90), var(--color-lum100));
+    background-image: -o-linear-gradient(right, var(--color-lum0), var(--color-lum10), var(--color-lum20), var(--color-lum30), var(--color-lum40), var(--color-lum50), var(--color-lum60), var(--color-lum70), var(--color-lum80), var(--color-lum90), var(--color-lum100));
+    background-image: -moz-linear-gradient(right, var(--color-lum0), var(--color-lum10), var(--color-lum20), var(--color-lum30), var(--color-lum40), var(--color-lum50), var(--color-lum60), var(--color-lum70), var(--color-lum80), var(--color-lum90), var(--color-lum100));
+    background-image: linear-gradient(to right, var(--color-lum0), var(--color-lum10), var(--color-lum20), var(--color-lum30), var(--color-lum40), var(--color-lum50), var(--color-lum60), var(--color-lum70), var(--color-lum80), var(--color-lum90), var(--color-lum100));
+}
+
+
+#rangoL::-moz-range-track {
+    /* MULTICOLOR */
+    background: #d8bfd8;
+    background-image: -webkit-linear-gradient(left, var(--color-lum0), var(--color-lum10), var(--color-lum20), var(--color-lum30), var(--color-lum40), var(--color-lum50), var(--color-lum60), var(--color-lum70), var(--color-lum80), var(--color-lum90), var(--color-lum100));
+    background-image: -o-linear-gradient(right, var(--color-lum0), var(--color-lum10), var(--color-lum20), var(--color-lum30), var(--color-lum40), var(--color-lum50), var(--color-lum60), var(--color-lum70), var(--color-lum80), var(--color-lum90), var(--color-lum100));
+    background-image: -moz-linear-gradient(right, var(--color-lum0), var(--color-lum10), var(--color-lum20), var(--color-lum30), var(--color-lum40), var(--color-lum50), var(--color-lum60), var(--color-lum70), var(--color-lum80), var(--color-lum90), var(--color-lum100));
+    background-image: linear-gradient(to right, var(--color-lum0), var(--color-lum10), var(--color-lum20), var(--color-lum30), var(--color-lum40), var(--color-lum50), var(--color-lum60), var(--color-lum70), var(--color-lum80), var(--color-lum90), var(--color-lum100));
+}
+
+#rangoL::-moz-range-thumb {
+    /* EL OSCURO POR DEFECTO */
+}
+
+#rangoL:hover::-moz-range-thumb {
+    /* transparente y con borde al presionarlo */
+    background-color: rgba(75, 0, 130, 0.2);
+    border: 1.5px solid purple;
+}
+
+#rangoL::-ms-fill-lower {
+    /* NO MULTICOLOR EN IE  */
+    background: #d8bfd8;
+}
+
+#rangoL::-ms-fill {
+    /* NO MULTICOLOR EN IE  */
+    background: #d8bfd8;
+}
+
+#rangoL::-ms-fill-upper {
+    /* NO MULTICOLOR EN IE  */
+    background: #d8bfd8;
+}
+
+#rangoS::-ms-thumb {
+    /* MÁS OSCURO POR DEFECTO */
+}
+
+#rangoL:hover::-ms-thumb {
+    /* transparente y con borde al presionarlo */
+    background-color: rgba(75, 0, 130, 0.2);
+    border: 1.5px solid purple;
+}
+
+#rangoL:focus::-ms-fill-lower {
+    /* NO MULTICOLOR EN IE  */
+    background: #d8bfd8;
+}
+
+#rangoL:focus::-ms-fill-upper {
+    /* NO MULTICOLOR EN IE  */
+    background: #d8bfd8;
+}
 /* FIN L DE HSL */
 
 /* INICIO RGB */

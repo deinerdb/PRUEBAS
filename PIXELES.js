@@ -1525,11 +1525,11 @@ function showModal() {
             // LOS input number numberH numberS numberL  SON VÁLIDOS, FUENTE NEGRA
             $(".number-hsl").css("color", "#000000");
             // LOS RANGOS TIENEN SU TITLE INICIAL
-            //$("#rangoR").attr("title", miR);
-            //$("#rangoG").attr("title", miG);
-            //$("#rangoB").attr("title", miB);
-            // rgbCaption MUESTRA EL COLOR ACTUAL EN RGB Y HEX
-            //document.getElementById("rgbCaption").innerHTML = "rgb(" + miR + ", " + miG + ", " + miB + ") - " + colorActual;
+            $("#rangoH").attr("title", miH);
+            $("#rangoS").attr("title", miS);
+            $("#rangoL").attr("title", miL);
+            // hslCaption MUESTRA EL COLOR ACTUAL EN HSL Y HEX
+            document.getElementById("hslCaption").innerHTML = "hsl(" + miH + "\u00B0, " + miS + "%, " + miL + "%) - " + colorActual;
             // LOS BORDES DE contenedorRGB SON LA MUESTRA DE COLOR, INICIAN CON EL ACTUAL
             $("#contenedorHSL").css("border-color", colorActual);
             // también el ícono en el título es una muestra
