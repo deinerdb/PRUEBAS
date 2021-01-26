@@ -2823,6 +2823,20 @@ input[type=range] {
 /* FIN CSS PARA INPUT RANGE PERSONALIZADO*/
 /* INICIO HSL */
 :root {
+    /* atributos personalizados para el gradiente de ángulo */
+    --color-hue0: hsl(0, 100%, 50%);
+    --color-hue30: hsl(30, 100%, 50%);
+    --color-hue60: hsl(60, 100%, 50%);
+    --color-hue90: hsl(90, 100%, 50%);
+    --color-hue120: hsl(120, 100%, 50%);
+    --color-hue150: hsl(150, 100%, 50%);
+    --color-hue180: hsl(180, 100%, 50%);
+    --color-hue210: hsl(210, 100%, 50%);
+    --color-hue240: hsl(240, 100%, 50%);
+    --color-hue270: hsl(270, 100%, 50%);
+    --color-hue300: hsl(300, 100%, 50%);
+    --color-hue330: hsl(330, 100%, 50%);
+    --color-hue360: hsl(360, 100%, 50%);
     /* atributos personalizados para el gradiente de saturación */
     --color-sat0: hsl(0, 0%, 50%);
     --color-sat10: hsl(0, 10%, 50%);
@@ -2852,43 +2866,42 @@ input[type=range] {
 #rangoH::-webkit-slider-runnable-track {
     /* MULTICOLOR */
     background: #d8bfd8;
-    background-image: -webkit-linear-gradient(left, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Safari 5.1 to 6.0 */
-    background-image: -o-linear-gradient(right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Opera 11.1 to 12.0 */
-    background-image: -moz-linear-gradient(right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Firefox 3.6 to 15 */
-    background-image: linear-gradient(to right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* Standard syntax (must be last) */
+    background-image: -webkit-linear-gradient(left, var(--color-hue0), var(--color-hue30), var(--color-hue60), var(--color-hue90), var(--color-hue120), var(--color-hue150), var(--color-hue180), var(--color-hue210), var(--color-hue240), var(--color-hue270), var(--color-hue300), var(--color-hue330), var(--color-hue360));
+    background-image: -o-linear-gradient(right, var(--color-hue0), var(--color-hue30), var(--color-hue60), var(--color-hue90), var(--color-hue120), var(--color-hue150), var(--color-hue180), var(--color-hue210), var(--color-hue240), var(--color-hue270), var(--color-hue300), var(--color-hue330), var(--color-hue360));
+    background-image: -moz-linear-gradient(right, var(--color-hue0), var(--color-hue30), var(--color-hue60), var(--color-hue90), var(--color-hue120), var(--color-hue150), var(--color-hue180), var(--color-hue210), var(--color-hue240), var(--color-hue270), var(--color-hue300), var(--color-hue330), var(--color-hue360));
+    background-image: linear-gradient(to right, var(--color-hue0), var(--color-hue30), var(--color-hue60), var(--color-hue90), var(--color-hue120), var(--color-hue150), var(--color-hue180), var(--color-hue210), var(--color-hue240), var(--color-hue270), var(--color-hue300), var(--color-hue330), var(--color-hue360));
 }
 
 #rangoH::-webkit-slider-thumb {
     /* OSCURO , POR DEFECTO */    
 }
-#rangoH:hover::-webkit-slider-thumb {
+#rangoH:hover::-webkit-slider-thumb, #rangoH:focus::-webkit-slider-thumb {
     /* transparente y con borde al presionarlo */
     background-color: rgba(75, 0, 130, 0.2);
     border: 1.5px solid purple;
 }
 #rangoH:focus::-webkit-slider-runnable-track {
-    /* MULTICOLOR  */
+    /* MULTICOLOR */
     background: #d8bfd8;
-    background-image: -webkit-linear-gradient(left, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Safari 5.1 to 6.0 */
-    background-image: -o-linear-gradient(right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Opera 11.1 to 12.0 */
-    background-image: -moz-linear-gradient(right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Firefox 3.6 to 15 */
-    background-image: linear-gradient(to right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* Standard syntax (must be last) */
+    background-image: -webkit-linear-gradient(left, var(--color-hue0), var(--color-hue30), var(--color-hue60), var(--color-hue90), var(--color-hue120), var(--color-hue150), var(--color-hue180), var(--color-hue210), var(--color-hue240), var(--color-hue270), var(--color-hue300), var(--color-hue330), var(--color-hue360));
+    background-image: -o-linear-gradient(right, var(--color-hue0), var(--color-hue30), var(--color-hue60), var(--color-hue90), var(--color-hue120), var(--color-hue150), var(--color-hue180), var(--color-hue210), var(--color-hue240), var(--color-hue270), var(--color-hue300), var(--color-hue330), var(--color-hue360));
+    background-image: -moz-linear-gradient(right, var(--color-hue0), var(--color-hue30), var(--color-hue60), var(--color-hue90), var(--color-hue120), var(--color-hue150), var(--color-hue180), var(--color-hue210), var(--color-hue240), var(--color-hue270), var(--color-hue300), var(--color-hue330), var(--color-hue360));
+    background-image: linear-gradient(to right, var(--color-hue0), var(--color-hue30), var(--color-hue60), var(--color-hue90), var(--color-hue120), var(--color-hue150), var(--color-hue180), var(--color-hue210), var(--color-hue240), var(--color-hue270), var(--color-hue300), var(--color-hue330), var(--color-hue360));
 }
 
-
 #rangoH::-moz-range-track {
-    /* MULTICOLOR  */
+    /* MULTICOLOR */
     background: #d8bfd8;
-    background-image: -webkit-linear-gradient(left, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Safari 5.1 to 6.0 */
-    background-image: -o-linear-gradient(right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Opera 11.1 to 12.0 */
-    background-image: -moz-linear-gradient(right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Firefox 3.6 to 15 */
-    background-image: linear-gradient(to right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* Standard syntax (must be last) */
+    background-image: -webkit-linear-gradient(left, var(--color-hue0), var(--color-hue30), var(--color-hue60), var(--color-hue90), var(--color-hue120), var(--color-hue150), var(--color-hue180), var(--color-hue210), var(--color-hue240), var(--color-hue270), var(--color-hue300), var(--color-hue330), var(--color-hue360));
+    background-image: -o-linear-gradient(right, var(--color-hue0), var(--color-hue30), var(--color-hue60), var(--color-hue90), var(--color-hue120), var(--color-hue150), var(--color-hue180), var(--color-hue210), var(--color-hue240), var(--color-hue270), var(--color-hue300), var(--color-hue330), var(--color-hue360));
+    background-image: -moz-linear-gradient(right, var(--color-hue0), var(--color-hue30), var(--color-hue60), var(--color-hue90), var(--color-hue120), var(--color-hue150), var(--color-hue180), var(--color-hue210), var(--color-hue240), var(--color-hue270), var(--color-hue300), var(--color-hue330), var(--color-hue360));
+    background-image: linear-gradient(to right, var(--color-hue0), var(--color-hue30), var(--color-hue60), var(--color-hue90), var(--color-hue120), var(--color-hue150), var(--color-hue180), var(--color-hue210), var(--color-hue240), var(--color-hue270), var(--color-hue300), var(--color-hue330), var(--color-hue360));
 }
 
 #rangoH::-moz-range-thumb {
     /* EL OSCURO POR DEFECTO */    
 }
-#rangoH:hover::-moz-range-thumb {
+#rangoH:hover::-moz-range-thumb, #rangoH:focus::-moz-range-thumb {
     /* transparente y con borde al presionarlo */
     background-color: rgba(75, 0, 130, 0.2);
     border: 1.5px solid purple;
@@ -2909,7 +2922,7 @@ input[type=range] {
 #rangoH::-ms-thumb {
     /* MÁS OSCURO POR DEFECTO */
 }
-#rangoH:hover::-ms-thumb {
+#rangoH:hover::-ms-thumb, #rangoH:focus::-ms-thumb {
     /* transparente y con borde al presionarlo */
     background-color: rgba(75, 0, 130, 0.2);
     border: 1.5px solid purple;
@@ -2939,7 +2952,7 @@ input[type=range] {
     /* OSCURO , POR DEFECTO */
 }
 
-#rangoS:hover::-webkit-slider-thumb {
+#rangoS:hover::-webkit-slider-thumb, #rangoS:focus::-webkit-slider-thumb {
     /* transparente y con borde al presionarlo */
     background-color: rgba(75, 0, 130, 0.2);
     border: 1.5px solid purple;
@@ -2967,7 +2980,7 @@ input[type=range] {
     /* EL OSCURO POR DEFECTO */
 }
 
-#rangoS:hover::-moz-range-thumb {
+#rangoS:hover::-moz-range-thumb, #rangoS:focus::-moz-range-thumb {
     /* transparente y con borde al presionarlo */
     background-color: rgba(75, 0, 130, 0.2);
     border: 1.5px solid purple;
@@ -2991,7 +3004,7 @@ input[type=range] {
     /* MÁS OSCURO POR DEFECTO */
 }
 
-#rangoS:hover::-ms-thumb {
+#rangoS:hover::-ms-thumb, #rangoS:focus::-ms-thumb {
     /* transparente y con borde al presionarlo */
     background-color: rgba(75, 0, 130, 0.2);
     border: 1.5px solid purple;
@@ -3023,7 +3036,7 @@ input[type=range] {
     /* OSCURO , POR DEFECTO */
 }
 
-#rangoL:hover::-webkit-slider-thumb {
+#rangoL:hover::-webkit-slider-thumb, #rangoL:focus::-webkit-slider-thumb {
     /* transparente y con borde al presionarlo */
     background-color: rgba(75, 0, 130, 0.2);
     border: 1.5px solid purple;
@@ -3052,7 +3065,7 @@ input[type=range] {
     /* EL OSCURO POR DEFECTO */
 }
 
-#rangoL:hover::-moz-range-thumb {
+#rangoL:hover::-moz-range-thumb, #rangoL:focus::-moz-range-thumb {
     /* transparente y con borde al presionarlo */
     background-color: rgba(75, 0, 130, 0.2);
     border: 1.5px solid purple;
@@ -3077,7 +3090,7 @@ input[type=range] {
     /* MÁS OSCURO POR DEFECTO */
 }
 
-#rangoL:hover::-ms-thumb {
+#rangoL:hover::-ms-thumb, #rangoL:focus::-ms-thumb {
     /* transparente y con borde al presionarlo */
     background-color: rgba(75, 0, 130, 0.2);
     border: 1.5px solid purple;

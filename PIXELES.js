@@ -1507,12 +1507,9 @@ function showModal() {
             miR = rDesdeHex(colorActual);
             miG = gDesdeHex(colorActual);
             miB = bDesdeHex(colorActual);
-            var actualHSL = rgbToHsl(miR, miG, miB);
-            //miH = Number(actualHSL.h.toFixed(0));
-            miH = Math.round(actualHSL.h);
-            //miS = Number((actualHSL.s * 100).toFixed(0));
-            miS = Math.round(actualHSL.s * 100);
-            //miL = Number((actualHSL.l * 100).toFixed(0));
+            var actualHSL = rgbToHsl(miR, miG, miB);            
+            miH = Math.round(actualHSL.h);            
+            miS = Math.round(actualHSL.s * 100);            
             miL = Math.round(actualHSL.l * 100);
             // LOS RANGOS rangoH, rangoS y rangoL  TOMAN LOS VALORES DEL COLOR ACTUAL                
             document.getElementById("rangoH").value = miH;
@@ -1532,6 +1529,8 @@ function showModal() {
             document.getElementById("hslCaption").innerHTML = "hsl(" + miH + "\u00B0, " + miS + "%, " + miL + "%) - " + colorActual;
             // LOS BORDES DE contenedorRGB SON LA MUESTRA DE COLOR, INICIAN CON EL ACTUAL
             $("#contenedorHSL").css("border-color", colorActual);
+            // LOS BORDES DE contenedorL son del color actual
+            $("#contenedorL").css("border-color", colorActual);
             // también el ícono en el título es una muestra
             $("#icoMuestraHSL").css("color", colorActual);
             break;
