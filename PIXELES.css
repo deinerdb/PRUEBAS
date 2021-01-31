@@ -1400,7 +1400,12 @@ html, body {
     width: 70px !important;
     font-family: Consolas, Courier New, Courier, monospace;
 }
-
+/* TIENE TEXTO */
+#BtnHex {
+    min-width: 70px !important;
+    width: 70px !important;
+    font-family: Consolas, Courier New, Courier, monospace;
+}
 /* para dar cabida a la flechita y la info del Radio*/
 #BtnRadioBordes.seleccionadoBtnModos {
     min-width: 83px !important;
@@ -2873,12 +2878,17 @@ input[type=range] {
 }
 
 #rangoH::-webkit-slider-thumb {
-    /* OSCURO , POR DEFECTO */    
+    /* era OSCURO , POR DEFECTO */
+    /* transparente y con borde */
+    background-color: transparent;
+    border: 2px solid purple;
+    
 }
 #rangoH:hover::-webkit-slider-thumb, #rangoH:focus::-webkit-slider-thumb {
-    /* transparente y con borde al presionarlo */
-    background-color: rgba(75, 0, 130, 0.2);
-    border: 1.5px solid purple;
+    /*SOMBRA*/
+    -moz-box-shadow: 0px 0px 6px #ffb3ff, 0px 0px 3px #e600e6;
+    -webkit-box-shadow: 0px 0px 6px #ffb3ff, 0px 0px 3px #e600e6;
+    box-shadow: 0px 0px 6px #ffb3ff, 0px 0px 3px #e600e6;
 }
 #rangoH:focus::-webkit-slider-runnable-track {
     /* MULTICOLOR */
@@ -2899,12 +2909,16 @@ input[type=range] {
 }
 
 #rangoH::-moz-range-thumb {
-    /* EL OSCURO POR DEFECTO */    
+    /* era OSCURO , POR DEFECTO */
+    /* transparente y con borde */
+    background-color: transparent;
+    border: 2px solid purple;
 }
 #rangoH:hover::-moz-range-thumb, #rangoH:focus::-moz-range-thumb {
-    /* transparente y con borde al presionarlo */
-    background-color: rgba(75, 0, 130, 0.2);
-    border: 1.5px solid purple;
+    /*SOMBRA*/
+    -moz-box-shadow: 0px 0px 6px #ffb3ff, 0px 0px 3px #e600e6;
+    -webkit-box-shadow: 0px 0px 6px #ffb3ff, 0px 0px 3px #e600e6;
+    box-shadow: 0px 0px 6px #ffb3ff, 0px 0px 3px #e600e6;
 }
 #rangoH::-ms-fill-lower {
     /* NO MULTICOLOR EN IE  */
@@ -2921,11 +2935,13 @@ input[type=range] {
 
 #rangoH::-ms-thumb {
     /* MÁS OSCURO POR DEFECTO */
+    border: 2px solid purple;
 }
 #rangoH:hover::-ms-thumb, #rangoH:focus::-ms-thumb {
-    /* transparente y con borde al presionarlo */
-    background-color: rgba(75, 0, 130, 0.2);
-    border: 1.5px solid purple;
+    /*SOMBRA*/
+    -moz-box-shadow: 0px 0px 6px #ffb3ff, 0px 0px 3px #e600e6;
+    -webkit-box-shadow: 0px 0px 6px #ffb3ff, 0px 0px 3px #e600e6;
+    box-shadow: 0px 0px 6px #ffb3ff, 0px 0px 3px #e600e6;
 }
 #rangoH:focus::-ms-fill-lower {
     /* NO MULTICOLOR EN IE  */
@@ -2949,13 +2965,17 @@ input[type=range] {
 }
 
 #rangoS::-webkit-slider-thumb {
-    /* OSCURO , POR DEFECTO */
+    /* era OSCURO, POR DEFECTO */
+    /* transparente y con borde */
+    background-color: transparent;
+    border: 2px solid purple;
 }
 
 #rangoS:hover::-webkit-slider-thumb, #rangoS:focus::-webkit-slider-thumb {
-    /* transparente y con borde al presionarlo */
-    background-color: rgba(75, 0, 130, 0.2);
-    border: 1.5px solid purple;
+    /*SOMBRA*/
+    -moz-box-shadow: 0px 0px 6px #ffb3ff, 0px 0px 3px #e600e6;
+    -webkit-box-shadow: 0px 0px 6px #ffb3ff, 0px 0px 3px #e600e6;
+    box-shadow: 0px 0px 6px #ffb3ff, 0px 0px 3px #e600e6;
 }
 
 #rangoS:focus::-webkit-slider-runnable-track {
@@ -2977,13 +2997,17 @@ input[type=range] {
 }
 
 #rangoS::-moz-range-thumb {
-    /* EL OSCURO POR DEFECTO */
+    /* era OSCURO, POR DEFECTO */
+    /* transparente y con borde */
+    background-color: transparent;
+    border: 2px solid purple;
 }
 
 #rangoS:hover::-moz-range-thumb, #rangoS:focus::-moz-range-thumb {
-    /* transparente y con borde al presionarlo */
-    background-color: rgba(75, 0, 130, 0.2);
-    border: 1.5px solid purple;
+    /*SOMBRA*/
+    -moz-box-shadow: 0px 0px 6px #ffb3ff, 0px 0px 3px #e600e6;
+    -webkit-box-shadow: 0px 0px 6px #ffb3ff, 0px 0px 3px #e600e6;
+    box-shadow: 0px 0px 6px #ffb3ff, 0px 0px 3px #e600e6;
 }
 
 #rangoS::-ms-fill-lower {
@@ -3002,12 +3026,14 @@ input[type=range] {
 
 #rangoS::-ms-thumb {
     /* MÁS OSCURO POR DEFECTO */
+    border: 2px solid purple;
 }
 
 #rangoS:hover::-ms-thumb, #rangoS:focus::-ms-thumb {
-    /* transparente y con borde al presionarlo */
-    background-color: rgba(75, 0, 130, 0.2);
-    border: 1.5px solid purple;
+    /*SOMBRA*/
+    -moz-box-shadow: 0px 0px 6px #ffb3ff, 0px 0px 3px #e600e6;
+    -webkit-box-shadow: 0px 0px 6px #ffb3ff, 0px 0px 3px #e600e6;
+    box-shadow: 0px 0px 6px #ffb3ff, 0px 0px 3px #e600e6;
 }
 
 #rangoS:focus::-ms-fill-lower {
@@ -3033,13 +3059,17 @@ input[type=range] {
 
 
 #rangoL::-webkit-slider-thumb {
-    /* OSCURO , POR DEFECTO */
+    /* era OSCURO, POR DEFECTO */
+    /* transparente y con borde */
+    background-color: transparent;
+    border: 2px solid purple;
 }
 
 #rangoL:hover::-webkit-slider-thumb, #rangoL:focus::-webkit-slider-thumb {
-    /* transparente y con borde al presionarlo */
-    background-color: rgba(75, 0, 130, 0.2);
-    border: 1.5px solid purple;
+    /*SOMBRA*/
+    -moz-box-shadow: 0px 0px 6px #ffb3ff, 0px 0px 3px #e600e6;
+    -webkit-box-shadow: 0px 0px 6px #ffb3ff, 0px 0px 3px #e600e6;
+    box-shadow: 0px 0px 6px #ffb3ff, 0px 0px 3px #e600e6;
 }
 
 #rangoL:focus::-webkit-slider-runnable-track {
@@ -3062,13 +3092,17 @@ input[type=range] {
 }
 
 #rangoL::-moz-range-thumb {
-    /* EL OSCURO POR DEFECTO */
+    /* era OSCURO, POR DEFECTO */
+    /* transparente y con borde */
+    background-color: transparent;
+    border: 2px solid purple;
 }
 
 #rangoL:hover::-moz-range-thumb, #rangoL:focus::-moz-range-thumb {
-    /* transparente y con borde al presionarlo */
-    background-color: rgba(75, 0, 130, 0.2);
-    border: 1.5px solid purple;
+    /*SOMBRA*/
+    -moz-box-shadow: 0px 0px 6px #ffb3ff, 0px 0px 3px #e600e6;
+    -webkit-box-shadow: 0px 0px 6px #ffb3ff, 0px 0px 3px #e600e6;
+    box-shadow: 0px 0px 6px #ffb3ff, 0px 0px 3px #e600e6;
 }
 
 #rangoL::-ms-fill-lower {
@@ -3086,14 +3120,16 @@ input[type=range] {
     background: #d8bfd8;
 }
 
-#rangoS::-ms-thumb {
+#rangoL::-ms-thumb {
     /* MÁS OSCURO POR DEFECTO */
+    border: 2px solid purple;
 }
 
 #rangoL:hover::-ms-thumb, #rangoL:focus::-ms-thumb {
-    /* transparente y con borde al presionarlo */
-    background-color: rgba(75, 0, 130, 0.2);
-    border: 1.5px solid purple;
+    /*SOMBRA*/
+    -moz-box-shadow: 0px 0px 6px #ffb3ff, 0px 0px 3px #e600e6;
+    -webkit-box-shadow: 0px 0px 6px #ffb3ff, 0px 0px 3px #e600e6;
+    box-shadow: 0px 0px 6px #ffb3ff, 0px 0px 3px #e600e6;
 }
 
 #rangoL:focus::-ms-fill-lower {
