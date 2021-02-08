@@ -735,7 +735,7 @@ function alturaModal() {
 // referencias están al inicio del script
 function ajustesResize() {    
     // para obtener anchos mínimos de botones al diseñar
-    //$("#BtnHSL").attr("title", document.getElementById("BtnHSL").offsetWidth);
+    //$("#paletaAbajo").attr("title", document.getElementById("paletaAbajo").offsetHeight);
     
     // ajusta el infoTemporal, solo si es visible    
     if (window.getComputedStyle(infoTemp).display === "block") {
@@ -764,8 +764,8 @@ function ajustesResize() {
         $(getContenedor).css("margin", "0px");
         $(getContenedor).css("margin-top", margenArribaCont + "px");
         $(getContenedor).css("max-width", "88%");        
-        var espacioPie = 12 + getPaletaAbajo.offsetHeight;
-        $(getPie).css("margin-bottom", espacioPie + "px");        
+        //var espacioPie = 12 + getPaletaAbajo.offsetHeight;
+        //$(getPie).css("margin-bottom", espacioPie + "px");        
     }
     if (modalActual == "ninguno") {
         // ajusta el contenedor a su contendido, sin scroll
