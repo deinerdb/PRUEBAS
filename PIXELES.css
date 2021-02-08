@@ -937,19 +937,12 @@ html, body {
 #contenedorB {
     border: 6px solid #0000ff;    
 }
-/* inicialmente bordes grises */
+/* inicialmente */
 /* cambiarán dinámicamente */
-#contenedorH {
-    border: 6px solid #d3d3d3;
+.contenedor-hsl-color {
+    border: 3px solid #d3d3d3;
 }
 
-#contenedorS {
-    border: 6px solid #d3d3d3;
-}
-
-#contenedorL {
-    border: 6px solid #d3d3d3;
-}
 /* inicia clase seleccionado */
 .seleccionado {
     /* en lugar de una x se usa outline */
@@ -1755,7 +1748,7 @@ html, body {
         animation: none !important;
     }
     /* ocultar */
-    #BtnTop, .paleta, .loader, #pie, #BtnCerrarHistorial, #myModal, #snackbar, #paletaFull {
+    #BtnTop, .paleta, .loader, #pie, #pieAfter, #BtnCerrarHistorial, #myModal, #snackbar, #paletaFull {
         display: none !important;
     }
     #pantalla {
@@ -2055,8 +2048,7 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores, input {
     overflow: auto;
     opacity: 0.2; 
 }
-#pie:after {
-    content: "";
+#pieAfter {
     height: 100px; /*padding-bottom: ESTO PARA QUE SE VEA EN IE Y FIREFOX y demás */
     display: block;
 }
@@ -2833,6 +2825,8 @@ input[type=range] {
 /* FIN CSS PARA INPUT RANGE PERSONALIZADO*/
 /* INICIO HSL */
 :root {
+    /* atributos personalizados para el color de las sombras */
+    --color-sombra: hsl(0, 100%, 50%);
     /* atributos personalizados para el gradiente de ángulo */
     --color-hue0: hsl(0, 100%, 50%);
     --color-hue30: hsl(30, 100%, 50%);
@@ -2871,6 +2865,19 @@ input[type=range] {
     --color-lum80: hsl(0, 100%, 80%);
     --color-lum90: hsl(0, 100%, 90%);
     --color-lum100: hsl(0, 100%, 100%);
+}
+/* las sombras de los contenedores hsl */
+#contenedorHSL, .contenedor-hsl-color {
+    /*SOMBRA*/
+    -moz-box-shadow: 0px 0px 6px #d3d3d3 inset;
+    -moz-box-shadow: 0px 0px 6px var(--color-sombra) inset;
+    -webkit-box-shadow: 0px 0px 6px #d3d3d3 inset;
+    -webkit-box-shadow: 0px 0px 6px var(--color-sombra) inset;
+    box-shadow: 0px 0px 6px #d3d3d3 inset;
+    box-shadow: 0px 0px 6px var(--color-sombra) inset;    
+}
+#contenedorHSL {    
+    outline: 0.5px solid #d3d3d3;
 }
 /* otro, el MULTICOLOR H DE HSL */
 #rangoH::-webkit-slider-runnable-track {

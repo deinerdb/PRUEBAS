@@ -1,4 +1,6 @@
 ﻿// referencias (más memoria, menos recorridos del DOM)
+// Get the root element
+var getRoot = document.querySelector(':root');
 var getColumnas; // toma valor después de crear los cuadritos
 var getRelleno = document.getElementById("relleno");
 var infoTemp = document.getElementById("infoTemporal");
@@ -22,6 +24,8 @@ var span = document.getElementsByClassName("close")[0];
 // el pie tiene un margen especial
 // también se le cambia su visibilidad, opacidad o se le oculta según se necesite
 var getPie = document.getElementById("pie");
+// este es el margen inferior del pie
+var getpieAfter = document.getElementById("pieAfter");
 var getBtnHistorialColor = document.getElementById("BtnHistorialColor");
 var getBtnRellenar = document.getElementById("BtnRellenar");
 var getBtnColorLienzo = document.getElementById("BtnColorLienzo");
@@ -764,8 +768,9 @@ function ajustesResize() {
         $(getContenedor).css("margin", "0px");
         $(getContenedor).css("margin-top", margenArribaCont + "px");
         $(getContenedor).css("max-width", "88%");        
-        //var espacioPie = 12 + getPaletaAbajo.offsetHeight;
-        //$(getPie).css("margin-bottom", espacioPie + "px");        
+        var espacioPie = 12 + getPaletaAbajo.offsetHeight;
+        //$("#paletaAbajo").attr("title", espacioPie);
+        $(getpieAfter).css("height", espacioPie + "px");        
     }
     if (modalActual == "ninguno") {
         // ajusta el contenedor a su contendido, sin scroll
@@ -1529,10 +1534,12 @@ function showModal() {
             document.getElementById("hslCaption").innerHTML = "hsl(" + miH + "\u00B0, " + miS + "%, " + miL + "%) - " + colorActual;
             // LOS BORDES DE contenedorRGB SON LA MUESTRA DE COLOR, INICIAN CON EL ACTUAL
             $("#contenedorHSL").css("border-color", colorActual);
-            // LOS BORDES DE contenedorL son del color actual
-            $("#contenedorL").css("border-color", colorActual);
+            // LOS BORDES DE la clase contenedor-hsl-color son del color actual
+            $(".contenedor-hsl-color").css("border-color", colorActual);
             // también el ícono en el título es una muestra
             $("#icoMuestraHSL").css("color", colorActual);
+            // las sombras de los contenedores según el h actual            
+            getRoot.style.setProperty('--color-sombra', "hsl(" + miH + ", 100%, 50%)");
             break;
         case "sombras":
             $("#marcoSombras").css("display", "block");
