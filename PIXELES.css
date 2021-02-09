@@ -162,7 +162,7 @@ html, body {
     font-size: 22px;
     line-height: 12px;
     cursor: pointer;
-    /* transiciÛn */
+    /* transici√≥n */
     -moz-transition: 0.3s;
     -o-transition: 0.3s;
     -webkit-transition: 0.3s;
@@ -205,7 +205,7 @@ html, body {
     -moz-user-select: none; /* Firefox 2+ */
     -ms-user-select: none; /* IE 10+ */
     user-select: none; /* Standard syntax */
-    /* transiciÛn */
+    /* transici√≥n */
     -moz-transition: opacity 0.5s, top 0.5s;
     -o-transition: opacity 0.5s, top 0.5s;
     -webkit-transition: opacity 0.5s, top 0.5s;
@@ -222,7 +222,7 @@ html, body {
     background-color: transparent;
 }
 .oculto {
-    /* para ocultar din·micamente elementos con display con prefijos*/
+    /* para ocultar din√°micamente elementos con display con prefijos*/
     display: none !important;
 }
 #paletaFull {
@@ -243,7 +243,7 @@ html, body {
     -moz-user-select: none; /* Firefox 2+ */
     -ms-user-select: none; /* IE 10+ */
     user-select: none; /* Standard syntax */
-    /* transiciÛn */
+    /* transici√≥n */
     -moz-transition: top 0.6s;
     -o-transition: top 0.6s;
     -webkit-transition: top 0.6s;
@@ -330,7 +330,7 @@ html, body {
     -o-animation-duration: 1s;
     -o-animation-timing-function: linear;
     -o-animation-iteration-count: infinite;
-    /*EST¡NDAR*/
+    /*EST√ÅNDAR*/
     animation-name: blancoynegro;
     animation-duration: 1s;
     animation-timing-function: linear;
@@ -385,7 +385,7 @@ html, body {
     -o-animation-duration: 1s;
     -o-animation-timing-function: linear;
     -o-animation-iteration-count: infinite;
-    /*EST¡NDAR*/
+    /*EST√ÅNDAR*/
     animation-name: blancoynegro;
     animation-duration: 1s;
     animation-timing-function: linear;
@@ -433,7 +433,7 @@ html, body {
     #valorHex:hover {
         background-color: #dcdcdc;
     }
-/* para el accordion y galerÌa */
+/* para el accordion y galer√≠a */
 #contenedorEncontrados {
     /* oculto por defecto */
     display: none;
@@ -573,7 +573,7 @@ html, body {
     -o-animation-duration: 1s;
     -o-animation-timing-function: linear;
     -o-animation-iteration-count: infinite;
-    /*EST¡NDAR*/
+    /*EST√ÅNDAR*/
     animation-name: blancoynegro;
     animation-duration: 1s;
     animation-timing-function: linear;
@@ -586,7 +586,7 @@ html, body {
     height: 70px;
     cursor: pointer;
     margin: 8px 6px 6px 0px;
-    /* el borde del seleccionado cambiar· a #009900 */
+    /* el borde del seleccionado cambiar√° a #009900 */
     border: 4px solid #666699;
     -moz-transition: -moz-box-shadow 0.2s, -moz-border-radius 0.2s;
     -o-transition: box-shadow 0.2s, border-radius 0.2s;
@@ -605,14 +605,14 @@ html, body {
 }
 .miembroFamiliaColores:hover, .miembroResultados:hover {
     z-index: 320;
-    /* una sombra pequeÒa */
+    /* una sombra peque√±a */
     -moz-box-shadow: 0px 0px 0.6em #52707a;
     -webkit-box-shadow: 0px 0px 0.6em #52707a;
     box-shadow: 0px 0px 0.6em #52707a;
 }
 .miembroFamiliaColores:active, .miembroResultados:active {
     z-index: 320;
-    /* una sombra m·s grande */
+    /* una sombra m√°s grande */
     -moz-box-shadow: 0px 0px 1.5em #52707a;
     -webkit-box-shadow: 0px 0px 1.5em #52707a;
     box-shadow: 0px 0px 1.5em #52707a;
@@ -938,7 +938,7 @@ html, body {
     border: 6px solid #0000ff;    
 }
 /* inicialmente */
-/* cambiar·n din·micamente */
+/* cambiar√°n din√°micamente */
 .contenedor-hsl-color {
     border: 3px solid #d3d3d3;
 }
@@ -968,7 +968,7 @@ html, body {
     -o-animation-duration: 1s;
     -o-animation-timing-function: linear;
     -o-animation-iteration-count: infinite;
-    /*EST¡NDAR*/
+    /*EST√ÅNDAR*/
     animation-name: blancoynegro;
     animation-duration: 1s;
     animation-timing-function: linear;
@@ -992,7 +992,7 @@ html, body {
     -o-animation-duration: 1s;
     -o-animation-timing-function: linear;
     -o-animation-iteration-count: infinite;
-    /*EST¡NDAR*/
+    /*EST√ÅNDAR*/
     animation-name: blancoynegro;
     animation-duration: 1s;
     animation-timing-function: linear;
@@ -1316,11 +1316,11 @@ html, body {
     font-size: 1.2em;
     vertical-align: text-bottom;   
     /* configurado, pero no lo mostraremos */
-    /* ajustar min-width del botÛn en caso de usarlo */
+    /* ajustar min-width del bot√≥n en caso de usarlo */
     display: none;
 }
 #BtnRellenar, #BtnColorLienzo, #BtnColorRejilla, #BtnGotero, #BtnPincel {
-    /* una sombra para que se vea el Ìcono de cualquier color */
+    /* una sombra para que se vea el √≠cono de cualquier color */
     text-shadow: 0px 0px 2px #7fff7f;
     /* color inicial es negro */
     color: #000000;
@@ -1330,7 +1330,7 @@ html, body {
     height: 34px !important;
 }
 #paletaHistorial button {
-    /* una sombra para que se vea el Ìcono de cualquier color */
+    /* una sombra para que se vea el √≠cono de cualquier color */
     text-shadow: 0px 0px 2px #ffffff;
 }
 #icoLienzoFlecha {
@@ -1452,7 +1452,7 @@ html, body {
     border: none;
     width: 16px;
     height: 16px;
-    font-size: 12.8px; /* 80% del tam·Òo, para las clases de sombra */
+    font-size: 12.8px; /* 80% del tam√°√±o, para las clases de sombra */
     background-color: #ffffff;    
 }
 /* la info de Extraer */
@@ -1527,7 +1527,7 @@ html, body {
         user-select: none; /* Standard syntax */
     }
 /* ajustes de la ventana modal */
-/*Ìconos en los tÌtulos de las ventanas modales*/
+/*√≠conos en los t√≠tulos de las ventanas modales*/
 .modal-header .fa {
     /* van con texto a la derecha ...*/
     margin-right: 6px;
@@ -1537,7 +1537,7 @@ html, body {
     padding: 2px 6px;
     font-size: 0.85em;
 }
-/* Set a style for the submit button, BOT”N ACEPTAR */
+/* Set a style for the submit button, BOT√ìN ACEPTAR */
 .btn {
     color: white;
     -webkit-border-radius: 5px;
@@ -1566,7 +1566,7 @@ html, body {
         background: #990099;
         font-weight: bold;
     }
-/*mensaje de validaciÛn O INFORMACI”N EN CADA MODAL */
+/*mensaje de validaci√≥n O INFORMACI√ìN EN CADA MODAL */
 #infoModal {
     color: green;
     background-color: #d3f8d3;
@@ -1726,7 +1726,7 @@ html, body {
 
 /* --------------------------- */
 /* inicia */
-/* ajustes de impresiÛn */
+/* ajustes de impresi√≥n */
 
 @page {
     margin: 0.4cm;
@@ -1771,7 +1771,7 @@ html, body {
     }
 
     .columna {
-        /* ESTO AFECTARÕA LAS SOMBRAS */
+        /* ESTO AFECTAR√çA LAS SOMBRAS */
         /* font-size: 0px !important; */
     }
 
@@ -1797,7 +1797,7 @@ html, body {
     }
 }
 /* fin print */
-/* FIN AJUSTES DE IMPRESI”N */
+/* FIN AJUSTES DE IMPRESI√ìN */
 /* --------------------------- */
 .loader {
     position: fixed;
@@ -2030,10 +2030,10 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores, input {
     display: inline-block;
     padding: 0px;
     font-size: 0px;
-    /* COLOR LIENZO INICIAL, esto no ser· visible */
+    /* COLOR LIENZO INICIAL, esto no ser√° visible */
     /* porque ahora los lienzos son individuales */
     background-color: #ffffff;
-    /* PARA LA ANIMACI”N */
+    /* PARA LA ANIMACI√ìN */
     -moz-transition: opacity 2s;
     -o-transition: opacity 2s;
     -webkit-transition: opacity 2s;
@@ -2049,7 +2049,7 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores, input {
     opacity: 0.2; 
 }
 #pieAfter {
-    height: 100px; /*padding-bottom: ESTO PARA QUE SE VEA EN IE Y FIREFOX y dem·s */
+    height: 100px; /*padding-bottom: ESTO PARA QUE SE VEA EN IE Y FIREFOX y dem√°s */
     display: block;
 }
 .hFirma, #pie {    
@@ -2098,7 +2098,7 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores, input {
     transition: border-radius 0.6s, background-color 0.6s;
 }
 
-/* Selecciona cualquier <input> no v·lido */
+/* Selecciona cualquier <input> no v√°lido */
 #colorPixel:invalid {
     background-color: darkred;
     color: white;
@@ -2170,7 +2170,7 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores, input {
     min-width: 110px;
 }
 
-/*Ìconos de la barra */
+/*√≠conos de la barra */
 .paleta .fa, #BtnCerrarHistorial .fa {
     /* no llevan texto ...*/
     font-size: 1.2em;
@@ -2185,7 +2185,7 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores, input {
     -webkit-transition: opacity 1s, visibility 1s, background-color 1s, background 1s;
     transition: opacity 1s, visibility 1s, background-color 1s, background 1s;
 }
-#BtnHistorialColor { /* agregue aquÌ #BtnRellenar en caso de usar relleno */
+#BtnHistorialColor { /* agregue aqu√≠ #BtnRellenar en caso de usar relleno */
     min-width: 62px !important;
     -moz-transition: opacity 2s, -moz-box-shadow 0.2s;
     -o-transition: opacity 2s, box-shadow 0.2s;
@@ -2248,7 +2248,7 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores, input {
 
 .paleta button:hover, #BtnCerrarHistorial:hover, #paletaFull button:hover, #colorPixel:hover, #selectFilas:hover, #selectColumnas:hover, #filtro:hover, #selectFondo:hover {
     z-index: 180;
-    /* una sombra pequeÒa */
+    /* una sombra peque√±a */
     -moz-box-shadow: 0px 0px 0.3em #ffffff, 0px 0px 0.6em #e600e6;
     -webkit-box-shadow: 0px 0px 0.3em #ffffff, 0px 0px 0.6em #e600e6;
     box-shadow: 0px 0px 0.3em #ffffff, 0px 0px 0.6em #e600e6;
@@ -2274,7 +2274,7 @@ button, select, input {
 
 .paleta button:active, #BtnCerrarHistorial:active, #paletaFull button:active, #colorPixel:active {
     z-index: 180;
-    /* una sombra m·s grande */
+    /* una sombra m√°s grande */
     -moz-box-shadow: 0px 0px 0.7em #ffffff, 0px 0px 1.5em #e600e6;
     -webkit-box-shadow: 0px 0px 0.7em #ffffff, 0px 0px 1.5em #e600e6;
     box-shadow: 0px 0px 0.7em #ffffff, 0px 0px 1.5em #e600e6;
@@ -2286,7 +2286,7 @@ button, select, input {
 #BtnSalirPantallaCompleta:hover, #BtnSalirPantallaCompleta:active {
     color: #009900;
 }
-/*LA BARRA DE NAVEGACI”N*/
+/*LA BARRA DE NAVEGACI√ìN*/
 .paleta {
     background-color: gray;
     z-index: 100;
@@ -2418,7 +2418,7 @@ body {
     -o-animation-duration: 0.4s;
     -o-animation-timing-function: linear;
     -o-animation-iteration-count: infinite;
-    /*EST¡NDAR*/
+    /*EST√ÅNDAR*/
     animation-name: resaltar;
     animation-duration: 0.4s;
     animation-timing-function: linear;
@@ -2615,7 +2615,7 @@ overflow-x: hidden;
     -o-animation-duration: 1s;
     -o-animation-timing-function: linear;
     -o-animation-iteration-count: infinite;
-    /*EST¡NDAR*/
+    /*EST√ÅNDAR*/
     animation-name: parpadeo;
     animation-duration: 1s;
     animation-timing-function: linear;
@@ -2827,7 +2827,7 @@ input[type=range] {
 :root {
     /* atributos personalizados para el color de las sombras */
     --color-sombra: hsl(0, 100%, 50%);
-    /* atributos personalizados para el gradiente de ·ngulo */
+    /* atributos personalizados para el gradiente de √°ngulo */
     --color-hue0: hsl(0, 100%, 50%);
     --color-hue30: hsl(30, 100%, 50%);
     --color-hue60: hsl(60, 100%, 50%);
@@ -2841,7 +2841,7 @@ input[type=range] {
     --color-hue300: hsl(300, 100%, 50%);
     --color-hue330: hsl(330, 100%, 50%);
     --color-hue360: hsl(360, 100%, 50%);
-    /* atributos personalizados para el gradiente de saturaciÛn */
+    /* atributos personalizados para el gradiente de saturaci√≥n */
     --color-sat0: hsl(0, 0%, 50%);
     --color-sat10: hsl(0, 10%, 50%);
     --color-sat20: hsl(0, 20%, 50%);
@@ -2887,6 +2887,13 @@ input[type=range] {
     background-image: -o-linear-gradient(right, var(--color-hue0), var(--color-hue30), var(--color-hue60), var(--color-hue90), var(--color-hue120), var(--color-hue150), var(--color-hue180), var(--color-hue210), var(--color-hue240), var(--color-hue270), var(--color-hue300), var(--color-hue330), var(--color-hue360));
     background-image: -moz-linear-gradient(right, var(--color-hue0), var(--color-hue30), var(--color-hue60), var(--color-hue90), var(--color-hue120), var(--color-hue150), var(--color-hue180), var(--color-hue210), var(--color-hue240), var(--color-hue270), var(--color-hue300), var(--color-hue330), var(--color-hue360));
     background-image: linear-gradient(to right, var(--color-hue0), var(--color-hue30), var(--color-hue60), var(--color-hue90), var(--color-hue120), var(--color-hue150), var(--color-hue180), var(--color-hue210), var(--color-hue240), var(--color-hue270), var(--color-hue300), var(--color-hue330), var(--color-hue360));
+    /*SOMBRA*/
+    -moz-box-shadow: 0px 0px 3px #d3d3d3;
+    -moz-box-shadow: 0px 0px 3px var(--color-sombra);
+    -webkit-box-shadow: 0px 0px 3px #d3d3d3;
+    -webkit-box-shadow: 0px 0px 3px var(--color-sombra);
+    box-shadow: 0px 0px 3px #d3d3d3;
+    box-shadow: 0px 0px 3px var(--color-sombra);
 }
 
 #rangoH::-webkit-slider-thumb {
@@ -2918,6 +2925,13 @@ input[type=range] {
     background-image: -o-linear-gradient(right, var(--color-hue0), var(--color-hue30), var(--color-hue60), var(--color-hue90), var(--color-hue120), var(--color-hue150), var(--color-hue180), var(--color-hue210), var(--color-hue240), var(--color-hue270), var(--color-hue300), var(--color-hue330), var(--color-hue360));
     background-image: -moz-linear-gradient(right, var(--color-hue0), var(--color-hue30), var(--color-hue60), var(--color-hue90), var(--color-hue120), var(--color-hue150), var(--color-hue180), var(--color-hue210), var(--color-hue240), var(--color-hue270), var(--color-hue300), var(--color-hue330), var(--color-hue360));
     background-image: linear-gradient(to right, var(--color-hue0), var(--color-hue30), var(--color-hue60), var(--color-hue90), var(--color-hue120), var(--color-hue150), var(--color-hue180), var(--color-hue210), var(--color-hue240), var(--color-hue270), var(--color-hue300), var(--color-hue330), var(--color-hue360));
+    /*SOMBRA*/
+    -moz-box-shadow: 0px 0px 3px #d3d3d3;
+    -moz-box-shadow: 0px 0px 3px var(--color-sombra);
+    -webkit-box-shadow: 0px 0px 3px #d3d3d3;
+    -webkit-box-shadow: 0px 0px 3px var(--color-sombra);
+    box-shadow: 0px 0px 3px #d3d3d3;
+    box-shadow: 0px 0px 3px var(--color-sombra);
 }
 
 #rangoH::-moz-range-thumb {
@@ -2939,6 +2953,13 @@ input[type=range] {
 #rangoH::-ms-fill {
     /* NO MULTICOLOR EN IE  */
     background: #d8bfd8;
+    /*SOMBRA*/
+    -moz-box-shadow: 0px 0px 3px #d3d3d3;
+    -moz-box-shadow: 0px 0px 3px var(--color-sombra);
+    -webkit-box-shadow: 0px 0px 3px #d3d3d3;
+    -webkit-box-shadow: 0px 0px 3px var(--color-sombra);
+    box-shadow: 0px 0px 3px #d3d3d3;
+    box-shadow: 0px 0px 3px var(--color-sombra);
 }
     #rangoH::-ms-fill-upper {
     /* NO MULTICOLOR EN IE  */
@@ -2946,7 +2967,7 @@ input[type=range] {
 }
 
 #rangoH::-ms-thumb {
-    /* M¡S OSCURO POR DEFECTO */
+    /* M√ÅS OSCURO POR DEFECTO */
     border: 2px solid purple;
 }
 #rangoH:hover::-ms-thumb, #rangoH:focus::-ms-thumb {
@@ -2974,6 +2995,13 @@ input[type=range] {
     background-image: -o-linear-gradient(right, var(--color-sat0), var(--color-sat10), var(--color-sat20), var(--color-sat30), var(--color-sat40), var(--color-sat50), var(--color-sat60), var(--color-sat70), var(--color-sat80), var(--color-sat90), var(--color-sat100));
     background-image: -moz-linear-gradient(right, var(--color-sat0), var(--color-sat10), var(--color-sat20), var(--color-sat30), var(--color-sat40), var(--color-sat50), var(--color-sat60), var(--color-sat70), var(--color-sat80), var(--color-sat90), var(--color-sat100));
     background-image: linear-gradient(to right, var(--color-sat0), var(--color-sat10), var(--color-sat20), var(--color-sat30), var(--color-sat40), var(--color-sat50), var(--color-sat60), var(--color-sat70), var(--color-sat80), var(--color-sat90), var(--color-sat100));
+    /*SOMBRA*/
+    -moz-box-shadow: 0px 0px 3px #d3d3d3;
+    -moz-box-shadow: 0px 0px 3px var(--color-sombra);
+    -webkit-box-shadow: 0px 0px 3px #d3d3d3;
+    -webkit-box-shadow: 0px 0px 3px var(--color-sombra);
+    box-shadow: 0px 0px 3px #d3d3d3;
+    box-shadow: 0px 0px 3px var(--color-sombra);
 }
 
 #rangoS::-webkit-slider-thumb {
@@ -3006,6 +3034,13 @@ input[type=range] {
     background-image: -o-linear-gradient(right, var(--color-sat0), var(--color-sat10), var(--color-sat20), var(--color-sat30), var(--color-sat40), var(--color-sat50), var(--color-sat60), var(--color-sat70), var(--color-sat80), var(--color-sat90), var(--color-sat100));
     background-image: -moz-linear-gradient(right, var(--color-sat0), var(--color-sat10), var(--color-sat20), var(--color-sat30), var(--color-sat40), var(--color-sat50), var(--color-sat60), var(--color-sat70), var(--color-sat80), var(--color-sat90), var(--color-sat100));
     background-image: linear-gradient(to right, var(--color-sat0), var(--color-sat10), var(--color-sat20), var(--color-sat30), var(--color-sat40), var(--color-sat50), var(--color-sat60), var(--color-sat70), var(--color-sat80), var(--color-sat90), var(--color-sat100));
+    /*SOMBRA*/
+    -moz-box-shadow: 0px 0px 3px #d3d3d3;
+    -moz-box-shadow: 0px 0px 3px var(--color-sombra);
+    -webkit-box-shadow: 0px 0px 3px #d3d3d3;
+    -webkit-box-shadow: 0px 0px 3px var(--color-sombra);
+    box-shadow: 0px 0px 3px #d3d3d3;
+    box-shadow: 0px 0px 3px var(--color-sombra);
 }
 
 #rangoS::-moz-range-thumb {
@@ -3030,6 +3065,13 @@ input[type=range] {
 #rangoS::-ms-fill {
     /* NO MULTICOLOR EN IE  */
     background: #d8bfd8;
+    /*SOMBRA*/
+    -moz-box-shadow: 0px 0px 3px #d3d3d3;
+    -moz-box-shadow: 0px 0px 3px var(--color-sombra);
+    -webkit-box-shadow: 0px 0px 3px #d3d3d3;
+    -webkit-box-shadow: 0px 0px 3px var(--color-sombra);
+    box-shadow: 0px 0px 3px #d3d3d3;
+    box-shadow: 0px 0px 3px var(--color-sombra);
 }
 #rangoS::-ms-fill-upper {
     /* NO MULTICOLOR EN IE  */
@@ -3037,7 +3079,7 @@ input[type=range] {
 }
 
 #rangoS::-ms-thumb {
-    /* M¡S OSCURO POR DEFECTO */
+    /* M√ÅS OSCURO POR DEFECTO */
     border: 2px solid purple;
 }
 
@@ -3067,6 +3109,13 @@ input[type=range] {
     background-image: -o-linear-gradient(right, var(--color-lum0), var(--color-lum10), var(--color-lum20), var(--color-lum30), var(--color-lum40), var(--color-lum50), var(--color-lum60), var(--color-lum70), var(--color-lum80), var(--color-lum90), var(--color-lum100));
     background-image: -moz-linear-gradient(right, var(--color-lum0), var(--color-lum10), var(--color-lum20), var(--color-lum30), var(--color-lum40), var(--color-lum50), var(--color-lum60), var(--color-lum70), var(--color-lum80), var(--color-lum90), var(--color-lum100));
     background-image: linear-gradient(to right, var(--color-lum0), var(--color-lum10), var(--color-lum20), var(--color-lum30), var(--color-lum40), var(--color-lum50), var(--color-lum60), var(--color-lum70), var(--color-lum80), var(--color-lum90), var(--color-lum100));
+    /*SOMBRA*/
+    -moz-box-shadow: 0px 0px 3px #d3d3d3;
+    -moz-box-shadow: 0px 0px 3px var(--color-sombra);
+    -webkit-box-shadow: 0px 0px 3px #d3d3d3;
+    -webkit-box-shadow: 0px 0px 3px var(--color-sombra);
+    box-shadow: 0px 0px 3px #d3d3d3;
+    box-shadow: 0px 0px 3px var(--color-sombra);
 }
 
 
@@ -3101,6 +3150,13 @@ input[type=range] {
     background-image: -o-linear-gradient(right, var(--color-lum0), var(--color-lum10), var(--color-lum20), var(--color-lum30), var(--color-lum40), var(--color-lum50), var(--color-lum60), var(--color-lum70), var(--color-lum80), var(--color-lum90), var(--color-lum100));
     background-image: -moz-linear-gradient(right, var(--color-lum0), var(--color-lum10), var(--color-lum20), var(--color-lum30), var(--color-lum40), var(--color-lum50), var(--color-lum60), var(--color-lum70), var(--color-lum80), var(--color-lum90), var(--color-lum100));
     background-image: linear-gradient(to right, var(--color-lum0), var(--color-lum10), var(--color-lum20), var(--color-lum30), var(--color-lum40), var(--color-lum50), var(--color-lum60), var(--color-lum70), var(--color-lum80), var(--color-lum90), var(--color-lum100));
+    /*SOMBRA*/
+    -moz-box-shadow: 0px 0px 3px #d3d3d3;
+    -moz-box-shadow: 0px 0px 3px var(--color-sombra);
+    -webkit-box-shadow: 0px 0px 3px #d3d3d3;
+    -webkit-box-shadow: 0px 0px 3px var(--color-sombra);
+    box-shadow: 0px 0px 3px #d3d3d3;
+    box-shadow: 0px 0px 3px var(--color-sombra);
 }
 
 #rangoL::-moz-range-thumb {
@@ -3125,6 +3181,13 @@ input[type=range] {
 #rangoL::-ms-fill {
     /* NO MULTICOLOR EN IE  */
     background: #d8bfd8;
+    /*SOMBRA*/
+    -moz-box-shadow: 0px 0px 3px #d3d3d3;
+    -moz-box-shadow: 0px 0px 3px var(--color-sombra);
+    -webkit-box-shadow: 0px 0px 3px #d3d3d3;
+    -webkit-box-shadow: 0px 0px 3px var(--color-sombra);
+    box-shadow: 0px 0px 3px #d3d3d3;
+    box-shadow: 0px 0px 3px var(--color-sombra);
 }
 
 #rangoL::-ms-fill-upper {
@@ -3133,7 +3196,7 @@ input[type=range] {
 }
 
 #rangoL::-ms-thumb {
-    /* M¡S OSCURO POR DEFECTO */
+    /* M√ÅS OSCURO POR DEFECTO */
     border: 2px solid purple;
 }
 
@@ -3167,12 +3230,12 @@ input[type=range] {
 }
 
 #rangoR::-webkit-slider-thumb {
-    /* rojo m·s oscuro, dejando 3 */
+    /* rojo m√°s oscuro, dejando 3 */
     background: #990000;
 }
 
 #rangoR:focus::-webkit-slider-runnable-track {
-    /* rojo m·s oscuro, el siguiente */
+    /* rojo m√°s oscuro, el siguiente */
     background: #e60000;
     background-image: -webkit-linear-gradient(left, #000000, #e60000); /* For Safari 5.1 to 6.0 */
     background-image: -o-linear-gradient(right, #000000, #e60000); /* For Opera 11.1 to 12.0 */
@@ -3190,7 +3253,7 @@ input[type=range] {
 }
 
 #rangoR::-moz-range-thumb {
-    /* rojo m·s oscuro, dejando 3 */
+    /* rojo m√°s oscuro, dejando 3 */
     background: #990000;
 }
 
@@ -3213,17 +3276,17 @@ input[type=range] {
 }
 
 #rangoR::-ms-thumb {
-    /* rojo m·s oscuro, dejando 3 */
+    /* rojo m√°s oscuro, dejando 3 */
     background: #990000;
 }
 
 #rangoR:focus::-ms-fill-lower {
-    /* rojo m·s oscuro, el siguiente */
+    /* rojo m√°s oscuro, el siguiente */
     background: #e60000;
 }
 
 #rangoR:focus::-ms-fill-upper {
-    /* rojo m·s oscuro, el siguiente */
+    /* rojo m√°s oscuro, el siguiente */
     background: #e60000;
 }
 
@@ -3238,12 +3301,12 @@ input[type=range] {
 }
 
 #rangoG::-webkit-slider-thumb {
-    /* VERDE m·s oscuro, dejando 3 */
+    /* VERDE m√°s oscuro, dejando 3 */
     background: #009900;
 }
 
 #rangoG:focus::-webkit-slider-runnable-track {
-    /* VERDE m·s oscuro, el siguiente */
+    /* VERDE m√°s oscuro, el siguiente */
     background: #00e600;
     background-image: -webkit-linear-gradient(left, #000000, #00e600); /* For Safari 5.1 to 6.0 */
     background-image: -o-linear-gradient(right, #000000, #00e600); /* For Opera 11.1 to 12.0 */
@@ -3261,7 +3324,7 @@ input[type=range] {
 }
 
 #rangoG::-moz-range-thumb {
-    /* VERDE m·s oscuro, dejando 3 */
+    /* VERDE m√°s oscuro, dejando 3 */
     background: #009900;
 }
 
@@ -3284,12 +3347,12 @@ input[type=range] {
 }
 
 #rangoG::-ms-thumb {
-    /* VERDE m·s oscuro, dejando 3 */
+    /* VERDE m√°s oscuro, dejando 3 */
     background: #009900;
 }
 
 #rangoG:focus::-ms-fill-lower {
-    /* VERDE m·s oscuro, el siguiente */
+    /* VERDE m√°s oscuro, el siguiente */
     background: #00e600;
     background-image: -webkit-linear-gradient(left, #000000, #00e600); /* For Safari 5.1 to 6.0 */
     background-image: -o-linear-gradient(right, #000000, #00e600); /* For Opera 11.1 to 12.0 */
@@ -3298,7 +3361,7 @@ input[type=range] {
 }
 
 #rangoG:focus::-ms-fill-upper {
-    /* VERDE m·s oscuro, el siguiente */
+    /* VERDE m√°s oscuro, el siguiente */
     background: #00e600;
     background-image: -webkit-linear-gradient(left, #000000, #00e600); /* For Safari 5.1 to 6.0 */
     background-image: -o-linear-gradient(right, #000000, #00e600); /* For Opera 11.1 to 12.0 */
@@ -3317,12 +3380,12 @@ input[type=range] {
 }
 
 #rangoB::-webkit-slider-thumb {
-    /* AZUL m·s oscuro, dejando 3 */
+    /* AZUL m√°s oscuro, dejando 3 */
     background: #000099;
 }
 
 #rangoB:focus::-webkit-slider-runnable-track {
-    /* AZUL m·s oscuro, el siguiente */
+    /* AZUL m√°s oscuro, el siguiente */
     background: #0000e6;
     background-image: -webkit-linear-gradient(left, #000000, #0000e6); /* For Safari 5.1 to 6.0 */
     background-image: -o-linear-gradient(right, #000000, #0000e6); /* For Opera 11.1 to 12.0 */
@@ -3340,7 +3403,7 @@ input[type=range] {
 }
 
 #rangoB::-moz-range-thumb {
-    /* AZUL m·s oscuro, dejando 3 */
+    /* AZUL m√°s oscuro, dejando 3 */
     background: #000099;
 }
 
@@ -3363,12 +3426,12 @@ input[type=range] {
 }
 
 #rangoB::-ms-thumb {
-    /* AZUL m·s oscuro, dejando 3 */
+    /* AZUL m√°s oscuro, dejando 3 */
     background: #000099;
 }
 
 #rangoB:focus::-ms-fill-lower {
-    /* AZUL m·s oscuro, el siguiente */
+    /* AZUL m√°s oscuro, el siguiente */
     background: #0000e6;
     background-image: -webkit-linear-gradient(left, #000000, #0000e6); /* For Safari 5.1 to 6.0 */
     background-image: -o-linear-gradient(right, #000000, #0000e6); /* For Opera 11.1 to 12.0 */
@@ -3377,7 +3440,7 @@ input[type=range] {
 }
 
 #rangoB:focus::-ms-fill-upper {
-    /* AZUL m·s oscuro, el siguiente */
+    /* AZUL m√°s oscuro, el siguiente */
     background: #0000e6;
     background-image: -webkit-linear-gradient(left, #000000, #0000e6); /* For Safari 5.1 to 6.0 */
     background-image: -o-linear-gradient(right, #000000, #0000e6); /* For Opera 11.1 to 12.0 */
@@ -3391,7 +3454,7 @@ input[type=range] {
     margin: 26px 4px 12px 24px;
     font-family: Consolas, Courier New, Courier, monospace;
 }
-/* el ˙ltimo de cada grupo */
+/* el √∫ltimo de cada grupo */
 #checkOutset, #checkLienzoGlobal, #checkColorBordesGlobal, #checkExtraerDesdeBordes {
     margin-bottom: 28px;
 }
@@ -3433,7 +3496,7 @@ input[type=range] {
 
 /* On mouse-over, add a diferent background color */
 .containerR:hover input ~ .checkmarkR {
-    background-color: #bfbff2; /* un poco m·s oscuro que lavender */
+    background-color: #bfbff2; /* un poco m√°s oscuro que lavender */
 }
 
 /* When the radio button is checked, add a mediumpurple background */
@@ -3515,7 +3578,7 @@ input[type=range] {
 
 /* On mouse-over, add a grey background color */
 .contenedorCheckbox:hover input ~ .checkmark {
-    background-color: #bfbff2; /*un poco m·s oscuro que el lavender*/
+    background-color: #bfbff2; /*un poco m√°s oscuro que el lavender*/
 }
 
 /* When the checkbox is checked, add a mediumpurple background */
