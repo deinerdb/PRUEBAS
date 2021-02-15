@@ -669,6 +669,80 @@ function bDesdeHex(hex) {
     miB = parseInt(miB, 16);
     return miB;
 }
+// ajusta el gradiente de los slider hsl
+function ajustarGradienteHSL(componente) {
+    switch (componente) {
+        case "h":
+            // gradiente toma valores de s y l actuales, y h varía de 0 a 360 grados
+            getRoot.style.setProperty('--color-hue0', "hsl(0, " + miS + "%, " + miL + "%)");
+            getRoot.style.setProperty('--color-hue30', "hsl(30, " + miS + "%, " + miL + "%)");
+            getRoot.style.setProperty('--color-hue60', "hsl(60, " + miS + "%, " + miL + "%)");
+            getRoot.style.setProperty('--color-hue90', "hsl(90, " + miS + "%, " + miL + "%)");
+            getRoot.style.setProperty('--color-hue120', "hsl(120, " + miS + "%, " + miL + "%)");
+            getRoot.style.setProperty('--color-hue150', "hsl(150, " + miS + "%, " + miL + "%)");
+            getRoot.style.setProperty('--color-hue180', "hsl(180, " + miS + "%, " + miL + "%)");
+            getRoot.style.setProperty('--color-hue210', "hsl(210, " + miS + "%, " + miL + "%)");
+            getRoot.style.setProperty('--color-hue240', "hsl(240, " + miS + "%, " + miL + "%)");
+            getRoot.style.setProperty('--color-hue270', "hsl(270, " + miS + "%, " + miL + "%)");
+            getRoot.style.setProperty('--color-hue300', "hsl(300, " + miS + "%, " + miL + "%)");
+            getRoot.style.setProperty('--color-hue330', "hsl(330, " + miS + "%, " + miL + "%)");
+            getRoot.style.setProperty('--color-hue360', "hsl(360, " + miS + "%, " + miL + "%)");            
+            break;
+        case "s":
+            // gradiente toma valores de h y l actuales, y s varía de 0% a 100%
+            getRoot.style.setProperty('--color-sat0', "hsl(" + miH + ", 0%, " + miL + "%)");
+            getRoot.style.setProperty('--color-sat10', "hsl(" + miH + ", 10%, " + miL + "%)");
+            getRoot.style.setProperty('--color-sat20', "hsl(" + miH + ", 20%, " + miL + "%)");
+            getRoot.style.setProperty('--color-sat30', "hsl(" + miH + ", 30%, " + miL + "%)");
+            getRoot.style.setProperty('--color-sat40', "hsl(" + miH + ", 40%, " + miL + "%)");
+            getRoot.style.setProperty('--color-sat50', "hsl(" + miH + ", 50%, " + miL + "%)");
+            getRoot.style.setProperty('--color-sat60', "hsl(" + miH + ", 60%, " + miL + "%)");
+            getRoot.style.setProperty('--color-sat70', "hsl(" + miH + ", 70%, " + miL + "%)");
+            getRoot.style.setProperty('--color-sat80', "hsl(" + miH + ", 80%, " + miL + "%)");
+            getRoot.style.setProperty('--color-sat90', "hsl(" + miH + ", 90%, " + miL + "%)");
+            getRoot.style.setProperty('--color-sat100', "hsl(" + miH + ", 100%, " + miL + "%)");
+            break;
+        case "l":
+            // gradiente toma valores de h y s actuales, y l varía de 0% a 100%
+            getRoot.style.setProperty('--color-lum0', "hsl(" + miH + ", " + miS + "%, 0%)");
+            getRoot.style.setProperty('--color-lum10', "hsl(" + miH + ", " + miS + "%, 10%)");
+            getRoot.style.setProperty('--color-lum20', "hsl(" + miH + ", " + miS + "%, 20%)");
+            getRoot.style.setProperty('--color-lum30', "hsl(" + miH + ", " + miS + "%, 30%)");
+            getRoot.style.setProperty('--color-lum40', "hsl(" + miH + ", " + miS + "%, 40%)");
+            getRoot.style.setProperty('--color-lum50', "hsl(" + miH + ", " + miS + "%, 50%)");
+            getRoot.style.setProperty('--color-lum60', "hsl(" + miH + ", " + miS + "%, 60%)");
+            getRoot.style.setProperty('--color-lum70', "hsl(" + miH + ", " + miS + "%, 70%)");
+            getRoot.style.setProperty('--color-lum80', "hsl(" + miH + ", " + miS + "%, 80%)");
+            getRoot.style.setProperty('--color-lum90', "hsl(" + miH + ", " + miS + "%, 90%)");
+            getRoot.style.setProperty('--color-lum100', "hsl(" + miH + ", " + miS + "%, 100%)");
+            break;
+    }
+}
+// convierte hsl en rgb
+// requiere función hueToRgb
+function hslToRgb(hue, sat, light) {
+    var t1, t2, r, g, b;
+    hue = hue / 60;
+    if (light <= 0.5) {
+        t2 = light * (sat + 1);
+    } else {
+        t2 = light + sat - (light * sat);
+    }
+    t1 = light * 2 - t2;
+    r = hueToRgb(t1, t2, hue + 2) * 255;
+    g = hueToRgb(t1, t2, hue) * 255;
+    b = hueToRgb(t1, t2, hue - 2) * 255;
+    return { r: r, g: g, b: b };
+}
+// requerida por función hslToRgb
+function hueToRgb(t1, t2, hue) {
+    if (hue < 0) hue += 6;
+    if (hue >= 6) hue -= 6;
+    if (hue < 1) return (t2 - t1) * hue + t1;
+    else if (hue < 3) return t2;
+    else if (hue < 4) return (t2 - t1) * (4 - hue) + t1;
+    else return t1;
+}
 // convierte rgb en hsl 
 function rgbToHsl(r, g, b) {
     var min, max, i, l, s, maxcolor, h, rgb = [];
@@ -1540,6 +1614,12 @@ function showModal() {
             $("#icoMuestraHSL").css("color", colorActual);
             // las sombras de los contenedores según el h actual            
             getRoot.style.setProperty('--color-sombra', "hsl(" + miH + ", 100%, 50%)");
+            // ajusta el gradiente del slider rangoH según color actual
+            ajustarGradienteHSL("h");
+            // ajusta el gradiente del slider rangoS según color actual
+            ajustarGradienteHSL("s");
+            // ajusta el gradiente del slider rangoL según color actual
+            ajustarGradienteHSL("l");
             break;
         case "sombras":
             $("#marcoSombras").css("display", "block");
