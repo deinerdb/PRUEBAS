@@ -718,6 +718,7 @@ function ajustarGradienteHSL(componente) {
             break;
     }
 }
+
 // convierte hsl en rgb
 // requiere función hueToRgb
 function hslToRgb(hue, sat, light) {
@@ -1620,6 +1621,9 @@ function showModal() {
             ajustarGradienteHSL("s");
             // ajusta el gradiente del slider rangoL según color actual
             ajustarGradienteHSL("l");
+            // el indicador multicolor de ángulo
+            var scrolled = (miH / 360) * 100;
+            document.getElementById("myBar").style.width = scrolled + "%";
             break;
         case "sombras":
             $("#marcoSombras").css("display", "block");

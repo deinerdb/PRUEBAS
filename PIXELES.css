@@ -746,12 +746,62 @@ html, body {
     -o-transition: color 0.7s;
     transition: color 0.7s;   
 }
+.progress-container {
+    width: 100%;
+    height: 16px;
+    background: white;
+    margin-bottom: 4px;
+    /*no se puede seleccionar el texto*/
+    -webkit-user-select: none; /* Chrome, Opera, Safari */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */
+    cursor: default;
+}
+
+.progress-bar {
+    height: 16px;
+    padding: 0;
+    color: purple;
+    background-color: white;
+    width: 0%;
+    font-size: 16px;
+    text-align: right;
+    /*border-right: 8px solid purple;*/
+}
 #hslCaption {
-    margin: 6px 0px;
+    margin: 6px 0px 0px 0px;
+    padding: 3px 0px;
     font-weight: bold;
     color: purple;
     font-size: 0.98em;
     font-family: Consolas, Courier New, Courier, monospace;
+    /* MULTICOLOR */
+    background-image: -webkit-linear-gradient(left, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Safari 5.1 to 6.0 */
+    background-image: -o-linear-gradient(right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Opera 11.1 to 12.0 */
+    background-image: -moz-linear-gradient(right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Firefox 3.6 to 15 */
+    background-image: linear-gradient(to right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* Standard syntax (must be last) */
+    /* anima */
+    /*WEBKIT*/
+    -webkit-animation-name: blancoynegro;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    /*MOZ*/
+    -moz-animation-name: blancoynegro;
+    -moz-animation-duration: 1s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+    /*O*/
+    -o-animation-name: blancoynegro;
+    -o-animation-duration: 1s;
+    -o-animation-timing-function: linear;
+    -o-animation-iteration-count: infinite;
+    /*ESTÁNDAR*/
+    animation-name: blancoynegro;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
 }
 #contInfoGallery {
     margin: 6px 0px;
@@ -2881,11 +2931,15 @@ input[type=range] {
 }
 /* otro, el MULTICOLOR H DE HSL */
 #rangoH::-webkit-slider-runnable-track {
-    /* MULTICOLOR */
     background: #d8bfd8;
+    /* MULTICOLOR */
+    background-image: -webkit-linear-gradient(left, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Safari 5.1 to 6.0 */
     background-image: -webkit-linear-gradient(left, var(--color-hue0), var(--color-hue30), var(--color-hue60), var(--color-hue90), var(--color-hue120), var(--color-hue150), var(--color-hue180), var(--color-hue210), var(--color-hue240), var(--color-hue270), var(--color-hue300), var(--color-hue330), var(--color-hue360));
+    background-image: -o-linear-gradient(right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Opera 11.1 to 12.0 */
     background-image: -o-linear-gradient(right, var(--color-hue0), var(--color-hue30), var(--color-hue60), var(--color-hue90), var(--color-hue120), var(--color-hue150), var(--color-hue180), var(--color-hue210), var(--color-hue240), var(--color-hue270), var(--color-hue300), var(--color-hue330), var(--color-hue360));
+    background-image: -moz-linear-gradient(right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Firefox 3.6 to 15 */
     background-image: -moz-linear-gradient(right, var(--color-hue0), var(--color-hue30), var(--color-hue60), var(--color-hue90), var(--color-hue120), var(--color-hue150), var(--color-hue180), var(--color-hue210), var(--color-hue240), var(--color-hue270), var(--color-hue300), var(--color-hue330), var(--color-hue360));
+    background-image: linear-gradient(to right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* Standard syntax (must be last) */
     background-image: linear-gradient(to right, var(--color-hue0), var(--color-hue30), var(--color-hue60), var(--color-hue90), var(--color-hue120), var(--color-hue150), var(--color-hue180), var(--color-hue210), var(--color-hue240), var(--color-hue270), var(--color-hue300), var(--color-hue330), var(--color-hue360));
     /*SOMBRA*/
     -moz-box-shadow: 0px 0px 3px #d3d3d3;
@@ -2912,18 +2966,26 @@ input[type=range] {
 #rangoH:focus::-webkit-slider-runnable-track {
     /* MULTICOLOR */
     background: #d8bfd8;
+    background-image: -webkit-linear-gradient(left, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Safari 5.1 to 6.0 */
     background-image: -webkit-linear-gradient(left, var(--color-hue0), var(--color-hue30), var(--color-hue60), var(--color-hue90), var(--color-hue120), var(--color-hue150), var(--color-hue180), var(--color-hue210), var(--color-hue240), var(--color-hue270), var(--color-hue300), var(--color-hue330), var(--color-hue360));
+    background-image: -o-linear-gradient(right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Opera 11.1 to 12.0 */
     background-image: -o-linear-gradient(right, var(--color-hue0), var(--color-hue30), var(--color-hue60), var(--color-hue90), var(--color-hue120), var(--color-hue150), var(--color-hue180), var(--color-hue210), var(--color-hue240), var(--color-hue270), var(--color-hue300), var(--color-hue330), var(--color-hue360));
+    background-image: -moz-linear-gradient(right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Firefox 3.6 to 15 */
     background-image: -moz-linear-gradient(right, var(--color-hue0), var(--color-hue30), var(--color-hue60), var(--color-hue90), var(--color-hue120), var(--color-hue150), var(--color-hue180), var(--color-hue210), var(--color-hue240), var(--color-hue270), var(--color-hue300), var(--color-hue330), var(--color-hue360));
+    background-image: linear-gradient(to right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* Standard syntax (must be last) */
     background-image: linear-gradient(to right, var(--color-hue0), var(--color-hue30), var(--color-hue60), var(--color-hue90), var(--color-hue120), var(--color-hue150), var(--color-hue180), var(--color-hue210), var(--color-hue240), var(--color-hue270), var(--color-hue300), var(--color-hue330), var(--color-hue360));
 }
 
 #rangoH::-moz-range-track {
     /* MULTICOLOR */
     background: #d8bfd8;
+    background-image: -webkit-linear-gradient(left, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Safari 5.1 to 6.0 */
     background-image: -webkit-linear-gradient(left, var(--color-hue0), var(--color-hue30), var(--color-hue60), var(--color-hue90), var(--color-hue120), var(--color-hue150), var(--color-hue180), var(--color-hue210), var(--color-hue240), var(--color-hue270), var(--color-hue300), var(--color-hue330), var(--color-hue360));
+    background-image: -o-linear-gradient(right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Opera 11.1 to 12.0 */
     background-image: -o-linear-gradient(right, var(--color-hue0), var(--color-hue30), var(--color-hue60), var(--color-hue90), var(--color-hue120), var(--color-hue150), var(--color-hue180), var(--color-hue210), var(--color-hue240), var(--color-hue270), var(--color-hue300), var(--color-hue330), var(--color-hue360));
+    background-image: -moz-linear-gradient(right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Firefox 3.6 to 15 */
     background-image: -moz-linear-gradient(right, var(--color-hue0), var(--color-hue30), var(--color-hue60), var(--color-hue90), var(--color-hue120), var(--color-hue150), var(--color-hue180), var(--color-hue210), var(--color-hue240), var(--color-hue270), var(--color-hue300), var(--color-hue330), var(--color-hue360));
+    background-image: linear-gradient(to right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* Standard syntax (must be last) */
     background-image: linear-gradient(to right, var(--color-hue0), var(--color-hue30), var(--color-hue60), var(--color-hue90), var(--color-hue120), var(--color-hue150), var(--color-hue180), var(--color-hue210), var(--color-hue240), var(--color-hue270), var(--color-hue300), var(--color-hue330), var(--color-hue360));
     /*SOMBRA*/
     -moz-box-shadow: 0px 0px 3px #d3d3d3;
@@ -2991,9 +3053,13 @@ input[type=range] {
 #rangoS::-webkit-slider-runnable-track {
     /* MULTICOLOR */
     background: #d8bfd8;
+    background-image: -webkit-linear-gradient(left, #808080, #d9d9d9);
     background-image: -webkit-linear-gradient(left, var(--color-sat0), var(--color-sat10), var(--color-sat20), var(--color-sat30), var(--color-sat40), var(--color-sat50), var(--color-sat60), var(--color-sat70), var(--color-sat80), var(--color-sat90), var(--color-sat100));
+    background-image: -o-linear-gradient(right, #808080, #d9d9d9);
     background-image: -o-linear-gradient(right, var(--color-sat0), var(--color-sat10), var(--color-sat20), var(--color-sat30), var(--color-sat40), var(--color-sat50), var(--color-sat60), var(--color-sat70), var(--color-sat80), var(--color-sat90), var(--color-sat100));
+    background-image: -moz-linear-gradient(right, #808080, #d9d9d9);
     background-image: -moz-linear-gradient(right, var(--color-sat0), var(--color-sat10), var(--color-sat20), var(--color-sat30), var(--color-sat40), var(--color-sat50), var(--color-sat60), var(--color-sat70), var(--color-sat80), var(--color-sat90), var(--color-sat100));
+    background-image: linear-gradient(to right, #808080, #d9d9d9);
     background-image: linear-gradient(to right, var(--color-sat0), var(--color-sat10), var(--color-sat20), var(--color-sat30), var(--color-sat40), var(--color-sat50), var(--color-sat60), var(--color-sat70), var(--color-sat80), var(--color-sat90), var(--color-sat100));
     /*SOMBRA*/
     -moz-box-shadow: 0px 0px 3px #d3d3d3;
@@ -3021,18 +3087,26 @@ input[type=range] {
 #rangoS:focus::-webkit-slider-runnable-track {
     /* MULTICOLOR */
     background: #d8bfd8;
+    background-image: -webkit-linear-gradient(left, #808080, #d9d9d9);
     background-image: -webkit-linear-gradient(left, var(--color-sat0), var(--color-sat10), var(--color-sat20), var(--color-sat30), var(--color-sat40), var(--color-sat50), var(--color-sat60), var(--color-sat70), var(--color-sat80), var(--color-sat90), var(--color-sat100));
+    background-image: -o-linear-gradient(right, #808080, #d9d9d9);
     background-image: -o-linear-gradient(right, var(--color-sat0), var(--color-sat10), var(--color-sat20), var(--color-sat30), var(--color-sat40), var(--color-sat50), var(--color-sat60), var(--color-sat70), var(--color-sat80), var(--color-sat90), var(--color-sat100));
+    background-image: -moz-linear-gradient(right, #808080, #d9d9d9);
     background-image: -moz-linear-gradient(right, var(--color-sat0), var(--color-sat10), var(--color-sat20), var(--color-sat30), var(--color-sat40), var(--color-sat50), var(--color-sat60), var(--color-sat70), var(--color-sat80), var(--color-sat90), var(--color-sat100));
+    background-image: linear-gradient(to right, #808080, #d9d9d9);
     background-image: linear-gradient(to right, var(--color-sat0), var(--color-sat10), var(--color-sat20), var(--color-sat30), var(--color-sat40), var(--color-sat50), var(--color-sat60), var(--color-sat70), var(--color-sat80), var(--color-sat90), var(--color-sat100));
 }
 
 #rangoS::-moz-range-track {
     /* MULTICOLOR */
     background: #d8bfd8;
+    background-image: -webkit-linear-gradient(left, #808080, #d9d9d9);
     background-image: -webkit-linear-gradient(left, var(--color-sat0), var(--color-sat10), var(--color-sat20), var(--color-sat30), var(--color-sat40), var(--color-sat50), var(--color-sat60), var(--color-sat70), var(--color-sat80), var(--color-sat90), var(--color-sat100));
+    background-image: -o-linear-gradient(right, #808080, #d9d9d9);
     background-image: -o-linear-gradient(right, var(--color-sat0), var(--color-sat10), var(--color-sat20), var(--color-sat30), var(--color-sat40), var(--color-sat50), var(--color-sat60), var(--color-sat70), var(--color-sat80), var(--color-sat90), var(--color-sat100));
+    background-image: -moz-linear-gradient(right, #808080, #d9d9d9);
     background-image: -moz-linear-gradient(right, var(--color-sat0), var(--color-sat10), var(--color-sat20), var(--color-sat30), var(--color-sat40), var(--color-sat50), var(--color-sat60), var(--color-sat70), var(--color-sat80), var(--color-sat90), var(--color-sat100));
+    background-image: linear-gradient(to right, #808080, #d9d9d9);
     background-image: linear-gradient(to right, var(--color-sat0), var(--color-sat10), var(--color-sat20), var(--color-sat30), var(--color-sat40), var(--color-sat50), var(--color-sat60), var(--color-sat70), var(--color-sat80), var(--color-sat90), var(--color-sat100));
     /*SOMBRA*/
     -moz-box-shadow: 0px 0px 3px #d3d3d3;
@@ -3059,7 +3133,7 @@ input[type=range] {
 
 #rangoS::-ms-fill-lower {
     /* NO MULTICOLOR EN IE  */
-    background: #d8bfd8;
+    background: #808080;
 }
 
 #rangoS::-ms-fill {
@@ -3075,7 +3149,7 @@ input[type=range] {
 }
 #rangoS::-ms-fill-upper {
     /* NO MULTICOLOR EN IE  */
-    background: #d8bfd8;
+    background: #d9d9d9;
 }
 
 #rangoS::-ms-thumb {
@@ -3092,12 +3166,12 @@ input[type=range] {
 
 #rangoS:focus::-ms-fill-lower {
     /* NO MULTICOLOR EN IE  */
-    background: #d8bfd8;
+    background: #808080;
 }
 
 #rangoS:focus::-ms-fill-upper {
     /* NO MULTICOLOR EN IE  */
-    background: #d8bfd8;
+    background: #d9d9d9;
 }
 /* FIN S DE HSL */
 /* ---- */
@@ -3105,9 +3179,13 @@ input[type=range] {
 #rangoL::-webkit-slider-runnable-track {
     /* MULTICOLOR */
     background: #d8bfd8;
+    background-image: -webkit-linear-gradient(left, #000000, #ffffff);
     background-image: -webkit-linear-gradient(left, var(--color-lum0), var(--color-lum10), var(--color-lum20), var(--color-lum30), var(--color-lum40), var(--color-lum50), var(--color-lum60), var(--color-lum70), var(--color-lum80), var(--color-lum90), var(--color-lum100));
+    background-image: -o-linear-gradient(right, #000000, #ffffff);
     background-image: -o-linear-gradient(right, var(--color-lum0), var(--color-lum10), var(--color-lum20), var(--color-lum30), var(--color-lum40), var(--color-lum50), var(--color-lum60), var(--color-lum70), var(--color-lum80), var(--color-lum90), var(--color-lum100));
+    background-image: -moz-linear-gradient(right, #000000, #ffffff);
     background-image: -moz-linear-gradient(right, var(--color-lum0), var(--color-lum10), var(--color-lum20), var(--color-lum30), var(--color-lum40), var(--color-lum50), var(--color-lum60), var(--color-lum70), var(--color-lum80), var(--color-lum90), var(--color-lum100));
+    background-image: linear-gradient(to right, #000000, #ffffff);
     background-image: linear-gradient(to right, var(--color-lum0), var(--color-lum10), var(--color-lum20), var(--color-lum30), var(--color-lum40), var(--color-lum50), var(--color-lum60), var(--color-lum70), var(--color-lum80), var(--color-lum90), var(--color-lum100));
     /*SOMBRA*/
     -moz-box-shadow: 0px 0px 3px #d3d3d3;
@@ -3136,9 +3214,13 @@ input[type=range] {
 #rangoL:focus::-webkit-slider-runnable-track {
     /* MULTICOLOR */
     background: #d8bfd8;
+    background-image: -webkit-linear-gradient(left, #000000, #ffffff);
     background-image: -webkit-linear-gradient(left, var(--color-lum0), var(--color-lum10), var(--color-lum20), var(--color-lum30), var(--color-lum40), var(--color-lum50), var(--color-lum60), var(--color-lum70), var(--color-lum80), var(--color-lum90), var(--color-lum100));
+    background-image: -o-linear-gradient(right, #000000, #ffffff);
     background-image: -o-linear-gradient(right, var(--color-lum0), var(--color-lum10), var(--color-lum20), var(--color-lum30), var(--color-lum40), var(--color-lum50), var(--color-lum60), var(--color-lum70), var(--color-lum80), var(--color-lum90), var(--color-lum100));
+    background-image: -moz-linear-gradient(right, #000000, #ffffff);
     background-image: -moz-linear-gradient(right, var(--color-lum0), var(--color-lum10), var(--color-lum20), var(--color-lum30), var(--color-lum40), var(--color-lum50), var(--color-lum60), var(--color-lum70), var(--color-lum80), var(--color-lum90), var(--color-lum100));
+    background-image: linear-gradient(to right, #000000, #ffffff);
     background-image: linear-gradient(to right, var(--color-lum0), var(--color-lum10), var(--color-lum20), var(--color-lum30), var(--color-lum40), var(--color-lum50), var(--color-lum60), var(--color-lum70), var(--color-lum80), var(--color-lum90), var(--color-lum100));
 }
 
@@ -3146,9 +3228,13 @@ input[type=range] {
 #rangoL::-moz-range-track {
     /* MULTICOLOR */
     background: #d8bfd8;
+    background-image: -webkit-linear-gradient(left, #000000, #ffffff);
     background-image: -webkit-linear-gradient(left, var(--color-lum0), var(--color-lum10), var(--color-lum20), var(--color-lum30), var(--color-lum40), var(--color-lum50), var(--color-lum60), var(--color-lum70), var(--color-lum80), var(--color-lum90), var(--color-lum100));
+    background-image: -o-linear-gradient(right, #000000, #ffffff);
     background-image: -o-linear-gradient(right, var(--color-lum0), var(--color-lum10), var(--color-lum20), var(--color-lum30), var(--color-lum40), var(--color-lum50), var(--color-lum60), var(--color-lum70), var(--color-lum80), var(--color-lum90), var(--color-lum100));
+    background-image: -moz-linear-gradient(right, #000000, #ffffff);
     background-image: -moz-linear-gradient(right, var(--color-lum0), var(--color-lum10), var(--color-lum20), var(--color-lum30), var(--color-lum40), var(--color-lum50), var(--color-lum60), var(--color-lum70), var(--color-lum80), var(--color-lum90), var(--color-lum100));
+    background-image: linear-gradient(to right, #000000, #ffffff);
     background-image: linear-gradient(to right, var(--color-lum0), var(--color-lum10), var(--color-lum20), var(--color-lum30), var(--color-lum40), var(--color-lum50), var(--color-lum60), var(--color-lum70), var(--color-lum80), var(--color-lum90), var(--color-lum100));
     /*SOMBRA*/
     -moz-box-shadow: 0px 0px 3px #d3d3d3;
@@ -3175,24 +3261,38 @@ input[type=range] {
 
 #rangoL::-ms-fill-lower {
     /* NO MULTICOLOR EN IE  */
-    background: #d8bfd8;
+    background: #000000;
+    /*SOMBRA*/
+    -moz-box-shadow: 0px 0px 3px #808080;
+    -moz-box-shadow: 0px 0px 3px var(--color-sombra);
+    -webkit-box-shadow: 0px 0px 3px #808080;
+    -webkit-box-shadow: 0px 0px 3px var(--color-sombra);
+    box-shadow: 0px 0px 3px #808080;
+    box-shadow: 0px 0px 3px var(--color-sombra);
 }
 
 #rangoL::-ms-fill {
     /* NO MULTICOLOR EN IE  */
     background: #d8bfd8;
     /*SOMBRA*/
-    -moz-box-shadow: 0px 0px 3px #d3d3d3;
+    -moz-box-shadow: 0px 0px 3px #808080;
     -moz-box-shadow: 0px 0px 3px var(--color-sombra);
-    -webkit-box-shadow: 0px 0px 3px #d3d3d3;
+    -webkit-box-shadow: 0px 0px 3px #808080;
     -webkit-box-shadow: 0px 0px 3px var(--color-sombra);
-    box-shadow: 0px 0px 3px #d3d3d3;
+    box-shadow: 0px 0px 3px #808080;
     box-shadow: 0px 0px 3px var(--color-sombra);
 }
 
 #rangoL::-ms-fill-upper {
     /* NO MULTICOLOR EN IE  */
-    background: #d8bfd8;
+    background: #ffffff;
+    /*SOMBRA*/
+    -moz-box-shadow: 0px 0px 3px #808080;
+    -moz-box-shadow: 0px 0px 3px var(--color-sombra);
+    -webkit-box-shadow: 0px 0px 3px #808080;
+    -webkit-box-shadow: 0px 0px 3px var(--color-sombra);
+    box-shadow: 0px 0px 3px #808080;
+    box-shadow: 0px 0px 3px var(--color-sombra);
 }
 
 #rangoL::-ms-thumb {
@@ -3209,12 +3309,26 @@ input[type=range] {
 
 #rangoL:focus::-ms-fill-lower {
     /* NO MULTICOLOR EN IE  */
-    background: #d8bfd8;
+    background: #000000;
+    /*SOMBRA*/
+    -moz-box-shadow: 0px 0px 3px #808080;
+    -moz-box-shadow: 0px 0px 3px var(--color-sombra);
+    -webkit-box-shadow: 0px 0px 3px #808080;
+    -webkit-box-shadow: 0px 0px 3px var(--color-sombra);
+    box-shadow: 0px 0px 3px #808080;
+    box-shadow: 0px 0px 3px var(--color-sombra);
 }
 
 #rangoL:focus::-ms-fill-upper {
     /* NO MULTICOLOR EN IE  */
-    background: #d8bfd8;
+    background: #ffffff;
+    /*SOMBRA*/
+    -moz-box-shadow: 0px 0px 3px #808080;
+    -moz-box-shadow: 0px 0px 3px var(--color-sombra);
+    -webkit-box-shadow: 0px 0px 3px #808080;
+    -webkit-box-shadow: 0px 0px 3px var(--color-sombra);
+    box-shadow: 0px 0px 3px #808080;
+    box-shadow: 0px 0px 3px var(--color-sombra);
 }
 /* FIN L DE HSL */
 
