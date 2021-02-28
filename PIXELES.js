@@ -156,6 +156,7 @@ var miL = 50;
 var hexValues = [];
 var decValues = [];
 var anchoValues = [];
+var dec360Values = []; 
 var i;
 //var str = "";
 // llena vectores para validación extricta
@@ -987,17 +988,18 @@ function cerrarModal() {
     getPie.style.display = "block";
     // oculta el modal
     modal.style.display = "none";
-    //if (modalActual == "lienzo") {
-        // una pequeña animación con la opacidad
-        //$(getContenedor).animate({ opacity: "1" }, 2000);
-        // por transition css
-        //getContenedor.style.opacity = "1";
-    //}
+    // acciones específicas, según el modal que se cierra
+    if (modalActual == "hsl") {
+        // libera recursos
+        dec360Values.length = 0;
+    }
+    // una pequeña animación
     if (restauraOpacidad == true) {
         getContenedor.style.opacity = "1";
     } else {
         // no hace nada por el momento
     }
+    // no hay modal abierto
     modalActual = "ninguno";    
     //restaura el scroll
     document.body.scrollTop = miBodyScroll; // For Chrome, Safari and Opera
@@ -1578,9 +1580,13 @@ function showModal() {
     $("#infoModal").css("display", "block");
     switch (modalActual) {
         case "hsl":
+            // llena el vector 360            
+            for (i = 0; i <= 360; i++) {
+                dec360Values[i] = Number(i);                
+            }            
             $("#marcoHSL").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-sliders-h'></i> HSL: <i id = 'icoMuestraHSL' class='fas fa-square'></i>";
-            document.getElementById("spanInfoModal").innerHTML = "Use los controles de Ángulo (<strong>H</strong>ue), Saturación (<strong>S</strong>aturation) y Luminosidad (<strong>L</strong>ightness) para definir un color HSL";
+            document.getElementById("spanInfoModal").innerHTML = "Use los controles de Ángulo (<strong>H</strong>ue), Saturación (<strong>S</strong>aturation) y Luminosidad (<strong>L</strong>ightness) para definir un color HSL";            
             // inicialmente hex es el color actual
             hexTemp = colorActual;
             // ES NECESARIO SINCRONIZAR LAS VARIABLES GLOBALES
@@ -1623,7 +1629,7 @@ function showModal() {
             ajustarGradienteHSL("l");
             // el indicador multicolor de ángulo
             var scrolled = (miH / 360) * 100;
-            document.getElementById("myBar").style.width = scrolled + "%";
+            document.getElementById("myBar").style.width = scrolled + "%";            
             break;
         case "sombras":
             $("#marcoSombras").css("display", "block");

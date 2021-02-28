@@ -1626,8 +1626,13 @@ html, body {
     border-left-color: green;
     border-left-width: 4px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align:justify;
 }
-
+/* un relleno inferior en los modal */
+#rellenoModal{
+    display: block;
+    height:60px;
+}
 /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
