@@ -670,6 +670,185 @@ function bDesdeHex(hex) {
     miB = parseInt(miB, 16);
     return miB;
 }
+// HSL      **********
+// ajustes hsl según los slider o input number
+// requiere función validaComponenteHSL(idActual, idSincronizar, fuenteRoja, tope)
+function actualizaHSL(componente) {
+    // variables globales miH miS miL ya tienen valores válidos
+    // pueden cambiar desde los rangos o los number
+
+
+
+}
+//capturando pulsación de teclado en campo numberH...
+document.getElementById("numberH").onkeydown = function (e) {
+
+    var characterCode;
+    // e.key es la recomendación actual
+    if (e.key != undefined) {
+        if (e.key.toLowerCase() == "enter") {
+            characterCode = 13;
+        }
+        else {
+            characterCode = 0;
+        }
+    } else {
+        /* navegadores antiguos...  */
+        characterCode = e.which || e.charCode || e.keyCode || e.keyIdentifier || 0;
+    }
+
+    // solo si presionó Enter
+    if (characterCode == 13) {
+
+        //da el enfoque al SIGUIENTE,
+
+        document.getElementById("numberH").blur();
+        document.getElementById("numberS").focus();
+
+    }
+
+}
+//capturando pulsación de teclado en campo numberS...
+document.getElementById("numberS").onkeydown = function (e) {
+
+    var characterCode;
+    // e.key es la recomendación actual
+    if (e.key != undefined) {
+        if (e.key.toLowerCase() == "enter") {
+            characterCode = 13;
+        }
+        else {
+            characterCode = 0;
+        }
+    } else {
+        /* navegadores antiguos...  */
+        characterCode = e.which || e.charCode || e.keyCode || e.keyIdentifier || 0;
+    }
+
+    // solo si presionó Enter
+    if (characterCode == 13) {
+
+        //da el enfoque al SIGUIENTE,
+
+        document.getElementById("numberS").blur();
+        document.getElementById("numberL").focus();
+
+    }
+
+}
+//capturando pulsación de teclado en campo numberL...
+document.getElementById("numberL").onkeydown = function (e) {
+
+    var characterCode;
+    // e.key es la recomendación actual
+    if (e.key != undefined) {
+        if (e.key.toLowerCase() == "enter") {
+            characterCode = 13;
+        }
+        else {
+            characterCode = 0;
+        }
+    } else {
+        /* navegadores antiguos...  */
+        characterCode = e.which || e.charCode || e.keyCode || e.keyIdentifier || 0;
+    }
+
+    // solo si presionó Enter
+    if (characterCode == 13) {
+
+        //da el enfoque al SIGUIENTE,
+
+        document.getElementById("numberL").blur();
+        document.getElementById("BtnAceptar").focus();
+    }
+
+}
+// valida valores HSL en rangos y number
+// devuelve el valor normalizado o cero en caso de no ser válido
+// admite un parámetro para fuente roja en campo errado
+// Parámetro tope indica el máximo valor permitido (100 o 360)
+// primer id es el campo a validar, segundo id es el que se sincroniza
+function validaComponenteHSL(idActual, idSincronizar, fuenteRoja, tope) {
+    var nuevo = document.getElementById(idActual).value;
+    nuevo = Number(nuevo);
+    var pos = dec360Values.indexOf(nuevo);    
+    if (pos == -1 || pos > tope) {
+        // no es un valor válido entre 0 y tope
+        nuevo = 0; // le asigna el valor de negro, como recomienda la W3
+        // fuente roja
+        if (fuenteRoja == true) {
+            document.getElementById(idActual).style.color = "red";
+        }
+    } else {
+        nuevo = dec360Values[pos];
+        // fuente roja
+        if (fuenteRoja == true) {
+            document.getElementById(idActual).style.color = "black";
+        }
+    }
+    // sincroniza el otro control
+    document.getElementById(idSincronizar).value = nuevo;
+    // devuelve el valor normalizado, siempre válido
+    return nuevo;
+}
+// HSL cambia dinámicamente con los slider
+//input y change, redundantes por un bug en IE
+// rango H
+document.getElementById("rangoH").oninput = function () {
+    miH = validaComponenteHSL("rangoH", "numberH", false, 360);
+    actualizaHSL("h");
+}
+document.getElementById("rangoH").onchange = function () {
+    miH = validaComponenteHSL("rangoH", "numberH", false, 360);
+    actualizaHSL("h");
+}
+// rango S
+document.getElementById("rangoS").oninput = function () {
+    miS = validaComponenteHSL("rangoS", "numberS", false, 100);
+    actualizaHSL("s");
+}
+document.getElementById("rangoS").onchange = function () {
+    miS = validaComponenteHSL("rangoS", "numberS", false, 100);
+    actualizaHSL("s");
+}
+// rango L
+document.getElementById("rangoL").oninput = function () {
+    miL = validaComponenteHSL("rangoL", "numberL", false, 100);
+    actualizaHSL("l");
+}
+document.getElementById("rangoL").onchange = function () {
+    miL = validaComponenteHSL("rangoL", "numberL", false, 100);
+    actualizaHSL("l");
+}
+// HSL cambia dinámicamente con los input number
+//input y change, redundantes por un bug en IE
+// number H
+document.getElementById("numberH").oninput = function () {
+    miH = validaComponenteHSL("numberH", "rangoH", true, 360);
+    actualizaHSL("h");
+}
+document.getElementById("numberH").onchange = function () {
+    miH = validaComponenteHSL("numberH", "rangoH", true, 360);
+    actualizaHSL("h");
+}
+// number S
+document.getElementById("numberS").oninput = function () {
+    miS = validaComponenteHSL("numberS", "rangoS", true, 100);
+    actualizaHSL("s");
+}
+document.getElementById("numberS").onchange = function () {
+    miS = validaComponenteHSL("numberS", "rangoS", true, 100);
+    actualizaHSL("s");
+}
+// number L
+document.getElementById("numberL").oninput = function () {
+    miL = validaComponenteHSL("numberL", "rangoL", true, 100);
+    actualizaHSL("l");
+}
+document.getElementById("numberL").onchange = function () {
+    miL = validaComponenteHSL("numberL", "rangoL", true, 100);
+    actualizaHSL("l");
+}
 // ajusta el gradiente de los slider hsl
 function ajustarGradienteHSL(componente) {
     switch (componente) {
