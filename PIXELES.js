@@ -524,7 +524,7 @@ var timerRGB;
 // requiere función validaComponenteRGB(idActual, idSincronizar, fuenteRoja)
 function actualizaRGB(componente) {
     // variables globales miR miG miB ya tienen valores válidos
-    // pueden cambiar desde los rangos o los number
+    // pueden cambiar desde los rangos o los number rgb
     rgbTemp = "rgb(" + miR + ", " + miG + ", " + miB + ")";
     hexTemp = convertirRGBaHexadecimal(rgbTemp);
     // cancela el timerRGB
@@ -675,10 +675,54 @@ function bDesdeHex(hex) {
 // requiere función validaComponenteHSL(idActual, idSincronizar, fuenteRoja, tope)
 function actualizaHSL(componente) {
     // variables globales miH miS miL ya tienen valores válidos
-    // pueden cambiar desde los rangos o los number
-
-
-
+    // pueden cambiar desde los rangos o los number hsl
+    var tempHSL = hslToRgb(miH, miS / 100, miL / 100);     
+    rgbTemp = "rgb(" + Math.round(tempHSL.r) + ", " + Math.round(tempHSL.g) + ", " + Math.round(tempHSL.b) + ")";
+    //alert("rgbtemp: " + rgbTemp);
+    hexTemp = convertirRGBaHexadecimal(rgbTemp);    
+    // hslCaption MUESTRA EL COLOR ACTUAL EN HSL Y HEX
+    document.getElementById("hslCaption").innerHTML = "hsl(" + miH + "\u00B0, " + miS + "%, " + miL + "%) - " + hexTemp;
+    // LOS BORDES DE contenedorRGB SON LA MUESTRA DE COLOR, INICIAN CON EL ACTUAL
+    $("#contenedorHSL").css("border-color", hexTemp);
+    // LOS BORDES DE la clase contenedor-hsl-color son del color actual
+    $(".contenedor-hsl-color").css("border-color", hexTemp);
+    // también el ícono en el título es una muestra
+    $("#icoMuestraHSL").css("color", hexTemp);
+    // dependiendo del componente hsl que cambió...
+    switch (componente) {
+        case "h":
+            // h
+            // las sombras de los contenedores según el h actual            
+            getRoot.style.setProperty('--color-sombra', "hsl(" + miH + ", 100%, 50%)");
+            // el indicador multicolor de ángulo
+            var scrolled = (miH / 360) * 100;
+            document.getElementById("myBar").style.width = scrolled + "%";     
+            // LOS RANGOS TIENEN SU TITLE actual
+            $("#rangoH").attr("title", miH);            
+            // ajusta el gradiente del slider rangoS según color actual
+            ajustarGradienteHSL("s");
+            // ajusta el gradiente del slider rangoL según color actual
+            ajustarGradienteHSL("l");
+            break;
+        case "s":
+            // s
+            // LOS RANGOS TIENEN SU TITLE actual            
+            $("#rangoS").attr("title", miS);
+            // ajusta el gradiente del slider rangoH según color actual
+            ajustarGradienteHSL("h");            
+            // ajusta el gradiente del slider rangoL según color actual
+            ajustarGradienteHSL("l");
+            break;
+        case "l":
+            // l
+            // LOS RANGOS TIENEN SU TITLE actual            
+            $("#rangoL").attr("title", miL);
+            // ajusta el gradiente del slider rangoH según color actual
+            ajustarGradienteHSL("h");
+            // ajusta el gradiente del slider rangoS según color actual
+            ajustarGradienteHSL("s");            
+            break;
+    }
 }
 //capturando pulsación de teclado en campo numberH...
 document.getElementById("numberH").onkeydown = function (e) {
@@ -1342,8 +1386,7 @@ function aplicarLienzoGlobal() {
 // depende de modalActual/
 function aceptarModal() {
     switch (modalActual) {
-        case "hsl":
-            showSnackbar("En desarrollo...");
+        case "hsl":            
             // actualiza el color actual según el hsl seleccionado
             // asigna el valor hexadecimal al input color
             getcolorPixel.value = hexTemp;
