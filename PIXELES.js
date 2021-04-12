@@ -3506,23 +3506,27 @@ function dimensionar(mostrarLoader) {
             for (miColumna = 1; miColumna <= MAXNUMCOLUMNAS; miColumna++) {
                 //construye el id
                 miID = "f" + miFila + "c" + miColumna;
+                // primero guardar
+                lastArrayID[lastArrayID.length] = miID;
+                lastArrayColor[lastArrayColor.length] = document.getElementById(miID).style.backgroundColor;
                 //si está dentro del tamaño especificado lo hace visible
                 // y si no, lo oculta            
                 if (miFila <= numFilas && miColumna <= numColumnas) {
                     // visible
                     document.getElementById(miID).style.display = "inline-block";
-                    //$("[id = " + miID + "]").removeClass("oculto");
+                    //$("[id = " + miID + "]").removeClass("oculto");                    
                 } else {
                     // no visible
                     document.getElementById(miID).style.display = "none";
-                    //$("[id = " + miID + "]").addClass("oculto");
+                    //$("[id = " + miID + "]").addClass("oculto");                    
+                    // los que no se ven se colocan blancos, nuevo comportamiento
+                    document.getElementById(miID).style.backgroundColor = "#ffffff";
                 }
                 // primero guardar
-                lastArrayID[lastArrayID.length] = miID;
-                lastArrayColor[lastArrayColor.length] = document.getElementById(miID).style.backgroundColor;
+                //lastArrayID[lastArrayID.length] = miID;
+                //lastArrayColor[lastArrayColor.length] = document.getElementById(miID).style.backgroundColor;
                 // de paso los coloca blancos a todos
-                document.getElementById(miID).style.backgroundColor = "#ffffff";
-
+                //document.getElementById(miID).style.backgroundColor = "#ffffff";
             }
         }
         // oculta el loader
