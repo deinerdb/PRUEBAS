@@ -1712,10 +1712,7 @@ function aceptarModal() {
             // muestra un loader...
             $(".loader").removeClass("oculto");
             setTimeout(function () {
-                // código alta exigencia
-                //obtiene un array con todos los de la clase columna
-                // getColumnas
-                //var x = document.getElementsByClassName("columna");
+                // código alta exigencia                
                 var i;
                 //debe guardar los radios y los id      
                 lastAction = "CambiarRadioBordesGlobal";
@@ -1724,12 +1721,15 @@ function aceptarModal() {
                 //recorre todo el array y les aplica el radio de borde
                 for (i = 0; i < getColumnas.length; i++) {
                     //guardar los id y los bordes al mismo tiempo que recorre los cuadritos
-                    lastArrayID[lastArrayID.length] = getColumnas[i].id;
-                    lastArrayRadio[lastArrayRadio.length] = getColumnas[i].dataset.radio;
-                    getColumnas[i].dataset.radio = radioBorde;
-                    getColumnas[i].style.MozBorderRadius = radioBorde;
-                    getColumnas[i].style.webkitBorderRadius = radioBorde;
-                    getColumnas[i].style.borderRadius = radioBorde;
+                    // solo los visibles, nuevo comportamiento                        
+                    if (window.getComputedStyle(getColumnas[i]).display === "inline-block") {
+                        lastArrayID[lastArrayID.length] = getColumnas[i].id;
+                        lastArrayRadio[lastArrayRadio.length] = getColumnas[i].dataset.radio;
+                        getColumnas[i].dataset.radio = radioBorde;
+                        getColumnas[i].style.MozBorderRadius = radioBorde;
+                        getColumnas[i].style.webkitBorderRadius = radioBorde;
+                        getColumnas[i].style.borderRadius = radioBorde;
+                    }
                 }            
                 // oculta el loader
                 $(".loader").addClass("oculto");
@@ -3477,15 +3477,17 @@ function dimensionar(mostrarLoader) {
     var miFila;
     var miColumna;
     var miID;
+    var miElemDim;
     var xsel;
     var y;
     // primero guarda todo para poder deshacer
     lastNumFilas = numFilas;
     lastNumColumnas = numColumnas;
     lastFondoAplicado = fondoAplicado;
-    //debe guardar los colores y los id      
+    //debe guardar los colores, los radios y los id      
     lastAction = "dimensionar";
     lastArrayColor.length = 0;
+    lastArrayRadio.length = 0;
     lastArrayID.length = 0;
     //lee los valores de los selectores de filas y columnas
     xsel = getSelectColumnas.selectedIndex;
@@ -3506,27 +3508,34 @@ function dimensionar(mostrarLoader) {
             for (miColumna = 1; miColumna <= MAXNUMCOLUMNAS; miColumna++) {
                 //construye el id
                 miID = "f" + miFila + "c" + miColumna;
+                // referencia al cuadrito para optimizar
+                miElemDim = document.getElementById(miID);
                 // primero guardar
+                // los id
                 lastArrayID[lastArrayID.length] = miID;
-                lastArrayColor[lastArrayColor.length] = document.getElementById(miID).style.backgroundColor;
+                // color relleno
+                lastArrayColor[lastArrayColor.length] = miElemDim.style.backgroundColor;
+                // el radio
+                lastArrayRadio[lastArrayRadio.length] = miElemDim.dataset.radio;
+
                 //si está dentro del tamaño especificado lo hace visible
                 // y si no, lo oculta            
                 if (miFila <= numFilas && miColumna <= numColumnas) {
                     // visible
-                    document.getElementById(miID).style.display = "inline-block";
+                    miElemDim.style.display = "inline-block";
                     //$("[id = " + miID + "]").removeClass("oculto");                    
                 } else {
                     // no visible
-                    document.getElementById(miID).style.display = "none";
+                    miElemDim.style.display = "none";
                     //$("[id = " + miID + "]").addClass("oculto");                    
                     // los que no se ven se colocan blancos, nuevo comportamiento
-                    document.getElementById(miID).style.backgroundColor = "#ffffff";
-                }
-                // primero guardar
-                //lastArrayID[lastArrayID.length] = miID;
-                //lastArrayColor[lastArrayColor.length] = document.getElementById(miID).style.backgroundColor;
-                // de paso los coloca blancos a todos
-                //document.getElementById(miID).style.backgroundColor = "#ffffff";
+                    miElemDim.style.backgroundColor = "#ffffff";
+                    // también se colocan cuadrados, radio predeterminado
+                    miElemDim.dataset.radio = "0%";
+                    miElemDim.style.MozBorderRadius = "0%";
+                    miElemDim.style.webkitBorderRadius = "0%";
+                    miElemDim.style.borderRadius = "0%";
+                }                
             }
         }
         // oculta el loader
@@ -3534,8 +3543,8 @@ function dimensionar(mostrarLoader) {
             $(".loader").addClass("oculto");
         }        
         // otras tareas
-        //ahora el fondo es blanco
-        fondoAplicado = "#ffffff";
+        //ahora el fondo es blanco, comentando en el nuevo comportamiento
+        //fondoAplicado = "#ffffff";
         //ajusta el contenedor de los cuadritos
         var anchoCont = tamaño * numColumnas;
         // MAXNUMFILAS VECES EL ANCHO DE UN CUADRITO
@@ -4081,17 +4090,16 @@ getBtnRellenar.onclick = function () {
     // muestra un loader...
     $(".loader").removeClass("oculto");
     setTimeout(function () {
-        // código alta exigencia
-        //obtiene un array con todos los de la clase columna
-        // getColumnas
-        //var x = document.getElementsByClassName("columna");
-        var i;
+        // código alta exigencia        
         //recorre todo el array y les aplica el color actual a todos los cuadritos
         for (i = 0; i < getColumnas.length; i++) {
             //guardar los id y los colores al mismo tiempo que recorre los cuadritos
-            lastArrayID[lastArrayID.length] = getColumnas[i].id;
-            lastArrayColor[lastArrayColor.length] = getColumnas[i].style.backgroundColor;
-            getColumnas[i].style.backgroundColor = colorActual;
+            // solo los visibles, nuevo comportamiento                        
+            if (window.getComputedStyle(getColumnas[i]).display === "inline-block") {
+                lastArrayID[lastArrayID.length] = getColumnas[i].id;
+                lastArrayColor[lastArrayColor.length] = getColumnas[i].style.backgroundColor;
+                getColumnas[i].style.backgroundColor = colorActual;
+            }
         }
         lastFondoAplicado = fondoAplicado;
         fondoAplicado = colorActual;
@@ -4327,9 +4335,7 @@ getBtnDeshacer.onclick = function () {
             // muestra un loader...
             $(".loader").removeClass("oculto");
             setTimeout(function () {
-                // código alta exigencia
-                //obtiene un array con todos los de la clase columna
-                //var x = document.getElementsByClassName("columna");
+                // código alta exigencia                
                 var i;
                 var miElemRadio;
                 var miLastRadio;
@@ -4541,28 +4547,41 @@ getBtnDeshacer.onclick = function () {
                 getSelectColumnas.selectedIndex = numColumnas - 1;
 
                 var miID;
+                var miElemDim;
                 var miFila;
                 var miColumna;
                 for (miFila = 1; miFila <= MAXNUMFILAS; miFila++) {
                     for (miColumna = 1; miColumna <= MAXNUMCOLUMNAS; miColumna++) {
                         //construye el id
                         miID = "f" + miFila + "c" + miColumna;
+                        miElemDim = document.getElementById(miID); // referencia para optimizar
                         //si está dentro del tamaño especificado lo hace visible
                         // y si no, lo oculta            
                         if (miFila <= numFilas && miColumna <= numColumnas) {
                             // visible
-                            document.getElementById(miID).style.display = "inline-block";
+                            miElemDim.style.display = "inline-block";
                             //$("[id = " + miID + "]").removeClass("oculto");
                         } else {
                             // no visible
-                            document.getElementById(miID).style.display = "none";
+                            miElemDim.style.display = "none";
                             //$("[id = " + miID + "]").addClass("oculto");
                         }
                     }
                 }
-                //recorre los array y les aplica el color guardado
+                var miLastRadio;
+                //recorre los array y les aplica el color, el radio guardado
                 for (i = 0; i < lastArrayID.length; i++) {
-                    document.getElementById(lastArrayID[i]).style.backgroundColor = lastArrayColor[i];
+                    // usa la misma variable, pero diferentes referencias a las del for anterior
+                    miElemDim = document.getElementById(lastArrayID[i]);
+                    // color fondo
+                    miElemDim.style.backgroundColor = lastArrayColor[i];
+                    // el radio
+                    miLastRadio = lastArrayRadio[i];
+                    miElemDim.dataset.radio = miLastRadio;
+                    miElemDim.style.MozBorderRadius = miLastRadio;
+                    miElemDim.style.webkitBorderRadius = miLastRadio;
+                    miElemDim.style.borderRadius = miLastRadio;
+                    //
                 }
                 //ajusta el contenedor de los cuadritos
                 var anchoCont = tamaño * numColumnas;
