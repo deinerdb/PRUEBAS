@@ -3483,7 +3483,8 @@ function dimensionar(mostrarLoader) {
     // primero guarda todo para poder deshacer
     lastNumFilas = numFilas;
     lastNumColumnas = numColumnas;
-    lastFondoAplicado = fondoAplicado;
+    // no es necesario con el nuevo comportamiento
+    //lastFondoAplicado = fondoAplicado;
     //debe guardar los colores, los radios y los id      
     lastAction = "dimensionar";
     lastArrayColor.length = 0;
@@ -3528,8 +3529,8 @@ function dimensionar(mostrarLoader) {
                     // no visible
                     miElemDim.style.display = "none";
                     //$("[id = " + miID + "]").addClass("oculto");                    
-                    // los que no se ven se colocan blancos, nuevo comportamiento
-                    miElemDim.style.backgroundColor = "#ffffff";
+                    // los que no se ven se colocan del fondo global actual, nuevo comportamiento
+                    miElemDim.style.backgroundColor = fondoAplicado;
                     // también se colocan cuadrados, radio predeterminado
                     miElemDim.dataset.radio = "0%";
                     miElemDim.style.MozBorderRadius = "0%";
@@ -4077,6 +4078,7 @@ getBtnActualizar.onclick = function () {
     ocupado = false;
 }
 //aplica a todos los cuadros el relleno del color actual
+// pues sí, es como cambiar el color de la hoja
 getBtnRellenar.onclick = function () {
     if (ocupado == true) {
         //sale si está ocupado
@@ -4094,12 +4096,12 @@ getBtnRellenar.onclick = function () {
         //recorre todo el array y les aplica el color actual a todos los cuadritos
         for (i = 0; i < getColumnas.length; i++) {
             //guardar los id y los colores al mismo tiempo que recorre los cuadritos
-            // solo los visibles, nuevo comportamiento                        
-            if (window.getComputedStyle(getColumnas[i]).display === "inline-block") {
+            // quitar los comentarios para aplicar solo a los visibles                        
+            //if (window.getComputedStyle(getColumnas[i]).display === "inline-block") {
                 lastArrayID[lastArrayID.length] = getColumnas[i].id;
                 lastArrayColor[lastArrayColor.length] = getColumnas[i].style.backgroundColor;
                 getColumnas[i].style.backgroundColor = colorActual;
-            }
+            //}
         }
         lastFondoAplicado = fondoAplicado;
         fondoAplicado = colorActual;
@@ -4539,7 +4541,7 @@ getBtnDeshacer.onclick = function () {
             setTimeout(function () {
                 // código alta exigencia
                 // deshace el ajuste de filas y columnas
-                fondoAplicado = lastFondoAplicado;
+                //fondoAplicado = lastFondoAplicado;
                 numFilas = lastNumFilas;
                 numColumnas = lastNumColumnas;
                 permitirEvento = false;
