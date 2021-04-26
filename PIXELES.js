@@ -81,7 +81,9 @@ var restauraOpacidad = true;
 var colorActual = "#000000";
 var colorRejilla = "#000000";
 var usarBordes = true;
+// valores globales aplicados, usados al dimensionar
 var fondoAplicado = "#ffffff";
+var radioAplicado = "0%";
 var colorLienzo = "#ffffff" // ahora es individual
 // radio que se aplica por defecto en modo radio
 // pero el inicial de clase columna es 0%
@@ -121,7 +123,9 @@ var lastArraySombras = [];
 var lastArrayOpacidad = [];
 var lastArrayLienzo = [];
 var lastArrayColorBordes = [];
+// las globales
 var lastFondoAplicado;
+var lastRadioAplicado;
 var lastColorLienzo;
 var lastColorRejilla;
 var lastNumColumnas;
@@ -1718,18 +1722,21 @@ function aceptarModal() {
                 lastAction = "CambiarRadioBordesGlobal";
                 lastArrayRadio.length = 0;
                 lastArrayID.length = 0;
+                // nuevo global
+                lastRadioAplicado = radioAplicado;
+                radioAplicado = radioBorde;
                 //recorre todo el array y les aplica el radio de borde
                 for (i = 0; i < getColumnas.length; i++) {
                     //guardar los id y los bordes al mismo tiempo que recorre los cuadritos
-                    // solo los visibles, nuevo comportamiento                        
-                    if (window.getComputedStyle(getColumnas[i]).display === "inline-block") {
+                    // solo los visibles, comentado, se aplica a todos                       
+                    //if (window.getComputedStyle(getColumnas[i]).display === "inline-block") {
                         lastArrayID[lastArrayID.length] = getColumnas[i].id;
                         lastArrayRadio[lastArrayRadio.length] = getColumnas[i].dataset.radio;
                         getColumnas[i].dataset.radio = radioBorde;
                         getColumnas[i].style.MozBorderRadius = radioBorde;
                         getColumnas[i].style.webkitBorderRadius = radioBorde;
                         getColumnas[i].style.borderRadius = radioBorde;
-                    }
+                    //}
                 }            
                 // oculta el loader
                 $(".loader").addClass("oculto");
@@ -3482,9 +3489,7 @@ function dimensionar(mostrarLoader) {
     var y;
     // primero guarda todo para poder deshacer
     lastNumFilas = numFilas;
-    lastNumColumnas = numColumnas;
-    // no es necesario con el nuevo comportamiento
-    //lastFondoAplicado = fondoAplicado;
+    lastNumColumnas = numColumnas;    
     //debe guardar los colores, los radios y los id      
     lastAction = "dimensionar";
     lastArrayColor.length = 0;
@@ -3529,13 +3534,13 @@ function dimensionar(mostrarLoader) {
                     // no visible
                     miElemDim.style.display = "none";
                     //$("[id = " + miID + "]").addClass("oculto");                    
-                    // los que no se ven se colocan del fondo global actual, nuevo comportamiento
+                    // los que no se ven se colocan del último fondo global aplicado, nuevo comportamiento
                     miElemDim.style.backgroundColor = fondoAplicado;
-                    // también se colocan cuadrados, radio predeterminado
-                    miElemDim.dataset.radio = "0%";
-                    miElemDim.style.MozBorderRadius = "0%";
-                    miElemDim.style.webkitBorderRadius = "0%";
-                    miElemDim.style.borderRadius = "0%";
+                    // también se les asigna el último radio global aplicado
+                    miElemDim.dataset.radio = radioAplicado;
+                    miElemDim.style.MozBorderRadius = radioAplicado;
+                    miElemDim.style.webkitBorderRadius = radioAplicado;
+                    miElemDim.style.borderRadius = radioAplicado;
                 }                
             }
         }
@@ -3543,9 +3548,7 @@ function dimensionar(mostrarLoader) {
         if (mostrarLoader == true) {
             $(".loader").addClass("oculto");
         }        
-        // otras tareas
-        //ahora el fondo es blanco, comentando en el nuevo comportamiento
-        //fondoAplicado = "#ffffff";
+        // otras tareas        
         //ajusta el contenedor de los cuadritos
         var anchoCont = tamaño * numColumnas;
         // MAXNUMFILAS VECES EL ANCHO DE UN CUADRITO
@@ -4341,6 +4344,8 @@ getBtnDeshacer.onclick = function () {
                 var i;
                 var miElemRadio;
                 var miLastRadio;
+                // restaura el global aplicado
+                radioAplicado = lastRadioAplicado;
                 //recorre todo el array y les aplica el estilo de radio borde guardado         
                 for (i = 0; i < lastArrayID.length; i++) {
                     miElemRadio = document.getElementById(lastArrayID[i]);
