@@ -73,17 +73,17 @@ var getBtnOpuesto = document.getElementById("BtnOpuesto");
 var getmodalBody = document.getElementById("modalBody");
 var getmodalFooter = document.getElementById("modalFooter");
 var getmodalHeader = document.getElementById("modalHeader");
-
-
 // para controlar una animación
 var restauraOpacidad = true;
 //color inicial del pincel es negro
 var colorActual = "#000000";
 var colorRejilla = "#000000";
 var usarBordes = true;
-// valores globales aplicados, usados al dimensionar
+// valores globales aplicados, usados al dimensionar y en otras funciones
 var fondoAplicado = "#ffffff";
 var radioAplicado = "0%";
+var colorBordesAplicado = "#000000";
+// fin globales
 var colorLienzo = "#ffffff" // ahora es individual
 // radio que se aplica por defecto en modo radio
 // pero el inicial de clase columna es 0%
@@ -123,9 +123,11 @@ var lastArraySombras = [];
 var lastArrayOpacidad = [];
 var lastArrayLienzo = [];
 var lastArrayColorBordes = [];
-// las globales
+// las last globales
 var lastFondoAplicado;
 var lastRadioAplicado;
+var lastColorBordesAplicado;
+// fin last globales
 var lastColorLienzo;
 var lastColorRejilla;
 var lastNumColumnas;
@@ -4185,41 +4187,7 @@ getBtnColorRejilla.onclick = function () {
         // pasa a modo colorBordes
         cambiarModo("colorBordes");
         // en este modo se ve la respectiva flecha en el btn
-    }
-    return;
-    // guarda para poder deshacer
-    lastAction = "cambiarColorRejilla";
-    lastColorRejilla = colorRejilla;
-    var miBorde;
-    colorRejilla = colorActual;
-    if (usarBordes == false) {
-        miBorde = "none";
-    } else {
-        miBorde = anchoBordes + "px " + tipoBordes + " " + colorRejilla;
-    }
-    // muestra un loader...
-    $(".loader").removeClass("oculto");
-    setTimeout(function () {
-        // código alta exigencia
-        //obtiene un array con todos los de la clase columna
-        // getColumnas
-        //var x = document.getElementsByClassName("columna");
-        var i;
-        //recorre todo el array y les aplica el estilo de borde
-        for (i = 0; i < getColumnas.length; i++) {
-            getColumnas[i].style.border = miBorde;
-        }
-        procesarHistorial(colorRejilla);
-        // oculta el loader
-        $(".loader").addClass("oculto");
-        // otras tareas
-        showSnackbar("Color bordes: " + colorRejilla);
-        // activa el botón deshacer
-        estadoBtnDeshacer(true, "Deshacer color de bordes");
-        
-    }, 0);  
-    
-   
+    }  
 }
 // cambia el color del lienzo
 getBtnColorLienzo.onclick = function () {    
