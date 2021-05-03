@@ -1519,6 +1519,9 @@ function aceptarModal() {
                 lastAction = "cambiarColorRejillaGlobal";
                 lastArrayColorBordes.length = 0;
                 lastArrayID.length = 0;
+                // global
+                lastColorBordesAplicado = colorBordesAplicado;
+                colorBordesAplicado = colorActual;
                 //recorre todo el array y les aplica el color de bordes
                 for (i = 0; i < getColumnas.length; i++) {
                     //guardar los id y los colores de bordes al mismo tiempo que recorre los cuadritos
@@ -3073,6 +3076,7 @@ function crearCuadritos() {
             miColumna.dataset.colorlienzo = "#ffffff";
             // para gestionar su color de bordes
             miColumna.dataset.colorbordes = "#000000";
+            miColumna.style.borderColor = "#000000";
             // le adjunta el evento click
             miColumna.addEventListener("click", function () { hacerClick(this.id); });
             // por las x, define tamaño de fuente
@@ -3492,10 +3496,11 @@ function dimensionar(mostrarLoader) {
     // primero guarda todo para poder deshacer
     lastNumFilas = numFilas;
     lastNumColumnas = numColumnas;    
-    //debe guardar los colores, los radios y los id      
+    //debe guardar los colores, los radios, los colores de bordes y los id      
     lastAction = "dimensionar";
     lastArrayColor.length = 0;
     lastArrayRadio.length = 0;
+    lastArrayColorBordes.length = 0;
     lastArrayID.length = 0;
     //lee los valores de los selectores de filas y columnas
     xsel = getSelectColumnas.selectedIndex;
@@ -3525,7 +3530,8 @@ function dimensionar(mostrarLoader) {
                 lastArrayColor[lastArrayColor.length] = miElemDim.style.backgroundColor;
                 // el radio
                 lastArrayRadio[lastArrayRadio.length] = miElemDim.dataset.radio;
-
+                // el color del borde
+                lastArrayColorBordes[lastArrayColorBordes.length] = miElemDim.dataset.colorbordes;
                 //si está dentro del tamaño especificado lo hace visible
                 // y si no, lo oculta            
                 if (miFila <= numFilas && miColumna <= numColumnas) {
@@ -3543,6 +3549,9 @@ function dimensionar(mostrarLoader) {
                     miElemDim.style.MozBorderRadius = radioAplicado;
                     miElemDim.style.webkitBorderRadius = radioAplicado;
                     miElemDim.style.borderRadius = radioAplicado;
+                    // se les coloca el último color de bordes global aplicado
+                    miElemDim.dataset.colorbordes = colorBordesAplicado;
+                    miElemDim.style.borderColor = colorBordesAplicado;
                 }                
             }
         }
@@ -4494,6 +4503,8 @@ getBtnDeshacer.onclick = function () {
                 var i;
                 var miElemColorBordes;
                 var miLastColorBordes;
+                // restaura el global
+                colorBordesAplicado = lastColorBordesAplicado;
                 //recorre todo el array y les aplica el estilo de borde
                 for (i = 0; i < lastArrayID.length; i++) {
                     miElemColorBordes = document.getElementById(lastArrayID[i]);
@@ -4544,7 +4555,8 @@ getBtnDeshacer.onclick = function () {
                     }
                 }
                 var miLastRadio;
-                //recorre los array y les aplica el color, el radio guardado
+                var miLastColorBordes;
+                //recorre los array y les aplica el color, el radio, el color de borde guardado
                 for (i = 0; i < lastArrayID.length; i++) {
                     // usa la misma variable, pero diferentes referencias a las del for anterior
                     miElemDim = document.getElementById(lastArrayID[i]);
@@ -4556,7 +4568,10 @@ getBtnDeshacer.onclick = function () {
                     miElemDim.style.MozBorderRadius = miLastRadio;
                     miElemDim.style.webkitBorderRadius = miLastRadio;
                     miElemDim.style.borderRadius = miLastRadio;
-                    //
+                    // color borde
+                    miLastColorBordes = lastArrayColorBordes[i];
+                    miElemDim.dataset.colorbordes = miLastColorBordes;
+                    miElemDim.style.borderColor = miLastColorBordes;
                 }
                 //ajusta el contenedor de los cuadritos
                 var anchoCont = tamaño * numColumnas;
