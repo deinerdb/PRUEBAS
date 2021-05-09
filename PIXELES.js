@@ -40,6 +40,7 @@ var getSpanInfoExtraer = document.getElementById("spanInfoExtraer");
 var getFiltro = document.getElementById("filtro");
 var getSelectFondo = document.getElementById("selectFondo");
 var getBtnActualizar = document.getElementById("BtnActualizar");
+var getBtnTrash = document.getElementById("BtnTrash");
 var getBtnTipoBorde = document.getElementById("BtnTipoBorde");
 var getBtnAnchoBordes = document.getElementById("BtnAnchoBordes");
 var getBtnRadioBordes = document.getElementById("BtnRadioBordes");
@@ -83,6 +84,7 @@ var usarBordes = true;
 var fondoAplicado = "#ffffff";
 var radioAplicado = "0%";
 var colorBordesAplicado = "#000000";
+var opacidadAplicada = 1;
 // fin globales
 var colorLienzo = "#ffffff" // ahora es individual
 // radio que se aplica por defecto en modo radio
@@ -127,6 +129,7 @@ var lastArrayColorBordes = [];
 var lastFondoAplicado;
 var lastRadioAplicado;
 var lastColorBordesAplicado;
+var lastOpacidadAplicada;
 // fin last globales
 var lastColorLienzo;
 var lastColorRejilla;
@@ -1478,6 +1481,9 @@ function aceptarModal() {
                 lastAction = "CambiarOpacidadGlobal";
                 lastArrayOpacidad.length = 0;
                 lastArrayID.length = 0;
+                //global
+                lastOpacidadAplicada = opacidadAplicada;
+                opacidadAplicada = opacidad;
                 //recorre todo el array y les aplica la opacidad actual
                 for (i = 0; i < getColumnas.length; i++) {
                     //guardar los id y los bordes al mismo tiempo que recorre los cuadritos
@@ -3501,6 +3507,7 @@ function dimensionar(mostrarLoader) {
     lastArrayColor.length = 0;
     lastArrayRadio.length = 0;
     lastArrayColorBordes.length = 0;
+    lastArrayOpacidad.length = 0;
     lastArrayID.length = 0;
     //lee los valores de los selectores de filas y columnas
     xsel = getSelectColumnas.selectedIndex;
@@ -3532,6 +3539,8 @@ function dimensionar(mostrarLoader) {
                 lastArrayRadio[lastArrayRadio.length] = miElemDim.dataset.radio;
                 // el color del borde
                 lastArrayColorBordes[lastArrayColorBordes.length] = miElemDim.dataset.colorbordes;
+                // la opacidad
+                lastArrayOpacidad[lastArrayOpacidad.length] = miElemDim.style.opacity;
                 //si está dentro del tamaño especificado lo hace visible
                 // y si no, lo oculta            
                 if (miFila <= numFilas && miColumna <= numColumnas) {
@@ -3552,6 +3561,8 @@ function dimensionar(mostrarLoader) {
                     // se les coloca el último color de bordes global aplicado
                     miElemDim.dataset.colorbordes = colorBordesAplicado;
                     miElemDim.style.borderColor = colorBordesAplicado;
+                    // su opacidad será la última global aplicada
+                    miElemDim.style.opacity = opacidadAplicada;
                 }                
             }
         }
@@ -4063,7 +4074,11 @@ function ajustarTamaño(incremento, mostrarLoader, notificar) {
 // la llama para ajustes iniciales, incremento 1, sin loader ni notificación
 // inicial css es 23px, quedará en 24px con este ajuste
 ajustarTamaño(1, false, false);
-// todos los cuadritos blancos, borra todo
+// todos los cuadritos toman el último formato global aplicado, borra todo
+getBtnTrash.onclick = function () {
+    showSnackbar("En construcción");
+}
+// todos los cuadritos vuelven a sus formatos iniciales, borra todo
 getBtnActualizar.onclick = function () {
     if (ocupado == true) {
         //sale si está ocupado
@@ -4074,22 +4089,29 @@ getBtnActualizar.onclick = function () {
     lastAction = "actualizar";
     lastArrayColor.length = 0;
     lastArrayID.length = 0;
-    //obtiene un array con todos los de la clase columna
-    // getColumnas
-    //var x = document.getElementsByClassName("columna");
-    var i;
-    //recorre todo el array y borra todos los cuadritos
-    for (i = 0; i < getColumnas.length; i++) {
-        //guardar los id y los colores al mismo tiempo que recorre los cuadritos
-        lastArrayID[lastArrayID.length] = getColumnas[i].id;
-        lastArrayColor[lastArrayColor.length] = getColumnas[i].style.backgroundColor;
-        getColumnas[i].style.backgroundColor = "#ffffff";
-    }
-    lastFondoAplicado = fondoAplicado;
-    fondoAplicado = "#ffffff";
-    // activa el botón deshacer
-    estadoBtnDeshacer(true, "Deshacer borrar todo");
-    ocupado = false;
+    // muestra un loader...
+    $(".loader").removeClass("oculto");
+    setTimeout(function () {
+        // código alta exigencia
+        var i;
+        //recorre todo el array y borra todos los cuadritos
+        for (i = 0; i < getColumnas.length; i++) {
+            //guardar los id y los colores al mismo tiempo que recorre los cuadritos
+            lastArrayID[lastArrayID.length] = getColumnas[i].id;
+            lastArrayColor[lastArrayColor.length] = getColumnas[i].style.backgroundColor;
+            getColumnas[i].style.backgroundColor = "#ffffff";
+        }
+        lastFondoAplicado = fondoAplicado;
+        fondoAplicado = "#ffffff";
+        // activa el botón deshacer
+        estadoBtnDeshacer(true, "Deshacer borrar todo");
+        ocupado = false;
+        // oculta el loader
+        $(".loader").addClass("oculto");
+        // otras tareas
+        showSnackbar("Valores por defecto aplicados");
+    }, 0); 
+    
 }
 //aplica a todos los cuadros el relleno del color actual
 // pues sí, es como cambiar el color de la hoja
@@ -4367,6 +4389,8 @@ getBtnDeshacer.onclick = function () {
                 var i;
                 var miElemOpacidad;
                 var miLastOpacidad;
+                // restaura el valor global aplicado
+                opacidadAplicada = lastOpacidadAplicada;
                 //recorre todo el array y les aplica la opacidad guardada
                 for (i = 0; i < lastArrayID.length; i++) {
                     miElemOpacidad = document.getElementById(lastArrayID[i]);
@@ -4556,7 +4580,8 @@ getBtnDeshacer.onclick = function () {
                 }
                 var miLastRadio;
                 var miLastColorBordes;
-                //recorre los array y les aplica el color, el radio, el color de borde guardado
+                var miLastOpacidad;
+                //recorre los array y les aplica el color, el radio, el color de borde, la opacidad... guardado
                 for (i = 0; i < lastArrayID.length; i++) {
                     // usa la misma variable, pero diferentes referencias a las del for anterior
                     miElemDim = document.getElementById(lastArrayID[i]);
@@ -4572,6 +4597,9 @@ getBtnDeshacer.onclick = function () {
                     miLastColorBordes = lastArrayColorBordes[i];
                     miElemDim.dataset.colorbordes = miLastColorBordes;
                     miElemDim.style.borderColor = miLastColorBordes;
+                    // opacidad
+                    miLastOpacidad = lastArrayOpacidad[i];
+                    miElemDim.style.opacity = miLastOpacidad;
                 }
                 //ajusta el contenedor de los cuadritos
                 var anchoCont = tamaño * numColumnas;
