@@ -85,6 +85,8 @@ var fondoAplicado = "#ffffff";
 var radioAplicado = "0%";
 var colorBordesAplicado = "#000000";
 var opacidadAplicada = 1;
+var sombrasAplicada = "s0000";
+var colorLienzoAplicado = "#ffffff";
 // fin globales
 var colorLienzo = "#ffffff" // ahora es individual
 // radio que se aplica por defecto en modo radio
@@ -98,6 +100,7 @@ var opacidad = 0.5;
 // la info junto al botón opacidad
 getSpanInfoOpacidad.innerHTML = opacidad * 100 + "%";
 // sombra por defecto abajo izquierda
+// pero la inicial de clase columna es "s0000"
 var sombras = "s0011";
 // info sombras ajustado
 $(getSpanInfoSombras).attr("class", sombras);
@@ -130,6 +133,8 @@ var lastFondoAplicado;
 var lastRadioAplicado;
 var lastColorBordesAplicado;
 var lastOpacidadAplicada;
+var lastSombrasAplicada;
+var lastColorLienzoAplicado;
 // fin last globales
 var lastColorLienzo;
 var lastColorRejilla;
@@ -1370,16 +1375,16 @@ document.getElementById("numberB").onkeydown = function (e) {
     }
 
 }
-// al hacer click en aceptar con la opción aplicar lienzo global
-function aplicarLienzoGlobal() {
-    //obtiene un array con todos los de la clase columna
-    // optimizada getColumnas
-    //var x = document.getElementsByClassName("columna");
+// al hacer click en aceptar en el modal con la opción aplicar lienzo global
+function aplicarLienzoGlobal() {    
     var i;
     //debe guardar los colores de los lienzos y sus id      
     lastAction = "CambiarColorLienzoGlobal";
     lastArrayLienzo.length = 0;
     lastArrayID.length = 0;
+    // nuevo global aplicado
+    lastColorLienzoAplicado = colorLienzoAplicado;
+    colorLienzoAplicado = colorLienzo;
     //recorre todo el array y les aplica el color de lienzo
     for (i = 0; i < getColumnas.length; i++) {
         //guardar los id y el color anterior de lienzo al mismo tiempo que recorre los cuadritos
@@ -1427,6 +1432,9 @@ function aceptarModal() {
                 lastAction = "CambiarSombrasGlobal";
                 lastArraySombras.length = 0;
                 lastArrayID.length = 0;
+                // nueva global
+                lastSombrasAplicada = sombrasAplicada;
+                sombrasAplicada = sombras;
                 //recorre todo el array y les aplica el estilo de sombras
                 for (i = 0; i < getColumnas.length; i++) {
                     //guardar los id y los estilos de sombras al mismo tiempo que recorre los cuadritos
@@ -3508,6 +3516,8 @@ function dimensionar(mostrarLoader) {
     lastArrayRadio.length = 0;
     lastArrayColorBordes.length = 0;
     lastArrayOpacidad.length = 0;
+    lastArraySombras.length = 0;
+    lastArrayLienzo.length = 0;
     lastArrayID.length = 0;
     //lee los valores de los selectores de filas y columnas
     xsel = getSelectColumnas.selectedIndex;
@@ -3541,6 +3551,10 @@ function dimensionar(mostrarLoader) {
                 lastArrayColorBordes[lastArrayColorBordes.length] = miElemDim.dataset.colorbordes;
                 // la opacidad
                 lastArrayOpacidad[lastArrayOpacidad.length] = miElemDim.style.opacity;
+                // las sombras
+                lastArraySombras[lastArraySombras.length] = miElemDim.dataset.sombras;
+                // el color del lienzo
+                lastArrayLienzo[lastArrayLienzo.length] = miElemDim.dataset.colorlienzo;
                 //si está dentro del tamaño especificado lo hace visible
                 // y si no, lo oculta            
                 if (miFila <= numFilas && miColumna <= numColumnas) {
@@ -3563,6 +3577,15 @@ function dimensionar(mostrarLoader) {
                     miElemDim.style.borderColor = colorBordesAplicado;
                     // su opacidad será la última global aplicada
                     miElemDim.style.opacity = opacidadAplicada;
+                    // la última configuración de sombras aplicada
+                    miElemDim.dataset.sombras = sombrasAplicada;
+                    // remueve todas las clases de sombras
+                    $(miElemDim).removeClass("s0000 s1000 s0100 s0010 s0001 s1001 s1100 s0110 s0011");
+                    // agrega la clase actual de sombras
+                    $(miElemDim).addClass(sombrasAplicada);
+                    // el color del lienzo será el último global aplicado
+                    miElemDim.dataset.colorlienzo = colorLienzoAplicado;
+                    $(miElemDim).parent().css("background-color", colorLienzoAplicado);
                 }                
             }
         }
@@ -4308,6 +4331,8 @@ getBtnDeshacer.onclick = function () {
                 var i;
                 var miElemSombras;
                 var miLastSombras;
+                // restaura el global
+                sombrasAplicada = lastSombrasAplicada;
                 //recorre todo el array y les aplica el estilo de sombras guardado         
                 for (i = 0; i < lastArrayID.length; i++) {
                     miElemSombras = document.getElementById(lastArrayID[i]);
@@ -4486,6 +4511,8 @@ getBtnDeshacer.onclick = function () {
             var i; 
             var colorLienzoAnterior;
             var idLienzoAnterior;
+            // restaura el global aplicado
+            colorLienzoAplicado = lastColorLienzoAplicado;
             // una pequeña animación con la opacidad
             //$(getContenedor).animate({ opacity: "0.2" }, 200);
             //getContenedor.style.opacity = "0";
@@ -4581,7 +4608,9 @@ getBtnDeshacer.onclick = function () {
                 var miLastRadio;
                 var miLastColorBordes;
                 var miLastOpacidad;
-                //recorre los array y les aplica el color, el radio, el color de borde, la opacidad... guardado
+                var miLastSombras;
+                var miLastColorLienzo;
+                //recorre los array y les aplica el color, el radio, el color de borde, la opacidad, las sombras... guardado
                 for (i = 0; i < lastArrayID.length; i++) {
                     // usa la misma variable, pero diferentes referencias a las del for anterior
                     miElemDim = document.getElementById(lastArrayID[i]);
@@ -4600,6 +4629,17 @@ getBtnDeshacer.onclick = function () {
                     // opacidad
                     miLastOpacidad = lastArrayOpacidad[i];
                     miElemDim.style.opacity = miLastOpacidad;
+                    // las sombras
+                    miLastSombras = lastArraySombras[i];
+                    miElemDim.dataset.sombras = miLastSombras;
+                    // remueve todas las clases de sombras
+                    $(miElemDim).removeClass("s0000 s1000 s0100 s0010 s0001 s1001 s1100 s0110 s0011");
+                    // agrega la clase actual de sombras
+                    $(miElemDim).addClass(miLastSombras); 
+                    // el color del lienzo
+                    miLastColorLienzo = lastArrayLienzo[i];
+                    miElemDim.dataset.colorlienzo = miLastColorLienzo;
+                    $(miElemDim).parent().css("background-color", miLastColorLienzo);
                 }
                 //ajusta el contenedor de los cuadritos
                 var anchoCont = tamaño * numColumnas;
