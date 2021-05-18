@@ -30,6 +30,63 @@
                 opacity: 0.8;
                 filter: Alpha(opacity=80); /* IE8 and earlier */
             }
+            .contenedor-tabla{
+                /* responsive */
+                overflow-x: auto;                
+            }
+            .pie-tabla{
+                text-align:center;
+            }
+            table {
+                /* centrada */
+                margin-left: auto;
+                margin-right: auto;
+            }
+            table, th, td {
+                /* estilos de borde y fuente */
+                border: 1px solid black;
+                border-collapse: collapse;
+                border-spacing: 0;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            tr td:first-child {
+                /* primera celda en negrita */
+                font-weight: bold;
+                color: #006600; /* verde oscuro */
+            }
+            th, td{
+                /* espacio alrededor del texto */
+                padding: 8px 16px;
+            }
+            caption {
+                /* el título */
+                padding: 6px;
+                font-weight: bold;
+                color: #006600; /* verde oscuro */
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            .num {
+                /* celdas numéricas */
+                text-align: right;
+            }
+            th {
+                /* encabezados de columna */
+                color: white;
+                background-color: #2f4f4f; /*verde oscuro*/
+            }
+            tr:nth-child(even) {
+                /*filas pares*/
+                background-color: #d8f3e9; /* verde claro */
+            }
+
+            tr:nth-child(odd) {
+                /*filas impares*/
+                background-color: #ffffff; /*blanco*/
+            }
+            tr:hover {
+                /* al pasar el mouse por cada fila */
+                background-color: #ddd; /* gris */
+            }
         </style>
     </head>
     <body>
@@ -213,7 +270,83 @@
                                 }
                             }
                         </script>                                                
-                    </article>                    
+                    </article>
+                    <article>
+                        <h3>Mostramos datos en una tabla mediante las etiquetas <code>table, tr, th, td, caption, thead, tbody, tfoot.</code></h3>
+                        <div class="contenedor-tabla">
+                            <table>
+                                <caption>PLANETAS DEL SISTEMA SOLAR*</caption>
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Ubicación</th>
+                                        <th>Composición</th>
+                                        <th>Tamaño</th>
+                                        <th>Satélites</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Mercurio</td>
+                                        <td>Interior</td>
+                                        <td>Roca y metal</td>
+                                        <td>Pequeño</td>
+                                        <td class="num">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Venus</td>
+                                        <td>Interior</td>
+                                        <td>Roca y metal</td>
+                                        <td>Pequeño</td>
+                                        <td class="num">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tierra</td>
+                                        <td>Interior</td>
+                                        <td>Roca y metal</td>
+                                        <td>Pequeño</td>
+                                        <td class="num">1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Marte</td>
+                                        <td>Interior</td>
+                                        <td>Roca y metal</td>
+                                        <td>Pequeño</td>
+                                        <td class="num">2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Júpiter</td>
+                                        <td>Exterior</td>
+                                        <td>Gaseoso</td>
+                                        <td>Gigante</td>
+                                        <td class="num">63</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Saturno</td>
+                                        <td>Exterior</td>
+                                        <td>Gaseoso</td>
+                                        <td>Gigante</td>
+                                        <td class="num">61</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Urano</td>
+                                        <td>Exterior</td>
+                                        <td>Gaseoso</td>
+                                        <td>Gigante</td>
+                                        <td class="num">27</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Neptuno</td>
+                                        <td>Exterior</td>
+                                        <td>Gaseoso</td>
+                                        <td>Gigante</td>
+                                        <td class="num">13</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                            <p class="pie-tabla"><small>*Datos tomados de Wikipedia.</small></p>
+</article>
                 </section>                
                 <aside>
                     <p>Aquí va información complementaria de la página, etiqueta aside.</p>
