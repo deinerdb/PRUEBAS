@@ -44,7 +44,7 @@
             }
             table, th, td {
                 /* estilos de borde y fuente */
-                border: 1px solid black;
+                border: 1px solid #a9a9a9; /* gris oscuro */
                 border-collapse: collapse;
                 border-spacing: 0;
                 font-family: Arial, Helvetica, sans-serif;
@@ -69,6 +69,25 @@
                 /* celdas numéricas */
                 text-align: right;
             }
+            .imag {
+                /* celdas con imagen */
+                text-align: center;
+                background-color: black;
+                padding: 0;
+                /*no se puede seleccionar el texto*/
+                -webkit-user-select: none; /* Chrome, Opera, Safari */
+                -moz-user-select: none; /* Firefox 2+ */
+                -ms-user-select: none; /* IE 10+ */
+                user-select: none; /* Standard syntax */
+            }
+            .imag img {
+                /* imágenes son link */
+                cursor: pointer;
+            }
+            .imag img:hover {
+                /* un ligero efecto */
+                opacity: 0.8;
+            }
             th {
                 /* encabezados de columna */
                 color: white;
@@ -85,8 +104,8 @@
             }
             tr:hover {
                 /* al pasar el mouse por cada fila */
-                background-color: #ddd; /* gris */
-            }
+                background-color: #ddd; /* gris */                
+            } 
         </style>
     </head>
     <body>
@@ -283,6 +302,7 @@
                                         <th>Composición</th>
                                         <th>Tamaño</th>
                                         <th>Satélites</th>
+                                        <th>Imagen</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -292,6 +312,7 @@
                                         <td>Roca y metal</td>
                                         <td>Pequeño</td>
                                         <td class="num">0</td>
+                                        <td class="imag"><a href="mercurio.jpg" target="_blank"><img title="Mercurio" alt="Foto Mercurio" src="mercurio.jpg" width="40.35" height="40" /></a></td>
                                     </tr>
                                     <tr>
                                         <td>Venus</td>
@@ -299,6 +320,7 @@
                                         <td>Roca y metal</td>
                                         <td>Pequeño</td>
                                         <td class="num">0</td>
+                                        <td class="imag"><a href="venus.jpg" target="_blank"><img title="Venus" alt="Foto Venus" src="venus.jpg" width="66.67" height="40" /></a></td>                                        
                                     </tr>
                                     <tr>
                                         <td>Tierra</td>
@@ -306,13 +328,15 @@
                                         <td>Roca y metal</td>
                                         <td>Pequeño</td>
                                         <td class="num">1</td>
+                                        <td class="imag"><a href="tierra.jpg" target="_blank"><img title="Tierra" alt="Foto Tierra" src="tierra.jpg" width="40" height="40" /></a></td>
                                     </tr>
                                     <tr>
                                         <td>Marte</td>
                                         <td>Interior</td>
                                         <td>Roca y metal</td>
                                         <td>Pequeño</td>
-                                        <td class="num">2</td>
+                                        <td class="num">2</td>                                        
+                                        <td class="imag"><a href="marte.jpeg" target="_blank"><img title="Marte" alt="Foto Marte" src="marte.jpeg" width="40" height="40" /></a></td>
                                     </tr>
                                     <tr>
                                         <td>Júpiter</td>
@@ -320,6 +344,7 @@
                                         <td>Gaseoso</td>
                                         <td>Gigante</td>
                                         <td class="num">63</td>
+                                        <td class="imag"><a href="júpiter.jpg" target="_blank"><img title="Júpiter" alt="Foto Júpiter" src="júpiter.jpg" width="40" height="40" /></a></td>
                                     </tr>
                                     <tr>
                                         <td>Saturno</td>
@@ -327,6 +352,7 @@
                                         <td>Gaseoso</td>
                                         <td>Gigante</td>
                                         <td class="num">61</td>
+                                        <td class="imag"><a href="saturno.jpg" target="_blank"><img title="Saturno" alt="Foto Saturno" src="saturno.jpg" width="78.17" height="40" /></a></td>
                                     </tr>
                                     <tr>
                                         <td>Urano</td>
@@ -334,6 +360,7 @@
                                         <td>Gaseoso</td>
                                         <td>Gigante</td>
                                         <td class="num">27</td>
+                                        <td class="imag"><a href="urano.jpg" target="_blank"><img title="Urano" alt="Foto Urano" src="urano.jpg" width="40" height="40" /></a></td>
                                     </tr>
                                     <tr>
                                         <td>Neptuno</td>
@@ -341,6 +368,7 @@
                                         <td>Gaseoso</td>
                                         <td>Gigante</td>
                                         <td class="num">13</td>
+                                        <td class="imag"><a href="neptuno.jpg" target="_blank"><img title="Neptuno" alt="Foto Neptuno" src="neptuno.jpg" width="40" height="40.26" /></a></td>
                                     </tr>
                                 </tbody>
                             </table>
