@@ -1582,9 +1582,7 @@ function aceptarModal() {
             tipoBordes = tempVarios;
             // muestra un loader...
             $(".loader").removeClass("oculto");
-            setTimeout(function () {                
-                //obtiene un array con todos los de la clase columna
-                // getColumnas                
+            setTimeout(function () { 
                 var i;                
                 //recorre todo el array y les aplica el ancho de borde
                 for (i = 0; i < getColumnas.length; i++) {
@@ -1685,10 +1683,7 @@ function aceptarModal() {
             // muestra un loader...
             $(".loader").removeClass("oculto");
             setTimeout(function () {
-                // código alta exigencia
-                //obtiene un array con todos los de la clase columna
-                // getColumnas
-                //var x = document.getElementsByClassName("columna");
+                // código alta exigencia                
                 var i;
                 // tamaño es global, el factor acaba de definirse
                 anchoBordes = tamaño * factorAnchoBordes;
@@ -4097,10 +4092,12 @@ function ajustarTamaño(incremento, mostrarLoader, notificar) {
 // la llama para ajustes iniciales, incremento 1, sin loader ni notificación
 // inicial css es 23px, quedará en 24px con este ajuste
 ajustarTamaño(1, false, false);
+// Borrado total, globales
 // todos los cuadritos toman el último formato global aplicado, borra todo
 getBtnTrash.onclick = function () {
     showSnackbar("En construcción");
 }
+// Borrado total, iniciales
 // todos los cuadritos vuelven a sus formatos iniciales, borra todo
 getBtnActualizar.onclick = function () {
     if (ocupado == true) {
@@ -4108,9 +4105,16 @@ getBtnActualizar.onclick = function () {
         return;
     }
     ocupado = true;
-    //debe guardar los colores y los id      
+    //debe guardar los formatos y los id      
     lastAction = "actualizar";
+    lastTipoBordes = tipoBordes;
+    tipoBordes = "solid"; // valor por defecto
+    lastFactorAnchoBordes = factorAnchoBordes;
+    factorAnchoBordes = 0.04; // es 4/100
+    // tamaño es global, el factor acaba de definirse a su valor inicial
+    anchoBordes = tamaño * factorAnchoBordes;
     lastArrayColor.length = 0;
+    lastArrayColorBordes.length = 0;
     lastArrayID.length = 0;
     // muestra un loader...
     $(".loader").removeClass("oculto");
@@ -4119,20 +4123,36 @@ getBtnActualizar.onclick = function () {
         var i;
         //recorre todo el array y borra todos los cuadritos
         for (i = 0; i < getColumnas.length; i++) {
-            //guardar los id y los colores al mismo tiempo que recorre los cuadritos
+            //guardar los id y sus formatos al mismo tiempo que recorre los cuadritos y los actualiza
             lastArrayID[lastArrayID.length] = getColumnas[i].id;
+            // tipo borde
+            getColumnas[i].style.borderStyle = "solid";
+            // ancho borde
+            getColumnas[i].style.borderWidth = anchoBordes + "px";
+            // color pixel
             lastArrayColor[lastArrayColor.length] = getColumnas[i].style.backgroundColor;
             getColumnas[i].style.backgroundColor = "#ffffff";
+            // color borde
+            lastArrayColorBordes[lastArrayColorBordes.length] = getColumnas[i].dataset.colorbordes;
+            getColumnas[i].dataset.colorbordes = "#000000";
+            getColumnas[i].style.borderColor = "#000000";
         }
+        // guarda las globales y las actualiza
+        // color bordes
+        lastColorBordesAplicado = colorBordesAplicado;
+        colorBordesAplicado = "#000000";
+        // color pixel
         lastFondoAplicado = fondoAplicado;
         fondoAplicado = "#ffffff";
+
         // activa el botón deshacer
         estadoBtnDeshacer(true, "Deshacer borrar todo");
         ocupado = false;
         // oculta el loader
         $(".loader").addClass("oculto");
         // otras tareas
-        showSnackbar("Valores por defecto aplicados");
+        ajustesResize();
+        showSnackbar("Valores por defecto aplicados (En construcción)");
     }, 0); 
     
 }
@@ -4655,15 +4675,40 @@ getBtnDeshacer.onclick = function () {
             
             break;
         case "actualizar":
-            // deshace el limpiado total
-            fondoAplicado = lastFondoAplicado;
-
-            var i;
-            //recorre los array y les aplica el color guardado
-            for (i = 0; i < lastArrayID.length; i++) {
-                document.getElementById(lastArrayID[i]).style.backgroundColor = lastArrayColor[i];
-            }
+            // deshace el limpiado total            
             mensaje = "Se deshizo el borrado total";
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia
+                fondoAplicado = lastFondoAplicado;
+                colorBordesAplicado = lastColorBordesAplicado;
+                tipoBordes = lastTipoBordes;
+                factorAnchoBordes = lastFactorAnchoBordes;
+                anchoBordes = tamaño * factorAnchoBordes; // tamaño es global, el factor fue restaurado
+                var i;
+                var miElem;
+                var miLastColorBordes;
+                //recorre los array y les aplica el color guardado
+                for (i = 0; i < lastArrayID.length; i++) {
+                    // referencia al elemento
+                    miElem = document.getElementById(lastArrayID[i]);
+                    // tipo borde
+                    miElem.style.borderStyle = tipoBordes;
+                    // ancho borde
+                    miElem.style.borderWidth = anchoBordes + "px";
+                    // color pixel
+                    miElem.style.backgroundColor = lastArrayColor[i];
+                    // color borde
+                    miLastColorBordes = lastArrayColorBordes[i];
+                    miElem.dataset.colorbordes = miLastColorBordes;
+                    miElem.style.borderColor = miLastColorBordes;
+                }
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+                ajustesResize();
+            }, 0);  
             break;
         case "rellenarSelectivo":
             var i;
