@@ -4107,6 +4107,16 @@ getBtnActualizar.onclick = function () {
     ocupado = true;
     //debe guardar los formatos y los id      
     lastAction = "actualizar";
+    // filtro
+    lastIndexFiltro = actualIndexFiltro;
+    actualIndexFiltro = 0;
+    getFiltro.selectedIndex = 0;
+    var xsel = getFiltro.selectedIndex;
+    var y = getFiltro.options;
+    // sintaxis estándar
+    getContenedor.style.filter = y[xsel].value;
+    // Safari 6.0 - 9.0
+    getContenedor.style.WebkitFilter = y[xsel].value;    
     lastTipoBordes = tipoBordes;
     tipoBordes = "solid"; // valor por defecto
     lastFactorAnchoBordes = factorAnchoBordes;
@@ -4115,6 +4125,7 @@ getBtnActualizar.onclick = function () {
     anchoBordes = tamaño * factorAnchoBordes;
     lastArrayColor.length = 0;
     lastArrayColorBordes.length = 0;
+    lastArrayRadio.length = 0;
     lastArrayID.length = 0;
     // muestra un loader...
     $(".loader").removeClass("oculto");
@@ -4136,11 +4147,20 @@ getBtnActualizar.onclick = function () {
             lastArrayColorBordes[lastArrayColorBordes.length] = getColumnas[i].dataset.colorbordes;
             getColumnas[i].dataset.colorbordes = "#000000";
             getColumnas[i].style.borderColor = "#000000";
+            // radio borde
+            lastArrayRadio[lastArrayRadio.length] = getColumnas[i].dataset.radio;
+            getColumnas[i].dataset.radio = "0%";
+            getColumnas[i].style.MozBorderRadius = "0%";
+            getColumnas[i].style.webkitBorderRadius = "0%";
+            getColumnas[i].style.borderRadius = "0%";
         }
         // guarda las globales y las actualiza
         // color bordes
         lastColorBordesAplicado = colorBordesAplicado;
         colorBordesAplicado = "#000000";
+        // radio borde
+        lastRadioAplicado = radioAplicado;
+        radioAplicado = "0%";
         // color pixel
         lastFondoAplicado = fondoAplicado;
         fondoAplicado = "#ffffff";
@@ -4681,15 +4701,26 @@ getBtnDeshacer.onclick = function () {
             $(".loader").removeClass("oculto");
             setTimeout(function () {
                 // código alta exigencia
+                // filtro
+                actualIndexFiltro = lastIndexFiltro;
+                getFiltro.selectedIndex = actualIndexFiltro;
+                var xsel = getFiltro.selectedIndex;
+                var y = getFiltro.options;
+                // sintaxis estándar
+                getContenedor.style.filter = y[xsel].value;
+                // Safari 6.0 - 9.0
+                getContenedor.style.WebkitFilter = y[xsel].value;
                 fondoAplicado = lastFondoAplicado;
                 colorBordesAplicado = lastColorBordesAplicado;
+                radioAplicado = lastRadioAplicado;
                 tipoBordes = lastTipoBordes;
                 factorAnchoBordes = lastFactorAnchoBordes;
                 anchoBordes = tamaño * factorAnchoBordes; // tamaño es global, el factor fue restaurado
                 var i;
                 var miElem;
                 var miLastColorBordes;
-                //recorre los array y les aplica el color guardado
+                var miLastRadio;
+                //recorre los array y les aplica el formato guardado
                 for (i = 0; i < lastArrayID.length; i++) {
                     // referencia al elemento
                     miElem = document.getElementById(lastArrayID[i]);
@@ -4703,6 +4734,12 @@ getBtnDeshacer.onclick = function () {
                     miLastColorBordes = lastArrayColorBordes[i];
                     miElem.dataset.colorbordes = miLastColorBordes;
                     miElem.style.borderColor = miLastColorBordes;
+                    // radio borde
+                    miLastRadio = lastArrayRadio[i];
+                    miElem.dataset.radio = miLastRadio;
+                    miElem.style.MozBorderRadius = miLastRadio;
+                    miElem.style.webkitBorderRadius = miLastRadio;
+                    miElem.style.borderRadius = miLastRadio;
                 }
                 // oculta el loader
                 $(".loader").addClass("oculto");
