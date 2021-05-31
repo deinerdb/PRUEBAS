@@ -4197,7 +4197,7 @@ getBtnActualizar.onclick = function () {
         $(".loader").addClass("oculto");
         // otras tareas
         ajustesResize();
-        showSnackbar("Valores por defecto aplicados (En construcción)");
+        showSnackbar("Valores por defecto aplicados");
     }, 0); 
     
 }
