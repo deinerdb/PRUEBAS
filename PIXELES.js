@@ -4127,6 +4127,9 @@ getBtnActualizar.onclick = function () {
     lastArrayColorBordes.length = 0;
     lastArrayRadio.length = 0;
     lastArrayID.length = 0;
+    lastArrayOpacidad.length = 0;
+    lastArraySombras.length = 0;
+    lastArrayLienzo.length = 0;
     // muestra un loader...
     $(".loader").removeClass("oculto");
     setTimeout(function () {
@@ -4153,6 +4156,20 @@ getBtnActualizar.onclick = function () {
             getColumnas[i].style.MozBorderRadius = "0%";
             getColumnas[i].style.webkitBorderRadius = "0%";
             getColumnas[i].style.borderRadius = "0%";
+            // opacidad
+            lastArrayOpacidad[lastArrayOpacidad.length] = getColumnas[i].style.opacity;
+            getColumnas[i].style.opacity = 1;
+            // sombras
+            lastArraySombras[lastArraySombras.length] = getColumnas[i].dataset.sombras;
+            getColumnas[i].dataset.sombras = "s0000";
+            // remueve todas las clases de sombras
+            $(getColumnas[i]).removeClass("s0000 s1000 s0100 s0010 s0001 s1001 s1100 s0110 s0011");
+            // agrega la clase actual de sombras
+            $(getColumnas[i]).addClass("s0000");
+            // color lienzo
+            lastArrayLienzo[lastArrayLienzo.length] = getColumnas[i].dataset.colorlienzo;
+            getColumnas[i].dataset.colorlienzo = "#ffffff";            
+            $(getColumnas[i]).parent().css("background-color", "#ffffff");
         }
         // guarda las globales y las actualiza
         // color bordes
@@ -4161,10 +4178,18 @@ getBtnActualizar.onclick = function () {
         // radio borde
         lastRadioAplicado = radioAplicado;
         radioAplicado = "0%";
+        // opacidad
+        lastOpacidadAplicada = opacidadAplicada;
+        opacidadAplicada = 1;
+        // sombras
+        lastSombrasAplicada = sombrasAplicada;
+        sombrasAplicada = "s0000";
+        // color lienzo
+        lastColorLienzoAplicado = colorLienzoAplicado;
+        colorLienzoAplicado = "#ffffff";
         // color pixel
         lastFondoAplicado = fondoAplicado;
         fondoAplicado = "#ffffff";
-
         // activa el botón deshacer
         estadoBtnDeshacer(true, "Deshacer borrar todo");
         ocupado = false;
@@ -4713,6 +4738,9 @@ getBtnDeshacer.onclick = function () {
                 fondoAplicado = lastFondoAplicado;
                 colorBordesAplicado = lastColorBordesAplicado;
                 radioAplicado = lastRadioAplicado;
+                opacidadAplicada = lastOpacidadAplicada;
+                sombrasAplicada = lastSombrasAplicada;
+                colorLienzoAplicado = lastColorLienzoAplicado;
                 tipoBordes = lastTipoBordes;
                 factorAnchoBordes = lastFactorAnchoBordes;
                 anchoBordes = tamaño * factorAnchoBordes; // tamaño es global, el factor fue restaurado
@@ -4720,6 +4748,9 @@ getBtnDeshacer.onclick = function () {
                 var miElem;
                 var miLastColorBordes;
                 var miLastRadio;
+                var miLastOpacidad;
+                var miLastSombras;
+                var colorLienzoAnterior;
                 //recorre los array y les aplica el formato guardado
                 for (i = 0; i < lastArrayID.length; i++) {
                     // referencia al elemento
@@ -4740,6 +4771,20 @@ getBtnDeshacer.onclick = function () {
                     miElem.style.MozBorderRadius = miLastRadio;
                     miElem.style.webkitBorderRadius = miLastRadio;
                     miElem.style.borderRadius = miLastRadio;
+                    // opacidad
+                    miLastOpacidad = lastArrayOpacidad[i];
+                    miElem.style.opacity = miLastOpacidad;
+                    // sombras
+                    miLastSombras = lastArraySombras[i];
+                    miElem.dataset.sombras = miLastSombras;
+                    // remueve todas las clases de sombras
+                    $(miElem).removeClass("s0000 s1000 s0100 s0010 s0001 s1001 s1100 s0110 s0011");
+                    // agrega la clase actual de sombras
+                    $(miElem).addClass(miLastSombras);    
+                    // color lienzo
+                    colorLienzoAnterior = lastArrayLienzo[i];
+                    miElem.dataset.colorlienzo = colorLienzoAnterior;
+                    $(miElem).parent().css("background-color", colorLienzoAnterior);
                 }
                 // oculta el loader
                 $(".loader").addClass("oculto");
