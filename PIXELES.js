@@ -3081,6 +3081,8 @@ function crearCuadritos() {
             miColumna.style.borderRadius = "0%";
             // opacidad inicial es 1
             miColumna.style.opacity = "1";
+            // el color del pixel
+            miColumna.style.backgroundColor = "#ffffff";
             // para gestionar el color de su respectivo lienzo, parent
             miColumna.dataset.colorlienzo = "#ffffff";
             // para gestionar su color de bordes
@@ -4095,7 +4097,66 @@ ajustarTamaño(1, false, false);
 // Borrado total, globales
 // todos los cuadritos toman el último formato global aplicado, borra todo
 getBtnTrash.onclick = function () {
-    showSnackbar("En construcción");
+    if (ocupado == true) {
+        //sale si está ocupado
+        return;
+    }
+    ocupado = true;
+    //debe guardar los formatos y los id      
+    lastAction = "borradoGlobal"; 
+    lastArrayColor.length = 0;
+    lastArrayColorBordes.length = 0;
+    lastArrayRadio.length = 0;
+    lastArrayID.length = 0;
+    lastArrayOpacidad.length = 0;
+    lastArraySombras.length = 0;
+    lastArrayLienzo.length = 0;
+    // muestra un loader...
+    $(".loader").removeClass("oculto");
+    setTimeout(function () {
+        // código alta exigencia
+        var i;
+        //recorre todo el array y borra todos los cuadritos
+        for (i = 0; i < getColumnas.length; i++) {
+            //guardar los id y sus formatos al mismo tiempo que recorre los cuadritos y los actualiza
+            lastArrayID[lastArrayID.length] = getColumnas[i].id;            
+            // color pixel
+            lastArrayColor[lastArrayColor.length] = getColumnas[i].style.backgroundColor;
+            getColumnas[i].style.backgroundColor = fondoAplicado;
+            // color borde
+            lastArrayColorBordes[lastArrayColorBordes.length] = getColumnas[i].dataset.colorbordes;
+            getColumnas[i].dataset.colorbordes = colorBordesAplicado;
+            getColumnas[i].style.borderColor = colorBordesAplicado;
+            // radio borde
+            lastArrayRadio[lastArrayRadio.length] = getColumnas[i].dataset.radio;
+            getColumnas[i].dataset.radio = radioAplicado;
+            getColumnas[i].style.MozBorderRadius = radioAplicado;
+            getColumnas[i].style.webkitBorderRadius = radioAplicado;
+            getColumnas[i].style.borderRadius = radioAplicado;
+            // opacidad
+            lastArrayOpacidad[lastArrayOpacidad.length] = getColumnas[i].style.opacity;
+            getColumnas[i].style.opacity = opacidadAplicada;
+            // sombras
+            lastArraySombras[lastArraySombras.length] = getColumnas[i].dataset.sombras;
+            getColumnas[i].dataset.sombras = sombrasAplicada;
+            // remueve todas las clases de sombras
+            $(getColumnas[i]).removeClass("s0000 s1000 s0100 s0010 s0001 s1001 s1100 s0110 s0011");
+            // agrega la clase actual de sombras
+            $(getColumnas[i]).addClass(sombrasAplicada);
+            // color lienzo
+            lastArrayLienzo[lastArrayLienzo.length] = getColumnas[i].dataset.colorlienzo;
+            getColumnas[i].dataset.colorlienzo = colorLienzoAplicado;
+            $(getColumnas[i]).parent().css("background-color", colorLienzoAplicado);
+        }        
+        // activa el botón deshacer
+        estadoBtnDeshacer(true, "Deshacer borrar todo");
+        ocupado = false;
+        // oculta el loader
+        $(".loader").addClass("oculto");
+        // otras tareas
+        ajustesResize();
+        showSnackbar("Últimos valores globales aplicados");
+    }, 0); 
 }
 // Borrado total, iniciales
 // todos los cuadritos vuelven a sus formatos iniciales, borra todo
@@ -4791,6 +4852,57 @@ getBtnDeshacer.onclick = function () {
                 // otras tareas
                 ajustesResize();
             }, 0);  
+            break;
+        case "borradoGlobal":
+            // deshace el limpiado total            
+            mensaje = "Se deshizo el borrado total";
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia
+                var i;
+                var miElem;
+                var miLastColorBordes;
+                var miLastRadio;
+                var miLastOpacidad;
+                var miLastSombras;
+                var colorLienzoAnterior;
+                //recorre los array y les aplica el formato guardado
+                for (i = 0; i < lastArrayID.length; i++) {
+                    // referencia al elemento
+                    miElem = document.getElementById(lastArrayID[i]);                    
+                    // color pixel
+                    miElem.style.backgroundColor = lastArrayColor[i];
+                    // color borde
+                    miLastColorBordes = lastArrayColorBordes[i];
+                    miElem.dataset.colorbordes = miLastColorBordes;
+                    miElem.style.borderColor = miLastColorBordes;
+                    // radio borde
+                    miLastRadio = lastArrayRadio[i];
+                    miElem.dataset.radio = miLastRadio;
+                    miElem.style.MozBorderRadius = miLastRadio;
+                    miElem.style.webkitBorderRadius = miLastRadio;
+                    miElem.style.borderRadius = miLastRadio;
+                    // opacidad
+                    miLastOpacidad = lastArrayOpacidad[i];
+                    miElem.style.opacity = miLastOpacidad;
+                    // sombras
+                    miLastSombras = lastArraySombras[i];
+                    miElem.dataset.sombras = miLastSombras;
+                    // remueve todas las clases de sombras
+                    $(miElem).removeClass("s0000 s1000 s0100 s0010 s0001 s1001 s1100 s0110 s0011");
+                    // agrega la clase actual de sombras
+                    $(miElem).addClass(miLastSombras);
+                    // color lienzo
+                    colorLienzoAnterior = lastArrayLienzo[i];
+                    miElem.dataset.colorlienzo = colorLienzoAnterior;
+                    $(miElem).parent().css("background-color", colorLienzoAnterior);
+                }
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+                ajustesResize();
+            }, 0);
             break;
         case "rellenarSelectivo":
             var i;

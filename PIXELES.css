@@ -2570,7 +2570,9 @@ body {
     overflow-y: hidden; /*para que IE no muestre la barra cuando el ancho es 0*/
     padding: 0px !important;
     margin: 0px !important;
-    background-color: #ffffff; /*blanco*/
+    /* fondos manejados con desde javascript */
+    /* ver rutina crear cuadritos */
+    /* background-color: #ffffff; blanco*/
     /* efecto animado al cambiar color */
     -moz-transition: border-radius 0.6s, background-color 0.6s;
     -o-transition: border-radius 0.6s, background-color 0.6s;
@@ -2626,7 +2628,8 @@ overflow-x: hidden;
     text-shadow: 2px 2px 3px #000000;
     color: white; /* White text color */
     text-align: center; /* Centered text */
-    font-family: Verdana, Geneva, Tahoma, sans-serif; /*fuente*/
+    /*font-family: Verdana, Geneva, Tahoma, sans-serif; fuente*/
+    font-family: Consolas, Courier New, Courier, monospace;
     -moz-border-radius: 10px; /*borde redondeado*/
     -webkit-border-radius: 10px; /*borde redondeado*/
     border-radius: 10px; /*borde redondeado*/

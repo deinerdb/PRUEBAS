@@ -106,7 +106,8 @@ hr {
     background-color: #2d004d; /* indigo obscuro background color */
     color: white; /* White text color */
     text-align: center; /* Centered text */
-    font-family: Verdana, Geneva, Tahoma, sans-serif; /*fuente*/
+    /*font-family: Verdana, Geneva, Tahoma, sans-serif; fuente*/
+    font-family: Consolas, Courier New, Courier, monospace;
     -moz-border-radius: 10px; /*borde redondeado*/
     -webkit-border-radius: 10px; /*borde redondeado*/
     border-radius: 10px; /*borde redondeado*/
