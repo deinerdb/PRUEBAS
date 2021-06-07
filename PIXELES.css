@@ -2570,7 +2570,7 @@ body {
     overflow-y: hidden; /*para que IE no muestre la barra cuando el ancho es 0*/
     padding: 0px !important;
     margin: 0px !important;
-    /* fondos manejados con desde javascript */
+    /* fondos manejados desde javascript */
     /* ver rutina crear cuadritos */
     /* background-color: #ffffff; blanco*/
     /* efecto animado al cambiar color */
