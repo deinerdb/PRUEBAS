@@ -41,6 +41,7 @@ var getFiltro = document.getElementById("filtro");
 var getSelectFondo = document.getElementById("selectFondo");
 var getBtnActualizar = document.getElementById("BtnActualizar");
 var getBtnTrash = document.getElementById("BtnTrash");
+var getBtnInfo = document.getElementById("BtnInfo");
 var getBtnTipoBorde = document.getElementById("BtnTipoBorde");
 var getBtnAnchoBordes = document.getElementById("BtnAnchoBordes");
 var getBtnRadioBordes = document.getElementById("BtnRadioBordes");
@@ -2881,6 +2882,10 @@ function hacerClick(celda) {
     }, 400);
     
     switch (modoActual) {
+        case "info":
+            // modo información
+            showSnackbar("En desarrollo...");
+            break;
         case "sombras":
             // modo editor de sombras
             // guarda primero
@@ -3649,6 +3654,8 @@ function cambiarModo(nuevoModo) {
         getBtnOpacidad.style.display = "inline-block";
         getBtnSombras.style.display = "inline-block";
         getBtnDeshacer.style.display = "inline-block";
+        getBtnTrash.style.display = "inline-block";
+        getBtnInfo.style.display = "inline-block";
         //getSpanFilas.style.display = "inline-block";
         $(getSpanFilas).removeClass("oculto");
         getSelectFilas.style.display = "inline-block";
@@ -3692,7 +3699,9 @@ function cambiarModo(nuevoModo) {
             getBtnLibre.style.display = "none";
             getBtnExtraerColor.style.display = "none";
             getFiltro.style.display = "none";
-            getBtnActualizar.style.display = "none";            
+            getBtnActualizar.style.display = "none";
+            getBtnTrash.style.display = "none";
+            getBtnInfo.style.display = "none";
             getBtnTipoBorde.style.display = "none";
             getBtnAnchoBordes.style.display = "none";
             getBtnRadioBordes.style.display = "none";
@@ -3737,6 +3746,18 @@ function cambiarModo(nuevoModo) {
             getBtnRnd.style.display = "inline-block";
             getBtnOpuesto.style.display = "inline-block";
             showSnackbar("Modo Pincel");
+            break;
+        case "info":
+            // agrega la clase seleccionado al btn del modo actual                    
+            $(getBtnInfo).addClass("seleccionadoBtnModos");
+            getcolorPixel.style.display = "inline-block";
+            getBtnRGB.style.display = "inline-block";
+            getBtnHSL.style.display = "inline-block";
+            getBtnHex.style.display = "inline-block";
+            getBtnGallery.style.display = "inline-block";
+            getBtnRnd.style.display = "inline-block";
+            getBtnOpuesto.style.display = "inline-block";
+            showSnackbar("Modo Información");
             break;
         case "borrador":
             // agrega la clase seleccionado al btn del modo actual                    
@@ -3985,6 +4006,11 @@ getBtnExpandirLibre.onclick = function () {
     }, 0);
 
 }
+//se selecciona el modo información
+getBtnInfo.onclick = function () {
+    cambiarModo("info");
+}
+
 //se selecciona el modo libre
 getBtnLibre.onclick = function () {
     cambiarModo("libre");
