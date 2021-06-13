@@ -1,0 +1,257 @@
+
+/*Stack Overflow: se sugiere para que las alturas funcionen*/
+html, body {
+    height: 100% !important;
+    min-height: 100%;    
+}
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.page-title {
+    text-align: center;
+    color: darkred;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    /*sombra en el texto*/
+    text-shadow: 4px 4px 12px #000099; /*estándar*/
+}
+.util-contenedor {
+    border: 3px solid #000099;
+    margin: 12px 8px 28px 4px;
+    padding: 8px;
+    -moz-border-radius: 6px; /*borde redondeado*/
+    -webkit-border-radius: 6px; /*borde redondeado*/
+    border-radius: 6px; /*borde redondeado*/
+    /*sombra en la caja*/
+    -moz-box-shadow: 4px 4px 8px darkred;
+    -webkit-box-shadow: 4px 4px 8px darkred;
+    box-shadow: 4px 4px 8px darkred; /*estándar*/
+}
+.util-title {
+    color: darkred;
+}
+.util-title i {
+    color: darkblue;
+}
+ /* para ocultar dinámicamente elementos con display con prefijos*/
+.oculto {   
+    display: none !important;
+}
+
+/* top button */
+#BtnTop {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 60px !important; /* Place the button */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 200; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: #cc0000; /* Set a background color */
+    background-color: rgba(204, 0, 0, 0.7); /* background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 8px 10px; /* Some padding */
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px; /* Rounded corners */
+    font-size: 1.2em;
+    font-weight: bold;
+    /*SOMBRA*/
+    /* rgb es rgb(179, 0, 179) */
+    -moz-box-shadow: 4px 4px 3px #ff3333;
+    -moz-box-shadow: 4px 4px 3px rgba(255, 51, 51, 0.6);
+    -webkit-box-shadow: 4px 4px 3px #ff3333;
+    -webkit-box-shadow: 4px 4px 3px rgba(255, 51, 51, 0.6);
+    box-shadow: 4px 4px 3px #ff3333;
+    box-shadow: 4px 4px 3px rgba(255, 51, 51, 0.6);
+    /*no se puede seleccionar el texto*/
+    -webkit-user-select: none; /* Chrome, Opera, Safari */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */
+}
+
+    #BtnTop:hover {
+        background: #cc3300; /* For browsers that do not support gradients */
+        background: -webkit-linear-gradient(left, #ff0000, #800000); /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(right, #ff0000, #800000); /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(right, #ff0000, #800000); /* For Firefox 3.6 to 15 */
+        background: linear-gradient(to right, #ff0000, #800000); /* Standard syntax (must be last) */
+    }
+/* -----------------------------*/
+/* loader */
+/* --------------------------- */
+.loader {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    /*background: url('pageLoader.gif') 50% 50% no-repeat rgb(249,249,249);*/
+    background: rgb(179, 179, 179);
+    opacity: 0.8;
+    filter: Alpha(opacity=80); /* IE8 and earlier */
+    text-align: center;
+    /*centrar verticalmente*/
+    /* BROWSER DEFINITION */
+    display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox; /* TWEENER - IE 10 */
+    display: -webkit-flex; /* NEW - Chrome */
+    /* W3C DEFINITION */
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+}
+
+    .loader h3 {
+        text-align: center;
+        width: 100%;
+        /* color: #e600e6; */
+        color: darkred;
+        font-family: Courier New, Courier, monospace;
+        font-weight: bold;
+        text-shadow: 2px 2px 3px #ffffff;
+        /*no se puede seleccionar el texto*/
+        -webkit-user-select: none; /* Chrome, Opera, Safari */
+        -moz-user-select: none; /* Firefox 2+ */
+        -ms-user-select: none; /* IE 10+ */
+        user-select: none; /* Standard syntax */
+    }
+
+.sk-cube-grid {
+    width: 120px;
+    height: 120px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+    .sk-cube-grid .sk-cube {
+        width: 33%;
+        height: 33%;
+        background-color: #333;
+        float: left;
+        -moz-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+        -o-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+        -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+        animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+    }
+
+    .sk-cube-grid .sk-cube1 {
+        -o-animation-delay: 0.2s;
+        -moz-animation-delay: 0.2s;
+        -webkit-animation-delay: 0.2s;
+        animation-delay: 0.2s;
+    }
+
+    .sk-cube-grid .sk-cube2 {
+        -moz-animation-delay: 0.3s;
+        -o-animation-delay: 0.3s;
+        -webkit-animation-delay: 0.3s;
+        animation-delay: 0.3s;
+    }
+
+    .sk-cube-grid .sk-cube3 {
+        -moz-animation-delay: 0.4s;
+        -o-animation-delay: 0.4s;
+        -webkit-animation-delay: 0.4s;
+        animation-delay: 0.4s;
+    }
+
+    .sk-cube-grid .sk-cube4 {
+        -webkit-animation-delay: 0.1s;
+        animation-delay: 0.1s;
+    }
+
+    .sk-cube-grid .sk-cube5 {
+        -moz-animation-delay: 0.2s;
+        -o-animation-delay: 0.2s;
+        -webkit-animation-delay: 0.2s;
+        animation-delay: 0.2s;
+    }
+
+    .sk-cube-grid .sk-cube6 {
+        -moz-animation-delay: 0.3s;
+        -o-animation-delay: 0.3s;
+        -webkit-animation-delay: 0.3s;
+        animation-delay: 0.3s;
+    }
+
+    .sk-cube-grid .sk-cube7 {
+        -moz-animation-delay: 0s;
+        -o-animation-delay: 0s;
+        -webkit-animation-delay: 0s;
+        animation-delay: 0s;
+    }
+
+    .sk-cube-grid .sk-cube8 {
+        -moz-animation-delay: 0.1s;
+        -o-animation-delay: 0.1s;
+        -webkit-animation-delay: 0.1s;
+        animation-delay: 0.1s;
+    }
+
+    .sk-cube-grid .sk-cube9 {
+        -moz-animation-delay: 0.2s;
+        -o-animation-delay: 0.2s;
+        -webkit-animation-delay: 0.2s;
+        animation-delay: 0.2s;
+    }
+
+@-webkit-keyframes sk-cubeGridScaleDelay {
+    0%, 70%, 100% {
+        -webkit-transform: scale3D(1, 1, 1);
+        transform: scale3D(1, 1, 1);
+    }
+
+    35% {
+        -webkit-transform: scale3D(0, 0, 1);
+        transform: scale3D(0, 0, 1);
+    }
+}
+
+@-moz-keyframes sk-cubeGridScaleDelay {
+    0%, 70%, 100% {
+        -moz-transform: scale3D(1, 1, 1);
+        transform: scale3D(1, 1, 1);
+    }
+
+    35% {
+        -moz-transform: scale3D(0, 0, 1);
+        transform: scale3D(0, 0, 1);
+    }
+}
+
+@-o-keyframes sk-cubeGridScaleDelay {
+    0%, 70%, 100% {
+        -o-transform: scale3D(1, 1, 1);
+        transform: scale3D(1, 1, 1);
+    }
+
+    35% {
+        -o-transform: scale3D(0, 0, 1);
+        transform: scale3D(0, 0, 1);
+    }
+}
+
+@keyframes sk-cubeGridScaleDelay {
+    0%, 70%, 100% {
+        -webkit-transform: scale3D(1, 1, 1);
+        transform: scale3D(1, 1, 1);
+    }
+
+    35% {
+        -webkit-transform: scale3D(0, 0, 1);
+        transform: scale3D(0, 0, 1);
+    }
+}
+/* FIN LOADER */
+/* ---------- */

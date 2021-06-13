@@ -1,0 +1,55 @@
+﻿<!DOCTYPE HTML>
+<html lang="es" dir="ltr">
+<head>    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Utilidades Bolsas Juan">
+    <!-- jquery cargado desde servidor de Google -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Chrome, Firefox, OS y Opera -->
+    <meta name="theme-color" content="#990000">
+    <meta name="msapplication-navbutton-color" content="#990000">
+    <title>Arte con pixeles</title>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <script src="https://kit.fontawesome.com/c884319274.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="UtilBJ.css" />    
+    <link rel="icon" href="UtilBJ.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="UtilBJ.ico" type="image/x-icon" />
+    <script>
+        $(document).ready(function () {
+            // cuando carga la página
+            // oculta el loader unos segundos después
+            setTimeout(function () {                
+                $(".loader").addClass("oculto");                
+            }, 1200);
+        });        
+    </script>
+</head>
+<body>    
+    <div class="loader">
+        <h3>Espere...</h3>
+        <div class="sk-cube-grid">
+            <div class="sk-cube sk-cube1"></div>
+            <div class="sk-cube sk-cube2"></div>
+            <div class="sk-cube sk-cube3"></div>
+            <div class="sk-cube sk-cube4"></div>
+            <div class="sk-cube sk-cube5"></div>
+            <div class="sk-cube sk-cube6"></div>
+            <div class="sk-cube sk-cube7"></div>
+            <div class="sk-cube sk-cube8"></div>
+            <div class="sk-cube sk-cube9"></div>
+        </div>
+    </div>
+    <h1 class="page-title">Utilidades Bolsas Juan</h1>   
+    <div class="util-contenedor">        
+       <h2 class="util-title"><i class="fas fa-exchange-alt"></i> Convertidor</h2>
+    </div>
+    <div class="util-contenedor">
+        <h2 class="util-title"><i class="fas fa-dollar-sign"></i> Calculadora IVA</h2>
+    </div>  
+    
+    <button onclick="topFunction()" id="BtnTop" title="Subir"><i class="fas fa-arrow-up"></i></button>    
+    <script type="text/javascript" charset="utf-8" src="UtilBJ.js"></script>
+</body>
+</html>
+
