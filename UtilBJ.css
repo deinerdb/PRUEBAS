@@ -12,6 +12,11 @@ html, body {
 body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
+#rellenoInferior {
+    height: 40px;
+}
+
 .page-title {
     text-align: center;
     color: darkred;
