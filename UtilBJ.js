@@ -1,4 +1,55 @@
-﻿//***********************************
+﻿// Variables
+var getPulgadas = document.getElementById("numberPulg");
+var getCm = document.getElementById("numberCm");
+// Cuando cambian las pulgadas
+function cambiaPulgadas() {
+    try {
+        if (Number(getPulgadas.value) == 0 && getPulgadas.value == "") {
+            getCm.value = "";
+            return;
+        }
+        var temp;
+        temp = Number(getPulgadas.value) * 2.54;
+        getCm.value = Number(temp.toFixed(2));
+    }
+    catch (err) {
+        getCm.value = "";
+        getPulgadas.value = "";
+    }   
+}
+// Cuando cambian los centímetros
+function cambiaCm() {
+    try {        
+        if (Number(getCm.value) == 0 && getCm.value == "") {
+            getPulgadas.value = "";
+            return;
+        }        
+        var temp;
+        temp = Number(getCm.value) / 2.54;
+        getPulgadas.value = Number(temp.toFixed(2));
+    }
+    catch (err) {
+        getCm.value = "";
+        getPulgadas.value = "";
+    }
+}
+// evento change valor pulgadas
+getPulgadas.onchange = function () {
+    cambiaPulgadas();
+}
+// evento input valor pulgadas
+getPulgadas.oninput = function () {
+    cambiaPulgadas();
+}
+// evento change valor cm
+getCm.onchange = function () {
+    cambiaCm();
+}
+// evento input valor cm
+getCm.oninput = function () {
+    cambiaCm();
+}
+//***********************************
 //script para el botón "top"
 //***********************************
 var btnInterval;
