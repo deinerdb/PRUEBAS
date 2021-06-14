@@ -28,7 +28,7 @@ body {
 .util-contenedor {
     border: 3px solid #000099;
     margin: 12px 8px 28px 4px;
-    padding: 6px 8px 16px 16px;
+    padding: 6px 8px 32px 16px;
     -moz-border-radius: 6px; /*borde redondeado*/
     -webkit-border-radius: 6px; /*borde redondeado*/
     border-radius: 6px; /*borde redondeado*/
@@ -56,8 +56,14 @@ body {
     max-width: 90%;    
     padding: 8px 6px;
     margin: 0;
-    font-weight: bold;
+    font-weight: bold;    
 }
+    .util-number:invalid {
+        background-color: #ff8080;
+    }    
+    .util-number:valid {
+        background-color: white;
+    }
     .util-number:focus {
         background-color: #f2f2f2;
         /*SOMBRA*/
