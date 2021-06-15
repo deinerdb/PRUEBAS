@@ -17,7 +17,7 @@
     <link rel="shortcut icon" href="UtilBJ.ico" type="image/x-icon" />
     <script>
         $(document).ready(function () {
-            // cuando carga la página
+            // cuando carga la página            
             // oculta el loader unos segundos después
             setTimeout(function () {                
                 $(".loader").addClass("oculto");                
@@ -39,12 +39,12 @@
             <div class="sk-cube sk-cube8"></div>
             <div class="sk-cube sk-cube9"></div>
         </div>
-    </div>
-    <h1 class="page-title">Utilidades Bolsas Juan</h1>   
-    <div class="util-contenedor">        
-       <h2 class="util-title"><i class="fas fa-exchange-alt"></i> Convertidor</h2>
+    </div>    
+    <h1 class="page-title">Utilidades Bolsas Juan</h1>
+    <div class="util-contenedor">
+        <h2 class="util-title"><i class="fas fa-exchange-alt"></i> Convertidor</h2>
         <p class="util-etiqueta">Centímetros:</p>
-        <input class="util-number" id="numberCm" step=".01" autocomplete="off" spellcheck="false" type="number" placeholder="Ingrese medida" min="0" max="2540000" maxlength="7">        
+        <input class="util-number" id="numberCm" step=".01" autocomplete="off" spellcheck="false" type="number" placeholder="Ingrese medida" min="0" max="2540000" maxlength="7">
         <p class="util-etiqueta">Pulgadas:</p>
         <input class="util-number" id="numberPulg" step=".01" autocomplete="off" spellcheck="false" type="number" placeholder="Ingrese medida" min="0" max="1000000" maxlength="7">
     </div>
@@ -52,11 +52,12 @@
         <h2 class="util-title"><i class="fas fa-dollar-sign"></i> Calculadora IVA</h2>
         <p class="util-etiqueta">Valor sin IVA:</p>
         <input class="util-number" id="numberSinIVA" step=".01" autocomplete="off" spellcheck="false" type="number" placeholder="Ingrese valor" min="0" max="100000000" maxlength="9">
+        <button type="button" id="btnCopiar" title="Copiar al portapapeles"><i class="far fa-copy" aria-hidden="true"></i> COPIAR</button>
         <p class="util-etiqueta">Valor IVA:</p>
-        <input class="util-number" id="numberIVA" step=".01" autocomplete="off" spellcheck="false" type="number" placeholder="Ingrese valor" min="0" max="19000000" maxlength="8">
+        <input class="util-number" id="numberIVA" step=".01" autocomplete="off" spellcheck="false" type="number" placeholder="Ingrese valor" min="0" max="19000000" maxlength="8">        
         <p class="util-etiqueta">Valor con IVA:</p>
         <input class="util-number" id="numberConIVA" step=".01" autocomplete="off" spellcheck="false" type="number" placeholder="Ingrese valor" min="0" max="119000000" maxlength="9">
-    </div>  
+    </div>    
     <div id="rellenoInferior">
     </div>
     <button onclick="topFunction()" id="BtnTop" title="Subir"><i class="fas fa-arrow-up"></i></button>    

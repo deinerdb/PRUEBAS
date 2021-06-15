@@ -1,4 +1,5 @@
 ﻿// Variables
+var getBtnCopiar = document.getElementById("btnCopiar");
 // Convertidor
 var getPulgadas = document.getElementById("numberPulg");
 var getCm = document.getElementById("numberCm");
@@ -6,7 +7,6 @@ var getCm = document.getElementById("numberCm");
 var getSinIVA = document.getElementById("numberSinIVA");
 var getConIVA = document.getElementById("numberConIVA");
 var getIVA = document.getElementById("numberIVA");
-
 // Cuando cambia valor sin IVA
 function cambiaSinIVA() {
     try {
@@ -145,6 +145,24 @@ getCm.onchange = function () {
 getCm.oninput = function () {
     cambiaCm();
 }
+// copia el valor sin IVA al portapapeles
+function copiarValorSinIVA() {
+    //aquí guarda la cadena a copiar
+    var copyText = "";
+    // recupera el valor sin IVA, con ejemplos de formato
+    //copyText = Number(getSinIVA.value).toLocaleString(); // podría ser: 1.200,35 y no serviría
+    copyText = getSinIVA.value; // se espera que sea: 1200.35 y tampoco serviría
+    // para el software contable necesitamos la "coma" como separador decimal
+    // es un requerimiento específico:
+    copyText = copyText.replace(".", ","); // se espera: 1200,35 y es lo que necesitamos
+    //copiamos la cadena con el formato deseado
+    copyToClipboard(copyText);
+}
+// el botón copiar
+getBtnCopiar.onclick = function () {
+    copiarValorSinIVA();    
+}
+
 //***********************************
 //script para el botón "top"
 //***********************************
@@ -191,6 +209,44 @@ function topFunction() {
     document.documentElement.scrollTop = 0; // For IE and Firefox
 }
 
+// Copies a string to the clipboard. Must be called from within an 
+// event handler such as click. May return false if it failed, but
+// this is not always possible. Browser support for Chrome 43+, 
+// Firefox 42+, Safari 10+, Edge and IE 10+.
+// IE: The clipboard feature may be disabled by an administrator. By
+// default a prompt is shown the first time the clipboard is 
+// used (per session).
+function copyToClipboard(text) {
+    if (window.clipboardData && window.clipboardData.setData) {
+        // IE specific code path to prevent textarea being shown while dialog is visible.
+        return clipboardData.setData("Text", text);
 
+    } else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = text;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+            return document.execCommand("copy");  // Security exception may be thrown by some browsers.
+        } catch (ex) {
+            console.warn("Copia al portapapeles ha fallado.", ex);
+            return false;
+        } finally {
+            document.body.removeChild(textarea);
+        }
+    }
+}
+// al cargar la página
+window.addEventListener("load", function (event) {
+    // inicializar campos, algunos navegadores recuerdan valores previos
+    getCm.value = "";
+    getPulgadas.value = "";
+    getSinIVA.value = "";
+    getIVA.value = "";
+    getConIVA.value = ""; 
+    // scroll
+    topFunction();
+});
 // scroll
 topFunction();

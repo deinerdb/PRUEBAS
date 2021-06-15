@@ -1,5 +1,4 @@
-
-/*Stack Overflow: se sugiere para que las alturas funcionen*/
+/* Stack Overflow: se sugiere para que las alturas funcionen */
 html, body {
     height: 100% !important;
     min-height: 100%;    
@@ -13,6 +12,7 @@ body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+
 #rellenoInferior {
     height: 40px;
 }
@@ -25,7 +25,7 @@ body {
     /*sombra en el texto*/
     text-shadow: 4px 4px 12px #000099; /*estándar*/
 }
-.util-contenedor {
+.util-contenedor {    
     border: 3px solid #000099;
     margin: 12px 8px 28px 4px;
     padding: 6px 8px 32px 16px;
@@ -51,12 +51,15 @@ body {
     color: darkblue;
     background-color: white;
     font-family: Consolas, Courier New, Courier, monospace;
-    font-size: 20px; 
-    width: 270px;   
-    max-width: 90%;    
+    font-size: 20px;
+    width: 270px;
+    max-width: 90%;
     padding: 8px 6px;
     margin: 0;
-    font-weight: bold;    
+    font-weight: bold;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
 }
     .util-number:invalid {
         background-color: #ff8080;
@@ -74,10 +77,35 @@ body {
     .util-number:hover {
        background-color: #f2f2f2;
     }
-/* para ocultar dinámicamente elementos con display con prefijos*/
-.oculto {
-    display: none !important;
+#numberSinIVA{
+    margin-right: 16px;
 }
+
+#btnCopiar {
+    margin: 12px 8px 12px 0px;
+    border: 2px solid darkred;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    outline: none;
+    background-color: white;
+    color: darkblue;
+    padding: 8px 16px;
+    text-decoration: none;
+    cursor: pointer;
+    font-family: Consolas, Courier New, Courier, monospace;
+    font-size: 20px;
+}
+    #btnCopiar:active {
+        background-color: #ccf2ff !important;
+    }
+    #btnCopiar:hover {
+        background-color: #f2f2f2;
+    }
+    /* para ocultar dinámicamente elementos con display con prefijos*/
+    .oculto {
+        display: none !important;
+    }
 
 /* top button */
 #BtnTop {
