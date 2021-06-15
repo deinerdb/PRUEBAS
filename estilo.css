@@ -1558,13 +1558,13 @@ form {
     /*Formularios con borde superior e inferior gris*/
     border-bottom-style: solid;
     border-top-style: solid;
-    border-color: lightslategray;
+    border-color: #778899;
     margin: 8px;    
 }
 .formulario input[type=button], .formulario input[type=submit], .formulario input[type=reset], #copyForm, #btnElegir, #btnCopiar, #btnCalcular {
     margin-left: 12px !important;
 }
-input[type=button], input[type=submit] {
+input[type=button], input[type=submit], input[type=reset], button {
     /*no se puede seleccionar el texto*/
     -webkit-user-select: none; /* Chrome, Opera, Safari */
     -moz-user-select: none; /* Firefox 2+ */
