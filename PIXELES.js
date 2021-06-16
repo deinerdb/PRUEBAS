@@ -37,6 +37,7 @@ var getBtnPincel = document.getElementById("BtnPincel");
 var getBtnLibre = document.getElementById("BtnLibre");
 var getBtnExtraerColor = document.getElementById("BtnExtraerColor");
 var getSpanInfoExtraer = document.getElementById("spanInfoExtraer");
+var getSpanInfoBorrar = document.getElementById("spanInfoBorrar");
 var getFiltro = document.getElementById("filtro");
 var getSelectFondo = document.getElementById("selectFondo");
 var getBtnActualizar = document.getElementById("BtnActualizar");
@@ -108,7 +109,18 @@ $(getSpanInfoSombras).attr("class", sombras);
 // la info junto al botón extraer
 var ExtraerDesde = "Pixel"; // Pixel, Lienzo, Bordes
 getSpanInfoExtraer.innerHTML = ExtraerDesde; //  por defecto
-// modal: ninguno, radio, rgb, gallery, importar, exportar, filas, columnas, lienzo, anchoBordes, zoom, tipoBordes, colorBordes, opacidad, sombras
+// la info junto al botón borrador
+var formatoBorrado = "Color Pixel";
+// Se pueden borrar los siguientes formatos:
+// Color Pixel
+// Color Lienzo
+// Color Bordes
+// Radio Bordes
+// Opacidad
+// Sombras
+getSpanInfoBorrar.innerHTML = formatoBorrado; //  por defecto
+// modal: ninguno, radio, rgb, gallery, importar, exportar, filas, columnas, 
+//        lienzo, anchoBordes, zoom, tipoBordes, colorBordes, opacidad, sombras, borrador, info
 var modalActual = "ninguno";
 // recuerda el scroll y lo restaura al cerrar el modal
 var miBodyScroll;
@@ -1053,7 +1065,7 @@ function alturaModal() {
 // referencias están al inicio del script
 function ajustesResize() {    
     // para obtener anchos mínimos de botones al diseñar
-    //$("#paletaAbajo").attr("title", document.getElementById("paletaAbajo").offsetHeight);
+    // $("#BtnBorrador").attr("title", document.getElementById("BtnBorrador").offsetWidth);
     
     // ajusta el infoTemporal, solo si es visible    
     if (window.getComputedStyle(infoTemp).display === "block") {
@@ -1928,6 +1940,9 @@ function showModal() {
             // para animarla al cerrar: opacidad ajustada
             restauraOpacidad = true;
             $(getContenedor).css("opacity", "0");
+            break;
+        case "borrador":
+                
             break;
         case "colorBordes":
             $("#marcoColorBordes").css("display", "block");
@@ -4020,8 +4035,18 @@ getBtnPincel.onclick = function () {
     cambiarModo("pincel");
 }
 //se selecciona el borrador
-getBtnBorrador.onclick = function () {
-    cambiarModo("borrador");
+getBtnBorrador.onclick = function () { 
+    if (modoActual == "borrador") {
+        // está en modo borrador, entonces se pueden ajustar las opciones de borrado
+        modalActual = "borrador";
+        //muestra el modal
+        showSnackbar("En desarrollo...");
+        //showModal();
+    } else {
+        // pasa a modo borrador
+        cambiarModo("borrador");
+        // en modo borrador se ve la respectiva flecha en el btn borrador y su info
+    }        
 }
 //se selecciona el modo relleno, el gotero
 getBtnGotero.onclick = function () {

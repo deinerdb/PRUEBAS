@@ -1407,6 +1407,11 @@ html, body {
     margin-right: 5px;
     display: none;
 }
+#icoBorrarFlecha {
+    margin-left: 2px;
+    margin-right: 5px;
+    display: none;
+}
 #icoColorBordeFlecha {
     margin-left: 5px;
     display: none;
@@ -1474,6 +1479,11 @@ html, body {
     min-width: 101px !important;
     width: 101px !important;
 }
+/* para dar cabida a la flechita y la info de Borrar*/
+#BtnBorrador.seleccionadoBtnModos {
+    min-width: 150px !important;
+    width: 150px !important;
+}
 /* la info del radio */
 #spanInfoRadio {
     margin-left: 4px;
@@ -1514,8 +1524,16 @@ html, body {
     font-family: Consolas, Courier New, Courier, monospace;
     font-size: 0.95em;
 }
-
-.seleccionadoBtnModos #icoExtraerFlecha, .seleccionadoBtnModos #icoCircularFlecha, .seleccionadoBtnModos #icoOpacidadFlecha , .seleccionadoBtnModos #icoSombrasFlecha , .seleccionadoBtnModos #icoLienzoFlecha, .seleccionadoBtnModos #spanInfoRadio, .seleccionadoBtnModos #spanInfoOpacidad, .seleccionadoBtnModos #spanInfoSombras , .seleccionadoBtnModos #spanInfoExtraer, .seleccionadoBtnModos #icoColorBordeFlecha {
+/* la info de Borrador */
+#spanInfoBorrar {
+    margin-left: 4px;
+    margin-right: 3px;
+    display: none;
+    /* texto variable, fuente monoespaciada */
+    font-family: Consolas, Courier New, Courier, monospace;
+    font-size: 0.95em;
+}
+.seleccionadoBtnModos #icoExtraerFlecha, .seleccionadoBtnModos #icoBorrarFlecha , .seleccionadoBtnModos #icoCircularFlecha, .seleccionadoBtnModos #icoOpacidadFlecha , .seleccionadoBtnModos #icoSombrasFlecha , .seleccionadoBtnModos #icoLienzoFlecha, .seleccionadoBtnModos #spanInfoRadio, .seleccionadoBtnModos #spanInfoOpacidad, .seleccionadoBtnModos #spanInfoSombras , .seleccionadoBtnModos #spanInfoExtraer, .seleccionadoBtnModos #spanInfoBorrar, .seleccionadoBtnModos #icoColorBordeFlecha {
     display: inline-block !important;
 }
 
