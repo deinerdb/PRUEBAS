@@ -48,6 +48,8 @@ body {
     font-weight: 600;
 }
 .util-number {
+    border-style: inset;
+    border-width: 3px;
     color: darkblue;
     background-color: white;
     font-family: Consolas, Courier New, Courier, monospace;
@@ -68,6 +70,7 @@ body {
         background-color: white;
     }
     .util-number:focus {
+        /*border-style: outset;*/
         background-color: #f2f2f2;
         /*SOMBRA*/
         -moz-box-shadow: 2px 2px 1.5px #C0C0C0;
@@ -77,12 +80,31 @@ body {
     .util-number:hover {
        background-color: #f2f2f2;
     }
-#numberSinIVA{
+#numberSinIVA, #numberCm, #numberPulg {
     margin-right: 16px;
+}
+#numberCm, #numberPulg {
+    border-color: dodgerblue; 
+}   
+#numberCm:focus, #numberPulg:focus {    
+    -moz-box-shadow: 4px 4px 3px dodgerblue;
+    -webkit-box-shadow: 4px 4px 3px dodgerblue;
+    box-shadow: 4px 4px 3px dodgerblue;
+}
+
+#numberCm2, #numberPulg2 {
+    margin: 12px 8px 10px 0px;
+    border-color: coral;
+}
+
+#numberCm2:focus, #numberPulg2:focus {
+    -moz-box-shadow: 4px 4px 3px coral;
+    -webkit-box-shadow: 4px 4px 3px coral;
+    box-shadow: 4px 4px 3px coral;
 }
 
 #btnCopiar {
-    margin: 12px 8px 12px 0px;
+    margin: 12px 8px 10px 0px;
     border: 2px solid darkred;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;

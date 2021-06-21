@@ -2,11 +2,14 @@
 var getBtnCopiar = document.getElementById("btnCopiar");
 // Convertidor
 var getPulgadas = document.getElementById("numberPulg");
+var getPulgadas2 = document.getElementById("numberPulg2");
 var getCm = document.getElementById("numberCm");
+var getCm2 = document.getElementById("numberCm2");
 // IVA
 var getSinIVA = document.getElementById("numberSinIVA");
 var getConIVA = document.getElementById("numberConIVA");
 var getIVA = document.getElementById("numberIVA");
+// De la Calculadora IVA
 // Cuando cambia valor sin IVA
 function cambiaSinIVA() {
     try {
@@ -48,7 +51,7 @@ function cambiaIVA() {
     catch (err) {
         getSinIVA.value = "";
         getIVA.value = "";
-        getConIVA.value = "";
+        getConIVA.value = "";        
     }
 }
 // Cuando cambia valor con IVA
@@ -73,6 +76,10 @@ function cambiaConIVA() {
         getConIVA.value = "";
     }
 }
+
+// Del convertidor
+// ***************
+
 // Cuando cambian las pulgadas
 function cambiaPulgadas() {   
     try {
@@ -89,6 +96,22 @@ function cambiaPulgadas() {
         getPulgadas.value = "";
     }   
 }
+// Cuando cambian las pulgadas2
+function cambiaPulgadas2() {   
+    try {
+        if (Number(getPulgadas2.value) == 0 && getPulgadas2.value == "") {
+            getCm2.value = "";
+            return;
+        }
+        var temp;
+        temp = Number(getPulgadas2.value) * 2.54;
+        getCm2.value = Number(temp.toFixed(2));
+    }
+    catch (err) {
+        getCm2.value = "";
+        getPulgadas2.value = "";
+    }   
+}
 // Cuando cambian los centímetros
 function cambiaCm() {
     try {        
@@ -103,6 +126,22 @@ function cambiaCm() {
     catch (err) {
         getCm.value = "";
         getPulgadas.value = "";
+    }
+}
+// Cuando cambian los centímetros2
+function cambiaCm2() {
+    try {        
+        if (Number(getCm2.value) == 0 && getCm2.value == "") {
+            getPulgadas2.value = "";
+            return;
+        }        
+        var temp;
+        temp = Number(getCm2.value) / 2.54;
+        getPulgadas2.value = Number(temp.toFixed(2));
+    }
+    catch (err) {
+        getCm2.value = "";
+        getPulgadas2.value = "";
     }
 }
 // evento change valor sin IVA
@@ -133,17 +172,33 @@ getConIVA.oninput = function () {
 getPulgadas.onchange = function () {
     cambiaPulgadas();
 }
+// evento change valor pulgadas2
+getPulgadas2.onchange = function () {
+    cambiaPulgadas2();
+}
 // evento input valor pulgadas
 getPulgadas.oninput = function () {
     cambiaPulgadas();
+}
+// evento input valor pulgadas2
+getPulgadas2.oninput = function () {
+    cambiaPulgadas2();
 }
 // evento change valor cm
 getCm.onchange = function () {
     cambiaCm();
 }
+// evento change valor cm2
+getCm2.onchange = function () {
+    cambiaCm2();
+}
 // evento input valor cm
 getCm.oninput = function () {
     cambiaCm();
+}
+// evento input valor cm2
+getCm2.oninput = function () {
+    cambiaCm2();
 }
 // copia el valor sin IVA al portapapeles
 function copiarValorSinIVA() {
