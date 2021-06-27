@@ -303,5 +303,51 @@ window.addEventListener("load", function (event) {
     // scroll
     topFunction();
 });
+// eventos teclado
+function manejador(e, miId) {                            
+    var characterCode;
+    // e.key es la recomendación actual
+    if (e.key != undefined) {
+        if (e.key.toLowerCase() == "enter") {
+            characterCode = 13;
+        }
+        else {
+            characterCode = 0;
+        }
+    } else {
+        /* navegadores antiguos...  */
+        characterCode = e.which || e.charCode || e.keyCode || e.keyIdentifier || 0;
+    }
+    //ejecuta solo si presionó Enter
+    //dirige el foco al siguiente con Enter                            
+    if (characterCode == 13) {                                 
+        // dirige el foco al siguiente con Enter 
+        // Convertidor                        
+        if (miId == "numberCm") {
+            getCm2.focus();
+        } 
+        if (miId == "numberPulg") {
+            getPulgadas2.focus();
+        }
+        if (miId == "numberCm2") {
+            getPulgadas.focus();
+        } 
+        if (miId == "numberPulg2") {
+            // si es el último input, vuelve al primero, es un ciclo
+            getCm.focus();
+        }
+        // IVA
+        if (miId == "numberSinIVA") {
+            getIVA.focus();
+        }
+        if (miId == "numberIVA") {
+            getConIVA.focus();
+        }
+        if (miId == "numberConIVA") {
+            // si es el último input, vuelve al primero, es un ciclo
+            getSinIVA.focus();
+        }
+    }
+}
 // scroll
 topFunction();

@@ -44,21 +44,21 @@
     <div class="util-contenedor">
         <h2 class="util-title"><i class="fas fa-exchange-alt"></i> Convertidor</h2>
         <p class="util-etiqueta">Centímetros:</p>
-        <input class="util-number" id="numberCm" step=".01" autocomplete="off" spellcheck="false" type="number" placeholder="Ingrese medida" min="0" max="2540000" maxlength="7">
-        <input class="util-number" id="numberCm2" step=".01" autocomplete="off" spellcheck="false" type="number" placeholder="Ingrese medida" min="0" max="2540000" maxlength="7">
+        <input class="util-number" onkeydown="manejador(event, this.id);" id="numberCm" step=".01" autocomplete="off" spellcheck="false" type="number" placeholder="Ingrese medida" min="0" max="2540000" maxlength="7">
+        <input class="util-number" onkeydown="manejador(event, this.id);" id="numberCm2" step=".01" autocomplete="off" spellcheck="false" type="number" placeholder="Ingrese medida" min="0" max="2540000" maxlength="7">
         <p class="util-etiqueta">Pulgadas:</p>
-        <input class="util-number" id="numberPulg" step=".01" autocomplete="off" spellcheck="false" type="number" placeholder="Ingrese medida" min="0" max="1000000" maxlength="7">
-        <input class="util-number" id="numberPulg2" step=".01" autocomplete="off" spellcheck="false" type="number" placeholder="Ingrese medida" min="0" max="1000000" maxlength="7">
+        <input class="util-number" onkeydown="manejador(event, this.id);" id="numberPulg" step=".01" autocomplete="off" spellcheck="false" type="number" placeholder="Ingrese medida" min="0" max="1000000" maxlength="7">
+        <input class="util-number" onkeydown="manejador(event, this.id);" id="numberPulg2" step=".01" autocomplete="off" spellcheck="false" type="number" placeholder="Ingrese medida" min="0" max="1000000" maxlength="7">
     </div>
     <div class="util-contenedor">
         <h2 class="util-title"><i class="fas fa-dollar-sign"></i> Calculadora IVA</h2>
         <p class="util-etiqueta">Valor sin IVA:</p>
-        <input class="util-number" id="numberSinIVA" step=".01" autocomplete="off" spellcheck="false" type="number" placeholder="Ingrese valor" min="0" max="100000000" maxlength="9">
+        <input class="util-number" id="numberSinIVA" onkeydown="manejador(event, this.id);" step=".01" autocomplete="off" spellcheck="false" type="number" placeholder="Ingrese valor" min="0" max="100000000" maxlength="9">
         <button type="button" id="btnCopiar" title="Copiar al portapapeles"><i class="far fa-copy" aria-hidden="true"></i> COPIAR</button>
         <p class="util-etiqueta">Valor IVA:</p>
-        <input class="util-number" id="numberIVA" step=".01" autocomplete="off" spellcheck="false" type="number" placeholder="Ingrese valor" min="0" max="19000000" maxlength="8">        
+        <input class="util-number" id="numberIVA" onkeydown="manejador(event, this.id);" step=".01" autocomplete="off" spellcheck="false" type="number" placeholder="Ingrese valor" min="0" max="19000000" maxlength="8">        
         <p class="util-etiqueta">Valor con IVA:</p>
-        <input class="util-number" id="numberConIVA" step=".01" autocomplete="off" spellcheck="false" type="number" placeholder="Ingrese valor" min="0" max="119000000" maxlength="9">
+        <input class="util-number" id="numberConIVA" onkeydown="manejador(event, this.id);" step=".01" autocomplete="off" spellcheck="false" type="number" placeholder="Ingrese valor" min="0" max="119000000" maxlength="9">
     </div>    
     <div id="rellenoInferior">
     </div>
