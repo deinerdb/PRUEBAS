@@ -9,7 +9,7 @@ html, body {
     box-sizing: border-box;
 }
 body {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;    
 }
 
 
@@ -73,10 +73,10 @@ body {
         /*border-style: outset;*/
         background-color: #f2f2f2;
         /*SOMBRA*/
-        -moz-box-shadow: 2px 2px 1.5px #C0C0C0;
-        -webkit-box-shadow: 2px 2px 1.5px #C0C0C0;
-        box-shadow: 2px 2px 1.5px #C0C0C0;
-    }
+        -moz-box-shadow: 4px 4px 3px #C0C0C0;
+        -webkit-box-shadow: 4px 4px 3px #C0C0C0;
+        box-shadow: 4px 4px 3px #C0C0C0;
+    }    
     .util-number:hover {
        background-color: #f2f2f2;
     }
@@ -129,6 +129,14 @@ body {
     #btnCopiar:hover {
         background-color: #f2f2f2;
     }
+    #btnCopiar:focus {
+        /*SOMBRA*/
+        -moz-box-shadow: 4px 4px 3px #C0C0C0;
+        -webkit-box-shadow: 4px 4px 3px #C0C0C0;
+        box-shadow: 4px 4px 3px #C0C0C0;
+        border-style: outset;
+    } 
+
     /* para ocultar dinámicamente elementos con display con prefijos*/
     .oculto {
         display: none !important;

@@ -51,7 +51,7 @@ function cambiaIVA() {
     catch (err) {
         getSinIVA.value = "";
         getIVA.value = "";
-        getConIVA.value = "";        
+        getConIVA.value = ""; 
     }
 }
 // Cuando cambia valor con IVA
@@ -321,29 +321,29 @@ function manejador(e, miId) {
     //ejecuta solo si presionó Enter
     //dirige el foco al siguiente con Enter                            
     if (characterCode == 13) {                                 
-        // dirige el foco al siguiente con Enter 
+        // dirige el foco al siguiente con Enter     
         // Convertidor                        
         if (miId == "numberCm") {
             getCm2.focus();
         } 
-        if (miId == "numberPulg") {
+        else if (miId == "numberPulg") {
             getPulgadas2.focus();
         }
-        if (miId == "numberCm2") {
+        else if (miId == "numberCm2") {
             getPulgadas.focus();
         } 
-        if (miId == "numberPulg2") {
+        else if (miId == "numberPulg2") {
             // si es el último input, vuelve al primero, es un ciclo
             getCm.focus();
         }
         // IVA
-        if (miId == "numberSinIVA") {
+        else if (miId == "numberSinIVA") {
             getIVA.focus();
         }
-        if (miId == "numberIVA") {
+        else if (miId == "numberIVA") {
             getConIVA.focus();
         }
-        if (miId == "numberConIVA") {
+        else if (miId == "numberConIVA") {
             // si es el último input, vuelve al primero, es un ciclo
             getSinIVA.focus();
         }
