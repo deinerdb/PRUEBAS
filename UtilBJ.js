@@ -208,37 +208,46 @@ function dividir() {
     try {        
         if (Number(getDividirEntre.value) == 0 && getDividirEntre.value == "") {
             getDividirEntre.value = 1;
+            showSnackbar("Valor no válido");
             return;
         }
         if (Number(getDividirEntre.value) == 0) {
             getDividirEntre.value = 1;
+            showSnackbar("División por cero no es permitida");
             return;
         }          
         var temp;
         temp = Number(getConIVA.value) / Number(getDividirEntre.value);
         getConIVA.value = Number(temp.toFixed(2));
         cambiaConIVA();
+        showSnackbar("División realizada");
     }
     catch (err) {
         getSinIVA.value = "";
         getIVA.value = "";
         getConIVA.value = "";
         getDividirEntre.value = "1";
+        showSnackbar("Error al efectuar la división");
     }       
 }
 
 // copia el valor sin IVA al portapapeles
 function copiarValorSinIVA() {
     //aquí guarda la cadena a copiar
-    var copyText = "";
-    // recupera el valor sin IVA, con ejemplos de formato
-    //copyText = Number(getSinIVA.value).toLocaleString(); // podría ser: 1.200,35 y no serviría
-    copyText = getSinIVA.value; // se espera que sea: 1200.35 y tampoco serviría
+    var copyText = "0";
+    if (Number(getSinIVA.value) == 0 && getSinIVA.value == "") {
+        copyText = "0";        
+    } else {
+        // recupera el valor sin IVA, con ejemplos de formato
+        //copyText = Number(getSinIVA.value).toLocaleString(); // podría ser: 1.200,35 y no serviría
+        copyText = "" + getSinIVA.value; // se espera que sea: 1200.35 y tampoco serviría
+    }    
     // para el software contable necesitamos la "coma" como separador decimal
     // es un requerimiento específico:
     copyText = copyText.replace(".", ","); // se espera: 1200,35 y es lo que necesitamos
     //copiamos la cadena con el formato deseado
     copyToClipboard(copyText);
+    showSnackbar("Copiado para Pymes+");
 }
 // el botón dividir
 getBtnDividir.onclick = function () {
@@ -250,31 +259,43 @@ getBtnCopiar.onclick = function () {
 }
 // el botón pegar
 getBtnPegar.onclick = function () {
-    try {
-        paste();
+    try {        
+        pegar();                       
     }
     catch (err) {
-         alert("Error... Función no soportada");
+         showSnackbar("Error al intentar pegar");
     } 
 }
-async function paste() {
-    if (!navigator.clipboard) {
-        alert("Función no soportada");
-        return;      
+function pegarTexto(text) {
+    if (text == undefined) {
+        text = "0";
     }
-    try {
-        var text = await navigator.clipboard.readText();
-        //alert("original " + text);
-        text = text.replace (".", "");
-        //alert("sin puntos " + text);
-        text = text.replace (",", ".");
-        //alert("con coma " + text);
-        getSinIVA.value = text;
-        cambiaSinIVA();
+    text = text.replace (".", "");       
+    text = text.replace (",", "."); // valid number
+    if (isNaN(text)) {
+        text = "0";
     }
-    catch (err) {
-         alert("Error. Función no soportada");
-    }    
+    getSinIVA.value = Number(text);
+    cambiaSinIVA();
+    //showSnackbar("Pegado desde Pymes+");
+}
+// función para pegar texto. Devuelve el texto en el portapapeles
+function pegar() {
+    if (window.clipboardData && window.clipboardData.getData) {
+        // IE specific code path to prevent textarea being shown while dialog is visible.
+        //alert ("parece ie");
+        pegarTexto( window.clipboardData.getData("Text") );
+        showSnackbar("Pegado desde Pymes+");
+    }
+    else if (navigator.clipboard) { 
+        //navigator.clipboard.readText().then(   
+            //sintaxis con => genera error en ie  
+            navigator.clipboard.readText().then(function (textFromClipboard) {
+                //do stuff with textFromClipboard
+                pegarTexto(textFromClipboard);
+                showSnackbar("Pegado desde Pymes+");
+              });
+    }
 }
 //***********************************
 //script para el botón "top"
@@ -411,5 +432,130 @@ function manejador(e, miId) {
         }
     }
 }
+// PARA EL SNACKBAR
+//****************
+
+// Get the snackbar DIV
+var sBar = document.getElementById("snackbar");
+var tSnackBarSubiendo = 0;
+var tSnackBarBajando = 0;
+var tSnackBarCima = 0;
+var estadoSnackBar = "inactivo"; // inactivo, subiendo, cima, bajando
+var snackBarOpacity = 0;
+var snackBarBottom = 0;
+var contadorSnackBar = 0;
+// va subiendo el SnackBar
+function subirSnackBar() {
+    contadorSnackBar += 1;
+    // si llega a la cima, detiene la subida
+    if (contadorSnackBar > 25) {
+        // detiene el interval de subida
+        clearInterval(tSnackBarSubiendo);
+        // define el nuevo estado
+        estadoSnackBar = "cima";
+        // se queda en la cima unos segundos y luego empieza a bajar
+        tSnackBarCima = setTimeout(function () {
+            // define el nuevo estado
+            estadoSnackBar = "bajando";
+            contadorSnackBar = 25;
+            // por si acaso
+            clearInterval(tSnackBarBajando);
+            // establece las propiedades
+            sBar.style.opacity = 1;
+            sBar.style.bottom = "70px";
+            sBar.style.visibility = "visible";
+            // anima la bajada del SnackBar                
+            tSnackBarBajando = setInterval("bajarSnackBar()", 20);
+        }, 2000);
+        return;
+    }
+    // regla de 3:
+    // cuando contador es 25 la opacidad es 1
+    snackBarOpacity = contadorSnackBar / 25;
+    // cuando contador es 25 bottom es 70px
+    snackBarBottom = contadorSnackBar * 70 / 25;
+    // establece las propiedades
+    sBar.style.opacity = snackBarOpacity;
+    sBar.style.bottom = snackBarBottom + "px";
+}
+// va bajando el SnackBar
+function bajarSnackBar() {
+    contadorSnackBar -= 1;
+    // si llega al borde, deja de bajar
+    if (contadorSnackBar < 0) {
+        // detiene el interval de bajada
+        clearInterval(tSnackBarBajando);
+        // define el nuevo estado
+        estadoSnackBar = "inactivo";
+        // lo oculta
+        sBar.style.visibility = "hidden";        
+        return;
+    }
+    // regla de 3:
+    // cuando contador es 25 la opacidad es 1
+    snackBarOpacity = contadorSnackBar / 25;
+    // cuando contador es 25 bottom es 70px
+    snackBarBottom = contadorSnackBar * 70 / 25;
+    // establece las propiedades
+    sBar.style.opacity = snackBarOpacity;
+    sBar.style.bottom = snackBarBottom + "px";
+}
+
+
+function showSnackbar(msj) {
+    //mensaje debe ser modificado inmediatamente, sin importar el estado
+    sBar.innerHTML = msj;    
+    // toma acciones según el estado actual
+    switch (estadoSnackBar) {
+        case "inactivo":
+            // no hay mensaje en curso, empieza a subir
+            // define el nuevo estado
+            estadoSnackBar = "subiendo";
+            contadorSnackBar = 0;
+            // por si acaso
+            clearInterval(tSnackBarSubiendo);
+            // establece las propiedades
+            sBar.style.opacity = 0;
+            sBar.style.bottom = "0px";
+            sBar.style.visibility = "visible";
+            // anima la subida del SnackBar
+            tSnackBarSubiendo = setInterval("subirSnackBar()", 20);
+            break;
+        case "subiendo":
+            // va subiendo con un mensaje, ya fue modificado
+            // no se requiere acción
+            break;
+        case "cima":
+            // está en la cima, debe permanecer ahí un par de segundos
+            // cancela el tSnackBarCima
+            clearTimeout(tSnackBarCima);
+            // vuelve a iniciar la cuenta de los segundos
+            tSnackBarCima = setTimeout(function () {
+                // define el nuevo estado
+                estadoSnackBar = "bajando";
+                contadorSnackBar = 25;
+                // por si acaso
+                clearInterval(tSnackBarBajando);
+                // establece las propiedades
+                sBar.style.opacity = 1;
+                sBar.style.bottom = "70px";
+                sBar.style.visibility = "visible";
+                tSnackBarBajando = setInterval("bajarSnackBar()", 20);
+            }, 2000);
+            break;
+        case "bajando":
+            // va de bajada, debe detenerse y empezar a subir
+            // detiene el interval de bajada
+            clearInterval(tSnackBarBajando);
+            // define el nuevo estado
+            estadoSnackBar = "subiendo";
+            // anima la subida del SnackBar
+            tSnackBarSubiendo = setInterval("subirSnackBar()", 20);
+            break;
+    } // fin switch              
+} // showSnackbar
+
+// FIN SNACKBAR
+
 // scroll
 topFunction();

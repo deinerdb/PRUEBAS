@@ -56,13 +56,13 @@
         <h2 class="util-title"><i class="fas fa-dollar-sign"></i> Calculadora IVA</h2>
         <p class="util-etiqueta">Valor sin IVA:</p>
         <input class="util-number" id="numberSinIVA" onkeydown="manejador(event, this.id);" step=".01" autocomplete="off" spellcheck="false" type="number" placeholder="Ingrese valor" min="0" max="100000000" maxlength="9">
-        <button type="button" id="btnCopiar" title="Copiar al portapapeles"><i class="far fa-copy" aria-hidden="true"></i> COPIAR</button>
-        <button type="button" id="btnPegar" title="Pegar desde el portapapeles"><i class="fas fa-paste" aria-hidden="true"></i> PEGAR</button>
+        <button type="button" id="btnCopiar" title="Copiar para Pymes+"><i class="far fa-copy" aria-hidden="true"></i> COPIAR</button>
+        <button type="button" id="btnPegar" title="Pegar desde Pymes+"><i class="fas fa-paste" aria-hidden="true"></i> PEGAR</button>
         <p class="util-etiqueta">Valor IVA:</p>
         <input class="util-number" id="numberIVA" onkeydown="manejador(event, this.id);" step=".01" autocomplete="off" spellcheck="false" type="number" placeholder="Ingrese valor" min="0" max="19000000" maxlength="8">        
         <p class="util-etiqueta">Valor con IVA:</p>
         <input class="util-number" id="numberConIVA" onkeydown="manejador(event, this.id);" step=".01" autocomplete="off" spellcheck="false" type="number" placeholder="Ingrese valor" min="0" max="119000000" maxlength="9">
-        <button type="button" id="btnDividir" title="Dividir entre el valor indicado"><i class="fas fa-divide"aria-hidden="true"></i> DIVIDIR</button>
+        <button type="button" id="btnDividir" title="Dividir entre el valor indicado"><i class="fas fa-divide" aria-hidden="true"></i> DIVIDIR</button>
         <p class="util-etiqueta">Dividir entre:</p>
         <input class="util-number" list="divisores" id="dividirEntre" onkeydown="manejador(event, this.id);" step="1" autocomplete="off" spellcheck="false" type="number" placeholder="Ingrese valor" min="1" max="10000" maxlength="9" value="1">
         <datalist id="divisores">
@@ -85,6 +85,10 @@
         </datalist>
     </div>    
     <div id="rellenoInferior">
+    </div>
+    <!-- el snackbar para los mensajes -->
+    <div id="snackbar">
+        Realizado
     </div>
     <button onclick="topFunction()" id="BtnTop" title="Subir"><i class="fas fa-arrow-up"></i></button>    
     <script type="text/javascript" charset="utf-8" src="UtilBJ.js"></script>
