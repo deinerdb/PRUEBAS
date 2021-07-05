@@ -80,7 +80,7 @@ body {
     .util-number:hover {
        background-color: #f2f2f2;
     }
-#numberSinIVA, #numberCm, #numberPulg {
+#numberSinIVA, #numberCm, #numberPulg, #numberConIVA {
     margin-right: 16px;
 }
 #numberCm, #numberPulg {
@@ -103,7 +103,7 @@ body {
     box-shadow: 4px 4px 3px coral;
 }
 
-#btnCopiar {
+#btnCopiar, #btnDividir, #btnPegar {
     margin: 12px 8px 10px 0px;
     border: 2px solid darkred;
     -webkit-border-radius: 4px;
@@ -123,13 +123,13 @@ body {
     -ms-user-select: none; /* IE 10+ */
     user-select: none; /* Standard syntax */
 }
-    #btnCopiar:active {
+    #btnCopiar:active, #btnDividir:active, #btnPegar:active {
         background-color: #ccf2ff !important;
     }
-    #btnCopiar:hover {
+    #btnCopiar:hover, #btnDividir:hover, #btnPegar:hover {
         background-color: #f2f2f2;
     }
-    #btnCopiar:focus {
+    #btnCopiar:focus, #btnDividir:focus, #btnPegar:focus {
         /*SOMBRA*/
         -moz-box-shadow: 4px 4px 3px #C0C0C0;
         -webkit-box-shadow: 4px 4px 3px #C0C0C0;

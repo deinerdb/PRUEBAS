@@ -1,5 +1,7 @@
 ﻿// Variables
 var getBtnCopiar = document.getElementById("btnCopiar");
+var getBtnPegar = document.getElementById("btnPegar");
+var getBtnDividir = document.getElementById("btnDividir");
 // Convertidor
 var getPulgadas = document.getElementById("numberPulg");
 var getPulgadas2 = document.getElementById("numberPulg2");
@@ -9,6 +11,7 @@ var getCm2 = document.getElementById("numberCm2");
 var getSinIVA = document.getElementById("numberSinIVA");
 var getConIVA = document.getElementById("numberConIVA");
 var getIVA = document.getElementById("numberIVA");
+var getDividirEntre = document.getElementById("dividirEntre");
 // De la Calculadora IVA
 // Cuando cambia valor sin IVA
 function cambiaSinIVA() {
@@ -200,6 +203,30 @@ getCm.oninput = function () {
 getCm2.oninput = function () {
     cambiaCm2();
 }
+// divide el valor con IVA entre el valor indicado
+function dividir() {
+    try {        
+        if (Number(getDividirEntre.value) == 0 && getDividirEntre.value == "") {
+            getDividirEntre.value = 1;
+            return;
+        }
+        if (Number(getDividirEntre.value) == 0) {
+            getDividirEntre.value = 1;
+            return;
+        }          
+        var temp;
+        temp = Number(getConIVA.value) / Number(getDividirEntre.value);
+        getConIVA.value = Number(temp.toFixed(2));
+        cambiaConIVA();
+    }
+    catch (err) {
+        getSinIVA.value = "";
+        getIVA.value = "";
+        getConIVA.value = "";
+        getDividirEntre.value = "1";
+    }       
+}
+
 // copia el valor sin IVA al portapapeles
 function copiarValorSinIVA() {
     //aquí guarda la cadena a copiar
@@ -213,11 +240,42 @@ function copiarValorSinIVA() {
     //copiamos la cadena con el formato deseado
     copyToClipboard(copyText);
 }
+// el botón dividir
+getBtnDividir.onclick = function () {
+    dividir();    
+}
 // el botón copiar
 getBtnCopiar.onclick = function () {
     copiarValorSinIVA();    
 }
-
+// el botón pegar
+getBtnPegar.onclick = function () {
+    try {
+        paste();
+    }
+    catch (err) {
+         alert("Error... Función no soportada");
+    } 
+}
+async function paste() {
+    if (!navigator.clipboard) {
+        alert("Función no soportada");
+        return;      
+    }
+    try {
+        var text = await navigator.clipboard.readText();
+        //alert("original " + text);
+        text = text.replace (".", "");
+        //alert("sin puntos " + text);
+        text = text.replace (",", ".");
+        //alert("con coma " + text);
+        getSinIVA.value = text;
+        cambiaSinIVA();
+    }
+    catch (err) {
+         alert("Error. Función no soportada");
+    }    
+}
 //***********************************
 //script para el botón "top"
 //***********************************
@@ -299,7 +357,8 @@ window.addEventListener("load", function (event) {
     getPulgadas.value = "";
     getSinIVA.value = "";
     getIVA.value = "";
-    getConIVA.value = ""; 
+    getConIVA.value = "";
+    getDividirEntre.value = 1;
     // scroll
     topFunction();
 });
@@ -343,7 +402,10 @@ function manejador(e, miId) {
         else if (miId == "numberIVA") {
             getConIVA.focus();
         }
-        else if (miId == "numberConIVA") {
+        else if (miId == "numberConIVA") {            
+            getDividirEntre.focus();
+        }
+        else if (miId == "dividirEntre") {
             // si es el último input, vuelve al primero, es un ciclo
             getSinIVA.focus();
         }
