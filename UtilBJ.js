@@ -2,6 +2,9 @@
 var getBtnCopiar = document.getElementById("btnCopiar");
 var getBtnPegar = document.getElementById("btnPegar");
 var getBtnDividir = document.getElementById("btnDividir");
+var getFormato = document.getElementById("formato");
+var miFormato;
+miFormato= "puntocoma";
 // Convertidor
 var getPulgadas = document.getElementById("numberPulg");
 var getPulgadas2 = document.getElementById("numberPulg2");
@@ -12,6 +15,23 @@ var getSinIVA = document.getElementById("numberSinIVA");
 var getConIVA = document.getElementById("numberConIVA");
 var getIVA = document.getElementById("numberIVA");
 var getDividirEntre = document.getElementById("dividirEntre");
+// cambia el formato de origen esperado al pegar
+function cambiarFormato() {
+    var x = getFormato.selectedIndex;
+    var y = getFormato.options;
+    // el nuevo valor
+    miFormato = y[x].value;
+    var msj;
+    if (miFormato == "puntocoma"){
+        msj = "Formato de origen colombiano";
+        showSnackbar(msj);
+        getFormato.setAttribute("title", msj);    
+    } else {
+        msj = "Formato de origen extranjero";
+        showSnackbar(msj);
+        getFormato.setAttribute("title", msj);
+    }    
+}
 // De la Calculadora IVA
 // Cuando cambia valor sin IVA
 function cambiaSinIVA() {
@@ -268,12 +288,26 @@ getBtnPegar.onclick = function () {
 }
 function pegarTexto(text) {
     if (text == undefined) {
+        // otros formatos en el portapapeles, como imágenes
         text = "0";
     }
-    text = text.replace (".", "");       
-    text = text.replace (",", "."); // valid number
+    switch (miFormato) {
+        case "puntocoma":
+            // formato colombiano
+            // quita los puntos
+            text = text.replace (".", "");       
+            // reemplaza la coma por punto como separador decimal válido para JS
+            text = text.replace (",", "."); // valid number
+            break;
+        case "comapunto":
+            // formato extranjero            
+            // solo quita las comas
+            text = text.replace (",", "");
+            break;       
+    }
+    
     if (isNaN(text)) {
-        text = "0";
+        text = "0"; // si no es un número, asume 0
     }
     getSinIVA.value = Number(text);
     cambiaSinIVA();
@@ -282,13 +316,14 @@ function pegarTexto(text) {
 // función para pegar texto. Devuelve el texto en el portapapeles
 function pegar() {
     if (window.clipboardData && window.clipboardData.getData) {
+        // para IE
         // IE specific code path to prevent textarea being shown while dialog is visible.
         //alert ("parece ie");
         pegarTexto( window.clipboardData.getData("Text") );
         showSnackbar("Pegado desde Pymes+");
     }
     else if (navigator.clipboard) { 
-        //navigator.clipboard.readText().then(   
+        // otros navegadores, no funciona en Firefox          
             //sintaxis con => genera error en ie  
             navigator.clipboard.readText().then(function (textFromClipboard) {
                 //do stuff with textFromClipboard
@@ -376,10 +411,17 @@ window.addEventListener("load", function (event) {
     // inicializar campos, algunos navegadores recuerdan valores previos
     getCm.value = "";
     getPulgadas.value = "";
+    getCm2.value = "";
+    getPulgadas2.value = "";
     getSinIVA.value = "";
     getIVA.value = "";
     getConIVA.value = "";
     getDividirEntre.value = 1;
+    getFormato.value = "puntocoma";
+    miFormato = "puntocoma";
+    var msj;
+    msj = "Formato de origen colombiano";        
+    getFormato.setAttribute("title", msj);
     // scroll
     topFunction();
 });

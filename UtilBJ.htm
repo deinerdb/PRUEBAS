@@ -58,6 +58,10 @@
         <input class="util-number" id="numberSinIVA" onkeydown="manejador(event, this.id);" step=".01" autocomplete="off" spellcheck="false" type="number" placeholder="Ingrese valor" min="0" max="100000000" maxlength="9">
         <button type="button" id="btnCopiar" title="Copiar para Pymes+"><i class="far fa-copy" aria-hidden="true"></i> COPIAR</button>
         <button type="button" id="btnPegar" title="Pegar desde Pymes+"><i class="fas fa-paste" aria-hidden="true"></i> PEGAR</button>
+        <select id="formato" onchange="cambiarFormato()" title="Formato de origen colombiano">
+            <option value="puntocoma" selected>XXX.XXX,XX</option>
+            <option value="comapunto">XXX,XXX.XX</option>            
+        </select>
         <p class="util-etiqueta">Valor IVA:</p>
         <input class="util-number" id="numberIVA" onkeydown="manejador(event, this.id);" step=".01" autocomplete="off" spellcheck="false" type="number" placeholder="Ingrese valor" min="0" max="19000000" maxlength="8">        
         <p class="util-etiqueta">Valor con IVA:</p>

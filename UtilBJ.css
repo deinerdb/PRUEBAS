@@ -16,6 +16,18 @@ body {
 #rellenoInferior {
     height: 40px;
 }
+#formato {
+    margin: 12px 8px 10px 0px;   
+    border: 2px solid darkred;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    outline: none;    
+    padding: 8px 6px;    
+    background-color: white;
+    font-family: Consolas, Courier New, Courier, monospace;
+    font-size: 20px;    
+}
 
 .page-title {
     text-align: center;
@@ -123,13 +135,13 @@ body {
     -ms-user-select: none; /* IE 10+ */
     user-select: none; /* Standard syntax */
 }
-    #btnCopiar:active, #btnDividir:active, #btnPegar:active {
+    #btnCopiar:active, #btnDividir:active, #btnPegar:active, #formato:active {
         background-color: #ccf2ff !important;
     }
-    #btnCopiar:hover, #btnDividir:hover, #btnPegar:hover {
+    #btnCopiar:hover, #btnDividir:hover, #btnPegar:hover, #formato:hover {
         background-color: #f2f2f2;
     }
-    #btnCopiar:focus, #btnDividir:focus, #btnPegar:focus {
+    #btnCopiar:focus, #btnDividir:focus, #btnPegar:focus, #formato:focus {
         /*SOMBRA*/
         -moz-box-shadow: 4px 4px 3px #C0C0C0;
         -webkit-box-shadow: 4px 4px 3px #C0C0C0;
