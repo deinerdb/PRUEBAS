@@ -49,8 +49,18 @@ body {
     -webkit-box-shadow: 4px 4px 8px darkred;
     box-shadow: 4px 4px 8px darkred; /*estándar*/
 }
+summary {
+    /*no se puede seleccionar el texto*/
+    -webkit-user-select: none; /* Chrome, Opera, Safari */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */
+    cursor: pointer;
+}
 .util-title {
     color: darkred;
+    display: inline-block;
+    padding-left: 12px;
 }
 .util-title i {
     color: darkblue;

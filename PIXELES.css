@@ -1226,7 +1226,7 @@ html, body {
     width: 100%;
     text-align:left;
 }
-#selectSombras {
+#selectSombras, #selectFormatoBorrado {
     margin: 12px 2px 24px 2px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
@@ -1239,7 +1239,7 @@ html, body {
     background-color: #ffe6ff;
     font-size: larger;
 }
-    #selectSombras:focus {
+    #selectSombras:focus, #selectFormatoBorrado:focus {
         background-color: lavender !important;
     }
 #contMuestrasOpacidad {
@@ -1594,6 +1594,14 @@ html, body {
         -ms-user-select: none; /* IE 10+ */
         user-select: none; /* Standard syntax */
     }
+.option-title {
+    color: purple;
+    font-weight: 900;
+    text-align: left;
+    padding-left: 12px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    width: 100%;
+}
 /* ajustes de la ventana modal */
 /*íconos en los títulos de las ventanas modales*/
 .modal-header .fa {
@@ -1843,10 +1851,6 @@ html, body {
         overflow: hidden !important;
     }
 
-    .columna {
-        /* ESTO AFECTARÍA LAS SOMBRAS */
-        /* font-size: 0px !important; */
-    }
 
     body {
         background-color: transparent !important;
@@ -2418,7 +2422,8 @@ button, select, input {
     top: 100px;
     bottom: 100px;
     -ms-overflow-x: hidden;
-    overflow-x: hidden -ms-overflow-y: auto;
+    overflow-x: hidden; 
+    -ms-overflow-y: auto;
     overflow-y: auto !important;
 }
 
@@ -2812,7 +2817,7 @@ input[type=range] {
         width: 100%;
         height: 12.8px;
         cursor: pointer;
-        animate: 0.2s;
+        /*animate: 0.2s;*/
         box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
         background: #9370DB;
         border-radius: 25px;
@@ -2839,7 +2844,7 @@ input[type=range] {
         width: 100%;
         height: 12.8px;
         cursor: pointer;
-        animate: 0.2s;
+        /*animate: 0.2s;*/
         box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
         background: #9370DB;
         border-radius: 25px;
@@ -2860,7 +2865,7 @@ input[type=range] {
         width: 100%;
         height: 12.8px;
         cursor: pointer;
-        animate: 0.2s;
+        /*animate: 0.2s;*/
         background: transparent;
         border-color: transparent;
         border-width: 39px 0;
@@ -3589,13 +3594,13 @@ input[type=range] {
 }
 /* INICIO CSS PARA RADIOS PERSONALIZADOS */
 /* PROPIOS DE PIXELES */
-#checkExtraerDesdePixel, #checkExtraerDesdeLienzo, #checkExtraerDesdeBordes, #checkColorBordesIndividual, #checkColorBordesGlobal, #checkLienzoIndividual, #checkLienzoGlobal, #checkNone, #checkSolid, #checkDotted, #checkDashed, #checkDouble, #checkGroove, #checkRidge, #checkInset, #checkOutset {
+#checkFormatosIniciales, #checkFormatosGlobales, #checkExtraerDesdePixel, #checkExtraerDesdeLienzo, #checkExtraerDesdeBordes, #checkColorBordesIndividual, #checkColorBordesGlobal, #checkLienzoIndividual, #checkLienzoGlobal, #checkNone, #checkSolid, #checkDotted, #checkDashed, #checkDouble, #checkGroove, #checkRidge, #checkInset, #checkOutset {
     text-align: left;
     margin: 26px 4px 12px 24px;
     font-family: Consolas, Courier New, Courier, monospace;
 }
 /* el último de cada grupo */
-#checkOutset, #checkLienzoGlobal, #checkColorBordesGlobal, #checkExtraerDesdeBordes {
+#checkOutset, #checkLienzoGlobal, #checkColorBordesGlobal, #checkExtraerDesdeBordes, #checkFormatosGlobales {
     margin-bottom: 28px;
 }
 /* The radio container */

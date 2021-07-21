@@ -598,6 +598,12 @@ function showSnackbar(msj) {
 } // showSnackbar
 
 // FIN SNACKBAR
-
+// previene pérdida de datos accidental
+window.addEventListener("beforeunload", function (event) {
+    // Cancela el evento según la recomendación actual.
+    event.preventDefault();
+  // Chrome requiere que returnValue sea establecido
+    event.returnValue = "Evitando pérdida accidental de datos...";
+});
 // scroll
 topFunction();

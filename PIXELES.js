@@ -1413,6 +1413,9 @@ function aplicarLienzoGlobal() {
 // depende de modalActual/
 function aceptarModal() {
     switch (modalActual) {
+        case "borrador":
+            showSnackbar("En desarrollo...");
+            break;
         case "hsl":            
             // actualiza el color actual según el hsl seleccionado
             // asigna el valor hexadecimal al input color
@@ -1942,7 +1945,9 @@ function showModal() {
             $(getContenedor).css("opacity", "0");
             break;
         case "borrador":
-                
+            $("#marcoBorrador").css("display", "block");
+            document.getElementById("modalTitle").innerHTML = "<i class='fas fa-eraser'></i> Configurar Borrador";
+            document.getElementById("spanInfoModal").innerHTML = "Configure el borrador en esta ventana. Elija aplicar el formato inicial o el último global. Indique también a qué elemento se aplicará el formato.";                
             break;
         case "colorBordes":
             $("#marcoColorBordes").css("display", "block");
@@ -4039,9 +4044,8 @@ getBtnBorrador.onclick = function () {
     if (modoActual == "borrador") {
         // está en modo borrador, entonces se pueden ajustar las opciones de borrado
         modalActual = "borrador";
-        //muestra el modal
-        showSnackbar("En desarrollo...");
-        //showModal();
+        //muestra el modal        
+        showModal();
     } else {
         // pasa a modo borrador
         cambiarModo("borrador");

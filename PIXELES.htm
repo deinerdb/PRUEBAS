@@ -60,7 +60,31 @@
                 <h2 id="modalTitle">Ícono y título</h2>
             </div>
             <div class="modal-body" id="modalBody">
-                <!-- cada marco es un uso del Modal -->                
+                <!-- cada marco es un uso del Modal -->
+                <!-- CONFIGURAR BORRADOR -->
+                <div id="marcoBorrador" class="marco"> 
+                        <h3 class="option-title">Formatos aplicados:</h3>
+                        <label class="containerR" id="checkFormatosIniciales">
+                            Valores iniciales
+                            <input type="radio" name="checkFormatoAplicado" id="miCheckFormatosIniciales" value="formatosIniciales">
+                            <span class="checkmarkR"></span>
+                        </label>
+                        <label class="containerR" id="checkFormatosGlobales">
+                            Últimos globales
+                            <input type="radio" name="checkFormatoAplicado" id="miCheckFormatosGlobales" value="formatosGlobales">
+                            <span class="checkmarkR"></span>
+                        </label>
+                        <h3 class="option-title">Aplicar formato a:</h3>                        
+                        <select id="selectFormatoBorrado" title="Seleccione a qué se aplicará el formato al borrar">
+                            <option value="colorPixel" selected="">Color Pixel</option>
+                            <option value="colorLienzo">Color Lienzo</option>
+                            <option value="colorBordes">Color Bordes</option>
+                            <option value="radioBordes">Radio Bordes</option>
+                            <option value="opacidad">Opacidad</option>
+                            <option value="sombras">Sombras</option>                            
+                        </select>
+                    <span class="clearfix"></span>
+                </div>                
                 <!-- color hsl -->
                 <div id="marcoHSL" class="marco">
                     <p id="hslCaption">hsl - hex</p>
