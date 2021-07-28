@@ -76,6 +76,7 @@ var getBtnOpuesto = document.getElementById("BtnOpuesto");
 var getmodalBody = document.getElementById("modalBody");
 var getmodalFooter = document.getElementById("modalFooter");
 var getmodalHeader = document.getElementById("modalHeader");
+var getSelectFormatoBorrado = document.getElementById("selectFormatoBorrado");
 // para controlar una animación
 var restauraOpacidad = true;
 //color inicial del pincel es negro
@@ -110,15 +111,28 @@ $(getSpanInfoSombras).attr("class", sombras);
 var ExtraerDesde = "Pixel"; // Pixel, Lienzo, Bordes
 getSpanInfoExtraer.innerHTML = ExtraerDesde; //  por defecto
 // la info junto al botón borrador
-var formatoBorrado = "Color Pixel";
+var formatoBorrado = [];
+formatoBorrado[0] = "colorPixel";
+formatoBorrado[1] = "Color Pixel"
 // Se pueden borrar los siguientes formatos:
+// ------ casilla [0]
+//colorPixel
+//colorLienzo
+//colorBordes
+//radioBordes
+//opacidad
+//sombras
+//todo
+// ------ casilla [1]
 // Color Pixel
 // Color Lienzo
 // Color Bordes
 // Radio Bordes
 // Opacidad
 // Sombras
-getSpanInfoBorrar.innerHTML = formatoBorrado; //  por defecto
+// Todo
+getSpanInfoBorrar.innerHTML = formatoBorrado[1]; //  por defecto
+var formatoAplicadoAlBorrar = "formatosGlobales"; // formatosIniciales y formatosGlobales
 // modal: ninguno, radio, rgb, gallery, importar, exportar, filas, columnas, 
 //        lienzo, anchoBordes, zoom, tipoBordes, colorBordes, opacidad, sombras, borrador, info
 var modalActual = "ninguno";
@@ -1948,6 +1962,18 @@ function showModal() {
             $("#marcoBorrador").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-eraser'></i> Configurar Borrador";
             document.getElementById("spanInfoModal").innerHTML = "Configure el borrador en esta ventana. Elija aplicar el formato inicial o el último global. Indique también a qué elemento se aplicará el formato.";                
+            // el botón de opción según el valor actual
+            var xCheck = document.getElementsByName("checkFormatoAplicado");
+            var i;
+            for (i = 0; i < xCheck.length; i++) {
+                if (xCheck[i].value == formatoAplicadoAlBorrar) {
+                    // el que coincide con la opción actual
+                    xCheck[i].checked = true;
+                    break;
+                }
+            }
+            // el select se ajusta al valor actual
+            getSelectFormatoBorrado.value = formatoBorrado[0];
             break;
         case "colorBordes":
             $("#marcoColorBordes").css("display", "block");
