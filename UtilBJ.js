@@ -2,6 +2,7 @@
 var getBtnCopiar = document.getElementById("btnCopiar");
 var getBtnPegar = document.getElementById("btnPegar");
 var getBtnDividir = document.getElementById("btnDividir");
+var getBtnExtraer = document.getElementById("btnExtraer");
 var getFormato = document.getElementById("formato");
 var miFormato;
 miFormato= "puntocoma";
@@ -286,6 +287,45 @@ getBtnPegar.onclick = function () {
          showSnackbar("Error al intentar pegar");
     } 
 }
+// el botón Extraer
+getBtnExtraer.onclick = function () {
+    try {        
+        pegarParaExtraer();                       
+    }
+    catch (err) {
+         showSnackbar("Error al intentar extraer los dígitos");
+    } 
+}
+// recibe texto, extrae los dígitos y los copia al portapapeles
+function copiarDígitos(text) {
+    if (text == undefined) {
+        // otros formatos en el portapapeles, como imágenes
+        text = "";
+    }
+    text = "" + text;
+    var Dígitos = "";
+    var char = "";
+    var contador = 0;    
+    for (var i = 0; i < text.length; i++) {
+        char = text.charAt(i);
+        if ( "0123456789".search(char) != -1 ) {
+            Dígitos = Dígitos + char;
+            contador = 1 + contador;
+        }
+    } 
+    var msj;
+    if (contador == 1) {               
+        msj = "Se extrajo 1 dígito";
+    } else if (contador > 1) {
+        msj = "Se extrajeron " + contador + " dígitos";    
+    } else {
+        msj = "No hay dígitos que extraer. Se copió un cero";
+        Dígitos = "0"; // copia un cero si no hay dígitos
+    }
+    // copia la cadena extraída
+    copyToClipboard(Dígitos);
+    showSnackbar(msj);
+}
 function pegarTexto(text) {
     if (text == undefined) {
         // otros formatos en el portapapeles, como imágenes
@@ -324,11 +364,30 @@ function pegar() {
     }
     else if (navigator.clipboard) { 
         // otros navegadores, no funciona en Firefox          
-            //sintaxis con => genera error en ie  
+            //sintaxis con => genera error de compilación en ie  
             navigator.clipboard.readText().then(function (textFromClipboard) {
                 //do stuff with textFromClipboard
                 pegarTexto(textFromClipboard);
                 showSnackbar("Pegado desde Pymes+");
+              });
+    }
+}
+// Recupera el texto en el portapapeles y lo pasa a la función copiarDígitos
+function pegarParaExtraer() {
+    if (window.clipboardData && window.clipboardData.getData) {
+        // para IE
+        // IE specific code path to prevent textarea being shown while dialog is visible.
+        //alert ("parece ie");
+        copiarDígitos( window.clipboardData.getData("Text") );
+        //showSnackbar("Dígitos Extraídos");
+    }
+    else if (navigator.clipboard) { 
+        // otros navegadores, no funciona en Firefox          
+            //sintaxis con => genera error de compilación en ie  
+            navigator.clipboard.readText().then(function (textFromClipboard) {
+                //do stuff with textFromClipboard
+                copiarDígitos(textFromClipboard);
+                //showSnackbar("Dígitos Extraídos");
               });
     }
 }
