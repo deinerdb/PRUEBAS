@@ -1688,7 +1688,8 @@ footer{
 }
     footer::after {
         content: "";
-        height: 100px; /*padding-bottom: ESTO PARA QUE SE VEA EN IE Y FIREFOX*/
+        /* Esto se ajusta con prioridad en donde hay barras inferiores: MAPA Y FRASES */
+        height: 24px; /*padding-bottom: ESTO PARA QUE SE VEA EN IE Y FIREFOX*/
         display: block;
         /*no se puede seleccionar el texto*/
         -webkit-user-select: none; /* Chrome, Opera, Safari */
@@ -1704,7 +1705,7 @@ footer{
         width: 30%;
         height: auto;
         /*espacio para sombra y redes*/
-        margin-bottom: 8px;
+        margin-bottom: 24px;
         /*responsive*/
         max-width: 100%;
         /*sombra a mi foto*/
