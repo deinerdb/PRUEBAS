@@ -1425,10 +1425,7 @@ figcaption{
     max-width: 100%;
     overflow: auto;
 }
-#canvaslogo{
-    /*nada*/
-    
-}
+
 #divSVG {
     /*responsive*/
     width:100%;
@@ -1691,7 +1688,7 @@ footer{
 }
     footer::after {
         content: "";
-        height: 16px; /*padding-bottom: ESTO PARA QUE SE VEA EN IE Y FIREFOX*/
+        height: 100px; /*padding-bottom: ESTO PARA QUE SE VEA EN IE Y FIREFOX*/
         display: block;
         /*no se puede seleccionar el texto*/
         -webkit-user-select: none; /* Chrome, Opera, Safari */

@@ -308,7 +308,7 @@ function copiarDígitos(text) {
     var contador = 0;    
     for (var i = 0; i < text.length; i++) {
         char = text.charAt(i);
-        if ( "0123456789".search(char) != -1 ) {
+        if ( "1234567890".indexOf(char) != -1 ) {
             Dígitos = Dígitos + char;
             contador = 1 + contador;
         }
