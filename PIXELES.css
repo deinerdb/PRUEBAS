@@ -1484,6 +1484,10 @@ html, body {
     min-width: 150px !important;
     width: 150px !important;
 }
+#icoBtnBorrador {
+    /* para evitar un vaivén al alternar la clase */
+    min-width: 16px;
+}
 /* la info del radio */
 #spanInfoRadio {
     margin-left: 4px;

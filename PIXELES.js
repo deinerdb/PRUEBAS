@@ -33,6 +33,7 @@ var getBtnColorRejilla = document.getElementById("BtnColorRejilla");
 var getBtnGotero = document.getElementById("BtnGotero");
 var getBtnReemplazar = document.getElementById("BtnReemplazar");
 var getBtnBorrador = document.getElementById("BtnBorrador");
+var getIcoBtnBorrador = document.getElementById("icoBtnBorrador");
 var getBtnPincel = document.getElementById("BtnPincel");
 var getBtnLibre = document.getElementById("BtnLibre");
 var getBtnExtraerColor = document.getElementById("BtnExtraerColor");
@@ -133,6 +134,8 @@ formatoBorrado[1] = "Color Pixel"
 // Todo
 getSpanInfoBorrar.innerHTML = formatoBorrado[1]; //  por defecto
 var formatoAplicadoAlBorrar = "formatosGlobales"; // formatosIniciales y formatosGlobales
+// las clases de íconos para el btn según la variable anterior
+var claseIcoBorrado = "far fa-trash-alt"; // la otra es: "fas fa-sync-alt";
 // modal: ninguno, radio, rgb, gallery, importar, exportar, filas, columnas, 
 //        lienzo, anchoBordes, zoom, tipoBordes, colorBordes, opacidad, sombras, borrador, info
 var modalActual = "ninguno";
@@ -3674,6 +3677,15 @@ function cambiarModo(nuevoModo) {
             cerrarHistorial(false);
         }
     }
+    // solo en modo borrador empieza a alternar el ícono del btn
+    if (modoActual == "borrador") {
+        icoInterval = setInterval("alternarIcoBorrador()", 1000);        
+    } else {
+        // deja de alternar
+        clearInterval(icoInterval);
+        // vuelve al borrador normal
+        getIcoBtnBorrador.className = "fas fa-eraser";
+    }   
     // elimina las marcas x de todos
     //$(".columna").html("");
     $(".lienzo").removeClass("seleccionado");
@@ -3814,7 +3826,7 @@ function cambiarModo(nuevoModo) {
             getBtnHex.style.display = "none";
             getBtnGallery.style.display = "none";
             getBtnRnd.style.display = "none";
-            getBtnOpuesto.style.display = "none";
+            getBtnOpuesto.style.display = "none";            
             showSnackbar("Modo Borrador");
             break;
         case "opacidad":
@@ -5159,6 +5171,16 @@ function showSnackbar(msj) {
 } // showSnackbar
 
 // FIN SNACKBAR
+// script para cambiar ícono en modo borrador
+var icoInterval;
+function alternarIcoBorrador() {
+    if (getIcoBtnBorrador.className == "fas fa-eraser") {
+        getIcoBtnBorrador.className = claseIcoBorrado;
+    } else {
+        getIcoBtnBorrador.className = "fas fa-eraser";
+    }    
+}
+// fin ico borrador
 
 //***********************************
 //script para el botón "top"

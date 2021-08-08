@@ -1688,7 +1688,7 @@ footer{
 }
     footer::after {
         content: "";
-        /* Esto se ajusta con prioridad en donde hay barras inferiores: MAPA Y FRASES */
+        /* Esto se ajusta con prioridad en donde hay barras inferiores: TRADUCTOR Y FRASES */
         height: 24px; /*padding-bottom: ESTO PARA QUE SE VEA EN IE Y FIREFOX*/
         display: block;
         /*no se puede seleccionar el texto*/
