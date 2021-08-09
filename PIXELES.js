@@ -112,11 +112,9 @@ $(getSpanInfoSombras).attr("class", sombras);
 var ExtraerDesde = "Pixel"; // Pixel, Lienzo, Bordes
 getSpanInfoExtraer.innerHTML = ExtraerDesde; //  por defecto
 // la info junto al botón borrador
-var formatoBorrado = [];
-formatoBorrado[0] = "colorPixel";
-formatoBorrado[1] = "Color Pixel"
+var formatoBorrado = "colorPixel";
 // Se pueden borrar los siguientes formatos:
-// ------ casilla [0]
+// ------ formatoBorrado
 //colorPixel
 //colorLienzo
 //colorBordes
@@ -124,7 +122,7 @@ formatoBorrado[1] = "Color Pixel"
 //opacidad
 //sombras
 //todo
-// ------ casilla [1]
+// ------ formatoBorrado en texto
 // Color Pixel
 // Color Lienzo
 // Color Bordes
@@ -132,7 +130,35 @@ formatoBorrado[1] = "Color Pixel"
 // Opacidad
 // Sombras
 // Todo
-getSpanInfoBorrar.innerHTML = formatoBorrado[1]; //  por defecto
+// retorna el valor formatoBorrado como texto para visualizar
+function formatoBorradoComoTexto(valor) {       
+    var temp = "";
+    switch (valor) {
+        case "colorPixel":
+            temp = "Color Pixel";
+            break;
+        case "colorLienzo":
+            temp = "Color Lienzo";
+            break;
+        case "colorBordes":
+            temp = "Color Bordes";
+            break;
+        case "radioBordes":
+            temp = "Radio Bordes";
+            break;
+        case "opacidad":
+            temp = "Opacidad";
+            break;
+        case "sombras":
+            temp = "Sombras";
+            break;
+        case "todo":
+            temp = "Todo";
+            break;    
+    }
+    return temp;
+}
+getSpanInfoBorrar.innerHTML = formatoBorradoComoTexto(formatoBorrado); //  por defecto
 var formatoAplicadoAlBorrar = "formatosGlobales"; // formatosIniciales y formatosGlobales
 // las clases de íconos para el btn según la variable anterior
 var claseIcoBorrado = "far fa-trash-alt"; // la otra es: "fas fa-sync-alt";
@@ -1432,6 +1458,21 @@ function aceptarModal() {
     switch (modalActual) {
         case "borrador":
             showSnackbar("En desarrollo...");
+            // actualiza las variables con la nueva configuración del borrador
+            // el option
+            if ( document.getElementById("miCheckFormatosGlobales").checked ) {
+                formatoAplicadoAlBorrar = "formatosGlobales";
+                // la clase del ícono para alternar
+                claseIcoBorrado = "far fa-trash-alt";
+            } else {
+                formatoAplicadoAlBorrar = "formatosIniciales";
+                // la clase del ícono para alternar
+                claseIcoBorrado = "fas fa-sync-alt";
+            }
+            // el select
+            formatoBorrado = getSelectFormatoBorrado.value;
+            // la etiqueta del btn se actualiza
+            getSpanInfoBorrar.innerHTML = formatoBorradoComoTexto(formatoBorrado);            
             break;
         case "hsl":            
             // actualiza el color actual según el hsl seleccionado
@@ -1976,7 +2017,7 @@ function showModal() {
                 }
             }
             // el select se ajusta al valor actual
-            getSelectFormatoBorrado.value = formatoBorrado[0];
+            getSelectFormatoBorrado.value = formatoBorrado;
             break;
         case "colorBordes":
             $("#marcoColorBordes").css("display", "block");
