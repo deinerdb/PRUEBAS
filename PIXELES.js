@@ -169,10 +169,12 @@ var modalActual = "ninguno";
 var miBodyScroll;
 var miDocumentScroll;
 //para guardar la última acción
+var lastAction;
+var lastFormatoBorrado;
+//var lastFormatoAplicadoAlBorrar;
 var lastOpacidad = 1;
 var lastRadioBorde = "0%";
 var lastSombras = "s0000";
-var lastAction;
 var lastIndexFiltro;
 var actualIndexFiltro;
 var lastColor;
@@ -1456,8 +1458,7 @@ function aplicarLienzoGlobal() {
 // depende de modalActual/
 function aceptarModal() {
     switch (modalActual) {
-        case "borrador":
-            showSnackbar("En desarrollo...");
+        case "borrador":            
             // actualiza las variables con la nueva configuración del borrador
             // el option
             if ( document.getElementById("miCheckFormatosGlobales").checked ) {
@@ -3079,12 +3080,81 @@ function hacerClick(celda) {
             break;
         case "borrador":
             //modo borrador
-            //primero guarda
+            //primero guarda el id
             lastID = celda;
-            lastColor = miCuadrito.style.backgroundColor;
+            // la acción general es borrar
             lastAction = "borrar";
-            //borra
-            miCuadrito.style.backgroundColor = fondoAplicado;
+            // la acción específica de borrado
+            lastFormatoBorrado = formatoBorrado;
+            //lastFormatoAplicadoAlBorrar = formatoAplicadoAlBorrar;
+            // acción de borrado según la opción actual
+            switch (formatoBorrado) {
+                case "colorPixel":
+                    lastColor = miCuadrito.style.backgroundColor;                        
+                    if (formatoAplicadoAlBorrar == "formatosGlobales") {
+                        miCuadrito.style.backgroundColor = fondoAplicado;    
+                    } else {
+                        miCuadrito.style.backgroundColor = "#ffffff";
+                    }                    
+                    break;
+                case "colorLienzo":
+                    lastColorLienzo = miCuadrito.dataset.colorlienzo;            
+                    //el nuevo valor
+                    var tempFormat;
+                    if (formatoAplicadoAlBorrar == "formatosGlobales") {
+                        tempFormat = colorLienzoAplicado;
+                    } else {
+                        tempFormat = "#ffffff";
+                    }  
+                    // pinta el lienzo del cuadrito actual                                
+                    $(miCuadrito).parent().css("background-color", tempFormat);            
+                    // guarda el valor en el dataset
+                    miCuadrito.dataset.colorlienzo = tempFormat;
+                    break;
+                case "colorBordes":
+                    lastColorRejilla = miCuadrito.dataset.colorbordes;
+                    var tempFormat;
+                    if (formatoAplicadoAlBorrar == "formatosGlobales") {
+                        tempFormat = colorBordesAplicado;
+                    } else {
+                        tempFormat = "#000000";
+                    }
+                    // aplica el color
+                    miCuadrito.style.borderColor = tempFormat;
+                    miCuadrito.dataset.colorbordes = tempFormat;
+                    break;
+                case "radioBordes":
+                    lastRadioBorde = miCuadrito.dataset.radio;
+                    var tempFormat;
+                    if (formatoAplicadoAlBorrar == "formatosGlobales") {
+                        tempFormat = radioAplicado;
+                    } else {
+                        tempFormat = "0%";
+                    }                    
+                    //ajusta el radio de la celda
+                    miCuadrito.dataset.radio = tempFormat;
+                    miCuadrito.style.MozBorderRadius = tempFormat;
+                    miCuadrito.style.webkitBorderRadius = tempFormat;
+                    miCuadrito.style.borderRadius = tempFormat;
+                    break;
+                case "opacidad":
+                    
+                    break;
+                case "sombras":
+                    
+                    break;
+                case "todo":
+                    
+                    break;    
+            }
+            var tempInfo = "Borrado " + formatoBorradoComoTexto(formatoBorrado);
+            if (formatoAplicadoAlBorrar == "formatosGlobales") {
+                tempInfo = tempInfo + " (Formato Global)";
+            } else {
+                tempInfo = tempInfo + " (Formato Inicial)";
+            }
+            // informa
+            showSnackbar(tempInfo);
             // activa el botón deshacer
             estadoBtnDeshacer(true, "Deshacer borrado");
             break;
@@ -4689,8 +4759,48 @@ getBtnDeshacer.onclick = function () {
             }, 0);  
             break;
         case "borrar":
-            // deshace lo borrado
-            document.getElementById(lastID).style.backgroundColor = lastColor;
+            // deshace el borrado según la acción específica realizada
+            switch (lastFormatoBorrado) {
+                case "colorPixel":
+                    document.getElementById(lastID).style.backgroundColor = lastColor;                                   
+                    break;
+                case "colorLienzo":
+                    var tempFormat = lastColorLienzo;
+                    var miCuadrito = document.getElementById(lastID);
+                    // restaura el dataset
+                    miCuadrito.dataset.colorlienzo = tempFormat;
+                    // cambia el color del lienzo            
+                    $(miCuadrito).parent().addClass("resaltadoLienzo");            
+                    $(miCuadrito).parent().css("background-color", tempFormat);
+                    timerResaltarDeshacer = setTimeout(function () {
+                        $(miCuadrito).parent().removeClass("resaltadoLienzo");
+                    }, 400);
+                    break;
+                case "colorBordes":
+                    // deshace el color de bordes de la celda
+                    var miCuadrito = document.getElementById(lastID);
+                    miCuadrito.style.borderColor = lastColorRejilla;
+                    miCuadrito.dataset.colorbordes = lastColorRejilla;
+                    break;
+                case "radioBordes":
+                    var miElemRadio = document.getElementById(lastID);
+                    // vuelve al radio anterior el cuadrito que cambió            
+                    miElemRadio.dataset.radio = lastRadioBorde;
+                    miElemRadio.style.MozBorderRadius = lastRadioBorde;
+                    miElemRadio.style.webkitBorderRadius = lastRadioBorde;
+                    miElemRadio.style.borderRadius = lastRadioBorde;
+                    break;
+                case "opacidad":
+                    
+                    break;
+                case "sombras":
+                    
+                    break;
+                case "todo":
+                    
+                    break;    
+            }
+            // informa
             mensaje = "Se deshizo el borrado";
             break;
         case "rellenar":
@@ -4755,13 +4865,10 @@ getBtnDeshacer.onclick = function () {
             var miCuadrito = document.getElementById(lastID);
             // restaura el dataset
             miCuadrito.dataset.colorlienzo = colorLienzo;
-            // cambia el color del lienzo
-            //$("[id = " + lastID + "]").parent().addClass("resaltadoLienzo");
-            $(miCuadrito).parent().addClass("resaltadoLienzo");
-            //$("[id = " + lastID + "]").parent().css("background-color", colorLienzo);
+            // cambia el color del lienzo            
+            $(miCuadrito).parent().addClass("resaltadoLienzo");            
             $(miCuadrito).parent().css("background-color", colorLienzo);
-            timerResaltarDeshacer = setTimeout(function () { 
-                //$("[id = " + lastID + "]").parent().removeClass("resaltadoLienzo");
+            timerResaltarDeshacer = setTimeout(function () {
                 $(miCuadrito).parent().removeClass("resaltadoLienzo");
             }, 400);
             mensaje = "Se deshizo el color del lienzo de la celda";
