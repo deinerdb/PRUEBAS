@@ -1473,7 +1473,15 @@ function aceptarModal() {
             // el select
             formatoBorrado = getSelectFormatoBorrado.value;
             // la etiqueta del btn se actualiza
-            getSpanInfoBorrar.innerHTML = formatoBorradoComoTexto(formatoBorrado);            
+            getSpanInfoBorrar.innerHTML = formatoBorradoComoTexto(formatoBorrado);
+            var tempInfo = "Configuración borrador: " + formatoBorradoComoTexto(formatoBorrado);
+            if (formatoAplicadoAlBorrar == "formatosGlobales") {
+                tempInfo = tempInfo + " (Formato Global)";
+            } else {
+                tempInfo = tempInfo + " (Formato Inicial)";
+            }
+            // informa
+            showSnackbar(tempInfo);            
             break;
         case "hsl":            
             // actualiza el color actual según el hsl seleccionado
@@ -3138,13 +3146,79 @@ function hacerClick(celda) {
                     miCuadrito.style.borderRadius = tempFormat;
                     break;
                 case "opacidad":
-                    
+                    lastOpacidad = miCuadrito.style.opacity;                    
+                    // cambia la opacidad de la celda
+                    var tempFormat;
+                    if (formatoAplicadoAlBorrar == "formatosGlobales") {
+                        tempFormat = opacidadAplicada;
+                    } else {
+                        tempFormat = "1";
+                    }   
+                    miCuadrito.style.opacity = tempFormat;
                     break;
                 case "sombras":
-                    
+                    lastSombras = miCuadrito.dataset.sombras;
+                    var tempFormat;
+                    if (formatoAplicadoAlBorrar == "formatosGlobales") {
+                        tempFormat = sombrasAplicada;
+                    } else {
+                        tempFormat = "s0000";
+                    }                    
+                    //ajusta el estilo de sombras de la celda
+                    miCuadrito.dataset.sombras = tempFormat;            
+                    // remueve todas las clases de sombras
+                    $(miCuadrito).removeClass("s0000 s1000 s0100 s0010 s0001 s1001 s1100 s0110 s0011");
+                    // agrega la clase correspondiente de sombras
+                    $(miCuadrito).addClass(tempFormat);
                     break;
                 case "todo":
-                    
+                    // un array para los formatos que se aplicarán
+                    var arrayTempFormat = [];
+                    // guarda las propiedades actuales
+                    lastColor = miCuadrito.style.backgroundColor; // 0
+                    lastColorLienzo = miCuadrito.dataset.colorlienzo; // 1
+                    lastColorRejilla = miCuadrito.dataset.colorbordes; // 2
+                    lastRadioBorde = miCuadrito.dataset.radio; // 3
+                    lastOpacidad = miCuadrito.style.opacity; // 4
+                    lastSombras = miCuadrito.dataset.sombras; // 5
+                    // llena el array
+                    if (formatoAplicadoAlBorrar == "formatosGlobales") {
+                        arrayTempFormat[0] = fondoAplicado;
+                        arrayTempFormat[1] = colorLienzoAplicado;
+                        arrayTempFormat[2] = colorBordesAplicado;
+                        arrayTempFormat[3] = radioAplicado;
+                        arrayTempFormat[4] = opacidadAplicada;
+                        arrayTempFormat[5] = sombrasAplicada;
+                    } else {
+                        arrayTempFormat[0] = "#ffffff";
+                        arrayTempFormat[1] = "#ffffff";
+                        arrayTempFormat[2] = "#000000";
+                        arrayTempFormat[3] = "0%";
+                        arrayTempFormat[4] = "1";
+                        arrayTempFormat[5] = "s0000";
+                    }  
+                    // borra los formatos
+                    // el color del pixel
+                    miCuadrito.style.backgroundColor = arrayTempFormat[0];
+                    // pinta el lienzo                          
+                    $(miCuadrito).parent().css("background-color", arrayTempFormat[1]);
+                    miCuadrito.dataset.colorlienzo = arrayTempFormat[1];
+                    // aplica el color a los bordes
+                    miCuadrito.style.borderColor = arrayTempFormat[2];
+                    miCuadrito.dataset.colorbordes = arrayTempFormat[2];
+                    //ajusta el radio de la celda
+                    miCuadrito.dataset.radio = arrayTempFormat[3];
+                    miCuadrito.style.MozBorderRadius = arrayTempFormat[3];
+                    miCuadrito.style.webkitBorderRadius = arrayTempFormat[3];
+                    miCuadrito.style.borderRadius = arrayTempFormat[3];
+                    // opacidad
+                    miCuadrito.style.opacity = arrayTempFormat[4];
+                    // sombras de la celda
+                    miCuadrito.dataset.sombras = arrayTempFormat[5];            
+                    // remueve todas las clases de sombras
+                    $(miCuadrito).removeClass("s0000 s1000 s0100 s0010 s0001 s1001 s1100 s0110 s0011");
+                    // agrega la clase correspondiente de sombras
+                    $(miCuadrito).addClass(arrayTempFormat[5]);
                     break;    
             }
             var tempInfo = "Borrado " + formatoBorradoComoTexto(formatoBorrado);
@@ -4791,17 +4865,51 @@ getBtnDeshacer.onclick = function () {
                     miElemRadio.style.borderRadius = lastRadioBorde;
                     break;
                 case "opacidad":
-                    
+                    // deshace la opacidad
+                    document.getElementById(lastID).style.opacity = lastOpacidad;
                     break;
                 case "sombras":
-                    
+                    var miElemSombras = document.getElementById(lastID);
+                    // vuelve al estilo de sombras anterior el cuadrito que cambió            
+                    miElemSombras.dataset.sombras = lastSombras;            
+                    // remueve todas las clases de sombras
+                    $(miElemSombras).removeClass("s0000 s1000 s0100 s0010 s0001 s1001 s1100 s0110 s0011");
+                    // agrega la clase actual de sombras
+                    $(miElemSombras).addClass(lastSombras);
                     break;
                 case "todo":
-                    
+                    // restaura todos los formatos borrados
+                    // referencia el elemento
+                    var miCuadrito = document.getElementById(lastID);                    
+                    // color pixel
+                    miCuadrito.style.backgroundColor = lastColor;
+                    // color lienzo
+                    miCuadrito.dataset.colorlienzo = lastColorLienzo;
+                    $(miCuadrito).parent().addClass("resaltadoLienzo");            
+                    $(miCuadrito).parent().css("background-color", lastColorLienzo);
+                    timerResaltarDeshacer = setTimeout(function () {
+                        $(miCuadrito).parent().removeClass("resaltadoLienzo");
+                    }, 400);
+                    // color bordes
+                    miCuadrito.style.borderColor = lastColorRejilla;
+                    miCuadrito.dataset.colorbordes = lastColorRejilla;
+                    // radio bordes
+                    miCuadrito.dataset.radio = lastRadioBorde;
+                    miCuadrito.style.MozBorderRadius = lastRadioBorde;
+                    miCuadrito.style.webkitBorderRadius = lastRadioBorde;
+                    miCuadrito.style.borderRadius = lastRadioBorde;
+                    // opacidad
+                    miCuadrito.style.opacity = lastOpacidad;
+                    // sombras
+                    miCuadrito.dataset.sombras = lastSombras;            
+                    // remueve todas las clases de sombras
+                    $(miCuadrito).removeClass("s0000 s1000 s0100 s0010 s0001 s1001 s1100 s0110 s0011");
+                    // agrega la clase actual de sombras
+                    $(miCuadrito).addClass(lastSombras);
                     break;    
             }
             // informa
-            mensaje = "Se deshizo el borrado";
+            mensaje = "Se deshizo el borrado (" + formatoBorradoComoTexto(formatoBorrado) + ")";
             break;
         case "rellenar":
             mensaje = "Se deshizo el relleno global";
