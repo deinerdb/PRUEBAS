@@ -18,6 +18,44 @@ html, body {
     height: 100% !important;
     min-height: 100%;    
 }
+
+/* los rótulos (números de fila y columna) */
+.etiqueta {
+    /*border: 1px solid white;*/
+   color: white;
+   font-size: 10.35px; /* su tamaño por 0.45 */
+   width: 23px; 
+   height: 23px;
+   max-width: 23px;
+   min-width: 23px;
+   background-color: transparent;
+   font-family: 'Courier New', Courier, monospace;
+   font-weight: bold;
+   text-shadow: 0px 0px 0.16em #000000 !important;
+   text-align: center;
+   padding: 0;
+   margin: 0;
+   cursor: default;
+   /*centrar verticalmente*/
+    /* BROWSER DEFINITION */
+    display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox; /* TWEENER - IE 10 */
+    display: -webkit-flex; /* NEW - Chrome */
+    /* W3C DEFINITION */
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    /*no se puede seleccionar el texto*/
+    -webkit-user-select: none; /* Chrome, Opera, Safari */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */
+    /* una sombra para que se vea el ícono de cualquier color */
+    
+}
+
 /* SOMBRAS */
 /* clases para las sombras */
 .s0000 {
@@ -1832,6 +1870,10 @@ html, body {
         */
         animation: none !important;
     }
+    .etiqueta{
+        color: #000000 !important;
+        text-shadow: none !important;
+    }
     /* ocultar */
     #BtnTop, .paleta, .loader, #pie, #pieAfter, #BtnCerrarHistorial, #myModal, #snackbar, #paletaFull {
         display: none !important;
@@ -2113,7 +2155,7 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores, input {
     font-size: 0px;
     /* COLOR LIENZO INICIAL, esto no será visible */
     /* porque ahora los lienzos son individuales */
-    background-color: #ffffff;
+    background-color: transparent;
     /* PARA LA ANIMACIÓN */
     -moz-transition: opacity 2s;
     -o-transition: opacity 2s;

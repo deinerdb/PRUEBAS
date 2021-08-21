@@ -3288,7 +3288,7 @@ function crearCuadritos() {
     var miColumna;
     var miID;
     // recorre filas
-    for (fila = 1; fila <= MAXNUMFILAS; fila++) {
+    for (fila = 0; fila <= MAXNUMFILAS; fila++) {
         // crea la fila
         miFila = document.createElement("DIV");
         // le agrega la clase
@@ -3296,46 +3296,61 @@ function crearCuadritos() {
         // la añade al contenedor
         getContenedor.appendChild(miFila);
         // recorre columnas
-        for (columna = 1; columna <= MAXNUMCOLUMNAS; columna++) {
-            // crea el lienzo
-            miLienzo = document.createElement("DIV");
-            // le agrega la clase
-            miLienzo.setAttribute("class", "lienzo");
-            // color lienzo por defecto, su hijo lo guarda en el dataset            
-            miLienzo.style.backgroundColor = "#ffffff";
-            // crea cuadrito
-            miColumna = document.createElement("DIV");
-            // la clase de los cuadritos es columna
-            // la clase por defecto de sombras es s0000 (sin sombras)
-            miColumna.setAttribute("class", "columna s0000");
-            // llevan id
-            miID = "f" + fila + "c" + columna;
-            miColumna.id = miID;
-            // para la gestión de la sombra
-            miColumna.dataset.sombras = "s0000";
-            // para la gestión del radio del borde
-            miColumna.dataset.radio = "0%";
-            miColumna.style.MozBorderRadius = "0%";
-            miColumna.style.webkitBorderRadius = "0%";
-            miColumna.style.borderRadius = "0%";
-            // opacidad inicial es 1
-            miColumna.style.opacity = "1";
-            // el color del pixel
-            miColumna.style.backgroundColor = "#ffffff";
-            // para gestionar el color de su respectivo lienzo, parent
-            miColumna.dataset.colorlienzo = "#ffffff";
-            // para gestionar su color de bordes
-            miColumna.dataset.colorbordes = "#000000";
-            miColumna.style.borderColor = "#000000";
-            // le adjunta el evento click
-            miColumna.addEventListener("click", function () { hacerClick(this.id); });
-            // por las x, define tamaño de fuente
-            // TAMBIÉN POR LAS SOMBRAS EN UNIDADES em
-            miColumna.style.fontSize = tamaño * 0.8 + "px";            
-            // agrega el cuadrito a su lienzo
-            miLienzo.appendChild(miColumna);
-            // agrega el lienzo a su fila
-            miFila.appendChild(miLienzo);
+        for (columna = 0; columna <= MAXNUMCOLUMNAS; columna++) {
+            if (fila == 0 || columna == 0){
+                // crea rótulo
+                miColumna = document.createElement("DIV");
+                miColumna.setAttribute("class", "etiqueta");
+                if (fila == 0 && columna != 0){
+                    miColumna.innerHTML = columna;
+                } else if (columna == 0 && fila != 0) {
+                    miColumna.innerHTML = fila;
+                }
+                // llevan id (row and col)
+                miID = "r" + fila + "c" + columna;
+                miColumna.id = miID;
+                miFila.appendChild(miColumna);
+            } else {
+                // crea el lienzo
+                miLienzo = document.createElement("DIV");
+                // le agrega la clase
+                miLienzo.setAttribute("class", "lienzo");
+                // color lienzo por defecto, su hijo lo guarda en el dataset            
+                miLienzo.style.backgroundColor = "#ffffff";
+                // crea cuadrito
+                miColumna = document.createElement("DIV");
+                // la clase de los cuadritos es columna
+                // la clase por defecto de sombras es s0000 (sin sombras)
+                miColumna.setAttribute("class", "columna s0000");
+                // llevan id
+                miID = "f" + fila + "c" + columna;
+                miColumna.id = miID;
+                // para la gestión de la sombra
+                miColumna.dataset.sombras = "s0000";
+                // para la gestión del radio del borde
+                miColumna.dataset.radio = "0%";
+                miColumna.style.MozBorderRadius = "0%";
+                miColumna.style.webkitBorderRadius = "0%";
+                miColumna.style.borderRadius = "0%";
+                // opacidad inicial es 1
+                miColumna.style.opacity = "1";
+                // el color del pixel
+                miColumna.style.backgroundColor = "#ffffff";
+                // para gestionar el color de su respectivo lienzo, parent
+                miColumna.dataset.colorlienzo = "#ffffff";
+                // para gestionar su color de bordes
+                miColumna.dataset.colorbordes = "#000000";
+                miColumna.style.borderColor = "#000000";
+                // le adjunta el evento click
+                miColumna.addEventListener("click", function () { hacerClick(this.id); });
+                // por las x, define tamaño de fuente
+                // TAMBIÉN POR LAS SOMBRAS EN UNIDADES em
+                miColumna.style.fontSize = tamaño * 0.8 + "px";            
+                // agrega el cuadrito a su lienzo
+                miLienzo.appendChild(miColumna);
+                // agrega el lienzo a su fila
+                miFila.appendChild(miLienzo);
+            }
         }
     }
 }
@@ -3739,7 +3754,7 @@ function dimensionar(mostrarLoader) {
     //actualiza el tamaño de la matriz
     var miFila;
     var miColumna;
-    var miID;
+    var miID;    
     var miElemDim;
     var xsel;
     var y;
@@ -3766,14 +3781,47 @@ function dimensionar(mostrarLoader) {
     if (mostrarLoader == true) {
         $(".loader").removeClass("oculto");
     }    
-    setTimeout(function () {
+    setTimeout(function () {        
         // código alta exigencia
-        //alert("filas " + numFilas + " columnas " + numColumnas);    
-        //recorre todos los cuadritos, por id    
+        //alert("filas " + numFilas + " columnas " + numColumnas);
+        // recorre los rótulos y muestra solo los necesarios
+        // los de las filas
+        for (miFila = 0; miFila <= MAXNUMFILAS; miFila++) {            
+            //construye el id del rótulo, row variable y col 0
+            miID = "r" + miFila + "c0";                
+            // referencia al rótulo para optimizar
+            miElemDim = document.getElementById(miID);
+            //si está dentro del tamaño especificado hace visible el rótulo
+            // y si no, lo oculta            
+            if (miFila <= numFilas) {
+                // visible                    
+                $(miElemDim).removeClass("oculto");                    
+            } else {
+                // oculto
+                $(miElemDim).addClass("oculto"); 
+            }
+        }
+        // los de las columnas
+        for (miColumna = 0; miColumna <= MAXNUMCOLUMNAS; miColumna++) {            
+            //construye el id del rótulo, row 0 y col variable
+            miID = "r0" + "c" + miColumna;                
+            // referencia al rótulo para optimizar
+            miElemDim = document.getElementById(miID);
+            //si está dentro del tamaño especificado hace visible el rótulo
+            // y si no, lo oculta            
+            if (miColumna <= numColumnas) {
+                // visible                    
+                $(miElemDim).removeClass("oculto");                    
+            } else {
+                // oculto
+                $(miElemDim).addClass("oculto"); 
+            }
+        } 
+        //recorre todos los cuadritos, clase columna, por id    
         for (miFila = 1; miFila <= MAXNUMFILAS; miFila++) {
             for (miColumna = 1; miColumna <= MAXNUMCOLUMNAS; miColumna++) {
                 //construye el id
-                miID = "f" + miFila + "c" + miColumna;
+                miID = "f" + miFila + "c" + miColumna;                
                 // referencia al cuadrito para optimizar
                 miElemDim = document.getElementById(miID);
                 // primero guardar
@@ -3831,8 +3879,8 @@ function dimensionar(mostrarLoader) {
         }        
         // otras tareas        
         //ajusta el contenedor de los cuadritos
-        var anchoCont = tamaño * numColumnas;
-        // MAXNUMFILAS VECES EL ANCHO DE UN CUADRITO
+        var anchoCont = tamaño * (1 + numColumnas);
+        // MAXNUMFILAS VECES EL ANCHO DE UN CUADRITO... más el rótulo
         //PERO OJO QUE maxWidth DEL CONTENEDOR ES 90%, NUNCA DESBORDA PANTALLA.
         getContenedor.style.width = anchoCont + "px";
         // posiciona inmediatamente
@@ -4350,14 +4398,25 @@ function ajustarTamaño(incremento, mostrarLoader, notificar) {
             // también para las sombras en unidades em
             getColumnas[i].style.fontSize = tamaño * 0.8 + "px";            
         }
+        // ajusta los rótulos
+        // altura
+        $(".etiqueta").css("height", tamaño + "px");
+        $(".etiqueta").css("maxHeight", tamaño + "px");
+        $(".etiqueta").css("minHeight", tamaño + "px");
+        // ancho
+        $(".etiqueta").css("width", tamaño + "px");
+        $(".etiqueta").css("minWidth", tamaño + "px");
+        $(".etiqueta").css("maxWidth", tamaño + "px");
+        // su fuente
+        $(".etiqueta").css("fontSize", tamaño * 0.45 + "px");
         // oculta el loader
         if (mostrarLoader == true) {
             $(".loader").addClass("oculto");
         }        
         // otras tareas
         //ajusta el contenedor de los cuadritos
-        var anchoCont = tamaño * numColumnas;
-        // n VECES EL ANCHO DE UN CUADRITO
+        var anchoCont = tamaño * (1 + numColumnas);
+        // n VECES EL ANCHO DE UN CUADRITO, más el rótulo
         //PERO OJO QUE maxWidth DEL CONTENEDOR ES 90%, NUNCA DESBORDA PANTALLA.
         getContenedor.style.width = anchoCont + "px"; // ajustesResize lo ajusta también
         // para centrado y otros ajustes
@@ -5062,6 +5121,41 @@ getBtnDeshacer.onclick = function () {
                 var miElemDim;
                 var miFila;
                 var miColumna;
+                // visibilidad de rótulos
+                // recorre los rótulos y muestra solo los necesarios
+                // los de las filas
+                for (miFila = 0; miFila <= MAXNUMFILAS; miFila++) {            
+                    //construye el id del rótulo, row variable y col 0
+                    miID = "r" + miFila + "c0";                
+                    // referencia al rótulo para optimizar
+                    miElemDim = document.getElementById(miID);
+                    //si está dentro del tamaño especificado hace visible el rótulo
+                    // y si no, lo oculta            
+                    if (miFila <= numFilas) {
+                        // visible                    
+                        $(miElemDim).removeClass("oculto");                    
+                    } else {
+                        // oculto
+                        $(miElemDim).addClass("oculto"); 
+                    }
+                }
+                // los de las columnas
+                for (miColumna = 0; miColumna <= MAXNUMCOLUMNAS; miColumna++) {            
+                    //construye el id del rótulo, row 0 y col variable
+                    miID = "r0" + "c" + miColumna;                
+                    // referencia al rótulo para optimizar
+                    miElemDim = document.getElementById(miID);
+                    //si está dentro del tamaño especificado hace visible el rótulo
+                    // y si no, lo oculta            
+                    if (miColumna <= numColumnas) {
+                        // visible                    
+                        $(miElemDim).removeClass("oculto");                    
+                    } else {
+                        // oculto
+                        $(miElemDim).addClass("oculto"); 
+                    }
+                }
+                // visibilidad de pixeles, clase columna
                 for (miFila = 1; miFila <= MAXNUMFILAS; miFila++) {
                     for (miColumna = 1; miColumna <= MAXNUMCOLUMNAS; miColumna++) {
                         //construye el id
@@ -5117,8 +5211,8 @@ getBtnDeshacer.onclick = function () {
                     $(miElemDim).parent().css("background-color", miLastColorLienzo);
                 }
                 //ajusta el contenedor de los cuadritos
-                var anchoCont = tamaño * numColumnas;
-                // n VECES EL ANCHO DE UN CUADRITO
+                var anchoCont = tamaño * (1 + numColumnas);
+                // n VECES EL ANCHO DE UN CUADRITO... más el rótulo
                 //PERO OJO QUE maxWidth DEL CONTENEDOR ES 90%, NUNCA DESBORDA PANTALLA.
                 getContenedor.style.width = anchoCont + "px";
                 permitirEvento = true;
