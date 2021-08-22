@@ -27,6 +27,7 @@ var getPie = document.getElementById("pie");
 // este es el margen inferior del pie
 var getpieAfter = document.getElementById("pieAfter");
 var getBtnHistorialColor = document.getElementById("BtnHistorialColor");
+var getBtnEtiquetas = document.getElementById("BtnEtiquetas");
 var getBtnRellenar = document.getElementById("BtnRellenar");
 var getBtnColorLienzo = document.getElementById("BtnColorLienzo");
 var getBtnColorRejilla = document.getElementById("BtnColorRejilla");
@@ -1110,7 +1111,7 @@ function alturaModal() {
 // referencias están al inicio del script
 function ajustesResize() {    
     // para obtener anchos mínimos de botones al diseñar
-    // $("#BtnBorrador").attr("title", document.getElementById("BtnBorrador").offsetWidth);
+    // $("#BtnEtiquetas1").attr("title", document.getElementById("BtnEtiquetas1").offsetWidth);
     
     // ajusta el infoTemporal, solo si es visible    
     if (window.getComputedStyle(infoTemp).display === "block") {
@@ -3503,7 +3504,7 @@ function definirPuntero() {
     }
 }
 function mostrarPuntero() {
-    // no se ocultará si estába pendiente
+    // no se ocultará si estaba pendiente
     clearTimeout(timerCursor);
     // sale si no es pantalla completa
     if (pantallaCompleta == false) { return; }
@@ -3511,6 +3512,7 @@ function mostrarPuntero() {
     getPantalla.style.cursor = definirPuntero();
     getContenedor.style.cursor = definirPuntero();
     $(".columna").css("cursor", definirPuntero());
+    $(".etiqueta").css("cursor", definirPuntero());
     // también los botones
     $("#paletaFull").css("top", "12px");
     // programa que se oculte
@@ -3522,6 +3524,7 @@ function ocultarPuntero() {
     getPantalla.style.cursor = "none";
     getContenedor.style.cursor = "none";
     $(".columna").css("cursor", "none");
+    $(".etiqueta").css("cursor", "none");
     // también los botones
     $("#paletaFull").css("top", "-50px");
 }
@@ -3567,6 +3570,7 @@ document.getElementById("BtnSalirPantallaCompleta").onclick = function () {
     getPantalla.style.cursor = "default";
     $(getContenedor).css("cursor", "default");
     $(".columna").css("cursor", "pointer");
+    $(".etiqueta").css("cursor", "default");
     // api
     cancelFullScreen();
     ajustesResize();
@@ -4297,6 +4301,12 @@ getBtnExpandirLibre.onclick = function () {
     }, 0);
 
 }
+
+// se alternan los rótulos
+getBtnEtiquetas.onclick = function () {
+    showSnackbar("En desarrollo...");
+}
+
 //se selecciona el modo información
 getBtnInfo.onclick = function () {
     cambiarModo("info");

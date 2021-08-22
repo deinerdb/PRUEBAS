@@ -29,7 +29,7 @@ html, body {
    max-width: 23px;
    min-width: 23px;
    background-color: transparent;
-   font-family: 'Courier New', Courier, monospace;
+   font-family: Consolas, 'Courier New', Courier, monospace;
    font-weight: bold;
    text-shadow: 0px 0px 0.16em #000000 !important;
    text-align: center;
@@ -51,9 +51,7 @@ html, body {
     -webkit-user-select: none; /* Chrome, Opera, Safari */
     -moz-user-select: none; /* Firefox 2+ */
     -ms-user-select: none; /* IE 10+ */
-    user-select: none; /* Standard syntax */
-    /* una sombra para que se vea el ícono de cualquier color */
-    
+    user-select: none; /* Standard syntax */   
 }
 
 /* SOMBRAS */
@@ -446,7 +444,7 @@ html, body {
     text-align: center;
     overflow: auto;
     max-width: 100%;
-    font-family: 'Courier New', Consolas, Courier, monospace;
+    font-family: Consolas, 'Courier New', Courier, monospace;
 }
 #valorHex {
     padding: 8px;
@@ -457,7 +455,7 @@ html, body {
     max-width: 90%;
     overflow: auto;
     margin: 12px 0px 4px 0px;
-    font-family: Consolas, Courier New, Courier, monospace ;
+    font-family: Consolas, 'Courier New', Courier, monospace;
     font-size: 1.2em;    
     text-align: left;
 }
@@ -539,7 +537,7 @@ html, body {
     max-width: 98%;
     overflow: auto;
     margin: 6px 0px 6px 0px;
-    font-family: Consolas, Courier New, Courier, monospace;
+    font-family: Consolas, 'Courier New', Courier, monospace;
     font-size: 18px;
     text-align: left;
     border: 2px solid #cc00cc;
@@ -657,7 +655,7 @@ html, body {
 }
 #infoNoEncontrados {
     color: red;
-    font-family: Courier New, Courier, Consolas, monospace;
+    font-family: Consolas, 'Courier New', Courier, monospace;
     font-weight: bold;
 }
 .accordion {
@@ -778,7 +776,7 @@ html, body {
     font-weight: bold;
     color: purple;
     font-size: 0.98em;
-    font-family: Consolas, Courier New, Courier, monospace;
+    font-family: Consolas, 'Courier New', Courier, monospace;
     -webkit-transition: color 0.7s;
     -moz-transition: color 0.7s;
     -o-transition: color 0.7s;
@@ -813,7 +811,7 @@ html, body {
     font-weight: bold;
     color: purple;
     font-size: 0.98em;
-    font-family: Consolas, Courier New, Courier, monospace;
+    font-family: Consolas, 'Courier New', Courier, monospace;
     /* MULTICOLOR */
     background-image: -webkit-linear-gradient(left, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Safari 5.1 to 6.0 */
     background-image: -o-linear-gradient(right, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000); /* For Opera 11.1 to 12.0 */
@@ -917,7 +915,7 @@ html, body {
     margin: 0;
     color: purple;
     font-weight: bold;
-    font-family: Consolas, Courier New, Courier, monospace;
+    font-family: Consolas, 'Courier New', Courier, monospace;
 }
 .spanHSL {
     width: 20px;
@@ -927,10 +925,10 @@ html, body {
     margin: 0;
     color: purple;
     font-weight: bold;
-    font-family: Consolas, Courier New, Courier, monospace;
+    font-family: Consolas, 'Courier New', Courier, monospace;
 }
 .number-rgb {
-    font-family: Consolas, Courier New, Courier, monospace;
+    font-family: Consolas, 'Courier New', Courier, monospace;
     font-size: 17px;
     max-width: 90%; 
     width: 90px;
@@ -941,7 +939,7 @@ html, body {
     margin: 0;
 }
 .number-hsl {
-    font-family: Consolas, Courier New, Courier, monospace;
+    font-family: Consolas, 'Courier New', Courier, monospace;
     font-size: 17px;
     max-width: 90%;
     width: 90px;
@@ -1475,22 +1473,28 @@ html, body {
 
 }
 /* TIENE TEXTO */
+#BtnEtiquetas {
+    min-width: 120px !important;
+    width: 120px !important;
+    font-family: Consolas, 'Courier New', Courier, monospace;
+}
+/* TIENE TEXTO */
 #BtnRGB {
     min-width: 70px !important;
     width: 70px !important;
-    font-family: Consolas, Courier New, Courier, monospace;
+    font-family: Consolas, 'Courier New', Courier, monospace;
 }
 /* TIENE TEXTO */
 #BtnHSL {
     min-width: 70px !important;
     width: 70px !important;
-    font-family: Consolas, Courier New, Courier, monospace;
+    font-family: Consolas, 'Courier New', Courier, monospace;
 }
 /* TIENE TEXTO */
 #BtnHex {
     min-width: 70px !important;
     width: 70px !important;
-    font-family: Consolas, Courier New, Courier, monospace;
+    font-family: Consolas, 'Courier New', Courier, monospace;
 }
 /* para dar cabida a la flechita y la info del Radio*/
 #BtnRadioBordes.seleccionadoBtnModos {
@@ -1532,7 +1536,7 @@ html, body {
     margin-right: 3px;
     display: none;
     /* texto variable, fuente monoespaciada */
-    font-family: Consolas, Courier New, Courier, monospace;
+    font-family: Consolas, 'Courier New', Courier, monospace;
     font-size: 0.95em;
 }
 /* la info de la opacidad */
@@ -1541,7 +1545,7 @@ html, body {
     margin-right: 3px;
     display: none;
     /* texto variable, fuente monoespaciada */
-    font-family: Consolas, Courier New, Courier, monospace;
+    font-family: Consolas, 'Courier New', Courier, monospace;
     font-size: 0.95em;
 }
 /* la info de las sombras */
@@ -1563,7 +1567,7 @@ html, body {
     margin-right: 3px;
     display: none;
     /* texto variable, fuente monoespaciada */
-    font-family: Consolas, Courier New, Courier, monospace;
+    font-family: Consolas, 'Courier New', Courier, monospace;
     font-size: 0.95em;
 }
 /* la info de Borrador */
@@ -1572,7 +1576,7 @@ html, body {
     margin-right: 3px;
     display: none;
     /* texto variable, fuente monoespaciada */
-    font-family: Consolas, Courier New, Courier, monospace;
+    font-family: Consolas, 'Courier New', Courier, monospace;
     font-size: 0.95em;
 }
 .seleccionadoBtnModos #icoExtraerFlecha, .seleccionadoBtnModos #icoBorrarFlecha , .seleccionadoBtnModos #icoCircularFlecha, .seleccionadoBtnModos #icoOpacidadFlecha , .seleccionadoBtnModos #icoSombrasFlecha , .seleccionadoBtnModos #icoLienzoFlecha, .seleccionadoBtnModos #spanInfoRadio, .seleccionadoBtnModos #spanInfoOpacidad, .seleccionadoBtnModos #spanInfoSombras , .seleccionadoBtnModos #spanInfoExtraer, .seleccionadoBtnModos #spanInfoBorrar, .seleccionadoBtnModos #icoColorBordeFlecha {
@@ -1951,7 +1955,7 @@ html, body {
         width: 100%;
         /* color: #e600e6; */
         color: indigo;
-        font-family: Courier New, Courier, monospace;
+        font-family: Consolas, 'Courier New', Courier, monospace;
         font-weight: bold;
         text-shadow: 2px 2px 3px #ffffff;
         /*no se puede seleccionar el texto*/
@@ -2189,7 +2193,7 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores, input {
     margin-top: auto;
     margin-bottom: auto;
     padding: 2px 4px;
-    font-family: Consolas, Courier New, Courier, monospace;
+    font-family: Consolas, 'Courier New', Courier, monospace;
     border: 1px solid #000000;
     border-bottom-width: 5px;
     border-right-width: 5px;
@@ -2276,6 +2280,7 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores, input {
     border: none;
     background-color: #b3b3b3;
     font-size: 1em;
+    cursor: pointer;
 }
 #selectFilas, #selectColumnas {
    min-width: 60px;
@@ -2698,7 +2703,7 @@ overflow-x: hidden;
     color: white; /* White text color */
     text-align: center; /* Centered text */
     /*font-family: Verdana, Geneva, Tahoma, sans-serif; fuente*/
-    font-family: Consolas, Courier New, Courier, monospace;
+    font-family: Consolas, 'Courier New', Courier, monospace;
     -moz-border-radius: 10px; /*borde redondeado*/
     -webkit-border-radius: 10px; /*borde redondeado*/
     border-radius: 10px; /*borde redondeado*/
@@ -3643,7 +3648,7 @@ input[type=range] {
 #checkFormatosIniciales, #checkFormatosGlobales, #checkExtraerDesdePixel, #checkExtraerDesdeLienzo, #checkExtraerDesdeBordes, #checkColorBordesIndividual, #checkColorBordesGlobal, #checkLienzoIndividual, #checkLienzoGlobal, #checkNone, #checkSolid, #checkDotted, #checkDashed, #checkDouble, #checkGroove, #checkRidge, #checkInset, #checkOutset {
     text-align: left;
     margin: 26px 4px 12px 24px;
-    font-family: Consolas, Courier New, Courier, monospace;
+    font-family: Consolas, 'Courier New', Courier, monospace;
 }
 /* el último de cada grupo */
 #checkOutset, #checkLienzoGlobal, #checkColorBordesGlobal, #checkExtraerDesdeBordes, #checkFormatosGlobales {
