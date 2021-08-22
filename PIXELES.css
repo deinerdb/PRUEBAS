@@ -18,7 +18,10 @@ html, body {
     height: 100% !important;
     min-height: 100%;    
 }
-
+.etiquetaOculta {
+    /* para ocultar dinámicamente las etiquetas por el display con prefijos*/
+    display: none !important;
+}
 /* los rótulos (números de fila y columna) */
 .etiqueta {
     /*border: 1px solid white;*/

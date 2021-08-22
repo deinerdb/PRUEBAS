@@ -28,6 +28,7 @@ var getPie = document.getElementById("pie");
 var getpieAfter = document.getElementById("pieAfter");
 var getBtnHistorialColor = document.getElementById("BtnHistorialColor");
 var getBtnEtiquetas = document.getElementById("BtnEtiquetas");
+var getIcoEtiquetas = document.getElementById("icoEtiquetas");
 var getBtnRellenar = document.getElementById("BtnRellenar");
 var getBtnColorLienzo = document.getElementById("BtnColorLienzo");
 var getBtnColorRejilla = document.getElementById("BtnColorRejilla");
@@ -81,10 +82,11 @@ var getmodalHeader = document.getElementById("modalHeader");
 var getSelectFormatoBorrado = document.getElementById("selectFormatoBorrado");
 // para controlar una animación
 var restauraOpacidad = true;
+// etiquetas por defecto mostradas
+var mostrarEtiquetas = true;
 //color inicial del pincel es negro
 var colorActual = "#000000";
 var colorRejilla = "#000000";
-var usarBordes = true;
 // valores globales aplicados, usados al dimensionar y en otras funciones
 var fondoAplicado = "#ffffff";
 var radioAplicado = "0%";
@@ -3883,7 +3885,11 @@ function dimensionar(mostrarLoader) {
         }        
         // otras tareas        
         //ajusta el contenedor de los cuadritos
-        var anchoCont = tamaño * (1 + numColumnas);
+        if (mostrarEtiquetas == true) {
+            var anchoCont = tamaño * (1 + numColumnas);
+        } else {
+            var anchoCont = tamaño * numColumnas;
+        }        
         // MAXNUMFILAS VECES EL ANCHO DE UN CUADRITO... más el rótulo
         //PERO OJO QUE maxWidth DEL CONTENEDOR ES 90%, NUNCA DESBORDA PANTALLA.
         getContenedor.style.width = anchoCont + "px";
@@ -3951,6 +3957,7 @@ function cambiarModo(nuevoModo) {
         getBtnDeshacer.style.display = "inline-block";
         getBtnTrash.style.display = "inline-block";
         getBtnInfo.style.display = "inline-block";
+        getBtnEtiquetas.style.display = "inline-block";
         //getSpanFilas.style.display = "inline-block";
         $(getSpanFilas).removeClass("oculto");
         getSelectFilas.style.display = "inline-block";
@@ -3997,6 +4004,7 @@ function cambiarModo(nuevoModo) {
             getBtnActualizar.style.display = "none";
             getBtnTrash.style.display = "none";
             getBtnInfo.style.display = "none";
+            getBtnEtiquetas.style.display = "none";
             getBtnTipoBorde.style.display = "none";
             getBtnAnchoBordes.style.display = "none";
             getBtnRadioBordes.style.display = "none";
@@ -4302,9 +4310,32 @@ getBtnExpandirLibre.onclick = function () {
 
 }
 
-// se alternan los rótulos
+// se alterna la visibilidad de los rótulos
 getBtnEtiquetas.onclick = function () {
-    showSnackbar("En desarrollo...");
+    var anchoCont;
+    if (mostrarEtiquetas == true) {
+        // si están visibles, se ocultan
+        $(".etiqueta").addClass("etiquetaOculta");
+        // calcula el ancho del contenedor
+        anchoCont = tamaño * numColumnas;
+        // el ícono de este btn
+        getIcoEtiquetas.className = "far fa-square";
+        // actualiza la variable global
+        mostrarEtiquetas = false;
+    } else {
+        // si están ocultas, se muestran
+        $(".etiqueta").removeClass("etiquetaOculta");
+        // calcula el ancho del contenedor
+        anchoCont = tamaño * (1 + numColumnas);
+        // el ícono de este btn
+        getIcoEtiquetas.className = "far fa-check-square";
+        // actualiza la variable global
+        mostrarEtiquetas = true;
+    }
+    // ajusta el ancho del contenedor
+    getContenedor.style.width = anchoCont + "px";
+    // acomoda todo inmediatamente
+    ajustesResize();
 }
 
 //se selecciona el modo información
@@ -4425,7 +4456,11 @@ function ajustarTamaño(incremento, mostrarLoader, notificar) {
         }        
         // otras tareas
         //ajusta el contenedor de los cuadritos
-        var anchoCont = tamaño * (1 + numColumnas);
+        if (mostrarEtiquetas == true) {
+            var anchoCont = tamaño * (1 + numColumnas);
+        } else {
+            var anchoCont = tamaño * numColumnas;
+        }
         // n VECES EL ANCHO DE UN CUADRITO, más el rótulo
         //PERO OJO QUE maxWidth DEL CONTENEDOR ES 90%, NUNCA DESBORDA PANTALLA.
         getContenedor.style.width = anchoCont + "px"; // ajustesResize lo ajusta también
@@ -5221,7 +5256,11 @@ getBtnDeshacer.onclick = function () {
                     $(miElemDim).parent().css("background-color", miLastColorLienzo);
                 }
                 //ajusta el contenedor de los cuadritos
-                var anchoCont = tamaño * (1 + numColumnas);
+                if (mostrarEtiquetas == true) {
+                    var anchoCont = tamaño * (1 + numColumnas);
+                } else {
+                    var anchoCont = tamaño * numColumnas;
+                }
                 // n VECES EL ANCHO DE UN CUADRITO... más el rótulo
                 //PERO OJO QUE maxWidth DEL CONTENEDOR ES 90%, NUNCA DESBORDA PANTALLA.
                 getContenedor.style.width = anchoCont + "px";
