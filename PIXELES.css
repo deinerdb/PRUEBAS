@@ -1481,26 +1481,26 @@ body {
 }
 /* TIENE TEXTO */
 #BtnEtiquetas {
-    min-width: 120px !important;
-    width: 120px !important;
+    min-width: 128px !important;
+    width: 128px !important;
     font-family: Consolas, 'Courier New', Courier, monospace;
 }
 /* TIENE TEXTO */
 #BtnRGB {
-    min-width: 70px !important;
-    width: 70px !important;
+    min-width: 78px !important;
+    width: 78px !important;
     font-family: Consolas, 'Courier New', Courier, monospace;
 }
 /* TIENE TEXTO */
 #BtnHSL {
-    min-width: 70px !important;
-    width: 70px !important;
+    min-width: 78px !important;
+    width: 78px !important;
     font-family: Consolas, 'Courier New', Courier, monospace;
 }
 /* TIENE TEXTO */
 #BtnHex {
-    min-width: 70px !important;
-    width: 70px !important;
+    min-width: 78px !important;
+    width: 78px !important;
     font-family: Consolas, 'Courier New', Courier, monospace;
 }
 /* para dar cabida a la flechita y la info del Radio*/
@@ -1525,13 +1525,13 @@ body {
 }
 /* para dar cabida a la flechita y la info de Extraer*/
 #BtnExtraerColor.seleccionadoBtnModos {
-    min-width: 101px !important;
-    width: 101px !important;
+    min-width: 108px !important;
+    width: 108px !important;
 }
 /* para dar cabida a la flechita y la info de Borrar*/
 #BtnBorrador.seleccionadoBtnModos {
-    min-width: 150px !important;
-    width: 150px !important;
+    min-width: 168px !important;
+    width: 168px !important;
 }
 #icoBtnBorrador {
     /* para evitar un vaivén al alternar la clase */
@@ -2321,7 +2321,7 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores, input {
     transition: opacity 1s, visibility 1s, background-color 1s, background 1s;
 }
 #BtnHistorialColor { /* agregue aquí #BtnRellenar en caso de usar relleno */
-    min-width: 62px !important;
+    min-width: 70px !important;
     -moz-transition: opacity 2s, -moz-box-shadow 0.2s;
     -o-transition: opacity 2s, box-shadow 0.2s;
     -webkit-transition: opacity 2s, -webkit-box-shadow 0.2s;
