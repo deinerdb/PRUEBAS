@@ -18,6 +18,10 @@ html, body {
     height: 100% !important;
     min-height: 100%;    
 }
+body {
+    text-align: center;    
+    font-size: 100%;
+}
 .etiquetaOculta {
     /* para ocultar dinámicamente las etiquetas por el display con prefijos*/
     display: none !important;
@@ -34,7 +38,7 @@ html, body {
    background-color: transparent;
    font-family: Consolas, 'Courier New', Courier, monospace;
    font-weight: bold;
-   text-shadow: 0px 0px 0.16em #000000 !important;
+   text-shadow: 0px 0px 0.16em #000000;
    text-align: center;
    padding: 0;
    margin: 0;
@@ -2522,10 +2526,6 @@ button, select, input {
     border: 3px solid rgba(128, 128, 128, 0);
 }
 
-
-body {
-    text-align: center;    
-}
 .resaltadoLienzo {
     z-index: 4 !important;
     -moz-transition: background-color 0.4s;

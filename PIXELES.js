@@ -4313,6 +4313,7 @@ getBtnExpandirLibre.onclick = function () {
 // se alterna la visibilidad de los rótulos
 getBtnEtiquetas.onclick = function () {
     var anchoCont;
+    var msj;
     if (mostrarEtiquetas == true) {
         // si están visibles, se ocultan
         $(".etiqueta").addClass("etiquetaOculta");
@@ -4322,6 +4323,7 @@ getBtnEtiquetas.onclick = function () {
         getIcoEtiquetas.className = "far fa-square";
         // actualiza la variable global
         mostrarEtiquetas = false;
+        msj = "Etiquetas ocultas";
     } else {
         // si están ocultas, se muestran
         $(".etiqueta").removeClass("etiquetaOculta");
@@ -4331,11 +4333,13 @@ getBtnEtiquetas.onclick = function () {
         getIcoEtiquetas.className = "far fa-check-square";
         // actualiza la variable global
         mostrarEtiquetas = true;
+        msj = "Etiquetas mostradas";
     }
     // ajusta el ancho del contenedor
     getContenedor.style.width = anchoCont + "px";
     // acomoda todo inmediatamente
     ajustesResize();
+    showSnackbar(msj);
 }
 
 //se selecciona el modo información
