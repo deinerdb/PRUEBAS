@@ -22,6 +22,82 @@ body {
     text-align: center;    
     font-size: 100%;
 }
+/* ESTILOS DE TABLA */
+.vertical {
+    writing-mode: vertical-lr;   /* ESTO NO FUNCIONA EN IE */             
+    -webkit-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    transform: rotate(180deg);
+    -ms-transform: none; /* ie no rota porque el texto no es vertical */
+    margin: auto;
+    text-align: center;
+    padding: 8px;
+    font-weight: bold;
+ }
+ .green{
+   color: white;
+   background-color: #437070; /* verde intermedio */
+}
+
+.contenedor-tabla{
+    /* responsive */
+    overflow-x: auto;
+    margin-top: 24px;                
+    margin-bottom: 32px;
+}
+
+table {
+    /* centrada */
+    margin-left: auto;
+    margin-right: auto;                
+}
+table, th, td {
+    /* estilos de borde y fuente */
+    border: 1px solid #a9a9a9; /* gris oscuro */
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+th, td{
+    /* espacio alrededor del texto */
+    padding: 8px 18px;
+    white-space: nowrap; /*solo una línea cada celda */
+}
+caption {
+    /* el título */
+    padding: 8px;
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #006600; /* verde oscuro */
+    font-family: Arial, Helvetica, sans-serif;
+}
+.num {
+    /* celdas numéricas */
+    text-align: right;
+    font-family: Consolas, 'Courier New', Courier, monospace;
+}
+
+th {
+    /* encabezados de columna */
+    color: white;
+    background-color: #2f4f4f; /*verde oscuro*/
+}
+tr:nth-child(even) {
+    /*filas pares*/
+    background-color: #d8f3e9; /* verde claro */
+}
+
+tr:nth-child(odd) {
+    /*filas impares*/
+    background-color: #ffffff; /*blanco*/
+}
+.borde-oscuro {
+    /* segundo grupo */
+    border-top: 4px solid #2f4f4f !important;
+}
+/* FIN ESTILOS TABLAS */
 .etiquetaOculta {
     /* para ocultar dinámicamente las etiquetas por el display con prefijos*/
     display: none !important;

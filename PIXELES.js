@@ -284,6 +284,40 @@ function validarDec(dec) {
     //todo bien
     return true;
 }
+// retorna el valor sombras como texto para visualizar
+function sombrasComoTexto(valor) {       
+    var temp = "";
+    switch (valor) {
+        case "s0000":
+            temp = "Sin sombras";
+            break;
+        case "s1000":
+            temp = "Arriba";
+            break;
+        case "s0100":
+            temp = "Derecha";
+            break;
+        case "s0010":
+            temp = "Abajo";
+            break;
+        case "s0001":
+            temp = "Izquierda";
+            break;
+        case "s1001":
+            temp = "Arriba e izquierda";
+            break;
+        case "s1100":
+            temp = "Arriba y derecha";
+            break;
+        case "s0110":
+            temp = "Abajo y derecha";
+            break;
+        case "s0011":
+            temp = "Abajo e izquierda";
+            break;        
+    }
+    return temp;
+}
 // anima el botón de historial color
 var idAnimarHistorial = 0;
 function animarBtnHistorial() {
@@ -1908,6 +1942,15 @@ function showModal() {
     // por defecto visible
     $("#infoModal").css("display", "block");
     switch (modalActual) {
+        case "info":
+            $("#marcoInfo").css("display", "block");
+            document.getElementById("modalTitle").innerHTML = "<i class='fas fa-info-circle'></i> Información";
+            document.getElementById("spanInfoModal").innerHTML = "Se muestra información sobre el pixel seleccionado. Las propiedades individuales pueden ser personalizadas para cada pixel, las globales son iguales en todos los pixeles.";
+            // LAS PROPIEDADES SE RECUPERAN Y SE ACTUALIZAN EN LA TABLA AL HACER CLIC EN CELDA EN MODO INFO
+            // para animarla al cerrar: opacidad ajustada
+            restauraOpacidad = true;
+            $(getContenedor).css("opacity", "0");
+            break;
         case "hsl":
             // llena el vector 360            
             for (i = 0; i <= 360; i++) {
@@ -2986,7 +3029,45 @@ function hacerClick(celda) {
     switch (modoActual) {
         case "info":
             // modo información
-            showSnackbar("En desarrollo...");
+            // OBTIENE Y ACTUALIZA LA INFO EN LA TABLA DEL MODAL
+            // RECUPERA PROPIEDADES INDIVIDUALES            
+            var str = "" + celda;
+                var res = str.substring(1);
+                res = res.split("c");
+                var miFila = res[0];
+                var miCol = res[1];
+                miFila = Number(miFila);
+                miCol = Number(miCol);
+            // Fila
+            $("#tablaInfoFila").html(miFila);           
+            // Columna
+            $("#tablaInfoColumna").html(miCol);           
+            // Color Pixel
+            $("#tablaInfoColorPixel").html(convertirRGBaHexadecimal(miCuadrito.style.backgroundColor));
+            // Color Lienzo
+            $("#tablaInfoColorLienzo").html(miCuadrito.dataset.colorlienzo);
+            // Color Bordes
+            $("#tablaInfoColorBordes").html(miCuadrito.dataset.colorbordes);
+            // Radio Bordes
+            $("#tablaInfoRadio").html(miCuadrito.dataset.radio);
+            // Opacidad
+            var opacActual = miCuadrito.style.opacity * 100;
+            opacActual = opacActual.toFixed(0); // sin decimales
+            $("#tablaInfoOpacidad").html( opacActual + "%");
+            // Sombras
+            var miSombras = miCuadrito.dataset.sombras;
+            $("#tablaInfoSombras").html(sombrasComoTexto(miSombras));           
+            // RECUPERA PROPIEDADES GLOBALES
+            // Tipo Bordes
+            // Ancho Bordes
+            // Tamaño Pixel
+            // Filtro
+            // Fondo
+            // Cantidad Filas
+            // Cantidad Columnas
+            // Etiquetas
+            modalActual = "info";
+            showModal(); // muestra el modal info
             break;
         case "sombras":
             // modo editor de sombras
