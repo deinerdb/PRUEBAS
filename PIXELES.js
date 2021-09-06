@@ -284,6 +284,9 @@ function validarDec(dec) {
     //todo bien
     return true;
 }
+function capitalizarPrimeraLetra(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
 // retorna el valor sombras como texto para visualizar
 function sombrasComoTexto(valor) {       
     var temp = "";
@@ -539,7 +542,7 @@ function actualizaAnchoBordes(nuevoValor) {
     // 120 * nuevo / 100.
     var anchoMuestra = nuevo * 1.2; // muestra tiene 120px de ancho
     getMuestraAnchoBordes.style.borderWidth = anchoMuestra + "px";
-    getMuestraAnchoBordes.innerHTML = nuevo + "%";
+    getMuestraAnchoBordes.innerHTML = nuevo.toLocaleString() + "%";
 }
 //ancho de bordes cambia dinámicamente con el slider
 //input y change, redundantes por un bug en IE
@@ -1816,7 +1819,7 @@ function aceptarModal() {
                 // otras tareas
                 // ajusta todo
                 ajustesResize();
-                showSnackbar("Ancho de bordes: " + nuevo + "%");
+                showSnackbar("Ancho de bordes: " + nuevo.toLocaleString() + "%");
                 // puede deshacer
                 estadoBtnDeshacer(true, "Deshacer ancho de los bordes");
                 // anima
@@ -2117,7 +2120,7 @@ function showModal() {
             // ajusta la muestra
             var anchoMuestra = 120 * factorAnchoBordes; // muestra tiene 120px de ancho
             getMuestraAnchoBordes.style.borderWidth = anchoMuestra + "px";
-            getMuestraAnchoBordes.innerHTML = sliderAnchoBordes.value + "%";
+            getMuestraAnchoBordes.innerHTML = Number(sliderAnchoBordes.value).toLocaleString() + "%";
             // para animarla al cerrar: opacidad ajustada
             restauraOpacidad = true;
             $(getContenedor).css("opacity", "0");
@@ -3032,12 +3035,12 @@ function hacerClick(celda) {
             // OBTIENE Y ACTUALIZA LA INFO EN LA TABLA DEL MODAL
             // RECUPERA PROPIEDADES INDIVIDUALES            
             var str = "" + celda;
-                var res = str.substring(1);
-                res = res.split("c");
-                var miFila = res[0];
-                var miCol = res[1];
-                miFila = Number(miFila);
-                miCol = Number(miCol);
+            var res = str.substring(1);
+            res = res.split("c");
+            var miFila = res[0];
+            var miCol = res[1];
+            miFila = Number(miFila);
+            miCol = Number(miCol);
             // Fila
             $("#tablaInfoFila").html(miFila);           
             // Columna
@@ -3059,15 +3062,36 @@ function hacerClick(celda) {
             $("#tablaInfoSombras").html(sombrasComoTexto(miSombras));           
             // RECUPERA PROPIEDADES GLOBALES
             // Tipo Bordes
+            $("#tablaInfoTipoBordes").html(capitalizarPrimeraLetra(tipoBordes));
             // Ancho Bordes
+            var temp = factorAnchoBordes * 100;
+            temp = temp.toLocaleString();
+            $("#tablaInfoAnchoBordes").html(temp + "%");
             // Tamaño Pixel
+            $("#tablaInfoSize").html(tamaño + " px");
             // Filtro
+            var xsel = getFiltro.selectedIndex;
+            var y = getFiltro.options;
+            $("#tablaInfoFiltro").html(y[xsel].text);
             // Fondo
+            var xsel = getSelectFondo.selectedIndex;
+            var y = getSelectFondo.options;
+            $("#tablaInfoFondo").html(y[xsel].text);            
             // Cantidad Filas
+            $("#tablaInfoCantidadFilas").html(numFilas);
             // Cantidad Columnas
+            $("#tablaInfoCantidadColumnas").html(numColumnas);
             // Etiquetas
+            var temp;
+            if (mostrarEtiquetas == true) {
+                temp = "Visibles";
+            } else {
+                temp = "Ocultas";
+            }
+            $("#tablaInfoEtiquetas").html(temp);
+            // muestra el modal info
             modalActual = "info";
-            showModal(); // muestra el modal info
+            showModal();
             break;
         case "sombras":
             // modo editor de sombras
