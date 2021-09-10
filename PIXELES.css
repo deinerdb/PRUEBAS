@@ -23,6 +23,47 @@ body {
     font-size: 100%;
 }
 /* ESTILOS DE TABLA */
+/* las muestras de colores en info */
+#tablaSpanPixel, #tablaSpanLienzo, #tablaSpanBordes {
+    border: 2px double #a9a9a9;
+    position: absolute; 
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px !important;
+    max-width: 24px !important;
+    min-height: 24px !important;
+    max-height: 24px !important;
+    padding: 0;
+    margin-right: 12px;  
+    top: 50%;
+    left: 12px;
+     -ms-transform: translateY(-50%); 
+     -webkit-transform: translateY(-50%); 
+     -o-transform: translateY(-50%); 
+     -moz-transform: translateY(-50%);                 
+     transform: translateY(-50%);   
+     display: inline-block; 
+     cursor: default;
+      /*no se puede seleccionar el texto*/
+     -webkit-user-select: none; /* Chrome, Opera, Safari */
+     -moz-user-select: none; /* Firefox 2+ */
+     -ms-user-select: none; /* IE 10+ */
+     user-select: none; /* Standard syntax */                    
+ }
+ .tabla-color {
+    position: relative;
+    padding-left: 48px;
+}
+#tablaSpanPixel {
+    background-color: white;
+}
+#tablaSpanLienzo {
+    background-color: white;
+}
+#tablaSpanBordes {
+    background-color: black;
+}
+ /* celdas con texto vertical */
 .vertical {
     writing-mode: vertical-lr;   /* ESTO NO FUNCIONA EN IE */             
     -webkit-transform: rotate(180deg);

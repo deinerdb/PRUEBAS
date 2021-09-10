@@ -3046,11 +3046,17 @@ function hacerClick(celda) {
             // Columna
             $("#tablaInfoColumna").html(miCol);           
             // Color Pixel
-            $("#tablaInfoColorPixel").html(convertirRGBaHexadecimal(miCuadrito.style.backgroundColor));
+            var temp = convertirRGBaHexadecimal(miCuadrito.style.backgroundColor);
+            $("#tablaSpanPixel").css("background-color", temp);
+            $("#tablaSpanPixelTexto").html(temp);
             // Color Lienzo
-            $("#tablaInfoColorLienzo").html(miCuadrito.dataset.colorlienzo);
+            var temp = miCuadrito.dataset.colorlienzo;
+            $("#tablaSpanLienzo").css("background-color", temp);
+            $("#tablaSpanLienzoTexto").html(temp);            
             // Color Bordes
-            $("#tablaInfoColorBordes").html(miCuadrito.dataset.colorbordes);
+            var temp = miCuadrito.dataset.colorbordes;
+            $("#tablaSpanBordes").css("background-color", temp);
+            $("#tablaSpanBordesTexto").html(temp);           
             // Radio Bordes
             $("#tablaInfoRadio").html(miCuadrito.dataset.radio);
             // Opacidad
