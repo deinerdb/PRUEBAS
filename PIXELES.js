@@ -62,6 +62,8 @@ var getSelectFilas = document.getElementById("selectFilas"); // listaFilas
 var getSpanColumnas = document.getElementById("spanColumnas");
 var getSelectColumnas = document.getElementById("selectColumnas"); // listaColumnas
 var getBtnImportar = document.getElementById("BtnImportar");
+var getBtnFilas = document.getElementById("BtnFilas");
+var getBtnColumnas = document.getElementById("BtnColumnas");
 var getBtnExportar = document.getElementById("BtnExportar");
 var getBtnImprimir = document.getElementById("BtnImprimir");
 var getBtnAceptarLibre = document.getElementById("BtnAceptarLibre");
@@ -1498,6 +1500,9 @@ function aplicarLienzoGlobal() {
 // depende de modalActual/
 function aceptarModal() {
     switch (modalActual) {
+        case "filas":            
+            showSnackbar("En desarrollo...");
+            break;
         case "borrador":            
             // actualiza las variables con la nueva configuración del borrador
             // el option
@@ -1937,18 +1942,32 @@ function showModal() {
     getPie.style.display = "none";
     //define su altura    
     alturaModal();
-    // scroll
+    // scroll horizontal y vertical, no recuerda el anterior
     getmodalBody.scrollTop = 0;
+    getmodalBody.scrollLeft = 0;
     // OCULTA TODOS LOS MARCOS
     $(".marco").css("display", "none");
     // ahora hace ajustes iniciales según su uso
     // por defecto visible
     $("#infoModal").css("display", "block");
     switch (modalActual) {
+        case "filas":
+            $("#marcoFilas").css("display", "block");
+            document.getElementById("modalTitle").innerHTML = "<i class='fas fa-arrows-alt-v'></i> Agregar o eliminar fila";
+            document.getElementById("spanInfoModal").innerHTML = "Puede agregar o eliminar una fila dinámicamente, sin afectar el trabajo realizado.";            
+            // por defecto: agregar
+            document.getElementById("micheckAgregarFila").checked = true;
+            // para animarla al cerrar: opacidad ajustada
+            restauraOpacidad = true;
+            $(getContenedor).css("opacity", "0");
+            break;
         case "info":
             $("#marcoInfo").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-info-circle'></i> Información";
             document.getElementById("spanInfoModal").innerHTML = "Se muestra información sobre el pixel seleccionado. Las propiedades individuales pueden ser personalizadas para cada pixel, las globales son iguales en todos los pixeles.";
+            // scroll ajustado en la tabla para que no recuerde valores de la anterior llamada
+            $(".contenedor-tabla").scrollTop(0);
+            $(".contenedor-tabla").scrollLeft(0);
             // LAS PROPIEDADES SE RECUPERAN Y SE ACTUALIZAN EN LA TABLA AL HACER CLIC EN CELDA EN MODO INFO
             // para animarla al cerrar: opacidad ajustada
             restauraOpacidad = true;
@@ -3809,12 +3828,21 @@ getBtnGallery.onclick = function () {
 }
 //se muestra la ventana con opciones para exportar
 getBtnExportar.onclick = function () {
-    alert("En construcción");
-
+    showSnackbar("En construcción");
 }
 //se muestra la ventana con opciones para importar
 getBtnImportar.onclick = function () {
-    alert("En construcción");
+    showSnackbar("En construcción");
+}
+// se muestra la ventana para agregar o eliminar filas
+getBtnFilas.onclick = function () {
+    modalActual = "filas";
+    //muestra el modal
+    showModal();
+}
+// se muestra la ventana para agregar o eliminar columnas
+getBtnColumnas.onclick = function () {
+    showSnackbar("En construcción");
 }
 //cambia el color seleccionado, llamada por selectores o historial de colores
 function colorPixel() {
@@ -4068,13 +4096,13 @@ function cambiarModo(nuevoModo) {
         getBtnDeshacer.style.display = "inline-block";
         getBtnTrash.style.display = "inline-block";
         getBtnInfo.style.display = "inline-block";
-        getBtnEtiquetas.style.display = "inline-block";
-        //getSpanFilas.style.display = "inline-block";
+        getBtnEtiquetas.style.display = "inline-block";        
         $(getSpanFilas).removeClass("oculto");
         getSelectFilas.style.display = "inline-block";
-        //getSpanColumnas.style.display = "inline-block";
+        getBtnFilas.style.display = "inline-block";        
         $(getSpanColumnas).removeClass("oculto");
         getSelectColumnas.style.display = "inline-block";
+        getBtnColumnas.style.display = "inline-block";
         getBtnImportar.style.display = "inline-block";
         getBtnExportar.style.display = "inline-block";
         getBtnImprimir.style.display = "inline-block";
@@ -4121,13 +4149,13 @@ function cambiarModo(nuevoModo) {
             getBtnRadioBordes.style.display = "none";
             getBtnOpacidad.style.display = "none";
             getBtnSombras.style.display = "none";
-            getBtnDeshacer.style.display = "none";
-            //getSpanFilas.style.display = "none";
+            getBtnDeshacer.style.display = "none";            
             $(getSpanFilas).addClass("oculto");
             getSelectFilas.style.display = "none";
-            //getSpanColumnas.style.display = "none";
+            getBtnFilas.style.display = "none";
             $(getSpanColumnas).addClass("oculto");
             getSelectColumnas.style.display = "none";
+            getBtnColumnas.style.display = "none";
             getBtnImportar.style.display = "none";
             getBtnExportar.style.display = "none";
             getBtnImprimir.style.display = "none";

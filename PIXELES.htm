@@ -61,6 +61,19 @@
             </div>
             <div class="modal-body" id="modalBody">
                 <!-- cada marco es un uso del Modal -->
+                <!-- Agregar o eliminar filas -->
+                <div id="marcoFilas" class="marco">                   
+                    <label class="containerR" id="checkAgregarFila">
+                        Agregar fila en la posición
+                        <input type="radio" name="checkFilas" id="micheckAgregarFila" value="agregarFila">
+                        <span class="checkmarkR"></span>
+                    </label>
+                    <label class="containerR" id="checkEliminarFila">
+                        Eliminar la fila número
+                        <input type="radio" name="checkFilas" id="micheckEliminarFila" value="eliminarFila">
+                        <span class="checkmarkR"></span>
+                    </label>                    
+                </div>
                 <!-- INFO -->
                 <div id="marcoInfo" class="marco">                                        
                     <div class="contenedor-tabla">
@@ -888,8 +901,10 @@
         <button id="BtnColorLienzo" title="Color del lienzo"><i class="fas fa-paint-roller"></i><i id="icoLienzoFlecha" class="fas fa-caret-down"></i></button>        
         <span id="spanFilas">Filas</span>
         <select title="Seleccione el número de filas" id="selectFilas" onchange="dimensionar(true)"></select>
+        <button id="BtnFilas" title="Agregar o eliminar filas"><i class="fas fa-arrows-alt-v"></i></button>
         <span id="spanColumnas">Cols.</span>
         <select title="Seleccione el número de columnas" id="selectColumnas" onchange="dimensionar(true)"></select>
+        <button id="BtnColumnas" title="Agregar o eliminar columnas"><i class="fas fa-arrows-alt-h"></i></button>
         <!-- sin etiquetas: <i class="far fa-square"> y con etiquetas: <i class="far fa-check-square"></i>  -->                
         <button id="BtnEtiquetas" title="Alternar etiquetas de filas y columnas"><i id="icoEtiquetas" class="far fa-check-square"></i> Etiquetas</button>
         <button id="BtnImportar" title="Importar"><i class="fas fa-file-import"></i></button>

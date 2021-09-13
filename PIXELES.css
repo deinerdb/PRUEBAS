@@ -2394,7 +2394,7 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores, input {
 }
 /* selectores de filas y columnas */
 #selectFilas, #selectColumnas, #filtro, #selectFondo {
-    margin: 6px 2px;
+    margin: 6px 6px 6px 2px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
@@ -3765,13 +3765,13 @@ input[type=range] {
 }
 /* INICIO CSS PARA RADIOS PERSONALIZADOS */
 /* PROPIOS DE PIXELES */
-#checkFormatosIniciales, #checkFormatosGlobales, #checkExtraerDesdePixel, #checkExtraerDesdeLienzo, #checkExtraerDesdeBordes, #checkColorBordesIndividual, #checkColorBordesGlobal, #checkLienzoIndividual, #checkLienzoGlobal, #checkNone, #checkSolid, #checkDotted, #checkDashed, #checkDouble, #checkGroove, #checkRidge, #checkInset, #checkOutset {
+#checkAgregarFila, #checkEliminarFila, #checkFormatosIniciales, #checkFormatosGlobales, #checkExtraerDesdePixel, #checkExtraerDesdeLienzo, #checkExtraerDesdeBordes, #checkColorBordesIndividual, #checkColorBordesGlobal, #checkLienzoIndividual, #checkLienzoGlobal, #checkNone, #checkSolid, #checkDotted, #checkDashed, #checkDouble, #checkGroove, #checkRidge, #checkInset, #checkOutset {
     text-align: left;
     margin: 26px 4px 12px 24px;
     font-family: Consolas, 'Courier New', Courier, monospace;
 }
 /* el último de cada grupo */
-#checkOutset, #checkLienzoGlobal, #checkColorBordesGlobal, #checkExtraerDesdeBordes, #checkFormatosGlobales {
+#checkEliminarFila, #checkOutset, #checkLienzoGlobal, #checkColorBordesGlobal, #checkExtraerDesdeBordes, #checkFormatosGlobales {
     margin-bottom: 28px;
 }
 /* The radio container */
