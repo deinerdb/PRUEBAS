@@ -64,6 +64,8 @@ var getSelectColumnas = document.getElementById("selectColumnas"); // listaColum
 var getBtnImportar = document.getElementById("BtnImportar");
 var getBtnFilas = document.getElementById("BtnFilas");
 var getBtnColumnas = document.getElementById("BtnColumnas");
+var getSelectAgregarFila = document.getElementById("selectAgregarFila");
+var getSelectEliminarFila = document.getElementById("selectEliminarFila");
 var getBtnExportar = document.getElementById("BtnExportar");
 var getBtnImprimir = document.getElementById("BtnImprimir");
 var getBtnAceptarLibre = document.getElementById("BtnAceptarLibre");
@@ -1957,7 +1959,65 @@ function showModal() {
             document.getElementById("spanInfoModal").innerHTML = "Puede agregar o eliminar una fila dinámicamente, sin afectar el trabajo realizado.";            
             // por defecto: agregar
             document.getElementById("micheckAgregarFila").checked = true;
-            // para animarla al cerrar: opacidad ajustada
+            // limpia los selects
+            //getSelectAgregarFila.options.length = 0;
+            //getSelectEliminarFila.options.length = 0;
+            $(getSelectAgregarFila).empty();
+            $(getSelectEliminarFila).empty();
+            // llena el select de agregar fila
+            var fila;            
+            var xsel;
+            for (fila = 1; fila <= 1 + numFilas; fila++) {
+                xsel = document.createElement("option");
+                xsel.text = fila;
+                xsel.value = fila;
+                getSelectAgregarFila.add(xsel, fila - 1);                
+            }
+            // llena el select de eliminar fila
+            for (fila = 1; fila <= numFilas; fila++) {
+                xsel = document.createElement("option");
+                xsel.text = fila;
+                xsel.value = fila;                
+                getSelectEliminarFila.add(xsel, fila - 1);
+            }
+            // selecciona los valores por defecto
+            getSelectAgregarFila.selectedIndex = 0; // primera fila
+            getSelectEliminarFila.selectedIndex = 0; // primera fila
+            // por defecto, asegura la disponibilidad de todas las opciones
+            $("#checkEliminarFila").removeClass("disableLabel");
+            getSelectEliminarFila.disabled = false;
+            document.getElementById("micheckEliminarFila").disabled = false;
+            $("#checkAgregarFila").removeClass("disableLabel");
+            getSelectAgregarFila.disabled = false;
+            document.getElementById("micheckAgregarFila").disabled = false;
+            // no habría advertencia
+            var miInfoFilas = document.getElementById("infoModalFilas");
+            miInfoFilas.style.display = "none";
+            // pero si solo hay una fila...
+            if (numFilas == 1) {
+                // solo puede agregar
+                document.getElementById("micheckAgregarFila").checked = true;
+                // desactiva eliminar, no disponibles
+                $("#checkEliminarFila").addClass("disableLabel");
+                getSelectEliminarFila.disabled = true;
+                document.getElementById("micheckEliminarFila").disabled = true;
+                // configura la advertencia
+                miInfoFilas.style.display = "block";
+                miInfoFilas.innerHTML = "Solo hay una fila visible, no puede eliminarla.";            
+            }
+            // o si el número de filas es el máximo permitido...
+            if (numFilas >= MAXNUMFILAS) {
+                // solo puede eliminar
+                document.getElementById("micheckEliminarFila").checked = true;
+                // desactiva agregar, no disponibles
+                $("#checkAgregarFila").addClass("disableLabel");
+                getSelectAgregarFila.disabled = true;
+                document.getElementById("micheckAgregarFila").disabled = true;
+                // configura la advertencia
+                miInfoFilas.style.display = "block";
+                miInfoFilas.innerHTML = "Hay " + MAXNUMFILAS + " filas visibles, no puede agregar más filas.";
+            }
+            // para animarla al cerrar: opacidad ajustada            
             restauraOpacidad = true;
             $(getContenedor).css("opacity", "0");
             break;

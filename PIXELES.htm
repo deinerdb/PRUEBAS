@@ -62,17 +62,22 @@
             <div class="modal-body" id="modalBody">
                 <!-- cada marco es un uso del Modal -->
                 <!-- Agregar o eliminar filas -->
-                <div id="marcoFilas" class="marco">                   
+                <div id="marcoFilas" class="marco">
+                    <p id="infoModalFilas">Hay opciones no disponibles</p>                   
                     <label class="containerR" id="checkAgregarFila">
                         Agregar fila en la posición
                         <input type="radio" name="checkFilas" id="micheckAgregarFila" value="agregarFila">
                         <span class="checkmarkR"></span>
                     </label>
+                    <select id="selectAgregarFila" title="Seleccione la posición de la nueva fila">                                                
+                    </select>
                     <label class="containerR" id="checkEliminarFila">
                         Eliminar la fila número
                         <input type="radio" name="checkFilas" id="micheckEliminarFila" value="eliminarFila">
                         <span class="checkmarkR"></span>
-                    </label>                    
+                    </label>
+                    <select id="selectEliminarFila" title="Seleccione la fila que desea eliminar">                                               
+                    </select>                    
                 </div>
                 <!-- INFO -->
                 <div id="marcoInfo" class="marco">                                        

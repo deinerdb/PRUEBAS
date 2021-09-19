@@ -1399,7 +1399,20 @@ tr:nth-child(odd) {
     background-color: #ffe6ff;
     font-size: larger;
 }
-    #selectSombras:focus, #selectFormatoBorrado:focus {
+#selectAgregarFila, #selectEliminarFila {
+    margin: 12px 2px 24px 2px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    outline: none;
+    width: 50%;
+    max-width: 100%;
+    padding: 12px 20px;
+    border: none;
+    background-color: #ffe6ff;
+    font-size: larger;
+}
+    #selectSombras:focus, #selectFormatoBorrado:focus, #selectAgregarFila:focus, #selectEliminarFila:focus {
         background-color: lavender !important;
     }
 #contMuestrasOpacidad {
@@ -1812,6 +1825,7 @@ tr:nth-child(odd) {
         background: #990099;
         font-weight: bold;
     }
+
 /*mensaje de validación O INFORMACIÓN EN CADA MODAL */
 #infoModal {
     color: green;
@@ -1820,6 +1834,17 @@ tr:nth-child(odd) {
     padding: 8px 8px 8px 12px;
     border-left-style: solid;
     border-left-color: green;
+    border-left-width: 4px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align:justify;
+}
+#infoModalFilas {
+    color: red;
+    background-color: pink;
+    margin: 18px 4px 10px 4px;
+    padding: 8px 8px 8px 12px;
+    border-left-style: solid;
+    border-left-color: red;
     border-left-width: 4px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-align:justify;
@@ -3763,6 +3788,11 @@ input[type=range] {
     background-image: -moz-linear-gradient(right, #000000, #0000e6); /* For Firefox 3.6 to 15 */
     background-image: linear-gradient(to right, #000000, #0000e6); /* Standard syntax (must be last) */
 }
+/* para simular etiquetas inactivas */
+.disableLabel {
+    pointer-events: none;
+    opacity: 0.5;    
+}
 /* INICIO CSS PARA RADIOS PERSONALIZADOS */
 /* PROPIOS DE PIXELES */
 #checkAgregarFila, #checkEliminarFila, #checkFormatosIniciales, #checkFormatosGlobales, #checkExtraerDesdePixel, #checkExtraerDesdeLienzo, #checkExtraerDesdeBordes, #checkColorBordesIndividual, #checkColorBordesGlobal, #checkLienzoIndividual, #checkLienzoGlobal, #checkNone, #checkSolid, #checkDotted, #checkDashed, #checkDouble, #checkGroove, #checkRidge, #checkInset, #checkOutset {
@@ -3771,7 +3801,8 @@ input[type=range] {
     font-family: Consolas, 'Courier New', Courier, monospace;
 }
 /* el último de cada grupo */
-#checkEliminarFila, #checkOutset, #checkLienzoGlobal, #checkColorBordesGlobal, #checkExtraerDesdeBordes, #checkFormatosGlobales {
+/* en los marcos de filas y columnas hay un select en lugar del último */
+#selectEliminarFila, #checkOutset, #checkLienzoGlobal, #checkColorBordesGlobal, #checkExtraerDesdeBordes, #checkFormatosGlobales {
     margin-bottom: 28px;
 }
 /* The radio container */
