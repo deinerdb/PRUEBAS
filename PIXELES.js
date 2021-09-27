@@ -1285,6 +1285,31 @@ function ajustesResize() {
         }   
     }
 }
+
+// define o copia el formato del pixel destino según el origen
+function defineFormatoPixel(idDestino, origen) {           
+    switch (origen) {
+        case "globales":
+            // le asigna el formato de valores globales
+            break;
+        case "arriba":
+            // le asigna el formato del pixel arriba
+            break;
+        case "abajo":
+            // le asigna el formato del pixel abajo
+            break;
+        case "derecha":
+            // le asigna el formato del pixel de la derecha
+            break;
+        case "izquierda":
+            // le asigna el formato del pixel de la izquierda
+            break;
+        default:
+            // asume que origen es un id, le asigna el formato del pixel con ese id
+
+    }    
+}
+
 // para los filtros
 function AplicarFiltro() {
     var xsel = getFiltro.selectedIndex;
