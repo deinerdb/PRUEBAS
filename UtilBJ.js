@@ -5,7 +5,7 @@ var getBtnDividir = document.getElementById("btnDividir");
 var getBtnExtraer = document.getElementById("btnExtraer");
 var getFormato = document.getElementById("formato");
 var miFormato;
-miFormato= "puntocoma";
+miFormato= "comapunto";
 // Convertidor
 var getPulgadas = document.getElementById("numberPulg");
 var getPulgadas2 = document.getElementById("numberPulg2");
@@ -261,11 +261,11 @@ function copiarValorSinIVA() {
     } else {
         // recupera el valor sin IVA, con ejemplos de formato
         //copyText = Number(getSinIVA.value).toLocaleString(); // podría ser: 1.200,35 y no serviría
-        copyText = "" + getSinIVA.value; // se espera que sea: 1200.35 y tampoco serviría
+        copyText = "" + Number(getSinIVA.value); // se espera que sea: "1200.35" y ahora sí sirve
     }    
-    // para el software contable necesitamos la "coma" como separador decimal
-    // es un requerimiento específico:
-    copyText = copyText.replace(".", ","); // se espera: 1200,35 y es lo que necesitamos
+    // para el software contable necesitábamos la "coma" como separador decimal
+    // era un requerimiento específico, ahora trabaja con punto:
+    //copyText = copyText.replace(".", ","); // se espera: 1200,35 y era lo que necesitábamos
     //copiamos la cadena con el formato deseado
     copyToClipboard(copyText);
     showSnackbar("Copiado para Pymes+");
@@ -476,10 +476,10 @@ window.addEventListener("load", function (event) {
     getIVA.value = "";
     getConIVA.value = "";
     getDividirEntre.value = 1;
-    getFormato.value = "puntocoma";
-    miFormato = "puntocoma";
+    getFormato.value = "comapunto";
+    miFormato = "comapunto";
     var msj;
-    msj = "Formato de origen colombiano";        
+    msj = "Formato de origen extranjero";        
     getFormato.setAttribute("title", msj);
     // scroll
     topFunction();
