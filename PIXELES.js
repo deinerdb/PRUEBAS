@@ -1287,26 +1287,205 @@ function ajustesResize() {
 }
 
 // define o copia el formato del pixel destino según el origen
-function defineFormatoPixel(idDestino, origen) {           
+function defineFormatoPixel(idDestino, origen) {
+
+    // referencia a la celda de destino
+    var destino = document.getElementById(idDestino);
+              
     switch (origen) {
         case "globales":
-            // le asigna el formato de valores globales
+            // le asigna el formato de valores globales a la celda de destino
+            // color de fondo del pixel
+            destino.style.backgroundColor = fondoAplicado;
+            // también se les asigna el último radio global aplicado
+            destino.dataset.radio = radioAplicado;
+            destino.style.MozBorderRadius = radioAplicado;
+            destino.style.webkitBorderRadius = radioAplicado;
+            destino.style.borderRadius = radioAplicado;
+            // se les coloca el último color de bordes global aplicado
+            destino.dataset.colorbordes = colorBordesAplicado;
+            destino.style.borderColor = colorBordesAplicado;
+            // su opacidad será la última global aplicada
+            destino.style.opacity = opacidadAplicada;
+            // la última configuración de sombras aplicada
+            destino.dataset.sombras = sombrasAplicada;
+            // remueve todas las clases de sombras
+            $(destino).removeClass("s0000 s1000 s0100 s0010 s0001 s1001 s1100 s0110 s0011");
+            // agrega la clase actual de sombras
+            $(destino).addClass(sombrasAplicada);
+            // el color del lienzo será el último global aplicado
+            destino.dataset.colorlienzo = colorLienzoAplicado;
+            $(destino).parent().css("background-color", colorLienzoAplicado);
             break;
         case "arriba":
             // le asigna el formato del pixel arriba
+            var idOrigen;
+            var refOrigen;    
+            var str = "" + idDestino;
+            var res = str.substring(1);
+            res = res.split("c");
+            var miFila = res[0];
+            var miCol = res[1];
+            miFila = Number(miFila);
+            miCol = Number(miCol); 
+            miFila = miFila - 1;
+            idOrigen = "f" + miFila + "c" + miCol;
+            refOrigen = document.getElementById(idOrigen);
+            // color de fondo del pixel
+            destino.style.backgroundColor = refOrigen.style.backgroundColor;
+            // radio
+            destino.dataset.radio = refOrigen.dataset.radio;
+            destino.style.MozBorderRadius = refOrigen.dataset.radio;
+            destino.style.webkitBorderRadius = refOrigen.dataset.radio;
+            destino.style.borderRadius = refOrigen.dataset.radio;
+            // color de bordes
+            destino.dataset.colorbordes = refOrigen.dataset.colorbordes;
+            destino.style.borderColor = refOrigen.dataset.colorbordes;
+            // su opacidad 
+            destino.style.opacity = refOrigen.style.opacity;
+            // sombras
+            destino.dataset.sombras = refOrigen.dataset.sombras;
+            // remueve todas las clases de sombras
+            $(destino).removeClass("s0000 s1000 s0100 s0010 s0001 s1001 s1100 s0110 s0011");
+            // agrega la clase actual de sombras
+            $(destino).addClass(refOrigen.dataset.sombras);
+            // el color del lienzo
+            destino.dataset.colorlienzo = refOrigen.dataset.colorlienzo;
+            $(destino).parent().css("background-color", refOrigen.dataset.colorlienzo);
             break;
         case "abajo":
             // le asigna el formato del pixel abajo
+            var idOrigen;
+            var refOrigen;    
+            var str = "" + idDestino;
+            var res = str.substring(1);
+            res = res.split("c");
+            var miFila = res[0];
+            var miCol = res[1];
+            miFila = Number(miFila);
+            miCol = Number(miCol); 
+            miFila = 1 + miFila;
+            idOrigen = "f" + miFila + "c" + miCol;
+            refOrigen = document.getElementById(idOrigen);
+            // color de fondo del pixel
+            destino.style.backgroundColor = refOrigen.style.backgroundColor;
+            // radio
+            destino.dataset.radio = refOrigen.dataset.radio;
+            destino.style.MozBorderRadius = refOrigen.dataset.radio;
+            destino.style.webkitBorderRadius = refOrigen.dataset.radio;
+            destino.style.borderRadius = refOrigen.dataset.radio;
+            // color de bordes
+            destino.dataset.colorbordes = refOrigen.dataset.colorbordes;
+            destino.style.borderColor = refOrigen.dataset.colorbordes;
+            // su opacidad 
+            destino.style.opacity = refOrigen.style.opacity;
+            // sombras
+            destino.dataset.sombras = refOrigen.dataset.sombras;
+            // remueve todas las clases de sombras
+            $(destino).removeClass("s0000 s1000 s0100 s0010 s0001 s1001 s1100 s0110 s0011");
+            // agrega la clase actual de sombras
+            $(destino).addClass(refOrigen.dataset.sombras);
+            // el color del lienzo
+            destino.dataset.colorlienzo = refOrigen.dataset.colorlienzo;
+            $(destino).parent().css("background-color", refOrigen.dataset.colorlienzo);
             break;
         case "derecha":
             // le asigna el formato del pixel de la derecha
+            var idOrigen;
+            var refOrigen;    
+            var str = "" + idDestino;
+            var res = str.substring(1);
+            res = res.split("c");
+            var miFila = res[0];
+            var miCol = res[1];
+            miFila = Number(miFila);
+            miCol = Number(miCol); 
+            miCol = 1 + miCol;
+            idOrigen = "f" + miFila + "c" + miCol;
+            refOrigen = document.getElementById(idOrigen);
+            // color de fondo del pixel
+            destino.style.backgroundColor = refOrigen.style.backgroundColor;
+            // radio
+            destino.dataset.radio = refOrigen.dataset.radio;
+            destino.style.MozBorderRadius = refOrigen.dataset.radio;
+            destino.style.webkitBorderRadius = refOrigen.dataset.radio;
+            destino.style.borderRadius = refOrigen.dataset.radio;
+            // color de bordes
+            destino.dataset.colorbordes = refOrigen.dataset.colorbordes;
+            destino.style.borderColor = refOrigen.dataset.colorbordes;
+            // su opacidad 
+            destino.style.opacity = refOrigen.style.opacity;
+            // sombras
+            destino.dataset.sombras = refOrigen.dataset.sombras;
+            // remueve todas las clases de sombras
+            $(destino).removeClass("s0000 s1000 s0100 s0010 s0001 s1001 s1100 s0110 s0011");
+            // agrega la clase actual de sombras
+            $(destino).addClass(refOrigen.dataset.sombras);
+            // el color del lienzo
+            destino.dataset.colorlienzo = refOrigen.dataset.colorlienzo;
+            $(destino).parent().css("background-color", refOrigen.dataset.colorlienzo);
             break;
         case "izquierda":
             // le asigna el formato del pixel de la izquierda
+            var idOrigen;
+            var refOrigen;    
+            var str = "" + idDestino;
+            var res = str.substring(1);
+            res = res.split("c");
+            var miFila = res[0];
+            var miCol = res[1];
+            miFila = Number(miFila);
+            miCol = Number(miCol); 
+            miCol = miCol - 1;
+            idOrigen = "f" + miFila + "c" + miCol;
+            refOrigen = document.getElementById(idOrigen);
+            // color de fondo del pixel
+            destino.style.backgroundColor = refOrigen.style.backgroundColor;
+            // radio
+            destino.dataset.radio = refOrigen.dataset.radio;
+            destino.style.MozBorderRadius = refOrigen.dataset.radio;
+            destino.style.webkitBorderRadius = refOrigen.dataset.radio;
+            destino.style.borderRadius = refOrigen.dataset.radio;
+            // color de bordes
+            destino.dataset.colorbordes = refOrigen.dataset.colorbordes;
+            destino.style.borderColor = refOrigen.dataset.colorbordes;
+            // su opacidad 
+            destino.style.opacity = refOrigen.style.opacity;
+            // sombras
+            destino.dataset.sombras = refOrigen.dataset.sombras;
+            // remueve todas las clases de sombras
+            $(destino).removeClass("s0000 s1000 s0100 s0010 s0001 s1001 s1100 s0110 s0011");
+            // agrega la clase actual de sombras
+            $(destino).addClass(refOrigen.dataset.sombras);
+            // el color del lienzo
+            destino.dataset.colorlienzo = refOrigen.dataset.colorlienzo;
+            $(destino).parent().css("background-color", refOrigen.dataset.colorlienzo);
             break;
         default:
-            // asume que origen es un id, le asigna el formato del pixel con ese id
-
+            // asume que origen es un id, le asigna el formato del pixel con ese id            
+            var idOrigen = origen;
+            var refOrigen = document.getElementById(idOrigen);
+            // color de fondo del pixel
+            destino.style.backgroundColor = refOrigen.style.backgroundColor;
+            // radio
+            destino.dataset.radio = refOrigen.dataset.radio;
+            destino.style.MozBorderRadius = refOrigen.dataset.radio;
+            destino.style.webkitBorderRadius = refOrigen.dataset.radio;
+            destino.style.borderRadius = refOrigen.dataset.radio;
+            // color de bordes
+            destino.dataset.colorbordes = refOrigen.dataset.colorbordes;
+            destino.style.borderColor = refOrigen.dataset.colorbordes;
+            // su opacidad 
+            destino.style.opacity = refOrigen.style.opacity;
+            // sombras
+            destino.dataset.sombras = refOrigen.dataset.sombras;
+            // remueve todas las clases de sombras
+            $(destino).removeClass("s0000 s1000 s0100 s0010 s0001 s1001 s1100 s0110 s0011");
+            // agrega la clase actual de sombras
+            $(destino).addClass(refOrigen.dataset.sombras);
+            // el color del lienzo
+            destino.dataset.colorlienzo = refOrigen.dataset.colorlienzo;
+            $(destino).parent().css("background-color", refOrigen.dataset.colorlienzo);
     }    
 }
 
