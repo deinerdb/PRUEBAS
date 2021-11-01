@@ -4154,6 +4154,37 @@ function colorHistorial(btnId) {
     // quite cometario en la siguiente línea para cerrar el historial al escoger un color
     //cerrarHistorial();
 }
+// guarda los formatos de todos los pixeles
+function guardarFormatos() {
+    // para iterar
+    var i;
+    // resetea el array de los id
+    lastArrayID.length = 0;
+    // resetea los arrays de formatos
+    lastArrayColor.length = 0;
+    lastArrayRadio.length = 0;
+    lastArrayColorBordes.length = 0;
+    lastArrayOpacidad.length = 0;
+    lastArraySombras.length = 0;
+    lastArrayLienzo.length = 0;
+    // este ciclo recorre todo el array de pixeles
+    for (i = 0; i < getColumnas.length; i++) {
+        // guarda los id
+        lastArrayID[lastArrayID.length] = getColumnas[i].id;
+        // guarda el color pixel
+        lastArrayColor[lastArrayColor.length] = getColumnas[i].style.backgroundColor;        
+        // guarda el radio
+        lastArrayRadio[lastArrayRadio.length] = getColumnas[i].dataset.radio;
+        // guarda el color del borde
+        lastArrayColorBordes[lastArrayColorBordes.length] = getColumnas[i].dataset.colorbordes;
+        // guarda la opacidad
+        lastArrayOpacidad[lastArrayOpacidad.length] = getColumnas[i].style.opacity;
+        // guarda las sombras
+        lastArraySombras[lastArraySombras.length] = getColumnas[i].dataset.sombras;
+        // guarda el color del lienzo
+        lastArrayLienzo[lastArrayLienzo.length] = getColumnas[i].dataset.colorlienzo;
+    }   
+}
 // ajusta el número de filas y columnas visibles
 function dimensionar(mostrarLoader) {
     // sale si es por código
@@ -4170,7 +4201,7 @@ function dimensionar(mostrarLoader) {
     // primero guarda todo para poder deshacer
     lastNumFilas = numFilas;
     lastNumColumnas = numColumnas;    
-    //debe guardar los colores, los radios, los colores de bordes y los id      
+    //debe guardar los colores, los radios, los colores de bordes, la opacidad, las sombras, el lienzo y los id      
     lastAction = "dimensionar";
     lastArrayColor.length = 0;
     lastArrayRadio.length = 0;
