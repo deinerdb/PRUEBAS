@@ -4154,6 +4154,51 @@ function colorHistorial(btnId) {
     // quite cometario en la siguiente línea para cerrar el historial al escoger un color
     //cerrarHistorial();
 }
+// restaura los formatos de todos los pixeles
+// requiere ejecutar primero guardarFormatos()
+function restaurarFormatos() {
+    // para iterar
+    var i;
+    // en cada iteración captura el valor del array, para optimizar
+    var miLastRadio;
+    var miLastColorBordes;
+    var miLastOpacidad;
+    var miLastSombras;
+    var miLastColorLienzo;
+    var miElemDim; // nombre por herencia de deshacer dimensionar
+    // recorre el array aplicando al pixel el color, el radio, el color de borde y lienzo, 
+    // la opacidad, las sombras... previamente guardados
+    for (i = 0; i < lastArrayID.length; i++) {
+        // referencia el pixel actual
+        miElemDim = document.getElementById(lastArrayID[i]);
+        // color pixel
+        miElemDim.style.backgroundColor = lastArrayColor[i];
+        // el radio
+        miLastRadio = lastArrayRadio[i];
+        miElemDim.dataset.radio = miLastRadio;
+        miElemDim.style.MozBorderRadius = miLastRadio;
+        miElemDim.style.webkitBorderRadius = miLastRadio;
+        miElemDim.style.borderRadius = miLastRadio;
+        // color borde
+        miLastColorBordes = lastArrayColorBordes[i];
+        miElemDim.dataset.colorbordes = miLastColorBordes;
+        miElemDim.style.borderColor = miLastColorBordes;
+        // opacidad
+        miLastOpacidad = lastArrayOpacidad[i];
+        miElemDim.style.opacity = miLastOpacidad;
+        // las sombras
+        miLastSombras = lastArraySombras[i];
+        miElemDim.dataset.sombras = miLastSombras;
+        // remueve todas las clases de sombras
+        $(miElemDim).removeClass("s0000 s1000 s0100 s0010 s0001 s1001 s1100 s0110 s0011");
+        // agrega la clase actual de sombras
+        $(miElemDim).addClass(miLastSombras); 
+        // el color del lienzo
+        miLastColorLienzo = lastArrayLienzo[i];
+        miElemDim.dataset.colorlienzo = miLastColorLienzo;
+        $(miElemDim).parent().css("background-color", miLastColorLienzo);
+    }
+}
 // guarda los formatos de todos los pixeles
 function guardarFormatos() {
     // para iterar
