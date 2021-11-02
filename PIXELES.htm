@@ -65,19 +65,19 @@
                 <div id="marcoFilas" class="marco">
                     <p id="infoModalFilas">Hay opciones no disponibles</p>                   
                     <label class="containerR" id="checkAgregarFila">
-                        Agregar fila en la posición
-                        <input type="radio" name="checkFilas" id="micheckAgregarFila" value="agregarFila">
+                        Agregar fila en la posición:
+                        <input type="radio" name="checkFilas" id="micheckAgregarFila" value="agregarFila" onclick="visibilidadSelectFilas();">
                         <span class="checkmarkR"></span>
                     </label>
-                    <select id="selectAgregarFila" title="Seleccione la posición de la nueva fila">                                                
-                    </select>
+                    <select id="selectAgregarFila" title="Seleccione la posición de la nueva fila">                                                                        
+                    </select>                    
                     <label class="containerR" id="checkEliminarFila">
-                        Eliminar la fila número
-                        <input type="radio" name="checkFilas" id="micheckEliminarFila" value="eliminarFila">
+                        Eliminar la fila número:
+                        <input type="radio" name="checkFilas" id="micheckEliminarFila" value="eliminarFila" onclick="visibilidadSelectFilas();">
                         <span class="checkmarkR"></span>
                     </label>
                     <select id="selectEliminarFila" title="Seleccione la fila que desea eliminar">                                               
-                    </select>                    
+                    </select>                                        
                 </div>
                 <!-- INFO -->
                 <div id="marcoInfo" class="marco">                                        

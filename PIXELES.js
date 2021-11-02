@@ -2162,7 +2162,7 @@ function showModal() {
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-arrows-alt-v'></i> Agregar o eliminar fila";
             document.getElementById("spanInfoModal").innerHTML = "Puede agregar o eliminar una fila dinámicamente, sin afectar el trabajo realizado.";            
             // por defecto: agregar
-            document.getElementById("micheckAgregarFila").checked = true;
+            document.getElementById("micheckAgregarFila").checked = true;            
             // limpia los selects
             //getSelectAgregarFila.options.length = 0;
             //getSelectEliminarFila.options.length = 0;
@@ -2221,6 +2221,8 @@ function showModal() {
                 miInfoFilas.style.display = "block";
                 miInfoFilas.innerHTML = "Hay " + MAXNUMFILAS + " filas visibles, no puede agregar más filas.";
             }
+            // la disponibilidad de los selects
+            visibilidadSelectFilas();
             // para animarla al cerrar: opacidad ajustada            
             restauraOpacidad = true;
             $(getContenedor).css("opacity", "0");
@@ -4153,6 +4155,21 @@ function colorHistorial(btnId) {
     colorPixel();
     // quite cometario en la siguiente línea para cerrar el historial al escoger un color
     //cerrarHistorial();
+}
+function visibilidadSelectFilas() {
+    // si selecciona agregar filas
+    if (document.getElementById("micheckAgregarFila").checked == true) {
+        // no es visible el segundo select
+        getSelectEliminarFila.style.visibility = "hidden";
+        // pero sí el primero
+        getSelectAgregarFila.style.visibility = "visible";
+    } else {
+        // si selecciona eliminar filas
+        // es visible el segundo select
+        getSelectEliminarFila.style.visibility = "visible";
+        // pero no el primero
+        getSelectAgregarFila.style.visibility = "hidden";
+    }
 }
 // restaura los formatos de todos los pixeles
 // requiere ejecutar primero guardarFormatos()
