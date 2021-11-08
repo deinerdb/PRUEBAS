@@ -4159,16 +4159,22 @@ function colorHistorial(btnId) {
 function visibilidadSelectFilas() {
     // si selecciona agregar filas
     if (document.getElementById("micheckAgregarFila").checked == true) {
-        // no es visible el segundo select
-        getSelectEliminarFila.style.visibility = "hidden";
-        // pero sí el primero
-        getSelectAgregarFila.style.visibility = "visible";
+        // no es visible el segundo select        
+        $(getSelectEliminarFila).addClass("oculto");
+        // su pareja sí
+        $(getSelectAgregarFila).removeClass("oculto");
+        // visibilidad de los falsos select       
+        $("#espSelEliminar").removeClass("oculto");
+        $("#espSelAgregar").addClass("oculto");
     } else {
         // si selecciona eliminar filas
-        // es visible el segundo select
-        getSelectEliminarFila.style.visibility = "visible";
-        // pero no el primero
-        getSelectAgregarFila.style.visibility = "hidden";
+        // es visible el segundo select        
+        $(getSelectEliminarFila).removeClass("oculto");
+        // pero no el primero        
+        $(getSelectAgregarFila).addClass("oculto");
+        // visibilidad de los falsos select       
+        $("#espSelEliminar").addClass("oculto");
+        $("#espSelAgregar").removeClass("oculto");
     }
 }
 // restaura los formatos de todos los pixeles
