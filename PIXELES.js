@@ -1706,8 +1706,17 @@ function aplicarLienzoGlobal() {
 // depende de modalActual/
 function aceptarModal() {
     switch (modalActual) {
-        case "filas":            
-            showSnackbar("En desarrollo...");
+        case "filas":  
+            // guarda formatos para poder deshacer
+            guardarFormatos();
+            // decide si se trata de eliminar o agregar fila            
+            if (document.getElementById("micheckAgregarFila").checked == true) {
+                // agregar
+                showSnackbar("Agregar está en desarrollo...");
+            } else {
+                // eliminar
+                showSnackbar("Eliminar está en desarrollo...");
+            }
             break;
         case "borrador":            
             // actualiza las variables con la nueva configuración del borrador
