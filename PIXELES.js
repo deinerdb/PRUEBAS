@@ -1706,17 +1706,58 @@ function aplicarLienzoGlobal() {
 // depende de modalActual/
 function aceptarModal() {
     switch (modalActual) {
-        case "filas":  
-            // guarda formatos para poder deshacer
-            guardarFormatos();
-            // decide si se trata de eliminar o agregar fila            
-            if (document.getElementById("micheckAgregarFila").checked == true) {
-                // agregar
-                showSnackbar("Agregar está en desarrollo...");
-            } else {
-                // eliminar
-                showSnackbar("Eliminar está en desarrollo...");
-            }
+        case "filas":
+            var msj = "Realizado";
+            var mensaje = "Deshacer";
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia
+                var i;
+                var miID;
+                var miElemDim;
+                // guarda formatos para poder deshacer
+                guardarFormatos();
+                // decide si se trata de eliminar o agregar fila            
+                if (document.getElementById("micheckAgregarFila").checked == true) {
+                    // agregar
+                    lastAction = "agregarFila";
+                    // redimensiona
+                    numFilas = 1 + numFilas;                
+                    getSelectFilas.selectedIndex = numFilas - 1;
+                    //construye el id del rótulo, row numFilas y col 0
+                    miID = "r" + numFilas + "c0";
+                    // hace visible el rótulo, si aplica
+                    miElemDim = document.getElementById(miID);
+                    $(miElemDim).removeClass("oculto");
+                    // hace visible la fila adicional
+                    for (i = 1; i <= numColumnas; i++) {
+                        //construye el id
+                        miID = "f" + numFilas + "c" + i;                
+                        // referencia al cuadrito para optimizar
+                        miElemDim = document.getElementById(miID);
+                        miElemDim.style.display = "inline-block";
+                    }
+
+                    // configura mensajes
+                    msj = "Se ha insertado una fila";
+                    mensaje = "Deshacer adición de fila";
+                } else {
+                    // eliminar
+                    lastAction = "eliminarFila";
+                    //msj = "Se ha eliminado una fila";
+                    msj = "En desarrollo...";
+                    mensaje = "Deshacer eliminación de fila";
+                }
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+                // ajusta todo
+                ajustesResize();
+                showSnackbar(msj);
+                // puede deshacer
+                estadoBtnDeshacer(true, mensaje);
+            }, 0); 
             break;
         case "borrador":            
             // actualiza las variables con la nueva configuración del borrador
@@ -5289,6 +5330,41 @@ getBtnDeshacer.onclick = function () {
     ocupado = true;
     var mensaje = "¡Hecho!";
     switch (lastAction) {
+        case "agregarFila":
+            var i;
+            var miID;
+            var miElemDim;
+            // deshace la adición de fila
+            // antes de dimensionar, oculta el rótulo de la última fila
+            //construye el id del rótulo, row numFilas y col 0
+            miID = "r" + numFilas + "c0";
+            // oculta el rótulo, si aplica
+            miElemDim = document.getElementById(miID);
+            $(miElemDim).addClass("oculto");
+            // antes de dimensionar, oculta la última fila
+            // oculta la fila adicional
+            for (i = 1; i <= numColumnas; i++) {
+                //construye el id
+                miID = "f" + numFilas + "c" + i;                
+                // referencia al cuadrito para optimizar
+                miElemDim = document.getElementById(miID);
+                miElemDim.style.display = "none";
+            }
+            // redimensiona, formalmente
+            numFilas = numFilas - 1;
+            getSelectFilas.selectedIndex = numFilas - 1;
+            // restaura los formatos
+            restaurarFormatos();
+            mensaje = "Se deshizo la adición de fila";
+            break;
+        case "eliminarFila":
+            // deshace la eliminación de fila
+            // redimensiona
+
+            // restaura los formatos
+            restaurarFormatos();
+            mensaje = "Se deshizo la eliminación de fila";
+            break;         
         case "filtrar":
             // deshace el filtro
             actualIndexFiltro = lastIndexFiltro;
