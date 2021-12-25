@@ -3,8 +3,11 @@ var getBtnCopiar = document.getElementById("btnCopiar");
 var getBtnPegar = document.getElementById("btnPegar");
 var getBtnDividir = document.getElementById("btnDividir");
 var getBtnExtraer = document.getElementById("btnExtraer");
+var getAlert = document.getElementById("alert");
+var getSpanCopiado = document.getElementById("spanCopiado");
 var getFormato = document.getElementById("formato");
 var miFormato;
+var timerAlert;
 miFormato= "comapunto";
 // Convertidor
 var getPulgadas = document.getElementById("numberPulg");
@@ -324,6 +327,16 @@ function copiarDígitos(text) {
     }
     // copia la cadena extraída
     copyToClipboard(Dígitos);
+    // alerta visible
+    getSpanCopiado.innerHTML = Dígitos
+    getAlert.style.display = "block";
+    // cancela el timerAlert
+    clearTimeout(timerAlert);
+    // unos segundos despúes oculta la alerta
+    timerAlert = setTimeout(function () {
+        getAlert.style.display = "none";
+    }, 30000);
+    // mensaje 
     showSnackbar(msj);
 }
 function pegarTexto(text) {

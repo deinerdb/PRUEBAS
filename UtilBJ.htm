@@ -97,6 +97,10 @@
             <summary><h2 class="util-title"><i class="fas fa-hashtag"></i> Extraer Dígitos</h2></summary>
             <p class="util-etiqueta">Recupera y copia los dígitos en el portapapeles:</p>
             <button type="button" id="btnExtraer" title="Extraer dígitos"><i class="fas fa-hashtag" aria-hidden="true"></i> EXTRAER</button>            
+            <div class="alert" id="alert" title="Se ha copiado este texto al portapapeles">
+                <span title="Cerrar" class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                <strong>Extraído: </strong> <span id="spanCopiado">0</span>
+            </div>
         </details>
     </div>    
     <div id="rellenoInferior">

@@ -12,6 +12,36 @@ body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;    
 }
 
+.alert {
+    padding: 20px;
+    background-color: #04AA6D;
+    color: white;
+    margin-bottom: 8px;
+    margin-top: 15px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    display: none;
+  }
+  
+  .closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    /* transición */
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+  }
+  
+  .closebtn:hover {
+    color: black;
+  }
 
 #rellenoInferior {
     height: 40px;
