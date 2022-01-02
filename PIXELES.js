@@ -1714,7 +1714,8 @@ function aceptarModal() {
             setTimeout(function () {
                 // código alta exigencia
                 var i;
-                var miID;
+                var j;
+                var miID;                
                 var miElemDim;
                 // guarda formatos para poder deshacer
                 guardarFormatos();
@@ -1738,9 +1739,23 @@ function aceptarModal() {
                         miElemDim = document.getElementById(miID);
                         miElemDim.style.display = "inline-block";
                     }
-
+                    // desplaza las filas
+                    var posInsertarFila = getSelectAgregarFila.value
+                    for ( i = numFilas; i > posInsertarFila; i-- ) {
+                        for (j = 1; j <= numColumnas; j++) {
+                            // define id de destino
+                            miID = "f" + i + "c" + j;                            
+                            defineFormatoPixel(miID, "arriba");                            
+                        }                       
+                    }
+                    // limpia la fila insertada
+                    for (i = 1; i <= numColumnas; i++) {
+                        //construye el id
+                        miID = "f" + posInsertarFila + "c" + i;                
+                        defineFormatoPixel(miID, "globales");
+                    }
                     // configura mensajes
-                    msj = "Se ha insertado una fila";
+                    msj = "Se ha insertado una fila en la posición " + posInsertarFila;
                     mensaje = "Deshacer adición de fila";
                 } else {
                     // eliminar
