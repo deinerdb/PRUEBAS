@@ -1,0 +1,419 @@
+﻿<!DOCTYPE HTML>
+<html lang="es" dir="ltr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+        <meta name="description" content="Precios Bolsas Juan"/>
+        <!-- Chrome, Firefox, OS y Opera -->
+        <meta name="theme-color" content="#990000" />
+        <!-- Windows Phone -->
+        <meta name="msapplication-navbutton-color" content="#990000" />
+        <title>Precios Bolsas Juan</title>
+        <script src="https://kit.fontawesome.com/c884319274.js" crossorigin="anonymous"></script>       
+        <link rel="icon" href="UtilBJ.ico" type="image/x-icon" />
+        <link rel="shortcut icon" href="UtilBJ.ico" type="image/x-icon" />  
+        <!-- jquery cargado desde servidor de Google -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <style>
+
+            /* Stack Overflow: se sugiere para que las alturas funcionen */
+            html, body {
+                height: 100% !important;
+                min-height: 100%;    
+            }
+            * {
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+            }
+            body {
+                font-family: Verdana, Geneva, Tahoma, sans-serif;    
+            }
+            #rellenoInferior {
+                height: 40px;
+            }
+             /* para ocultar dinámicamente elementos con display con prefijos*/
+                .oculto {
+                    display: none !important;
+                }
+            /* tabla */
+            .contenedor-tabla{
+                margin-top: 12px;
+                margin-bottom: 12px;
+                /* responsive */
+                overflow-x: auto;                
+            }
+            .pie-tabla{
+                text-align:center;
+            }
+            table {
+                /* centrada */
+                margin-left: auto;
+                margin-right: auto;
+            }
+            table, th, td {
+                /* estilos de borde y fuente */
+                border: 1px solid #a9a9a9; /* gris oscuro */
+                border-collapse: collapse;
+                border-spacing: 0;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            tr td:first-child {
+                /* primera celda en negrita */
+                font-weight: bold;
+                color: #006600; /* verde oscuro */
+            }
+            th, td{
+                /* espacio alrededor del texto */
+                padding: 8px 16px;
+                white-space: nowrap; /*solo una línea cada celda */
+            }
+            caption {
+                /* el título */
+                padding: 8px;
+                font-weight: bold;
+                font-size: 1.2em;
+                color: #006600; /* verde oscuro */
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            .num {
+                /* celdas numéricas */
+                text-align: right;
+                font-family: Consolas, 'Courier New', Courier, monospace;
+            }
+            .imag {
+                /* celdas con imagen */
+                text-align: center;
+                background-color: black;
+                padding: 0;
+                /*no se puede seleccionar el texto*/
+                -webkit-user-select: none; /* Chrome, Opera, Safari */
+                -moz-user-select: none; /* Firefox 2+ */
+                -ms-user-select: none; /* IE 10+ */
+                user-select: none; /* Standard syntax */
+            }
+            .imag img {
+                /* imágenes son link */
+                cursor: pointer;
+            }
+            .imag img:hover {
+                /* un ligero efecto */
+                opacity: 0.8;
+            }
+            th {
+                /* encabezados de columna */
+                color: white;
+                background-color: #2f4f4f; /*verde oscuro*/
+            }
+            tr:nth-child(even) {
+                /*filas pares*/
+                background-color: #d8f3e9; /* verde claro */
+            }
+
+            tr:nth-child(odd) {
+                /*filas impares*/
+                background-color: #ffffff; /*blanco*/
+            }
+            tr:hover {
+                /* al pasar el mouse por cada fila */
+                background-color: #ddd; /* gris */                
+            } 
+                        /* -----------------------------*/
+            /* loader */
+            /* --------------------------- */
+            .loader {
+                position: fixed;
+                left: 0px;
+                top: 0px;
+                width: 100%;
+                height: 100%;
+                z-index: 9999;
+                /*background: url('pageLoader.gif') 50% 50% no-repeat rgb(249,249,249);*/
+                background: rgb(179, 179, 179);
+                opacity: 0.8;
+                filter: Alpha(opacity=80); /* IE8 and earlier */
+                text-align: center;
+                /*centrar verticalmente*/
+                /* BROWSER DEFINITION */
+                display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+                display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+                display: -ms-flexbox; /* TWEENER - IE 10 */
+                display: -webkit-flex; /* NEW - Chrome */
+                /* W3C DEFINITION */
+                display: flex;
+                justify-content: center;
+                align-content: center;
+                flex-direction: column;
+            }
+
+                .loader h3 {
+                    text-align: center;
+                    width: 100%;
+                    /* color: #e600e6; */
+                    color: darkred;
+                    font-family: Courier New, Courier, monospace;
+                    font-weight: bold;
+                    text-shadow: 2px 2px 3px #ffffff;
+                    /*no se puede seleccionar el texto*/
+                    -webkit-user-select: none; /* Chrome, Opera, Safari */
+                    -moz-user-select: none; /* Firefox 2+ */
+                    -ms-user-select: none; /* IE 10+ */
+                    user-select: none; /* Standard syntax */
+                }
+
+            .sk-cube-grid {
+                width: 120px;
+                height: 120px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+                .sk-cube-grid .sk-cube {
+                    width: 33%;
+                    height: 33%;
+                    background-color: #333;
+                    float: left;
+                    -moz-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+                    -o-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+                    -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+                    animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+                }
+
+                .sk-cube-grid .sk-cube1 {
+                    -o-animation-delay: 0.2s;
+                    -moz-animation-delay: 0.2s;
+                    -webkit-animation-delay: 0.2s;
+                    animation-delay: 0.2s;
+                }
+
+                .sk-cube-grid .sk-cube2 {
+                    -moz-animation-delay: 0.3s;
+                    -o-animation-delay: 0.3s;
+                    -webkit-animation-delay: 0.3s;
+                    animation-delay: 0.3s;
+                }
+
+                .sk-cube-grid .sk-cube3 {
+                    -moz-animation-delay: 0.4s;
+                    -o-animation-delay: 0.4s;
+                    -webkit-animation-delay: 0.4s;
+                    animation-delay: 0.4s;
+                }
+
+                .sk-cube-grid .sk-cube4 {
+                    -webkit-animation-delay: 0.1s;
+                    animation-delay: 0.1s;
+                }
+
+                .sk-cube-grid .sk-cube5 {
+                    -moz-animation-delay: 0.2s;
+                    -o-animation-delay: 0.2s;
+                    -webkit-animation-delay: 0.2s;
+                    animation-delay: 0.2s;
+                }
+
+                .sk-cube-grid .sk-cube6 {
+                    -moz-animation-delay: 0.3s;
+                    -o-animation-delay: 0.3s;
+                    -webkit-animation-delay: 0.3s;
+                    animation-delay: 0.3s;
+                }
+
+                .sk-cube-grid .sk-cube7 {
+                    -moz-animation-delay: 0s;
+                    -o-animation-delay: 0s;
+                    -webkit-animation-delay: 0s;
+                    animation-delay: 0s;
+                }
+
+                .sk-cube-grid .sk-cube8 {
+                    -moz-animation-delay: 0.1s;
+                    -o-animation-delay: 0.1s;
+                    -webkit-animation-delay: 0.1s;
+                    animation-delay: 0.1s;
+                }
+
+                .sk-cube-grid .sk-cube9 {
+                    -moz-animation-delay: 0.2s;
+                    -o-animation-delay: 0.2s;
+                    -webkit-animation-delay: 0.2s;
+                    animation-delay: 0.2s;
+                }
+
+            @-webkit-keyframes sk-cubeGridScaleDelay {
+                0%, 70%, 100% {
+                    -webkit-transform: scale3D(1, 1, 1);
+                    transform: scale3D(1, 1, 1);
+                }
+
+                35% {
+                    -webkit-transform: scale3D(0, 0, 1);
+                    transform: scale3D(0, 0, 1);
+                }
+            }
+
+            @-moz-keyframes sk-cubeGridScaleDelay {
+                0%, 70%, 100% {
+                    -moz-transform: scale3D(1, 1, 1);
+                    transform: scale3D(1, 1, 1);
+                }
+
+                35% {
+                    -moz-transform: scale3D(0, 0, 1);
+                    transform: scale3D(0, 0, 1);
+                }
+            }
+
+            @-o-keyframes sk-cubeGridScaleDelay {
+                0%, 70%, 100% {
+                    -o-transform: scale3D(1, 1, 1);
+                    transform: scale3D(1, 1, 1);
+                }
+
+                35% {
+                    -o-transform: scale3D(0, 0, 1);
+                    transform: scale3D(0, 0, 1);
+                }
+            }
+
+            @keyframes sk-cubeGridScaleDelay {
+                0%, 70%, 100% {
+                    -webkit-transform: scale3D(1, 1, 1);
+                    transform: scale3D(1, 1, 1);
+                }
+
+                35% {
+                    -webkit-transform: scale3D(0, 0, 1);
+                    transform: scale3D(0, 0, 1);
+                }
+            }
+            /* FIN LOADER */
+            /* ---------- */
+            #contbuscarProducto {
+                text-align: left;
+                margin:24px 4px 24px 6px;
+                padding:0;
+                max-width: 100%;
+                border-width:0;
+            }
+            #buscarProducto {
+                background-image: url('searchicon.png');
+                background-position: 10px 10px;
+                background-repeat: no-repeat;
+                /*background-size: 20px 20px;*/
+                padding: 5px 8px 8px 40px;
+                background-color: white;
+                color: black;
+                width: 25%;
+                min-width: 210px;
+                max-width: 98%;
+                overflow: auto;
+                margin: 6px 0px 6px 0px;
+                font-family: Consolas, 'Courier New', Courier, monospace;
+                font-size: 18px;
+                text-align: left;
+                border: 2px solid #990000;
+                border: 2px inset #990000;
+                /* BORDE REDONDEADO*/
+                -moz-border-radius: 4px;
+                -webkit-border-radius: 4px;
+                border-radius: 4px;
+                /* animado */
+                -moz-transition: -moz-box-shadow 0.3s, width 0.4s ease-in-out;
+                -o-transition: box-shadow 0.3s, width 0.4s ease-in-out;
+                -webkit-transition: -webkit-box-shadow 0.3s, width 0.4s ease-in-out;
+                transition: box-shadow 0.3s, width 0.4s ease-in-out;
+            }
+
+                #buscarProducto:focus {
+                    /*background-color: #dcdcdc;*/
+                    border-style: outset;        
+                    /*SOMBRA*/
+                    -moz-box-shadow: 5px 5px 3px #C0C0C0;
+                    -webkit-box-shadow: 5px 5px 3px #C0C0C0;
+                    box-shadow: 5px 5px 3px #C0C0C0;
+                    /* animado */
+                    width: 98%;
+                }
+
+                #buscarProducto:hover {
+                    /*background-color: #dcdcdc;*/
+                    border-style: outset;        
+                }
+        </style>
+        <script>
+            $(document).ready(function () {
+                // cuando carga la página            
+                // oculta el loader unos instantes después
+                setTimeout(function () {                
+                    $(".loader").addClass("oculto");
+                    // scroll
+                    topFunction();                
+                }, 1200);
+            });        
+        </script>
+        <script>
+            // al cargar la página
+            window.addEventListener("load", function (event) {
+                // inicializar campos, algunos navegadores recuerdan valores previos
+                
+            });
+        </script>
+    </head>
+    <body>
+        <div class="loader">
+            <h3>Espere...</h3>
+            <div class="sk-cube-grid">
+                <div class="sk-cube sk-cube1"></div>
+                <div class="sk-cube sk-cube2"></div>
+                <div class="sk-cube sk-cube3"></div>
+                <div class="sk-cube sk-cube4"></div>
+                <div class="sk-cube sk-cube5"></div>
+                <div class="sk-cube sk-cube6"></div>
+                <div class="sk-cube sk-cube7"></div>
+                <div class="sk-cube sk-cube8"></div>
+                <div class="sk-cube sk-cube9"></div>
+            </div>
+        </div>
+        <div id="contbuscarProducto">
+            <input id="buscarProducto" type="search" maxlength="100" placeholder="Buscar..." autocomplete="off" spellcheck="false">
+        </div>
+        
+        <div class="contenedor-tabla">
+            <table>
+                <caption>Precios Bolsas Juan</caption>
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Compra</th>
+                        <th>Lista 1</th>
+                        <th>Lista 2</th>
+                        <th>Lista 3</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>DES-SP-01</td>
+                        <td>CONT SELLOPLUS 8 ONZ TAPA PLANA-CAJA X 2 DISP DE 100 UNID</td>
+                        <td class="num">$296</td>
+                        <td class="num">$400</td>
+                        <td class="num">$350</td>
+                        <td class="num">$350</td>
+                    </tr>
+                    <tr>
+                        <td>DES-SP-03</td>
+                        <td>CONT SELLOPLUS TRIANGULAR 11X5-CAJA X 2 DISP DE 100 UNID</td>
+                        <td class="num">$278</td>
+                        <td class="num">$400</td>
+                        <td class="num">$330</td>
+                        <td class="num">$330</td>                                        
+                    </tr>                    
+                </tbody>
+            </table>
+        </div>
+        <p class="pie-tabla"><small>Versión web</small></p>
+        <div id="rellenoInferior">
+</body>
+</html>
+
