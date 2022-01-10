@@ -1739,7 +1739,7 @@ function aceptarModal() {
                         miElemDim = document.getElementById(miID);
                         miElemDim.style.display = "inline-block";
                     }
-                    // desplaza las filas
+                    // desplaza las filas, de abajo hacia arriba
                     var posInsertarFila = getSelectAgregarFila.value
                     for ( i = numFilas; i > posInsertarFila; i-- ) {
                         for (j = 1; j <= numColumnas; j++) {
@@ -1760,8 +1760,40 @@ function aceptarModal() {
                 } else {
                     // eliminar
                     lastAction = "eliminarFila";
-                    //msj = "Se ha eliminado una fila";
-                    msj = "En desarrollo...";
+                    //desplaza las filas, de arriba hacia abajo
+                    var posEliminarFila = getSelectEliminarFila.value
+                    for ( i = posEliminarFila; i < numFilas; i++ ) {
+                        for (j = 1; j <= numColumnas; j++) {
+                            // define id de destino
+                            miID = "f" + i + "c" + j;                            
+                            defineFormatoPixel(miID, "abajo");                            
+                        }                       
+                    }
+                    // limpia la última fila
+                    for (i = 1; i <= numColumnas; i++) {
+                        //construye el id
+                        miID = "f" + numFilas + "c" + i;                
+                        defineFormatoPixel(miID, "globales");
+                    }
+                    // el rótulo de la última
+                    //construye el id del rótulo, row numFilas y col 0
+                    miID = "r" + numFilas + "c0";
+                    // oculta el rótulo, si aplica
+                    miElemDim = document.getElementById(miID);
+                    $(miElemDim).addClass("oculto");
+                    // oculta la última fila
+                    for (i = 1; i <= numColumnas; i++) {
+                        //construye el id
+                        miID = "f" + numFilas + "c" + i;                
+                        // referencia al cuadrito para optimizar
+                        miElemDim = document.getElementById(miID);
+                        miElemDim.style.display = "none";
+                    }
+                    // redimensiona, formalmente
+                    numFilas = numFilas - 1;                
+                    getSelectFilas.selectedIndex = numFilas - 1; 
+                    // configura mensajes                    
+                    msj = "Se ha eliminado la fila en la posición " + posEliminarFila;                    
                     mensaje = "Deshacer eliminación de fila";
                 }
                 // oculta el loader
@@ -5346,39 +5378,75 @@ getBtnDeshacer.onclick = function () {
     var mensaje = "¡Hecho!";
     switch (lastAction) {
         case "agregarFila":
-            var i;
-            var miID;
-            var miElemDim;
-            // deshace la adición de fila
-            // antes de dimensionar, oculta el rótulo de la última fila
-            //construye el id del rótulo, row numFilas y col 0
-            miID = "r" + numFilas + "c0";
-            // oculta el rótulo, si aplica
-            miElemDim = document.getElementById(miID);
-            $(miElemDim).addClass("oculto");
-            // antes de dimensionar, oculta la última fila
-            // oculta la fila adicional
-            for (i = 1; i <= numColumnas; i++) {
-                //construye el id
-                miID = "f" + numFilas + "c" + i;                
-                // referencia al cuadrito para optimizar
-                miElemDim = document.getElementById(miID);
-                miElemDim.style.display = "none";
-            }
-            // redimensiona, formalmente
-            numFilas = numFilas - 1;
-            getSelectFilas.selectedIndex = numFilas - 1;
-            // restaura los formatos
-            restaurarFormatos();
+            // deshace la adición de fila            
             mensaje = "Se deshizo la adición de fila";
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia
+                var i;
+                var miID;
+                var miElemDim;                
+                // antes de dimensionar, oculta el rótulo de la última fila
+                //construye el id del rótulo, row numFilas y col 0
+                miID = "r" + numFilas + "c0";
+                // oculta el rótulo, si aplica
+                miElemDim = document.getElementById(miID);
+                $(miElemDim).addClass("oculto");
+                // antes de dimensionar, oculta la última fila
+                // oculta la fila adicional
+                for (i = 1; i <= numColumnas; i++) {
+                    //construye el id
+                    miID = "f" + numFilas + "c" + i;                
+                    // referencia al cuadrito para optimizar
+                    miElemDim = document.getElementById(miID);
+                    miElemDim.style.display = "none";
+                }
+                // redimensiona, formalmente
+                numFilas = numFilas - 1;
+                getSelectFilas.selectedIndex = numFilas - 1;
+                // restaura los formatos
+                restaurarFormatos();
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+
+            }, 0);                  
             break;
         case "eliminarFila":
             // deshace la eliminación de fila
-            // redimensiona
-
-            // restaura los formatos
-            restaurarFormatos();
             mensaje = "Se deshizo la eliminación de fila";
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia
+                var i;
+                var miID;
+                var miElemDim;
+                // redimensiona, formalmente
+                numFilas = 1 + numFilas;
+                getSelectFilas.selectedIndex = numFilas - 1;            
+                // muestra el rótulo de la última fila
+                //construye el id del rótulo, row numFilas y col 0
+                miID = "r" + numFilas + "c0";
+                // muestra el rótulo, si aplica
+                miElemDim = document.getElementById(miID);
+                $(miElemDim).removeClass("oculto");
+                // muestra la última fila            
+                for (i = 1; i <= numColumnas; i++) {
+                    //construye el id
+                    miID = "f" + numFilas + "c" + i;                
+                    // referencia al cuadrito para optimizar
+                    miElemDim = document.getElementById(miID);
+                    miElemDim.style.display = "inline-block";
+                }            
+                // restaura los formatos
+                restaurarFormatos();
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+                
+            }, 0);  
             break;         
         case "filtrar":
             // deshace el filtro
