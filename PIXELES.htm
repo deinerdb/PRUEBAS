@@ -61,6 +61,26 @@
             </div>
             <div class="modal-body" id="modalBody">
                 <!-- cada marco es un uso del Modal -->
+                <!-- Agregar o eliminar columnas -->
+                <div id="marcoColumnas" class="marco">
+                    <p id="infoModalColumnas">Hay opciones no disponibles</p>                   
+                    <label class="containerR" id="checkAgregarColumna">
+                        Agregar columna en la posición:
+                        <input type="radio" name="checkColumnas" id="micheckAgregarColumna" value="agregarColumna" onclick="visibilidadSelectColumnas();">
+                        <span class="checkmarkR"></span>
+                    </label>
+                    <select id="selectAgregarColumna" title="Seleccione la posición de la nueva columna">                                                                        
+                    </select>
+                    <p class="espacioSelect" id="espSelAgregarColumna">- - o - -</p>                    
+                    <label class="containerR" id="checkEliminarColumna">
+                        Eliminar la columna número:
+                        <input type="radio" name="checkColumnas" id="micheckEliminarColumna" value="eliminarColumna" onclick="visibilidadSelectColumnas();">
+                        <span class="checkmarkR"></span>
+                    </label>
+                    <select id="selectEliminarColumna" title="Seleccione la columna que desea eliminar">                                               
+                    </select>
+                    <p class="espacioSelect" id="espSelEliminarColumna">- - o - -</p>                                        
+                </div>
                 <!-- Agregar o eliminar filas -->
                 <div id="marcoFilas" class="marco">
                     <p id="infoModalFilas">Hay opciones no disponibles</p>                   
@@ -71,7 +91,7 @@
                     </label>
                     <select id="selectAgregarFila" title="Seleccione la posición de la nueva fila">                                                                        
                     </select>
-                    <p class="espacioSelect" id="espSelAgregar">- - o - -</p>                    
+                    <p class="espacioSelect" id="espSelAgregarFila">- - o - -</p>                    
                     <label class="containerR" id="checkEliminarFila">
                         Eliminar la fila número:
                         <input type="radio" name="checkFilas" id="micheckEliminarFila" value="eliminarFila" onclick="visibilidadSelectFilas();">
@@ -79,7 +99,7 @@
                     </label>
                     <select id="selectEliminarFila" title="Seleccione la fila que desea eliminar">                                               
                     </select>
-                    <p class="espacioSelect" id="espSelEliminar">- - o - -</p>                                        
+                    <p class="espacioSelect" id="espSelEliminarFila">- - o - -</p>                                        
                 </div>
                 <!-- INFO -->
                 <div id="marcoInfo" class="marco">                                        

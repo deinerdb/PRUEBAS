@@ -1422,7 +1422,7 @@ tr:nth-child(odd) {
     -ms-user-select: none; /* IE 10+ */
     user-select: none; /* Standard syntax */
 }
-#selectAgregarFila, #selectEliminarFila {
+#selectAgregarFila, #selectAgregarColumna, #selectEliminarFila, #selectEliminarColumna {
     margin: 12px 2px 24px 2px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
@@ -1435,7 +1435,7 @@ tr:nth-child(odd) {
     background-color: #ffe6ff;
     font-size: larger;
 }
-    #selectSombras:focus, #selectFormatoBorrado:focus, #selectAgregarFila:focus, #selectEliminarFila:focus {
+    #selectSombras:focus, #selectFormatoBorrado:focus, #selectAgregarFila:focus, #selectAgregarColumna:focus, #selectEliminarFila:focus, #selectEliminarColumna:focus {
         background-color: lavender !important;
     }
 #contMuestrasOpacidad {
@@ -1862,6 +1862,17 @@ tr:nth-child(odd) {
     text-align:justify;
 }
 #infoModalFilas {
+    color: red;
+    background-color: pink;
+    margin: 18px 4px 10px 4px;
+    padding: 8px 8px 8px 12px;
+    border-left-style: solid;
+    border-left-color: red;
+    border-left-width: 4px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align:justify;
+}
+#infoModalColumnas {
     color: red;
     background-color: pink;
     margin: 18px 4px 10px 4px;
@@ -3818,14 +3829,14 @@ input[type=range] {
 }
 /* INICIO CSS PARA RADIOS PERSONALIZADOS */
 /* PROPIOS DE PIXELES */
-#checkAgregarFila, #checkEliminarFila, #checkFormatosIniciales, #checkFormatosGlobales, #checkExtraerDesdePixel, #checkExtraerDesdeLienzo, #checkExtraerDesdeBordes, #checkColorBordesIndividual, #checkColorBordesGlobal, #checkLienzoIndividual, #checkLienzoGlobal, #checkNone, #checkSolid, #checkDotted, #checkDashed, #checkDouble, #checkGroove, #checkRidge, #checkInset, #checkOutset {
+#checkAgregarFila, #checkAgregarColumna, #checkEliminarFila, #checkEliminarColumna, #checkFormatosIniciales, #checkFormatosGlobales, #checkExtraerDesdePixel, #checkExtraerDesdeLienzo, #checkExtraerDesdeBordes, #checkColorBordesIndividual, #checkColorBordesGlobal, #checkLienzoIndividual, #checkLienzoGlobal, #checkNone, #checkSolid, #checkDotted, #checkDashed, #checkDouble, #checkGroove, #checkRidge, #checkInset, #checkOutset {
     text-align: left;
     margin: 26px 4px 12px 24px;
     font-family: Consolas, 'Courier New', Courier, monospace;
 }
 /* el último de cada grupo */
 /* en los marcos de filas y columnas hay un select en lugar del último */
-#selectEliminarFila, #checkOutset, #checkLienzoGlobal, #checkColorBordesGlobal, #checkExtraerDesdeBordes, #checkFormatosGlobales {
+#selectEliminarFila, #selectEliminarColumna, #checkOutset, #checkLienzoGlobal, #checkColorBordesGlobal, #checkExtraerDesdeBordes, #checkFormatosGlobales {
     margin-bottom: 28px;
 }
 /* The radio container */

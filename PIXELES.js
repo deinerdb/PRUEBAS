@@ -65,7 +65,9 @@ var getBtnImportar = document.getElementById("BtnImportar");
 var getBtnFilas = document.getElementById("BtnFilas");
 var getBtnColumnas = document.getElementById("BtnColumnas");
 var getSelectAgregarFila = document.getElementById("selectAgregarFila");
+var getSelectAgregarColumna = document.getElementById("selectAgregarColumna");
 var getSelectEliminarFila = document.getElementById("selectEliminarFila");
+var getSelectEliminarColumna = document.getElementById("selectEliminarColumna");
 var getBtnExportar = document.getElementById("BtnExportar");
 var getBtnImprimir = document.getElementById("BtnImprimir");
 var getBtnAceptarLibre = document.getElementById("BtnAceptarLibre");
@@ -1706,6 +1708,9 @@ function aplicarLienzoGlobal() {
 // depende de modalActual/
 function aceptarModal() {
     switch (modalActual) {
+        case "columnas":
+            showSnackbar("En construcción...");
+            break;
         case "filas":
             var msj = "Realizado";
             var mensaje = "Deshacer";
@@ -2210,18 +2215,6 @@ function aceptarModal() {
             // para otras actualizaciones
             colorPixel();
             break;
-        case "importar":
-
-            break;
-        case "exportar":
-
-            break;
-        case "filas":
-
-            break;
-        case "columnas":
-
-            break;
     }
     // cierra el modalActual
     cerrarModal();
@@ -2254,6 +2247,74 @@ function showModal() {
     // por defecto visible
     $("#infoModal").css("display", "block");
     switch (modalActual) {
+        case "columnas":
+            $("#marcoColumnas").css("display", "block");
+            document.getElementById("modalTitle").innerHTML = "<i class='fas fa-arrows-alt-h'></i> Agregar o eliminar columna";
+            document.getElementById("spanInfoModal").innerHTML = "Puede agregar o eliminar una columna dinámicamente, sin afectar el trabajo realizado.";            
+            // por defecto: agregar
+            document.getElementById("micheckAgregarColumna").checked = true;            
+            // limpia los selects            
+            $(getSelectAgregarColumna).empty();
+            $(getSelectEliminarColumna).empty();
+            // llena el select de agregar columna
+            var columna;            
+            var xsel;
+            for (columna = 1; columna <= 1 + numColumnas; columna++) {
+                xsel = document.createElement("option");
+                xsel.text = columna;
+                xsel.value = columna;
+                getSelectAgregarColumna.add(xsel, columna - 1);                
+            }
+            // llena el select de eliminar columna
+            for (columna = 1; columna <= numColumnas; columna++) {
+                xsel = document.createElement("option");
+                xsel.text = columna;
+                xsel.value = columna;                
+                getSelectEliminarColumna.add(xsel, columna - 1);
+            }
+            // selecciona los valores por defecto
+            getSelectAgregarColumna.selectedIndex = 0; // primera columna
+            getSelectEliminarColumna.selectedIndex = 0; // primera columna
+            // por defecto, asegura la disponibilidad de todas las opciones
+            $("#checkEliminarColumna").removeClass("disableLabel");
+            getSelectEliminarColumna.disabled = false;
+            document.getElementById("micheckEliminarColumna").disabled = false;
+            $("#checkAgregarColumna").removeClass("disableLabel");
+            getSelectAgregarColumna.disabled = false;
+            document.getElementById("micheckAgregarColumna").disabled = false;
+            // no habría advertencia
+            var miInfoColumnas = document.getElementById("infoModalColumnas");
+            miInfoColumnas.style.display = "none";
+            // pero si solo hay una columna...
+            if (numColumnas == 1) {
+                // solo puede agregar
+                document.getElementById("micheckAgregarColumna").checked = true;
+                // desactiva eliminar, no disponibles
+                $("#checkEliminarColumna").addClass("disableLabel");
+                getSelectEliminarColumna.disabled = true;
+                document.getElementById("micheckEliminarColumna").disabled = true;
+                // configura la advertencia
+                miInfoColumnas.style.display = "block";
+                miInfoColumnas.innerHTML = "Solo hay una columna visible, no puede eliminarla.";            
+            }
+            // o si el número de columnas es el máximo permitido...
+            if (numColumnas >= MAXNUMCOLUMNAS) {
+                // solo puede eliminar
+                document.getElementById("micheckEliminarColumna").checked = true;
+                // desactiva agregar, no disponibles
+                $("#checkAgregarColumna").addClass("disableLabel");
+                getSelectAgregarColumna.disabled = true;
+                document.getElementById("micheckAgregarColumna").disabled = true;
+                // configura la advertencia
+                miInfoColumnas.style.display = "block";
+                miInfoColumnas.innerHTML = "Hay " + MAXNUMCOLUMNAS + " columnas visibles, no puede agregar más columnas.";
+            }
+            // la disponibilidad de los selects
+            visibilidadSelectColumnas();
+            // para animarla al cerrar: opacidad ajustada            
+            restauraOpacidad = true;
+            $(getContenedor).css("opacity", "0");
+            break;
         case "filas":
             $("#marcoFilas").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-arrows-alt-v'></i> Agregar o eliminar fila";
@@ -4205,7 +4266,9 @@ getBtnFilas.onclick = function () {
 }
 // se muestra la ventana para agregar o eliminar columnas
 getBtnColumnas.onclick = function () {
-    showSnackbar("En construcción");
+    modalActual = "columnas";
+    //muestra el modal
+    showModal();
 }
 //cambia el color seleccionado, llamada por selectores o historial de colores
 function colorPixel() {
@@ -4261,8 +4324,8 @@ function visibilidadSelectFilas() {
         // su pareja sí
         $(getSelectAgregarFila).removeClass("oculto");
         // visibilidad de los falsos select       
-        $("#espSelEliminar").removeClass("oculto");
-        $("#espSelAgregar").addClass("oculto");
+        $("#espSelEliminarFila").removeClass("oculto");
+        $("#espSelAgregarFila").addClass("oculto");
     } else {
         // si selecciona eliminar filas
         // es visible el segundo select        
@@ -4270,8 +4333,29 @@ function visibilidadSelectFilas() {
         // pero no el primero        
         $(getSelectAgregarFila).addClass("oculto");
         // visibilidad de los falsos select       
-        $("#espSelEliminar").addClass("oculto");
-        $("#espSelAgregar").removeClass("oculto");
+        $("#espSelEliminarFila").addClass("oculto");
+        $("#espSelAgregarFila").removeClass("oculto");
+    }
+}
+function visibilidadSelectColumnas() {
+    // si selecciona agregar columnas
+    if (document.getElementById("micheckAgregarColumna").checked == true) {
+        // no es visible el segundo select        
+        $(getSelectEliminarColumna).addClass("oculto");
+        // su pareja sí
+        $(getSelectAgregarColumna).removeClass("oculto");
+        // visibilidad de los falsos select       
+        $("#espSelEliminarColumna").removeClass("oculto");
+        $("#espSelAgregarColumna").addClass("oculto");
+    } else {
+        // si selecciona eliminar columnas
+        // es visible el segundo select        
+        $(getSelectEliminarColumna).removeClass("oculto");
+        // pero no el primero        
+        $(getSelectAgregarColumna).addClass("oculto");
+        // visibilidad de los falsos select       
+        $("#espSelEliminarColumna").addClass("oculto");
+        $("#espSelAgregarColumna").removeClass("oculto");
     }
 }
 // restaura los formatos de todos los pixeles
