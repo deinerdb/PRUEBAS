@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+﻿<!DOCTYPE HTML>
 <html lang="es" dir="ltr">
     <head>
         <meta charset="UTF-8">
@@ -294,6 +294,47 @@
             }
             /* FIN LOADER */
             /* ---------- */
+            /* top button */
+            #BtnTop {
+                display: none; /* Hidden by default */
+                position: fixed; /* Fixed/sticky position */
+                bottom: 60px !important; /* Place the button */
+                right: 30px; /* Place the button 30px from the right */
+                z-index: 200; /* Make sure it does not overlap */
+                border: none; /* Remove borders */
+                outline: none; /* Remove outline */
+                background-color: #cc0000; /* Set a background color */
+                background-color: rgba(204, 0, 0, 0.7); /* background color */
+                color: white; /* Text color */
+                cursor: pointer; /* Add a mouse pointer on hover */
+                padding: 8px 10px; /* Some padding */
+                -moz-border-radius: 6px;
+                -webkit-border-radius: 6px;
+                border-radius: 6px; /* Rounded corners */
+                font-size: 1.2em;
+                font-weight: bold;
+                /*SOMBRA*/
+                /* rgb es rgb(179, 0, 179) */
+                -moz-box-shadow: 4px 4px 3px #ff3333;
+                -moz-box-shadow: 4px 4px 3px rgba(255, 51, 51, 0.6);
+                -webkit-box-shadow: 4px 4px 3px #ff3333;
+                -webkit-box-shadow: 4px 4px 3px rgba(255, 51, 51, 0.6);
+                box-shadow: 4px 4px 3px #ff3333;
+                box-shadow: 4px 4px 3px rgba(255, 51, 51, 0.6);
+                /*no se puede seleccionar el texto*/
+                -webkit-user-select: none; /* Chrome, Opera, Safari */
+                -moz-user-select: none; /* Firefox 2+ */
+                -ms-user-select: none; /* IE 10+ */
+                user-select: none; /* Standard syntax */
+            }
+
+                #BtnTop:hover {
+                    background: #cc3300; /* For browsers that do not support gradients */
+                    background: -webkit-linear-gradient(left, #ff0000, #800000); /* For Safari 5.1 to 6.0 */
+                    background: -o-linear-gradient(right, #ff0000, #800000); /* For Opera 11.1 to 12.0 */
+                    background: -moz-linear-gradient(right, #ff0000, #800000); /* For Firefox 3.6 to 15 */
+                    background: linear-gradient(to right, #ff0000, #800000); /* Standard syntax (must be last) */
+                }
             #contbuscarProducto {
                 text-align: left;
                 margin:20px 4px 18px 6px;
@@ -363,6 +404,49 @@
                 // inicializar campos, algunos navegadores recuerdan valores previos
                 
             });
+            //***********************************
+            //script para el botón "top"
+            //***********************************
+            var btnInterval;
+            var btnContador;
+            // MUESTRA EL BOTÓN CUANDO HACE SCROLL MÁS DE 20 PX
+            window.onscroll = function () { scrollFunction() };
+            function scrollFunction() {
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    document.getElementById("BtnTop").style.opacity = "1";
+                    document.getElementById("BtnTop").style.display = "block";
+                    clearInterval(btnInterval);
+                    btnContador = 0;
+                    btnInterval = setInterval("manejarbtn()", 20);
+                } else {
+                    document.getElementById("BtnTop").style.display = "none";
+                }
+            }
+            function manejarbtn() {
+                btnContador += 1;
+                switch (true) {
+                    case btnContador <= 1:
+                        //primera vez es totalmente visible
+                        document.getElementById("BtnTop").style.opacity = "1";
+                        break;
+                    case btnContador == 125:
+                        //finaliza
+                        document.getElementById("BtnTop").style.display = "none";
+                        clearInterval(btnInterval);
+                        break;
+                    case btnContador >= 100:
+                        //lo hace cada vez más opaco
+                        document.getElementById("BtnTop").style.opacity = 500 / btnContador - 4;
+                }
+
+
+
+            }
+            // FUNCIÓN QUE HACE SCROLL HASTA EL INICIO DEL DOCUMENTO
+            function topFunction() {
+                document.body.scrollTop = 0; // For Chrome, Safari and Opera
+                document.documentElement.scrollTop = 0; // For IE and Firefox
+            }
         </script>
     </head>
     <body>
@@ -419,6 +503,7 @@
         </div>
         <p class="pie-tabla"><small>Versión web</small></p>
         <div id="rellenoInferior">
+        <button onclick="topFunction()" id="BtnTop" title="Subir"><i class="fas fa-arrow-up"></i></button>
 </body>
 </html>
 
