@@ -398,11 +398,12 @@
                 }, 1200);
             });        
         </script>
-        <script>
+        <script>            
             // al cargar la página
             window.addEventListener("load", function (event) {
                 // inicializar campos, algunos navegadores recuerdan valores previos
-                
+                // nada que buscar
+                document.getElementById("buscarProducto").value = "";
             });
             //***********************************
             //script para el botón "top"
@@ -482,22 +483,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <!-- ________________________________ -->
+                    <!-- INICIO CADENA GENERADA DESDE VBA -->
+                    <!-- ________________________________ -->
+
+                    <tr id="fila1" data-full="DES-SP-01 8 ONZ TP CONT SP 8 ONZ TP CONT SELLOPLUS 8 ONZ TAPA PLANA">                        
                         <td>DES-SP-01</td>
-                        <td>CONT SELLOPLUS 8 ONZ TAPA PLANA-CAJA X 2 DISP DE 100 UNID</td>
+                        <td>SELLOPLUS 8 ONZ TAPA PLANA-CAJA X 2 DISP DE 100 UNID</td>
                         <td class="num">$296</td>
                         <td class="num">$400</td>
                         <td class="num">$350</td>
                         <td class="num">$350</td>
                     </tr>
-                    <tr>
+                    <tr id="fila2" data-full="DES-SP-03 TRIANG CONT SP TRIANG 11X5 CONT SELLOPLUS TRIANGULAR 11X5">
                         <td>DES-SP-03</td>
                         <td>CONT SELLOPLUS TRIANGULAR 11X5-CAJA X 2 DISP DE 100 UNID</td>
                         <td class="num">$278</td>
                         <td class="num">$400</td>
                         <td class="num">$330</td>
                         <td class="num">$330</td>                                        
-                    </tr>                    
+                    </tr>
+
+                    <!-- _____________________________ -->
+                    <!-- FIN CADENA GENERADA DESDE VBA -->
+                    <!-- _____________________________ -->                    
                 </tbody>
             </table>
         </div>
