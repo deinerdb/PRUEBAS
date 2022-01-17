@@ -17,7 +17,7 @@ var getMuestraTipoBordes = document.getElementById("muestraTipoBordes");
 var getMuestraMarcoExtraerLienzo = document.getElementById("muestraMarcoExtraerLienzo");
 var getMuestraMarcoExtraerPixel = document.getElementById("muestraMarcoExtraerPixel");
 //para el modal
-// Get the modal , múltiples usos
+// Get the modal , múltiples
 var modal = document.getElementById('myModal');
 // Get the <span> element that closes the modal 
 var span = document.getElementsByClassName("close")[0];
@@ -1184,6 +1184,17 @@ function ajustesResize() {
         var margenArribaCont = 8 + getPaletaArriba.offsetHeight;
         $(getContenedor).css("margin", "0px");
         $(getContenedor).css("margin-top", margenArribaCont + "px");
+        // probando
+        //ajusta el contenedor de los cuadritos
+        if (mostrarEtiquetas == true) {
+            var anchoCont = tamaño * (1 + numColumnas);
+        } else {
+            var anchoCont = tamaño * numColumnas;
+        }        
+        // MAXNUMCOLUMNAS VECES EL ANCHO DE UN CUADRITO... más el rótulo
+        //PERO OJO QUE maxWidth DEL CONTENEDOR ES 88%, NUNCA DESBORDA PANTALLA.
+        getContenedor.style.width = anchoCont + "px";
+        // fin prueba        
         $(getContenedor).css("max-width", "88%");        
         var espacioPie = 12 + getPaletaAbajo.offsetHeight;
         //$("#paletaAbajo").attr("title", espacioPie);
@@ -1709,7 +1720,104 @@ function aplicarLienzoGlobal() {
 function aceptarModal() {
     switch (modalActual) {
         case "columnas":
-            showSnackbar("En construcción...");
+            var msj = "Realizado";
+            var mensaje = "Deshacer";
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia
+                var i;
+                var j;
+                var miID;                
+                var miElemDim;
+                // guarda formatos para poder deshacer
+                guardarFormatos();
+                // decide si se trata de eliminar o agregar columna            
+                if (document.getElementById("micheckAgregarColumna").checked == true) {
+                    // agregar columna
+                    lastAction = "agregarColumna";
+                    // redimensiona
+                    numColumnas = 1 + numColumnas;                
+                    getSelectColumnas.selectedIndex = numColumnas - 1;
+                    //construye el id del rótulo, row 0 y col numColumnas
+                    miID = "r0" + "c" + numColumnas;
+                    // hace visible el rótulo, si aplica
+                    miElemDim = document.getElementById(miID);
+                    $(miElemDim).removeClass("oculto");
+                    // hace visible la columna adicional
+                    for (i = 1; i <= numFilas; i++) {
+                        //construye el id
+                        miID = "f" + i + "c" + numColumnas;                
+                        // referencia al cuadrito para optimizar
+                        miElemDim = document.getElementById(miID);
+                        miElemDim.style.display = "inline-block";
+                    }
+                    // desplaza las columnas, de derecha a izquierda
+                    var posInsertarColumna = getSelectAgregarColumna.value
+                    for ( i = numColumnas; i > posInsertarColumna; i-- ) {
+                        for (j = 1; j <= numFilas; j++) {
+                            // define id de destino
+                            miID = "f" + j + "c" + i;                            
+                            defineFormatoPixel(miID, "izquierda");                            
+                        }                       
+                    }
+                    // limpia la columna insertada
+                    for (i = 1; i <= numFilas; i++) {
+                        //construye el id
+                        miID = "f" + i + "c" + posInsertarColumna;                
+                        defineFormatoPixel(miID, "globales");
+                    }
+                    // configura mensajes
+                    msj = "Se ha insertado una columna en la posición " + posInsertarColumna;
+                    mensaje = "Deshacer adición de columna";
+                } else {
+                    // eliminar
+                    lastAction = "eliminarColumna";
+                    //desplaza las columnas, de izquierda a derecha
+                    var posEliminarColumna = getSelectEliminarColumna.value
+                    for ( i = posEliminarColumna; i < numColumnas; i++ ) {
+                        for (j = 1; j <= numFilas; j++) {
+                            // define id de destino
+                            miID = "f" + j + "c" + i;                            
+                            defineFormatoPixel(miID, "derecha");                            
+                        }                       
+                    }
+                    // limpia la última columna
+                    for (i = 1; i <= numFilas; i++) {
+                        //construye el id
+                        miID = "f" + i + "c" + numColumnas;                
+                        defineFormatoPixel(miID, "globales");
+                    }
+                    // el rótulo de la última columna
+                    //construye el id del rótulo, row 0 y col numColumnas
+                    miID = "r0" + "c" + numColumnas;
+                    // oculta el rótulo, si aplica
+                    miElemDim = document.getElementById(miID);
+                    $(miElemDim).addClass("oculto");
+                    // oculta la última columna
+                    for (i = 1; i <= numFilas; i++) {
+                        //construye el id
+                        miID = "f" + i + "c" + numColumnas;                
+                        // referencia al cuadrito para optimizar
+                        miElemDim = document.getElementById(miID);
+                        miElemDim.style.display = "none";
+                    }
+                    // redimensiona, formalmente
+                    numColumnas = numColumnas - 1;                
+                    getSelectColumnas.selectedIndex = numColumnas - 1; 
+                    // configura mensajes                    
+                    msj = "Se ha eliminado la columna en la posición " + posEliminarColumna;                    
+                    mensaje = "Deshacer eliminación de columna";
+                }
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+                // ajusta todo                
+                ajustesResize();
+                showSnackbar(msj);
+                // puede deshacer
+                estadoBtnDeshacer(true, mensaje);
+            }, 0);
             break;
         case "filas":
             var msj = "Realizado";
@@ -2217,7 +2325,7 @@ function aceptarModal() {
             break;
     }
     // cierra el modalActual
-    cerrarModal();
+    cerrarModal();    
 }
 // el botón aceptar del modal
 document.getElementById("BtnAceptar").onclick = function () {
@@ -4574,7 +4682,7 @@ function dimensionar(mostrarLoader) {
             var anchoCont = tamaño * numColumnas;
         }        
         // MAXNUMFILAS VECES EL ANCHO DE UN CUADRITO... más el rótulo
-        //PERO OJO QUE maxWidth DEL CONTENEDOR ES 90%, NUNCA DESBORDA PANTALLA.
+        //PERO OJO QUE maxWidth DEL CONTENEDOR ES 88%, NUNCA DESBORDA PANTALLA.
         getContenedor.style.width = anchoCont + "px";
         // posiciona inmediatamente
         ajustesResize();
@@ -5149,7 +5257,7 @@ function ajustarTamaño(incremento, mostrarLoader, notificar) {
             var anchoCont = tamaño * numColumnas;
         }
         // n VECES EL ANCHO DE UN CUADRITO, más el rótulo
-        //PERO OJO QUE maxWidth DEL CONTENEDOR ES 90%, NUNCA DESBORDA PANTALLA.
+        //PERO OJO QUE maxWidth DEL CONTENEDOR ES 88%, NUNCA DESBORDA PANTALLA.
         getContenedor.style.width = anchoCont + "px"; // ajustesResize lo ajusta también
         // para centrado y otros ajustes
         ajustesResize();
@@ -5461,6 +5569,12 @@ getBtnDeshacer.onclick = function () {
     ocupado = true;
     var mensaje = "¡Hecho!";
     switch (lastAction) {
+        case "agregarColumna":
+            showSnackbar("En desarrollo...");
+            break;
+        case "eliminarColumna":
+            showSnackbar("En desarrollo...");
+            break;
         case "agregarFila":
             // deshace la adición de fila            
             mensaje = "Se deshizo la adición de fila";
@@ -6020,7 +6134,7 @@ getBtnDeshacer.onclick = function () {
                     var anchoCont = tamaño * numColumnas;
                 }
                 // n VECES EL ANCHO DE UN CUADRITO... más el rótulo
-                //PERO OJO QUE maxWidth DEL CONTENEDOR ES 90%, NUNCA DESBORDA PANTALLA.
+                //PERO OJO QUE maxWidth DEL CONTENEDOR ES 88%, NUNCA DESBORDA PANTALLA.
                 getContenedor.style.width = anchoCont + "px";
                 permitirEvento = true;
                 // oculta el loader
