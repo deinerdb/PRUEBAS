@@ -17,7 +17,7 @@ var getMuestraTipoBordes = document.getElementById("muestraTipoBordes");
 var getMuestraMarcoExtraerLienzo = document.getElementById("muestraMarcoExtraerLienzo");
 var getMuestraMarcoExtraerPixel = document.getElementById("muestraMarcoExtraerPixel");
 //para el modal
-// Get the modal , múltiples
+// Get the modal , múltiples usos
 var modal = document.getElementById('myModal');
 // Get the <span> element that closes the modal 
 var span = document.getElementsByClassName("close")[0];
@@ -5570,10 +5570,10 @@ getBtnDeshacer.onclick = function () {
     var mensaje = "¡Hecho!";
     switch (lastAction) {
         case "agregarColumna":
-            showSnackbar("En desarrollo...");
+            mensaje = "En desarrollo...";
             break;
         case "eliminarColumna":
-            showSnackbar("En desarrollo...");
+            mensaje = "En desarrollo...";
             break;
         case "agregarFila":
             // deshace la adición de fila            
