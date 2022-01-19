@@ -402,6 +402,13 @@
                     /*background-color: #dcdcdc;*/
                     border-style: outset;        
                 }
+                #infoNoEncontrados {
+                    color: red;
+                    font-family: Consolas, 'Courier New', Courier, monospace;
+                    font-size: 1.18em;
+                    font-weight: bold;
+                    display: none;                    
+                }
         </style>
         <script>
             $(document).ready(function () {
@@ -414,57 +421,7 @@
                 }, 1200);
             });        
         </script>
-        <script>            
-            // al cargar la página
-            window.addEventListener("load", function (event) {
-                // inicializar campos, algunos navegadores recuerdan valores previos
-                // nada que buscar
-                document.getElementById("buscarProducto").value = "";
-            });
-            //***********************************
-            //script para el botón "top"
-            //***********************************
-            var btnInterval;
-            var btnContador;
-            // MUESTRA EL BOTÓN CUANDO HACE SCROLL MÁS DE 20 PX
-            window.onscroll = function () { scrollFunction() };
-            function scrollFunction() {
-                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                    document.getElementById("BtnTop").style.opacity = "1";
-                    document.getElementById("BtnTop").style.display = "block";
-                    clearInterval(btnInterval);
-                    btnContador = 0;
-                    btnInterval = setInterval("manejarbtn()", 20);
-                } else {
-                    document.getElementById("BtnTop").style.display = "none";
-                }
-            }
-            function manejarbtn() {
-                btnContador += 1;
-                switch (true) {
-                    case btnContador <= 1:
-                        //primera vez es totalmente visible
-                        document.getElementById("BtnTop").style.opacity = "1";
-                        break;
-                    case btnContador == 125:
-                        //finaliza
-                        document.getElementById("BtnTop").style.display = "none";
-                        clearInterval(btnInterval);
-                        break;
-                    case btnContador >= 100:
-                        //lo hace cada vez más opaco
-                        document.getElementById("BtnTop").style.opacity = 500 / btnContador - 4;
-                }
-
-
-
-            }
-            // FUNCIÓN QUE HACE SCROLL HASTA EL INICIO DEL DOCUMENTO
-            function topFunction() {
-                document.body.scrollTop = 0; // For Chrome, Safari and Opera
-                document.documentElement.scrollTop = 0; // For IE and Firefox
-            }
-        </script>
+        
     </head>
     <body>
         <div class="loader">
@@ -484,6 +441,7 @@
         <div id="contbuscarProducto">
             <input id="buscarProducto" type="search" maxlength="100" placeholder="Buscar..." autocomplete="off" spellcheck="false">
         </div>
+        <p id="infoNoEncontrados">¡No se encontraron resultados!</p>
         <h3 class="caption">Precios Bolsas Juan</h3>
         <div class="contenedor-tabla">
             <table>
@@ -5474,6 +5432,165 @@
         <p class="pie-tabla"><small>Versión web</small></p>
         <div id="rellenoInferior">
         <button onclick="topFunction()" id="BtnTop" title="Subir"><i class="fas fa-arrow-up"></i></button>
+        
+        <script>            
+            // al cargar la página
+            window.addEventListener("load", function (event) {
+                // inicializar campos, algunos navegadores recuerdan valores previos
+                // nada que buscar
+                document.getElementById("buscarProducto").value = "";
+                // no se ha buscado
+                $("#infoNoEncontrados").css("display", "none");
+            });
+            //***********************************
+            //script para el botón "top"
+            //***********************************
+            var btnInterval;
+            var btnContador;
+            // MUESTRA EL BOTÓN CUANDO HACE SCROLL MÁS DE 20 PX
+            window.onscroll = function () { scrollFunction() };
+            function scrollFunction() {
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    document.getElementById("BtnTop").style.opacity = "1";
+                    document.getElementById("BtnTop").style.display = "block";
+                    clearInterval(btnInterval);
+                    btnContador = 0;
+                    btnInterval = setInterval("manejarbtn()", 20);
+                } else {
+                    document.getElementById("BtnTop").style.display = "none";
+                }
+            }
+            function manejarbtn() {
+                btnContador += 1;
+                switch (true) {
+                    case btnContador <= 1:
+                        //primera vez es totalmente visible
+                        document.getElementById("BtnTop").style.opacity = "1";
+                        break;
+                    case btnContador == 125:
+                        //finaliza
+                        document.getElementById("BtnTop").style.display = "none";
+                        clearInterval(btnInterval);
+                        break;
+                    case btnContador >= 100:
+                        //lo hace cada vez más opaco
+                        document.getElementById("BtnTop").style.opacity = 500 / btnContador - 4;
+                }
+
+
+
+            }
+            // FUNCIÓN QUE HACE SCROLL HASTA EL INICIO DEL DOCUMENTO
+            function topFunction() {
+                document.body.scrollTop = 0; // For Chrome, Safari and Opera
+                document.documentElement.scrollTop = 0; // For IE and Firefox
+            }
+
+            // procesa las entradas en el campo buscarProducto
+            var buscandoProducto = false;
+            var timerBuscarProducto = 0;
+            function procesarEntradaBuscarProducto() {                
+                if (buscandoProducto == true) {        
+                    // cancela el temporizador en curso para la nueva búsqueda
+                    clearTimeout(timerBuscarProducto);
+                    // inicia el temporizador para nueva búsqueda
+                    timerBuscarProducto = setTimeout(function () {
+                        procesarEntradaBuscarProducto();
+                    }, 500);
+                    return;
+                } 
+                buscandoProducto = true;   
+                // recupera el valor del campo
+                var test = document.getElementById("buscarProducto").value;
+                if (test.length <= 0) {                   
+                    // si no hay nada, muestra todas las filas
+                    // remueve las clases de paridad y oculto
+                    $(".fila").removeClass("par impar oculto");
+                    // agrega la clase todas
+                    $(".fila").addClass("todas"); 
+                    // desocupado y sale
+                    buscandoProducto = false;
+                    return;
+                }
+                return;    
+                // es indiferente a las mayúsculas, siempre se almacena en minúsculas    
+                test = test.toLowerCase();
+                // recorre las filas de productos
+                //obtiene un array con todos los de la clase fila
+                var x = document.getElementsByClassName("fila");
+                var i;
+                // para obtener el nombre en español e inglés
+                var miTitle = "";
+                var miFamEsp = "";
+                var cantidadEncontrados = 0;
+                // oculta el error
+                $("#infoNoEncontrados").css("display", "none");   
+                //recorre todo el array y compara su color con el ingresado
+                for (i = 0; i < x.length; i++) {
+                    // el nombre 
+                    miTitle = x[i].title.split(" - ");
+                    miFamEsp = x[i].dataset.espfam.toLowerCase();
+                    if (miTitle[0].toLowerCase().indexOf(test) == -1 && miTitle[1].toLowerCase().indexOf(test) == -1 && miTitle[2].toLowerCase().indexOf(test) == -1 && miFamEsp.indexOf(test) == -1) {
+                        // no coincide, lo oculta
+                        x[i].style.display = "none";
+                    } else {
+                        // coincide, lo muestra
+                        x[i].style.display = "inline-block";
+                        cantidadEncontrados++;
+                    }
+                }
+                if (cantidadEncontrados > 0) {
+                    // oculta el error
+                    $("#infoNoEncontrados").css("display", "none");        
+                } else {
+                    // muestra el error
+                    $("#infoNoEncontrados").css("display", "block");        
+                }
+                // al final indica que ya está desocupado
+                buscandoProducto = false;
+            }
+                            
+        </script>
+        <script>
+            //  eventos al cambiar valor buscarProducto  
+
+            document.getElementById("buscarProducto").addEventListener("input", procesarEntradaBuscarProducto);
+                document.getElementById("buscarProducto").addEventListener("change", procesarEntradaBuscarProducto);
+                //capturando pulsación de teclado en campo buscarProducto...
+                document.getElementById("buscarProducto").onkeydown = function (e) {
+
+                    var characterCode;
+                    // e.key es la recomendación actual
+                    if (e.key != undefined) {
+                        if (e.key.toLowerCase() == "enter") {
+                            characterCode = 13;
+                        }
+                        else {
+                            characterCode = 0;
+                        }
+                    } else {
+                        /* navegadores antiguos...  */
+                        characterCode = e.which || e.charCode || e.keyCode || e.keyIdentifier || 0;
+                    }
+
+                    // solo si presionó Enter
+                    if (characterCode == 13) {
+
+                        // da el enfoque al contenedor indicado,
+                        // esto permite que se oculte el teclado en algunos móviles
+
+                        if (document.getElementById("buscarProducto").value.length == 0) {
+                            // no hace nada, no hay nada que buscar
+                            //showSnackbar("Nada que buscar...");                            
+                        } else {
+                            document.getElementById("buscarProducto").blur();
+                            document.getElementById("contenedor-tabla").focus();
+                        }       
+
+                    }
+
+                }
+        </script>
 </body>
 </html>
 
