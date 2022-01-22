@@ -446,9 +446,93 @@
                     color: red;
                     font-family: Consolas, 'Courier New', Courier, monospace;
                     font-size: 1.18em;
+                    text-align: center;
                     font-weight: bold;
                     display: none;                    
                 }
+                /*-------------*/
+
+                /* inicia clase parpadea */
+                .parpadea {
+                    /*WEBKIT*/
+                    -webkit-animation-name: parpadeo;
+                    -webkit-animation-duration: 1s;
+                    -webkit-animation-timing-function: linear;
+                    -webkit-animation-iteration-count: infinite;
+                    /*MOZ*/
+                    -moz-animation-name: parpadeo;
+                    -moz-animation-duration: 1s;
+                    -moz-animation-timing-function: linear;
+                    -moz-animation-iteration-count: infinite;
+                    /*O*/
+                    -o-animation-name: parpadeo;
+                    -o-animation-duration: 1s;
+                    -o-animation-timing-function: linear;
+                    -o-animation-iteration-count: infinite;
+                    /*ESTÁNDAR*/
+                    animation-name: parpadeo;
+                    animation-duration: 1s;
+                    animation-timing-function: linear;
+                    animation-iteration-count: infinite;
+                }
+
+                @-webkit-keyframes parpadeo {
+                    0% {
+                        opacity: 1.0;
+                    }
+
+                    50% {
+                        opacity: 0.0;
+                    }
+
+                    100% {
+                        opacity: 1.0;
+                    }
+                }
+
+                @-moz-keyframes parpadeo {
+                    0% {
+                        opacity: 1.0;
+                    }
+
+                    50% {
+                        opacity: 0.0;
+                    }
+
+                    100% {
+                        opacity: 1.0;
+                    }
+                }
+
+                @-o-keyframes parpadeo {
+                    0% {
+                        opacity: 1.0;
+                    }
+
+                    50% {
+                        opacity: 0.0;
+                    }
+
+                    100% {
+                        opacity: 1.0;
+                    }
+                }
+
+                @keyframes parpadeo {
+                    0% {
+                        opacity: 1.0;
+                    }
+
+                    50% {
+                        opacity: 0.0;
+                    }
+
+                    100% {
+                        opacity: 1.0;
+                    }
+                }
+                /*fin clase parpadear*/
+
         </style>
         <script>
             $(document).ready(function () {
@@ -480,8 +564,7 @@
         </div>
         <div id="contbuscarProducto">
             <input id="buscarProducto" type="search" maxlength="100" placeholder="Buscar..." autocomplete="off" spellcheck="false">
-        </div>
-        <p id="infoNoEncontrados">¡No se encontraron resultados!</p>
+        </div>        
         <h3 class="caption">Precios Bolsas Juan</h3>
         <div class="contenedor-tabla">
             <table>
@@ -1728,10 +1811,10 @@
                         <tr class='fila todas' data-full='DES-VP-49 DOBLE SUP 2,5 COLOR VAS COL TIN DOB SUP VASO PLÁST TINTO DOBLE SUPER COLOR'>
                         <td>DES-VP-49</td>
                         <td>VASO PLÁST TINTO DOBLE SUPER COLOR-CAJ X 168 PTES X 50 UNID</td>
-                        <td  class='num'>$774</td>
+                        <td  class='num'>$869</td>
+                        <td  class='num'>$1.100</td>
+                        <td  class='num'>$1.050</td>
                         <td  class='num'>$1.000</td>
-                        <td  class='num'>$950</td>
-                        <td  class='num'>$900</td>
                         </tr>
                         <tr class='fila todas' data-full='DES-VP-50 5,5 ONZ BCO X50 MARPLAST VAS PL 5.5 ONZ BLCO VASO PLÁST BLANCO 5.5 ONZ MARPLAST'>
                         <td>DES-VP-50</td>
@@ -5328,18 +5411,18 @@
                         <tr class='fila todas' data-full='BOL-PAP-02 PAP 1 LB BOLSA DE PAPEL 1 LB BOLSA DE PAPEL 1 LIBRA'>
                         <td>BOL-PAP-02</td>
                         <td>BOLSA DE PAPEL 1 LIBRA-BTO X 16 DISP X 5 PTES X 100 UNID</td>
-                        <td  class='num'>$2.000</td>
-                        <td  class='num'>$2.600</td>
-                        <td  class='num'>$2.400</td>
-                        <td  class='num'>$2.400</td>
+                        <td  class='num'>$2.524</td>
+                        <td  class='num'>$3.300</td>
+                        <td  class='num'>$3.000</td>
+                        <td  class='num'>$3.000</td>
                         </tr>
                         <tr class='fila todas' data-full='BOL-PAP-03 PAP 2 LB BOLSA DE PAPEL 2 LB BOLSA DE PAPEL 2 LIBRA'>
                         <td>BOL-PAP-03</td>
                         <td>BOLSA DE PAPEL 2 LIBRA-BTO X 12 DISP X 5 PTES X 100 UNID</td>
-                        <td  class='num'>$2.667</td>
-                        <td  class='num'>$3.500</td>
-                        <td  class='num'>$3.200</td>
-                        <td  class='num'>$3.200</td>
+                        <td  class='num'>$3.365</td>
+                        <td  class='num'>$4.400</td>
+                        <td  class='num'>$4.000</td>
+                        <td  class='num'>$4.000</td>
                         </tr>
                         <tr class='fila todas' data-full='BOL-PAP-04 PAP 3 LB BOLSA DE PAPEL 3 LB BOLSA DE PAPEL 3 LIBRA'>
                         <td>BOL-PAP-04</td>
@@ -5368,10 +5451,10 @@
                         <tr class='fila todas' data-full='BOL-PAP-07 PAP 12 LB BOLSA DE PAPEL 12LB BOLSA DE PAPEL 12 LIBRA'>
                         <td>BOL-PAP-07</td>
                         <td>BOLSA DE PAPEL 12 LIBRA-BTO X 4 DISP X 5 PTES X 100 UNID</td>
-                        <td  class='num'>$6.500</td>
-                        <td  class='num'>$8.200</td>
-                        <td  class='num'>$7.300</td>
-                        <td  class='num'>$7.300</td>
+                        <td  class='num'>$10.530</td>
+                        <td  class='num'>$13.000</td>
+                        <td  class='num'>$12.500</td>
+                        <td  class='num'>$12.500</td>
                         </tr>
                         <tr class='fila todas' data-full='BOL-PAP-08 PAP 25 LB MANIJA BOLSA PAPEL25LB MAN BOLSA DE PAPEL 25 LB MANIJA'>
                         <td>BOL-PAP-08</td>
@@ -5469,6 +5552,7 @@
                 </tbody>
             </table>
         </div>
+        <p id="infoNoEncontrados" class="parpadea">¡No se encontraron resultados!<br><br><i class="far fa-frown"></i></p>
         <p class="pie-tabla"><small>Versión web</small></p>
         <div id="rellenoInferior">
         <button onclick="topFunction()" id="BtnTop" title="Subir"><i class="fas fa-arrow-up"></i></button>
@@ -5694,9 +5778,7 @@
                 var miInfoFull = "";
                 var cantidadEncontrados = 0;
                 // oculta el error inicialmente
-                $("#infoNoEncontrados").css("display", "none");
-                // remueve las clases de paridad
-                $(".fila").removeClass("par impar todas");   
+                $("#infoNoEncontrados").css("display", "none");                
                 //recorre todo el array y compara su color con el ingresado
                 for (i = 0; i < x.length; i++) {
                     // recupera la información completa del artículo                     
@@ -5709,12 +5791,15 @@
                         $(x[i]).removeClass("oculto");
                         // va contando los que muestra
                         cantidadEncontrados++;
+                        // gestiona la paridad por clases
                         if ( cantidadEncontrados % 2 == 0 ) {
                             // par
                             $(x[i]).addClass("par");
+                            $(x[i]).removeClass("impar todas");
                         } else {
                             // impar
                             $(x[i]).addClass("impar");
+                            $(x[i]).removeClass("par todas");
                         }
                     }
                 }
