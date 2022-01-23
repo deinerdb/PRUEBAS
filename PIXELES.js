@@ -61,7 +61,8 @@ var getSpanFilas = document.getElementById("spanFilas");
 var getSelectFilas = document.getElementById("selectFilas"); // listaFilas
 var getSpanColumnas = document.getElementById("spanColumnas");
 var getSelectColumnas = document.getElementById("selectColumnas"); // listaColumnas
-var getBtnImportar = document.getElementById("BtnImportar");
+var getBtnImportarTexto = document.getElementById("BtnImportarTexto");
+var getBtnImportarGallery = document.getElementById("BtnImportarGallery");
 var getBtnFilas = document.getElementById("BtnFilas");
 var getBtnColumnas = document.getElementById("BtnColumnas");
 var getSelectAgregarFila = document.getElementById("selectAgregarFila");
@@ -4362,8 +4363,12 @@ getBtnGallery.onclick = function () {
 getBtnExportar.onclick = function () {
     showSnackbar("En construcción");
 }
-//se muestra la ventana con opciones para importar
-getBtnImportar.onclick = function () {
+//se muestra la ventana con opciones para importar desde texto
+getBtnImportarTexto.onclick = function () {
+    showSnackbar("En construcción");
+}
+//se muestra la ventana con opciones para importar desde galería
+getBtnImportarGallery.onclick = function () {
     showSnackbar("En construcción");
 }
 // se muestra la ventana para agregar o eliminar filas
@@ -4755,7 +4760,8 @@ function cambiarModo(nuevoModo) {
         $(getSpanColumnas).removeClass("oculto");
         getSelectColumnas.style.display = "inline-block";
         getBtnColumnas.style.display = "inline-block";
-        getBtnImportar.style.display = "inline-block";
+        getBtnImportarTexto.style.display = "inline-block";
+        getBtnImportarGallery.style.display = "inline-block";
         getBtnExportar.style.display = "inline-block";
         getBtnImprimir.style.display = "inline-block";
         getBtnAceptarLibre.style.display = "none";
@@ -4808,7 +4814,8 @@ function cambiarModo(nuevoModo) {
             $(getSpanColumnas).addClass("oculto");
             getSelectColumnas.style.display = "none";
             getBtnColumnas.style.display = "none";
-            getBtnImportar.style.display = "none";
+            getBtnImportarTexto.style.display = "none";
+            getBtnImportarGallery.style.display = "none";
             getBtnExportar.style.display = "none";
             getBtnImprimir.style.display = "none";
             getBtnPantallaCompleta.style.display = "none";
@@ -5570,10 +5577,75 @@ getBtnDeshacer.onclick = function () {
     var mensaje = "¡Hecho!";
     switch (lastAction) {
         case "agregarColumna":
-            mensaje = "En desarrollo...";
+            // deshace la adición de columna            
+            mensaje = "Se deshizo la adición de columna";
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia
+                var i;
+                var miID;
+                var miElemDim;                
+                // antes de dimensionar, oculta el rótulo de la última columna
+                //construye el id del rótulo, row 0 y col numColumnas
+                miID = "r0" + "c" + numColumnas;
+                // oculta el rótulo, si aplica
+                miElemDim = document.getElementById(miID);
+                $(miElemDim).addClass("oculto");
+                // antes de dimensionar, oculta la última columna
+                // oculta la columna adicional
+                for (i = 1; i <= numFilas; i++) {
+                    //construye el id
+                    miID = "f" + i + "c" + numColumnas;                
+                    // referencia al cuadrito para optimizar
+                    miElemDim = document.getElementById(miID);
+                    miElemDim.style.display = "none";
+                }
+                // redimensiona, formalmente
+                numColumnas = numColumnas - 1;
+                getSelectColumnas.selectedIndex = numColumnas - 1;
+                // restaura los formatos
+                restaurarFormatos();
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+
+            }, 0);
             break;
         case "eliminarColumna":
-            mensaje = "En desarrollo...";
+            // deshace la eliminación de columna
+            mensaje = "Se deshizo la eliminación de columna";
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia
+                var i;
+                var miID;
+                var miElemDim;
+                // redimensiona, formalmente
+                numColumnas = 1 + numColumnas;
+                getSelectColumnas.selectedIndex = numColumnas - 1;            
+                // muestra el rótulo de la última columna
+                //construye el id del rótulo, row 0 y col numColumnas
+                miID = "r0" + "c" + numColumnas;
+                // muestra el rótulo, si aplica
+                miElemDim = document.getElementById(miID);
+                $(miElemDim).removeClass("oculto");
+                // muestra la última columna
+                for (i = 1; i <= numFilas; i++) {
+                    //construye el id
+                    miID = "f" + i + "c" + numColumnas;                
+                    // referencia al cuadrito para optimizar
+                    miElemDim = document.getElementById(miID);
+                    miElemDim.style.display = "inline-block";
+                }            
+                // restaura los formatos
+                restaurarFormatos();
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+                
+            }, 0);  
             break;
         case "agregarFila":
             // deshace la adición de fila            
