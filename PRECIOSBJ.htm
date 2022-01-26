@@ -5755,14 +5755,20 @@
 
             // array global, para optimizar la búsqueda
             //obtiene un array con todos los de la clase fila
-            var x = document.getElementsByClassName("fila");
-            var cantidadProductos = x.length;
+            var arrayFilas = document.getElementsByClassName("fila");
+            var cantidadProductos = arrayFilas.length;
+
+            // info sin resultados
+            var getInfoNoEncontrados = document.getElementById("infoNoEncontrados");
+            
             // info x de n 
-            document.getElementById("infoMostrados").innerHTML = "" + cantidadProductos +  " de " + cantidadProductos;
+            var getInfoMostrados = document.getElementById("infoMostrados");
+            getInfoMostrados.innerHTML = "" + cantidadProductos +  " de " + cantidadProductos;
 
             // procesa las entradas en el campo buscarProducto
             var buscandoProducto = false;
             var timerBuscarProducto = 0;
+            
             function procesarEntradaBuscarProducto() {                
                 if (buscandoProducto == true) {        
                     // cancela el temporizador en curso para la nueva búsqueda
@@ -5783,9 +5789,9 @@
                     // agrega la clase todas
                     $(".fila").addClass("todas");
                     // oculta el error, todos son visibles
-                    $("#infoNoEncontrados").css("display", "none");
+                    $(getInfoNoEncontrados).css("display", "none");
                     // info x de n 
-                    document.getElementById("infoMostrados").innerHTML = "" + cantidadProductos +  " de " + cantidadProductos;
+                    getInfoMostrados.innerHTML = "" + cantidadProductos +  " de " + cantidadProductos;
                     // desocupado y sale
                     buscandoProducto = false;
                     return;
@@ -5802,40 +5808,40 @@
                 var miInfoFull = "";
                 var cantidadEncontrados = 0;
                 // oculta el error inicialmente
-                $("#infoNoEncontrados").css("display", "none");                
+                $(getInfoNoEncontrados).css("display", "none");                
                 //recorre todo el array y compara su color con el ingresado
-                for (i = 0; i < x.length; i++) {
+                for (i = 0; i < cantidadProductos; i++) {
                     // recupera la información completa del artículo                     
-                    miInfoFull = x[i].dataset.full.toLowerCase();                    
+                    miInfoFull = arrayFilas[i].dataset.full.toLowerCase();                    
                     if ( miInfoFull.indexOf(test) == -1 ) {
                         // no coincide, lo oculta
-                        $(x[i]).addClass("oculto");                       
+                        $(arrayFilas[i]).addClass("oculto");                       
                     } else {
                         // coincide, lo muestra
-                        $(x[i]).removeClass("oculto");
+                        $(arrayFilas[i]).removeClass("oculto");
                         // va contando los que muestra
                         cantidadEncontrados++;
                         // gestiona la paridad por clases
                         if ( cantidadEncontrados % 2 == 0 ) {
                             // par
-                            $(x[i]).addClass("par");
-                            $(x[i]).removeClass("impar todas");
+                            $(arrayFilas[i]).addClass("par");
+                            $(arrayFilas[i]).removeClass("impar todas");
                         } else {
                             // impar
-                            $(x[i]).addClass("impar");
-                            $(x[i]).removeClass("par todas");
+                            $(arrayFilas[i]).addClass("impar");
+                            $(arrayFilas[i]).removeClass("par todas");
                         }
                     }
                 }
                 if (cantidadEncontrados > 0) {
                     // oculta el error
-                    $("#infoNoEncontrados").css("display", "none");        
+                    $(getInfoNoEncontrados).css("display", "none");        
                 } else {
                     // muestra el error
-                    $("#infoNoEncontrados").css("display", "block");        
+                    $(getInfoNoEncontrados).css("display", "block");        
                 }
                 // info x de n 
-                document.getElementById("infoMostrados").innerHTML = "" + cantidadEncontrados +  " de " + cantidadProductos;
+                getInfoMostrados.innerHTML = "" + cantidadEncontrados +  " de " + cantidadProductos;
                 // al final indica que ya está desocupado
                 buscandoProducto = false;
             }
