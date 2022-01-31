@@ -54,6 +54,10 @@ var getBtnOpacidad = document.getElementById("BtnOpacidad");
 var getSpanInfoOpacidad = document.getElementById("spanInfoOpacidad");
 var getPMuestraOpacidad = document.getElementById("pMuestraOpacidad");
 var getBtnSombras = document.getElementById("BtnSombras");
+var getBtnCopiar = document.getElementById("BtnCopiar");
+var getBtnCortar = document.getElementById("BtnCortar");
+var getBtnVoltearH = document.getElementById("BtnVoltearH");
+var getBtnVoltearV = document.getElementById("BtnVoltearV");
 var getSpanInfoSombras = document.getElementById("spanInfoSombras");
 var getSelectSombras = document.getElementById("selectSombras");
 var getBtnDeshacer = document.getElementById("BtnDeshacer");
@@ -4750,6 +4754,10 @@ function cambiarModo(nuevoModo) {
         getBtnRadioBordes.style.display = "inline-block";
         getBtnOpacidad.style.display = "inline-block";
         getBtnSombras.style.display = "inline-block";
+        getBtnCopiar.style.display = "inline-block";
+        getBtnCortar.style.display = "inline-block";
+        getBtnVoltearH.style.display = "inline-block";
+        getBtnVoltearV.style.display = "inline-block";
         getBtnDeshacer.style.display = "inline-block";
         getBtnTrash.style.display = "inline-block";
         getBtnInfo.style.display = "inline-block";
@@ -4807,6 +4815,10 @@ function cambiarModo(nuevoModo) {
             getBtnRadioBordes.style.display = "none";
             getBtnOpacidad.style.display = "none";
             getBtnSombras.style.display = "none";
+            getBtnCopiar.style.display = "none";
+            getBtnCortar.style.display = "none";
+            getBtnVoltearV.style.display = "none";
+            getBtnVoltearH.style.display = "none";
             getBtnDeshacer.style.display = "none";            
             $(getSpanFilas).addClass("oculto");
             getSelectFilas.style.display = "none";
@@ -5531,6 +5543,22 @@ getBtnSombras.onclick = function () {
         cambiarModo("sombras");
         // en modo sombras se ve la respectiva flecha en el btn sombras
     }
+}
+// inicia el modo copiar y pegar
+getBtnCopiar.onclick = function () {
+    showSnackbar("En desarrollo...");
+}
+// inicia el modo cortar y pegar
+getBtnCortar.onclick = function () {
+    showSnackbar("En desarrollo...");
+}
+// inicia el modo voltear horizontalmente
+getBtnVoltearH.onclick = function () {
+    showSnackbar("En desarrollo...");
+}
+// inicia el modo voltear verticalmente
+getBtnVoltearV.onclick = function () {
+    showSnackbar("En desarrollo...");
 }
 // para definir tipo de borde
 // incluido el tipo "none"
