@@ -1161,7 +1161,8 @@ function alturaModal() {
 // referencias están al inicio del script
 function ajustesResize() {    
     // para obtener anchos mínimos de botones al diseñar
-    // $("#BtnEtiquetas1").attr("title", document.getElementById("BtnEtiquetas1").offsetWidth);
+    //var testSize = document.getElementById("BtnVoltearH");
+    //$(testSize).attr("title","w " + testSize.offsetWidth + " h " + testSize.offsetHeight );
     
     // ajusta el infoTemporal, solo si es visible    
     if (window.getComputedStyle(infoTemp).display === "block") {

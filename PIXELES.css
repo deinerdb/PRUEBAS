@@ -2516,6 +2516,14 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores, input {
     text-align: center;
     border: 3px solid #666699;
 }
+#BtnVoltearH, #BtnVoltearV {
+    padding: 0px;
+}
+#BtnVoltearH img, #BtnVoltearV img {
+    margin: 0px;
+    width: 22px;
+    height: 22px;
+}
 .seleccionadoBtnModos {
     /* el modo actual se marca con borde verde */
     border: 3px solid #009900 !important;
