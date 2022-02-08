@@ -5779,6 +5779,35 @@
             var getInfoMostrados = document.getElementById("infoMostrados");
             getInfoMostrados.innerHTML = "" + cantidadProductos +  " de " + cantidadProductos;
 
+            // La función de búsqueda que admite * como caracter comodín                         
+            function buscarPro(buscado, buscarEn) {
+                var arrayBuscado = [];
+                // un array con el separador *
+                arrayBuscado = buscado.split("*")
+                // para indicar el inicio de cada búsqueda
+                var iniciar = 0;
+                var pos = 0;
+                // el largo de cada cadena buscada
+                var largo = 0;
+                // para iterar
+                var i;
+                // recorre el array de cadenas buscadas
+                for (i = 0; i < arrayBuscado.length; i++) {
+                    // según la búsqueda anterior, define el inicio en este ciclo
+                    iniciar = 0 + pos + largo;
+                    // pos es nuevo en cada ciclo
+                    pos = buscarEn.indexOf(arrayBuscado[i], iniciar);
+                    if ( pos == -1 ) {
+                        // si no encuentra sale inmediatamente y devuelve falso
+                        return false;
+                    }
+                    // largo también se actualiza en cada ciclo
+                    largo = arrayBuscado[i].length;                    
+                }
+                // si llega aquí devuelve verdadero
+                return true;
+            }
+
             // procesa las entradas en el campo buscarProducto
             var buscandoProducto = false;
             var timerBuscarProducto = 0;
@@ -5826,8 +5855,8 @@
                 //recorre todo el array y compara su color con el ingresado
                 for (i = 0; i < cantidadProductos; i++) {
                     // recupera la información completa del artículo                     
-                    miInfoFull = arrayFilas[i].dataset.full.toLowerCase();                    
-                    if ( miInfoFull.indexOf(test) == -1 ) {
+                    miInfoFull = arrayFilas[i].dataset.full.toLowerCase();                                        
+                    if ( buscarPro(test, miInfoFull) == false ) {
                         // no coincide, lo oculta
                         $(arrayFilas[i]).addClass("oculto");                       
                     } else {
