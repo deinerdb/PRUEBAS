@@ -22,6 +22,33 @@ body {
     text-align: center;    
     font-size: 100%;
 }
+/* GRUPOS DE BOTONES */
+
+.contGrupo {    
+    border: none;
+    margin: 0 4px;
+    padding: 0;
+    padding-left: 8px;
+    padding-right: 10px;    
+}
+.contGrupo button:first-child {
+    margin-left: 2px !important;
+}
+.panelH {    
+    border: none;
+    margin: 0;
+    padding: 0;
+    display: inline-block;    
+}
+#ArrowGrupoCompartir {
+    color: #ffff00;
+}
+#BtnGrupoCompartir {
+    color: #ffff00;
+}
+#contGrupoCompartir {
+    box-shadow: 0em -0.125em 0.25em 0 #ffff00 inset;
+}
 /* ESTILOS DE TABLA */
 /* las muestras de colores en info */
 #tablaSpanPixel, #tablaSpanLienzo, #tablaSpanBordes {
