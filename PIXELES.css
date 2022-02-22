@@ -48,7 +48,8 @@ body {
     color: #ffff00;
 }
 #contGrupoCompartir {
-    box-shadow: 0em -0.125em 0.25em 0 #ffff00 inset;
+    -moz-box-shadow: 0em -3px 8px 0 #ffff00 inset;
+    -webkit-box-shadow: 0em -3px 8px 0 #ffff00 inset;
     box-shadow: 0em -3px 8px 0 #ffff00 inset;
 }
 /* ESTILOS DE TABLA */
