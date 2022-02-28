@@ -30,7 +30,13 @@ body {
     padding: 0;
     padding-left: 8px;
     padding-right: 10px;
-    display: inline-block;    
+    display: inline-block;  
+    white-space: nowrap; 
+    /* transición */
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;       
 }
 .contGrupo button:first-child {
     margin-left: 2px !important;
@@ -38,8 +44,9 @@ body {
 .panelH {    
     border: none;
     margin: 0;
-    padding: 0;
-    display: inline-block;    
+    padding: 0;    
+    display: inline-block; 
+    white-space: nowrap;    
 }
 #ArrowGrupoCompartir {
     color: #ffff00;
@@ -48,10 +55,19 @@ body {
     color: #ffff00;
 }
 #contGrupoCompartir {
-    -moz-box-shadow: 0em -3px 8px 0 #ffff00 inset;
+    /* para dar cabida solo a los dos botones */
+    min-width: 133px; /* cerrado */ 
+    width: 133px;
+    -moz-box-shadow: 0em -3px 8px 0 hsl(60, 100%, 50%) inset;
     -webkit-box-shadow: 0em -3px 8px 0 #ffff00 inset;
     box-shadow: 0em -3px 8px 0 #ffff00 inset;
 }
+/* para dar cabida a todos los botones del grupo */
+#contGrupoCompartir.abierto {
+    min-width: 360px !important;
+    width: 360px !important;
+}
+
 /* ESTILOS DE TABLA */
 /* las muestras de colores en info */
 #tablaSpanPixel, #tablaSpanLienzo, #tablaSpanBordes {

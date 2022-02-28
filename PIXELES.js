@@ -11,6 +11,8 @@ var getBtnCerrarHistorial = document.getElementById("BtnCerrarHistorial");
 var getContenedor = document.getElementById("contenedor");
 var getPantalla = document.getElementById("pantalla");
 var getRellenoHist = document.getElementById("rellenoHistorial");
+var getBtnGrupoCompartir = document.getElementById("BtnGrupoCompartir");
+var getArrowGrupoCompartir = document.getElementById("ArrowGrupoCompartir");
 // la muestra del tipo de bordes
 var getMuestraTipoBordes = document.getElementById("muestraTipoBordes");
 // muestra especial ExtraerDesde
@@ -1161,7 +1163,7 @@ function alturaModal() {
 // referencias están al inicio del script
 function ajustesResize() {    
     // para obtener anchos mínimos de botones al diseñar
-    //var testSize = document.getElementById("BtnVoltearH");
+    //var testSize = document.getElementById("contGrupoCompartir");
     //$(testSize).attr("title","w " + testSize.offsetWidth + " h " + testSize.offsetHeight );
     
     // ajusta el infoTemporal, solo si es visible    
@@ -4363,6 +4365,24 @@ getBtnGallery.onclick = function () {
     modalActual = "gallery";
     //muestra el modal
     showModal();
+}
+
+// alterna el estado del grupo compartir
+function alternarCompartir() {
+    $("#panelHCompartir").toggleClass("oculto");
+    $("#contGrupoCompartir").toggleClass("abierto");
+    if ( $("#contGrupoCompartir").hasClass("abierto") ) {
+        $("#IcoArrowCompartir").attr("class", "fas fa-angle-double-left");
+    } else {
+        $("#IcoArrowCompartir").attr("class", "fas fa-angle-double-right");
+    }
+}
+// expandir o contraer grupo compartir
+getBtnGrupoCompartir.onclick = function () {
+    alternarCompartir();
+}
+getArrowGrupoCompartir.onclick = function () {
+    alternarCompartir();
 }
 //se muestra la ventana con opciones para exportar
 getBtnExportar.onclick = function () {
