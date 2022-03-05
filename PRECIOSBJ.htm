@@ -3816,10 +3816,10 @@
                         <tr data-cod='BOL-CIE-18'  onclick= 'seleccionaProducto(this)' class='fila todas' data-full='BOL-CIE-18 9 x 12 CH IDE 0,5 BOLSA ZIPLOCK 9X12" BOLSA CIERRE HERMÉT 9X12 PULG IDE 0,5'>
                         <td>BOL-CIE-18</td>
                         <td>BOLSA CIERRE HERMÉT 9X12 PULG IDE 0,5-1 CAJ X 10 PTES X 100 UNID</td>
-                        <td  class='num compra'>$14.637</td>
-                        <td  class='num lista1'>$18.500</td>
-                        <td  class='num'>$17.500</td>
-                        <td  class='num'>$17.500</td>
+                        <td  class='num compra'>$14.994</td>
+                        <td  class='num lista1'>$19.000</td>
+                        <td  class='num'>$18.000</td>
+                        <td  class='num'>$18.000</td>
                         </tr>
                         <tr data-cod='BOL-CIE-19'  onclick= 'seleccionaProducto(this)' class='fila todas' data-full='BOL-CIE-19 10 x 13 CH IDE 0,5 BOLS ZIPLOCK 10X13" BOLSA CIERRE HERMÉT 10X13 PULG IDE 0,5'>
                         <td>BOL-CIE-19</td>
@@ -4016,10 +4016,10 @@
                         <tr data-cod='BOL-CIE-43'  onclick= 'seleccionaProducto(this)' class='fila todas' data-full='BOL-CIE-43 10 x 13 CH IDE 0,4 BOLS ZIPLOCK 10X13" BOLSA CIERRE HERMÉT 10X13 PULG IDE 0,4'>
                         <td>BOL-CIE-43</td>
                         <td>BOLSA CIERRE HERMÉT 10X13 PULG IDE 0,4-1 CAJ X 10 PTES X 100 UNID</td>
-                        <td  class='num compra'>$16.065</td>
-                        <td  class='num lista1'>$21.000</td>
-                        <td  class='num'>$19.500</td>
-                        <td  class='num'>$19.500</td>
+                        <td  class='num compra'>$18.564</td>
+                        <td  class='num lista1'>$25.000</td>
+                        <td  class='num'>$23.000</td>
+                        <td  class='num'>$23.000</td>
                         </tr>
                         <tr data-cod='BOL-CIE-44'  onclick= 'seleccionaProducto(this)' class='fila todas' data-full='BOL-CIE-44 12 x 15 CH IDE 0,4 BOLS ZIPLOCK 12X15" BOLSA CIERRE HERMÉT 12X15 PULG IDE 0,4'>
                         <td>BOL-CIE-44</td>
@@ -5686,7 +5686,8 @@
                         <td  class='num'>$12.000</td>
                         </tr>
                         
-
+                        <span style='display: none;' id='numVersVBA'>Versión web 748</span>
+                        
                     <!-- _____________________________ -->
                     <!-- FIN CADENA GENERADA DESDE VBA -->
                     <!-- _____________________________ -->                    
@@ -5694,7 +5695,11 @@
             </table>
         </div>
         <p id="infoNoEncontrados" class="parpadea">¡No se encontraron resultados!<br><br><i class="far fa-frown"></i></p>
-        <p class="pie-tabla"><small>Versión web 747</small></p>
+        <p class="pie-tabla"><small><span id="numVers">Versión web</span></small></p>
+        <script>
+            // la versión se actualiza con la macro VBA
+            document.getElementById("numVers").innerHTML = document.getElementById("numVersVBA").innerHTML;
+        </script>
         <div id="rellenoInferior">
         <button onclick="topFunction()" id="BtnTop" title="Subir"><i class="fas fa-arrow-up"></i></button>
         
