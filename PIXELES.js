@@ -13,6 +13,8 @@ var getPantalla = document.getElementById("pantalla");
 var getRellenoHist = document.getElementById("rellenoHistorial");
 var getBtnGrupoCompartir = document.getElementById("BtnGrupoCompartir");
 var getArrowGrupoCompartir = document.getElementById("ArrowGrupoCompartir");
+var getcontGrupoCompartir = document.getElementById("contGrupoCompartir");
+var getpanelHCompartir = document.getElementById("panelHCompartir");
 // la muestra del tipo de bordes
 var getMuestraTipoBordes = document.getElementById("muestraTipoBordes");
 // muestra especial ExtraerDesde
@@ -29,6 +31,7 @@ var getPie = document.getElementById("pie");
 // este es el margen inferior del pie
 var getpieAfter = document.getElementById("pieAfter");
 var getBtnHistorialColor = document.getElementById("BtnHistorialColor");
+var getBtnAyuda = document.getElementById("BtnAyuda");
 var getBtnEtiquetas = document.getElementById("BtnEtiquetas");
 var getIcoEtiquetas = document.getElementById("icoEtiquetas");
 var getBtnRellenar = document.getElementById("BtnRellenar");
@@ -4368,12 +4371,17 @@ getBtnGallery.onclick = function () {
 }
 
 // alterna el estado del grupo compartir
-function alternarCompartir() {
-    $("#panelHCompartir").toggleClass("oculto");
-    $("#contGrupoCompartir").toggleClass("abierto");
-    if ( $("#contGrupoCompartir").hasClass("abierto") ) {
+function alternarCompartir() { 
+    $(getcontGrupoCompartir).toggleClass("abierto");
+    if ( $(getcontGrupoCompartir).hasClass("abierto") ) {
+        // panel abierto
+        getpanelHCompartir.style.maxWidth = getpanelHCompartir.scrollWidth + "px";
+        getpanelHCompartir.style.opacity = "1";
         $("#IcoArrowCompartir").attr("class", "fas fa-angle-double-left");
     } else {
+        // panel cerrado
+        getpanelHCompartir.style.maxWidth = null;
+        getpanelHCompartir.style.opacity = "0";
         $("#IcoArrowCompartir").attr("class", "fas fa-angle-double-right");
     }
 }
@@ -4384,6 +4392,12 @@ getBtnGrupoCompartir.onclick = function () {
 getArrowGrupoCompartir.onclick = function () {
     alternarCompartir();
 }
+
+//se muestra la ventana de ayuda
+getBtnAyuda.onclick = function () {
+    showSnackbar("En construcción");
+}
+
 //se muestra la ventana con opciones para exportar
 getBtnExportar.onclick = function () {
     showSnackbar("En construcción");
@@ -4789,10 +4803,11 @@ function cambiarModo(nuevoModo) {
         $(getSpanColumnas).removeClass("oculto");
         getSelectColumnas.style.display = "inline-block";
         getBtnColumnas.style.display = "inline-block";
-        getBtnImportarTexto.style.display = "inline-block";
-        getBtnImportarGallery.style.display = "inline-block";
-        getBtnExportar.style.display = "inline-block";
-        getBtnImprimir.style.display = "inline-block";
+        //getBtnImportarTexto.style.display = "inline-block";
+        //getBtnImportarGallery.style.display = "inline-block";
+        //getBtnExportar.style.display = "inline-block";
+        //getBtnImprimir.style.display = "inline-block";
+        $(getcontGrupoCompartir).removeClass("oculto");
         getBtnAceptarLibre.style.display = "none";
         getBtnCancelarLibre.style.display = "none";
         getBtnBorrarLibre.style.display = "none";
@@ -4847,10 +4862,11 @@ function cambiarModo(nuevoModo) {
             $(getSpanColumnas).addClass("oculto");
             getSelectColumnas.style.display = "none";
             getBtnColumnas.style.display = "none";
-            getBtnImportarTexto.style.display = "none";
-            getBtnImportarGallery.style.display = "none";
-            getBtnExportar.style.display = "none";
-            getBtnImprimir.style.display = "none";
+            //getBtnImportarTexto.style.display = "none";
+            //getBtnImportarGallery.style.display = "none";
+            //getBtnExportar.style.display = "none";
+            //getBtnImprimir.style.display = "none";
+            $(getcontGrupoCompartir).addClass("oculto");
             getBtnPantallaCompleta.style.display = "none";
             //debe guardar los colores y los id      
             lastAction = "libre";
