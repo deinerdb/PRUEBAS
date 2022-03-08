@@ -15,8 +15,221 @@
         <!-- jquery cargado desde servidor de Google -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <style>
+        /* z-index (niveles de capas)
+        btntop 200
+        modal 300
+        snack 500
+        loader 9999
+        */
+        /* ajustes de la ventana modal */
+        /*íconos en los títulos de las ventanas modales*/
+        .modal-header .fa {
+            /* van con texto a la derecha ...*/
+            margin-right: 6px;
+            border-style: solid;
+            border-color: lavender;
+            border-width: 1px;
+            padding: 2px 6px;
+            font-size: 0.85em;
+        }
+        /* Set a style for the submit button, BOTÓN ACEPTAR */
+        .btn {
+            color: white;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            padding: 15px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            text-decoration: none;
+            background: purple; /* For browsers that do not support gradients */
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            margin: 0;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 1.1em;
+            /*no se puede seleccionar el texto*/
+            -webkit-user-select: none; /* Chrome, Opera, Safari */
+            -moz-user-select: none; /* Firefox 2+ */
+            -ms-user-select: none; /* IE 10+ */
+            user-select: none; /* Standard syntax */
+        }
 
-            /* Stack Overflow: se sugiere para que las alturas funcionen */
+            .btn:hover {
+                background: #990099;
+                font-weight: bold;
+            }
+
+        /*mensaje de validación O INFORMACIÓN EN CADA MODAL */
+        #infoModal {
+            color: green;
+            background-color: #d3f8d3;
+            margin: 14px 4px 10px 4px;
+            padding: 8px 8px 8px 12px;
+            border-left-style: solid;
+            border-left-color: green;
+            border-left-width: 4px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            text-align:justify;
+        }
+        
+      
+        /* un relleno inferior en los modal */
+        #rellenoModal{
+            display: block;
+            height:60px;
+        }
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 300; /* Sit on top. ver la tabla de valores en el css */
+            padding-top: 30px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            position: relative;
+            background-color: white;
+            margin: auto;
+            padding: 0;
+            border: 1px solid #888;
+            width: 95%;
+            -moz-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+            -webkit-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+            -webkit-animation-name: animatetop;
+            -webkit-animation-duration: 0.4s;
+            -moz-animation-name: animatetop;
+            -moz-animation-duration: 0.4s;
+            -o-animation-name: animatetop;
+            -o-animation-duration: 0.4s;
+            animation-name: animatetop;
+            animation-duration: 0.4s;
+        }
+
+        /* Add Animation */
+        @-webkit-keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0
+            }
+
+            to {
+                top: 0;
+                opacity: 1
+            }
+        }
+
+        @-moz-keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0
+            }
+
+            to {
+                top: 0;
+                opacity: 1
+            }
+        }
+
+        @-o-keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0
+            }
+
+            to {
+                top: 0;
+                opacity: 1
+            }
+        }
+
+        @keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0
+            }
+
+            to {
+                top: 0;
+                opacity: 1
+            }
+        }
+        /* The Close Button */
+        .close {
+            color: white;
+            float: right;
+            font-size: 28px;
+            /*no se puede seleccionar el texto*/
+            -webkit-user-select: none; /* Chrome, Opera, Safari */
+            -moz-user-select: none; /* Firefox 2+ */
+            -ms-user-select: none; /* IE 10+ */
+            user-select: none; /* Standard syntax */
+        }
+
+            .close:hover,
+            .close:focus {
+                color: lavender;
+                text-decoration: none;
+                cursor: pointer;
+                font-weight: bold;
+                font-size: 30px;
+            }
+
+        .modal-header {
+            padding: 2px 16px;
+            background-color: purple;
+            color: white;
+            /*no se puede seleccionar el texto*/
+            -webkit-user-select: none; /* Chrome, Opera, Safari */
+            -moz-user-select: none; /* Firefox 2+ */
+            -ms-user-select: none; /* IE 10+ */
+            user-select: none; /* Standard syntax */
+            text-align: left;
+        }
+
+        .modal-body {
+            padding: 2px 12px;
+            max-width: 100%;
+            overflow: auto;
+            /*max-height:150px; puede ajustarse con javascript*/
+            -moz-transition: width 0.5s;
+            -o-transition: width 0.5s;
+            -webkit-transition: width 0.5s;
+            transition: width 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+        }
+
+        .modal-footer {
+            padding: 0;
+            background-color: purple;
+            color: white;
+            /*no se puede seleccionar el texto*/
+            -webkit-user-select: none; /* Chrome, Opera, Safari */
+            -moz-user-select: none; /* Firefox 2+ */
+            -ms-user-select: none; /* IE 10+ */
+            user-select: none; /* Standard syntax */
+        }
+
+        /*REVISAR EN CASO DE USAR OTROS HEADERS*/
+        .modal-header h2 {
+            margin-top: 0.4em;
+            margin-bottom: 0.4em;
+        }
+        /* fin ajustes de la ventana modal */
+
+/* --------------------------- */
+            
+/* Stack Overflow: se sugiere para que las alturas funcionen */
             html, body {
                 height: 100% !important;
                 min-height: 100%;    
@@ -29,6 +242,7 @@
             body {
                 font-family: Verdana, Geneva, Tahoma, sans-serif;    
             }
+            
             #rellenoInferior {
                 height: 40px;
             }
@@ -378,6 +592,10 @@
             }
             /* FIN LOADER */
             /* ---------- */
+
+
+
+            /*--------*/
             /* top button */
             #BtnTop {
                 display: none; /* Hidden by default */
@@ -5708,7 +5926,31 @@
         <div id="snackbar">
             Realizado
         </div>
-
+         <!-- inicia:  La ventana modal para múltiples usos -->
+        <div id="myModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content" id="modalContent">
+                <div class="modal-header" id="modalHeader">
+                    <span class="close" title="Cerrar">×</span>
+                    <h2 id="modalTitle">Ícono y título</h2>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <!-- cada marco es un uso del Modal -->
+                    <!-- Marco Info -->
+                    <div id="marcoInfo" class="marco">
+                        <p>En desarrollo: Calculadora y Detalles</p>                 
+                    </div>
+                    <!-- INFORMACIÓN OPCIONAL EN CADA MODAL -->
+                    <p id="infoModal"> <strong>Nota: </strong> <span id="spanInfoModal"> Información importante </span> </p>
+                    <!-- un relleno inferior -->
+                    <p id="rellenoModal"></p>
+                </div>
+                <div class="modal-footer" id="modalFooter">
+                    <button type="button" class="btn" id="BtnAceptar">Aceptar</button>
+                </div>
+            </div>
+        </div>
+        <!-- termina aquí la ventana modal para múltiples usos -->
         <script>            
             // al cargar la página
             window.addEventListener("load", function (event) {
@@ -5718,6 +5960,115 @@
                 // no se ha buscado
                 $("#infoNoEncontrados").css("display", "none");
             });
+            
+            //para el modal
+            // modal: ninguno, info...
+            var modalActual = "ninguno";
+            // Get the modal , múltiples usos
+            var modal = document.getElementById('myModal');
+            // Get the <span> element that closes the modal 
+            var span = document.getElementsByClassName("close")[0];
+            var getmodalBody = document.getElementById("modalBody");
+            var getmodalFooter = document.getElementById("modalFooter");
+            var getmodalHeader = document.getElementById("modalHeader");
+            // recuerda el scroll y lo restaura al cerrar el modal
+            var miBodyScroll;
+            var miDocumentScroll;
+            function alturaModal() {
+                var h = window.innerHeight
+                    || document.documentElement.clientHeight
+                    || document.body.clientHeight;
+                //var bd = document.getElementById("modalBody");
+                //var ft = document.getElementById("modalFooter");
+                //var hd = document.getElementById("modalHeader");
+                // mejor define altura descontando título y footer.
+                h = 0.82 * (h - 30 - getmodalHeader.scrollHeight - getmodalFooter.scrollHeight);
+                getmodalBody.style.height = h + "px";
+            }
+            // ajustes según el tamaño de la pantalla
+            // referencias están al inicio del script
+            function ajustesResize() {    
+                // para obtener anchos mínimos de botones al diseñar
+                //var testSize = document.getElementById("contGrupoCompartir");
+                //$(testSize).attr("title","w " + testSize.offsetWidth + " h " + testSize.offsetHeight );
+                if (modalActual != "ninguno") {
+                    alturaModal();
+                }            
+            }
+            
+            // para cerrar el modal y controlar el actual
+            function cerrarModal() {                
+                // oculta el modal
+                modal.style.display = "none";
+                // acciones específicas, según el modal que se cierra
+                //if (modalActual == "tal") {
+                    // acciones                    
+                //}                
+                // no hay modal abierto
+                modalActual = "ninguno";    
+                //restaura el scroll
+                document.body.scrollTop = miBodyScroll; // For Chrome, Safari and Opera
+                document.documentElement.scrollTop = miDocumentScroll; // For IE and Firefox    
+            }
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function () {
+                cerrarModal();
+            }
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    cerrarModal();
+                }
+            }
+            // depende de modalActual /
+            function aceptarModal() {
+                switch (modalActual) {
+                    case "info":            
+                        // Nada por el momento
+                        break;
+                }
+                // cierra el modalActual
+                cerrarModal();    
+            }
+            // el botón aceptar del modal
+            document.getElementById("BtnAceptar").onclick = function () {
+                // acepta
+                aceptarModal();
+            }
+            var globalFila;
+            // ajustar el modal según su uso            
+            // depende de modalActual, ver declaración al principio
+            function showModal() {
+                // primero guarda el scroll de la página
+                miBodyScroll = document.body.scrollTop; // For Chrome, Safari and Opera
+                miDocumentScroll = document.documentElement.scrollTop; // For IE and Firefox                
+                //muestra el modal
+                modal.style.display = "block";                
+                //define su altura    
+                alturaModal();
+                // scroll horizontal y vertical, no recuerda el anterior
+                getmodalBody.scrollTop = 0;
+                getmodalBody.scrollLeft = 0;
+                // OCULTA TODOS LOS MARCOS
+                $(".marco").css("display", "none");
+                // ahora hace ajustes iniciales según su uso
+                // por defecto visible
+                $("#infoModal").css("display", "block");
+                switch (modalActual) {
+                    case "info":
+                        $("#marcoInfo").css("display", "block");
+                        document.getElementById("modalTitle").innerHTML = "<i class='fas fa-info-circle'></i> Información";
+                        var miCod = globalFila.dataset.cod;
+                        copyToClipboard(miCod);
+                        document.getElementById("spanInfoModal").innerHTML = "Se ha copiado el código del artículo seleccionado: " + miCod;
+
+                        break;
+                    }
+                // sin importar cuál modal es... no estaría mal
+                ajustesResize();
+            }
+
+            /* ------------------------------ */
             // PARA EL SNACKBAR
             //****************
 
@@ -6048,6 +6399,22 @@
                     }
 
                 }
+
+                //  onresize, cuando cambia el tamaño de la pantalla
+                window.addEventListener("resize", ajustesResize);
+
+                //***********************************
+                // FUNCIÓN QUE ajusta todo si está desocupado
+                function intentaAjustar() {
+                    //if (ocupado == true) {
+                        //return;
+                    //}
+                    // llama a los ajustes
+                    ajustesResize();
+                }
+                // ajuste permanente de tamaños
+                setInterval("intentaAjustar()", 1000);
+
                 // Copies a string to the clipboard. Must be called from within an 
                 // event handler such as click. May return false if it failed, but
                 // this is not always possible. Browser support for Chrome 43+, 
@@ -6078,9 +6445,10 @@
                 }
                 // al hacer clic en una fila
                 function seleccionaProducto(miFila) {
-                    var miCod = miFila.dataset.cod;
-                    copyToClipboard(miCod);
-                    showSnackbar("Copiado código: " + miCod);
+                    globalFila = miFila;                      
+                    modalActual = "info";
+                    //muestra el modal
+                    showModal();
                 }
         </script>
 </body>
