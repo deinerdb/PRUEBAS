@@ -15,6 +15,8 @@ var getBtnGrupoCompartir = document.getElementById("BtnGrupoCompartir");
 var getArrowGrupoCompartir = document.getElementById("ArrowGrupoCompartir");
 var getcontGrupoCompartir = document.getElementById("contGrupoCompartir");
 var getpanelHCompartir = document.getElementById("panelHCompartir");
+// global para el panel compartir
+var accCompartirAbierta = false;
 // la muestra del tipo de bordes
 var getMuestraTipoBordes = document.getElementById("muestraTipoBordes");
 // muestra especial ExtraerDesde
@@ -1192,6 +1194,9 @@ function ajustesResize() {
         $(getContenedor).css("margin-top", margenArribaCont + "px");
         $(getContenedor).css("max-width", "98%");        
     } else {
+        // ajusta los paneles horizontales tipo acc
+        ajustarCompartir();
+
         var margenArribaCont = 8 + getPaletaArriba.offsetHeight;
         $(getContenedor).css("margin", "0px");
         $(getContenedor).css("margin-top", margenArribaCont + "px");
@@ -3275,7 +3280,7 @@ window.addEventListener("load", function (event) {
     // el input color es negro por defecto, ie recuerda colores anteriores
     getcolorPixel.value = "#000000";    
     // scroll
-    topFunction();
+    topFunction();    
     // dasactiva el botón deshacer, no se ha hecho nada
     // nota que la primera vez que se llama dimensionar se activa, pero aquí se desactiva para que sea su estado inicial
     estadoBtnDeshacer(false)
@@ -4369,21 +4374,57 @@ getBtnGallery.onclick = function () {
     //muestra el modal
     showModal();
 }
-
-// alterna el estado del grupo compartir
-function alternarCompartir() { 
-    $(getcontGrupoCompartir).toggleClass("abierto");
-    if ( $(getcontGrupoCompartir).hasClass("abierto") ) {
-        // panel abierto
+// devuelve el ancho de un elemento incluyendo márgenes
+function anchoConMargen (element) {
+    var style = element.currentStyle || window.getComputedStyle(element);
+    var margin = parseFloat(style.marginLeft) + parseFloat(style.marginRight);    
+    return 0 + element.offsetWidth + margin;
+}
+// ajusta el ancho de los contenedores del grupo compartir
+function ajustarCompartir() { 
+    // 18 porque los cont de grupo tienen padding-left: 8px y padding-right: 10px
+    var anchoMin = 18 + anchoConMargen(getBtnGrupoCompartir) + anchoConMargen(getArrowGrupoCompartir);
+    var anchoGrupo;
+    if ( accCompartirAbierta == true ) {        
+        // panel abierto        
         getpanelHCompartir.style.maxWidth = getpanelHCompartir.scrollWidth + "px";
         getpanelHCompartir.style.opacity = "1";
-        $("#IcoArrowCompartir").attr("class", "fas fa-angle-double-left");
+        $("#IcoArrowCompartir").attr("class", "fas fa-angle-double-left"); 
+        anchoGrupo = 0 + getpanelHCompartir.scrollWidth + anchoMin + "px";      
     } else {
-        // panel cerrado
+        // panel cerrado        
         getpanelHCompartir.style.maxWidth = null;
         getpanelHCompartir.style.opacity = "0";
         $("#IcoArrowCompartir").attr("class", "fas fa-angle-double-right");
-    }
+        anchoGrupo = anchoMin + "px";
+    } 
+    $(getcontGrupoCompartir).css("min-width", anchoGrupo);
+    $(getcontGrupoCompartir).css("width", anchoGrupo);    
+}
+// alterna el estado del grupo compartir
+// y lo ajusta
+var timeCompartir = 0;
+function alternarCompartir() {     
+    if ( accCompartirAbierta == false ) {        
+        // panel abierto
+        accCompartirAbierta = true;        
+    } else {
+        // panel cerrado
+        accCompartirAbierta = false;       
+    }     
+    ajustarCompartir();
+    // unos instantes después
+    // cancela el timeCompartir
+    //clearTimeout(timeCompartir);
+    //timeCompartir = setTimeout(function () {
+        // un scroll animado
+        //$(getPaletaAbajo).animate({
+            //HACE VISIBLE EN LA PALETA EL PANEL ACTUAL
+            //scrollLeft: getPaletaAbajo.scrollWidth - anchoConMargen(getBtnAyuda)
+        //}, 1200);        
+       
+    //}, 334);
+
 }
 // expandir o contraer grupo compartir
 getBtnGrupoCompartir.onclick = function () {

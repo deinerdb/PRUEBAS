@@ -73,18 +73,10 @@ body {
 #BtnGrupoCompartir {
     color: #ffff00;
 }
-#contGrupoCompartir {
-    /* para dar cabida solo a los dos botones */
-    min-width: 133px; /* cerrado */ 
-    width: 133px;
+#contGrupoCompartir {     
     -moz-box-shadow: 0em -3px 8px 0 hsl(60, 100%, 50%) inset;
     -webkit-box-shadow: 0em -3px 8px 0 #ffff00 inset;
     box-shadow: 0em -3px 8px 0 #ffff00 inset;
-}
-/* para dar cabida a todos los botones del grupo */
-#contGrupoCompartir.abierto {
-    min-width: 360px !important;
-    width: 360px !important;
 }
 
 /* ESTILOS DE TABLA */
