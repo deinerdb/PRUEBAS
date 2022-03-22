@@ -262,8 +262,13 @@ var actual = document.getElementById("selectednavbar");
 // EVENTO LOAD PARA DIFERENTES PÁGINAS
 
 window.onload = function () {
+
     //HACE VISIBLE EN EL NAVBAR EL ELEMENTO ACTUAL
-    barra.scrollLeft = actual.offsetLeft;
+    // un scroll animado
+    $(barra).animate({  
+        scrollLeft: actual.offsetLeft
+    }, 1800);
+    
     //FUNCIONES DE CADA PÁGINA, BODY ONLOAD
     //HTML
     if (typeof sumar == 'function') {

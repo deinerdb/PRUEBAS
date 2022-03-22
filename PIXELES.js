@@ -4415,15 +4415,15 @@ function alternarCompartir() {
     ajustarCompartir();
     // unos instantes después
     // cancela el timeCompartir
-    //clearTimeout(timeCompartir);
-    //timeCompartir = setTimeout(function () {
+    clearTimeout(timeCompartir);
+    timeCompartir = setTimeout(function () {
         // un scroll animado
-        //$(getPaletaAbajo).animate({
-            //HACE VISIBLE EN LA PALETA EL PANEL ACTUAL
-            //scrollLeft: getPaletaAbajo.scrollWidth - anchoConMargen(getBtnAyuda)
-        //}, 1200);        
+        $(getPaletaAbajo).animate({
+            //HACE VISIBLE EN LA PALETA EL PANEL ACTUAL         
+            scrollLeft: getcontGrupoCompartir.offsetLeft
+        }, 1200);        
        
-    //}, 334);
+    }, 340);
 
 }
 // expandir o contraer grupo compartir
