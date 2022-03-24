@@ -14,13 +14,16 @@
         <link rel="shortcut icon" href="UtilBJ.ico" type="image/x-icon" />  
         <!-- jquery cargado desde servidor de Google -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <style>
-        /* z-index (niveles de capas)
-        btntop 200
-        modal 300
-        snack 500
-        loader 9999
-        */
+         <!--  una fuente de Google -->
+        <link href='https://fonts.googleapis.com/css?family=Space Mono' rel='stylesheet'>
+
+        <style>    
+            /* z-index (niveles de capas)
+            btntop 200
+            modal 300
+            snack 500
+            loader 9999
+            */
 
             /* Style the tab */
             .tab, .tab button {
@@ -395,7 +398,7 @@
                 white-space: nowrap; /*solo una línea cada celda */
             }
             tr {
-                font-family: Consolas, 'Courier New', Courier, monospace;
+                font-family: 'Space Mono', Consolas, 'Courier New', Courier, monospace;
             }
             .fila {
                 /* para poder copiar la info debe abrir el modal */
@@ -433,7 +436,7 @@
             .num {
                 /* celdas numéricas */
                 text-align: right;
-                font-family: Consolas, 'Courier New', Courier, monospace;
+                font-family: 'Space Mono', Consolas, 'Courier New', Courier, monospace;
             }
             .compra {
                 color: red;
@@ -505,7 +508,7 @@
                 color: white; /* White text color */
                 text-align: center; /* Centered text */
                 /*font-family: Verdana, Geneva, Tahoma, sans-serif; fuente*/
-                font-family: Consolas, Courier New, Courier, monospace;
+                font-family: 'Space Mono', Consolas, Courier New, Courier, monospace;
                 -moz-border-radius: 10px; /*borde redondeado*/
                 -webkit-border-radius: 10px; /*borde redondeado*/
                 border-radius: 10px; /*borde redondeado*/
@@ -562,7 +565,7 @@
                     width: 100%;
                     /* color: #e600e6; */
                     color: darkred;
-                    font-family: Courier New, Courier, monospace;
+                    font-family: 'Space Mono', Courier New, Courier, monospace;
                     font-weight: bold;
                     text-shadow: 2px 2px 3px #ffffff;
                     /*no se puede seleccionar el texto*/
@@ -765,7 +768,7 @@
                 max-width: 98%;
                 overflow: auto;
                 margin: 6px 0px 6px 0px;
-                font-family: Consolas, 'Courier New', Courier, monospace;
+                font-family: 'Space Mono', Consolas, 'Courier New', Courier, monospace;
                 font-size: 18px;
                 text-align: left;
                 border: 2px solid #990000;
@@ -798,7 +801,7 @@
                 }
                 #infoNoEncontrados {
                     color: red;
-                    font-family: Consolas, 'Courier New', Courier, monospace;
+                    font-family: 'Space Mono', Consolas, 'Courier New', Courier, monospace;
                     font-size: 1.18em;
                     text-align: center;
                     font-weight: bold;
@@ -6633,6 +6636,8 @@
                     modalActual = "info";
                     //muestra el modal
                     showModal();
+                    // Get the element with id="defaultOpen" and click on it
+                    document.getElementById("defaultOpen").click();
                 }
         </script>
         <script>
