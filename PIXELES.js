@@ -11,12 +11,20 @@ var getBtnCerrarHistorial = document.getElementById("BtnCerrarHistorial");
 var getContenedor = document.getElementById("contenedor");
 var getPantalla = document.getElementById("pantalla");
 var getRellenoHist = document.getElementById("rellenoHistorial");
+// para los grupos de botones - inicio
+// compartir
 var getBtnGrupoCompartir = document.getElementById("BtnGrupoCompartir");
 var getArrowGrupoCompartir = document.getElementById("ArrowGrupoCompartir");
 var getcontGrupoCompartir = document.getElementById("contGrupoCompartir");
 var getpanelHCompartir = document.getElementById("panelHCompartir");
-// global para el panel compartir
-var accCompartirAbierta = false;
+var accCompartirAbierta = false; // global para el estado del panel
+// bordes
+var getBtnGrupoBordes = document.getElementById("BtnGrupoBordes");
+var getArrowGrupoBordes = document.getElementById("ArrowGrupoBordes");
+var getcontGrupoBordes = document.getElementById("contGrupoBordes");
+var getpanelHBordes = document.getElementById("panelHBordes");
+var accBordesAbierta = false; // global para el estado del panel
+// fin grupos de botones
 // la muestra del tipo de bordes
 var getMuestraTipoBordes = document.getElementById("muestraTipoBordes");
 // muestra especial ExtraerDesde
@@ -1196,7 +1204,7 @@ function ajustesResize() {
     } else {
         // ajusta los paneles horizontales tipo acc
         ajustarCompartir();
-
+        ajustarBordes();
         var margenArribaCont = 8 + getPaletaArriba.offsetHeight;
         $(getContenedor).css("margin", "0px");
         $(getContenedor).css("margin-top", margenArribaCont + "px");
@@ -2659,7 +2667,7 @@ function showModal() {
         case "tipoBordes":
             $("#marcoTipoBordes").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-border-style'></i> Tipo de borde";
-            document.getElementById("spanInfoModal").innerHTML = "Seleccione el tipo de borde que se aplicará a todos los pixeles. El tipo de borde se aprecia mejor cuando los bordes son de mayor grosor. Recuerde usar la opción 'Con Bordes' para percibir los cambios.";
+            document.getElementById("spanInfoModal").innerHTML = "Seleccione el tipo de borde que se aplicará a todos los pixeles. El tipo de borde se aprecia mejor cuando los bordes son gruesos. Los bordes pueden no ser visibles en algunos dispositivos.";
             // se selecciona el option con el valor actual            
             var xCheck = document.getElementsByName("checkTipoBordes");
             var i;
@@ -4401,6 +4409,27 @@ function ajustarCompartir() {
     $(getcontGrupoCompartir).css("min-width", anchoGrupo);
     $(getcontGrupoCompartir).css("width", anchoGrupo);    
 }
+// ajusta el ancho de los contenedores del grupo bordes
+function ajustarBordes() { 
+    // 18 porque los cont de grupo tienen padding-left: 8px y padding-right: 10px
+    var anchoMin = 18 + anchoConMargen(getBtnGrupoBordes) + anchoConMargen(getArrowGrupoBordes);
+    var anchoGrupo;
+    if ( accBordesAbierta == true ) {        
+        // panel abierto        
+        getpanelHBordes.style.maxWidth = getpanelHBordes.scrollWidth + "px";
+        getpanelHBordes.style.opacity = "1";
+        $("#IcoArrowBordes").attr("class", "fas fa-angle-double-left"); 
+        anchoGrupo = 0 + getpanelHBordes.scrollWidth + anchoMin + "px";      
+    } else {
+        // panel cerrado        
+        getpanelHBordes.style.maxWidth = null;
+        getpanelHBordes.style.opacity = "0";
+        $("#IcoArrowBordes").attr("class", "fas fa-angle-double-right");
+        anchoGrupo = anchoMin + "px";
+    } 
+    $(getcontGrupoBordes).css("min-width", anchoGrupo);
+    $(getcontGrupoBordes).css("width", anchoGrupo);    
+}
 // alterna el estado del grupo compartir
 // y lo ajusta
 var timeCompartir = 0;
@@ -4424,7 +4453,30 @@ function alternarCompartir() {
         }, 1200);        
        
     }, 340);
-
+}
+// alterna el estado del grupo bordes
+// y lo ajusta
+var timeBordes = 0;
+function alternarBordes() {     
+    if ( accBordesAbierta == false ) {        
+        // panel abierto
+        accBordesAbierta = true;        
+    } else {
+        // panel cerrado
+        accBordesAbierta = false;       
+    }     
+    ajustarBordes();
+    // unos instantes después
+    // cancela el timeBordes
+    clearTimeout(timeBordes);
+    timeBordes = setTimeout(function () {
+        // un scroll animado
+        $(getPaletaAbajo).animate({
+            //HACE VISIBLE EN LA PALETA EL PANEL ACTUAL         
+            scrollLeft: getcontGrupoBordes.offsetLeft
+        }, 1200);        
+       
+    }, 340);
 }
 // expandir o contraer grupo compartir
 getBtnGrupoCompartir.onclick = function () {
@@ -4433,7 +4485,13 @@ getBtnGrupoCompartir.onclick = function () {
 getArrowGrupoCompartir.onclick = function () {
     alternarCompartir();
 }
-
+// expandir o contraer grupo bordes
+getBtnGrupoBordes.onclick = function () {
+    alternarBordes();
+}
+getArrowGrupoBordes.onclick = function () {
+    alternarBordes();
+}
 //se muestra la ventana de ayuda
 getBtnAyuda.onclick = function () {
     showSnackbar("En construcción");
@@ -4815,8 +4873,7 @@ function cambiarModo(nuevoModo) {
         // muestra el pie
         getPie.style.visibility = "visible";
         getBtnRellenar.style.display = "inline-block";
-        getBtnColorLienzo.style.display = "inline-block";
-        getBtnColorRejilla.style.display = "inline-block";
+        getBtnColorLienzo.style.display = "inline-block";        
         getBtnGotero.style.display = "inline-block";
         getBtnReemplazar.style.display = "inline-block";
         getBtnBorrador.style.display = "inline-block";
@@ -4824,10 +4881,12 @@ function cambiarModo(nuevoModo) {
         getBtnLibre.style.display = "inline-block";
         getBtnExtraerColor.style.display = "inline-block";
         getFiltro.style.display = "inline-block";
-        getBtnActualizar.style.display = "inline-block";        
-        getBtnTipoBorde.style.display = "inline-block";
-        getBtnAnchoBordes.style.display = "inline-block";
-        getBtnRadioBordes.style.display = "inline-block";
+        getBtnActualizar.style.display = "inline-block";
+        //getBtnColorRejilla.style.display = "inline-block";        
+        //getBtnTipoBorde.style.display = "inline-block";
+        //getBtnAnchoBordes.style.display = "inline-block";
+        //getBtnRadioBordes.style.display = "inline-block";
+        $(getcontGrupoBordes).removeClass("oculto");
         getBtnOpacidad.style.display = "inline-block";
         getBtnSombras.style.display = "inline-block";
         getBtnCopiar.style.display = "inline-block";
@@ -4874,8 +4933,7 @@ function cambiarModo(nuevoModo) {
             getBtnBorrarLibre.style.display = "inline-block";
             getBtnExpandirLibre.style.display = "inline-block";
             getBtnRellenar.style.display = "none";
-            getBtnColorLienzo.style.display = "none";
-            getBtnColorRejilla.style.display = "none";
+            getBtnColorLienzo.style.display = "none";            
             getBtnGotero.style.display = "none";
             getBtnReemplazar.style.display = "none";
             getBtnBorrador.style.display = "none";
@@ -4887,9 +4945,11 @@ function cambiarModo(nuevoModo) {
             getBtnTrash.style.display = "none";
             getBtnInfo.style.display = "none";
             getBtnEtiquetas.style.display = "none";
-            getBtnTipoBorde.style.display = "none";
-            getBtnAnchoBordes.style.display = "none";
-            getBtnRadioBordes.style.display = "none";
+            //getBtnColorRejilla.style.display = "none";
+            //getBtnTipoBorde.style.display = "none";
+            //getBtnAnchoBordes.style.display = "none";
+            //getBtnRadioBordes.style.display = "none";
+            $(getcontGrupoBordes).addClass("oculto");
             getBtnOpacidad.style.display = "none";
             getBtnSombras.style.display = "none";
             getBtnCopiar.style.display = "none";

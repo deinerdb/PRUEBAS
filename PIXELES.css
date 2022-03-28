@@ -67,18 +67,32 @@ body {
     max-width: 0;
     opacity: 0;
 }
+#panelHBordes {
+    max-width: 0;
+    opacity: 0;
+}
 #ArrowGrupoCompartir {
     color: #ffff00;
+}
+#ArrowGrupoBordes {
+    color: #00ffff;
 }
 #BtnGrupoCompartir {
     color: #ffff00;
 }
+#BtnGrupoBordes {
+    color: #00ffff;
+}
 #contGrupoCompartir {     
-    -moz-box-shadow: 0em -3px 8px 0 hsl(60, 100%, 50%) inset;
+    -moz-box-shadow: 0em -3px 8px 0 #ffff00 inset;
     -webkit-box-shadow: 0em -3px 8px 0 #ffff00 inset;
     box-shadow: 0em -3px 8px 0 #ffff00 inset;
 }
-
+#contGrupoBordes {     
+    -moz-box-shadow: 0em -3px 8px 0 #00ffff inset;
+    -webkit-box-shadow: 0em -3px 8px 0 #00ffff inset;
+    box-shadow: 0em -3px 8px 0 #00ffff inset;
+}
 /* ESTILOS DE TABLA */
 /* las muestras de colores en info */
 #tablaSpanPixel, #tablaSpanLienzo, #tablaSpanBordes {
