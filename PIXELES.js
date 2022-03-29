@@ -1176,9 +1176,11 @@ function alturaModal() {
 // referencias están al inicio del script
 function ajustesResize() {    
     // para obtener anchos mínimos de botones al diseñar
-    //var testSize = document.getElementById("contGrupoCompartir");
+    //var testSize = document.getElementById("spanFilas");
     //$(testSize).attr("title","w " + testSize.offsetWidth + " h " + testSize.offsetHeight );
-    
+    //var testSize = document.getElementById("spanColumnas");
+    //$(testSize).attr("title","w " + testSize.offsetWidth + " h " + testSize.offsetHeight );
+
     // ajusta el infoTemporal, solo si es visible    
     if (window.getComputedStyle(infoTemp).display === "block") {
         infoTemp.style.marginLeft = -infoTemp.offsetWidth / 2 + "px";
@@ -2908,7 +2910,9 @@ function showModal() {
                     setTimeout(function () {                                           
                         $(elemToScroll).animate({
                             // hace scroll para que el miembro seleccionado en el acc sea visible
-                            scrollLeft: miembroToScroll.offsetLeft - 4
+                            //scrollLeft: miembroToScroll.offsetLeft - 4
+                            //scrollLeft: 6 + $(miembroToScroll).offset().left - 35
+                            scrollLeft: miembroToScroll.offsetLeft - 25
                         }, 700);
 
                     }, 1500); 
@@ -3286,7 +3290,13 @@ window.addEventListener("load", function (event) {
     // opacidad por defecto es 50, para que tenga efecto al hacer click en modo opacidad al iniciar
     document.getElementById("rangoOpacidad").value = 50;
     // el input color es negro por defecto, ie recuerda colores anteriores
-    getcolorPixel.value = "#000000";    
+    getcolorPixel.value = "#000000";
+    // el ancho de los span de filas y columnas
+    var miSpan;
+    miSpan = document.getElementById("spanFilas");
+    $(miSpan).css("min-width", miSpan.scrollWidth);
+    miSpan = document.getElementById("spanColumnas");
+    $(miSpan).css("min-width", miSpan.scrollWidth);
     // scroll
     topFunction();    
     // dasactiva el botón deshacer, no se ha hecho nada
