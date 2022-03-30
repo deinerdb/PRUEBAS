@@ -851,16 +851,29 @@
         <button id="BtnSetZoom" title="Ajuste rápido de tamaño"><i class="fas fa-eye"></i></button>
         <button id="BtnAumentar" title="Aumentar tamaño"><i class="fas fa-search-plus"></i></button>
         <button id="BtnPantallaCompleta" title="Pantalla Completa"><i class="fas fa-expand"></i></button>
-        <button id="BtnActualizar" title="Borrar todo (Formatos iniciales)"><i class="fas fa-sync-alt"></i></button>  
-        <button id="BtnTrash" title="Borrar todo (Formatos globales)"><i class="far fa-trash-alt"></i></button>
         <button id="BtnDeshacer" title="Deshacer última acción"><i class="fas fa-undo"></i></button>
-        <button id="BtnInfo" title="Modo Información"><i class="fas fa-info"></i></button>
-        <button id="BtnGotero" title="Modo Relleno Selectivo"><i class="fas fa-eye-dropper"></i></button>
-        <button id="BtnReemplazar" title="Modo Reemplazar Color"><i class="fas fa-binoculars"></i></button>        
-        <button id="BtnBorrador" title="Modo Borrador"><i id="icoBtnBorrador" class="fas fa-eraser"></i><span id="spanInfoBorrar">Color Pixel</span><i id="icoBorrarFlecha" class="fas fa-caret-down"></i></button>
-        <button id="BtnPincel" title="Modo Pincel"><i class="fas fa-paint-brush"></i></button>
-        <button id="BtnLibre" title="Modo Selección Libre"><i class="far fa-hand-pointer"></i></button>
-        <button id="BtnExtraerColor" title="Modo Extraer Color"><i id="icoExtraer" class="fas fa-map-pin"></i><span id="spanInfoExtraer">Lienzo</span><i id="icoExtraerFlecha" class="fas fa-caret-down"></i></button>
+        <!-- grupo Herramientas inicio -->        
+        <div class="contGrupo" id="contGrupoHerramientas">
+            <button class="BtnGrupo" id="BtnGrupoHerramientas" title="Expandir o contraer el grupo Herramientas"><i class="fas fa-tools"></i></button>        
+            <div class="panelH" id="panelHHerramientas">
+                <button id="BtnInfo" title="Modo Información"><i class="fas fa-info"></i></button>
+                <button id="BtnGotero" title="Modo Relleno Selectivo"><i class="fas fa-eye-dropper"></i></button>
+                <button id="BtnReemplazar" title="Modo Reemplazar Color"><i class="fas fa-binoculars"></i></button>        
+                <button id="BtnBorrador" title="Modo Borrador"><i id="icoBtnBorrador" class="fas fa-eraser"></i><span id="spanInfoBorrar">Color Pixel</span><i id="icoBorrarFlecha" class="fas fa-caret-down"></i></button>
+                <button id="BtnPincel" title="Modo Pincel"><i class="fas fa-paint-brush"></i></button>
+                <button id="BtnLibre" title="Modo Selección Libre"><i class="far fa-hand-pointer"></i></button>
+                <button id="BtnExtraerColor" title="Modo Extraer Color"><i id="icoExtraer" class="fas fa-map-pin"></i><span id="spanInfoExtraer">Lienzo</span><i id="icoExtraerFlecha" class="fas fa-caret-down"></i></button>                   
+                <button id="BtnOpacidad" title="Opacidad"><i id="icoOpacidad" class="fas fa-adjust"></i><span id="spanInfoOpacidad">50%</span><i id="icoOpacidadFlecha" class="fas fa-caret-down"></i></button>        
+                <button id="BtnSombras" title="Sombras"><i id="icoSombras" class="fas fa-sun"></i><span id="spanInfoSombras"></span><i id="icoSombrasFlecha" class="fas fa-caret-down"></i></button>
+                <button id="BtnColorLienzo" title="Color del lienzo"><i class="fas fa-paint-roller"></i><i id="icoLienzoFlecha" class="fas fa-caret-down"></i></button>        
+                <button id="BtnCopiar" title="Modo Copiar y Pegar"><i class="far fa-clone"></i></button>
+                <button id="BtnCortar" title="Modo Cortar y Pegar"><i class="fas fa-cut"></i></button>
+                <button id="BtnVoltearH" title="Modo Voltear Horizontalmente"><img src="fliph.svg" alt="VH" width="22px" height="22px"></img></button>
+                <button id="BtnVoltearV" title="Modo Voltear Verticalmente"><img src="flipv.svg" alt="VV" width="22px" height="22px"></img></button>
+            </div>
+            <button class="ArrowGrupo" id="ArrowGrupoHerramientas" title="Expandir o contraer el grupo Herramientas"><i id="IcoArrowHerramientas" class="fas fa-angle-double-right"></i></button>
+        </div>        
+        <!-- grupo Herramientas fin -->
         <input type="color" list="presetColors" name="colorPixel" title="Seleccione o escriba un color en hexadecimal" id="colorPixel" value="#000000" onchange="colorPixel()" >
         <datalist id="presetColors">
             <option>#ffffff</option>
@@ -882,31 +895,8 @@
         <button id="BtnHSL" title="Color HSL"><i class="fas fa-sliders-h"></i> HSL</button>
         <button id="BtnHex" title="Color Hexadecimal"><i class="fas fa-hashtag"></i> HEX</button>
         <button id="BtnGallery" title="Galería De Colores"><i class="fas fa-grip-horizontal"></i></button>
-        <button id="BtnHistorialColor" title="Historial de colores"><span id="rellenoHistorial" data-radio="0%"></span><i class="fas fa-history"></i></button>
-        <select id="filtro" title="No compatible con Internet Explorer y otros navegadores" onchange="AplicarFiltro()"> <option value="none" selected="">Sin filtro</option> <option value="blur(3px)">Blur (3px)</option> <option value="blur(5px)">Blur (5px)</option> <option value="brightness(200%)">Brightness (200%)</option> <option value="contrast(200%)">Contrast (200%)</option> <option value="drop-shadow(8px 8px 10px red)">Drop-Shadow (8px 8px 10px red)</option> <option value="grayscale(100%)">Grayscale (100%)</option> <option value="hue-rotate(90deg)">Hue-Rotate (90deg)</option> <option value="invert(100%)">Invert (100%)</option> <option value="opacity(30%)">Opacity (30%)</option> <option value="saturate(8)">Saturate (8)</option> <option value="sepia(100%)">Sepia (100%)</option> <option value="contrast(200%) brightness(150%)">Contrast (200%) Brightness (150%)</option> </select>
-        <select id="selectFondo" title="Fondo de la página" onchange="aplicarFondo()">
-            <option value="sinFondo" selected="">Sin fondo</option>
-            <option value="puzzle">Puzzle</option>
-            <option value="overcast">Overcast</option>
-            <option value="topography">Topography</option>
-            <option value="hideout">Hideout</option>
-            <option value="graph">Graph</option>
-            <option value="squares">Squares</option>
-            <option value="triangles">Triangles</option>
-            <option value="piano">Piano</option>
-            <option value="dominos">Dominos</option>
-            <option value="hexagons">Hexagons</option>
-            <option value="food">Food</option>
-            <option value="floor">Floor</option>
-            <option value="anchors">Anchors</option>
-            <option value="wall">Wall</option>
-            <option value="cogs">Cogs</option>
-            <option value="glamorous">Glamorous</option>
-            <option value="boxes">Boxes</option>
-            <option value="circuit">Circuit</option>
-            <option value="bubbles">Bubbles</option>
-            <option value="leaf">Leaf</option>
-        </select>
+        <button id="BtnHistorialColor" title="Historial de colores"><span id="rellenoHistorial" data-radio="0%"></span><i class="fas fa-history"></i></button>        
+        <button id="BtnAyuda" title="Ayuda"><i class="fas fa-question"></i></button>
         <span class="espacioDerecha"> </span>
     </div>
     <div class="paleta" id="paletaAbajo">
@@ -929,16 +919,10 @@
             </div>
             <button class="ArrowGrupo" id="ArrowGrupoBordes" title="Expandir o contraer el grupo Bordes"><i id="IcoArrowBordes" class="fas fa-angle-double-right"></i></button>
         </div>        
-        <!-- grupo bordes fin -->   
-        
-        <button id="BtnOpacidad" title="Opacidad"><i id="icoOpacidad" class="fas fa-adjust"></i><span id="spanInfoOpacidad">50%</span><i id="icoOpacidadFlecha" class="fas fa-caret-down"></i></button>        
-        <button id="BtnSombras" title="Sombras"><i id="icoSombras" class="fas fa-sun"></i><span id="spanInfoSombras"></span><i id="icoSombrasFlecha" class="fas fa-caret-down"></i></button>
-        <button id="BtnCopiar" title="Modo Copiar y Pegar"><i class="far fa-clone"></i></button>
-        <button id="BtnCortar" title="Modo Cortar y Pegar"><i class="fas fa-cut"></i></button>
-        <button id="BtnVoltearH" title="Modo Voltear Horizontalmente"><img src="fliph.svg" alt="VH" width="22px" height="22px"></img></button>
-        <button id="BtnVoltearV" title="Modo Voltear Verticalmente"><img src="flipv.svg" alt="VV" width="22px" height="22px"></img></button>
-        <button id="BtnRellenar" title="Pintar todos"><span id="relleno"></span><i class="fas fa-fill-drip"></i></button>
-        <button id="BtnColorLienzo" title="Color del lienzo"><i class="fas fa-paint-roller"></i><i id="icoLienzoFlecha" class="fas fa-caret-down"></i></button>        
+        <!-- grupo bordes fin --> 
+        <button id="BtnActualizar" title="Borrar todo (Formatos iniciales)"><i class="fas fa-sync-alt"></i></button>  
+        <button id="BtnTrash" title="Borrar todo (Formatos globales)"><i class="far fa-trash-alt"></i></button>        
+        <button id="BtnRellenar" title="Pintar todos"><span id="relleno"></span><i class="fas fa-fill-drip"></i></button>        
         <span id="spanFilas">Filas</span>
         <select title="Seleccione el número de filas" id="selectFilas" onchange="dimensionar(true)"></select>
         <button id="BtnFilas" title="Agregar o eliminar filas"><i class="fas fa-arrows-alt-v"></i></button>
@@ -963,7 +947,30 @@
         <button id="BtnCancelarLibre" title="Descartar cambios"><i class="far fa-window-close"></i> Cancelar </button>
         <button id="BtnBorrarLibre" title="Borrar selección"><i class="fas fa-ban"></i></button>
         <button id="BtnExpandirLibre" title="Expandir selección"><i class="fas fa-vector-square"></i></button>
-        <button id="BtnAyuda" title="Ayuda"><i class="fas fa-question"></i></button>
+        <select id="filtro" title="No compatible con Internet Explorer y otros navegadores" onchange="AplicarFiltro()"> <option value="none" selected="">Sin filtro</option> <option value="blur(3px)">Blur (3px)</option> <option value="blur(5px)">Blur (5px)</option> <option value="brightness(200%)">Brightness (200%)</option> <option value="contrast(200%)">Contrast (200%)</option> <option value="drop-shadow(8px 8px 10px red)">Drop-Shadow (8px 8px 10px red)</option> <option value="grayscale(100%)">Grayscale (100%)</option> <option value="hue-rotate(90deg)">Hue-Rotate (90deg)</option> <option value="invert(100%)">Invert (100%)</option> <option value="opacity(30%)">Opacity (30%)</option> <option value="saturate(8)">Saturate (8)</option> <option value="sepia(100%)">Sepia (100%)</option> <option value="contrast(200%) brightness(150%)">Contrast (200%) Brightness (150%)</option> </select>
+        <select id="selectFondo" title="Fondo de la página" onchange="aplicarFondo()">
+            <option value="sinFondo" selected="">Sin fondo</option>
+            <option value="puzzle">Puzzle</option>
+            <option value="overcast">Overcast</option>
+            <option value="topography">Topography</option>
+            <option value="hideout">Hideout</option>
+            <option value="graph">Graph</option>
+            <option value="squares">Squares</option>
+            <option value="triangles">Triangles</option>
+            <option value="piano">Piano</option>
+            <option value="dominos">Dominos</option>
+            <option value="hexagons">Hexagons</option>
+            <option value="food">Food</option>
+            <option value="floor">Floor</option>
+            <option value="anchors">Anchors</option>
+            <option value="wall">Wall</option>
+            <option value="cogs">Cogs</option>
+            <option value="glamorous">Glamorous</option>
+            <option value="boxes">Boxes</option>
+            <option value="circuit">Circuit</option>
+            <option value="bubbles">Bubbles</option>
+            <option value="leaf">Leaf</option>
+        </select>        
         <span class="espacioDerecha"> </span>
     </div>
     <button id="BtnCerrarHistorial" title="Cerrar historial"><i class="fas fa-window-close"></i></button>

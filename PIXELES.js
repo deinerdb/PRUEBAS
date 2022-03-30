@@ -24,6 +24,12 @@ var getArrowGrupoBordes = document.getElementById("ArrowGrupoBordes");
 var getcontGrupoBordes = document.getElementById("contGrupoBordes");
 var getpanelHBordes = document.getElementById("panelHBordes");
 var accBordesAbierta = false; // global para el estado del panel
+// Herramientas
+var getBtnGrupoHerramientas = document.getElementById("BtnGrupoHerramientas");
+var getArrowGrupoHerramientas = document.getElementById("ArrowGrupoHerramientas");
+var getcontGrupoHerramientas = document.getElementById("contGrupoHerramientas");
+var getpanelHHerramientas = document.getElementById("panelHHerramientas");
+var accHerramientasAbierta = false; // global para el estado del panel
 // fin grupos de botones
 // la muestra del tipo de bordes
 var getMuestraTipoBordes = document.getElementById("muestraTipoBordes");
@@ -1207,6 +1213,7 @@ function ajustesResize() {
         // ajusta los paneles horizontales tipo acc
         ajustarCompartir();
         ajustarBordes();
+        ajustarHerramientas();
         var margenArribaCont = 8 + getPaletaArriba.offsetHeight;
         $(getContenedor).css("margin", "0px");
         $(getContenedor).css("margin-top", margenArribaCont + "px");
@@ -4392,6 +4399,9 @@ getBtnGallery.onclick = function () {
     //muestra el modal
     showModal();
 }
+
+// inicio sección grupos de botones
+
 // devuelve el ancho de un elemento incluyendo márgenes
 function anchoConMargen (element) {
     var style = element.currentStyle || window.getComputedStyle(element);
@@ -4440,6 +4450,27 @@ function ajustarBordes() {
     $(getcontGrupoBordes).css("min-width", anchoGrupo);
     $(getcontGrupoBordes).css("width", anchoGrupo);    
 }
+// ajusta el ancho de los contenedores del grupo Herramientas
+function ajustarHerramientas() { 
+    // 18 porque los cont de grupo tienen padding-left: 8px y padding-right: 10px
+    var anchoMin = 18 + anchoConMargen(getBtnGrupoHerramientas) + anchoConMargen(getArrowGrupoHerramientas);
+    var anchoGrupo;
+    if ( accHerramientasAbierta == true ) {        
+        // panel abierto        
+        getpanelHHerramientas.style.maxWidth = getpanelHHerramientas.scrollWidth + "px";
+        getpanelHHerramientas.style.opacity = "1";
+        $("#IcoArrowHerramientas").attr("class", "fas fa-angle-double-left"); 
+        anchoGrupo = 0 + getpanelHHerramientas.scrollWidth + anchoMin + "px";      
+    } else {
+        // panel cerrado        
+        getpanelHHerramientas.style.maxWidth = null;
+        getpanelHHerramientas.style.opacity = "0";
+        $("#IcoArrowHerramientas").attr("class", "fas fa-angle-double-right");
+        anchoGrupo = anchoMin + "px";
+    } 
+    $(getcontGrupoHerramientas).css("min-width", anchoGrupo);
+    $(getcontGrupoHerramientas).css("width", anchoGrupo);    
+}
 // alterna el estado del grupo compartir
 // y lo ajusta
 var timeCompartir = 0;
@@ -4456,6 +4487,7 @@ function alternarCompartir() {
     // cancela el timeCompartir
     clearTimeout(timeCompartir);
     timeCompartir = setTimeout(function () {
+        ajustesResize();
         // un scroll animado
         $(getPaletaAbajo).animate({
             //HACE VISIBLE EN LA PALETA EL PANEL ACTUAL         
@@ -4480,10 +4512,36 @@ function alternarBordes() {
     // cancela el timeBordes
     clearTimeout(timeBordes);
     timeBordes = setTimeout(function () {
+        ajustesResize();
         // un scroll animado
         $(getPaletaAbajo).animate({
             //HACE VISIBLE EN LA PALETA EL PANEL ACTUAL         
             scrollLeft: getcontGrupoBordes.offsetLeft
+        }, 1200);        
+       
+    }, 340);
+}
+// alterna el estado del grupo Herramientas
+// y lo ajusta
+var timeHerramientas = 0;
+function alternarHerramientas() {     
+    if ( accHerramientasAbierta == false ) {        
+        // panel abierto
+        accHerramientasAbierta = true;        
+    } else {
+        // panel cerrado
+        accHerramientasAbierta = false;       
+    }     
+    ajustarHerramientas();
+    // unos instantes después
+    // cancela el timeHerramientas
+    clearTimeout(timeHerramientas);
+    timeHerramientas = setTimeout(function () {
+        ajustesResize();
+        // un scroll animado
+        $(getPaletaArriba).animate({
+            //HACE VISIBLE EN LA PALETA EL PANEL ACTUAL         
+            scrollLeft: getcontGrupoHerramientas.offsetLeft
         }, 1200);        
        
     }, 340);
@@ -4502,6 +4560,16 @@ getBtnGrupoBordes.onclick = function () {
 getArrowGrupoBordes.onclick = function () {
     alternarBordes();
 }
+// expandir o contraer grupo Herramientas
+getBtnGrupoHerramientas.onclick = function () {
+    alternarHerramientas();
+}
+getArrowGrupoHerramientas.onclick = function () {
+    alternarHerramientas();
+}
+
+// fin sección grupos de botones
+
 //se muestra la ventana de ayuda
 getBtnAyuda.onclick = function () {
     showSnackbar("En construcción");
@@ -4883,29 +4951,37 @@ function cambiarModo(nuevoModo) {
         // muestra el pie
         getPie.style.visibility = "visible";
         getBtnRellenar.style.display = "inline-block";
-        getBtnColorLienzo.style.display = "inline-block";        
-        getBtnGotero.style.display = "inline-block";
-        getBtnReemplazar.style.display = "inline-block";
-        getBtnBorrador.style.display = "inline-block";
-        getBtnPincel.style.display = "inline-block";
-        getBtnLibre.style.display = "inline-block";
-        getBtnExtraerColor.style.display = "inline-block";
         getFiltro.style.display = "inline-block";
         getBtnActualizar.style.display = "inline-block";
+        getBtnDeshacer.style.display = "inline-block";
+        getBtnTrash.style.display = "inline-block";
+        getBtnAceptarLibre.style.display = "none";
+        getBtnCancelarLibre.style.display = "none";
+        getBtnBorrarLibre.style.display = "none";
+        getBtnExpandirLibre.style.display = "none";
+        getBtnPantallaCompleta.style.display = "inline-block";
+        //getBtnInfo.style.display = "inline-block";
+        //getBtnColorLienzo.style.display = "inline-block";        
+        //getBtnGotero.style.display = "inline-block";
+        //getBtnReemplazar.style.display = "inline-block";
+        //getBtnBorrador.style.display = "inline-block";
+        //getBtnPincel.style.display = "inline-block";
+        //getBtnLibre.style.display = "inline-block";
+        //getBtnExtraerColor.style.display = "inline-block";
+        //getBtnOpacidad.style.display = "inline-block";
+        //getBtnSombras.style.display = "inline-block";
+        //getBtnCopiar.style.display = "inline-block";
+        //getBtnCortar.style.display = "inline-block";
+        //getBtnVoltearH.style.display = "inline-block";
+        //getBtnVoltearV.style.display = "inline-block";
+        $(getcontGrupoHerramientas).removeClass("oculto");
+        
         //getBtnColorRejilla.style.display = "inline-block";        
         //getBtnTipoBorde.style.display = "inline-block";
         //getBtnAnchoBordes.style.display = "inline-block";
         //getBtnRadioBordes.style.display = "inline-block";
         $(getcontGrupoBordes).removeClass("oculto");
-        getBtnOpacidad.style.display = "inline-block";
-        getBtnSombras.style.display = "inline-block";
-        getBtnCopiar.style.display = "inline-block";
-        getBtnCortar.style.display = "inline-block";
-        getBtnVoltearH.style.display = "inline-block";
-        getBtnVoltearV.style.display = "inline-block";
-        getBtnDeshacer.style.display = "inline-block";
-        getBtnTrash.style.display = "inline-block";
-        getBtnInfo.style.display = "inline-block";
+        
         getBtnEtiquetas.style.display = "inline-block";        
         $(getSpanFilas).removeClass("oculto");
         getSelectFilas.style.display = "inline-block";
@@ -4913,16 +4989,13 @@ function cambiarModo(nuevoModo) {
         $(getSpanColumnas).removeClass("oculto");
         getSelectColumnas.style.display = "inline-block";
         getBtnColumnas.style.display = "inline-block";
+
         //getBtnImportarTexto.style.display = "inline-block";
         //getBtnImportarGallery.style.display = "inline-block";
         //getBtnExportar.style.display = "inline-block";
         //getBtnImprimir.style.display = "inline-block";
         $(getcontGrupoCompartir).removeClass("oculto");
-        getBtnAceptarLibre.style.display = "none";
-        getBtnCancelarLibre.style.display = "none";
-        getBtnBorrarLibre.style.display = "none";
-        getBtnExpandirLibre.style.display = "none";
-        getBtnPantallaCompleta.style.display = "inline-block";
+
     }
     switch (modoActual) {
         case "libre":
@@ -4943,42 +5016,48 @@ function cambiarModo(nuevoModo) {
             getBtnBorrarLibre.style.display = "inline-block";
             getBtnExpandirLibre.style.display = "inline-block";
             getBtnRellenar.style.display = "none";
-            getBtnColorLienzo.style.display = "none";            
-            getBtnGotero.style.display = "none";
-            getBtnReemplazar.style.display = "none";
-            getBtnBorrador.style.display = "none";
-            getBtnPincel.style.display = "none";
-            getBtnLibre.style.display = "none";
-            getBtnExtraerColor.style.display = "none";
             getFiltro.style.display = "none";
             getBtnActualizar.style.display = "none";
             getBtnTrash.style.display = "none";
-            getBtnInfo.style.display = "none";
-            getBtnEtiquetas.style.display = "none";
+            getBtnDeshacer.style.display = "none";
+            getBtnPantallaCompleta.style.display = "none";
+            
+            //getBtnInfo.style.display = "none";
+            //getBtnColorLienzo.style.display = "none";            
+            //getBtnGotero.style.display = "none";
+            //getBtnReemplazar.style.display = "none";
+            //getBtnBorrador.style.display = "none";
+            //getBtnPincel.style.display = "none";
+            //getBtnLibre.style.display = "none";
+            //getBtnExtraerColor.style.display = "none";
+            //getBtnOpacidad.style.display = "none";
+            //getBtnSombras.style.display = "none";
+            //getBtnCopiar.style.display = "none";
+            //getBtnCortar.style.display = "none";
+            //getBtnVoltearV.style.display = "none";
+            //getBtnVoltearH.style.display = "none";            
+            $(getcontGrupoHerramientas).addClass("oculto");
+            
             //getBtnColorRejilla.style.display = "none";
             //getBtnTipoBorde.style.display = "none";
             //getBtnAnchoBordes.style.display = "none";
             //getBtnRadioBordes.style.display = "none";
-            $(getcontGrupoBordes).addClass("oculto");
-            getBtnOpacidad.style.display = "none";
-            getBtnSombras.style.display = "none";
-            getBtnCopiar.style.display = "none";
-            getBtnCortar.style.display = "none";
-            getBtnVoltearV.style.display = "none";
-            getBtnVoltearH.style.display = "none";
-            getBtnDeshacer.style.display = "none";            
+            $(getcontGrupoBordes).addClass("oculto");            
+                        
+            getBtnEtiquetas.style.display = "none";            
             $(getSpanFilas).addClass("oculto");
             getSelectFilas.style.display = "none";
             getBtnFilas.style.display = "none";
             $(getSpanColumnas).addClass("oculto");
             getSelectColumnas.style.display = "none";
             getBtnColumnas.style.display = "none";
+
             //getBtnImportarTexto.style.display = "none";
             //getBtnImportarGallery.style.display = "none";
             //getBtnExportar.style.display = "none";
             //getBtnImprimir.style.display = "none";
             $(getcontGrupoCompartir).addClass("oculto");
-            getBtnPantallaCompleta.style.display = "none";
+            
             //debe guardar los colores y los id      
             lastAction = "libre";
             lastArrayColor.length = 0;

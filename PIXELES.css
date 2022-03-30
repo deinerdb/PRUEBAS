@@ -71,17 +71,27 @@ body {
     max-width: 0;
     opacity: 0;
 }
+#panelHHerramientas {
+    max-width: 0;
+    opacity: 0;
+}
 #ArrowGrupoCompartir {
     color: #ffff00;
 }
 #ArrowGrupoBordes {
     color: #00ffff;
 }
+#ArrowGrupoHerramientas {
+    color: #00ff00;
+}
 #BtnGrupoCompartir {
     color: #ffff00;
 }
 #BtnGrupoBordes {
     color: #00ffff;
+}
+#BtnGrupoHerramientas {
+    color: #00ff00;
 }
 #contGrupoCompartir {     
     -moz-box-shadow: 0em -3px 8px 0 #ffff00 inset;
@@ -92,6 +102,11 @@ body {
     -moz-box-shadow: 0em -3px 8px 0 #00ffff inset;
     -webkit-box-shadow: 0em -3px 8px 0 #00ffff inset;
     box-shadow: 0em -3px 8px 0 #00ffff inset;
+}
+#contGrupoHerramientas {     
+    -moz-box-shadow: 0em -3px 8px 0 #00ff00 inset;
+    -webkit-box-shadow: 0em -3px 8px 0 #00ff00 inset;
+    box-shadow: 0em -3px 8px 0 #00ff00 inset;
 }
 /* ESTILOS DE TABLA */
 /* las muestras de colores en info */
@@ -2498,6 +2513,7 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores, input {
     visibility: visible;
     font-size: 0.8em;
     font-family: Consolas, 'Courier New', Courier, monospace;
+    font-weight: bold;
     cursor: default; /* por ie y edge */
     color: indigo;
     /*centrar verticalmente*/
