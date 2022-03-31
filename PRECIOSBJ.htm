@@ -24,6 +24,113 @@
             snack 500
             loader 9999
             */
+            .formulario {
+                font-size: 1.05em;
+                padding: 10px 8px;
+                /*Formularios con borde superior e inferior gris*/
+                border-bottom-style: none !important;
+                border-top-style: none !important; 
+                margin-bottom: 4px !important;
+
+            }
+            .formulario label {
+                font-weight: bold;
+            }
+            #detalles input {
+                font-size: 1.05em;
+                font-family: 'Space Mono', Consolas, Courier New, Courier, monospace;
+            }
+            /*formularios con estilo*/
+            form {
+                /*Formularios con borde superior e inferior gris*/
+                border-bottom-style: solid;
+                border-top-style: solid;
+                border-color: #778899;
+                margin: 8px;    
+            }
+            /* AGREGAR #BTN QUE ESTÉN EN FORMULARIO */
+            .formulario input[type=button], .formulario input[type=submit], .formulario input[type=reset] { 
+                margin-left: 12px !important;
+            }
+            input[type=button], input[type=submit], input[type=reset], button {
+                /*no se puede seleccionar el texto*/
+                -webkit-user-select: none; /* Chrome, Opera, Safari */
+                -moz-user-select: none; /* Firefox 2+ */
+                -ms-user-select: none; /* IE 10+ */
+                user-select: none; /* Standard syntax */
+            }
+            /* EN CASO DE USAR UN CONTENEDOR */
+            .divform {
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
+                border-radius: 5px;
+                background-color: #f2f2f2; /*gris para el fondo de form*/
+                padding: 20px;
+            }
+
+            /* AGREGAR BTN */
+            .formulario input:focus, .formulario select:focus, .formulario textarea:focus {
+                background-color: lavender !important;
+            }
+            /* AGREGAR BTN */
+            .formulario input, .formulario select, .formulario textarea, .formulario fieldset {
+                margin: 8px 0;
+                /*para que el ancho sea real*/
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                border: 2px solid purple;
+                -webkit-border-radius: 4px;
+                -moz-border-radius: 4px;
+                border-radius: 4px;
+                outline: none;
+            }
+
+                .formulario input[type=text], .formulario input[type=email], .formulario input[type=url], .formulario input[type=password], .formulario input[type=number], .formulario select, .formulario textarea {
+                    width: 100%;
+                    padding: 12px 20px;
+                }
+
+                .formulario input[type=date], .formulario input[type=month] {
+                    padding: 12px 20px;
+                    min-width: 250px;
+                    max-width: 100%;        
+                }
+
+                .formulario input[type=color] {
+                    min-width: 100px;
+                    max-width: 100%;
+                }
+            .formulario select {
+                border: none;
+                background-color: #ffe6ff;
+            }
+
+            /* AGREGAR BTN */
+            .formulario input[type=button], .formulario input[type=submit], .formulario input[type=reset] {
+                background-color: rebeccapurple;
+                border: none;
+                color: white;
+                padding: 16px 32px;
+                text-decoration: none;
+                margin: 4px 2px;
+                cursor: pointer;
+            }
+            /* AGREGAR BTN HOVER */    
+            .formulario input[type=button]:hover, .formulario input[type=submit]:hover, .formulario input[type=reset]:hover {
+                    background: #8c53c6; /* For browsers that do not support gradients */
+                    background: -webkit-linear-gradient(left, #8c53c6, rebeccapurple); /* For Safari 5.1 to 6.0 */
+                    background: -o-linear-gradient(right, #8c53c6, rebeccapurple); /* For Opera 11.1 to 12.0 */
+                    background: -moz-linear-gradient(right, #8c53c6, rebeccapurple); /* For Firefox 3.6 to 15 */
+                    background: linear-gradient(to right, #8c53c6, rebeccapurple); /* Standard syntax (must be last) */
+                    color: white !important;
+                }
+                /* AGREGAR BTN FOCUS */
+                .formulario input[type=button]:focus, .formulario input[type=submit]:focus, .formulario input[type=reset]:focus {
+                    color: purple;
+                }
+
+            /*fin formularios*/
 
             /* Style the tab */
             .tab, .tab button {
@@ -899,7 +1006,7 @@
                     $(".loader").addClass("oculto");
                     // scroll
                     topFunction();                
-                }, 1200);
+                }, 1000);
             });        
         </script>
         
@@ -6126,7 +6233,32 @@
                         </div>
         
                         <div id="detalles" class="tabcontent">                            
-                            Aquí va información detallada del artículo... 
+                            <form class="formulario">
+                                <!-- información detallada del artículo -->
+                                <label>Código:</label> <br />
+                                <input type="text" id="txtCódigo" readonly /><br />
+                                <label>Referencia:</label> <br />
+                                <input type="text" id="txtReferencia" readonly /><br />
+                                <label>Grupo:</label> <br />
+                                <input type="text" id="txtGrupo" readonly /><br />
+                                <label>Subgrupo:</label> <br />
+                                <input type="text" id="txtSubgrupo" readonly /><br />
+                                <label>Nombre POS:</label> <br />
+                                <input type="text" id="txtNombrePOS" readonly /><br />
+                                <label>Nombre:</label> <br />
+                                <input type="text" id="txtNombre" readonly /><br />
+                                <label>Descripción (Presentación):</label> <br />
+                                <input type="text" id="txtDescripción" readonly /><br />
+                                <label>Precio compra sin IVA:</label> <br />
+                                <input type="text" id="txtCompraSin" readonly /><br />
+                                <label>Precio Lista 1 sin IVA:</label> <br />
+                                <input type="text" id="txtLista1Sin" readonly /><br />
+                                <label>Precio Lista 2 sin IVA:</label> <br />
+                                <input type="text" id="txtLista2Sin" readonly /><br />
+                                <label>Precio Lista 3 sin IVA:</label> <br />
+                                <input type="text" id="txtLista3Sin" readonly /><br />
+        
+                            </form>
                         </div>                
                     </div>
                     <!-- INFORMACIÓN OPCIONAL EN CADA MODAL -->
@@ -6250,6 +6382,9 @@
                         var miCod = globalFila.dataset.cod;
                         copyToClipboard(miCod);
                         document.getElementById("spanInfoModal").innerHTML = "Se ha copiado el código del artículo seleccionado: " + miCod;
+                        // recupera los detalles del artículo
+                            // código
+                            document.getElementById("txtCódigo").value = globalFila.dataset.cod;
 
                         break;
                     }
