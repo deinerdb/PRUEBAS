@@ -40,6 +40,39 @@
                 font-size: 1.05em;
                 font-family: 'Space Mono', Consolas, Courier New, Courier, monospace;
             }
+            #btnCopiarCódigo {
+                margin: 12px 8px 10px 0px;
+                border: 2px solid darkred;
+                -webkit-border-radius: 4px;
+                -moz-border-radius: 4px;
+                border-radius: 4px;
+                outline: none;
+                background-color: white;
+                color: darkblue;
+                padding: 8px 16px;
+                text-decoration: none;
+                cursor: pointer;
+                font-family: 'Space Mono', Consolas, Courier New, Courier, monospace;
+                font-size: 20px;
+                /*no se puede seleccionar el texto*/
+                -webkit-user-select: none; /* Chrome, Opera, Safari */
+                -moz-user-select: none; /* Firefox 2+ */
+                -ms-user-select: none; /* IE 10+ */
+                user-select: none; /* Standard syntax */
+            }
+                #btnCopiarCódigo:active {
+                    background-color: #ccf2ff !important;
+                }
+                #btnCopiarCódigo:hover {
+                    background-color: #f2f2f2;
+                }
+                #btnCopiarCódigo:focus {
+                    /*SOMBRA*/
+                    -moz-box-shadow: 4px 4px 3px #C0C0C0;
+                    -webkit-box-shadow: 4px 4px 3px #C0C0C0;
+                    box-shadow: 4px 4px 3px #C0C0C0;
+                    border-style: outset;
+                } 
             /*formularios con estilo*/
             form {
                 /*Formularios con borde superior e inferior gris*/
@@ -6221,8 +6254,7 @@
                 <div class="modal-body" id="modalBody">
                     <!-- cada marco es un uso del Modal -->
                     <!-- Marco Info -->
-                    <div id="marcoInfo" class="marco">
-                        <p>En desarrollo...</p> 
+                    <div id="marcoInfo" class="marco">                        
                         <div class="tab" id="tab">
                             <button class="tablinks" onclick="openTab(event, 'calcular')" id="defaultOpen">CALCULAR</button>
                             <button class="tablinks" onclick="openTab(event, 'detalles')">DETALLES</button>
@@ -6235,6 +6267,7 @@
                         <div id="detalles" class="tabcontent">                            
                             <form class="formulario">
                                 <!-- información detallada del artículo -->
+                                <button type="button" id="btnCopiarCódigo" title="Copiar código del artículo"><i class="far fa-copy" aria-hidden="true"></i></button>
                                 <label>Código:</label> <br />
                                 <input type="text" id="txtCódigo" readonly /><br />
                                 <label>Referencia:</label> <br />
@@ -6356,6 +6389,13 @@
                 // acepta
                 aceptarModal();
             }
+            // el botón copiar código en el modal
+            document.getElementById("btnCopiarCódigo").onclick = function () {
+                // copia
+                var miCod = globalFila.dataset.cod;
+                copyToClipboard(miCod);
+                showSnackbar("Se ha copiado el código del artículo");
+            }
             var globalFila;
             // ajustar el modal según su uso            
             // depende de modalActual, ver declaración al principio
@@ -6378,10 +6418,8 @@
                 switch (modalActual) {
                     case "info":
                         $("#marcoInfo").css("display", "block");
-                        document.getElementById("modalTitle").innerHTML = "<i class='fas fa-info-circle'></i> Información";
-                        var miCod = globalFila.dataset.cod;
-                        copyToClipboard(miCod);
-                        document.getElementById("spanInfoModal").innerHTML = "Se ha copiado el código del artículo seleccionado: " + miCod;
+                        document.getElementById("modalTitle").innerHTML = "<i class='fas fa-info-circle'></i> Información";                        
+                        document.getElementById("spanInfoModal").innerHTML = "Página en construcción...";
                         // recupera los detalles del artículo
                             // código
                             document.getElementById("txtCódigo").value = globalFila.dataset.cod;
