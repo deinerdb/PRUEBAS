@@ -24,18 +24,31 @@
             snack 500
             loader 9999
             */
-            
+            legend {
+                font-weight:bold;
+            }
+            summary {
+                font-weight:bold;
+                margin-top: 12px;
+                color: purple;
+                /*no se puede seleccionar el texto*/
+                -webkit-user-select: none; /* Chrome, Opera, Safari */
+                -moz-user-select: none; /* Firefox 2+ */
+                -ms-user-select: none; /* IE 10+ */
+                user-select: none; /* Standard syntax */
+                cursor: pointer;
+            }
             /* INICIO CSS PARA RADIOS PERSONALIZADOS */
             /* PROPIOS DE PIXELES */
             #checkLista1, #checkLista2, #checkLista3 {
                 text-align: left;
-                margin: 26px 4px 12px 24px;
+                margin: 24px 4px 12px 22px;
                 font-family: 'Space Mono', Consolas, 'Courier New', Courier, monospace;
             }
             /* el último de cada grupo */
             /* en los marcos el último elemento puede ser un select u otro elemento */
             #checkLista3 {
-                margin-bottom: 28px;
+                margin-bottom: 26px;
             }
             /* The radio container */
             .containerR {
@@ -44,7 +57,7 @@
                 padding-left: 35px;
                 margin-bottom: 12px;
                 cursor: pointer;
-                font-size: 22px;
+                font-size: 19px;
                 -webkit-user-select: none;
                 -moz-user-select: none;
                 -ms-user-select: none;
@@ -1170,7 +1183,7 @@
                     <!-- INICIO CADENA GENERADA DESDE VBA -->
                     <!-- ________________________________ -->
 
-                        <tr data-lista3sin='420.17' data-lista2sin='420.17' data-lista1sin='462.18' data-comprasin='354.5' data-descripción='CAJA X 2 DISP DE 100 UNID' data-nombre='CONT SELLOPLUS 8 ONZ TAPA PLANA' data-nombrepos='CONT SP 8 ONZ TP' data-subgrupo='SELLOPLUS' data-grupo='DESECHABLES' data-ref='8 ONZ TP' data-cod='DES-SP-01' onclick= 'seleccionaProducto(this)' class='fila todas' data-full='DES-SP-01 8 ONZ TP CONT SP 8 ONZ TP CONT SELLOPLUS 8 ONZ TAPA PLANA'>
+                    <tr data-lista3sin='420.17' data-lista2sin='420.17' data-lista1sin='462.18' data-comprasin='354.5' data-descripción='CAJA X 2 DISP DE 100 UNID' data-nombre='CONT SELLOPLUS 8 ONZ TAPA PLANA' data-nombrepos='CONT SP 8 ONZ TP' data-subgrupo='SELLOPLUS' data-grupo='DESECHABLES' data-ref='8 ONZ TP' data-cod='DES-SP-01' onclick= 'seleccionaProducto(this)' class='fila todas' data-full='DES-SP-01 8 ONZ TP CONT SP 8 ONZ TP CONT SELLOPLUS 8 ONZ TAPA PLANA'>
                         <td>DES-SP-01</td>
                         <td>CONT SELLOPLUS 8 ONZ TAPA PLANA-CAJA X 2 DISP DE 100 UNID</td>
                         <td  class='num compra'>$422</td>
@@ -3714,9 +3727,9 @@
                         <td  class='num'>$650</td>
                         <td  class='num'>$620</td>
                         </tr>
-                        <tr data-lista3sin='3613.45' data-lista2sin='3781.51' data-lista1sin='4033.61' data-comprasin='3140' data-descripción='80 PTES PTES X 45 UNID' data-nombre='18X30 LIT NAT' data-nombrepos='18X30 LIT NAT' data-subgrupo='TRANSPARENTES DE BAJA' data-grupo='BOLSAS' data-ref='18X30 NAT LIT' data-cod='BOL-TRA-27' onclick= 'seleccionaProducto(this)' class='fila todas' data-full='BOL-TRA-27 18X30 NAT LIT 18X30 LIT NAT 18X30 LIT NAT'>
+                        <tr data-lista3sin='3613.45' data-lista2sin='3781.51' data-lista1sin='4033.61' data-comprasin='3140' data-descripción='80 PTES PTES X 25 UNID' data-nombre='18X30 LIT NAT' data-nombrepos='18X30 NAT LIT' data-subgrupo='TRANSPARENTES DE BAJA' data-grupo='BOLSAS' data-ref='18X30 NAT LIT' data-cod='BOL-TRA-27' onclick= 'seleccionaProducto(this)' class='fila todas' data-full='BOL-TRA-27 18X30 NAT LIT 18X30 NAT LIT 18X30 LIT NAT'>
                         <td>BOL-TRA-27</td>
-                        <td>18X30 LIT NAT-80 PTES PTES X 45 UNID</td>
+                        <td>18X30 LIT NAT-80 PTES PTES X 25 UNID</td>
                         <td  class='num compra'>$3.737</td>
                         <td  class='num lista1'>$4.800</td>
                         <td  class='num'>$4.500</td>
@@ -6367,33 +6380,40 @@
                         <div id="detalles" class="tabcontent">                            
                             <form class="formulario">
                                 <!-- información detallada del artículo -->
-                                <button type="button" id="btnCopiarCódigo" title="Copiar código del artículo"><i class="far fa-copy" aria-hidden="true"></i></button>
-                                <label>Código:</label> <br />
-                                <input type="text" id="txtCódigo" readonly /><br />
-                                <label>Referencia:</label> <br />
-                                <input type="text" id="txtReferencia" readonly /><br />
-                                <label>Grupo:</label> <br />
-                                <input type="text" id="txtGrupo" readonly /><br />
-                                <label>Subgrupo:</label> <br />
-                                <input type="text" id="txtSubgrupo" readonly /><br />
-                                <label>Nombre POS:</label> <br />
-                                <input type="text" id="txtNombrePOS" readonly /><br />
-                                <label>Nombre:</label> <br />
-                                <input type="text" id="txtNombre" readonly /><br />
-                                <label>Descripción (Presentación):</label> <br />
-                                <input type="text" id="txtDescripción" readonly /><br />
-                                <button type="button" id="btnCopiarCompraSin" title="Copiar precio de compra sin IVA"><i class="far fa-copy" aria-hidden="true"></i></button>
-                                <label>Precio compra sin IVA:</label> <br />
-                                <input type="text" id="txtCompraSin" readonly /><br />
-                                <button type="button" id="btnCopiarLista1Sin" title="Copiar precio Lista 1 sin IVA"><i class="far fa-copy" aria-hidden="true"></i></button>
-                                <label>Precio Lista 1 sin IVA:</label> <br />
-                                <input type="text" id="txtLista1Sin" readonly /><br />
-                                <button type="button" id="btnCopiarLista2Sin" title="Copiar precio Lista 2 sin IVA"><i class="far fa-copy" aria-hidden="true"></i></button>
-                                <label>Precio Lista 2 sin IVA:</label> <br />
-                                <input type="text" id="txtLista2Sin" readonly /><br />
-                                <button type="button" id="btnCopiarLista3Sin" title="Copiar precio Lista 3 sin IVA"><i class="far fa-copy" aria-hidden="true"></i></button>
-                                <label>Precio Lista 3 sin IVA:</label> <br />
-                                <input type="text" id="txtLista3Sin" readonly /><br />
+                                <!-- GENERAL -->
+                                <details id="detailsGenerales" open="open">
+                                    <summary>GENERALES</summary><br />
+                                    <button type="button" id="btnCopiarCódigo" title="Copiar código del artículo"><i class="far fa-copy" aria-hidden="true"></i></button>
+                                    <label>Código:</label> <br />
+                                    <input type="text" id="txtCódigo" readonly /><br />
+                                    <label>Referencia:</label> <br />
+                                    <input type="text" id="txtReferencia" readonly /><br />
+                                    <label>Grupo:</label> <br />
+                                    <input type="text" id="txtGrupo" readonly /><br />
+                                    <label>Subgrupo:</label> <br />
+                                    <input type="text" id="txtSubgrupo" readonly /><br />
+                                    <label>Nombre POS:</label> <br />
+                                    <input type="text" id="txtNombrePOS" readonly /><br />
+                                    <label>Nombre:</label> <br />
+                                    <input type="text" id="txtNombre" readonly /><br />
+                                    <label>Descripción (Presentación):</label> <br />
+                                    <input type="text" id="txtDescripción" readonly /><br />
+                                </details>
+                                <details id="detailsPrecios" open="open">
+                                    <summary>PRECIOS</summary><br />
+                                    <button type="button" id="btnCopiarCompraSin" title="Copiar precio de compra sin IVA"><i class="far fa-copy" aria-hidden="true"></i></button>
+                                    <label>Precio compra sin IVA:</label> <br />
+                                    <input type="text" id="txtCompraSin" readonly /><br />
+                                    <button type="button" id="btnCopiarLista1Sin" title="Copiar precio Lista 1 sin IVA"><i class="far fa-copy" aria-hidden="true"></i></button>
+                                    <label>Precio Lista 1 sin IVA:</label> <br />
+                                    <input type="text" id="txtLista1Sin" readonly /><br />
+                                    <button type="button" id="btnCopiarLista2Sin" title="Copiar precio Lista 2 sin IVA"><i class="far fa-copy" aria-hidden="true"></i></button>
+                                    <label>Precio Lista 2 sin IVA:</label> <br />
+                                    <input type="text" id="txtLista2Sin" readonly /><br />
+                                    <button type="button" id="btnCopiarLista3Sin" title="Copiar precio Lista 3 sin IVA"><i class="far fa-copy" aria-hidden="true"></i></button>
+                                    <label>Precio Lista 3 sin IVA:</label> <br />
+                                    <input type="text" id="txtLista3Sin" readonly /><br />
+                                </details>
         
                             </form>
                         </div>                
@@ -6554,6 +6574,9 @@
                         document.getElementById("spanInfoModal").innerHTML = "Página en construcción...";
                         // por defecto, será Lista 1
                         document.getElementById("miCheckLista1").checked = true;
+                        // por defecto los details se abren
+                        document.getElementById("detailsGenerales").open = true;
+                        document.getElementById("detailsPrecios").open = true;
                         // recupera los precios para la pestaña CALCULAR
                         document.getElementById("spanLista1").innerHTML = "Lista 1: ";
                         document.getElementById("spanLista2").innerHTML = "Lista 2: ";
