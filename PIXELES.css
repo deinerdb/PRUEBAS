@@ -75,6 +75,10 @@ body {
     max-width: 0;
     opacity: 0;
 }
+#panelHDimensionar {
+    max-width: 0;
+    opacity: 0;
+}
 #ArrowGrupoCompartir {
     color: #ffff00;
 }
@@ -84,6 +88,9 @@ body {
 #ArrowGrupoHerramientas {
     color: #00ff00;
 }
+#ArrowGrupoDimensionar {
+    color: #0000ff;
+}
 #BtnGrupoCompartir {
     color: #ffff00;
 }
@@ -92,6 +99,9 @@ body {
 }
 #BtnGrupoHerramientas {
     color: #00ff00;
+}
+#BtnGrupoDimensionar {
+    color: #0000ff;
 }
 #contGrupoCompartir {     
     -moz-box-shadow: 0em -3px 8px 0 #ffff00 inset;
@@ -107,6 +117,11 @@ body {
     -moz-box-shadow: 0em -3px 8px 0 #00ff00 inset;
     -webkit-box-shadow: 0em -3px 8px 0 #00ff00 inset;
     box-shadow: 0em -3px 8px 0 #00ff00 inset;
+}
+#contGrupoDimensionar {     
+    -moz-box-shadow: 0em -3px 8px 0 #0000ff inset;
+    -webkit-box-shadow: 0em -3px 8px 0 #0000ff inset;
+    box-shadow: 0em -3px 8px 0 #0000ff inset;
 }
 /* ESTILOS DE TABLA */
 /* las muestras de colores en info */
@@ -246,6 +261,7 @@ tr:nth-child(odd) {
    padding: 0;
    margin: 0;
    cursor: default;
+
    /*centrar verticalmente*/
     /* BROWSER DEFINITION */
     display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
@@ -2639,6 +2655,13 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores, input {
 
 .paleta button:first-child, #BtnAceptarLibre {
     margin-left: 8px;
+}
+/* tienen texto, necesitan ancho mínimo */
+#BtnAceptarLibre {
+    min-width: 92px;
+}
+#BtnCancelarLibre {
+    min-width: 98px;
 }
 /* esto no funciona, es mejor un span al final de la clase espacioDerecha */
 /*

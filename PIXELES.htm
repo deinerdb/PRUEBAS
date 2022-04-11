@@ -923,14 +923,22 @@
         <button id="BtnActualizar" title="Borrar todo (Formatos iniciales)"><i class="fas fa-sync-alt"></i></button>  
         <button id="BtnTrash" title="Borrar todo (Formatos globales)"><i class="far fa-trash-alt"></i></button>        
         <button id="BtnRellenar" title="Pintar todos"><span id="relleno"></span><i class="fas fa-fill-drip"></i></button>        
-        <span id="spanFilas">Filas</span>
-        <select title="Seleccione el número de filas" id="selectFilas" onchange="dimensionar(true)"></select>
-        <button id="BtnFilas" title="Agregar o eliminar filas"><i class="fas fa-arrows-alt-v"></i></button>
-        <span id="spanColumnas">Cols.</span>
-        <select title="Seleccione el número de columnas" id="selectColumnas" onchange="dimensionar(true)"></select>
-        <button id="BtnColumnas" title="Agregar o eliminar columnas"><i class="fas fa-arrows-alt-h"></i></button>
-        <!-- sin etiquetas: <i class="far fa-square"> y con etiquetas: <i class="far fa-check-square"></i>  -->                
-        <button id="BtnEtiquetas" title="Alternar etiquetas de filas y columnas"><i id="icoEtiquetas" class="far fa-check-square"></i> Etiquetas</button>
+        <!-- grupo dimensionar inicio -->        
+        <div class="contGrupo" id="contGrupoDimensionar">
+            <button class="BtnGrupo" id="BtnGrupoDimensionar" title="Expandir o contraer el grupo Dimensionar"><i class="fas fa-arrows-alt"></i></button>
+            <div class="panelH" id="panelHDimensionar">
+                <span id="spanFilas">Filas</span>
+                <select title="Seleccione el número de filas" id="selectFilas" onchange="dimensionar(true)"></select>
+                <button id="BtnFilas" title="Agregar o eliminar filas"><i class="fas fa-arrows-alt-v"></i></button>
+                <span id="spanColumnas">Cols.</span>
+                <select title="Seleccione el número de columnas" id="selectColumnas" onchange="dimensionar(true)"></select>
+                <button id="BtnColumnas" title="Agregar o eliminar columnas"><i class="fas fa-arrows-alt-h"></i></button>
+                <!-- sin etiquetas: <i class="far fa-square"> y con etiquetas: <i class="far fa-check-square"></i>  -->                
+                <button id="BtnEtiquetas" title="Alternar etiquetas de filas y columnas"><i id="icoEtiquetas" class="far fa-check-square"></i> Etiquetas</button>                
+            </div>
+            <button class="ArrowGrupo" id="ArrowGrupoDimensionar" title="Expandir o contraer el grupo Dimensionar"><i id="IcoArrowDimensionar" class="fas fa-angle-double-right"></i></button>
+        </div>        
+        <!-- grupo dimensionar fin -->
         <!-- grupo compartir inicio -->        
         <div class="contGrupo" id="contGrupoCompartir">
             <button class="BtnGrupo" id="BtnGrupoCompartir" title="Expandir o contraer el grupo Compartir"><i class="fas fa-share-alt"></i></button>        

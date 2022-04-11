@@ -30,7 +30,15 @@ var getArrowGrupoHerramientas = document.getElementById("ArrowGrupoHerramientas"
 var getcontGrupoHerramientas = document.getElementById("contGrupoHerramientas");
 var getpanelHHerramientas = document.getElementById("panelHHerramientas");
 var accHerramientasAbierta = false; // global para el estado del panel
+// Dimensionar
+var getBtnGrupoDimensionar = document.getElementById("BtnGrupoDimensionar");
+var getArrowGrupoDimensionar = document.getElementById("ArrowGrupoDimensionar");
+var getcontGrupoDimensionar = document.getElementById("contGrupoDimensionar");
+var getpanelHDimensionar = document.getElementById("panelHDimensionar");
+var accDimensionarAbierta = false; // global para el estado del panel
+
 // fin grupos de botones
+
 // la muestra del tipo de bordes
 var getMuestraTipoBordes = document.getElementById("muestraTipoBordes");
 // muestra especial ExtraerDesde
@@ -1182,9 +1190,11 @@ function alturaModal() {
 // referencias están al inicio del script
 function ajustesResize() {    
     // para obtener anchos mínimos de botones al diseñar
-    //var testSize = document.getElementById("spanFilas");
+    // primer elemento
+    //var testSize = document.getElementById("BtnAceptarLibre");
     //$(testSize).attr("title","w " + testSize.offsetWidth + " h " + testSize.offsetHeight );
-    //var testSize = document.getElementById("spanColumnas");
+    // segundo elemento
+    //var testSize = document.getElementById("BtnCancelarLibre");
     //$(testSize).attr("title","w " + testSize.offsetWidth + " h " + testSize.offsetHeight );
 
     // ajusta el infoTemporal, solo si es visible    
@@ -1214,6 +1224,8 @@ function ajustesResize() {
         ajustarCompartir();
         ajustarBordes();
         ajustarHerramientas();
+        ajustarDimensionar();
+
         var margenArribaCont = 8 + getPaletaArriba.offsetHeight;
         $(getContenedor).css("margin", "0px");
         $(getContenedor).css("margin-top", margenArribaCont + "px");
@@ -4471,6 +4483,28 @@ function ajustarHerramientas() {
     $(getcontGrupoHerramientas).css("min-width", anchoGrupo);
     $(getcontGrupoHerramientas).css("width", anchoGrupo);    
 }
+// ajusta el ancho de los contenedores del grupo Dimensionar
+function ajustarDimensionar() { 
+    // 18 porque los cont de grupo tienen padding-left: 8px y padding-right: 10px
+    var anchoMin = 18 + anchoConMargen(getBtnGrupoDimensionar) + anchoConMargen(getArrowGrupoDimensionar);
+    var anchoGrupo;
+    if ( accDimensionarAbierta == true ) {        
+        // panel abierto        
+        getpanelHDimensionar.style.maxWidth = getpanelHDimensionar.scrollWidth + "px";
+        getpanelHDimensionar.style.opacity = "1";
+        $("#IcoArrowDimensionar").attr("class", "fas fa-angle-double-left"); 
+        anchoGrupo = 0 + getpanelHDimensionar.scrollWidth + anchoMin + "px";      
+    } else {
+        // panel cerrado        
+        getpanelHDimensionar.style.maxWidth = null;
+        getpanelHDimensionar.style.opacity = "0";
+        $("#IcoArrowDimensionar").attr("class", "fas fa-angle-double-right");
+        anchoGrupo = anchoMin + "px";
+    } 
+    $(getcontGrupoDimensionar).css("min-width", anchoGrupo);
+    $(getcontGrupoDimensionar).css("width", anchoGrupo);    
+}
+
 // alterna el estado del grupo compartir
 // y lo ajusta
 var timeCompartir = 0;
@@ -4546,6 +4580,32 @@ function alternarHerramientas() {
        
     }, 340);
 }
+// alterna el estado del grupo Dimensionar
+// y lo ajusta
+var timeDimensionar = 0;
+function alternarDimensionar() {     
+    if ( accDimensionarAbierta == false ) {        
+        // panel abierto
+        accDimensionarAbierta = true;        
+    } else {
+        // panel cerrado
+        accDimensionarAbierta = false;       
+    }     
+    ajustarDimensionar();
+    // unos instantes después
+    // cancela el timeDimensionar
+    clearTimeout(timeDimensionar);
+    timeDimensionar = setTimeout(function () {
+        ajustesResize();
+        // un scroll animado
+        $(getPaletaAbajo).animate({
+            //HACE VISIBLE EN LA PALETA EL PANEL ACTUAL         
+            scrollLeft: getcontGrupoDimensionar.offsetLeft
+        }, 1200);        
+       
+    }, 340);
+}
+
 // expandir o contraer grupo compartir
 getBtnGrupoCompartir.onclick = function () {
     alternarCompartir();
@@ -4567,7 +4627,13 @@ getBtnGrupoHerramientas.onclick = function () {
 getArrowGrupoHerramientas.onclick = function () {
     alternarHerramientas();
 }
-
+// expandir o contraer grupo Dimensionar
+getBtnGrupoDimensionar.onclick = function () {
+    alternarDimensionar();
+}
+getArrowGrupoDimensionar.onclick = function () {
+    alternarDimensionar();
+}
 // fin sección grupos de botones
 
 //se muestra la ventana de ayuda
@@ -4960,6 +5026,7 @@ function cambiarModo(nuevoModo) {
         getBtnBorrarLibre.style.display = "none";
         getBtnExpandirLibre.style.display = "none";
         getBtnPantallaCompleta.style.display = "inline-block";
+        getSelectFondo.style.display = "inline-block";
         //getBtnInfo.style.display = "inline-block";
         //getBtnColorLienzo.style.display = "inline-block";        
         //getBtnGotero.style.display = "inline-block";
@@ -4982,13 +5049,14 @@ function cambiarModo(nuevoModo) {
         //getBtnRadioBordes.style.display = "inline-block";
         $(getcontGrupoBordes).removeClass("oculto");
         
-        getBtnEtiquetas.style.display = "inline-block";        
-        $(getSpanFilas).removeClass("oculto");
-        getSelectFilas.style.display = "inline-block";
-        getBtnFilas.style.display = "inline-block";        
-        $(getSpanColumnas).removeClass("oculto");
-        getSelectColumnas.style.display = "inline-block";
-        getBtnColumnas.style.display = "inline-block";
+        //getBtnEtiquetas.style.display = "inline-block";        
+        //$(getSpanFilas).removeClass("oculto");
+        //getSelectFilas.style.display = "inline-block";
+        //getBtnFilas.style.display = "inline-block";        
+        //$(getSpanColumnas).removeClass("oculto");
+        //getSelectColumnas.style.display = "inline-block";
+        //getBtnColumnas.style.display = "inline-block";
+        $(getcontGrupoDimensionar).removeClass("oculto");
 
         //getBtnImportarTexto.style.display = "inline-block";
         //getBtnImportarGallery.style.display = "inline-block";
@@ -5021,6 +5089,7 @@ function cambiarModo(nuevoModo) {
             getBtnTrash.style.display = "none";
             getBtnDeshacer.style.display = "none";
             getBtnPantallaCompleta.style.display = "none";
+            getSelectFondo.style.display = "none";
             
             //getBtnInfo.style.display = "none";
             //getBtnColorLienzo.style.display = "none";            
@@ -5044,13 +5113,14 @@ function cambiarModo(nuevoModo) {
             //getBtnRadioBordes.style.display = "none";
             $(getcontGrupoBordes).addClass("oculto");            
                         
-            getBtnEtiquetas.style.display = "none";            
-            $(getSpanFilas).addClass("oculto");
-            getSelectFilas.style.display = "none";
-            getBtnFilas.style.display = "none";
-            $(getSpanColumnas).addClass("oculto");
-            getSelectColumnas.style.display = "none";
-            getBtnColumnas.style.display = "none";
+            //getBtnEtiquetas.style.display = "none";            
+            //$(getSpanFilas).addClass("oculto");
+            //getSelectFilas.style.display = "none";
+            //getBtnFilas.style.display = "none";
+            //$(getSpanColumnas).addClass("oculto");
+            //getSelectColumnas.style.display = "none";
+            //getBtnColumnas.style.display = "none";
+            $(getcontGrupoDimensionar).addClass("oculto");
 
             //getBtnImportarTexto.style.display = "none";
             //getBtnImportarGallery.style.display = "none";
