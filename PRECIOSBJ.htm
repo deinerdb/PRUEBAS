@@ -38,6 +38,42 @@
                 user-select: none; /* Standard syntax */
                 cursor: pointer;
             }
+            .util-number {
+                border-style: inset;
+                border-color: purple;
+                border-width: 3px;
+                color: purple;
+                background-color: white;
+                font-family: 'Space Mono', Consolas, Courier New, Courier, monospace;
+                font-size: 19px;
+                width: 270px;
+                max-width: 90%;
+                padding: 8px 6px;
+                margin: 0;
+                font-weight: bold;
+                -webkit-border-radius: 4px;
+                -moz-border-radius: 4px;
+                border-radius: 4px;
+            }
+                .util-number:invalid {
+                    background-color: #ff8080 !important;
+                    color: darkgreen !important;
+                }    
+                .util-number:valid {
+                    background-color: white;
+                }
+                .util-number:focus {
+                    /*border-style: outset;*/
+                    background-color: #f2f2fc;
+                    /*SOMBRA*/
+                    -moz-box-shadow: 4px 4px 3px #C0C0C0;
+                    -webkit-box-shadow: 4px 4px 3px #C0C0C0;
+                    box-shadow: 4px 4px 3px #C0C0C0;
+                }    
+                .util-number:hover {
+                background-color: lavender;
+                }
+
             /* INICIO CSS PARA RADIOS PERSONALIZADOS */
             /* PROPIOS DE PIXELES */
             #checkLista1, #checkLista2, #checkLista3 {
@@ -130,6 +166,16 @@
                 border-top-style: none !important; 
                 margin-bottom: 4px !important;
 
+            }
+            fieldset {
+                border: 2px solid purple;
+                -webkit-border-radius: 4px;
+                -moz-border-radius: 4px;
+                border-radius: 4px;
+                outline: none;
+                padding: 12px 18px;
+                margin-bottom: 24px;
+                text-align: left;                
             }
             .formulario label {
                 font-weight: bold;
@@ -1183,7 +1229,7 @@
                     <!-- INICIO CADENA GENERADA DESDE VBA -->
                     <!-- ________________________________ -->
 
-                    <tr data-lista3sin='420.17' data-lista2sin='420.17' data-lista1sin='462.18' data-comprasin='354.5' data-descripción='CAJA X 2 DISP DE 100 UNID' data-nombre='CONT SELLOPLUS 8 ONZ TAPA PLANA' data-nombrepos='CONT SP 8 ONZ TP' data-subgrupo='SELLOPLUS' data-grupo='DESECHABLES' data-ref='8 ONZ TP' data-cod='DES-SP-01' onclick= 'seleccionaProducto(this)' class='fila todas' data-full='DES-SP-01 8 ONZ TP CONT SP 8 ONZ TP CONT SELLOPLUS 8 ONZ TAPA PLANA'>
+                        <tr data-lista3sin='420.17' data-lista2sin='420.17' data-lista1sin='462.18' data-comprasin='354.5' data-descripción='CAJA X 2 DISP DE 100 UNID' data-nombre='CONT SELLOPLUS 8 ONZ TAPA PLANA' data-nombrepos='CONT SP 8 ONZ TP' data-subgrupo='SELLOPLUS' data-grupo='DESECHABLES' data-ref='8 ONZ TP' data-cod='DES-SP-01' onclick= 'seleccionaProducto(this)' class='fila todas' data-full='DES-SP-01 8 ONZ TP CONT SP 8 ONZ TP CONT SELLOPLUS 8 ONZ TAPA PLANA'>
                         <td>DES-SP-01</td>
                         <td>CONT SELLOPLUS 8 ONZ TAPA PLANA-CAJA X 2 DISP DE 100 UNID</td>
                         <td  class='num compra'>$422</td>
@@ -6374,7 +6420,33 @@
                                 <span id="spanLista3">Lista 3</span>
                                 <input type="radio" name="checkPrecios" id="miCheckLista3">
                                 <span class="checkmarkR"></span>
-                            </label>  
+                            </label>
+                            <fieldset>
+                                <legend>Cantidad: </legend>
+                                <input class="util-number" list="divisores" id="cantidadCalcular" onkeydown="manejador(event, this.id);" step="1" autocomplete="off" spellcheck="false" type="number" placeholder="Ingrese valor" min="1" max="10000" maxlength="9" value="">
+                                <datalist id="divisores">
+                                    <option>1</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                                    <option>12</option>
+                                    <option>20</option>
+                                    <option>24</option>
+                                    <option>25</option>
+                                    <option>36</option>
+                                    <option>50</option>
+                                    <option>60</option>
+                                    <option>84</option>
+                                    <option>100</option>
+                                    <option>125</option>
+                                    <option>200</option>
+                                    <option>400</option>           
+                                    <option>500</option>
+                                </datalist> 
+                            </fieldset>
+                            <fieldset>
+                                <legend>Valor: </legend>
+                                <input class="util-number" type="text" id="valorCalcular" autocomplete="off" spellcheck="false" onkeydown="manejador(event, this.id);" readonly value="$0" />                                
+                            </fieldset> 
                         </div>
         
                         <div id="detalles" class="tabcontent">                            
@@ -6438,7 +6510,9 @@
                 // no se ha buscado
                 $("#infoNoEncontrados").css("display", "none");
             });
-            
+            // DEL TAB CALCULAR
+            var getCantidadCalcular = document.getElementById("cantidadCalcular");
+            var getValorCalcular = document.getElementById("valorCalcular");
             //para el modal
             // modal: ninguno, info...
             var modalActual = "ninguno";
@@ -6578,9 +6652,13 @@
                         document.getElementById("detailsGenerales").open = true;
                         document.getElementById("detailsPrecios").open = true;
                         // recupera los precios para la pestaña CALCULAR
-                        document.getElementById("spanLista1").innerHTML = "Lista 1: ";
-                        document.getElementById("spanLista2").innerHTML = "Lista 2: ";
-                        document.getElementById("spanLista3").innerHTML = "Lista 3: ";
+                        document.getElementById("spanLista1").innerHTML = "Lista 1: " + $(globalFila).children("td:nth-child(4)").html();
+                        document.getElementById("spanLista2").innerHTML = "Lista 2: " + $(globalFila).children("td:nth-child(5)").html();
+                        document.getElementById("spanLista3").innerHTML = "Lista 3: " + $(globalFila).children("td:nth-child(6)").html();
+                        // cantidad vacía inicialmente
+                        getCantidadCalcular.value = "";
+                        // valor inicial es cero
+                        getValorCalcular.value = "$0";
                         // recupera los detalles del artículo
                             // código
                             document.getElementById("txtCódigo").value = globalFila.dataset.cod;
@@ -7027,7 +7105,37 @@
                     element.className = element.className.replace(/\bactive\b/g, "");
                 }
                 // Get the element with id="defaultOpen" and click on it
-                document.getElementById("defaultOpen").click();     
+                document.getElementById("defaultOpen").click(); 
+                // eventos teclado
+                function manejador(e, miId) {                            
+                    var characterCode;
+                    // e.key es la recomendación actual
+                    if (e.key != undefined) {
+                        if (e.key.toLowerCase() == "enter") {
+                            characterCode = 13;
+                        }
+                        else {
+                            characterCode = 0;
+                        }
+                    } else {
+                        /* navegadores antiguos...  */
+                        characterCode = e.which || e.charCode || e.keyCode || e.keyIdentifier || 0;
+                    }
+                    //ejecuta solo si presionó Enter
+                    //dirige el foco al siguiente con Enter                            
+                    if (characterCode == 13) {                                 
+                        // dirige el foco al siguiente con Enter     
+                        // CALCULAR, TAB                        
+                        if (miId == "cantidadCalcular") {
+                            getCantidadCalcular.blur();
+                            getValorCalcular.focus();
+                        }                       
+                        else if (miId == "valorCalcular") {
+                            // si es el último input, vuelve al primero, es un ciclo
+                            getCantidadCalcular.focus();
+                        }
+                    }
+                }    
         </script>
 </body>
 </html>
