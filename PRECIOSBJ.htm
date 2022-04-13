@@ -6411,24 +6411,24 @@
                         </div>
         
                         <div id="calcular" class="tabcontent">                            
-                            <label class="containerR" id="checkLista1">
+                            <label class="containerR" id="checkLista1" title="Precio Lista 1 con IVA">
                                 <span id="spanLista1">Lista 1</span>
                                 <input type="radio" checked="checked" name="checkPrecios" id="miCheckLista1">
                                 <span class="checkmarkR"></span>
                             </label>
-                            <label class="containerR" id="checkLista2">
+                            <label class="containerR" id="checkLista2" title="Precio Lista 2 con IVA">
                                 <span id="spanLista2">Lista 2</span>
                                 <input type="radio" name="checkPrecios" id="miCheckLista2">
                                 <span class="checkmarkR"></span>
                             </label> 
-                            <label class="containerR" id="checkLista3">
+                            <label class="containerR" id="checkLista3" title="Precio Lista 3 con IVA">
                                 <span id="spanLista3">Lista 3</span>
                                 <input type="radio" name="checkPrecios" id="miCheckLista3">
                                 <span class="checkmarkR"></span>
                             </label>
                             <fieldset>
                                 <legend>Cantidad: </legend>
-                                <input class="util-number" list="divisores" id="cantidadCalcular" onkeydown="manejador(event, this.id);" step="1" autocomplete="off" spellcheck="false" type="number" placeholder="¿Cantidad?" min="1" max="10000" maxlength="9" value="">
+                                <input title="Ingrese la cantidad de artículos" class="util-number" list="divisores" id="cantidadCalcular" onkeydown="manejador(event, this.id);" step="1" autocomplete="off" spellcheck="false" type="number" placeholder="¿Cantidad?" min="1" max="10000" maxlength="9" value="">
                                 <datalist id="divisores">
                                     <option>1</option>
                                     <option>5</option>
@@ -6450,7 +6450,7 @@
                             </fieldset>
                             <fieldset>
                                 <legend>Valor: </legend>
-                                <input class="util-number" type="text" id="valorCalcular" autocomplete="off" spellcheck="false" onkeydown="manejador(event, this.id);" readonly value="$0" />                                
+                                <input title="Valor = Cantidad x Precio" class="util-number" type="text" id="valorCalcular" autocomplete="off" spellcheck="false" onkeydown="manejador(event, this.id);" readonly value="$0" />                                
                             </fieldset> 
                         </div>
         
@@ -6518,9 +6518,13 @@
             // DEL TAB CALCULAR
             var getCantidadCalcular = document.getElementById("cantidadCalcular");
             var getValorCalcular = document.getElementById("valorCalcular");
+            var getOptLista1 = document.getElementById("miCheckLista1");
+            var getOptLista2 = document.getElementById("miCheckLista2");
+            var getOptLista3 = document.getElementById("miCheckLista3");
             var precio1 = 0;
             var precio2 = 0;
             var precio3 = 0;
+            var miPrecio = 0;
             //para el modal
             // modal: ninguno, info...
             var modalActual = "ninguno";
@@ -6652,10 +6656,8 @@
                 switch (modalActual) {
                     case "info":
                         $("#marcoInfo").css("display", "block");
-                        document.getElementById("modalTitle").innerHTML = "<i class='fas fa-info-circle'></i> Información";                        
-                        
-                        // por defecto, será Lista 1
-                        document.getElementById("miCheckLista1").checked = true;
+                        document.getElementById("modalTitle").innerHTML = "<i class='fas fa-info-circle'></i> Información"; 
+                                                
                         // por defecto los details se abren
                         document.getElementById("detailsGenerales").open = true;
                         document.getElementById("detailsPrecios").open = true;
@@ -6667,12 +6669,15 @@
                         precio1 = globalFila.dataset.lista1con;
                         precio2 = globalFila.dataset.lista2con;
                         precio3 = globalFila.dataset.lista3con;
+                        // porque lista 1 es la predeterminada
+                        getOptLista1.checked = true;
+                        miPrecio = precio1;
                         // INFORMACIÓN ADICIONAL O TEMPORAL
-                        document.getElementById("spanInfoModal").innerHTML = "Página en construcción... P1 " + precio1 + " P2 " + precio2 + " P3 " + precio3;
+                        document.getElementById("spanInfoModal").innerHTML = "Página en construcción... Falta el formato en el resultado.";                        
                         // cantidad vacía inicialmente
                         getCantidadCalcular.value = "";
-                        // valor inicial es cero
-                        getValorCalcular.value = "$0";
+                        // valor inicial no muestra nada
+                        getValorCalcular.value = "";
                         // recupera los detalles del artículo
                             // código
                             document.getElementById("txtCódigo").value = globalFila.dataset.cod;
@@ -7149,6 +7154,44 @@
                             getCantidadCalcular.focus();
                         }
                     }
+                }
+                // Calcular: multiplica canticad x precio y actualiza el resultado
+                function calcularValor() {  
+                    try {
+                        getValorCalcular.value = Number(miPrecio) * Number(getCantidadCalcular.value);
+                    }
+                    catch (err) {
+                        // simplemente borra el resultado
+                        getValorCalcular.value = "";
+                    }                              
+                   
+                }
+                // cuando cambia la lista en Calcular
+                function eligeLista() {                            
+                    if (getOptLista1.checked == true) {
+                        miPrecio = precio1;
+                    } else if (getOptLista2.checked == true) {
+                        miPrecio = precio2;
+                    } else if (getOptLista3.checked == true) {
+                        miPrecio = precio3;
+                    }
+                    // actualiza resultado
+                    calcularValor();
+                }
+                getOptLista1.onclick = function () {                                               
+                    eligeLista();
+                }
+                getOptLista2.onclick = function () {                                               
+                    eligeLista();
+                }
+                getOptLista3.onclick = function () {                                               
+                    eligeLista();
+                }
+                getCantidadCalcular.oninput = function () {
+                    calcularValor();
+                }
+                getCantidadCalcular.onchange = function () {
+                    calcularValor();
                 }    
         </script>
 </body>
