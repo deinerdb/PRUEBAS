@@ -6428,7 +6428,7 @@
                             </label>
                             <fieldset>
                                 <legend>Cantidad: </legend>
-                                <input title="Ingrese la cantidad de artículos" class="util-number" list="divisores" id="cantidadCalcular" onkeydown="manejador(event, this.id);" step="1" autocomplete="off" spellcheck="false" type="number" placeholder="¿Cantidad?" min="1" max="10000" maxlength="9" value="">
+                                <input class="util-number" list="divisores" id="cantidadCalcular" onkeydown="manejador(event, this.id);" step="1" autocomplete="off" spellcheck="false" type="number" placeholder="¿Cantidad?" min="1" max="10000" maxlength="9" value="">
                                 <datalist id="divisores">
                                     <option>1</option>
                                     <option>5</option>
@@ -6673,7 +6673,7 @@
                         getOptLista1.checked = true;
                         miPrecio = precio1;
                         // INFORMACIÓN ADICIONAL O TEMPORAL
-                        document.getElementById("spanInfoModal").innerHTML = "Página en construcción... Falta el formato en el resultado.";                        
+                        document.getElementById("spanInfoModal").innerHTML = "Información sobre " + globalFila.dataset.nombre + " - " + globalFila.dataset.descripción;                        
                         // cantidad vacía inicialmente
                         getCantidadCalcular.value = "";
                         // valor inicial no muestra nada
@@ -7155,10 +7155,20 @@
                         }
                     }
                 }
-                // Calcular: multiplica canticad x precio y actualiza el resultado
+                const formatterPeso = new Intl.NumberFormat('es-CO', {
+                    style: 'currency',
+                    currency: 'COP',
+                    minimumFractionDigits: 0
+                });
+                // Calcular: multiplica cantidad x precio y actualiza el resultado
                 function calcularValor() {  
+                    var temp = 0;
                     try {
-                        getValorCalcular.value = Number(miPrecio) * Number(getCantidadCalcular.value);
+                        temp = Number(miPrecio) * Number(getCantidadCalcular.value);
+                        temp = Number(temp).toFixed(0);
+                        temp = Number(temp);
+                        temp = formatterPeso.format(temp);
+                        getValorCalcular.value = temp;
                     }
                     catch (err) {
                         // simplemente borra el resultado
