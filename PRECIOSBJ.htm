@@ -6673,7 +6673,12 @@
                         getOptLista1.checked = true;
                         miPrecio = precio1;
                         // INFORMACIÓN ADICIONAL O TEMPORAL
-                        document.getElementById("spanInfoModal").innerHTML = "Información sobre " + globalFila.dataset.nombre + " - " + globalFila.dataset.descripción;                        
+                        var infoArt = "";
+                        infoArt = "Información sobre... <br><br><strong>" + globalFila.dataset.cod + "</strong> " + globalFila.dataset.nombre;
+                        if (globalFila.dataset.descripción.length > 0) {
+                            infoArt = infoArt + " - " + globalFila.dataset.descripción;
+                        }
+                        document.getElementById("spanInfoModal").innerHTML = infoArt;
                         // cantidad vacía inicialmente
                         getCantidadCalcular.value = "";
                         // valor inicial no muestra nada
@@ -6891,7 +6896,7 @@
             // La función de búsqueda que admite * como caracter comodín                         
             function buscarPro(buscado, buscarEn) {
                 var arrayBuscado = [];
-                // un array con el separador *
+                // un array con el separador *                
                 arrayBuscado = buscado.split("*")
                 // para indicar el inicio de cada búsqueda
                 var iniciar = 0;
@@ -6949,6 +6954,8 @@
                     return;
                 }
                 // en este punto sabemos que no es una cadena vacía
+                // reemplaza / por x
+                test = test.replace("/", "x");
                 // Nota: es indiferente a las mayúsculas, siempre se almacena en minúsculas    
                 test = test.toLowerCase();
                 // recorre las filas de productos
