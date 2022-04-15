@@ -79,6 +79,10 @@ body {
     max-width: 0;
     opacity: 0;
 }
+#panelHColores {
+    max-width: 0;
+    opacity: 0;
+}
 #ArrowGrupoCompartir {
     color: #ffff00;
 }
@@ -91,6 +95,9 @@ body {
 #ArrowGrupoDimensionar {
     color: #0000ff;
 }
+#ArrowGrupoColores {
+    color: #ff8c00 ;
+}
 #BtnGrupoCompartir {
     color: #ffff00;
 }
@@ -102,6 +109,9 @@ body {
 }
 #BtnGrupoDimensionar {
     color: #0000ff;
+}
+#BtnGrupoColores {
+    color: #ff8c00 ;
 }
 #contGrupoCompartir {     
     -moz-box-shadow: 0em -3px 8px 0 #ffff00 inset;
@@ -122,6 +132,11 @@ body {
     -moz-box-shadow: 0em -3px 8px 0 #0000ff inset;
     -webkit-box-shadow: 0em -3px 8px 0 #0000ff inset;
     box-shadow: 0em -3px 8px 0 #0000ff inset;
+}
+#contGrupoColores {     
+    -moz-box-shadow: 0em -3px 8px 0 #ff8c00 inset;
+    -webkit-box-shadow: 0em -3px 8px 0 #ff8c00 inset;
+    box-shadow: 0em -3px 8px 0 #ff8c00 inset;
 }
 /* ESTILOS DE TABLA */
 /* las muestras de colores en info */

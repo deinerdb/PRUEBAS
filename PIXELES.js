@@ -36,7 +36,12 @@ var getArrowGrupoDimensionar = document.getElementById("ArrowGrupoDimensionar");
 var getcontGrupoDimensionar = document.getElementById("contGrupoDimensionar");
 var getpanelHDimensionar = document.getElementById("panelHDimensionar");
 var accDimensionarAbierta = false; // global para el estado del panel
-
+// Colores
+var getBtnGrupoColores = document.getElementById("BtnGrupoColores");
+var getArrowGrupoColores = document.getElementById("ArrowGrupoColores");
+var getcontGrupoColores = document.getElementById("contGrupoColores");
+var getpanelHColores = document.getElementById("panelHColores");
+var accColoresAbierta = false; // global para el estado del panel
 // fin grupos de botones
 
 // la muestra del tipo de bordes
@@ -1225,7 +1230,8 @@ function ajustesResize() {
         ajustarBordes();
         ajustarHerramientas();
         ajustarDimensionar();
-
+        ajustarColores();
+        
         var margenArribaCont = 8 + getPaletaArriba.offsetHeight;
         $(getContenedor).css("margin", "0px");
         $(getContenedor).css("margin-top", margenArribaCont + "px");
@@ -4441,6 +4447,27 @@ function ajustarCompartir() {
     $(getcontGrupoCompartir).css("min-width", anchoGrupo);
     $(getcontGrupoCompartir).css("width", anchoGrupo);    
 }
+// ajusta el ancho de los contenedores del grupo Colores
+function ajustarColores() { 
+    // 18 porque los cont de grupo tienen padding-left: 8px y padding-right: 10px
+    var anchoMin = 18 + anchoConMargen(getBtnGrupoColores) + anchoConMargen(getArrowGrupoColores);
+    var anchoGrupo;
+    if ( accColoresAbierta == true ) {        
+        // panel abierto        
+        getpanelHColores.style.maxWidth = getpanelHColores.scrollWidth + "px";
+        getpanelHColores.style.opacity = "1";
+        $("#IcoArrowColores").attr("class", "fas fa-angle-double-left"); 
+        anchoGrupo = 0 + getpanelHColores.scrollWidth + anchoMin + "px";      
+    } else {
+        // panel cerrado        
+        getpanelHColores.style.maxWidth = null;
+        getpanelHColores.style.opacity = "0";
+        $("#IcoArrowColores").attr("class", "fas fa-angle-double-right");
+        anchoGrupo = anchoMin + "px";
+    } 
+    $(getcontGrupoColores).css("min-width", anchoGrupo);
+    $(getcontGrupoColores).css("width", anchoGrupo);    
+}
 // ajusta el ancho de los contenedores del grupo bordes
 function ajustarBordes() { 
     // 18 porque los cont de grupo tienen padding-left: 8px y padding-right: 10px
@@ -4530,6 +4557,31 @@ function alternarCompartir() {
        
     }, 340);
 }
+// alterna el estado del grupo Colores
+// y lo ajusta
+var timeColores = 0;
+function alternarColores() {     
+    if ( accColoresAbierta == false ) {        
+        // panel abierto
+        accColoresAbierta = true;        
+    } else {
+        // panel cerrado
+        accColoresAbierta = false;       
+    }     
+    ajustarColores();
+    // unos instantes después
+    // cancela el timeColores
+    clearTimeout(timeColores);
+    timeColores = setTimeout(function () {
+        ajustesResize();
+        // un scroll animado
+        $(getPaletaArriba).animate({
+            //HACE VISIBLE EN LA PALETA EL PANEL ACTUAL         
+            scrollLeft: getcontGrupoColores.offsetLeft
+        }, 1200);        
+       
+    }, 340);
+}
 // alterna el estado del grupo bordes
 // y lo ajusta
 var timeBordes = 0;
@@ -4612,6 +4664,13 @@ getBtnGrupoCompartir.onclick = function () {
 }
 getArrowGrupoCompartir.onclick = function () {
     alternarCompartir();
+}
+// expandir o contraer grupo Colores
+getBtnGrupoColores.onclick = function () {
+    alternarColores();
+}
+getArrowGrupoColores.onclick = function () {
+    alternarColores();
 }
 // expandir o contraer grupo bordes
 getBtnGrupoBordes.onclick = function () {
