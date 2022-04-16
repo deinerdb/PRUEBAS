@@ -6674,10 +6674,11 @@
                         miPrecio = precio1;
                         // INFORMACIÓN ADICIONAL O TEMPORAL
                         var infoArt = "";
-                        infoArt = "Información sobre... <br><br><strong>" + globalFila.dataset.cod + "</strong> " + globalFila.dataset.nombre;
+                        infoArt = "Artículo seleccionado: <br><br><strong>" + globalFila.dataset.cod + "</strong> " + globalFila.dataset.nombre;
                         if (globalFila.dataset.descripción.length > 0) {
                             infoArt = infoArt + " - " + globalFila.dataset.descripción;
                         }
+                        infoArt = infoArt + " <br><br>PRECIO COMPRA CON IVA:  <br><strong>" + $(globalFila).children("td:nth-child(3)").html() + "</strong>";
                         document.getElementById("spanInfoModal").innerHTML = infoArt;
                         // cantidad vacía inicialmente
                         getCantidadCalcular.value = "";
