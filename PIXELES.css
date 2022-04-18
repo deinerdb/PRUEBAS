@@ -2,7 +2,8 @@
 btn cerrar hist 20
 lienzos seleccionados 3
 lienzos resaltados 4
-cuadrito resaltado 5
+cuadrito resaltado 5 
+spanModo 80
 paleta 100
 paleta full 150
 hover y active en paletas 180
@@ -22,6 +23,31 @@ body {
     text-align: center;    
     font-size: 100%;
 }
+
+#spanModo {
+    color: white; /* class="blanco-negro" agregada en html */
+    background-color: transparent;    
+    display: inline-block;
+    position: fixed;
+    right: 12px;
+    padding: 0;
+    padding-top: 4px;
+    text-align: right;
+    top: 70px;
+    overflow: hidden;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    font-family: Consolas, 'Courier New', Courier, monospace;
+    font-size: small;
+    z-index: 80;
+    /*no se puede seleccionar el texto*/
+    -webkit-user-select: none; /* Chrome, Opera, Safari */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */       
+}
+
 /* GRUPOS DE BOTONES */
 
 .contGrupo {    
@@ -194,7 +220,7 @@ body {
  }
  .green{
    color: white;
-   background-color: #437070; /* verde intermedio */
+   background-color: #610fb3; /* verde intermedio */
 }
 
 .contenedor-tabla{
@@ -227,7 +253,7 @@ caption {
     padding: 8px;
     font-weight: bold;
     font-size: 1.2em;
-    color: #006600; /* verde oscuro */
+    color: #330066; /* verde oscuro */
     font-family: Arial, Helvetica, sans-serif;
 }
 .num {
@@ -239,11 +265,11 @@ caption {
 th {
     /* encabezados de columna */
     color: white;
-    background-color: #2f4f4f; /*verde oscuro*/
+    background-color: #4a048f; /*verde oscuro*/
 }
 tr:nth-child(even) {
     /*filas pares*/
-    background-color: #d8f3e9; /* verde claro */
+    background-color: #e6e6fa; /* verde claro */
 }
 
 tr:nth-child(odd) {
@@ -252,7 +278,7 @@ tr:nth-child(odd) {
 }
 .borde-oscuro {
     /* segundo grupo */
-    border-top: 4px solid #2f4f4f !important;
+    border-top: 4px solid #4a048f !important;
 }
 /* FIN ESTILOS TABLAS */
 .etiquetaOculta {
@@ -646,6 +672,9 @@ tr:nth-child(odd) {
     justify-content: center;
     align-content: center;
     flex-direction: column;
+    /* la animación blanco y negro es por clase */
+}
+.blanco-negro {
     /* anima */
     /*WEBKIT*/
     -webkit-animation-name: blancoynegro;
@@ -2179,7 +2208,7 @@ tr:nth-child(odd) {
         text-shadow: none !important;
     }
     /* ocultar */
-    #BtnTop, .paleta, .loader, #pie, #pieAfter, #BtnCerrarHistorial, #myModal, #snackbar, #paletaFull {
+    #spanModo, #BtnTop, .paleta, .loader, #pie, #pieAfter, #BtnCerrarHistorial, #myModal, #snackbar, #paletaFull {
         display: none !important;
     }
     #pantalla {
