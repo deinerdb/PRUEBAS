@@ -24,6 +24,25 @@
             snack 500
             loader 9999
             */
+            #selectCampo {
+                margin: 0px;
+                -webkit-border-radius: 4px;
+                -moz-border-radius: 4px;
+                border-radius: 4px;
+                outline: none;                
+                max-width: 100%;
+                padding: 8px 12px;
+                border: none;
+                background-color: lavender;
+                font-size: large;
+                cursor: pointer;
+            }
+            #selectCampo:focus {
+                background-color: #ffe6ff !important;
+            }
+            #selectCampo:hover {
+                background-color: #d0d0f6;
+            }
             legend {
                 font-weight:bold;
             }
@@ -1221,7 +1240,13 @@
                 <thead>
                     <tr>
                         <th>Código</th>
-                        <th>Nombre</th>
+                        <th>
+                            <select id="selectCampo" title="Elija el campo visible" onchange="actualizaCampo()">
+                                <option value="nombre" selected="">Nombre Completo</option>
+                                <option value="pos">Nombre POS</option>
+                                <option value="ref">Referencia</option>                            
+                            </select>
+                        </th>
                         <th>Compra</th>
                         <th>Lista 1</th>
                         <th>Lista 2</th>
@@ -7179,6 +7204,10 @@
                 getCantidadCalcular.onchange = function () {
                     calcularValor();
                 }    
+                // cuando cambia el campo para mostrar
+                function actualizaCampo() {                            
+                   showSnackbar("En desarrollo...");
+                }
         </script>
 </body>
 </html>
