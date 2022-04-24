@@ -251,7 +251,7 @@ var lastModo = "pincel";
 // modos: pincel, borrador, relleno, extraer, libre, radio, sombras, opacidad, reemplazar, lienzo, colorBordes, 
 var modoActual = "pincel";
 // el texto en el spanModo
-$("#spanModo").html("Pincel");
+$(getSpanModo).html("Pincel");
 // es como un modo, pero se gestiona diferente
 var pantallaCompleta = false;
 var timerCursor = 0;
@@ -1216,7 +1216,7 @@ function ajustesResize() {
     getPaletaHistorial.style.top = 0 + getPaletaArriba.offsetHeight + getBtnCerrarHistorial.offsetHeight + "px";
     getPaletaHistorial.style.bottom = 0 + getPaletaAbajo.offsetHeight + "px";
     // el top del infoModo
-    getSpanModo.style.top = 0 + getPaletaArriba.offsetHeight + "px";
+    getSpanModo.style.top = 4 + getPaletaArriba.offsetHeight + "px";
     // dependiendo del estado de la pantalla
     if (pantallaCompleta == true) {
         var h = window.innerHeight
@@ -1260,8 +1260,9 @@ function ajustesResize() {
     if (modalActual == "ninguno") {
         // ajusta el contenedor a su contendido, sin scroll
         // por un bug en tv LG
-        getContenedor.width = getContenedor.scrollWidth + "px";
-        getContenedor.height = getContenedor.scrollHeight + "px";
+        // estoy probando con un pixel adicional
+        getContenedor.width = 1 + getContenedor.scrollWidth + "px";
+        getContenedor.height = 1 + getContenedor.scrollHeight + "px";
     }
     else {
         alturaModal();
@@ -2401,11 +2402,15 @@ function showModal() {
     modal.style.display = "block";
     // oculta el pie para liberar recursos
     getPie.style.display = "none";
-    //define su altura    
-    alturaModal();
+    // el scroll de la página, será restaurado en cerrarModal()
+    document.body.scrollTop = 0; // For Chrome, Safari and Opera
+    document.documentElement.scrollTop = 0; // For IE and Firefox    
     // scroll horizontal y vertical, no recuerda el anterior
+    // esto es del modal, no confudir con el del body o document
     getmodalBody.scrollTop = 0;
     getmodalBody.scrollLeft = 0;
+    //define su altura    
+    alturaModal();
     // OCULTA TODOS LOS MARCOS
     $(".marco").css("display", "none");
     // ahora hace ajustes iniciales según su uso
@@ -2933,7 +2938,8 @@ function showModal() {
                     setTimeout(function () {
                         // hace scroll para que se vea este acc                        
                         $(getmodalBody).animate({
-                            scrollTop: $(vecinoAcc).offset().top - vecinoAcc.offsetHeight - 16
+                            //scrollTop: $(vecinoAcc).offset().top - vecinoAcc.offsetHeight - 16
+                            scrollTop: $(vecinoAcc).offset().top - vecinoAcc.offsetHeight - 26
                         }, 800);
                     }, 400);
                     
@@ -5133,7 +5139,7 @@ function cambiarModo(nuevoModo) {
     switch (modoActual) {
         case "libre":
             // el texto en el spanModo
-            $("#spanModo").html("Selección Libre");
+            $(getSpanModo).html("Selección Libre");
             
             // agrega la clase seleccionado al btn del modo actual                    
             $(getBtnLibre).addClass("seleccionadoBtnModos");   
@@ -5218,7 +5224,7 @@ function cambiarModo(nuevoModo) {
             break;
         case "pincel":
             // el texto en el spanModo
-            $("#spanModo").html("Pincel");
+            $(getSpanModo).html("Pincel");
             // agrega la clase seleccionado al btn del modo actual                    
             $(getBtnPincel).addClass("seleccionadoBtnModos"); 
             //getcolorPixel.style.display = "inline-block";
@@ -5233,7 +5239,7 @@ function cambiarModo(nuevoModo) {
             break;
         case "info":
             // el texto en el spanModo
-            $("#spanModo").html("Información");
+            $(getSpanModo).html("Información");
             // agrega la clase seleccionado al btn del modo actual                    
             $(getBtnInfo).addClass("seleccionadoBtnModos");
             //getcolorPixel.style.display = "inline-block";
@@ -5248,7 +5254,7 @@ function cambiarModo(nuevoModo) {
             break;
         case "borrador":
             // el texto en el spanModo
-            $("#spanModo").html("Borrador");
+            $(getSpanModo).html("Borrador");
             // agrega la clase seleccionado al btn del modo actual                    
             $(getBtnBorrador).addClass("seleccionadoBtnModos");            
             //getcolorPixel.style.display = "none";
@@ -5263,7 +5269,7 @@ function cambiarModo(nuevoModo) {
             break;
         case "opacidad":
             // el texto en el spanModo
-            $("#spanModo").html("Opacidad");
+            $(getSpanModo).html("Opacidad");
             // agrega la clase seleccionado al btn del modo actual                    
             $(getBtnOpacidad).addClass("seleccionadoBtnModos");
             //getcolorPixel.style.display = "none";
@@ -5278,7 +5284,7 @@ function cambiarModo(nuevoModo) {
             break;
         case "sombras":
             // el texto en el spanModo
-            $("#spanModo").html("Sombras");
+            $(getSpanModo).html("Sombras");
             // agrega la clase seleccionado al btn del modo actual                    
             $(getBtnSombras).addClass("seleccionadoBtnModos");
             //getcolorPixel.style.display = "none";
@@ -5293,7 +5299,7 @@ function cambiarModo(nuevoModo) {
             break;
         case "radio":
             // el texto en el spanModo
-            $("#spanModo").html("Radios");
+            $(getSpanModo).html("Radios");
             // agrega la clase seleccionado al btn del modo actual                    
             $(getBtnRadioBordes).addClass("seleccionadoBtnModos");            
             //getcolorPixel.style.display = "none";
@@ -5308,7 +5314,7 @@ function cambiarModo(nuevoModo) {
             break;
         case "lienzo":
             // el texto en el spanModo
-            $("#spanModo").html("Color Lienzo");
+            $(getSpanModo).html("Color Lienzo");
             // agrega la clase seleccionado al btn del modo actual                    
             $(getBtnColorLienzo).addClass("seleccionadoBtnModos");
             //getcolorPixel.style.display = "inline-block";
@@ -5323,7 +5329,7 @@ function cambiarModo(nuevoModo) {
             break;
         case "colorBordes":
             // el texto en el spanModo
-            $("#spanModo").html("Color Bordes");
+            $(getSpanModo).html("Color Bordes");
             // agrega la clase seleccionado al btn del modo actual                    
             $(getBtnColorRejilla).addClass("seleccionadoBtnModos");
             //getcolorPixel.style.display = "inline-block";
@@ -5338,7 +5344,7 @@ function cambiarModo(nuevoModo) {
             break;
         case "relleno":
             // el texto en el spanModo
-            $("#spanModo").html("Relleno Selectivo");
+            $(getSpanModo).html("Relleno Selectivo");
             // agrega la clase seleccionado al btn del modo actual                    
             $(getBtnGotero).addClass("seleccionadoBtnModos");
             //getcolorPixel.style.display = "inline-block";
@@ -5353,7 +5359,7 @@ function cambiarModo(nuevoModo) {
             break;
         case "reemplazar":
             // el texto en el spanModo
-            $("#spanModo").html("Reemplazar Color");
+            $(getSpanModo).html("Reemplazar Color");
             // agrega la clase seleccionado al btn del modo actual                    
             $(getBtnReemplazar).addClass("seleccionadoBtnModos");
             //getcolorPixel.style.display = "inline-block";
@@ -5368,7 +5374,7 @@ function cambiarModo(nuevoModo) {
             break;
         case "extraer":
             // el texto en el spanModo
-            $("#spanModo").html("Extraer Color");
+            $(getSpanModo).html("Extraer Color");
             // agrega la clase seleccionado al btn del modo actual                    
             $(getBtnExtraerColor).addClass("seleccionadoBtnModos");            
             //getcolorPixel.style.display = "inline-block";
@@ -7036,6 +7042,34 @@ function showInfoTemporal() {
         infoTemp.style.display = "none";        
     }, 3520);  
 }
+
+// oculta el SpanModo y lo vuelve a mostrar unos segundos después
+var timeModo = 0;
+function ocultaSpanModo() {  
+    $(getSpanModo).addClass("oculto");
+    clearTimeout(timeModo);
+    timeModo = setTimeout(function () {
+        $(getSpanModo).removeClass("oculto");        
+    }, 5000);
+}
+// la función anterior es llamada en los siguientes eventos:
+// la idea es que el span no estorbe
+getSpanModo.onclick = function () {
+    ocultaSpanModo();
+}
+getSpanModo.onmousemove = function () {
+    ocultaSpanModo();
+}
+getSpanModo.onmouseover = function () {
+    ocultaSpanModo();
+}
+getSpanModo.ontouchstart = function () {
+    ocultaSpanModo();
+}
+getSpanModo.ontouchmove = function () {
+    ocultaSpanModo();
+}
+
 //***********************************
 // FUNCIÓN QUE ajusta todo si está desocupado
 function intentaAjustar() {

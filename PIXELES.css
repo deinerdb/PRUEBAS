@@ -30,8 +30,7 @@ body {
     display: inline-block;
     position: fixed;
     right: 12px;
-    padding: 0;
-    padding-top: 4px;
+    padding: 0;    
     text-align: right;
     top: 70px;
     overflow: hidden;
