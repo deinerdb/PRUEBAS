@@ -2696,14 +2696,14 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores, input {
     transition: background-color 0.4s;
 }
 
-.paleta button:first-child, #BtnAceptarLibre {
+.paleta button:first-child, #BtnAceptarLibre, #BtnAceptarVoltearH, #BtnCancelarVoltearH {
     margin-left: 8px;
 }
 /* tienen texto, necesitan ancho mínimo */
-#BtnAceptarLibre {
+#BtnAceptarLibre, #BtnAceptarVoltearH {
     min-width: 92px;
 }
-#BtnCancelarLibre {
+#BtnCancelarLibre, #BtnCancelarVoltearH {
     min-width: 98px;
 }
 /* esto no funciona, es mejor un span al final de la clase espacioDerecha */

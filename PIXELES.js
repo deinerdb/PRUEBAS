@@ -111,7 +111,9 @@ var getSelectEliminarColumna = document.getElementById("selectEliminarColumna");
 var getBtnExportar = document.getElementById("BtnExportar");
 var getBtnImprimir = document.getElementById("BtnImprimir");
 var getBtnAceptarLibre = document.getElementById("BtnAceptarLibre");
+var getBtnAceptarVoltearH = document.getElementById("BtnAceptarVoltearH");
 var getBtnCancelarLibre = document.getElementById("BtnCancelarLibre");
+var getBtnCancelarVoltearH = document.getElementById("BtnCancelarVoltearH");
 var getBtnBorrarLibre = document.getElementById("BtnBorrarLibre");
 var getBtnExpandirLibre = document.getElementById("BtnExpandirLibre");
 var getBtnPantallaCompleta = document.getElementById("BtnPantallaCompleta");
@@ -248,7 +250,9 @@ var lastColorRejilla;
 var lastNumColumnas;
 var lastNumFilas;
 var lastModo = "pincel";
-// modos: pincel, borrador, relleno, extraer, libre, radio, sombras, opacidad, reemplazar, lienzo, colorBordes, 
+// MODOS: pincel, borrador, relleno, extraer, libre, radio, 
+// sombras, opacidad, reemplazar, lienzo, colorBordes, info,
+// copiar, cortar, voltearH, voltearV
 var modoActual = "pincel";
 // el texto en el spanModo
 $(getSpanModo).html("Pincel");
@@ -425,6 +429,8 @@ var zoomIn = true;
 document.getElementById("BtnAumentarFull").style.border = "3px outset #009900";
 document.getElementById("BtnDisminuirFull").style.border = "3px solid #666699";
 // en el modo pincel no están estos
+getBtnAceptarVoltearH.style.display = "none";
+getBtnCancelarVoltearH.style.display = "none";
 getBtnAceptarLibre.style.display = "none";
 getBtnCancelarLibre.style.display = "none";
 getBtnBorrarLibre.style.display = "none";
@@ -3652,6 +3658,9 @@ function hacerClick(celda) {
     }, 400);
     
     switch (modoActual) {
+        case "voltearH":
+            showSnackbar("En desarrollo...");
+            break;
         case "info":
             // modo información
             // OBTIENE Y ACTUALIZA LA INFO EN LA TABLA DEL MODAL
@@ -4145,6 +4154,10 @@ function mostrarHistorial(afectarPreferencia) {
         showSnackbar("Está en Modo Editor de Sombras...");
         return;
     }
+    if (modoActual == "voltearH") {
+        showSnackbar("Está en Modo Voltear Horizontalmente...");
+        return;
+    }
     // sale si ya está mostrado
     if (historialMostrado == true) {
         //return;
@@ -4154,7 +4167,7 @@ function mostrarHistorial(afectarPreferencia) {
     //cancela el timer que lo ocultaría
     clearTimeout(timerHistorial);
     // guarda la preferencia
-    if (modoActual != "borrador" && modoActual != "radio" && modoActual != "opacidad" && modoActual != "sombras"  && afectarPreferencia == true) {
+    if (modoActual != "borrador" && modoActual != "radio" && modoActual != "opacidad" && modoActual != "sombras" && modoActual != "voltearH"  && afectarPreferencia == true) {
         prefiereHistorial = true;
     }
     //oculta este botón
@@ -4191,7 +4204,7 @@ function cerrarHistorial(afectarPreferencia) {
     //cancela el timer que lo ocultaría
     clearTimeout(timerHistorial);
     // guarda la preferencia
-    if (modoActual != "borrador" && modoActual != "radio" && modoActual != "opacidad" && modoActual != "sombras"  && afectarPreferencia == true) {
+    if (modoActual != "borrador" && modoActual != "radio" && modoActual != "opacidad" && modoActual != "sombras" && modoActual != "voltearH"  && afectarPreferencia == true) {
         prefiereHistorial = false;
     }
     // la barra se desactiva y el botón cerrar historial también
@@ -5060,7 +5073,7 @@ function cambiarModo(nuevoModo) {
     lastModo = modoActual;
     modoActual = nuevoModo;
     // gestiona el historial de color
-    if (modoActual == "borrador" || modoActual == "radio" || modoActual == "opacidad" || modoActual == "sombras") {        
+    if (modoActual == "borrador" || modoActual == "radio" || modoActual == "opacidad" || modoActual == "sombras" || modoActual == "voltearH") {        
             cerrarHistorial(false);
     } else {
         if (prefiereHistorial == true) {
@@ -5083,7 +5096,7 @@ function cambiarModo(nuevoModo) {
     $(".lienzo").removeClass("seleccionado");
     // elimina el modo seleccionado de todos los botones
     $(".seleccionadoBtnModos").removeClass("seleccionadoBtnModos");    
-    if (modoActual != "libre") {
+    if (modoActual != "libre" && modoActual != "voltearH") {
         //muestra y oculta elementos
         // muestra el pie
         getPie.style.visibility = "visible";
@@ -5092,10 +5105,15 @@ function cambiarModo(nuevoModo) {
         getBtnActualizar.style.display = "inline-block";
         getBtnDeshacer.style.display = "inline-block";
         getBtnTrash.style.display = "inline-block";
+        // propios de libre
         getBtnAceptarLibre.style.display = "none";
         getBtnCancelarLibre.style.display = "none";
         getBtnBorrarLibre.style.display = "none";
         getBtnExpandirLibre.style.display = "none";
+        // propios de voltearH
+        getBtnAceptarVoltearH.style.display = "none";
+        getBtnCancelarVoltearH.style.display = "none";
+
         getBtnPantallaCompleta.style.display = "inline-block";
         getSelectFondo.style.display = "inline-block";
         //getBtnInfo.style.display = "inline-block";
@@ -5137,6 +5155,36 @@ function cambiarModo(nuevoModo) {
 
     }
     switch (modoActual) {
+        case "voltearH":
+            // el texto en el spanModo
+            $(getSpanModo).html("Voltear Horizontalmente");
+            // agrega la clase seleccionado al btn del modo actual                    
+            $(getBtnVoltearH).addClass("seleccionadoBtnModos"); 
+            // el pie distrae
+            getPie.style.visibility = "hidden";
+            // sin colores
+            $(getcontGrupoColores).addClass("oculto");
+            //muestra y oculta elementos
+            //getBtnAceptarVoltearH.style.display = "inline-block";
+            getBtnCancelarVoltearH.style.display = "inline-block";            
+            getBtnRellenar.style.display = "none";
+            getFiltro.style.display = "none";
+            getBtnActualizar.style.display = "none";
+            getBtnTrash.style.display = "none";
+            getBtnDeshacer.style.display = "none";
+            getBtnPantallaCompleta.style.display = "none";
+            getSelectFondo.style.display = "none";
+            $(getcontGrupoHerramientas).addClass("oculto");
+            $(getcontGrupoBordes).addClass("oculto");
+            $(getcontGrupoDimensionar).addClass("oculto");
+            $(getcontGrupoCompartir).addClass("oculto");
+            // para deshacer
+            lastAction = "voltearH";
+            // copia de seguridad 
+            guardarFormatos();
+            // informa
+            showSnackbar("Modo Voltear Horizontalmente");
+            break;
         case "libre":
             // el texto en el spanModo
             $(getSpanModo).html("Selección Libre");
@@ -5404,6 +5452,22 @@ getBtnAceptarLibre.onclick = function () {
 
     }, 0);  
    
+}
+//se selecciona CANCELAR en el modo voltearH
+getBtnCancelarVoltearH.onclick = function () {
+    // muestra un loader...
+    $(".loader").removeClass("oculto");
+    setTimeout(function () {
+        // código alta exigencia
+        cambiarModo(lastModo);
+        // deshace cualquier cambio           
+        restaurarFormatos();
+        estadoBtnDeshacer(false);
+        // oculta el loader
+        $(".loader").addClass("oculto");
+        // otras tareas
+
+    }, 0);
 }
 //se selecciona CANCELAR en el modo libre
 getBtnCancelarLibre.onclick = function () {
@@ -5961,7 +6025,7 @@ getBtnCortar.onclick = function () {
 }
 // inicia el modo voltear horizontalmente
 getBtnVoltearH.onclick = function () {
-    showSnackbar("En desarrollo...");
+    cambiarModo("voltearH");
 }
 // inicia el modo voltear verticalmente
 getBtnVoltearV.onclick = function () {
@@ -6011,6 +6075,20 @@ getBtnDeshacer.onclick = function () {
     ocupado = true;
     var mensaje = "¡Hecho!";
     switch (lastAction) {
+        case "voltearH":
+            // deshace voltear horizontalmente            
+            mensaje = "Se deshizo voltear horizontalmente";
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia
+                restaurarFormatos();
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+                
+            }, 0);  
+            break;
         case "agregarColumna":
             // deshace la adición de columna            
             mensaje = "Se deshizo la adición de columna";
