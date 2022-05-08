@@ -93,6 +93,8 @@ var getBtnCopiar = document.getElementById("BtnCopiar");
 var getBtnCortar = document.getElementById("BtnCortar");
 var getBtnVoltearH = document.getElementById("BtnVoltearH");
 var getBtnVoltearV = document.getElementById("BtnVoltearV");
+var getSpanAyudaModos = document.getElementById("spanAyudaModos");
+var etapaVoltearH = 1; // es un ciclo
 var getSpanInfoSombras = document.getElementById("spanInfoSombras");
 var getSelectSombras = document.getElementById("selectSombras");
 var getBtnDeshacer = document.getElementById("BtnDeshacer");
@@ -435,6 +437,7 @@ getBtnAceptarLibre.style.display = "none";
 getBtnCancelarLibre.style.display = "none";
 getBtnBorrarLibre.style.display = "none";
 getBtnExpandirLibre.style.display = "none";
+$(getSpanAyudaModos).addClass("oculto");
 // el relleno inicial es negro
 getRelleno.style.backgroundColor = "#000000";
 // la propiedad color de ciertos íconos es negra por defecto, desde css
@@ -3408,6 +3411,11 @@ function existeCelda(idCelda) {
         return true;
     }
 }
+// para modificar las indicaciones
+function indicacionesModo(texto) {
+    $(getSpanAyudaModos).html(texto);
+    $(getSpanAyudaModos).css("min-width", getSpanAyudaModos.scrollWidth);    
+}
 // buscar y reemplazar color
 function reemplazarColor(colorViejo, colorNuevo, miID) {
     if (colorViejo == colorNuevo) {
@@ -3659,7 +3667,29 @@ function hacerClick(celda) {
     
     switch (modoActual) {
         case "voltearH":
-            showSnackbar("En desarrollo...");
+            if (etapaVoltearH == 1) {
+                // primer vértice seleccionado
+                indicacionesModo("Seleccione vértice 2 de 2");
+                showSnackbar("Seleccione vértice 2 de 2");
+                // agrega la clase
+                var miLienzo = $(miCuadrito).parent()[0];
+                $(miLienzo).addClass("seleccionado");
+                // cambia la etapa
+                etapaVoltearH = 2;
+            } else if (etapaVoltearH == 2) {
+                // segundo vértice seleccionado
+                indicacionesModo("¿Voltear horizontalmente?");
+                showSnackbar("Presione Aceptar o Cancelar");
+                var miLienzo = $(miCuadrito).parent()[0];
+                $(miLienzo).addClass("seleccionado");
+                // visible aceptar
+                getBtnAceptarVoltearH.style.display = "inline-block";
+                // cambia la etapa
+                etapaVoltearH = 3;
+            } else if (etapaVoltearH == 3) {
+                // confirmación
+                showSnackbar("Presione Aceptar o Cancelar");
+            }            
             break;
         case "info":
             // modo información
@@ -5063,389 +5093,430 @@ function dimensionar(mostrarLoader) {
 }
 
 //cambia el modo seleccionado, llamada por los botones de cambio de modo
-function cambiarModo(nuevoModo) {
+function cambiarModo(nuevoModo, mostrarLoader) {
     if (modoActual == nuevoModo) {
         // si son iguales, se sale
         return;
     }
-     
-    // lo cambia, PERO PRIMERO GUARDA
-    lastModo = modoActual;
-    modoActual = nuevoModo;
-    // gestiona el historial de color
-    if (modoActual == "borrador" || modoActual == "radio" || modoActual == "opacidad" || modoActual == "sombras" || modoActual == "voltearH") {        
-            cerrarHistorial(false);
-    } else {
-        if (prefiereHistorial == true) {
-            mostrarHistorial(false);
+    var msj = "Hecho";
+    // muestra un loader...
+    if (mostrarLoader == true) {
+        $(".loader").removeClass("oculto");
+    }
+    setTimeout(function () {
+        // código alta exigencia
+        // lo cambia, PERO PRIMERO GUARDA
+        lastModo = modoActual;
+        modoActual = nuevoModo;
+        // gestiona el historial de color
+        if (modoActual == "borrador" || modoActual == "radio" || modoActual == "opacidad" || modoActual == "sombras" || modoActual == "voltearH") {        
+                cerrarHistorial(false);
         } else {
-            cerrarHistorial(false);
-        }
-    }
-    // solo en modo borrador empieza a alternar el ícono del btn
-    if (modoActual == "borrador") {
-        icoInterval = setInterval("alternarIcoBorrador()", 1000);        
-    } else {
-        // deja de alternar
-        clearInterval(icoInterval);
-        // vuelve al borrador normal
-        getIcoBtnBorrador.className = "fas fa-eraser";
-    }   
-    // elimina las marcas x de todos
-    //$(".columna").html("");
-    $(".lienzo").removeClass("seleccionado");
-    // elimina el modo seleccionado de todos los botones
-    $(".seleccionadoBtnModos").removeClass("seleccionadoBtnModos");    
-    if (modoActual != "libre" && modoActual != "voltearH") {
-        //muestra y oculta elementos
-        // muestra el pie
-        getPie.style.visibility = "visible";
-        getBtnRellenar.style.display = "inline-block";
-        getFiltro.style.display = "inline-block";
-        getBtnActualizar.style.display = "inline-block";
-        getBtnDeshacer.style.display = "inline-block";
-        getBtnTrash.style.display = "inline-block";
-        // propios de libre
-        getBtnAceptarLibre.style.display = "none";
-        getBtnCancelarLibre.style.display = "none";
-        getBtnBorrarLibre.style.display = "none";
-        getBtnExpandirLibre.style.display = "none";
-        // propios de voltearH
-        getBtnAceptarVoltearH.style.display = "none";
-        getBtnCancelarVoltearH.style.display = "none";
-
-        getBtnPantallaCompleta.style.display = "inline-block";
-        getSelectFondo.style.display = "inline-block";
-        //getBtnInfo.style.display = "inline-block";
-        //getBtnColorLienzo.style.display = "inline-block";        
-        //getBtnGotero.style.display = "inline-block";
-        //getBtnReemplazar.style.display = "inline-block";
-        //getBtnBorrador.style.display = "inline-block";
-        //getBtnPincel.style.display = "inline-block";
-        //getBtnLibre.style.display = "inline-block";
-        //getBtnExtraerColor.style.display = "inline-block";
-        //getBtnOpacidad.style.display = "inline-block";
-        //getBtnSombras.style.display = "inline-block";
-        //getBtnCopiar.style.display = "inline-block";
-        //getBtnCortar.style.display = "inline-block";
-        //getBtnVoltearH.style.display = "inline-block";
-        //getBtnVoltearV.style.display = "inline-block";
-        $(getcontGrupoHerramientas).removeClass("oculto");
-        
-        //getBtnColorRejilla.style.display = "inline-block";        
-        //getBtnTipoBorde.style.display = "inline-block";
-        //getBtnAnchoBordes.style.display = "inline-block";
-        //getBtnRadioBordes.style.display = "inline-block";
-        $(getcontGrupoBordes).removeClass("oculto");
-        
-        //getBtnEtiquetas.style.display = "inline-block";        
-        //$(getSpanFilas).removeClass("oculto");
-        //getSelectFilas.style.display = "inline-block";
-        //getBtnFilas.style.display = "inline-block";        
-        //$(getSpanColumnas).removeClass("oculto");
-        //getSelectColumnas.style.display = "inline-block";
-        //getBtnColumnas.style.display = "inline-block";
-        $(getcontGrupoDimensionar).removeClass("oculto");
-
-        //getBtnImportarTexto.style.display = "inline-block";
-        //getBtnImportarGallery.style.display = "inline-block";
-        //getBtnExportar.style.display = "inline-block";
-        //getBtnImprimir.style.display = "inline-block";
-        $(getcontGrupoCompartir).removeClass("oculto");
-
-    }
-    switch (modoActual) {
-        case "voltearH":
-            // el texto en el spanModo
-            $(getSpanModo).html("Voltear Horizontalmente");
-            // agrega la clase seleccionado al btn del modo actual                    
-            $(getBtnVoltearH).addClass("seleccionadoBtnModos"); 
-            // el pie distrae
-            getPie.style.visibility = "hidden";
-            // sin colores
-            $(getcontGrupoColores).addClass("oculto");
-            //muestra y oculta elementos
-            //getBtnAceptarVoltearH.style.display = "inline-block";
-            getBtnCancelarVoltearH.style.display = "inline-block";            
-            getBtnRellenar.style.display = "none";
-            getFiltro.style.display = "none";
-            getBtnActualizar.style.display = "none";
-            getBtnTrash.style.display = "none";
-            getBtnDeshacer.style.display = "none";
-            getBtnPantallaCompleta.style.display = "none";
-            getSelectFondo.style.display = "none";
-            $(getcontGrupoHerramientas).addClass("oculto");
-            $(getcontGrupoBordes).addClass("oculto");
-            $(getcontGrupoDimensionar).addClass("oculto");
-            $(getcontGrupoCompartir).addClass("oculto");
-            // para deshacer
-            lastAction = "voltearH";
-            // copia de seguridad 
-            guardarFormatos();
-            // informa
-            showSnackbar("Modo Voltear Horizontalmente");
-            break;
-        case "libre":
-            // el texto en el spanModo
-            $(getSpanModo).html("Selección Libre");
-            
-            // agrega la clase seleccionado al btn del modo actual                    
-            $(getBtnLibre).addClass("seleccionadoBtnModos");   
-            // el pie distrae
-            getPie.style.visibility = "hidden";
-
-            //getcolorPixel.style.display = "inline-block";
-            //getBtnRGB.style.display = "inline-block";
-            //getBtnHSL.style.display = "inline-block";
-            //getBtnHex.style.display = "inline-block";
-            //getBtnGallery.style.display = "inline-block";
-            //getBtnRnd.style.display = "inline-block";
-            //getBtnOpuesto.style.display = "inline-block";
-            $(getcontGrupoColores).removeClass("oculto");
-
-            //muestra y oculta elementos
-            getBtnAceptarLibre.style.display = "inline-block";
-            getBtnCancelarLibre.style.display = "inline-block";
-            getBtnBorrarLibre.style.display = "inline-block";
-            getBtnExpandirLibre.style.display = "inline-block";
-            getBtnRellenar.style.display = "none";
-            getFiltro.style.display = "none";
-            getBtnActualizar.style.display = "none";
-            getBtnTrash.style.display = "none";
-            getBtnDeshacer.style.display = "none";
-            getBtnPantallaCompleta.style.display = "none";
-            getSelectFondo.style.display = "none";
-            
-            //getBtnInfo.style.display = "none";
-            //getBtnColorLienzo.style.display = "none";            
-            //getBtnGotero.style.display = "none";
-            //getBtnReemplazar.style.display = "none";
-            //getBtnBorrador.style.display = "none";
-            //getBtnPincel.style.display = "none";
-            //getBtnLibre.style.display = "none";
-            //getBtnExtraerColor.style.display = "none";
-            //getBtnOpacidad.style.display = "none";
-            //getBtnSombras.style.display = "none";
-            //getBtnCopiar.style.display = "none";
-            //getBtnCortar.style.display = "none";
-            //getBtnVoltearV.style.display = "none";
-            //getBtnVoltearH.style.display = "none";            
-            $(getcontGrupoHerramientas).addClass("oculto");
-            
-            //getBtnColorRejilla.style.display = "none";
-            //getBtnTipoBorde.style.display = "none";
-            //getBtnAnchoBordes.style.display = "none";
-            //getBtnRadioBordes.style.display = "none";
-            $(getcontGrupoBordes).addClass("oculto");            
-                        
-            //getBtnEtiquetas.style.display = "none";            
-            //$(getSpanFilas).addClass("oculto");
-            //getSelectFilas.style.display = "none";
-            //getBtnFilas.style.display = "none";
-            //$(getSpanColumnas).addClass("oculto");
-            //getSelectColumnas.style.display = "none";
-            //getBtnColumnas.style.display = "none";
-            $(getcontGrupoDimensionar).addClass("oculto");
-
-            //getBtnImportarTexto.style.display = "none";
-            //getBtnImportarGallery.style.display = "none";
-            //getBtnExportar.style.display = "none";
-            //getBtnImprimir.style.display = "none";
-            $(getcontGrupoCompartir).addClass("oculto");
-            
-            //debe guardar los colores y los id      
-            lastAction = "libre";
-            lastArrayColor.length = 0;
-            lastArrayID.length = 0;
-            //obtiene un array con todos los de la clase columna
-            //getColumnas
-            //var x = document.getElementsByClassName("columna");
-            var i;
-            //recorre todo el array y guarda los id y los colores
-            for (i = 0; i < getColumnas.length; i++) {
-                //guardar los id y los colores
-                lastArrayID[lastArrayID.length] = getColumnas[i].id;
-                lastArrayColor[lastArrayColor.length] = getColumnas[i].style.backgroundColor;
+            if (prefiereHistorial == true) {
+                mostrarHistorial(false);
+            } else {
+                cerrarHistorial(false);
             }
-            // informa
-            showSnackbar("Modo Selección Libre");
-            break;
-        case "pincel":
-            // el texto en el spanModo
-            $(getSpanModo).html("Pincel");
-            // agrega la clase seleccionado al btn del modo actual                    
-            $(getBtnPincel).addClass("seleccionadoBtnModos"); 
-            //getcolorPixel.style.display = "inline-block";
-            //getBtnRGB.style.display = "inline-block";
-            //getBtnHSL.style.display = "inline-block";
-            //getBtnHex.style.display = "inline-block";
-            //getBtnGallery.style.display = "inline-block";
-            //getBtnRnd.style.display = "inline-block";
-            //getBtnOpuesto.style.display = "inline-block";
-            $(getcontGrupoColores).removeClass("oculto");
-            showSnackbar("Modo Pincel");
-            break;
-        case "info":
-            // el texto en el spanModo
-            $(getSpanModo).html("Información");
-            // agrega la clase seleccionado al btn del modo actual                    
-            $(getBtnInfo).addClass("seleccionadoBtnModos");
-            //getcolorPixel.style.display = "inline-block";
-            //getBtnRGB.style.display = "inline-block";
-            //getBtnHSL.style.display = "inline-block";
-            //getBtnHex.style.display = "inline-block";
-            //getBtnGallery.style.display = "inline-block";
-            //getBtnRnd.style.display = "inline-block";
-            //getBtnOpuesto.style.display = "inline-block";
-            $(getcontGrupoColores).removeClass("oculto");
-            showSnackbar("Modo Información");
-            break;
-        case "borrador":
-            // el texto en el spanModo
-            $(getSpanModo).html("Borrador");
-            // agrega la clase seleccionado al btn del modo actual                    
-            $(getBtnBorrador).addClass("seleccionadoBtnModos");            
-            //getcolorPixel.style.display = "none";
-            //getBtnRGB.style.display = "none";
-            //getBtnHSL.style.display = "none";
-            //getBtnHex.style.display = "none";
-            //getBtnGallery.style.display = "none";
-            //getBtnRnd.style.display = "none";
-            //getBtnOpuesto.style.display = "none";
-            $(getcontGrupoColores).addClass("oculto");            
-            showSnackbar("Modo Borrador");
-            break;
-        case "opacidad":
-            // el texto en el spanModo
-            $(getSpanModo).html("Opacidad");
-            // agrega la clase seleccionado al btn del modo actual                    
-            $(getBtnOpacidad).addClass("seleccionadoBtnModos");
-            //getcolorPixel.style.display = "none";
-            //getBtnRGB.style.display = "none";
-            //getBtnHSL.style.display = "none";
-            //getBtnHex.style.display = "none";
-            //getBtnGallery.style.display = "none";
-            //getBtnRnd.style.display = "none";
-            //getBtnOpuesto.style.display = "none";
-            $(getcontGrupoColores).addClass("oculto");
-            showSnackbar("Modo Editor de Opacidad");
-            break;
-        case "sombras":
-            // el texto en el spanModo
-            $(getSpanModo).html("Sombras");
-            // agrega la clase seleccionado al btn del modo actual                    
-            $(getBtnSombras).addClass("seleccionadoBtnModos");
-            //getcolorPixel.style.display = "none";
-            //getBtnRGB.style.display = "none";
-            //getBtnHSL.style.display = "none";
-            //getBtnHex.style.display = "none";
-            //getBtnGallery.style.display = "none";
-            //getBtnRnd.style.display = "none";
-            //getBtnOpuesto.style.display = "none";
-            $(getcontGrupoColores).addClass("oculto");
-            showSnackbar("Modo Editor de Sombras");
-            break;
-        case "radio":
-            // el texto en el spanModo
-            $(getSpanModo).html("Radios");
-            // agrega la clase seleccionado al btn del modo actual                    
-            $(getBtnRadioBordes).addClass("seleccionadoBtnModos");            
-            //getcolorPixel.style.display = "none";
-            //getBtnRGB.style.display = "none";
-            //getBtnHSL.style.display = "none";
-            //getBtnHex.style.display = "none";
-            //getBtnGallery.style.display = "none";
-            //getBtnRnd.style.display = "none";
-            //getBtnOpuesto.style.display = "none";
-            $(getcontGrupoColores).addClass("oculto");
-            showSnackbar("Modo Editor de Radios");
-            break;
-        case "lienzo":
-            // el texto en el spanModo
-            $(getSpanModo).html("Color Lienzo");
-            // agrega la clase seleccionado al btn del modo actual                    
-            $(getBtnColorLienzo).addClass("seleccionadoBtnModos");
-            //getcolorPixel.style.display = "inline-block";
-            //getBtnRGB.style.display = "inline-block";
-            //getBtnHSL.style.display = "inline-block";
-            //getBtnHex.style.display = "inline-block";
-            //getBtnGallery.style.display = "inline-block";
-            //getBtnRnd.style.display = "inline-block";
-            //getBtnOpuesto.style.display = "inline-block";
-            $(getcontGrupoColores).removeClass("oculto");
-            showSnackbar("Modo Color Lienzo");
-            break;
-        case "colorBordes":
-            // el texto en el spanModo
-            $(getSpanModo).html("Color Bordes");
-            // agrega la clase seleccionado al btn del modo actual                    
-            $(getBtnColorRejilla).addClass("seleccionadoBtnModos");
-            //getcolorPixel.style.display = "inline-block";
-            //getBtnRGB.style.display = "inline-block";
-            //getBtnHSL.style.display = "inline-block";
-            //getBtnHex.style.display = "inline-block";
-            //getBtnGallery.style.display = "inline-block";
-            //getBtnRnd.style.display = "inline-block";
-            //getBtnOpuesto.style.display = "inline-block";
-            $(getcontGrupoColores).removeClass("oculto");
-            showSnackbar("Modo Color Bordes");
-            break;
-        case "relleno":
-            // el texto en el spanModo
-            $(getSpanModo).html("Relleno Selectivo");
-            // agrega la clase seleccionado al btn del modo actual                    
-            $(getBtnGotero).addClass("seleccionadoBtnModos");
-            //getcolorPixel.style.display = "inline-block";
-            //getBtnRGB.style.display = "inline-block";
-            //getBtnHSL.style.display = "inline-block";
-            //getBtnHex.style.display = "inline-block";
-            //getBtnGallery.style.display = "inline-block";
-            //getBtnRnd.style.display = "inline-block";
-            //getBtnOpuesto.style.display = "inline-block";
-            $(getcontGrupoColores).removeClass("oculto");
-            showSnackbar("Modo Relleno Selectivo");
-            break;
-        case "reemplazar":
-            // el texto en el spanModo
-            $(getSpanModo).html("Reemplazar Color");
-            // agrega la clase seleccionado al btn del modo actual                    
-            $(getBtnReemplazar).addClass("seleccionadoBtnModos");
-            //getcolorPixel.style.display = "inline-block";
-            //getBtnRGB.style.display = "inline-block";
-            //getBtnHSL.style.display = "inline-block";
-            //getBtnHex.style.display = "inline-block";
-            //getBtnGallery.style.display = "inline-block";
-            //getBtnRnd.style.display = "inline-block";
-            //getBtnOpuesto.style.display = "inline-block";
-            $(getcontGrupoColores).removeClass("oculto");
-            showSnackbar("Modo Reemplazar Color");
-            break;
-        case "extraer":
-            // el texto en el spanModo
-            $(getSpanModo).html("Extraer Color");
-            // agrega la clase seleccionado al btn del modo actual                    
-            $(getBtnExtraerColor).addClass("seleccionadoBtnModos");            
-            //getcolorPixel.style.display = "inline-block";
-            //getBtnRGB.style.display = "inline-block";
-            //getBtnHSL.style.display = "inline-block";
-            //getBtnHex.style.display = "inline-block";
-            //getBtnGallery.style.display = "inline-block";
-            //getBtnRnd.style.display = "inline-block";
-            //getBtnOpuesto.style.display = "inline-block";
-            $(getcontGrupoColores).removeClass("oculto");
-            showSnackbar("Modo Extraer Color");
-            break;
-    }
-    ajustesResize();
-}
+        }
+        // solo en modo borrador empieza a alternar el ícono del btn
+        if (modoActual == "borrador") {
+            icoInterval = setInterval("alternarIcoBorrador()", 1000);        
+        } else {
+            // deja de alternar
+            clearInterval(icoInterval);
+            // vuelve al borrador normal
+            getIcoBtnBorrador.className = "fas fa-eraser";
+        }   
+        // elimina las marcas x de todos
+        //$(".columna").html("");
+        // aquí se elimina la clase seleccionado, la animación
+        $(".lienzo").removeClass("seleccionado");
+        // elimina el modo seleccionado de todos los botones
+        $(".seleccionadoBtnModos").removeClass("seleccionadoBtnModos");    
+        if (modoActual != "libre" && modoActual != "voltearH") {
+            //muestra y oculta elementos
+            // el pie
+            getPie.style.visibility = "visible";
+            // las indicaciones
+            $(getSpanAyudaModos).addClass("oculto");
+            // otros
+            getBtnRellenar.style.display = "inline-block";
+            getFiltro.style.display = "inline-block";
+            getBtnActualizar.style.display = "inline-block";
+            getBtnDeshacer.style.display = "inline-block";
+            getBtnTrash.style.display = "inline-block";
+            // propios de libre
+            getBtnAceptarLibre.style.display = "none";
+            getBtnCancelarLibre.style.display = "none";
+            getBtnBorrarLibre.style.display = "none";
+            getBtnExpandirLibre.style.display = "none";
+            // propios de voltearH
+            getBtnAceptarVoltearH.style.display = "none";
+            getBtnCancelarVoltearH.style.display = "none";
+
+            getBtnPantallaCompleta.style.display = "inline-block";
+            getSelectFondo.style.display = "inline-block";
+            //getBtnInfo.style.display = "inline-block";
+            //getBtnColorLienzo.style.display = "inline-block";        
+            //getBtnGotero.style.display = "inline-block";
+            //getBtnReemplazar.style.display = "inline-block";
+            //getBtnBorrador.style.display = "inline-block";
+            //getBtnPincel.style.display = "inline-block";
+            //getBtnLibre.style.display = "inline-block";
+            //getBtnExtraerColor.style.display = "inline-block";
+            //getBtnOpacidad.style.display = "inline-block";
+            //getBtnSombras.style.display = "inline-block";
+            //getBtnCopiar.style.display = "inline-block";
+            //getBtnCortar.style.display = "inline-block";
+            //getBtnVoltearH.style.display = "inline-block";
+            //getBtnVoltearV.style.display = "inline-block";
+            $(getcontGrupoHerramientas).removeClass("oculto");
+            
+            //getBtnColorRejilla.style.display = "inline-block";        
+            //getBtnTipoBorde.style.display = "inline-block";
+            //getBtnAnchoBordes.style.display = "inline-block";
+            //getBtnRadioBordes.style.display = "inline-block";
+            $(getcontGrupoBordes).removeClass("oculto");
+            
+            //getBtnEtiquetas.style.display = "inline-block";        
+            //$(getSpanFilas).removeClass("oculto");
+            //getSelectFilas.style.display = "inline-block";
+            //getBtnFilas.style.display = "inline-block";        
+            //$(getSpanColumnas).removeClass("oculto");
+            //getSelectColumnas.style.display = "inline-block";
+            //getBtnColumnas.style.display = "inline-block";
+            $(getcontGrupoDimensionar).removeClass("oculto");
+
+            //getBtnImportarTexto.style.display = "inline-block";
+            //getBtnImportarGallery.style.display = "inline-block";
+            //getBtnExportar.style.display = "inline-block";
+            //getBtnImprimir.style.display = "inline-block";
+            $(getcontGrupoCompartir).removeClass("oculto");
+
+        }
+        switch (modoActual) {
+            case "voltearH":
+                // el texto en el spanModo
+                $(getSpanModo).html("Voltear Horizontalmente");
+                // agrega la clase seleccionado al btn del modo actual                    
+                $(getBtnVoltearH).addClass("seleccionadoBtnModos"); 
+                // el pie distrae
+                getPie.style.visibility = "hidden";
+                // las indicaciones
+                $(getSpanAyudaModos).removeClass("oculto");
+                // inicia el ciclo, para controlar el click
+                etapaVoltearH = 1;
+                // las indicaciones
+                indicacionesModo("Seleccione vértice 1 de 2");
+                // sin colores
+                $(getcontGrupoColores).addClass("oculto");
+                //muestra y oculta elementos
+                getBtnAceptarVoltearH.style.display = "none";
+                getBtnCancelarVoltearH.style.display = "inline-block";            
+                getBtnRellenar.style.display = "none";
+                getFiltro.style.display = "none";
+                getBtnActualizar.style.display = "none";
+                getBtnTrash.style.display = "none";
+                getBtnDeshacer.style.display = "none";
+                getBtnPantallaCompleta.style.display = "none";
+                getSelectFondo.style.display = "none";
+                $(getcontGrupoHerramientas).addClass("oculto");
+                $(getcontGrupoBordes).addClass("oculto");
+                $(getcontGrupoDimensionar).addClass("oculto");
+                $(getcontGrupoCompartir).addClass("oculto");
+                // para deshacer
+                lastAction = "voltearH";
+                // copia de seguridad 
+                guardarFormatos();
+                // informa
+                msj = "Modo Voltear Horizontalmente";
+                break;
+            case "libre":
+                // el texto en el spanModo
+                $(getSpanModo).html("Selección Libre");
+                
+                // agrega la clase seleccionado al btn del modo actual                    
+                $(getBtnLibre).addClass("seleccionadoBtnModos");   
+                // el pie distrae
+                getPie.style.visibility = "hidden";
+                // las indicaciones
+                $(getSpanAyudaModos).addClass("oculto");
+                //getcolorPixel.style.display = "inline-block";
+                //getBtnRGB.style.display = "inline-block";
+                //getBtnHSL.style.display = "inline-block";
+                //getBtnHex.style.display = "inline-block";
+                //getBtnGallery.style.display = "inline-block";
+                //getBtnRnd.style.display = "inline-block";
+                //getBtnOpuesto.style.display = "inline-block";
+                $(getcontGrupoColores).removeClass("oculto");
+
+                //muestra y oculta elementos
+                getBtnAceptarLibre.style.display = "inline-block";
+                getBtnCancelarLibre.style.display = "inline-block";
+                getBtnBorrarLibre.style.display = "inline-block";
+                getBtnExpandirLibre.style.display = "inline-block";
+                getBtnRellenar.style.display = "none";
+                getFiltro.style.display = "none";
+                getBtnActualizar.style.display = "none";
+                getBtnTrash.style.display = "none";
+                getBtnDeshacer.style.display = "none";
+                getBtnPantallaCompleta.style.display = "none";
+                getSelectFondo.style.display = "none";
+                
+                //getBtnInfo.style.display = "none";
+                //getBtnColorLienzo.style.display = "none";            
+                //getBtnGotero.style.display = "none";
+                //getBtnReemplazar.style.display = "none";
+                //getBtnBorrador.style.display = "none";
+                //getBtnPincel.style.display = "none";
+                //getBtnLibre.style.display = "none";
+                //getBtnExtraerColor.style.display = "none";
+                //getBtnOpacidad.style.display = "none";
+                //getBtnSombras.style.display = "none";
+                //getBtnCopiar.style.display = "none";
+                //getBtnCortar.style.display = "none";
+                //getBtnVoltearV.style.display = "none";
+                //getBtnVoltearH.style.display = "none";            
+                $(getcontGrupoHerramientas).addClass("oculto");
+                
+                //getBtnColorRejilla.style.display = "none";
+                //getBtnTipoBorde.style.display = "none";
+                //getBtnAnchoBordes.style.display = "none";
+                //getBtnRadioBordes.style.display = "none";
+                $(getcontGrupoBordes).addClass("oculto");            
+                            
+                //getBtnEtiquetas.style.display = "none";            
+                //$(getSpanFilas).addClass("oculto");
+                //getSelectFilas.style.display = "none";
+                //getBtnFilas.style.display = "none";
+                //$(getSpanColumnas).addClass("oculto");
+                //getSelectColumnas.style.display = "none";
+                //getBtnColumnas.style.display = "none";
+                $(getcontGrupoDimensionar).addClass("oculto");
+
+                //getBtnImportarTexto.style.display = "none";
+                //getBtnImportarGallery.style.display = "none";
+                //getBtnExportar.style.display = "none";
+                //getBtnImprimir.style.display = "none";
+                $(getcontGrupoCompartir).addClass("oculto");
+                
+                //debe guardar los colores y los id      
+                lastAction = "libre";
+                lastArrayColor.length = 0;
+                lastArrayID.length = 0;
+                //obtiene un array con todos los de la clase columna
+                //getColumnas
+                //var x = document.getElementsByClassName("columna");
+                var i;
+                //recorre todo el array y guarda los id y los colores
+                for (i = 0; i < getColumnas.length; i++) {
+                    //guardar los id y los colores
+                    lastArrayID[lastArrayID.length] = getColumnas[i].id;
+                    lastArrayColor[lastArrayColor.length] = getColumnas[i].style.backgroundColor;
+                }
+                // informa
+                msj = "Modo Selección Libre";
+                break;
+            case "pincel":
+                // el texto en el spanModo
+                $(getSpanModo).html("Pincel");
+                // agrega la clase seleccionado al btn del modo actual                    
+                $(getBtnPincel).addClass("seleccionadoBtnModos"); 
+                //getcolorPixel.style.display = "inline-block";
+                //getBtnRGB.style.display = "inline-block";
+                //getBtnHSL.style.display = "inline-block";
+                //getBtnHex.style.display = "inline-block";
+                //getBtnGallery.style.display = "inline-block";
+                //getBtnRnd.style.display = "inline-block";
+                //getBtnOpuesto.style.display = "inline-block";
+                $(getcontGrupoColores).removeClass("oculto");
+                msj = "Modo Pincel";
+                break;
+            case "info":
+                // el texto en el spanModo
+                $(getSpanModo).html("Información");
+                // agrega la clase seleccionado al btn del modo actual                    
+                $(getBtnInfo).addClass("seleccionadoBtnModos");
+                //getcolorPixel.style.display = "inline-block";
+                //getBtnRGB.style.display = "inline-block";
+                //getBtnHSL.style.display = "inline-block";
+                //getBtnHex.style.display = "inline-block";
+                //getBtnGallery.style.display = "inline-block";
+                //getBtnRnd.style.display = "inline-block";
+                //getBtnOpuesto.style.display = "inline-block";
+                $(getcontGrupoColores).removeClass("oculto");
+                msj = "Modo Información";
+                break;
+            case "borrador":
+                // el texto en el spanModo
+                $(getSpanModo).html("Borrador");
+                // agrega la clase seleccionado al btn del modo actual                    
+                $(getBtnBorrador).addClass("seleccionadoBtnModos");            
+                //getcolorPixel.style.display = "none";
+                //getBtnRGB.style.display = "none";
+                //getBtnHSL.style.display = "none";
+                //getBtnHex.style.display = "none";
+                //getBtnGallery.style.display = "none";
+                //getBtnRnd.style.display = "none";
+                //getBtnOpuesto.style.display = "none";
+                $(getcontGrupoColores).addClass("oculto");            
+                msj = "Modo Borrador";
+                break;
+            case "opacidad":
+                // el texto en el spanModo
+                $(getSpanModo).html("Opacidad");
+                // agrega la clase seleccionado al btn del modo actual                    
+                $(getBtnOpacidad).addClass("seleccionadoBtnModos");
+                //getcolorPixel.style.display = "none";
+                //getBtnRGB.style.display = "none";
+                //getBtnHSL.style.display = "none";
+                //getBtnHex.style.display = "none";
+                //getBtnGallery.style.display = "none";
+                //getBtnRnd.style.display = "none";
+                //getBtnOpuesto.style.display = "none";
+                $(getcontGrupoColores).addClass("oculto");
+                msj = "Modo Editor de Opacidad";
+                break;
+            case "sombras":
+                // el texto en el spanModo
+                $(getSpanModo).html("Sombras");
+                // agrega la clase seleccionado al btn del modo actual                    
+                $(getBtnSombras).addClass("seleccionadoBtnModos");
+                //getcolorPixel.style.display = "none";
+                //getBtnRGB.style.display = "none";
+                //getBtnHSL.style.display = "none";
+                //getBtnHex.style.display = "none";
+                //getBtnGallery.style.display = "none";
+                //getBtnRnd.style.display = "none";
+                //getBtnOpuesto.style.display = "none";
+                $(getcontGrupoColores).addClass("oculto");
+                msj = "Modo Editor de Sombras";
+                break;
+            case "radio":
+                // el texto en el spanModo
+                $(getSpanModo).html("Radios");
+                // agrega la clase seleccionado al btn del modo actual                    
+                $(getBtnRadioBordes).addClass("seleccionadoBtnModos");            
+                //getcolorPixel.style.display = "none";
+                //getBtnRGB.style.display = "none";
+                //getBtnHSL.style.display = "none";
+                //getBtnHex.style.display = "none";
+                //getBtnGallery.style.display = "none";
+                //getBtnRnd.style.display = "none";
+                //getBtnOpuesto.style.display = "none";
+                $(getcontGrupoColores).addClass("oculto");
+                msj = "Modo Editor de Radios";
+                break;
+            case "lienzo":
+                // el texto en el spanModo
+                $(getSpanModo).html("Color Lienzo");
+                // agrega la clase seleccionado al btn del modo actual                    
+                $(getBtnColorLienzo).addClass("seleccionadoBtnModos");
+                //getcolorPixel.style.display = "inline-block";
+                //getBtnRGB.style.display = "inline-block";
+                //getBtnHSL.style.display = "inline-block";
+                //getBtnHex.style.display = "inline-block";
+                //getBtnGallery.style.display = "inline-block";
+                //getBtnRnd.style.display = "inline-block";
+                //getBtnOpuesto.style.display = "inline-block";
+                $(getcontGrupoColores).removeClass("oculto");
+                msj = "Modo Color Lienzo";
+                break;
+            case "colorBordes":
+                // el texto en el spanModo
+                $(getSpanModo).html("Color Bordes");
+                // agrega la clase seleccionado al btn del modo actual                    
+                $(getBtnColorRejilla).addClass("seleccionadoBtnModos");
+                //getcolorPixel.style.display = "inline-block";
+                //getBtnRGB.style.display = "inline-block";
+                //getBtnHSL.style.display = "inline-block";
+                //getBtnHex.style.display = "inline-block";
+                //getBtnGallery.style.display = "inline-block";
+                //getBtnRnd.style.display = "inline-block";
+                //getBtnOpuesto.style.display = "inline-block";
+                $(getcontGrupoColores).removeClass("oculto");
+                msj = "Modo Color Bordes";
+                break;
+            case "relleno":
+                // el texto en el spanModo
+                $(getSpanModo).html("Relleno Selectivo");
+                // agrega la clase seleccionado al btn del modo actual                    
+                $(getBtnGotero).addClass("seleccionadoBtnModos");
+                //getcolorPixel.style.display = "inline-block";
+                //getBtnRGB.style.display = "inline-block";
+                //getBtnHSL.style.display = "inline-block";
+                //getBtnHex.style.display = "inline-block";
+                //getBtnGallery.style.display = "inline-block";
+                //getBtnRnd.style.display = "inline-block";
+                //getBtnOpuesto.style.display = "inline-block";
+                $(getcontGrupoColores).removeClass("oculto");
+                msj = "Modo Relleno Selectivo";
+                break;
+            case "reemplazar":
+                // el texto en el spanModo
+                $(getSpanModo).html("Reemplazar Color");
+                // agrega la clase seleccionado al btn del modo actual                    
+                $(getBtnReemplazar).addClass("seleccionadoBtnModos");
+                //getcolorPixel.style.display = "inline-block";
+                //getBtnRGB.style.display = "inline-block";
+                //getBtnHSL.style.display = "inline-block";
+                //getBtnHex.style.display = "inline-block";
+                //getBtnGallery.style.display = "inline-block";
+                //getBtnRnd.style.display = "inline-block";
+                //getBtnOpuesto.style.display = "inline-block";
+                $(getcontGrupoColores).removeClass("oculto");
+                msj = "Modo Reemplazar Color";
+                break;
+            case "extraer":
+                // el texto en el spanModo
+                $(getSpanModo).html("Extraer Color");
+                // agrega la clase seleccionado al btn del modo actual                    
+                $(getBtnExtraerColor).addClass("seleccionadoBtnModos");            
+                //getcolorPixel.style.display = "inline-block";
+                //getBtnRGB.style.display = "inline-block";
+                //getBtnHSL.style.display = "inline-block";
+                //getBtnHex.style.display = "inline-block";
+                //getBtnGallery.style.display = "inline-block";
+                //getBtnRnd.style.display = "inline-block";
+                //getBtnOpuesto.style.display = "inline-block";
+                $(getcontGrupoColores).removeClass("oculto");
+                msj = "Modo Extraer Color";
+                break;
+        }
+        // oculta el loader
+        if (mostrarLoader == true) {
+            $(".loader").addClass("oculto");
+        }
+        // otras tareas
+        showSnackbar(msj);
+        ajustesResize();
+    }, 0);
+} // fin cambiarModo
 //se selecciona ACEPTAR en el modo libre
 getBtnAceptarLibre.onclick = function () {
     // muestra un loader...
     $(".loader").removeClass("oculto");
     setTimeout(function () {
         // código alta exigencia
-        cambiarModo(lastModo);
+        cambiarModo(lastModo, false);
         estadoBtnDeshacer(true, "Deshacer cambios del modo libre");
+        // oculta el loader
+        $(".loader").addClass("oculto");
+        // otras tareas
+
+    }, 0);  
+   
+}
+//se selecciona ACEPTAR en el modo VoltearH
+getBtnAceptarVoltearH.onclick = function () {
+    // muestra un loader...
+    $(".loader").removeClass("oculto");
+    setTimeout(function () {
+        // código alta exigencia
+        // voltearH
+        
+        cambiarModo(lastModo, false);        
+        estadoBtnDeshacer(true, "Deshacer Voltear Horizontalmente");
         // oculta el loader
         $(".loader").addClass("oculto");
         // otras tareas
@@ -5459,7 +5530,7 @@ getBtnCancelarVoltearH.onclick = function () {
     $(".loader").removeClass("oculto");
     setTimeout(function () {
         // código alta exigencia
-        cambiarModo(lastModo);
+        cambiarModo(lastModo, false);
         // deshace cualquier cambio           
         restaurarFormatos();
         estadoBtnDeshacer(false);
@@ -5475,7 +5546,7 @@ getBtnCancelarLibre.onclick = function () {
     $(".loader").removeClass("oculto");
     setTimeout(function () {
         // código alta exigencia
-        cambiarModo(lastModo);
+        cambiarModo(lastModo, false);
         // deshace cualquier cambio de color            
         var i;
         //recorre los array y les aplica el color guardado
@@ -5625,16 +5696,16 @@ getBtnEtiquetas.onclick = function () {
 
 //se selecciona el modo información
 getBtnInfo.onclick = function () {
-    cambiarModo("info");
+    cambiarModo("info", true);
 }
 
 //se selecciona el modo libre
 getBtnLibre.onclick = function () {
-    cambiarModo("libre");
+    cambiarModo("libre", true);
 }
 //se selecciona el pincel
 getBtnPincel.onclick = function () {
-    cambiarModo("pincel");
+    cambiarModo("pincel", true);
 }
 //se selecciona el borrador
 getBtnBorrador.onclick = function () { 
@@ -5645,17 +5716,17 @@ getBtnBorrador.onclick = function () {
         showModal();
     } else {
         // pasa a modo borrador
-        cambiarModo("borrador");
+        cambiarModo("borrador", true);
         // en modo borrador se ve la respectiva flecha en el btn borrador y su info
     }        
 }
 //se selecciona el modo relleno, el gotero
 getBtnGotero.onclick = function () {
-    cambiarModo("relleno");
+    cambiarModo("relleno", true);
 }
 //se selecciona el modo reemplazar color, los binoculares
 getBtnReemplazar.onclick = function () {
-    cambiarModo("reemplazar");
+    cambiarModo("reemplazar", true);
 }
 // se selecciona el modo extraer color
 // extrae el color del pixel, lienzo o bordes y lo convierte en el color actual
@@ -5667,7 +5738,7 @@ getBtnExtraerColor.onclick = function () {
         showModal();
     } else {
         // pasa a modo extraer
-        cambiarModo("extraer");
+        cambiarModo("extraer", true);
         // en modo extraer se ve la respectiva flecha en el btn extraer y su info
     }        
 }
@@ -5985,7 +6056,7 @@ getBtnRadioBordes.onclick = function () {
         showModal();
     } else {
         // pasa a modo radio
-        cambiarModo("radio");
+        cambiarModo("radio", true);
         // en modo radio se ve la respectiva flecha en el btn radio
     }    
 }
@@ -5998,7 +6069,7 @@ getBtnOpacidad.onclick = function () {
         showModal();
     } else {
         // pasa a modo opacidad
-        cambiarModo("opacidad");
+        cambiarModo("opacidad", true);
         // en modo opacidad se ve la respectiva flecha en el btn opacidad
     }
 }
@@ -6011,7 +6082,7 @@ getBtnSombras.onclick = function () {
         showModal();
     } else {
         // pasa a modo sombras
-        cambiarModo("sombras");
+        cambiarModo("sombras", true);
         // en modo sombras se ve la respectiva flecha en el btn sombras
     }
 }
@@ -6025,7 +6096,7 @@ getBtnCortar.onclick = function () {
 }
 // inicia el modo voltear horizontalmente
 getBtnVoltearH.onclick = function () {
-    cambiarModo("voltearH");
+    cambiarModo("voltearH", true);
 }
 // inicia el modo voltear verticalmente
 getBtnVoltearV.onclick = function () {
@@ -6048,7 +6119,7 @@ getBtnColorRejilla.onclick = function () {
         showModal();
     } else {
         // pasa a modo colorBordes
-        cambiarModo("colorBordes");
+        cambiarModo("colorBordes", true);
         // en este modo se ve la respectiva flecha en el btn
     }  
 }
@@ -6061,7 +6132,7 @@ getBtnColorLienzo.onclick = function () {
         showModal();
     } else {
         // pasa a modo lienzo
-        cambiarModo("lienzo");
+        cambiarModo("lienzo", true);
         // en modo lienzo se ve la respectiva flecha en el btn lienzo
     }    
 }

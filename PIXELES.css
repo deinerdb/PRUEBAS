@@ -23,7 +23,35 @@ body {
     text-align: center;    
     font-size: 100%;
 }
-
+#spanAyudaModos {
+    display: inline-block;    
+    font-family: Consolas, 'Courier New', Courier, monospace;      
+    padding: 0;
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: center;
+    vertical-align: central;    
+    border: none;
+    opacity: 1;
+    visibility: visible;
+    font-size: 0.8em;    
+    font-weight: bold;
+    cursor: default; /* por ie y edge */
+    color: indigo;
+    /*centrar verticalmente*/
+    /* BROWSER DEFINITION */
+    display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox; /* TWEENER - IE 10 */
+    display: -webkit-flex; /* NEW - Chrome */
+    /* W3C DEFINITION */
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+}
 #spanModo {
     color: white; /* class="blanco-negro" agregada en html */
     background-color: transparent;    
