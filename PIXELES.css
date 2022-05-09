@@ -2729,10 +2729,10 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores, input {
 }
 /* tienen texto, necesitan ancho mínimo */
 #BtnAceptarLibre, #BtnAceptarVoltearH {
-    min-width: 92px;
+    min-width: 92px !important;
 }
 #BtnCancelarLibre, #BtnCancelarVoltearH {
-    min-width: 98px;
+    min-width: 98px !important;
 }
 /* esto no funciona, es mejor un span al final de la clase espacioDerecha */
 /*

@@ -3667,29 +3667,43 @@ function hacerClick(celda) {
     
     switch (modoActual) {
         case "voltearH":
-            if (etapaVoltearH == 1) {
-                // primer vértice seleccionado
-                indicacionesModo("Seleccione vértice 2 de 2");
-                showSnackbar("Seleccione vértice 2 de 2");
-                // agrega la clase
-                var miLienzo = $(miCuadrito).parent()[0];
-                $(miLienzo).addClass("seleccionado");
-                // cambia la etapa
-                etapaVoltearH = 2;
-            } else if (etapaVoltearH == 2) {
-                // segundo vértice seleccionado
-                indicacionesModo("¿Voltear horizontalmente?");
-                showSnackbar("Presione Aceptar o Cancelar");
-                var miLienzo = $(miCuadrito).parent()[0];
-                $(miLienzo).addClass("seleccionado");
-                // visible aceptar
-                getBtnAceptarVoltearH.style.display = "inline-block";
-                // cambia la etapa
-                etapaVoltearH = 3;
-            } else if (etapaVoltearH == 3) {
-                // confirmación
-                showSnackbar("Presione Aceptar o Cancelar");
-            }            
+            var msj = "Hecho";
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia
+                if (etapaVoltearH == 1) {
+                    // primer vértice seleccionado
+                    indicacionesModo("Seleccione vértice 2 de 2");
+                    msj = "Seleccione vértice 2 de 2";
+                    // agrega la clase al primer vértice
+                    var miLienzo = $(miCuadrito).parent()[0];
+                    $(miLienzo).addClass("seleccionado");
+                    // cambia la etapa
+                    etapaVoltearH = 2;
+                } else if (etapaVoltearH == 2) {
+                    // segundo vértice seleccionado
+                    indicacionesModo("¿Voltear horizontalmente?");
+                    msj = "Área seleccionada. Presione Aceptar o Cancelar";
+                    // agrega la clase al segundo vértice
+                    var miLienzo = $(miCuadrito).parent()[0];
+                    $(miLienzo).addClass("seleccionado");
+                    // expande la selección, formando el área a voltear
+                    expandirSeleccionado();
+                    // visible aceptar
+                    getBtnAceptarVoltearH.style.display = "inline-block";
+                    // cambia la etapa
+                    etapaVoltearH = 3;
+                } else if (etapaVoltearH == 3) {
+                    // confirmación
+                    msj = "Presione Aceptar o Cancelar";
+                }          
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+                showSnackbar(msj);
+            }, 0); 
+              
             break;
         case "info":
             // modo información
@@ -5229,7 +5243,7 @@ function cambiarModo(nuevoModo, mostrarLoader) {
                 // copia de seguridad 
                 guardarFormatos();
                 // informa
-                msj = "Modo Voltear Horizontalmente";
+                msj = "Modo Voltear Horizontalmente. Seleccione el primer vértice.";
                 break;
             case "libre":
                 // el texto en el spanModo
@@ -5589,6 +5603,56 @@ getBtnBorrarLibre.onclick = function () {
     }, 0);
     
 }
+// se expande la selección actual
+function expandirSeleccionado() {
+    var x = document.getElementsByClassName("seleccionado");
+    var i;
+    var target;
+    var colMenor = Infinity;
+    var colMayor = -Infinity;
+    var filaMenor = Infinity;
+    var filaMayor = -Infinity;
+    var miFila;
+    var miCol;
+    var str;
+    var res;
+    var miID;
+    // busca las filas y columnas mayores y menores recorriendo los seleccionados
+    for (i = 0; i < x.length; i++) {
+        miID = $(x[i]).children()[0].id;                        
+        str = "" + miID;
+        res = str.substring(1);
+        res = res.split("c");
+        miFila = res[0];
+        miCol = res[1];
+        miFila = Number(miFila);
+        miCol = Number(miCol);
+        if (miFila > filaMayor) {
+            filaMayor = miFila;
+        }
+        if (miFila < filaMenor) {
+            filaMenor = miFila;
+        }
+        if (miCol > colMayor) {
+            colMayor = miCol;
+        }
+        if (miCol < colMenor) {
+            colMenor = miCol;
+        }                
+    }                
+    // forma el cuadrado de selección con los valores límite encontrados y les aplica los cambios
+    for (miFila = filaMenor; miFila <= filaMayor; miFila++) {
+        for (miCol = colMenor; miCol <= colMayor; miCol++) {
+            miID = "f" + miFila + "c" + miCol;
+            target = document.getElementById(miID);                            
+            var miLienzo = $(target).parent()[0];
+            if ( $(miLienzo).hasClass("seleccionado") == false ) {                                                
+                $(miLienzo).addClass("seleccionado");                                
+            }
+        }
+    }
+}
+
 // en modo libre, expande la selección actual
 getBtnExpandirLibre.onclick = function () {
     // muestra un loader...
