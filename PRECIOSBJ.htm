@@ -76,6 +76,7 @@
             }
             .util-number {
                 border-style: inset;
+                display: inline;
                 border-color: purple;
                 border-width: 3px;
                 color: purple;
@@ -83,7 +84,7 @@
                 font-family: 'Space Mono', Consolas, Courier New, Courier, monospace;
                 font-size: 18px;
                 width: 260px;
-                max-width: 80%;
+                max-width: 75% !important;
                 padding: 8px 5px;
                 margin: 0;
                 font-weight: bold;
@@ -114,7 +115,7 @@
             /* PROPIOS DE PRECIOS BJ */
             #checkLista1, #checkLista2, #checkLista3 {
                 text-align: left;
-                margin: 24px 4px 12px 22px;
+                margin: 22px 4px 10px 22px;
                 font-family: 'Space Mono', Consolas, 'Courier New', Courier, monospace;
             }
             /* el último de cada grupo */
@@ -196,7 +197,7 @@
 
             .formulario {
                 font-size: 1.05em;
-                padding: 10px 8px;
+                padding: 10px 4px;
                 /*Formularios con borde superior e inferior gris*/
                 border-bottom-style: none !important;
                 border-top-style: none !important; 
@@ -209,13 +210,14 @@
                 -moz-border-radius: 4px;
                 border-radius: 4px;
                 outline: none;
-                padding: 12px 18px;
+                padding: 10px 12px;
                 margin-bottom: 24px;
                 text-align: left;
-                max-width: 90% !important; 
+                display: inline;
+                max-width: 50% !important; 
                 outline: none;
-                margin-left: auto;               
-                margin-right: auto;
+                margin-left: 10px;               
+                margin-right: 0;
             }
             .formulario label {
                 font-weight: bold;
@@ -502,7 +504,7 @@
         #infoModal {
             color: green;
             background-color: #d3f8d3;
-            margin: 14px 4px 10px 4px;
+            margin: 16px 4px 10px 4px;
             padding: 8px 8px 8px 12px;
             border-left-style: solid;
             border-left-color: green;
@@ -6725,7 +6727,7 @@
                         if (globalFila.dataset.descripción.length > 0) {
                             infoArt = infoArt + " - " + globalFila.dataset.descripción;
                         }
-                        infoArt = infoArt + " <br><br>PRECIO COMPRA CON IVA:  <br><strong>" + $(globalFila).children("td:nth-child(3)").html() + "</strong>";
+                        infoArt = infoArt + " <br>PRECIO COMPRA CON IVA:  <br><strong>" + $(globalFila).children("td:nth-child(3)").html() + "</strong>";
                         document.getElementById("spanInfoModal").innerHTML = infoArt;
                         // cantidad vacía inicialmente
                         getCantidadCalcular.value = "";
