@@ -2260,8 +2260,9 @@ tr:nth-child(odd) {
 
     body {
         background-color: transparent !important;
+        print-color-adjust: exact;
         -webkit-print-color-adjust: exact;
-        color-adjust: exact;
+        /*color-adjust: exact;        */
         color: black !important;
         text-align: center !important;
         margin: 0.5cm 0.3cm !important;
@@ -2729,10 +2730,10 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores, input {
 }
 /* tienen texto, necesitan ancho mínimo */
 #BtnAceptarLibre, #BtnAceptarVoltearH {
-    min-width: 92px !important;
+    min-width: 94px !important;
 }
 #BtnCancelarLibre, #BtnCancelarVoltearH {
-    min-width: 98px !important;
+    min-width: 100px !important;
 }
 /* esto no funciona, es mejor un span al final de la clase espacioDerecha */
 /*

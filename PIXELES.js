@@ -1367,7 +1367,8 @@ function ajustesResize() {
 }
 
 // define o copia el formato del pixel destino según el origen
-function defineFormatoPixel(idDestino, origen) {
+// si usarFormatosGuardados es true, se requiere llamar antes guardarFormatos
+function defineFormatoPixel(idDestino, origen, usarFormatosGuardados) {
 
     // referencia a la celda de destino
     var destino = document.getElementById(idDestino);
@@ -1542,30 +1543,46 @@ function defineFormatoPixel(idDestino, origen) {
             $(destino).parent().css("background-color", refOrigen.dataset.colorlienzo);
             break;
         default:
-            // asume que origen es un id, le asigna el formato del pixel con ese id            
-            var idOrigen = origen;
-            var refOrigen = document.getElementById(idOrigen);
-            // color de fondo del pixel
-            destino.style.backgroundColor = refOrigen.style.backgroundColor;
-            // radio
-            destino.dataset.radio = refOrigen.dataset.radio;
-            destino.style.MozBorderRadius = refOrigen.dataset.radio;
-            destino.style.webkitBorderRadius = refOrigen.dataset.radio;
-            destino.style.borderRadius = refOrigen.dataset.radio;
-            // color de bordes
-            destino.dataset.colorbordes = refOrigen.dataset.colorbordes;
-            destino.style.borderColor = refOrigen.dataset.colorbordes;
-            // su opacidad 
-            destino.style.opacity = refOrigen.style.opacity;
-            // sombras
-            destino.dataset.sombras = refOrigen.dataset.sombras;
-            // remueve todas las clases de sombras
-            $(destino).removeClass("s0000 s1000 s0100 s0010 s0001 s1001 s1100 s0110 s0011");
-            // agrega la clase actual de sombras
-            $(destino).addClass(refOrigen.dataset.sombras);
-            // el color del lienzo
-            destino.dataset.colorlienzo = refOrigen.dataset.colorlienzo;
-            $(destino).parent().css("background-color", refOrigen.dataset.colorlienzo);
+            if (usarFormatosGuardados == true) {
+                // asume que origen es un id, le asigna el formato del pixel con ese id
+                // usarFormatosGuardados true indica que lo tome de la copia de seguridad           
+                var idOrigen = origen;
+                // color de fondo del pixel
+                destino.style.backgroundColor = lastArrayColor[lastArrayID.indexOf(idOrigen)];
+                // radio
+                var radioOrigen = lastArrayRadio[lastArrayID.indexOf(idOrigen)];
+                destino.dataset.radio = radioOrigen;
+                destino.style.MozBorderRadius = radioOrigen;
+                destino.style.webkitBorderRadius = radioOrigen;
+                destino.style.borderRadius = radioOrigen;
+                
+            } else {            
+                // asume que origen es un id, le asigna el formato del pixel con ese id  
+                // usarFormatosGuardados false indica que lo tome de la cadricula directamente                     
+                var idOrigen = origen;
+                var refOrigen = document.getElementById(idOrigen);
+                // color de fondo del pixel
+                destino.style.backgroundColor = refOrigen.style.backgroundColor;
+                // radio
+                destino.dataset.radio = refOrigen.dataset.radio;
+                destino.style.MozBorderRadius = refOrigen.dataset.radio;
+                destino.style.webkitBorderRadius = refOrigen.dataset.radio;
+                destino.style.borderRadius = refOrigen.dataset.radio;
+                // color de bordes
+                destino.dataset.colorbordes = refOrigen.dataset.colorbordes;
+                destino.style.borderColor = refOrigen.dataset.colorbordes;
+                // su opacidad 
+                destino.style.opacity = refOrigen.style.opacity;
+                // sombras
+                destino.dataset.sombras = refOrigen.dataset.sombras;
+                // remueve todas las clases de sombras
+                $(destino).removeClass("s0000 s1000 s0100 s0010 s0001 s1001 s1100 s0110 s0011");
+                // agrega la clase actual de sombras
+                $(destino).addClass(refOrigen.dataset.sombras);
+                // el color del lienzo
+                destino.dataset.colorlienzo = refOrigen.dataset.colorlienzo;
+                $(destino).parent().css("background-color", refOrigen.dataset.colorlienzo);
+            }
     }    
 }
 
@@ -1825,14 +1842,14 @@ function aceptarModal() {
                         for (j = 1; j <= numFilas; j++) {
                             // define id de destino
                             miID = "f" + j + "c" + i;                            
-                            defineFormatoPixel(miID, "izquierda");                            
+                            defineFormatoPixel(miID, "izquierda", false);                            
                         }                       
                     }
                     // limpia la columna insertada
                     for (i = 1; i <= numFilas; i++) {
                         //construye el id
                         miID = "f" + i + "c" + posInsertarColumna;                
-                        defineFormatoPixel(miID, "globales");
+                        defineFormatoPixel(miID, "globales", false);
                     }
                     // configura mensajes
                     msj = "Se ha insertado una columna en la posición " + posInsertarColumna;
@@ -1846,14 +1863,14 @@ function aceptarModal() {
                         for (j = 1; j <= numFilas; j++) {
                             // define id de destino
                             miID = "f" + j + "c" + i;                            
-                            defineFormatoPixel(miID, "derecha");                            
+                            defineFormatoPixel(miID, "derecha", false);                            
                         }                       
                     }
                     // limpia la última columna
                     for (i = 1; i <= numFilas; i++) {
                         //construye el id
                         miID = "f" + i + "c" + numColumnas;                
-                        defineFormatoPixel(miID, "globales");
+                        defineFormatoPixel(miID, "globales", false);
                     }
                     // el rótulo de la última columna
                     //construye el id del rótulo, row 0 y col numColumnas
@@ -1925,14 +1942,14 @@ function aceptarModal() {
                         for (j = 1; j <= numColumnas; j++) {
                             // define id de destino
                             miID = "f" + i + "c" + j;                            
-                            defineFormatoPixel(miID, "arriba");                            
+                            defineFormatoPixel(miID, "arriba", false);                            
                         }                       
                     }
                     // limpia la fila insertada
                     for (i = 1; i <= numColumnas; i++) {
                         //construye el id
                         miID = "f" + posInsertarFila + "c" + i;                
-                        defineFormatoPixel(miID, "globales");
+                        defineFormatoPixel(miID, "globales", false);
                     }
                     // configura mensajes
                     msj = "Se ha insertado una fila en la posición " + posInsertarFila;
@@ -1946,14 +1963,14 @@ function aceptarModal() {
                         for (j = 1; j <= numColumnas; j++) {
                             // define id de destino
                             miID = "f" + i + "c" + j;                            
-                            defineFormatoPixel(miID, "abajo");                            
+                            defineFormatoPixel(miID, "abajo", false);                            
                         }                       
                     }
                     // limpia la última fila
                     for (i = 1; i <= numColumnas; i++) {
                         //construye el id
                         miID = "f" + numFilas + "c" + i;                
-                        defineFormatoPixel(miID, "globales");
+                        defineFormatoPixel(miID, "globales", false);
                     }
                     // el rótulo de la última
                     //construye el id del rótulo, row numFilas y col 0
