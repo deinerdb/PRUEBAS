@@ -1547,18 +1547,35 @@ function defineFormatoPixel(idDestino, origen, usarFormatosGuardados) {
                 // asume que origen es un id, le asigna el formato del pixel con ese id
                 // usarFormatosGuardados true indica que lo tome de la copia de seguridad           
                 var idOrigen = origen;
+                var indexOrigen = lastArrayID.indexOf(idOrigen);
                 // color de fondo del pixel
-                destino.style.backgroundColor = lastArrayColor[lastArrayID.indexOf(idOrigen)];
+                destino.style.backgroundColor = lastArrayColor[indexOrigen];
                 // radio
-                var radioOrigen = lastArrayRadio[lastArrayID.indexOf(idOrigen)];
+                var radioOrigen = lastArrayRadio[indexOrigen];
                 destino.dataset.radio = radioOrigen;
                 destino.style.MozBorderRadius = radioOrigen;
                 destino.style.webkitBorderRadius = radioOrigen;
                 destino.style.borderRadius = radioOrigen;
-                
+                // color de bordes
+                var colorBordesOrigen = lastArrayColorBordes[indexOrigen];
+                destino.dataset.colorbordes = colorBordesOrigen;
+                destino.style.borderColor = colorBordesOrigen;
+                // su opacidad 
+                destino.style.opacity = lastArrayOpacidad[indexOrigen];
+                // sombras
+                var sombraOrigen = lastArraySombras[indexOrigen];
+                destino.dataset.sombras = sombraOrigen;
+                // remueve todas las clases de sombras
+                $(destino).removeClass("s0000 s1000 s0100 s0010 s0001 s1001 s1100 s0110 s0011");
+                // agrega la clase actual de sombras
+                $(destino).addClass(sombraOrigen);
+                // el color del lienzo
+                var lienzoOrigen = lastArrayLienzo[indexOrigen];
+                destino.dataset.colorlienzo = lienzoOrigen;
+                $(destino).parent().css("background-color", lienzoOrigen);
             } else {            
                 // asume que origen es un id, le asigna el formato del pixel con ese id  
-                // usarFormatosGuardados false indica que lo tome de la cadricula directamente                     
+                // usarFormatosGuardados false indica que lo tome de la cadrícula directamente                     
                 var idOrigen = origen;
                 var refOrigen = document.getElementById(idOrigen);
                 // color de fondo del pixel
