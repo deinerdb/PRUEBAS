@@ -5562,7 +5562,53 @@ getBtnAceptarVoltearH.onclick = function () {
     setTimeout(function () {
         // código alta exigencia
         // voltearH
-        
+        var x = document.getElementsByClassName("seleccionado");
+        var i;        
+        var colMenor = Infinity;
+        var colMayor = -Infinity;
+        var filaMenor = Infinity;
+        var filaMayor = -Infinity;
+        var miFila;
+        var miCol;
+        var str;
+        var res;
+        var miID;
+        var miIDOrigen;
+        // busca las filas y columnas mayores y menores recorriendo los seleccionados
+        for (i = 0; i < x.length; i++) {
+            miID = $(x[i]).children()[0].id;                        
+            str = "" + miID;
+            res = str.substring(1);
+            res = res.split("c");
+            miFila = res[0];
+            miCol = res[1];
+            miFila = Number(miFila);
+            miCol = Number(miCol);
+            if (miFila > filaMayor) {
+                filaMayor = miFila;
+            }
+            if (miFila < filaMenor) {
+                filaMenor = miFila;
+            }
+            if (miCol > colMayor) {
+                colMayor = miCol;
+            }
+            if (miCol < colMenor) {
+                colMenor = miCol;
+            }                
+        }        
+        // recorre el cuadrado de la selección volteando horizontalmente
+        for (miFila = filaMenor; miFila <= filaMayor; miFila++) {
+            for (miCol = colMenor; miCol <= colMayor; miCol++) {
+                // el pixel de destino
+                miID = "f" + miFila + "c" + miCol;
+                // el contrario, el pixel de origen
+                miIDOrigen = colMayor - miCol + colMenor;
+                miIDOrigen = "f" + miFila + "c" + miIDOrigen;
+                // copia el formato
+                defineFormatoPixel(miID, miIDOrigen, true);                                
+            }
+        }        
         cambiarModo(lastModo, false);        
         estadoBtnDeshacer(true, "Deshacer Voltear Horizontalmente");
         // oculta el loader
