@@ -100,6 +100,9 @@ body {
 .contGrupo button:first-child {
     margin-left: 2px !important;
 }
+.contGrupo button:last-child {
+    margin-left: 4px !important;
+}
 .panelH {    
     border: none;
     margin: 0;
@@ -1807,8 +1810,8 @@ tr:nth-child(odd) {
 }
 /* TIENE TEXTO */
 #BtnEtiquetas {
-    min-width: 128px !important;
-    width: 128px !important;
+    min-width: 130px !important;
+    width: 130px !important;
     font-family: Consolas, 'Courier New', Courier, monospace;
 }
 /* TIENE TEXTO */

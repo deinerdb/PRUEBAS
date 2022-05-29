@@ -1208,8 +1208,8 @@ function alturaModal() {
 function ajustesResize() {    
     // para obtener anchos mínimos de botones al diseñar
     // primer elemento
-    //var testSize = document.getElementById("BtnAceptarLibre");
-    //$(testSize).attr("title","w " + testSize.offsetWidth + " h " + testSize.offsetHeight );
+    //var testSize = document.getElementById("BtnEtiquetas");
+    //$(testSize).attr("title","w " + testSize.offsetWidth + " h " + testSize.offsetHeight + " m l " + $(testSize).css("marginLeft") );
     // segundo elemento
     //var testSize = document.getElementById("BtnCancelarLibre");
     //$(testSize).attr("title","w " + testSize.offsetWidth + " h " + testSize.offsetHeight );
@@ -1563,7 +1563,41 @@ function defineFormatoPixel(idDestino, origen, usarFormatosGuardados) {
                 // su opacidad 
                 destino.style.opacity = lastArrayOpacidad[indexOrigen];
                 // sombras
-                var sombraOrigen = lastArraySombras[indexOrigen];
+                // inicialmente no la invierte, por defecto
+                var sombraOrigen = lastArraySombras[indexOrigen]; 
+                // las sombras se invierten solo en los modos voltearH y voltearV
+                if (modoActual == "voltearH") {
+                    // invierte izquierda - derecha
+                    switch (sombraOrigen) {
+                        case "s0100":
+                            // derecha
+                            sombraOrigen = "s0001";
+                            break;
+                        case "s0001":
+                            // izquierda
+                            sombraOrigen = "s0100";
+                            break;
+                        case "s1001":
+                            // arriba izquierda
+                            sombraOrigen = "s1100";
+                            break;
+                        case "s1100":
+                            // arriba derecha
+                            sombraOrigen = "s1001";
+                            break;
+                        case "s0110":
+                            // abajo derecha
+                            sombraOrigen = "s0011";
+                            break;
+                        case "s0011":
+                            // abajo izquierda
+                            sombraOrigen = "s0110";
+                            break;
+                    }
+                } else if (modoActual == "voltearV") {
+                    // invierte arriba - abajo
+
+                }
                 destino.dataset.sombras = sombraOrigen;
                 // remueve todas las clases de sombras
                 $(destino).removeClass("s0000 s1000 s0100 s0010 s0001 s1001 s1100 s0110 s0011");
