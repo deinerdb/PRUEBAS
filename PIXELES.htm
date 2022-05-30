@@ -931,7 +931,8 @@
         <!-- grupo bordes fin --> 
         <button id="BtnActualizar" title="Borrar todo (Formatos iniciales)"><i class="fas fa-sync-alt"></i></button>  
         <button id="BtnTrash" title="Borrar todo (Formatos globales)"><i class="far fa-trash-alt"></i></button>        
-        <button id="BtnRellenar" title="Pintar todos"><span id="relleno"></span><i class="fas fa-fill-drip"></i></button>        
+        <button id="BtnRellenar" title="Pintar todos del color actual"><span id="relleno"></span><i class="fas fa-fill-drip"></i></button>        
+        <button id="BtnRellenoAleatorio" title="Pintar todos con colores aleatorios"><i class="fas fa-random"></i></button>        
         <!-- grupo dimensionar inicio -->        
         <div class="contGrupo" id="contGrupoDimensionar">
             <button class="BtnGrupo" id="BtnGrupoDimensionar" title="Expandir o contraer el grupo Dimensionar"><i class="fas fa-arrows-alt"></i></button>
@@ -967,6 +968,7 @@
         <button id="BtnCancelarLibre" title="Descartar cambios"><i class="far fa-window-close"></i> Cancelar </button>
         <button id="BtnBorrarLibre" title="Borrar selección"><i class="fas fa-ban"></i></button>
         <button id="BtnExpandirLibre" title="Expandir selección"><i class="fas fa-vector-square"></i></button>
+        <button id="BtnAleatorioLibre" title="Pintar selección de colores aleatorios"><i class="fas fa-random"></i></button>
         <select id="filtro" title="No compatible con Internet Explorer y otros navegadores" onchange="AplicarFiltro()"> <option value="none" selected="">Sin filtro</option> <option value="blur(3px)">Blur (3px)</option> <option value="blur(5px)">Blur (5px)</option> <option value="brightness(200%)">Brightness (200%)</option> <option value="contrast(200%)">Contrast (200%)</option> <option value="drop-shadow(8px 8px 10px red)">Drop-Shadow (8px 8px 10px red)</option> <option value="grayscale(100%)">Grayscale (100%)</option> <option value="hue-rotate(90deg)">Hue-Rotate (90deg)</option> <option value="invert(100%)">Invert (100%)</option> <option value="opacity(30%)">Opacity (30%)</option> <option value="saturate(8)">Saturate (8)</option> <option value="sepia(100%)">Sepia (100%)</option> <option value="contrast(200%) brightness(150%)">Contrast (200%) Brightness (150%)</option> </select>
         <select id="selectFondo" title="Fondo de la página" onchange="aplicarFondo()">
             <option value="sinFondo" selected="">Sin fondo</option>

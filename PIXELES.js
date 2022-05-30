@@ -65,6 +65,7 @@ var getBtnAyuda = document.getElementById("BtnAyuda");
 var getBtnEtiquetas = document.getElementById("BtnEtiquetas");
 var getIcoEtiquetas = document.getElementById("icoEtiquetas");
 var getBtnRellenar = document.getElementById("BtnRellenar");
+var getBtnRellenoAleatorio = document.getElementById("BtnRellenoAleatorio");
 var getBtnColorLienzo = document.getElementById("BtnColorLienzo");
 var getBtnColorRejilla = document.getElementById("BtnColorRejilla");
 var getBtnGotero = document.getElementById("BtnGotero");
@@ -118,6 +119,7 @@ var getBtnCancelarLibre = document.getElementById("BtnCancelarLibre");
 var getBtnCancelarVoltearH = document.getElementById("BtnCancelarVoltearH");
 var getBtnBorrarLibre = document.getElementById("BtnBorrarLibre");
 var getBtnExpandirLibre = document.getElementById("BtnExpandirLibre");
+var getBtnAleatorioLibre = document.getElementById("BtnAleatorioLibre");
 var getBtnPantallaCompleta = document.getElementById("BtnPantallaCompleta");
 var getcolorPixel = document.getElementById("colorPixel");
 var getBtnRGB = document.getElementById("BtnRGB");
@@ -437,6 +439,7 @@ getBtnAceptarLibre.style.display = "none";
 getBtnCancelarLibre.style.display = "none";
 getBtnBorrarLibre.style.display = "none";
 getBtnExpandirLibre.style.display = "none";
+getBtnAleatorioLibre.style.display = "none";
 $(getSpanAyudaModos).addClass("oculto");
 // el relleno inicial es negro
 getRelleno.style.backgroundColor = "#000000";
@@ -4114,7 +4117,7 @@ function hacerClick(celda) {
             getBtnColorRejilla.style.color = colorActual;
             getBtnGotero.style.color = colorActual;
             getBtnPincel.style.color = colorActual;
-            // en especial para el caso de los importados
+            // en especial para el caso de los importados y los generados aleatoriamente
             procesarHistorial(colorActual);
             // resalta en historial
             resaltarActual();
@@ -5223,7 +5226,8 @@ function cambiarModo(nuevoModo, mostrarLoader) {
             $(getSpanAyudaModos).addClass("oculto");
             // otros
             getBtnRellenar.style.display = "inline-block";
-            getFiltro.style.display = "inline-block";
+            getBtnRellenoAleatorio.style.display = "inline-block";
+            getFiltro.style.display = "inline-block";            
             getBtnActualizar.style.display = "inline-block";
             getBtnDeshacer.style.display = "inline-block";
             getBtnTrash.style.display = "inline-block";
@@ -5232,6 +5236,7 @@ function cambiarModo(nuevoModo, mostrarLoader) {
             getBtnCancelarLibre.style.display = "none";
             getBtnBorrarLibre.style.display = "none";
             getBtnExpandirLibre.style.display = "none";
+            getBtnAleatorioLibre.style.display = "none";
             // propios de voltearH
             getBtnAceptarVoltearH.style.display = "none";
             getBtnCancelarVoltearH.style.display = "none";
@@ -5296,6 +5301,7 @@ function cambiarModo(nuevoModo, mostrarLoader) {
                 getBtnAceptarVoltearH.style.display = "none";
                 getBtnCancelarVoltearH.style.display = "inline-block";            
                 getBtnRellenar.style.display = "none";
+                getBtnRellenoAleatorio.style.display = "none";
                 getFiltro.style.display = "none";
                 getBtnActualizar.style.display = "none";
                 getBtnTrash.style.display = "none";
@@ -5337,7 +5343,9 @@ function cambiarModo(nuevoModo, mostrarLoader) {
                 getBtnCancelarLibre.style.display = "inline-block";
                 getBtnBorrarLibre.style.display = "inline-block";
                 getBtnExpandirLibre.style.display = "inline-block";
+                getBtnAleatorioLibre.style.display = "inline-block";
                 getBtnRellenar.style.display = "none";
+                getBtnRellenoAleatorio.style.display = "none";
                 getFiltro.style.display = "none";
                 getBtnActualizar.style.display = "none";
                 getBtnTrash.style.display = "none";
@@ -5766,7 +5774,41 @@ function expandirSeleccionado() {
         }
     }
 }
-
+// en modo libre, pinta los seleccionados de colores aleatorios
+// los colores generados no se agregan al historial, esto lo compensa el modo extraer
+getBtnAleatorioLibre.onclick = function () {
+    // muestra un loader...
+    $(".loader").removeClass("oculto");
+    setTimeout(function () {
+        // código alta exigencia
+        var x = document.getElementsByClassName("seleccionado");
+        var i;
+        var msj = "¡Hecho!";
+        var miCuadrito;
+        var miRGB;
+        var colorAleatorio;
+        if (x.length < 1) {
+            msj = "No hay ninguno seleccionado";
+        } else {
+            for (i = 0; i < x.length; i++) {
+                // la referencia al pixel hijo
+                miCuadrito = $(x[i]).children()[0];
+                // genera el color aleatorio, usa variables globales de componentes
+                miR = Math.floor(Math.random() * 256); 
+                miG = Math.floor(Math.random() * 256); 
+                miB = Math.floor(Math.random() * 256); 
+                miRGB = "rgb(" + miR + ", " + miG + ", " + miB + ")";
+                colorAleatorio = convertirRGBaHexadecimal(miRGB);
+                miCuadrito.style.backgroundColor = colorAleatorio;
+            }            
+            msj = "Selección coloreada aleatoriamente";
+        }        
+        // oculta el loader
+        $(".loader").addClass("oculto");
+        // otras tareas
+        showSnackbar(msj);
+    }, 0);
+}
 // en modo libre, expande la selección actual
 getBtnExpandirLibre.onclick = function () {
     // muestra un loader...
@@ -5825,12 +5867,13 @@ getBtnExpandirLibre.onclick = function () {
                     //var miLienzo = $("[id = " + miID + "]").parent()[0];
                     var miLienzo = $(miCuadrito).parent()[0];
                     if ( $(miLienzo).hasClass("seleccionado") == false ) {                                                
-                        $(miLienzo).addClass("seleccionado");
-                        miCuadrito.style.backgroundColor = colorActual;
+                        $(miLienzo).addClass("seleccionado");                        
                     }
+                    // siempre los pinta, para cubrir los aleatorios
+                    miCuadrito.style.backgroundColor = colorActual;
                 }
             }
-            msj = "Selección expandida";
+            msj = "Se expandió la selección y se aplicó el color actual";
         }
         // oculta el loader
         $(".loader").addClass("oculto");
@@ -6178,6 +6221,57 @@ getBtnActualizar.onclick = function () {
     }, 0); 
     
 }
+// aplica a cada cuadro visible un relleno de color aleatorio,
+// no se agregan los colores generados al historial, el modo extraer color compensa esto
+getBtnRellenoAleatorio.onclick = function () {
+    if (ocupado == true) {
+        //sale si está ocupado
+        return;
+    }
+    ocupado = true;
+    //debe guardar los colores y los id      
+    lastAction = "rellenoAleatorio";
+    lastArrayColor.length = 0;
+    lastArrayID.length = 0;
+    var i;
+    var j;
+    var miID;
+    var target;
+    var miRGB;    
+    var colorAleatorio;
+    // muestra un loader...
+    $(".loader").removeClass("oculto");
+    setTimeout(function () {
+        // código alta exigencia        
+        //recorre todo el array y les aplica el color actual a todos los cuadritos       
+        for (i = 1; i <= numFilas; i++) {
+            for (j = 1; j <= numColumnas; j++) {
+                //construye el id
+                miID = "f" + i + "c" + j;
+                target = document.getElementById(miID); 
+                //guardar los id y los colores al mismo tiempo que recorre los cuadritos            
+                lastArrayID[lastArrayID.length] = miID;
+                lastArrayColor[lastArrayColor.length] = target.style.backgroundColor;
+                // genera el color aleatorio, usa variables globales de componentes
+                miR = Math.floor(Math.random() * 256); 
+                miG = Math.floor(Math.random() * 256); 
+                miB = Math.floor(Math.random() * 256); 
+                miRGB = "rgb(" + miR + ", " + miG + ", " + miB + ")";
+                colorAleatorio = convertirRGBaHexadecimal(miRGB);                         
+                target.style.backgroundColor = colorAleatorio;
+            }
+        }        
+        
+        // activa el botón deshacer
+        estadoBtnDeshacer(true, "Deshacer relleno de colores aleatorios");
+        ocupado = false;
+        // oculta el loader
+        $(".loader").addClass("oculto");
+        // otras tareas
+        showSnackbar("Colores aleatorios aplicados");
+    }, 0);  
+    
+}
 //aplica a todos los cuadros el relleno del color actual
 // pues sí, es como cambiar el color de la hoja
 getBtnRellenar.onclick = function () {
@@ -6374,6 +6468,24 @@ getBtnDeshacer.onclick = function () {
 
             }, 0);
             break;
+        case "rellenoAleatorio":
+            mensaje = "Se deshizo el relleno aleatorio";
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia
+                // deshace el relleno                
+                var i;
+                //recorre los array y les aplica el color guardado
+                for (i = 0; i < lastArrayID.length; i++) {
+                    document.getElementById(lastArrayID[i]).style.backgroundColor = lastArrayColor[i];
+                }
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+
+            }, 0);  
+            break;        
         case "eliminarColumna":
             // deshace la eliminación de columna
             mensaje = "Se deshizo la eliminación de columna";
