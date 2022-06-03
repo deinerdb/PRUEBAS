@@ -29,7 +29,10 @@
                 margin: 12px auto 12px auto;
                 text-align: center;
                 max-width: 90%;
-            }
+            }   
+            textarea {
+                resize: none;
+            }         
             .copiar-ico {
                 margin-right: 8px;
                 font-size: larger;               
@@ -6581,7 +6584,8 @@
                         <br />
                         <h3 id="h3Info">Información adicional</h3>
                         <label for="nombreInfo">Artículo seleccionado:</label><br />
-                        <input type="text" name="nombreInfo" id="nombreInfo" readonly value=""/><br />
+                        <textarea name="nombreInfo" id="nombreInfo" value="" readonly></textarea><br />
+                        <!-- <input type="text" name="nombreInfo" id="nombreInfo" readonly value=""/><br />  -->                      
                         <label for="códigoInfo">Código:</label> <br />
                         <input type="text" name="códigoInfo" id="códigoInfo" readonly value=""/><br />
                         <label for="infoPrecioCompraConIVA">Precio Compra Con IVA:</label><br />
