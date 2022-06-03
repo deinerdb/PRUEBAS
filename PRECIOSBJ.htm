@@ -24,6 +24,12 @@
             snack 500
             loader 9999
             */
+            #h3Info {
+                color: purple;
+                margin: 12px auto 12px auto;
+                text-align: center;
+                max-width: 90%;
+            }
             .copiar-ico {
                 margin-right: 8px;
                 font-size: larger;               
@@ -6566,8 +6572,21 @@
                             </form>
                         </div>                
                     </div>
-                    <!-- INFORMACIÓN OPCIONAL EN CADA MODAL -->
+                    <!-- 
+                    INFORMACIÓN OPCIONAL EN CADA MODAL 
                     <p id="infoModal"> <strong>Nota: </strong> <span id="spanInfoModal"> Información importante </span> </p>
+                    -->
+                    <!-- INFORMACIÓN ADICIONAL -->
+                    <form class="formulario">
+                        <br />
+                        <h3 id="h3Info">Información adicional</h3>
+                        <label for="nombreInfo">Artículo seleccionado:</label><br />
+                        <input type="text" name="nombreInfo" id="nombreInfo" readonly value=""/><br />
+                        <label for="códigoInfo">Código:</label> <br />
+                        <input type="text" name="códigoInfo" id="códigoInfo" readonly value=""/><br />
+                        <label for="infoPrecioCompraConIVA">Precio Compra Con IVA:</label><br />
+                        <input type="text" name="infoPrecioCompraConIVA" id="infoPrecioCompraConIVA" readonly value=""/><br />
+                    </form>
                     <!-- un relleno inferior -->
                     <p id="rellenoModal"></p>
                 </div>
@@ -6725,7 +6744,7 @@
                 $(".marco").css("display", "none");
                 // ahora hace ajustes iniciales según su uso
                 // por defecto visible
-                $("#infoModal").css("display", "block");
+                //$("#infoModal").css("display", "block");
                 switch (modalActual) {
                     case "info":
                         $("#marcoInfo").css("display", "block");
@@ -6747,12 +6766,16 @@
                         miPrecio = precio1;
                         // INFORMACIÓN ADICIONAL O TEMPORAL
                         var infoArt = "";
-                        infoArt = "Artículo seleccionado: <br><br><strong>" + globalFila.dataset.cod + "</strong> " + globalFila.dataset.nombre;
+                        document.getElementById("códigoInfo").value = globalFila.dataset.cod; 
+                        infoArt = globalFila.dataset.nombre;
                         if (globalFila.dataset.descripción.length > 0) {
                             infoArt = infoArt + " - " + globalFila.dataset.descripción;
                         }
-                        infoArt = infoArt + " <br>PRECIO COMPRA CON IVA:  <br><strong>" + $(globalFila).children("td:nth-child(3)").html() + "</strong>";
-                        document.getElementById("spanInfoModal").innerHTML = infoArt;
+                        document.getElementById("nombreInfo").value = infoArt;
+                        infoArt = $(globalFila).children("td:nth-child(3)").html();
+                        document.getElementById("infoPrecioCompraConIVA").value = infoArt;
+                        //document.getElementById("spanInfoModal").innerHTML = infoArt;
+
                         // cantidad vacía inicialmente
                         getCantidadCalcular.value = "";
                         // valor inicial no muestra nada
