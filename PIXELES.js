@@ -96,6 +96,7 @@ var getBtnVoltearH = document.getElementById("BtnVoltearH");
 var getBtnVoltearV = document.getElementById("BtnVoltearV");
 var getSpanAyudaModos = document.getElementById("spanAyudaModos");
 var etapaVoltearH = 1; // es un ciclo
+var etapaVoltearV = 1; // es un ciclo
 var getSpanInfoSombras = document.getElementById("spanInfoSombras");
 var getSelectSombras = document.getElementById("selectSombras");
 var getBtnDeshacer = document.getElementById("BtnDeshacer");
@@ -115,8 +116,10 @@ var getBtnExportar = document.getElementById("BtnExportar");
 var getBtnImprimir = document.getElementById("BtnImprimir");
 var getBtnAceptarLibre = document.getElementById("BtnAceptarLibre");
 var getBtnAceptarVoltearH = document.getElementById("BtnAceptarVoltearH");
+var getBtnAceptarVoltearV = document.getElementById("BtnAceptarVoltearV");
 var getBtnCancelarLibre = document.getElementById("BtnCancelarLibre");
 var getBtnCancelarVoltearH = document.getElementById("BtnCancelarVoltearH");
+var getBtnCancelarVoltearV = document.getElementById("BtnCancelarVoltearV");
 var getBtnBorrarLibre = document.getElementById("BtnBorrarLibre");
 var getBtnExpandirLibre = document.getElementById("BtnExpandirLibre");
 var getBtnAleatorioLibre = document.getElementById("BtnAleatorioLibre");
@@ -435,6 +438,8 @@ document.getElementById("BtnDisminuirFull").style.border = "3px solid #666699";
 // en el modo pincel no están estos
 getBtnAceptarVoltearH.style.display = "none";
 getBtnCancelarVoltearH.style.display = "none";
+getBtnAceptarVoltearV.style.display = "none";
+getBtnCancelarVoltearV.style.display = "none";
 getBtnAceptarLibre.style.display = "none";
 getBtnCancelarLibre.style.display = "none";
 getBtnBorrarLibre.style.display = "none";
@@ -1599,7 +1604,32 @@ function defineFormatoPixel(idDestino, origen, usarFormatosGuardados) {
                     }
                 } else if (modoActual == "voltearV") {
                     // invierte arriba - abajo
-
+                    switch (sombraOrigen) {
+                        case "s1000":
+                            // ARRIBA
+                            sombraOrigen = "s0010";
+                            break;
+                        case "s0010":
+                            // ABAJO
+                            sombraOrigen = "s1000";
+                            break;
+                        case "s1001":
+                            // arriba izquierda
+                            sombraOrigen = "s0011";
+                            break;
+                        case "s1100":
+                            // arriba derecha
+                            sombraOrigen = "s0110";
+                            break;
+                        case "s0110":
+                            // abajo derecha
+                            sombraOrigen = "s1100";
+                            break;
+                        case "s0011":
+                            // abajo izquierda
+                            sombraOrigen = "s1001";
+                            break;
+                    }
                 }
                 destino.dataset.sombras = sombraOrigen;
                 // remueve todas las clases de sombras
@@ -3737,6 +3767,45 @@ function hacerClick(celda) {
     }, 400);
     
     switch (modoActual) {
+        case "voltearV":
+            var msj = "Hecho";
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia
+                if (etapaVoltearV == 1) {
+                    // primer vértice seleccionado
+                    indicacionesModo("Seleccione vértice 2 de 2");
+                    msj = "Seleccione vértice 2 de 2";
+                    // agrega la clase al primer vértice
+                    var miLienzo = $(miCuadrito).parent()[0];
+                    $(miLienzo).addClass("seleccionado");
+                    // cambia la etapa
+                    etapaVoltearV = 2;
+                } else if (etapaVoltearV == 2) {
+                    // segundo vértice seleccionado
+                    indicacionesModo("¿Voltear verticalmente?");
+                    msj = "Área seleccionada. Presione Aceptar o Cancelar";
+                    // agrega la clase al segundo vértice
+                    var miLienzo = $(miCuadrito).parent()[0];
+                    $(miLienzo).addClass("seleccionado");
+                    // expande la selección, formando el área a voltear
+                    expandirSeleccionado();
+                    // visible aceptar
+                    getBtnAceptarVoltearV.style.display = "inline-block";
+                    // cambia la etapa
+                    etapaVoltearV = 3;
+                } else if (etapaVoltearV == 3) {
+                    // confirmación
+                    msj = "Presione Aceptar o Cancelar";
+                }          
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+                showSnackbar(msj);
+            }, 0); 
+              
+            break;
         case "voltearH":
             var msj = "Hecho";
             // muestra un loader...
@@ -4273,6 +4342,10 @@ function mostrarHistorial(afectarPreferencia) {
         showSnackbar("Está en Modo Voltear Horizontalmente...");
         return;
     }
+    if (modoActual == "voltearV") {
+        showSnackbar("Está en Modo Voltear Verticalmente...");
+        return;
+    }
     // sale si ya está mostrado
     if (historialMostrado == true) {
         //return;
@@ -4282,7 +4355,7 @@ function mostrarHistorial(afectarPreferencia) {
     //cancela el timer que lo ocultaría
     clearTimeout(timerHistorial);
     // guarda la preferencia
-    if (modoActual != "borrador" && modoActual != "radio" && modoActual != "opacidad" && modoActual != "sombras" && modoActual != "voltearH"  && afectarPreferencia == true) {
+    if (modoActual != "borrador" && modoActual != "radio" && modoActual != "opacidad" && modoActual != "sombras" && modoActual != "voltearH" && modoActual != "voltearV" && afectarPreferencia == true) {
         prefiereHistorial = true;
     }
     //oculta este botón
@@ -4319,7 +4392,7 @@ function cerrarHistorial(afectarPreferencia) {
     //cancela el timer que lo ocultaría
     clearTimeout(timerHistorial);
     // guarda la preferencia
-    if (modoActual != "borrador" && modoActual != "radio" && modoActual != "opacidad" && modoActual != "sombras" && modoActual != "voltearH"  && afectarPreferencia == true) {
+    if (modoActual != "borrador" && modoActual != "radio" && modoActual != "opacidad" && modoActual != "sombras" && modoActual != "voltearH" && modoActual != "voltearV" && afectarPreferencia == true) {
         prefiereHistorial = false;
     }
     // la barra se desactiva y el botón cerrar historial también
@@ -5194,7 +5267,7 @@ function cambiarModo(nuevoModo, mostrarLoader) {
         lastModo = modoActual;
         modoActual = nuevoModo;
         // gestiona el historial de color
-        if (modoActual == "borrador" || modoActual == "radio" || modoActual == "opacidad" || modoActual == "sombras" || modoActual == "voltearH") {        
+        if (modoActual == "borrador" || modoActual == "radio" || modoActual == "opacidad" || modoActual == "sombras" || modoActual == "voltearH" || modoActual == "voltearV") {        
                 cerrarHistorial(false);
         } else {
             if (prefiereHistorial == true) {
@@ -5218,7 +5291,7 @@ function cambiarModo(nuevoModo, mostrarLoader) {
         $(".lienzo").removeClass("seleccionado");
         // elimina el modo seleccionado de todos los botones
         $(".seleccionadoBtnModos").removeClass("seleccionadoBtnModos");    
-        if (modoActual != "libre" && modoActual != "voltearH") {
+        if (modoActual != "libre" && modoActual != "voltearH" && modoActual != "voltearV") {
             //muestra y oculta elementos
             // el pie
             getPie.style.visibility = "visible";
@@ -5240,6 +5313,9 @@ function cambiarModo(nuevoModo, mostrarLoader) {
             // propios de voltearH
             getBtnAceptarVoltearH.style.display = "none";
             getBtnCancelarVoltearH.style.display = "none";
+            // propios de voltearV
+            getBtnAceptarVoltearV.style.display = "none";
+            getBtnCancelarVoltearV.style.display = "none";
 
             getBtnPantallaCompleta.style.display = "inline-block";
             getSelectFondo.style.display = "inline-block";
@@ -5282,6 +5358,43 @@ function cambiarModo(nuevoModo, mostrarLoader) {
 
         }
         switch (modoActual) {
+            case "voltearV":
+                // el texto en el spanModo
+                $(getSpanModo).html("Voltear Verticalmente");
+                // agrega la clase seleccionado al btn del modo actual                    
+                $(getBtnVoltearV).addClass("seleccionadoBtnModos"); 
+                // el pie distrae
+                getPie.style.visibility = "hidden";
+                // las indicaciones
+                $(getSpanAyudaModos).removeClass("oculto");
+                // inicia el ciclo, para controlar el click
+                etapaVoltearV = 1;
+                // las indicaciones
+                indicacionesModo("Seleccione vértice 1 de 2");
+                // sin colores
+                $(getcontGrupoColores).addClass("oculto");
+                //muestra y oculta elementos
+                getBtnAceptarVoltearV.style.display = "none";
+                getBtnCancelarVoltearV.style.display = "inline-block";            
+                getBtnRellenar.style.display = "none";
+                getBtnRellenoAleatorio.style.display = "none";
+                getFiltro.style.display = "none";
+                getBtnActualizar.style.display = "none";
+                getBtnTrash.style.display = "none";
+                getBtnDeshacer.style.display = "none";
+                getBtnPantallaCompleta.style.display = "none";
+                getSelectFondo.style.display = "none";
+                $(getcontGrupoHerramientas).addClass("oculto");
+                $(getcontGrupoBordes).addClass("oculto");
+                $(getcontGrupoDimensionar).addClass("oculto");
+                $(getcontGrupoCompartir).addClass("oculto");
+                // para deshacer
+                lastAction = "voltearV";
+                // copia de seguridad 
+                guardarFormatos();
+                // informa
+                msj = "Modo Voltear Verticalmente. Seleccione el primer vértice.";
+                break;
             case "voltearH":
                 // el texto en el spanModo
                 $(getSpanModo).html("Voltear Horizontalmente");
@@ -5596,6 +5709,85 @@ getBtnAceptarLibre.onclick = function () {
 
     }, 0);  
    
+}
+//se selecciona ACEPTAR en el modo VoltearV
+getBtnAceptarVoltearV.onclick = function () {
+    // muestra un loader...
+    $(".loader").removeClass("oculto");
+    setTimeout(function () {
+        // código alta exigencia
+        // voltearV
+        var x = document.getElementsByClassName("seleccionado");
+        var i;        
+        var colMenor = Infinity;
+        var colMayor = -Infinity;
+        var filaMenor = Infinity;
+        var filaMayor = -Infinity;
+        var miFila;
+        var miCol;
+        var str;
+        var res;
+        var miID;
+        var miIDOrigen;
+        // busca las filas y columnas mayores y menores recorriendo los seleccionados
+        for (i = 0; i < x.length; i++) {
+            miID = $(x[i]).children()[0].id;                        
+            str = "" + miID;
+            res = str.substring(1);
+            res = res.split("c");
+            miFila = res[0];
+            miCol = res[1];
+            miFila = Number(miFila);
+            miCol = Number(miCol);
+            if (miFila > filaMayor) {
+                filaMayor = miFila;
+            }
+            if (miFila < filaMenor) {
+                filaMenor = miFila;
+            }
+            if (miCol > colMayor) {
+                colMayor = miCol;
+            }
+            if (miCol < colMenor) {
+                colMenor = miCol;
+            }                
+        }        
+        // recorre el cuadrado de la selección volteando verticalmente
+        for (miCol = colMenor; miCol <= colMayor; miCol++) {
+            for (miFila = filaMenor; miFila <= filaMayor; miFila++) {
+                // el pixel de destino
+                miID = "f" + miFila + "c" + miCol;
+                // el contrario, el pixel de origen
+                miIDOrigen = filaMayor - miFila + filaMenor;
+                miIDOrigen = "f" + miIDOrigen + "c" + miCol;
+                // copia el formato
+                defineFormatoPixel(miID, miIDOrigen, true);                                
+            }
+        }        
+        cambiarModo(lastModo, false);        
+        estadoBtnDeshacer(true, "Deshacer Voltear Verticalmente");
+        // oculta el loader
+        $(".loader").addClass("oculto");
+        // otras tareas
+
+    }, 0);  
+   
+}
+//se selecciona CANCELAR en el modo voltearV
+getBtnCancelarVoltearV.onclick = function () {
+    // muestra un loader...
+    $(".loader").removeClass("oculto");
+    setTimeout(function () {
+        // código alta exigencia
+        cambiarModo(lastModo, false);
+        // deshace cualquier cambio           
+        restaurarFormatos();
+        estadoBtnDeshacer(false);
+        // oculta el loader
+        $(".loader").addClass("oculto");
+        // otras tareas
+
+    }, 0);
 }
 //se selecciona ACEPTAR en el modo VoltearH
 getBtnAceptarVoltearH.onclick = function () {
@@ -6372,7 +6564,7 @@ getBtnVoltearH.onclick = function () {
 }
 // inicia el modo voltear verticalmente
 getBtnVoltearV.onclick = function () {
-    showSnackbar("En desarrollo...");
+    cambiarModo("voltearV", true);
 }
 // para definir tipo de borde
 // incluido el tipo "none"
@@ -6418,6 +6610,20 @@ getBtnDeshacer.onclick = function () {
     ocupado = true;
     var mensaje = "¡Hecho!";
     switch (lastAction) {
+        case "voltearV":
+            // deshace voltear verticalmente            
+            mensaje = "Se deshizo voltear verticalmente";
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia
+                restaurarFormatos();
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+                
+            }, 0);  
+            break;
         case "voltearH":
             // deshace voltear horizontalmente            
             mensaje = "Se deshizo voltear horizontalmente";
