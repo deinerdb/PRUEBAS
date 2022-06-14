@@ -759,8 +759,9 @@
                 text-align: center;
                 max-width: 100%;
             }
+            
             #infoMostrados {
-                /* x de n */
+                /* x de n */                
                 margin-bottom: 8px;
                 margin-top: 4px;
                 padding: 6px;
@@ -777,7 +778,7 @@
                 font-family: 'Space Mono', Consolas, 'Courier New', Courier, monospace;
             }
             .compra {
-                color: red;
+                color: red;                
             }
             .lista1 {
                 color: #3333ff;                
@@ -1228,7 +1229,87 @@
                     }
                 }
                 /*fin clase parpadear*/
+                
+                /*/ INICIO css para el checkbox personalizado*/
+                /* propios de esta web */
+                
+                #checkPreciosCompra {
+                    text-align: left;
+                    margin: 8px 4px 24px 32px;                    
+                }
+            
+                /* The container */
+                .contenedorCheckbox {
+                    display: block;
+                    position: relative;
+                    padding-left: 35px;
+                    margin-bottom: 18px;
+                    cursor: pointer;
+                    font-size: 22px;
+                    -webkit-user-select: none;
+                    -moz-user-select: none;
+                    -ms-user-select: none;
+                    user-select: none;
+                    color: purple;
+                }
 
+                    /* Hide the browser's default checkbox */
+                    .contenedorCheckbox input {
+                        position: absolute;
+                        opacity: 0;
+                        cursor: pointer;
+                        height: 0;
+                        width: 0;
+                    }
+
+                /* Create a custom checkbox */
+                .checkmark {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 25px;
+                    width: 25px;
+                    background-color: lavender; /*lavender*/
+                }
+
+                /* On mouse-over, add a grey background color */
+                .contenedorCheckbox:hover input ~ .checkmark {
+                    background-color: #bfbff2; /*un poco más oscuro que el lavender*/
+                }
+
+                /* When the checkbox is checked, add a mediumpurple background */
+                .contenedorCheckbox input:checked ~ .checkmark {
+                    background-color: mediumpurple; /*  mediumpurple */
+                }
+
+                /* Create the checkmark/indicator (hidden when not checked) */
+                .checkmark:after {
+                    content: "";
+                    position: absolute;
+                    display: none;
+                }
+
+                /* Show the checkmark when checked */
+                .contenedorCheckbox input:checked ~ .checkmark:after {
+                    display: block;
+                }
+
+                /* Style the checkmark/indicator */
+                .contenedorCheckbox .checkmark:after {
+                    left: 9px;
+                    top: 5px;
+                    width: 5px;
+                    height: 10px;
+                    border: solid white;
+                    border-width: 0 3px 3px 0;
+                    -ms-transform: rotate(45deg);
+                    -webkit-transform: rotate(45deg);
+                    -o-transform: rotate(45deg);
+                    -moz-transform: rotate(45deg);
+                    transform: rotate(45deg);
+                }
+                /*/ FIN css para el checkbox personalizado*/
+                /* -------------- */
         </style>
         <script>
             $(document).ready(function () {
@@ -1260,11 +1341,20 @@
                 <div class="sk-cube sk-cube9"></div>
             </div>
         </div>
+        
         <div id="contbuscarProducto">
             <input id="buscarProducto" type="search" maxlength="100" placeholder="Buscar..." autocomplete="off" spellcheck="false">
         </div>        
-        <div class="caption">Precios BDC</div>
-        <div id="infoMostrados">x de n</div>
+        
+        <div class="caption">Precios BDC: <span id="infoMostrados">x de n</span></div>
+    
+    
+        <label class="contenedorCheckbox" id="checkPreciosCompra">
+            Mostrar precios de compra
+            <input type="checkbox" id="myCheckPreciosCompra"  checked="checked" onclick="alternarPreciosCompra(true)">
+            <span class="checkmark"></span>
+        </label>
+    
         <div class="contenedor-tabla">
             <table>
                 <!-- <caption>Precios Bolsas Juan</caption> -->                
@@ -1278,7 +1368,7 @@
                                 <option value="ref">Referencia</option>                            
                             </select>
                         </th>
-                        <th>Compra</th>
+                        <th class="comprath">Compra</th>
                         <th>Lista 1</th>
                         <th>Lista 2</th>
                         <th>Lista 3</th>
@@ -6609,6 +6699,9 @@
                 document.getElementById("buscarProducto").value = "";
                 // no se ha buscado
                 $("#infoNoEncontrados").css("display", "none");
+                // por defecto muestra precios de compra
+                document.getElementById("myCheckPreciosCompra").checked = true;
+                alternarPreciosCompra(false); // sin notificar
             });
             
             // DEL TAB CALCULAR
@@ -7346,7 +7439,22 @@
                     copyToClipboard(miCodFila);
                     showSnackbar("Código copiado: " + miCodFila);
                 }
-                              
+                // cuando cambia la opción para ocultar o mostrar pecios de compra
+                function alternarPreciosCompra(notificar) {
+                    if (document.getElementById("myCheckPreciosCompra").checked == true) {
+                        $(".compra").removeClass("oculto");
+                        $(".comprath").removeClass("oculto");
+                        if (notificar == true) {
+                            showSnackbar("Precios de compra mostrados");
+                        }
+                    } else {
+                        $(".compra").addClass("oculto");
+                        $(".comprath").addClass("oculto");
+                        if (notificar == true) {
+                            showSnackbar("Precios de compra ocultos");
+                        }
+                    }                    
+                }         
 
         </script>
 </body>
