@@ -1741,7 +1741,7 @@ tr:nth-child(odd) {
     /* ajustar min-width del botón en caso de usarlo */
     display: none;
 }
-#BtnRellenar, #BtnColorLienzo, #BtnColorRejilla, #BtnGotero, #BtnPincel {
+#BtnRellenar, #BtnColorLienzo, #BtnColorRejilla, #BtnGotero, #BtnPincel, #BtnTrazos {
     /* una sombra para que se vea el ícono de cualquier color */
     text-shadow: 0px 0px 2px #7fff7f;
     /* color inicial es negro */
