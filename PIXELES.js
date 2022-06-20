@@ -4274,6 +4274,8 @@ function crearCuadritos() {
                 miLienzo.setAttribute("class", "lienzo");
                 // color lienzo por defecto, su hijo lo guarda en el dataset            
                 miLienzo.style.backgroundColor = "#ffffff";
+                // le adjunta el evento touchmove 
+                miLienzo.addEventListener("touchmove", function (e) { procesarTrazoTáctil(e); });
                 // crea cuadrito
                 miColumna = document.createElement("DIV");
                 // la clase de los cuadritos es columna
@@ -4301,7 +4303,9 @@ function crearCuadritos() {
                 // le adjunta el evento click
                 miColumna.addEventListener("click", function () { hacerClick(this.id); });
                 // le adjunta el evento mouseenter
-                miColumna.addEventListener("mouseenter", function () { hacerTrazos(this.id); });                
+                miColumna.addEventListener("mouseenter", function () { hacerTrazos(this.id); });
+                // le adjunta el evento touchmove 
+                miColumna.addEventListener("touchmove", function (e) { procesarTrazoTáctil(e); });               
                 // por las x, define tamaño de fuente
                 // TAMBIÉN POR LAS SOMBRAS EN UNIDADES em
                 miColumna.style.fontSize = tamaño * 0.8 + "px";            
@@ -4553,9 +4557,16 @@ document.getElementById("BtnSalirPantallaCompleta").onclick = function () {
 getPantalla.onmousemove = function () { mostrarPuntero() };
 getContenedor.onmousemove = function () { mostrarPuntero() };
 // en eventos táctiles
-getPantalla.ontouchmove = function () { mostrarPuntero() };
+getPantalla.ontouchmove = function (e) { 
+    procesarTrazoTáctil(e);
+    mostrarPuntero(); 
+};
 getContenedor.ontouchmove = function (e) { 
-    mostrarPuntero();
+    procesarTrazoTáctil(e);
+    mostrarPuntero();      
+};
+// procesa evento táctil de trazos
+function procesarTrazoTáctil(e) {  
     if (modoActual == "trazos") {
         // si está en modo "trazos" 
         var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
@@ -4568,8 +4579,8 @@ getContenedor.ontouchmove = function (e) {
        if ( $(miCelda).hasClass("columna") == true ) {       
             hacerTrazos(miCelda.id);
        }
-    }  
-};
+    }
+}
 getPantalla.ontouchstart = function () { mostrarPuntero() };
 getContenedor.ontouchstart = function () { mostrarPuntero() };
 // cuando hace scroll
