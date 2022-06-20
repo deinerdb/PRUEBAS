@@ -3727,8 +3727,8 @@ procesarHistorial("#000000");
 // lo anterior hace que el blanco y el negro aparezcan en el historial al abrir la página.
 
 // cuando hace un trazo sobr el lienzo
-// llamada desde eventos del mouse y táctiles
-function hacerTrazos(celda) {
+// llamada desde eventos del mouse
+function hacerTrazos(event, miCuadrito) {
     if (modoActual != "trazos") {
         //sale si está en cualquier modo diferente a "trazos" 
         return;
@@ -3741,9 +3741,17 @@ function hacerTrazos(celda) {
         // si está en pantalla completa se sale        
         return;
     }
+    var x = event.buttons;
+    if (x != 1) {
+        // si no está presionado el botón izquierdo, se sale        
+        return;
+    }
     // ahora sí...
     ocupado = true;                                                   
-    showSnackbar("Trazo en id " + celda);
+    showSnackbar("Trazo en id " + miCuadrito.id);    
+    miCuadrito.style.backgroundColor = colorActual;    
+    //procesa el historial de colores
+    procesarHistorial(colorActual);
     ocupado = false;
 }
 
@@ -4274,8 +4282,6 @@ function crearCuadritos() {
                 miLienzo.setAttribute("class", "lienzo");
                 // color lienzo por defecto, su hijo lo guarda en el dataset            
                 miLienzo.style.backgroundColor = "#ffffff";
-                // le adjunta el evento touchmove 
-                miLienzo.addEventListener("touchmove", function (e) { procesarTrazoTáctil(e); });
                 // crea cuadrito
                 miColumna = document.createElement("DIV");
                 // la clase de los cuadritos es columna
@@ -4302,10 +4308,8 @@ function crearCuadritos() {
                 miColumna.style.borderColor = "#000000";
                 // le adjunta el evento click
                 miColumna.addEventListener("click", function () { hacerClick(this.id); });
-                // le adjunta el evento mouseenter
-                miColumna.addEventListener("mouseenter", function () { hacerTrazos(this.id); });
-                // le adjunta el evento touchmove 
-                miColumna.addEventListener("touchmove", function (e) { procesarTrazoTáctil(e); });               
+                // le adjunta el evento mouseenter, para trazos
+                miColumna.addEventListener("mouseenter", function (event) { hacerTrazos(event, this); });                               
                 // por las x, define tamaño de fuente
                 // TAMBIÉN POR LAS SOMBRAS EN UNIDADES em
                 miColumna.style.fontSize = tamaño * 0.8 + "px";            
@@ -4557,30 +4561,8 @@ document.getElementById("BtnSalirPantallaCompleta").onclick = function () {
 getPantalla.onmousemove = function () { mostrarPuntero() };
 getContenedor.onmousemove = function () { mostrarPuntero() };
 // en eventos táctiles
-getPantalla.ontouchmove = function (e) { 
-    procesarTrazoTáctil(e);
-    mostrarPuntero(); 
-};
-getContenedor.ontouchmove = function (e) { 
-    procesarTrazoTáctil(e);
-    mostrarPuntero();      
-};
-// procesa evento táctil de trazos
-function procesarTrazoTáctil(e) {  
-    if (modoActual == "trazos") {
-        // si está en modo "trazos" 
-        var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
-        var x = touch.pageX;
-        var y = touch.pageY;
-       var miCelda = document.elementFromPoint(x, y);
-       if (!miCelda) { 
-           return; 
-        }
-       if ( $(miCelda).hasClass("columna") == true ) {       
-            hacerTrazos(miCelda.id);
-       }
-    }
-}
+getPantalla.ontouchmove = function () { mostrarPuntero() };
+getContenedor.ontouchmove = function () { mostrarPuntero() };
 getPantalla.ontouchstart = function () { mostrarPuntero() };
 getContenedor.ontouchstart = function () { mostrarPuntero() };
 // cuando hace scroll
@@ -5606,6 +5588,8 @@ function cambiarModo(nuevoModo, mostrarLoader) {
                     //getBtnOpuesto.style.display = "inline-block";
                     $(getcontGrupoColores).removeClass("oculto");
                     msj = "Modo Trazos";
+                    // no se puede deshacer
+                    estadoBtnDeshacer(false);
                     break;
             case "info":
                 // el texto en el spanModo
