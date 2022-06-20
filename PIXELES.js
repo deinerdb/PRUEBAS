@@ -4300,10 +4300,10 @@ function crearCuadritos() {
                 miColumna.style.borderColor = "#000000";
                 // le adjunta el evento click
                 miColumna.addEventListener("click", function () { hacerClick(this.id); });
-                // le adjunta el evento mousemove
-                miColumna.addEventListener("mousemove", function () { hacerTrazos(this.id); });
-                // le adjunta el evento touchmove
-                miColumna.addEventListener("touchmove", function () { hacerTrazos(this.id); });
+                // le adjunta el evento mouseenter
+                miColumna.addEventListener("mouseenter", function () { hacerTrazos(this.id); });
+                // le adjunta el evento touchstart
+                miColumna.addEventListener("touchstart", function () { hacerTrazos(this.id); });
                 // por las x, define tamaño de fuente
                 // TAMBIÉN POR LAS SOMBRAS EN UNIDADES em
                 miColumna.style.fontSize = tamaño * 0.8 + "px";            
