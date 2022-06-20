@@ -3742,7 +3742,7 @@ function hacerTrazos(celda) {
         return;
     }
     // ahora sí...
-    ocupado = true;    
+    ocupado = true;                                                   
     showSnackbar("Trazo en id " + celda);
     ocupado = false;
 }
@@ -4301,9 +4301,7 @@ function crearCuadritos() {
                 // le adjunta el evento click
                 miColumna.addEventListener("click", function () { hacerClick(this.id); });
                 // le adjunta el evento mouseenter
-                miColumna.addEventListener("mouseenter", function () { hacerTrazos(this.id); });
-                // le adjunta el evento touchstart
-                miColumna.addEventListener("touchstart", function () { hacerTrazos(this.id); });
+                miColumna.addEventListener("mouseenter", function () { hacerTrazos(this.id); });                
                 // por las x, define tamaño de fuente
                 // TAMBIÉN POR LAS SOMBRAS EN UNIDADES em
                 miColumna.style.fontSize = tamaño * 0.8 + "px";            
@@ -4556,7 +4554,22 @@ getPantalla.onmousemove = function () { mostrarPuntero() };
 getContenedor.onmousemove = function () { mostrarPuntero() };
 // en eventos táctiles
 getPantalla.ontouchmove = function () { mostrarPuntero() };
-getContenedor.ontouchmove = function () { mostrarPuntero() };
+getContenedor.ontouchmove = function (e) { 
+    mostrarPuntero();
+    if (modoActual == "trazos") {
+        // si está en modo "trazos" 
+        var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+        var x = touch.pageX;
+        var y = touch.pageY;
+       var miCelda = document.elementFromPoint(x, y);
+       if (!miCelda) { 
+           return; 
+        }
+       if ( $(miCelda).hasClass("columna") == true ) {       
+            hacerTrazos(miCelda.id);
+       }
+    }  
+};
 getPantalla.ontouchstart = function () { mostrarPuntero() };
 getContenedor.ontouchstart = function () { mostrarPuntero() };
 // cuando hace scroll
