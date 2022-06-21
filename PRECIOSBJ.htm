@@ -688,7 +688,8 @@
                 box-sizing: border-box;
             }
             body {
-                font-family: Verdana, Geneva, Tahoma, sans-serif;    
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+                -webkit-user-drag: none;                
             }
             
             #rellenoInferior {
@@ -1313,6 +1314,13 @@
         </style>
         <script>
             $(document).ready(function () {
+                $('input').on('drop', function(event) {
+                    event.preventDefault();
+                });
+                $('body').on('dragstart drop', function(e){
+                    e.preventDefault();
+                    return false;
+                });
                 // cuando carga la página            
                 // oculta el loader unos instantes después
                 setTimeout(function () {                
@@ -1326,7 +1334,7 @@
         </script>
         
     </head>
-    <body>
+    <body draggable="false">
         <div class="loader">
             <h3>Espere...</h3>
             <div class="sk-cube-grid">
@@ -1351,7 +1359,7 @@
     
         <label class="contenedorCheckbox" id="checkPreciosCompra">
             Mostrar precios de compra
-            <input type="checkbox" id="myCheckPreciosCompra"  checked="checked" onclick="alternarPreciosCompra(true)">
+            <input type="checkbox" id="myCheckPreciosCompra" onclick="alternarPreciosCompra(true)">
             <span class="checkmark"></span>
         </label>
     
@@ -6559,13 +6567,13 @@
                 <!-- _____________________________ -->
             </table>
         </div>
-        <p id="infoNoEncontrados" class="parpadea">¡No se encontraron resultados!<br><br><i class="far fa-frown"></i></p>
-        <p class="pie-tabla"><small><span id="numVers">Versión web</span></small></p>
+        <p id="infoNoEncontrados" class="parpadea" draggable="false">¡No se encontraron resultados!<br><br><i class="far fa-frown"></i></p>
+        <p class="pie-tabla" draggable="false"><small><span id="numVers">Versión web</span></small></p>
         <script>
             // la versión se actualiza con la macro VBA
             document.getElementById("numVers").innerHTML = document.getElementById("numVersVBA").innerHTML;
         </script>
-        <div id="rellenoInferior">
+        <div id="rellenoInferior" draggable="false">
         <button onclick="topFunction()" id="BtnTop" title="Subir"><i class="fas fa-arrow-up"></i></button>
         
         <!-- el snackbar para los mensajes -->
