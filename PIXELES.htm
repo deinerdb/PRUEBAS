@@ -18,6 +18,16 @@
     <link rel="shortcut icon" href="icopixeles.ico" type="image/x-icon" />
     <script>
         $(document).ready(function () {
+            // no se puede arrarstrar nada hacia un campo
+            $('input').on('drop', function(event) {
+                    event.preventDefault();
+            });
+            // no se puede arrarstrar elementos en la página
+            // esto interfiere con los trazos continuos
+            $('body').on('dragstart drop', function(e){
+                e.preventDefault();
+                return false;
+            });
             // cuando carga la página
             // oculta el loader unos segundos después
             setTimeout(function () {
@@ -32,7 +42,7 @@
         });        
     </script>
 </head>
-<body class="sinFondo">    
+<body class="sinFondo" draggable="false">    
     <div class="loader">
         <h3>Espere...</h3>
         <div class="sk-cube-grid">
@@ -860,8 +870,7 @@
                 <button id="BtnGotero" title="Modo Relleno Selectivo"><i class="fas fa-eye-dropper"></i></button>
                 <button id="BtnReemplazar" title="Modo Reemplazar Color"><i class="fas fa-binoculars"></i></button>        
                 <button id="BtnBorrador" title="Modo Borrador"><i id="icoBtnBorrador" class="fas fa-eraser"></i><span id="spanInfoBorrar">Color Pixel</span><i id="icoBorrarFlecha" class="fas fa-caret-down"></i></button>
-                <button id="BtnPincel" title="Modo Pincel"><i class="fas fa-paint-brush"></i></button>
-                <button id="BtnTrazos" title="Modo Trazos"><i class="fas fa-route"></i></button>
+                <button id="BtnPincel" title="Modo Pincel"><i class="fas fa-paint-brush"></i></button>                
                 <button id="BtnLibre" title="Modo Selección Libre"><i class="far fa-hand-pointer"></i></button>
                 <button id="BtnExtraerColor" title="Modo Extraer Color"><i id="icoExtraer" class="fas fa-map-pin"></i><span id="spanInfoExtraer">Lienzo</span><i id="icoExtraerFlecha" class="fas fa-caret-down"></i></button>                   
                 <button id="BtnOpacidad" title="Opacidad"><i id="icoOpacidad" class="fas fa-adjust"></i><span id="spanInfoOpacidad">50%</span><i id="icoOpacidadFlecha" class="fas fa-caret-down"></i></button>        

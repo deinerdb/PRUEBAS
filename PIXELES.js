@@ -73,7 +73,6 @@ var getBtnReemplazar = document.getElementById("BtnReemplazar");
 var getBtnBorrador = document.getElementById("BtnBorrador");
 var getIcoBtnBorrador = document.getElementById("icoBtnBorrador");
 var getBtnPincel = document.getElementById("BtnPincel");
-var getBtnTrazos = document.getElementById("BtnTrazos");
 var getBtnLibre = document.getElementById("BtnLibre");
 var getBtnExtraerColor = document.getElementById("BtnExtraerColor");
 var getSpanInfoExtraer = document.getElementById("spanInfoExtraer");
@@ -3729,8 +3728,8 @@ procesarHistorial("#000000");
 // cuando hace un trazo sobr el lienzo
 // llamada desde eventos del mouse
 function hacerTrazos(event, miCuadrito) {
-    if (modoActual != "trazos") {
-        //sale si está en cualquier modo diferente a "trazos" 
+    if (modoActual != "pincel") {
+        //sale si está en cualquier modo diferente a "pincel" 
         return;
     }
     if (ocupado == true) {
@@ -3746,12 +3745,24 @@ function hacerTrazos(event, miCuadrito) {
         // si no está presionado el botón izquierdo, se sale        
         return;
     }
+    var colorViejo = miCuadrito.style.backgroundColor;     
+    // si ya es del color actual no hace nada
+    if (colorViejo == getRelleno.style.backgroundColor) {               
+        return;
+    }
+
     // ahora sí...
-    ocupado = true;                                                   
-    showSnackbar("Trazo en id " + miCuadrito.id);    
-    miCuadrito.style.backgroundColor = colorActual;    
+    ocupado = true; 
+    // guarda primero    
+    lastColor = colorViejo;
+    lastID = miCuadrito.id;
+    lastAction = "pintar";
+    miCuadrito.style.backgroundColor = colorActual;
+    //showSnackbar("Trazo en id " + miCuadrito.id);    
     //procesa el historial de colores
     procesarHistorial(colorActual);
+    // activa el botón deshacer
+    estadoBtnDeshacer(true, "Deshacer pincelada");
     ocupado = false;
 }
 
@@ -3798,10 +3809,7 @@ function hacerClick(celda) {
     }, 400);
     
     switch (modoActual) {
-        case "trazos":
-            // modo trazos
-            // no hace nada, este modo se basa en otros eventos
-            break;
+       // modo pincel funciona con otros eventos
         case "voltearV":
             var msj = "Hecho";
             // muestra un loader...
@@ -3988,20 +3996,7 @@ function hacerClick(celda) {
                 miCuadrito.style.backgroundColor = colorActual;
                 procesarHistorial(colorActual);                
             }
-            break;
-        case "pincel":
-            // modo pincel
-            // guarda primero
-            lastID = celda;
-            lastColor = miCuadrito.style.backgroundColor;
-            lastAction = "pintar";
-            //pinta la celda
-            miCuadrito.style.backgroundColor = colorActual;
-            //procesa el historial de colores
-            procesarHistorial(colorActual);
-            // activa el botón deshacer
-            estadoBtnDeshacer(true, "Deshacer pincelada");
-            break;
+            break;        
         case "colorBordes":
             // guarda para poder deshacer
             lastID = celda;
@@ -4220,8 +4215,7 @@ function hacerClick(celda) {
             getBtnColorLienzo.style.color = colorActual;
             getBtnColorRejilla.style.color = colorActual;
             getBtnGotero.style.color = colorActual;
-            getBtnPincel.style.color = colorActual;
-            getBtnTrazos.style.color = colorActual;
+            getBtnPincel.style.color = colorActual;            
             // en especial para el caso de los importados y los generados aleatoriamente
             procesarHistorial(colorActual);
             // resalta en historial
@@ -4310,6 +4304,8 @@ function crearCuadritos() {
                 miColumna.addEventListener("click", function () { hacerClick(this.id); });
                 // le adjunta el evento mouseenter, para trazos
                 miColumna.addEventListener("mouseenter", function (event) { hacerTrazos(event, this); });                               
+                // le adjunta el evento mousedown, para trazos
+                miColumna.addEventListener("mousedown", function (event) { hacerTrazos(event, this); });
                 // por las x, define tamaño de fuente
                 // TAMBIÉN POR LAS SOMBRAS EN UNIDADES em
                 miColumna.style.fontSize = tamaño * 0.8 + "px";            
@@ -4997,8 +4993,7 @@ function colorPixel() {
     getBtnColorLienzo.style.color = colorActual;
     getBtnColorRejilla.style.color = colorActual;
     getBtnGotero.style.color = colorActual;
-    getBtnPincel.style.color = colorActual;
-    getBtnTrazos.style.color = colorActual;
+    getBtnPincel.style.color = colorActual;    
     // resalta en el historial si existe
     resaltarActual();
     // en caso de estar en modo libre
@@ -5573,24 +5568,7 @@ function cambiarModo(nuevoModo, mostrarLoader) {
                 //getBtnOpuesto.style.display = "inline-block";
                 $(getcontGrupoColores).removeClass("oculto");
                 msj = "Modo Pincel";
-                break;
-            case "trazos":
-                    // el texto en el spanModo
-                    $(getSpanModo).html("Trazos");
-                    // agrega la clase seleccionado al btn del modo actual                    
-                    $(getBtnTrazos).addClass("seleccionadoBtnModos"); 
-                    //getcolorPixel.style.display = "inline-block";
-                    //getBtnRGB.style.display = "inline-block";
-                    //getBtnHSL.style.display = "inline-block";
-                    //getBtnHex.style.display = "inline-block";
-                    //getBtnGallery.style.display = "inline-block";
-                    //getBtnRnd.style.display = "inline-block";
-                    //getBtnOpuesto.style.display = "inline-block";
-                    $(getcontGrupoColores).removeClass("oculto");
-                    msj = "Modo Trazos";
-                    // no se puede deshacer
-                    estadoBtnDeshacer(false);
-                    break;
+                break;            
             case "info":
                 // el texto en el spanModo
                 $(getSpanModo).html("Información");
@@ -6175,10 +6153,6 @@ getBtnLibre.onclick = function () {
 //se selecciona el pincel
 getBtnPincel.onclick = function () {
     cambiarModo("pincel", true);
-}
-//se selecciona el modo trazos
-getBtnTrazos.onclick = function () {
-    cambiarModo("trazos", true);
 }
 //se selecciona el borrador
 getBtnBorrador.onclick = function () { 
