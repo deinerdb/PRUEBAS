@@ -3742,7 +3742,7 @@ function hacerTrazos(event, miCuadrito) {
     }
     var btn = event.buttons;
     var tipo = event.type;
-    // el botón no se valida con click ni con touchstart
+    // el botón no se valida con click
     if (tipo == "mouseenter" || tipo == "mousedown") {
         // si no está presionado el botón izquierdo, se sale 
         if (btn != 1) {
@@ -3768,9 +3768,7 @@ function hacerTrazos(event, miCuadrito) {
         case "click":
              
             break;
-        case "touchstart":
-
-            break;
+        
     }    
     // guarda primero    
     lastColor = colorViejo;
@@ -4327,7 +4325,7 @@ function crearCuadritos() {
                 // le adjunta el evento mousedown, para trazos
                 miColumna.addEventListener("mousedown", function (event) { hacerTrazos(event, this); });
                 // le adjunta el evento touchstart, para trazos
-                miColumna.addEventListener("touchstart", function (event) { hacerTrazos(event, this); });
+                //miColumna.addEventListener("touchstart", function (event) { hacerTrazos(event, this); });
                 // por las x, define tamaño de fuente
                 // TAMBIÉN POR LAS SOMBRAS EN UNIDADES em
                 miColumna.style.fontSize = tamaño * 0.8 + "px";            
