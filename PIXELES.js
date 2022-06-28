@@ -3725,8 +3725,8 @@ procesarHistorial("#ffffff");
 procesarHistorial("#000000");
 // lo anterior hace que el blanco y el negro aparezcan en el historial al abrir la página.
 
-// cuando hace un trazo sobr el lienzo
-// llamada desde eventos del mouse
+// cuando hace un trazo sobre el lienzo
+// llamada desde varios eventos
 function hacerTrazos(event, miCuadrito) {
     if (modoActual != "pincel") {
         //sale si está en cualquier modo diferente a "pincel" 
@@ -3740,10 +3740,14 @@ function hacerTrazos(event, miCuadrito) {
         // si está en pantalla completa se sale        
         return;
     }
-    var x = event.buttons;
-    if (x != 1) {
-        // si no está presionado el botón izquierdo, se sale        
-        return;
+    var btn = event.buttons;
+    var tipo = event.type;
+    // el botón no se valida con click ni con touchstart
+    if (tipo == "mouseenter" || tipo == "mousedown") {
+        // si no está presionado el botón izquierdo, se sale 
+        if (btn != 1) {
+            return;
+        }               
     }
     var colorViejo = miCuadrito.style.backgroundColor;     
     // si ya es del color actual no hace nada
@@ -3752,13 +3756,28 @@ function hacerTrazos(event, miCuadrito) {
     }
 
     // ahora sí...
-    ocupado = true; 
+    ocupado = true;
+    
+    switch (tipo) {
+        case "mousedown":
+                     
+            break;
+        case "mouseenter":
+            
+            break;
+        case "click":
+             
+            break;
+        case "touchstart":
+
+            break;
+    }    
     // guarda primero    
     lastColor = colorViejo;
     lastID = miCuadrito.id;
     lastAction = "pintar";
-    miCuadrito.style.backgroundColor = colorActual;
-    //showSnackbar("Trazo en id " + miCuadrito.id);    
+    miCuadrito.style.backgroundColor = colorActual;    
+    //showSnackbar("Trazo en id " + miCuadrito.id + " Evento " + tipo);  
     //procesa el historial de colores
     procesarHistorial(colorActual);
     // activa el botón deshacer
@@ -4300,12 +4319,15 @@ function crearCuadritos() {
                 // para gestionar su color de bordes
                 miColumna.dataset.colorbordes = "#000000";
                 miColumna.style.borderColor = "#000000";
-                // le adjunta el evento click
+                // le adjunta dos eventos click
                 miColumna.addEventListener("click", function () { hacerClick(this.id); });
+                miColumna.addEventListener("click", function (event) { hacerTrazos(event, this); });
                 // le adjunta el evento mouseenter, para trazos
                 miColumna.addEventListener("mouseenter", function (event) { hacerTrazos(event, this); });                               
                 // le adjunta el evento mousedown, para trazos
                 miColumna.addEventListener("mousedown", function (event) { hacerTrazos(event, this); });
+                // le adjunta el evento touchstart, para trazos
+                miColumna.addEventListener("touchstart", function (event) { hacerTrazos(event, this); });
                 // por las x, define tamaño de fuente
                 // TAMBIÉN POR LAS SOMBRAS EN UNIDADES em
                 miColumna.style.fontSize = tamaño * 0.8 + "px";            
