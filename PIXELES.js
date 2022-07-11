@@ -2,6 +2,8 @@
 // Get the root element
 var getRoot = document.querySelector(':root');
 var getColumnas; // toma valor después de crear los cuadritos
+// para controlar el desahacer de los trazos en modo pincel
+var nuevoTrazo = true;
 var getRelleno = document.getElementById("relleno");
 var infoTemp = document.getElementById("infoTemporal");
 var getPaletaArriba = document.getElementById("paletaArriba");
@@ -555,6 +557,8 @@ var sliderZoom = document.getElementById("rangoZoom");
 var getMuestraZoom = document.getElementById("muestraZoom");
 // su etiqueta
 var getEtiquetaZoom = document.getElementById("etiquetaZoom");
+// btn por defecto
+var getBtnZoomPredeterminado = document.getElementById("BtnZoomPredeterminado");
 // para no repetirlo en input y change del slider zoom
 function actualizaSliderZoom(nuevoValor) {
     var nuevo = nuevoValor;
@@ -588,7 +592,14 @@ sliderZoom.oninput = function () {
 sliderZoom.onchange = function () {
     actualizaSliderZoom(this.value);
 }
-
+// el btn para colocarlo en predeterminado
+// 24 px
+getBtnZoomPredeterminado.onclick = function () {
+    var miTamaño = 24;
+    sliderZoom.value = miTamaño;
+    actualizaSliderZoom(miTamaño);
+    showSnackbar("Ajustado a valor predeterminado: " + miTamaño + " px");
+}
 //el input range del ancho de los bordes
 var sliderAnchoBordes = document.getElementById("rangoAnchoBordes");
 // la muestra del ancho de los bordes
@@ -2851,7 +2862,7 @@ function showModal() {
         case "zoom":
             $("#marcoZoom").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-eye'></i> Ajustar tamaño";
-            document.getElementById("spanInfoModal").innerHTML = "Use el control para definir rápidamente el tamaño de la cuadrícula en pixeles.";
+            document.getElementById("spanInfoModal").innerHTML = "Use el control para definir rápidamente el tamaño de la cuadrícula en pixeles. El tamaño preterminado es 24 px.";
             // el rango toma el valor actual
             sliderZoom.value = tamaño;
             // ajusta la muestra
@@ -3450,7 +3461,10 @@ window.addEventListener("load", function (event) {
     // nota que la primera vez que se llama dimensionar se activa, pero aquí se desactiva para que sea su estado inicial
     estadoBtnDeshacer(false)
 });
-
+// un nuevo trazos al presionar el mouse en cualquier lugar
+$('body').on('mousedown', function(){
+    nuevoTrazo = true;
+});
 // resalta el color actual en el historial de colores
 function resaltarActual() {
     var i;
@@ -3742,37 +3756,33 @@ function hacerTrazos(event, miCuadrito) {
     }
     var btn = event.buttons;
     var tipo = event.type;
-    // el botón no se valida con click
-    if (tipo == "mouseenter" || tipo == "mousedown") {
+    // el botón no se valida con click, solo con mousemove
+    if (tipo == "mousemove") {
         // si no está presionado el botón izquierdo, se sale 
         if (btn != 1) {
-            return;
+            return; // solo pinta al moverse con el btn presionado
         }               
     }
     var colorViejo = miCuadrito.style.backgroundColor;     
     // si ya es del color actual no hace nada
     if (colorViejo == getRelleno.style.backgroundColor) {               
-        return;
+        return; // solo pinta los diferentes, los necesarios
     }
 
     // ahora sí...
     ocupado = true;
-    
-    switch (tipo) {
-        case "mousedown":
-                     
-            break;
-        case "mouseenter":
-            
-            break;
-        case "click":
-             
-            break;
-        
-    }    
-    // guarda primero    
-    lastColor = colorViejo;
-    lastID = miCuadrito.id;
+    if (tipo == "click") {
+         // un click siempre es trazo nuevo
+         nuevoTrazo = true;          
+    }   
+    // guarda primero
+    if (nuevoTrazo == true)    {
+        // los trazos nuevos borran el historial
+        lastArrayID.length = 0;
+        lastArrayColor.length = 0;
+    }
+    lastArrayID[lastArrayID.length] = miCuadrito.id;
+    lastArrayColor[lastArrayColor.length] = colorViejo;    
     lastAction = "pintar";
     miCuadrito.style.backgroundColor = colorActual;    
     //showSnackbar("Trazo en id " + miCuadrito.id + " Evento " + tipo);  
@@ -3780,6 +3790,8 @@ function hacerTrazos(event, miCuadrito) {
     procesarHistorial(colorActual);
     // activa el botón deshacer
     estadoBtnDeshacer(true, "Deshacer pincelada");
+    // seguirá agregando al historial los siguientes trazos, hasta que sea uno nuevo
+    nuevoTrazo = false;
     ocupado = false;
 }
 
@@ -4319,13 +4331,9 @@ function crearCuadritos() {
                 miColumna.style.borderColor = "#000000";
                 // le adjunta dos eventos click
                 miColumna.addEventListener("click", function () { hacerClick(this.id); });
-                miColumna.addEventListener("click", function (event) { hacerTrazos(event, this); });
-                // le adjunta el evento mouseenter, para trazos
-                miColumna.addEventListener("mouseenter", function (event) { hacerTrazos(event, this); });                               
-                // le adjunta el evento mousedown, para trazos
-                miColumna.addEventListener("mousedown", function (event) { hacerTrazos(event, this); });
-                // le adjunta el evento touchstart, para trazos
-                //miColumna.addEventListener("touchstart", function (event) { hacerTrazos(event, this); });
+                miColumna.addEventListener("click", function (event) { hacerTrazos(event, this); });                                               
+                // le adjunta el evento mousemove, para trazos
+                miColumna.addEventListener("mousemove", function (event) { hacerTrazos(event, this); });                
                 // por las x, define tamaño de fuente
                 // TAMBIÉN POR LAS SOMBRAS EN UNIDADES em
                 miColumna.style.fontSize = tamaño * 0.8 + "px";            
@@ -6981,9 +6989,23 @@ getBtnDeshacer.onclick = function () {
             mensaje = "Se deshizo radio de bordes";
             break;
         case "pintar":
-            // deshace lo pintado
-            document.getElementById(lastID).style.backgroundColor = lastColor;
+            // deshace lo pintado            
             mensaje = "Se deshizo la pincelada";
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia
+                // deshace el relleno                
+                var i;
+                //recorre los array y les aplica el color guardado
+                for (i = 0; i < lastArrayID.length; i++) {
+                    document.getElementById(lastArrayID[i]).style.backgroundColor = lastArrayColor[i];
+                }
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+
+            }, 0);  
             break;
         case "CambiarOpacidadIndividual":
             // deshace la opacidad

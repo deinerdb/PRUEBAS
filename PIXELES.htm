@@ -27,7 +27,7 @@
             $('body').on('dragstart drop', function(e){
                 e.preventDefault();
                 return false;
-            });
+            });           
             // cuando carga la página
             // oculta el loader unos segundos después
             setTimeout(function () {
@@ -362,6 +362,8 @@
                     </div>
                     <input id="rangoZoom" type="range" min="4" max="100" value="24" step="1">
                     <p id="etiquetaZoom">24 px</p>
+                    <br/>
+                    <button title="Establecer tamaño en valor predeterminado" type="button" id="BtnZoomPredeterminado">Predeterminado</button>
                 </div>
                 <!-- ancho de los bordes -->
                 <div id="marcoAnchoBordes" class="marco">
