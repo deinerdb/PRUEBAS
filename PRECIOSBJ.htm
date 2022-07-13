@@ -1090,7 +1090,7 @@
                 background: linear-gradient(to right, #cc00cc, #660066); /* Standard syntax (must be last) */
             }
             #contbuscarProducto {
-                text-align: left;
+                text-align: center;
                 margin:16px 4px 14px 6px;
                 padding:0;
                 max-width: 100%;
@@ -1104,9 +1104,9 @@
                 padding: 5px 8px 8px 40px;
                 background-color: white;
                 color: black;
-                width: 25%;
+                width: 90%;
                 min-width: 210px;
-                max-width: 98%;
+                max-width: 95%;
                 overflow: auto;
                 margin: 6px 0px 6px 0px;
                 font-family: 'Space Mono', Consolas, 'Courier New', Courier, monospace;
@@ -1119,10 +1119,11 @@
                 -webkit-border-radius: 4px;
                 border-radius: 4px;
                 /* animado */
-                -moz-transition: -moz-box-shadow 0.3s, width 0.4s ease-in-out;
-                -o-transition: box-shadow 0.3s, width 0.4s ease-in-out;
-                -webkit-transition: -webkit-box-shadow 0.3s, width 0.4s ease-in-out;
-                transition: box-shadow 0.3s, width 0.4s ease-in-out;
+                -moz-transition: -moz-box-shadow 0.3s;
+                -o-transition: box-shadow 0.3s;
+                -webkit-transition: -webkit-box-shadow 0.3s;
+                transition: box-shadow 0.3s;
+                opacity: 0.75;
             }
 
                 #buscarProducto:focus {
@@ -1131,14 +1132,15 @@
                     /*SOMBRA*/
                     -moz-box-shadow: 5px 5px 3px #C0C0C0;
                     -webkit-box-shadow: 5px 5px 3px #C0C0C0;
-                    box-shadow: 5px 5px 3px #C0C0C0;
-                    /* animado */
-                    width: 98%;
+                    box-shadow: 4px 6px 5px #C0C0C0;                    
+                  
                 }
 
                 #buscarProducto:hover {
                     /*background-color: #dcdcdc;*/
-                    border-style: outset;        
+                    border-style: outset !important;    
+                    border-color: indigo !important; 
+                    opacity: 1;
                 }
                 #infoNoEncontrados {
                     color: #ad00ad;
