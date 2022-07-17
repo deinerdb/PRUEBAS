@@ -99,6 +99,7 @@ var getBtnVoltearV = document.getElementById("BtnVoltearV");
 var getSpanAyudaModos = document.getElementById("spanAyudaModos");
 var etapaVoltearH = 1; // es un ciclo
 var etapaVoltearV = 1; // es un ciclo
+var etapaCopiar = 1; // es un ciclo
 var getSpanInfoSombras = document.getElementById("spanInfoSombras");
 var getSelectSombras = document.getElementById("selectSombras");
 var getBtnDeshacer = document.getElementById("BtnDeshacer");
@@ -117,9 +118,11 @@ var getSelectEliminarColumna = document.getElementById("selectEliminarColumna");
 var getBtnExportar = document.getElementById("BtnExportar");
 var getBtnImprimir = document.getElementById("BtnImprimir");
 var getBtnAceptarLibre = document.getElementById("BtnAceptarLibre");
+var getBtnAceptarCopiar = document.getElementById("BtnAceptarCopiar");
 var getBtnAceptarVoltearH = document.getElementById("BtnAceptarVoltearH");
 var getBtnAceptarVoltearV = document.getElementById("BtnAceptarVoltearV");
 var getBtnCancelarLibre = document.getElementById("BtnCancelarLibre");
+var getBtnCancelarCopiar = document.getElementById("BtnCancelarCopiar");
 var getBtnCancelarVoltearH = document.getElementById("BtnCancelarVoltearH");
 var getBtnCancelarVoltearV = document.getElementById("BtnCancelarVoltearV");
 var getBtnBorrarLibre = document.getElementById("BtnBorrarLibre");
@@ -438,6 +441,8 @@ var zoomIn = true;
 document.getElementById("BtnAumentarFull").style.border = "3px outset #009900";
 document.getElementById("BtnDisminuirFull").style.border = "3px solid #666699";
 // en el modo pincel no están estos
+getBtnAceptarCopiar.style.display = "none";
+getBtnCancelarCopiar.style.display = "none";
 getBtnAceptarVoltearH.style.display = "none";
 getBtnCancelarVoltearH.style.display = "none";
 getBtnAceptarVoltearV.style.display = "none";
@@ -3461,8 +3466,12 @@ window.addEventListener("load", function (event) {
     // nota que la primera vez que se llama dimensionar se activa, pero aquí se desactiva para que sea su estado inicial
     estadoBtnDeshacer(false)
 });
-// un nuevo trazos al presionar el mouse en cualquier lugar
+// un nuevo trazo al presionar el mouse en cualquier lugar
 $('body').on('mousedown', function(){
+    nuevoTrazo = true;
+});
+// un nuevo trazo al iniciar un toque en pantallas táctiles
+$('body').on('touchstart', function(){
     nuevoTrazo = true;
 });
 // resalta el color actual en el historial de colores
@@ -3839,6 +3848,9 @@ function hacerClick(celda) {
     
     switch (modoActual) {
        // modo pincel funciona con otros eventos
+        case "copiar":
+            showSnackbar("En desarrollo...");
+            break;
         case "voltearV":
             var msj = "Hecho";
             // muestra un loader...
@@ -4408,6 +4420,10 @@ function mostrarHistorial(afectarPreferencia) {
         showSnackbar("Está en Modo Voltear Verticalmente...");
         return;
     }
+    if (modoActual == "copiar") {
+        showSnackbar("Está en Modo Copiar y Pegar...");
+        return;
+    }
     // sale si ya está mostrado
     if (historialMostrado == true) {
         //return;
@@ -4417,7 +4433,7 @@ function mostrarHistorial(afectarPreferencia) {
     //cancela el timer que lo ocultaría
     clearTimeout(timerHistorial);
     // guarda la preferencia
-    if (modoActual != "borrador" && modoActual != "radio" && modoActual != "opacidad" && modoActual != "sombras" && modoActual != "voltearH" && modoActual != "voltearV" && afectarPreferencia == true) {
+    if (modoActual != "borrador" && modoActual != "radio" && modoActual != "opacidad" && modoActual != "sombras" && modoActual != "voltearH" && modoActual != "voltearV" && modoActual != "copiar" && afectarPreferencia == true) {
         prefiereHistorial = true;
     }
     //oculta este botón
@@ -4454,7 +4470,7 @@ function cerrarHistorial(afectarPreferencia) {
     //cancela el timer que lo ocultaría
     clearTimeout(timerHistorial);
     // guarda la preferencia
-    if (modoActual != "borrador" && modoActual != "radio" && modoActual != "opacidad" && modoActual != "sombras" && modoActual != "voltearH" && modoActual != "voltearV" && afectarPreferencia == true) {
+    if (modoActual != "borrador" && modoActual != "radio" && modoActual != "opacidad" && modoActual != "sombras" && modoActual != "voltearH" && modoActual != "voltearV" && modoActual != "copiar" && afectarPreferencia == true) {
         prefiereHistorial = false;
     }
     // la barra se desactiva y el botón cerrar historial también
@@ -5329,7 +5345,7 @@ function cambiarModo(nuevoModo, mostrarLoader) {
         lastModo = modoActual;
         modoActual = nuevoModo;
         // gestiona el historial de color
-        if (modoActual == "borrador" || modoActual == "radio" || modoActual == "opacidad" || modoActual == "sombras" || modoActual == "voltearH" || modoActual == "voltearV") {        
+        if (modoActual == "borrador" || modoActual == "radio" || modoActual == "opacidad" || modoActual == "sombras" || modoActual == "voltearH" || modoActual == "voltearV" || modoActual == "copiar") {        
                 cerrarHistorial(false);
         } else {
             if (prefiereHistorial == true) {
@@ -5353,7 +5369,7 @@ function cambiarModo(nuevoModo, mostrarLoader) {
         $(".lienzo").removeClass("seleccionado");
         // elimina el modo seleccionado de todos los botones
         $(".seleccionadoBtnModos").removeClass("seleccionadoBtnModos");    
-        if (modoActual != "libre" && modoActual != "voltearH" && modoActual != "voltearV") {
+        if (modoActual != "libre" && modoActual != "voltearH" && modoActual != "voltearV" && modoActual != "copiar") {
             //muestra y oculta elementos
             // el pie
             getPie.style.visibility = "visible";
@@ -5378,6 +5394,9 @@ function cambiarModo(nuevoModo, mostrarLoader) {
             // propios de voltearV
             getBtnAceptarVoltearV.style.display = "none";
             getBtnCancelarVoltearV.style.display = "none";
+            // propios de copiar
+            getBtnAceptarCopiar.style.display = "none";
+            getBtnCancelarCopiar.style.display = "none";
 
             getBtnPantallaCompleta.style.display = "inline-block";
             getSelectFondo.style.display = "inline-block";
@@ -5420,6 +5439,43 @@ function cambiarModo(nuevoModo, mostrarLoader) {
 
         }
         switch (modoActual) {
+            case "copiar":
+                // el texto en el spanModo
+                $(getSpanModo).html("Copiar");
+                // agrega la clase seleccionado al btn del modo actual                    
+                $(getBtnCopiar).addClass("seleccionadoBtnModos"); 
+                // el pie distrae
+                getPie.style.visibility = "hidden";
+                // las indicaciones
+                $(getSpanAyudaModos).removeClass("oculto");
+                // inicia el ciclo, para controlar el click
+                etapaCopiar = 1;
+                // las indicaciones
+                indicacionesModo("Seleccione vértice 1 de 2");
+                // sin colores
+                $(getcontGrupoColores).addClass("oculto");
+                //muestra y oculta elementos
+                getBtnAceptarCopiar.style.display = "none";
+                getBtnCancelarCopiar.style.display = "inline-block";            
+                getBtnRellenar.style.display = "none";
+                getBtnRellenoAleatorio.style.display = "none";
+                getFiltro.style.display = "none";
+                getBtnActualizar.style.display = "none";
+                getBtnTrash.style.display = "none";
+                getBtnDeshacer.style.display = "none";
+                getBtnPantallaCompleta.style.display = "none";
+                getSelectFondo.style.display = "none";
+                $(getcontGrupoHerramientas).addClass("oculto");
+                $(getcontGrupoBordes).addClass("oculto");
+                $(getcontGrupoDimensionar).addClass("oculto");
+                $(getcontGrupoCompartir).addClass("oculto");
+                // para deshacer
+                lastAction = "copiar";
+                // copia de seguridad 
+                guardarFormatos();
+                // informa
+                msj = "Modo Copiar y Pegar. Seleccione el primer vértice.";
+                break;
             case "voltearV":
                 // el texto en el spanModo
                 $(getSpanModo).html("Voltear Verticalmente");
@@ -5595,6 +5651,8 @@ function cambiarModo(nuevoModo, mostrarLoader) {
                 //getBtnRnd.style.display = "inline-block";
                 //getBtnOpuesto.style.display = "inline-block";
                 $(getcontGrupoColores).removeClass("oculto");
+                // nuevo trazo
+                nuevoTrazo = true;
                 msj = "Modo Pincel";
                 break;            
             case "info":
@@ -5916,6 +5974,22 @@ getBtnAceptarVoltearH.onclick = function () {
 }
 //se selecciona CANCELAR en el modo voltearH
 getBtnCancelarVoltearH.onclick = function () {
+    // muestra un loader...
+    $(".loader").removeClass("oculto");
+    setTimeout(function () {
+        // código alta exigencia
+        cambiarModo(lastModo, false);
+        // deshace cualquier cambio           
+        restaurarFormatos();
+        estadoBtnDeshacer(false);
+        // oculta el loader
+        $(".loader").addClass("oculto");
+        // otras tareas
+
+    }, 0);
+}
+//se selecciona CANCELAR en el modo copiar y pegar
+getBtnCancelarCopiar.onclick = function () {
     // muestra un loader...
     $(".loader").removeClass("oculto");
     setTimeout(function () {
@@ -6614,7 +6688,7 @@ getBtnSombras.onclick = function () {
 }
 // inicia el modo copiar y pegar
 getBtnCopiar.onclick = function () {
-    showSnackbar("En desarrollo...");
+    cambiarModo("copiar", true);
 }
 // inicia el modo cortar y pegar
 getBtnCortar.onclick = function () {
@@ -6672,6 +6746,20 @@ getBtnDeshacer.onclick = function () {
     ocupado = true;
     var mensaje = "¡Hecho!";
     switch (lastAction) {
+        case "copiar":
+            // deshace copiar y pegar            
+            mensaje = "Se deshizo copiar y pegar";
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia
+                restaurarFormatos();
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+                
+            }, 0);  
+            break;
         case "voltearV":
             // deshace voltear verticalmente            
             mensaje = "Se deshizo voltear verticalmente";
