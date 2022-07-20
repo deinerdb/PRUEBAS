@@ -61,7 +61,7 @@ body {
     margin-right: 8px;
     margin-top: auto;
     margin-bottom: auto;
-    text-align: center;
+    text-align: left;
     vertical-align: central;    
     border: none;
     opacity: 1;
@@ -1390,6 +1390,37 @@ tr:nth-child(odd) {
     animation-timing-function: linear;
     animation-iteration-count: infinite;
 }
+/* inicia clase seleccionadoDestino */
+.seleccionadoDestino {
+    /* en lugar de una x se usa outline */
+    outline-style: dotted;
+    outline-color: black;
+    outline-width: 3px;    
+    /* lo trae al frente un poco */
+    z-index: 4;
+    color: #000000;
+    /* anima */
+    /*WEBKIT*/
+    -webkit-animation-name: variosColores;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    /*MOZ*/
+    -moz-animation-name: variosColores;
+    -moz-animation-duration: 1s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+    /*O*/
+    -o-animation-name: variosColores;
+    -o-animation-duration: 1s;
+    -o-animation-timing-function: linear;
+    -o-animation-iteration-count: infinite;
+    /*ESTÁNDAR*/
+    animation-name: variosColores;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
 /* inicia clase seleccionadoAcc */
 .seleccionadoAcc {    
     /* anima */
@@ -1481,6 +1512,116 @@ tr:nth-child(odd) {
         outline-color: #000000;        
     }
 }
+
+/* una animación especial, similar a blancoynegro, pero con otros colores */
+
+@-webkit-keyframes variosColores {
+    0% {
+        color: #000000;
+        outline-color: #000000;
+    }
+
+    25% {
+        color: #ff0000;
+        outline-color: #ff0000;
+    }
+    75% {
+        color: #0000ff;
+        outline-color: #0000ff;
+    }
+
+    90% {
+        color: #ffffff;
+        outline-color: #ffffff;
+    }
+
+    100% {
+        color: #000000;
+        outline-color: #000000;
+    }
+}
+
+@-moz-keyframes variosColores {
+    0% {
+        color: #000000;
+        outline-color: #000000;
+    }
+
+    25% {
+        color: #ff0000;
+        outline-color: #ff0000;
+    }
+    75% {
+        color: #0000ff;
+        outline-color: #0000ff;
+    }
+
+    90% {
+        color: #ffffff;
+        outline-color: #ffffff;
+    }
+
+
+    100% {
+        color: #000000;
+        outline-color: #000000;
+    }
+}
+
+@-o-keyframes variosColores {
+    0% {
+        color: #000000;
+        outline-color: #000000;
+    }
+
+    25% {
+        color: #ff0000;
+        outline-color: #ff0000;
+    }
+    75% {
+        color: #0000ff;
+        outline-color: #0000ff;
+    }
+
+    90% {
+        color: #ffffff;
+        outline-color: #ffffff;
+    }
+
+    100% {
+        color: #000000;
+        outline-color: #000000;
+    }
+}
+
+@keyframes variosColores {
+    0% {
+        color: #000000;
+        outline-color: #000000;        
+    }
+
+    25% {
+        color: #ff0000;
+        outline-color: #ff0000;
+    }
+    75% {
+        color: #0000ff;
+        outline-color: #0000ff;
+    }
+
+    90% {
+        color: #ffffff;
+        outline-color: #ffffff;
+    }
+
+    100% {
+        color: #000000;
+        outline-color: #000000;        
+    }
+}
+
+/* fin animación de colores */
+
 #rangoAnchoBordes, #rangoZoom {
     margin-bottom: 24px;
 }

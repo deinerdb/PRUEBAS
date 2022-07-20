@@ -3849,7 +3849,51 @@ function hacerClick(celda) {
     switch (modoActual) {
        // modo pincel funciona con otros eventos
         case "copiar":
-            showSnackbar("En desarrollo...");
+            var msj = "Hecho";
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia
+                if (etapaCopiar == 1) {
+                    // primer vértice seleccionado
+                    indicacionesModo("Seleccione vértice 2 de 2 del área a copiar");
+                    msj = "Seleccione vértice 2 de 2 del área a copiar";
+                    // agrega la clase al primer vértice
+                    var miLienzo = $(miCuadrito).parent()[0];
+                    $(miLienzo).addClass("seleccionado");
+                    // cambia la etapa
+                    etapaCopiar = 2;
+                } else if (etapaCopiar == 2) {
+                    // segundo vértice seleccionado
+                    indicacionesModo("Seleccione el destino para copiar");
+                    msj = "Área seleccionada. Indique el destino";
+                    // agrega la clase al segundo vértice
+                    var miLienzo = $(miCuadrito).parent()[0];
+                    $(miLienzo).addClass("seleccionado");
+                    // expande la selección, formando el área a copiar
+                    expandirSeleccionado();
+                    // cambia la etapa
+                    etapaCopiar = 3;
+                } else if (etapaCopiar == 3) {
+                    // destino seleccionado
+                    indicacionesModo("¿Copiar?");
+                    msj = "Área y destino seleccionados. Presione Aceptar o Cancelar";
+                    // agrega la clase al destino
+                    var miLienzo = $(miCuadrito).parent()[0];
+                    $(miLienzo).addClass("seleccionadoDestino");                    
+                    // visible aceptar
+                    getBtnAceptarCopiar.style.display = "inline-block";
+                    // cambia la etapa
+                    etapaCopiar = 4;
+                } else if (etapaCopiar == 4) {
+                    // confirmación
+                    msj = "Presione Aceptar o Cancelar";
+                }          
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+                showSnackbar(msj);
+            }, 0); 
             break;
         case "voltearV":
             var msj = "Hecho";
@@ -5367,6 +5411,8 @@ function cambiarModo(nuevoModo, mostrarLoader) {
         //$(".columna").html("");
         // aquí se elimina la clase seleccionado, la animación
         $(".lienzo").removeClass("seleccionado");
+        // también la de destino de copiar y cortar
+        $(".lienzo").removeClass("seleccionadoDestino");
         // elimina el modo seleccionado de todos los botones
         $(".seleccionadoBtnModos").removeClass("seleccionadoBtnModos");    
         if (modoActual != "libre" && modoActual != "voltearH" && modoActual != "voltearV" && modoActual != "copiar") {
@@ -5451,7 +5497,7 @@ function cambiarModo(nuevoModo, mostrarLoader) {
                 // inicia el ciclo, para controlar el click
                 etapaCopiar = 1;
                 // las indicaciones
-                indicacionesModo("Seleccione vértice 1 de 2");
+                indicacionesModo("Seleccione vértice 1 de 2 del área a copiar");
                 // sin colores
                 $(getcontGrupoColores).addClass("oculto");
                 //muestra y oculta elementos
@@ -5822,14 +5868,31 @@ getBtnAceptarLibre.onclick = function () {
     setTimeout(function () {
         // código alta exigencia
         cambiarModo(lastModo, false);
+        lastAction = "libre";
         estadoBtnDeshacer(true, "Deshacer cambios del modo libre");
         // oculta el loader
         $(".loader").addClass("oculto");
         // otras tareas
 
-    }, 0);  
-   
+    }, 0);     
 }
+
+//se selecciona ACEPTAR en el modo copiar
+getBtnAceptarCopiar.onclick = function () {
+    // muestra un loader...
+    $(".loader").removeClass("oculto");
+    setTimeout(function () {
+        // código alta exigencia
+        cambiarModo(lastModo, false);
+        lastAction = "copiar";
+        estadoBtnDeshacer(true, "Deshacer Copiar y Pegar");
+        // oculta el loader
+        $(".loader").addClass("oculto");
+        // otras tareas
+        
+    }, 0);     
+}
+
 //se selecciona ACEPTAR en el modo VoltearV
 getBtnAceptarVoltearV.onclick = function () {
     // muestra un loader...
@@ -6004,6 +6067,7 @@ getBtnCancelarCopiar.onclick = function () {
 
     }, 0);
 }
+
 //se selecciona CANCELAR en el modo libre
 getBtnCancelarLibre.onclick = function () {
     // muestra un loader...
@@ -6748,7 +6812,7 @@ getBtnDeshacer.onclick = function () {
     switch (lastAction) {
         case "copiar":
             // deshace copiar y pegar            
-            mensaje = "Se deshizo copiar y pegar";
+            mensaje = "Se deshizo Copiar y Pegar";
             // muestra un loader...
             $(".loader").removeClass("oculto");
             setTimeout(function () {
