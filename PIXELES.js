@@ -5883,6 +5883,80 @@ getBtnAceptarCopiar.onclick = function () {
     $(".loader").removeClass("oculto");
     setTimeout(function () {
         // código alta exigencia
+        // copiar
+        var x = document.getElementsByClassName("seleccionado");
+        var i;        
+        var colMenor = Infinity;
+        var colMayor = -Infinity;
+        var filaMenor = Infinity;
+        var filaMayor = -Infinity;
+        var miFila;
+        var miCol;
+        var str;
+        var res;
+        var miID;
+        var miIDOrigen;
+        // busca las filas y columnas mayores y menores recorriendo los seleccionados
+        for (i = 0; i < x.length; i++) {
+            miID = $(x[i]).children()[0].id;                        
+            str = "" + miID;
+            res = str.substring(1);
+            res = res.split("c");
+            miFila = res[0];
+            miCol = res[1];
+            miFila = Number(miFila);
+            miCol = Number(miCol);
+            if (miFila > filaMayor) {
+                filaMayor = miFila;
+            }
+            if (miFila < filaMenor) {
+                filaMenor = miFila;
+            }
+            if (miCol > colMayor) {
+                colMayor = miCol;
+            }
+            if (miCol < colMenor) {
+                colMenor = miCol;
+            }                
+        }
+        // recorre el cuadrado de la selección efectuando la copia
+        var filaDestino;
+        var colDestino;
+        x = document.getElementsByClassName("seleccionadoDestino");
+        miID = $(x[0]).children()[0].id;                        
+        str = "" + miID;
+        res = str.substring(1);
+        res = res.split("c");
+        miFila = res[0];
+        miCol = res[1];        
+        // inicialmente destino es la seleccionada por el usuario        
+        filaDestino = Number(miFila);
+        colDestino = Number(miCol);
+        var filaInicialDestino = filaDestino;
+        // origen inicia en el vértice de fila y columna menores
+        miCol = colMenor;
+        miFila = filaMenor;
+        // recorre el área a copiar y la de destino copiando
+        // solo copia lo que quepa en la parte visible del dibujo
+        while (miCol <= colMayor && colDestino <= numColumnas) {
+            while(miFila <= filaMayor && filaDestino <= numFilas) {
+                // el pixel de destino
+                miID = "f" + filaDestino + "c" + colDestino;
+                // el pixel de origen
+                miIDOrigen = "f" + miFila + "c" + miCol;
+                // copia el formato
+                //alert("colmay: " + colMayor + " colmenor: " + colMenor + " filamay: " + filaMayor + " filamenor: " + filaMenor + " micol: " + miCol + " coldest: " + colDestino + " mifila: " + miFila + " filadest: "+ filaDestino);   
+                defineFormatoPixel(miID, miIDOrigen, true);
+                miFila++;
+                filaDestino++;
+            }
+            miCol++;
+            colDestino++;
+            // reinicia las variables de fila
+            miFila = filaMenor;
+            filaDestino = filaInicialDestino;
+        }
+        
         cambiarModo(lastModo, false);
         lastAction = "copiar";
         estadoBtnDeshacer(true, "Deshacer Copiar y Pegar");
