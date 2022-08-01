@@ -100,6 +100,7 @@ var getSpanAyudaModos = document.getElementById("spanAyudaModos");
 var etapaVoltearH = 1; // es un ciclo
 var etapaVoltearV = 1; // es un ciclo
 var etapaCopiar = 1; // es un ciclo
+var etapaCortar = 1; // es un ciclo
 var getSpanInfoSombras = document.getElementById("spanInfoSombras");
 var getSelectSombras = document.getElementById("selectSombras");
 var getBtnDeshacer = document.getElementById("BtnDeshacer");
@@ -119,10 +120,12 @@ var getBtnExportar = document.getElementById("BtnExportar");
 var getBtnImprimir = document.getElementById("BtnImprimir");
 var getBtnAceptarLibre = document.getElementById("BtnAceptarLibre");
 var getBtnAceptarCopiar = document.getElementById("BtnAceptarCopiar");
+var getBtnAceptarCortar = document.getElementById("BtnAceptarCortar");
 var getBtnAceptarVoltearH = document.getElementById("BtnAceptarVoltearH");
 var getBtnAceptarVoltearV = document.getElementById("BtnAceptarVoltearV");
 var getBtnCancelarLibre = document.getElementById("BtnCancelarLibre");
 var getBtnCancelarCopiar = document.getElementById("BtnCancelarCopiar");
+var getBtnCancelarCortar = document.getElementById("BtnCancelarCortar");
 var getBtnCancelarVoltearH = document.getElementById("BtnCancelarVoltearH");
 var getBtnCancelarVoltearV = document.getElementById("BtnCancelarVoltearV");
 var getBtnBorrarLibre = document.getElementById("BtnBorrarLibre");
@@ -443,6 +446,8 @@ document.getElementById("BtnDisminuirFull").style.border = "3px solid #666699";
 // en el modo pincel no están estos
 getBtnAceptarCopiar.style.display = "none";
 getBtnCancelarCopiar.style.display = "none";
+getBtnAceptarCortar.style.display = "none";
+getBtnCancelarCortar.style.display = "none";
 getBtnAceptarVoltearH.style.display = "none";
 getBtnCancelarVoltearH.style.display = "none";
 getBtnAceptarVoltearV.style.display = "none";
@@ -3845,9 +3850,55 @@ function hacerClick(celda) {
         // también de los lienzos
         $(".resaltadoLienzo").removeClass("resaltadoLienzo");
     }, 400);
-    
+    // modo pincel funciona con otros eventos, no se gestiona con click
     switch (modoActual) {
-       // modo pincel funciona con otros eventos
+        case "cortar":
+            var msj = "Hecho";
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia
+                if (etapaCortar == 1) {
+                    // primer vértice seleccionado
+                    indicacionesModo("Seleccione vértice 2 de 2 del área a cortar");
+                    msj = "Seleccione vértice 2 de 2 del área a cortar";
+                    // agrega la clase al primer vértice
+                    var miLienzo = $(miCuadrito).parent()[0];
+                    $(miLienzo).addClass("seleccionado");
+                    // cambia la etapa
+                    etapaCortar = 2;
+                } else if (etapaCortar == 2) {
+                    // segundo vértice seleccionado
+                    indicacionesModo("Seleccione el destino para cortar y pegar");
+                    msj = "Área seleccionada. Indique el destino";
+                    // agrega la clase al segundo vértice
+                    var miLienzo = $(miCuadrito).parent()[0];
+                    $(miLienzo).addClass("seleccionado");
+                    // expande la selección, formando el área a cortar
+                    expandirSeleccionado();
+                    // cambia la etapa
+                    etapaCortar = 3;
+                } else if (etapaCortar == 3) {
+                    // destino seleccionado
+                    indicacionesModo("¿Cortar?");
+                    msj = "Área y destino seleccionados. Presione Aceptar o Cancelar";
+                    // agrega la clase al destino
+                    var miLienzo = $(miCuadrito).parent()[0];
+                    $(miLienzo).addClass("seleccionadoDestino");                    
+                    // visible aceptar
+                    getBtnAceptarCortar.style.display = "inline-block";
+                    // cambia la etapa
+                    etapaCortar = 4;
+                } else if (etapaCortar == 4) {
+                    // confirmación
+                    msj = "Presione Aceptar o Cancelar";
+                }          
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+                showSnackbar(msj);
+            }, 0); 
+            break;       
         case "copiar":
             var msj = "Hecho";
             // muestra un loader...
@@ -4468,6 +4519,10 @@ function mostrarHistorial(afectarPreferencia) {
         showSnackbar("Está en Modo Copiar y Pegar...");
         return;
     }
+    if (modoActual == "cortar") {
+        showSnackbar("Está en Modo Cortar y Pegar...");
+        return;
+    }
     // sale si ya está mostrado
     if (historialMostrado == true) {
         //return;
@@ -4477,7 +4532,7 @@ function mostrarHistorial(afectarPreferencia) {
     //cancela el timer que lo ocultaría
     clearTimeout(timerHistorial);
     // guarda la preferencia
-    if (modoActual != "borrador" && modoActual != "radio" && modoActual != "opacidad" && modoActual != "sombras" && modoActual != "voltearH" && modoActual != "voltearV" && modoActual != "copiar" && afectarPreferencia == true) {
+    if (modoActual != "borrador" && modoActual != "radio" && modoActual != "opacidad" && modoActual != "sombras" && modoActual != "voltearH" && modoActual != "voltearV" && modoActual != "copiar" && modoActual != "cortar" && afectarPreferencia == true) {
         prefiereHistorial = true;
     }
     //oculta este botón
@@ -4514,7 +4569,7 @@ function cerrarHistorial(afectarPreferencia) {
     //cancela el timer que lo ocultaría
     clearTimeout(timerHistorial);
     // guarda la preferencia
-    if (modoActual != "borrador" && modoActual != "radio" && modoActual != "opacidad" && modoActual != "sombras" && modoActual != "voltearH" && modoActual != "voltearV" && modoActual != "copiar" && afectarPreferencia == true) {
+    if (modoActual != "borrador" && modoActual != "radio" && modoActual != "opacidad" && modoActual != "sombras" && modoActual != "voltearH" && modoActual != "voltearV" && modoActual != "copiar" && modoActual != "cortar" && afectarPreferencia == true) {
         prefiereHistorial = false;
     }
     // la barra se desactiva y el botón cerrar historial también
@@ -5389,7 +5444,7 @@ function cambiarModo(nuevoModo, mostrarLoader) {
         lastModo = modoActual;
         modoActual = nuevoModo;
         // gestiona el historial de color
-        if (modoActual == "borrador" || modoActual == "radio" || modoActual == "opacidad" || modoActual == "sombras" || modoActual == "voltearH" || modoActual == "voltearV" || modoActual == "copiar") {        
+        if (modoActual == "borrador" || modoActual == "radio" || modoActual == "opacidad" || modoActual == "sombras" || modoActual == "voltearH" || modoActual == "voltearV" || modoActual == "copiar"  || modoActual == "cortar") {        
                 cerrarHistorial(false);
         } else {
             if (prefiereHistorial == true) {
@@ -5415,7 +5470,7 @@ function cambiarModo(nuevoModo, mostrarLoader) {
         $(".lienzo").removeClass("seleccionadoDestino");
         // elimina el modo seleccionado de todos los botones
         $(".seleccionadoBtnModos").removeClass("seleccionadoBtnModos");    
-        if (modoActual != "libre" && modoActual != "voltearH" && modoActual != "voltearV" && modoActual != "copiar") {
+        if (modoActual != "libre" && modoActual != "voltearH" && modoActual != "voltearV" && modoActual != "copiar" && modoActual != "cortar") {
             //muestra y oculta elementos
             // el pie
             getPie.style.visibility = "visible";
@@ -5443,6 +5498,9 @@ function cambiarModo(nuevoModo, mostrarLoader) {
             // propios de copiar
             getBtnAceptarCopiar.style.display = "none";
             getBtnCancelarCopiar.style.display = "none";
+            // propios de cortar
+            getBtnAceptarCortar.style.display = "none";
+            getBtnCancelarCortar.style.display = "none";
 
             getBtnPantallaCompleta.style.display = "inline-block";
             getSelectFondo.style.display = "inline-block";
@@ -5485,6 +5543,43 @@ function cambiarModo(nuevoModo, mostrarLoader) {
 
         }
         switch (modoActual) {
+            case "cortar":
+                // el texto en el spanModo
+                $(getSpanModo).html("Cortar");
+                // agrega la clase seleccionado al btn del modo actual                    
+                $(getBtnCortar).addClass("seleccionadoBtnModos"); 
+                // el pie distrae
+                getPie.style.visibility = "hidden";
+                // las indicaciones
+                $(getSpanAyudaModos).removeClass("oculto");
+                // inicia el ciclo, para controlar el click
+                etapaCortar = 1;
+                // las indicaciones
+                indicacionesModo("Seleccione vértice 1 de 2 del área a cortar");
+                // sin colores
+                $(getcontGrupoColores).addClass("oculto");
+                //muestra y oculta elementos
+                getBtnAceptarCortar.style.display = "none";
+                getBtnCancelarCortar.style.display = "inline-block";            
+                getBtnRellenar.style.display = "none";
+                getBtnRellenoAleatorio.style.display = "none";
+                getFiltro.style.display = "none";
+                getBtnActualizar.style.display = "none";
+                getBtnTrash.style.display = "none";
+                getBtnDeshacer.style.display = "none";
+                getBtnPantallaCompleta.style.display = "none";
+                getSelectFondo.style.display = "none";
+                $(getcontGrupoHerramientas).addClass("oculto");
+                $(getcontGrupoBordes).addClass("oculto");
+                $(getcontGrupoDimensionar).addClass("oculto");
+                $(getcontGrupoCompartir).addClass("oculto");
+                // para deshacer
+                lastAction = "cortar";
+                // copia de seguridad 
+                guardarFormatos();
+                // informa
+                msj = "Modo Cortar y Pegar. Seleccione el primer vértice.";
+                break;
             case "copiar":
                 // el texto en el spanModo
                 $(getSpanModo).html("Copiar");
@@ -5877,6 +5972,99 @@ getBtnAceptarLibre.onclick = function () {
     }, 0);     
 }
 
+//se selecciona ACEPTAR en el modo cortar
+getBtnAceptarCortar.onclick = function () {
+    // muestra un loader...
+    $(".loader").removeClass("oculto");
+    setTimeout(function () {
+        // código alta exigencia
+        // cortar
+        var x = document.getElementsByClassName("seleccionado");
+        var i;        
+        var colMenor = Infinity;
+        var colMayor = -Infinity;
+        var filaMenor = Infinity;
+        var filaMayor = -Infinity;
+        var miFila;
+        var miCol;
+        var str;
+        var res;
+        var miID;
+        var miIDOrigen;
+        // busca las filas y columnas mayores y menores recorriendo los seleccionados
+        for (i = 0; i < x.length; i++) {
+            miID = $(x[i]).children()[0].id;                        
+            str = "" + miID;
+            res = str.substring(1);
+            res = res.split("c");
+            miFila = res[0];
+            miCol = res[1];
+            miFila = Number(miFila);
+            miCol = Number(miCol);
+            if (miFila > filaMayor) {
+                filaMayor = miFila;
+            }
+            if (miFila < filaMenor) {
+                filaMenor = miFila;
+            }
+            if (miCol > colMayor) {
+                colMayor = miCol;
+            }
+            if (miCol < colMenor) {
+                colMenor = miCol;
+            }
+            // de paso borra el formato, realmente corta                
+            defineFormatoPixel(miID, "globales", false);
+        }
+        // recorre el cuadrado de la selección efectuando el pegado
+        var filaDestino;
+        var colDestino;
+        x = document.getElementsByClassName("seleccionadoDestino");
+        miID = $(x[0]).children()[0].id;                        
+        str = "" + miID;
+        res = str.substring(1);
+        res = res.split("c");
+        miFila = res[0];
+        miCol = res[1];        
+        // inicialmente destino es la seleccionada por el usuario        
+        filaDestino = Number(miFila);
+        colDestino = Number(miCol);
+        var filaInicialDestino = filaDestino;
+        // origen inicia en el vértice de fila y columna menores
+        miCol = colMenor;
+        miFila = filaMenor;
+        // recorre el área pegando, ya se cortó
+        // solo pega lo que quepa en la parte visible del dibujo
+        while (miCol <= colMayor && colDestino <= numColumnas) {
+            while(miFila <= filaMayor && filaDestino <= numFilas) {
+                // el pixel de destino
+                miID = "f" + filaDestino + "c" + colDestino;
+                // el pixel de origen
+                miIDOrigen = "f" + miFila + "c" + miCol;
+                // copia el formato
+                //alert("colmay: " + colMayor + " colmenor: " + colMenor + " filamay: " + filaMayor + " filamenor: " + filaMenor + " micol: " + miCol + " coldest: " + colDestino + " mifila: " + miFila + " filadest: "+ filaDestino);   
+                defineFormatoPixel(miID, miIDOrigen, true);
+                miFila++;
+                filaDestino++;
+            }
+            miCol++;
+            colDestino++;
+            // reinicia las variables de fila
+            miFila = filaMenor;
+            filaDestino = filaInicialDestino;
+        }
+        
+        cambiarModo(lastModo, false);
+        lastAction = "cortar";
+        estadoBtnDeshacer(true, "Deshacer Cortar y Pegar");
+        // oculta el loader
+        $(".loader").addClass("oculto");
+        // otras tareas
+        
+    }, 0);     
+}
+
+
 //se selecciona ACEPTAR en el modo copiar
 getBtnAceptarCopiar.onclick = function () {
     // muestra un loader...
@@ -6141,7 +6329,22 @@ getBtnCancelarCopiar.onclick = function () {
 
     }, 0);
 }
+//se selecciona CANCELAR en el modo cortar y pegar
+getBtnCancelarCortar.onclick = function () {
+    // muestra un loader...
+    $(".loader").removeClass("oculto");
+    setTimeout(function () {
+        // código alta exigencia
+        cambiarModo(lastModo, false);
+        // deshace cualquier cambio           
+        restaurarFormatos();
+        estadoBtnDeshacer(false);
+        // oculta el loader
+        $(".loader").addClass("oculto");
+        // otras tareas
 
+    }, 0);
+}
 //se selecciona CANCELAR en el modo libre
 getBtnCancelarLibre.onclick = function () {
     // muestra un loader...
@@ -6830,7 +7033,7 @@ getBtnCopiar.onclick = function () {
 }
 // inicia el modo cortar y pegar
 getBtnCortar.onclick = function () {
-    showSnackbar("En desarrollo...");
+    cambiarModo("cortar", true);
 }
 // inicia el modo voltear horizontalmente
 getBtnVoltearH.onclick = function () {
@@ -6884,6 +7087,20 @@ getBtnDeshacer.onclick = function () {
     ocupado = true;
     var mensaje = "¡Hecho!";
     switch (lastAction) {
+        case "cortar":
+            // deshace cortar y pegar            
+            mensaje = "Se deshizo Cortar y Pegar";
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia
+                restaurarFormatos();
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+                
+            }, 0);  
+            break;
         case "copiar":
             // deshace copiar y pegar            
             mensaje = "Se deshizo Copiar y Pegar";
