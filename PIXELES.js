@@ -2547,7 +2547,19 @@ function showModal() {
     // ahora hace ajustes iniciales según su uso
     // por defecto visible
     $("#infoModal").css("display", "block");
+    // por defecto el botón dice "Aceptar"
+    $("#BtnAceptar").html("Aceptar");
     switch (modalActual) {
+        case "importarTexto":
+            $("#marcoImportarTexto").css("display", "block");
+            document.getElementById("modalTitle").innerHTML = "<i class='fas fa-file-alt'></i> Importar dibujo";
+            document.getElementById("spanInfoModal").innerHTML = "En esta ventana puede examinar su dispositivo e importar un dibujo guardado como archivo de texto (*.txt).";
+            // el btn dice Cerrar, en lugar de Aceptar
+            $("#BtnAceptar").html("Cerrar");
+            // para animarla al cerrar: opacidad ajustada
+            restauraOpacidad = true;
+            $(getContenedor).css("opacity", "0");
+            break;
         case "columnas":
             $("#marcoColumnas").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-arrows-alt-h'></i> Agregar o eliminar columna";
@@ -5096,7 +5108,9 @@ getBtnExportar.onclick = function () {
 }
 //se muestra la ventana con opciones para importar desde texto
 getBtnImportarTexto.onclick = function () {
-    showSnackbar("En construcción");
+    modalActual = "importarTexto";
+    //muestra el modal
+    showModal();
 }
 //se muestra la ventana con opciones para importar desde galería
 getBtnImportarGallery.onclick = function () {

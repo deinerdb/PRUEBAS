@@ -2195,7 +2195,18 @@ tr:nth-child(odd) {
         background: #990099;
         font-weight: bold;
     }
-
+/* info en modal importar texto */ 
+#infoImportarTexto {
+    color: purple;
+    background-color: lavender;
+    margin: 18px 4px 10px 4px;
+    padding: 8px 8px 8px 12px;
+    border-left-style: solid;
+    border-left-color: indigo;
+    border-left-width: 4px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align:justify;
+}
 /*mensaje de validación O INFORMACIÓN EN CADA MODAL */
 #infoModal {
     color: green;
