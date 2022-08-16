@@ -73,9 +73,12 @@
                 <!-- cada marco es un uso del Modal -->
                 <!-- importar desde archivo de texto -->
                 <div id="marcoImportarTexto" class="marco"> 
-                    <p id="infoImportarTexto">Se importará un dibujo de Pixeles. Seleccione un archivo de texto:</p>
+                    <p id="infoImportarTexto">Se importará un dibujo de Pixeles a partir de un archivo de texto previamente guardado.</p>
                     <br/>
-                    file
+                    <label id="lblFile" for="myfile">Seleccione un archivo:</label>
+                    <input id="myfile" name="myfile" onchange="readFile(this)" type="file" accept=".txt">
+                    <br/>
+                    <br/>
                 </div>
                 <!-- Agregar o eliminar columnas -->
                 <div id="marcoColumnas" class="marco">

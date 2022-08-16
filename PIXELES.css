@@ -2207,6 +2207,19 @@ tr:nth-child(odd) {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-align:justify;
 }
+#lblFile {
+    color: purple;         
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align:left;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+#myfile{
+    color: purple;
+    padding-top: 12px;
+    padding-bottom: 12px;
+
+}
 /*mensaje de validación O INFORMACIÓN EN CADA MODAL */
 #infoModal {
     color: green;

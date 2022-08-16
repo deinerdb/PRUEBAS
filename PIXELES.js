@@ -2553,9 +2553,11 @@ function showModal() {
         case "importarTexto":
             $("#marcoImportarTexto").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-file-alt'></i> Importar dibujo";
-            document.getElementById("spanInfoModal").innerHTML = "En esta ventana puede examinar su dispositivo e importar un dibujo guardado como archivo de texto (*.txt).";
+            document.getElementById("spanInfoModal").innerHTML = "En esta ventana puede examinar su dispositivo e importar un dibujo guardado como archivo de texto (*.txt). Esta función no está disponible en algunos navegadores. Quizá requiera otorgar algunos permisos.";
             // el btn dice Cerrar, en lugar de Aceptar
             $("#BtnAceptar").html("Cerrar");
+            // el input file se resetea
+            document.getElementById("myfile").value = "";
             // para animarla al cerrar: opacidad ajustada
             restauraOpacidad = true;
             $(getContenedor).css("opacity", "0");
@@ -3101,19 +3103,7 @@ function showModal() {
                     // si ya lo encontró, sale del ciclo, no busca más
                     break;
                 }
-            }
-            break;
-        case "importar":
-
-            break;
-        case "exportar":
-
-            break;
-        case "filas":
-
-            break;
-        case "columnas":
-
+            } 
             break;
     }
     // sin importar cuál modal es... no estaría mal
@@ -5105,6 +5095,38 @@ getBtnAyuda.onclick = function () {
 //se muestra la ventana con opciones para exportar
 getBtnExportar.onclick = function () {
     showSnackbar("En construcción");
+}
+// función que lee un archivo de texto, para importar
+function readFile(input) {
+    let file = input.files[0];
+    // valida el tipo de archivo
+    let miNombre = file.name;
+    miExt = miNombre.substring(miNombre.length - 4);
+    if (miExt.toLowerCase() != ".txt") {
+        showSnackbar("El archivo no parece un dibujo de Pixeles. Seleccione un archivo de texto.");
+        document.getElementById("myfile").value = "";
+        return;
+    }
+    // valida el tamaño
+    if (file.size >= 1000000) {
+        showSnackbar("El archivo es demasiado grande. No parece ser un dibujo de Pixeles.");
+        document.getElementById("myfile").value = "";
+        return;
+    }
+    let fileReader = new FileReader(); 
+    fileReader.readAsText(file); 
+    fileReader.onload = function() {
+      // muestra el contenido
+        showSnackbar("Contenido del archivo: <br/>" + fileReader.result);
+      // aquí importa
+
+      cerrarModal(); // cierra la ventana, se puede ver el dibujo importado
+    }; 
+    fileReader.onerror = function() {
+        // informa del error
+        showSnackbar("Error al intentar leer el archivo. Detalle del error: " + fileReader.error);
+        // no cierra la ventana, podría importar otro archivo
+    }; 
 }
 //se muestra la ventana con opciones para importar desde texto
 getBtnImportarTexto.onclick = function () {
