@@ -5097,37 +5097,71 @@ getBtnExportar.onclick = function () {
     showSnackbar("En construcción");
 }
 // función que lee un archivo de texto, para importar
-function readFile(input) {
-    let file = input.files[0];
-    // valida el tipo de archivo
-    let miNombre = file.name;
-    miExt = miNombre.substring(miNombre.length - 4);
-    if (miExt.toLowerCase() != ".txt") {
-        showSnackbar("El archivo no parece un dibujo de Pixeles. Seleccione un archivo de texto.");
-        document.getElementById("myfile").value = "";
+function readFile(input) {    
+    if (document.getElementById("myfile").value == "") {
+        // si no hay nada seleccionado, simplemente sale
         return;
     }
-    // valida el tamaño
-    if (file.size >= 1000000) {
-        showSnackbar("El archivo es demasiado grande. No parece ser un dibujo de Pixeles.");
-        document.getElementById("myfile").value = "";
-        return;
-    }
-    let fileReader = new FileReader(); 
-    fileReader.readAsText(file); 
-    fileReader.onload = function() {
-      // muestra el contenido
-        showSnackbar("Contenido del archivo: <br/>" + fileReader.result);
-      // aquí importa
+    // muestra un loader...
+    $(".loader").removeClass("oculto");
+    setTimeout(function () {
+        // código alta exigencia
+        let file = input.files[0];        
+        // valida el tipo de archivo
+        let miNombre = file.name;
+        miExt = miNombre.substring(miNombre.length - 4);        
+        if (miExt.toLowerCase() != ".txt") {
+            // oculta el loader
+            $(".loader").addClass("oculto");
+            showSnackbar("Seleccione un archivo de texto.");
+            document.getElementById("myfile").value = "";            
+            return;
+        }
+        // valida el tamaño
+        if (file.size >= 1000000) {
+            // oculta el loader
+            $(".loader").addClass("oculto");
+            showSnackbar("El archivo es demasiado grande para ser un dibujo.");
+            document.getElementById("myfile").value = "";
+            return;
+        }
+        let fileReader = new FileReader(); 
+        fileReader.readAsText(file); 
+        // al cargar el archivo
+        fileReader.onload = function() {
+            
+            // aquí importa...
 
-      cerrarModal(); // cierra la ventana, se puede ver el dibujo importado
-    }; 
-    fileReader.onerror = function() {
-        // informa del error
-        showSnackbar("Error al intentar leer el archivo. Detalle del error: " + fileReader.error);
-        // no cierra la ventana, podría importar otro archivo
-    }; 
+            // oculta el loader
+            $(".loader").addClass("oculto");
+
+            // muestra el contenido, temporalmente
+            showSnackbar("Dibujo importado <br/>" + fileReader.result);
+            
+            cerrarModal(); // cierra la ventana, se puede ver el dibujo importado
+        }; 
+        // si ocurre un error
+        fileReader.onerror = function() {
+            // oculta el loader
+            $(".loader").addClass("oculto");
+            // informa del error
+            showSnackbar("Error al intentar leer el archivo. Detalle del error: " + fileReader.error);
+            // no cierra la ventana, podría importar otro archivo
+        }; 
+        // oculta el loader, omitido, no está visible
+        //$(".loader").addClass("oculto");
+        // otras tareas
+        
+    }, 0);  
+
+    
+    
 }
+// el evento al seleccionar archivo en el input
+document.getElementById("myfile").onchange = function () {
+    readFile(this);
+}
+
 //se muestra la ventana con opciones para importar desde texto
 getBtnImportarTexto.onclick = function () {
     modalActual = "importarTexto";
