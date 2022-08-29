@@ -24,7 +24,7 @@ body {
     font-size: 100%;
     -webkit-user-drag: none;
 }
-#BtnZoomPredeterminado {
+#BtnZoomPredeterminado, #BtnDescargarDibujo {
     color: purple;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -48,7 +48,7 @@ body {
     user-select: none; /* Standard syntax */
 }
 
-    #BtnZoomPredeterminado:hover {
+    #BtnZoomPredeterminado:hover, #BtnDescargarDibujo:hover {
         background: #f1daf1;        
         color: indigo;
     }
@@ -2196,7 +2196,7 @@ tr:nth-child(odd) {
         font-weight: bold;
     }
 /* info en modal importar texto */ 
-#infoImportarTexto {
+#infoImportarTexto, #infoExportarTexto {
     color: purple;
     background-color: lavender;
     margin: 18px 4px 10px 4px;

@@ -2550,6 +2550,16 @@ function showModal() {
     // por defecto el botón dice "Aceptar"
     $("#BtnAceptar").html("Aceptar");
     switch (modalActual) {
+        case "exportarTexto":
+            $("#marcoExportarTexto").css("display", "block");
+            document.getElementById("modalTitle").innerHTML = "<i class='fas fa-share-square'></i> Exportar dibujo";
+            document.getElementById("spanInfoModal").innerHTML = "En esta ventana puede descargar el dibujo actual como un archivo de texto (*.txt). Esta función no está disponible en algunos navegadores. Quizá requiera otorgar algunos permisos.";
+            // el btn dice Cerrar, en lugar de Aceptar
+            $("#BtnAceptar").html("Cerrar");            
+            // para animarla al cerrar: opacidad ajustada
+            restauraOpacidad = true;
+            $(getContenedor).css("opacity", "0");
+            break;
         case "importarTexto":
             $("#marcoImportarTexto").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-file-alt'></i> Importar dibujo";
@@ -5091,10 +5101,35 @@ getArrowGrupoDimensionar.onclick = function () {
 getBtnAyuda.onclick = function () {
     showSnackbar("En construcción");
 }
-
+// click en el botón descargar dibujo
+document.getElementById("BtnDescargarDibujo").onclick = function () {
+    // muestra un loader...
+    $(".loader").removeClass("oculto");
+    setTimeout(function () {
+        // código alta exigencia
+        let link = document.createElement('a');
+        link.download = 'Pixeles.txt';
+        let str = "Probando 123";
+        let blob = new Blob([str], {type: 'text/plain'});
+        if (window.navigator && window.navigator.msSaveBlob) {
+            // Internet Explorer            
+            window.navigator.msSaveBlob(blob, "Pixeles.txt");    
+        } else {
+        link.href = URL.createObjectURL(blob);
+        link.click();
+        URL.revokeObjectURL(link.href);
+        }
+        // oculta el loader
+        $(".loader").addClass("oculto");
+        // otras tareas
+        showSnackbar("Archivo exportado");
+    }, 0); 
+}
 //se muestra la ventana con opciones para exportar
 getBtnExportar.onclick = function () {
-    showSnackbar("En construcción");
+    modalActual = "exportarTexto";
+    //muestra el modal
+    showModal();
 }
 // función que lee un archivo de texto, para importar
 function readFile(input) {    
