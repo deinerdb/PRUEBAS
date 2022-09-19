@@ -5115,9 +5115,9 @@ document.getElementById("BtnDescargarDibujo").onclick = function () {
             // Internet Explorer            
             window.navigator.msSaveBlob(blob, "Pixeles.txt");    
         } else {
-        link.href = URL.createObjectURL(blob);
-        link.click();
-        URL.revokeObjectURL(link.href);
+            link.href = URL.createObjectURL(blob);
+            link.click();
+            URL.revokeObjectURL(link.href);
         }
         // oculta el loader
         $(".loader").addClass("oculto");
@@ -5163,7 +5163,31 @@ function readFile(input) {
         let fileReader = new FileReader(); 
         fileReader.readAsText(file); 
         // al cargar el archivo
-        fileReader.onload = function() {
+        fileReader.onload = function() {            
+            // valida la correcta recuperación de la cadena de texto
+            let cadenaImportada = "";
+            try {
+                // intenta recuperar el texto
+                cadenaImportada = fileReader.result;
+            }
+            catch (err) {
+                // error al leer
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                showSnackbar("Error al recuperar el texto del archivo");
+                document.getElementById("myfile").value = "";
+                return;
+            }  
+            // una validación rápida para descartar txt que no son dibujos
+            if (cadenaImportada.indexOf("InicioArchivoPixeles") == -1 || cadenaImportada.indexOf("FinArchivoPixeles") == -1) {
+                // no es un archivo delimitado como dibujo de pixeles
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                showSnackbar("El archivo de texto no es un dibujo de pixeles");
+                document.getElementById("myfile").value = "";
+                return;
+            }
+            // guarda todo para poder deshacer
             
             // aquí importa...
 
@@ -5171,7 +5195,7 @@ function readFile(input) {
             $(".loader").addClass("oculto");
 
             // muestra el contenido, temporalmente
-            showSnackbar("Dibujo importado <br/>" + fileReader.result);
+            showSnackbar("Dibujo importado <br/>" + cadenaImportada);
             
             cerrarModal(); // cierra la ventana, se puede ver el dibujo importado
         }; 
