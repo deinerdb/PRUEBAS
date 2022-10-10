@@ -5101,6 +5101,24 @@ getArrowGrupoDimensionar.onclick = function () {
 getBtnAyuda.onclick = function () {
     showSnackbar("En construcción");
 }
+// devuelve una cadena que representa el dibujo actual
+function generarCadenaExportar() {     
+    let cadena = "";
+    cadena = "Probando 12345";
+    return cadena;
+}
+// aplica la información de una cadena al dibujo actual
+function aplicarCadenaImportar(cadena) {     
+    try {
+        // del archivo al dibujo
+
+        // todo bien
+        return true;        
+    }
+    catch (err) {        
+        return false;
+    }  
+}
 // click en el botón descargar dibujo
 document.getElementById("BtnDescargarDibujo").onclick = function () {
     // muestra un loader...
@@ -5109,7 +5127,8 @@ document.getElementById("BtnDescargarDibujo").onclick = function () {
         // código alta exigencia
         let link = document.createElement('a');
         link.download = 'Pixeles.txt';
-        let str = "Probando 123";
+        // obtiene la cadena que representa el dibujo actual
+        let str = generarCadenaExportar();
         let blob = new Blob([str], {type: 'text/plain'});
         if (window.navigator && window.navigator.msSaveBlob) {
             // Internet Explorer            
@@ -5190,12 +5209,20 @@ function readFile(input) {
             // guarda todo para poder deshacer
             
             // aquí importa...
-
+            if (aplicarCadenaImportar(cadenaImportada) == false) {
+                // error al aplicar, debe restaurar
+                // restaura...
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                showSnackbar("Error al aplicar la información del archivo");
+                document.getElementById("myfile").value = "";
+                return;
+            }
             // oculta el loader
             $(".loader").addClass("oculto");
 
-            // muestra el contenido, temporalmente
-            showSnackbar("Dibujo importado <br/>" + cadenaImportada);
+            // muestra mensaje de éxito
+            showSnackbar("Dibujo importado");
             
             cerrarModal(); // cierra la ventana, se puede ver el dibujo importado
         }; 
