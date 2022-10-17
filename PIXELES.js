@@ -158,6 +158,7 @@ var opacidadAplicada = 1;
 var sombrasAplicada = "s0000";
 var colorLienzoAplicado = "#ffffff";
 // fin globales
+var cadenaGuardada = "";
 var colorLienzo = "#ffffff" // ahora es individual
 // radio que se aplica por defecto en modo radio
 // pero el inicial de clase columna es 0%
@@ -5102,16 +5103,45 @@ getBtnAyuda.onclick = function () {
     showSnackbar("En construcción");
 }
 // devuelve una cadena que representa el dibujo actual
+// separadores:
+//  @m marcadores de archivo
+//  @g individuales de globales
+
 function generarCadenaExportar() {     
     let cadena = "";
-    cadena = "Probando 12345";
+    // marcador inicial
+    cadena = "InicioArchivoPixeles" + "@m";
+    // globales
+    cadena = cadena + tipoBordes;
+    // individuales
+    cadena = cadena + "@g";
+
+    // marcador final
+    cadena = cadena + "@m" + "FinArchivoPixeles";
     return cadena;
 }
 // aplica la información de una cadena al dibujo actual
 function aplicarCadenaImportar(cadena) {     
+    let temp; // array al hacer split
     try {
-        // del archivo al dibujo
+        temp = cadena.split("@m");
+        cadena = temp[1]; // quita los marcadores de archivo
+        temp = cadena.split("@g");
+        tipoBordes = temp[0];        
+        
+        // de variables del archivo al dibujo
+        var i;                
+        //recorre todo el array
+        for (i = 0; i < getColumnas.length; i++) {
+            // GENERALES            
+            // tipo de bordes            
+            getColumnas[i].style.borderStyle = tipoBordes;
+            
+            // SOLO VISIBLES
+            
+            // SOLO NO VISIBLES
 
+        }        
         // todo bien
         return true;        
     }
@@ -5207,12 +5237,15 @@ function readFile(input) {
                 return;
             }
             // guarda todo para poder deshacer
-            
+            cadenaGuardada = generarCadenaExportar();
             // aquí importa...
             if (aplicarCadenaImportar(cadenaImportada) == false) {
                 // error al aplicar, debe restaurar
                 // restaura...
-                // oculta el loader
+                aplicarCadenaImportar(cadenaGuardada);
+                // no se puede deshacer
+                estadoBtnDeshacer(false);
+                // oculta el loader                
                 $(".loader").addClass("oculto");
                 showSnackbar("Error al aplicar la información del archivo");
                 document.getElementById("myfile").value = "";
@@ -5222,8 +5255,10 @@ function readFile(input) {
             $(".loader").addClass("oculto");
 
             // muestra mensaje de éxito
-            showSnackbar("Dibujo importado");
-            
+            showSnackbar("Dibujo importado desde archivo");
+            lastAction = "importarArchivo";
+            // activa el botón deshacer
+            estadoBtnDeshacer(true, "Deshacer importar desde archivo");
             cerrarModal(); // cierra la ventana, se puede ver el dibujo importado
         }; 
         // si ocurre un error
@@ -7243,6 +7278,20 @@ getBtnDeshacer.onclick = function () {
     ocupado = true;
     var mensaje = "¡Hecho!";
     switch (lastAction) {
+        case "importarArchivo":
+            // deshace importar desde archivo           
+            mensaje = "Se deshizo importar desde archivo";
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia
+                aplicarCadenaImportar(cadenaGuardada);
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+                
+            }, 0);  
+            break;
         case "cortar":
             // deshace cortar y pegar            
             mensaje = "Se deshizo Cortar y Pegar";
