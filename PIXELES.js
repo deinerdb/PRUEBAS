@@ -5106,14 +5106,19 @@ getBtnAyuda.onclick = function () {
 // separadores:
 //  @m marcadores de archivo
 //  @g individuales de globales
+//  @p cada parámetro global
 
 function generarCadenaExportar() {     
     let cadena = "";
     // marcador inicial
     cadena = "InicioArchivoPixeles" + "@m";
-    // globales
+    // GLOBALES
+    // tipo de borde
     cadena = cadena + tipoBordes;
-    // individuales
+    // ancho de bordes, factor
+    cadena = cadena + "@p";
+    cadena = cadena + factorAnchoBordes;
+    // INDIVIDUALES
     cadena = cadena + "@g";
 
     // marcador final
@@ -5126,9 +5131,35 @@ function aplicarCadenaImportar(cadena) {
     try {
         temp = cadena.split("@m");
         cadena = temp[1]; // quita los marcadores de archivo
-        temp = cadena.split("@g");
-        tipoBordes = temp[0];        
-        
+        temp = cadena.split("@g"); // separa los globales
+        temp = temp[0].split("@p"); // separa los parámetros
+        // tipo bordes
+            // valida
+            var xCheck = document.getElementsByName("checkTipoBordes");
+            var i;
+            var encontrado = false;
+            for (i = 0; i < xCheck.length; i++) {
+                if (xCheck[i].value == temp[0]) {
+                    // se encontró el estilo
+                    encontrado = true;
+                    break;
+                }
+            }
+            if (encontrado == false) {
+                return false; // tipo no válido
+            } 
+        tipoBordes = temp[0]; // validado
+        // factor y ancho de bordes
+            // valida
+            let nuevo = temp[1];
+            nuevo = Number(nuevo);
+            nuevo = nuevo * 100;
+            let pos = anchoValues.indexOf(nuevo);
+            if (pos == -1) {
+                return false; // ancho no válido
+            }    
+        factorAnchoBordes = temp[1]; // validado               
+        anchoBordes = tamaño * factorAnchoBordes; // tamaño es global y no se exporta
         // de variables del archivo al dibujo
         var i;                
         //recorre todo el array
@@ -5136,7 +5167,8 @@ function aplicarCadenaImportar(cadena) {
             // GENERALES            
             // tipo de bordes            
             getColumnas[i].style.borderStyle = tipoBordes;
-            
+            // ancho de bordes
+            getColumnas[i].style.borderWidth = anchoBordes + "px";
             // SOLO VISIBLES
             
             // SOLO NO VISIBLES
