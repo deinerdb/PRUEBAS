@@ -5118,6 +5118,9 @@ function generarCadenaExportar() {
     // ancho de bordes, factor
     cadena = cadena + "@p";
     cadena = cadena + factorAnchoBordes;
+    // filtro
+    cadena = cadena + "@p";
+    cadena = cadena + actualIndexFiltro;
     // INDIVIDUALES
     cadena = cadena + "@g";
 
@@ -5157,11 +5160,32 @@ function aplicarCadenaImportar(cadena) {
             let pos = anchoValues.indexOf(nuevo);
             if (pos == -1) {
                 return false; // ancho no válido
-            }    
-        factorAnchoBordes = temp[1]; // validado               
+            }
+        nuevo = anchoValues[pos];        
+        factorAnchoBordes = nuevo / 100; // validado               
         anchoBordes = tamaño * factorAnchoBordes; // tamaño es global y no se exporta
-        // de variables del archivo al dibujo
-        var i;                
+        // filtro
+            // valida
+            encontrado = false;
+            for (i = 0; i < getFiltro.length; i++) {
+                if (temp[2] == i) {
+                    encontrado = true;
+                    break;
+                }
+            }
+            if (encontrado == false) {
+                return false; // índice no válido
+            } 
+        actualIndexFiltro = i; // validado
+        // de variables del archivo al dibujo  
+            // el filtro
+            getFiltro.selectedIndex = actualIndexFiltro;
+            var xsel = getFiltro.selectedIndex;
+            var y = getFiltro.options;
+            // sintaxis estándar
+            getContenedor.style.filter = y[xsel].value;
+            // Safari 6.0 - 9.0
+            getContenedor.style.WebkitFilter = y[xsel].value;                      
         //recorre todo el array
         for (i = 0; i < getColumnas.length; i++) {
             // GENERALES            
