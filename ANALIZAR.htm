@@ -784,8 +784,12 @@ return temp;
                             <input type="text" id="mediaArm" readonly /><br />
                             <label>Media cuadrática:</label> <br />
                             <input type="text" id="mediaCuad" readonly /><br />
-                            <label>Moda (Primera encontrada):</label> <br />
-                            <input type="text" id="moda" readonly /><br />
+                            <label>Número de modas:</label> <br />
+                            <input type="text" id="numModas" readonly /><br />
+                            <label>Repeticiones modas:</label> <br />
+                            <input type="text" id="repModas" readonly /><br />
+                            <label>Modas:</label> <br />
+                            <input type="text" id="modas" readonly /><br />
                             <label>Mediana:</label> <br />
                             <input type="text" id="mediana" readonly /><br />
                         </details>
@@ -1193,7 +1197,9 @@ return temp;
                         var mediaGeom;
                         var mediaArm;
                         var mediaCuad;
-                        var moda;
+                        var modas = [];
+                        var repModas;
+                        var numModas;
                         var mediana;
                         var q1;
                         var q3;
@@ -1376,13 +1382,13 @@ return temp;
                             temp = Math.sqrt(sumaCuadrados / cuenta);
                             return temp;
                         }
-                        //devuelve la primera moda encontrada
-                        function calculaModa() {
-                            var repetidos = 1;
-                            var temp = "No disponible (Sin duplicados)";
-                            var contador = 0;
+                        //devuelve las modas encontradas
+                        function calculaModas() {
+                            var repetidos = 2;                            
+                            modas.length = 0;
+                            var contador = 0;                            
                             var i;
-                            var j;
+                            var j;                            
                             for (i = 0; i < arrayDatos.length; i++) {
                                 contador = 0;
                                 for (j = 0; j < arrayDatos.length; j++) {
@@ -1390,12 +1396,24 @@ return temp;
                                         contador++;
                                     }
                                 }
+                                if (contador == repetidos) {
+                                    if (modas.indexOf(arrayDatos[i]) == -1) {
+                                        modas[modas.length] = arrayDatos[i];
+                                    }                                                                        
+                                }
                                 if (contador > repetidos) {
-                                    temp = arrayDatos[i];
+                                    modas.length = 0;
                                     repetidos = contador;
+                                    modas[0] = arrayDatos[i];
                                 }
                             }
-                            return temp;
+                            if (modas.length == 0) {
+                                repModas = "No disponible (Sin duplicados)";
+                                numModas = "Ninguna (Sin duplicados)";
+                            } else {
+                                repModas = repetidos;
+                                numModas = modas.length;
+                            }                            
                         }
                         //devuelve la mediana
                         function calculaMediana() {
@@ -2107,7 +2125,9 @@ return temp;
                             document.getElementById("recorridoRelativo").value = "";
                             document.getElementById("mediaCuad").value = "";                            
                             document.getElementById("coefApertura").value = "";
-                            document.getElementById("moda").value = "";
+                            document.getElementById("modas").value = "";
+                            document.getElementById("repModas").value = "";
+                            document.getElementById("numModas").value = "";                            
                             document.getElementById("mediana").value = "";
                             document.getElementById("q1").value = "";
                             document.getElementById("q3").value = "";
@@ -2276,8 +2296,8 @@ return temp;
                             mediaArm = mediaArmónica();
                             //media cuadrática
                             mediaCuad = mediaCuadrática();
-                            //moda
-                            moda = calculaModa();
+                            //modas
+                            calculaModas();
                             //mediana
                             mediana = calculaMediana();
                             //primer cuartil
@@ -2399,7 +2419,25 @@ return temp;
                             document.getElementById("mediaGeom").value = mediaGeom.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("mediaArm").value = mediaArm.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("mediaCuad").value = mediaCuad.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
-                            document.getElementById("moda").value = moda.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            if (modas.length == 0) {
+                                // sin modas
+                                document.getElementById("modas").value = "No disponible (Sin duplicados)";
+                            } else if (modas.length == 1) {
+                                // una moda
+                                document.getElementById("modas").value = Number(modas[0]).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            }  else {
+                                // varias modas
+                                var cad = "";
+                                for (var i = 0; i < modas.length; i++) {
+                                    cad = cad + Number(modas[i]).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                                    if (i != modas.length - 1) {
+                                        cad = cad + " | ";
+                                    }
+                                }
+                                document.getElementById("modas").value = cad;
+                            }                          
+                            document.getElementById("repModas").value = repModas.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
+                            document.getElementById("numModas").value = numModas.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("mediana").value = mediana.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("q1").value = q1.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
                             document.getElementById("q3").value = q3.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 9 });
@@ -2624,9 +2662,15 @@ return temp;
                             //mediaCuad
                             copyCampo = document.getElementById("mediaCuad");
                             copyText = copyText + "\r" + 'Media cuadrática = ' + "\t" + copyCampo.value;
-                            //moda
-                            copyCampo = document.getElementById("moda");
-                            copyText = copyText + "\r" + 'Moda (Primera encontrada) = ' + "\t" + copyCampo.value;
+                            //num modas
+                            copyCampo = document.getElementById("numModas");
+                            copyText = copyText + "\r" + 'Cantidad Modas = ' + "\t" + copyCampo.value;                            
+                            //rep moda
+                            copyCampo = document.getElementById("repModas");
+                            copyText = copyText + "\r" + 'Repeticiones Modas = ' + "\t" + copyCampo.value;
+                            //modas
+                            copyCampo = document.getElementById("modas");
+                            copyText = copyText + "\r" + 'Modas = ' + "\t" + copyCampo.value;
                             //mediana
                             copyCampo = document.getElementById("mediana");
                             copyText = copyText + "\r" + 'Mediana = ' + "\t" + copyCampo.value;
