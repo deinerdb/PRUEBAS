@@ -5113,14 +5113,19 @@ function generarCadenaExportar() {
     // marcador inicial
     cadena = "InicioArchivoPixeles" + "@m";
     // GLOBALES
-    // tipo de borde
+    // tipo de borde, P 0
     cadena = cadena + tipoBordes;
-    // ancho de bordes, factor
+    // ancho de bordes, factor, P 1
     cadena = cadena + "@p";
     cadena = cadena + factorAnchoBordes;
-    // filtro
+    // filtro, P 2
     cadena = cadena + "@p";
     cadena = cadena + actualIndexFiltro;
+    // num columnas y filas
+    cadena = cadena + "@p";
+    cadena = cadena + numColumnas; // P 3
+    cadena = cadena + "@p";
+    cadena = cadena + numFilas; // P 4
     // INDIVIDUALES
     cadena = cadena + "@g";
 
@@ -5131,6 +5136,10 @@ function generarCadenaExportar() {
 // aplica la información de una cadena al dibujo actual
 function aplicarCadenaImportar(cadena) {     
     let temp; // array al hacer split
+    var miFila;
+    var miColumna;
+    var miID;    
+    var miElemDim;
     try {
         temp = cadena.split("@m");
         cadena = temp[1]; // quita los marcadores de archivo
@@ -5177,7 +5186,33 @@ function aplicarCadenaImportar(cadena) {
                 return false; // índice no válido
             } 
         actualIndexFiltro = i; // validado
-        // de variables del archivo al dibujo  
+        // num columnas
+        encontrado = false;
+            // valida
+            for (i = 1; i <= getSelectColumnas.length; i++) {
+                if (temp[3] == i) {
+                    encontrado = true;
+                    break;
+                }
+            }
+            if (encontrado == false) {
+                return false; // num columnas no válido
+            }
+        numColumnas = i;
+        // num filas
+        encontrado = false;
+            // valida
+            for (i = 1; i <= getSelectFilas.length; i++) {
+                if (temp[4] == i) {
+                    encontrado = true;
+                    break;
+                }
+            }
+            if (encontrado == false) {
+                return false; // num filas no válido
+            }
+        numFilas = i;
+        // *** APLICA desde variables del archivo al dibujo  
             // el filtro
             getFiltro.selectedIndex = actualIndexFiltro;
             var xsel = getFiltro.selectedIndex;
@@ -5186,18 +5221,79 @@ function aplicarCadenaImportar(cadena) {
             getContenedor.style.filter = y[xsel].value;
             // Safari 6.0 - 9.0
             getContenedor.style.WebkitFilter = y[xsel].value;                      
-        //recorre todo el array
-        for (i = 0; i < getColumnas.length; i++) {
-            // GENERALES            
-            // tipo de bordes            
-            getColumnas[i].style.borderStyle = tipoBordes;
-            // ancho de bordes
-            getColumnas[i].style.borderWidth = anchoBordes + "px";
-            // SOLO VISIBLES
-            
-            // SOLO NO VISIBLES
+            // selector de num columnas
+            getSelectColumnas.selectedIndex = numColumnas - 1;
+            // selector de num filas
+            getSelectFilas.selectedIndex = numFilas - 1;
+        // recorre los rótulos y muestra solo los necesarios
+        // los de las filas
+        for (miFila = 0; miFila <= MAXNUMFILAS; miFila++) {            
+            //construye el id del rótulo, row variable y col 0
+            miID = "r" + miFila + "c0";                
+            // referencia al rótulo para optimizar
+            miElemDim = document.getElementById(miID);
+            //si está dentro del tamaño especificado hace visible el rótulo
+            // y si no, lo oculta            
+            if (miFila <= numFilas) {
+                // visible                    
+                $(miElemDim).removeClass("oculto");                    
+            } else {
+                // oculto
+                $(miElemDim).addClass("oculto"); 
+            }
+        }
+        // los de las columnas
+        for (miColumna = 0; miColumna <= MAXNUMCOLUMNAS; miColumna++) {            
+            //construye el id del rótulo, row 0 y col variable
+            miID = "r0" + "c" + miColumna;                
+            // referencia al rótulo para optimizar
+            miElemDim = document.getElementById(miID);
+            //si está dentro del tamaño especificado hace visible el rótulo
+            // y si no, lo oculta            
+            if (miColumna <= numColumnas) {
+                // visible                    
+                $(miElemDim).removeClass("oculto");                    
+            } else {
+                // oculto
+                $(miElemDim).addClass("oculto"); 
+            }
+        }    
+        //recorre todos los cuadritos
+        for (miFila = 1; miFila <= MAXNUMFILAS; miFila++) {
+            for (miColumna = 1; miColumna <= MAXNUMCOLUMNAS; miColumna++) {
+                //construye el id
+                miID = "f" + miFila + "c" + miColumna;                
+                // referencia al cuadrito para optimizar
+                miElemDim = document.getElementById(miID);                
+                // GENERALES, SEAN VISIBLES O NO            
+                // tipo de bordes            
+                miElemDim.style.borderStyle = tipoBordes;
+                // ancho de bordes
+                miElemDim.style.borderWidth = anchoBordes + "px";
+                // VISIBILIDAD SEGÚN EL TAMAÑO ESPECIFICADO            
+                if (miFila <= numFilas && miColumna <= numColumnas) {
+                    // VISIBLES
+                    miElemDim.style.display = "inline-block";                    
+                } else {
+                    // NO VISIBLES
+                    miElemDim.style.display = "none";
+                    // formato global aplicado
+                    defineFormatoPixel(miID, "globales", false);
+                }                
+            }
 
+        }
+        //ajusta el contenedor de los cuadritos
+        if (mostrarEtiquetas == true) {
+            var anchoCont = tamaño * (1 + numColumnas);
+        } else {
+            var anchoCont = tamaño * numColumnas;
         }        
+        // MAXNUMFILAS VECES EL ANCHO DE UN CUADRITO... más el rótulo
+        //PERO OJO QUE maxWidth DEL CONTENEDOR ES 88%, NUNCA DESBORDA PANTALLA.
+        getContenedor.style.width = anchoCont + "px";
+        // posiciona inmediatamente
+        ajustesResize();        
         // todo bien
         return true;        
     }
