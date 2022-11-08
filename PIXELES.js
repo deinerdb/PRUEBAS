@@ -5126,6 +5126,13 @@ function generarCadenaExportar() {
     cadena = cadena + numColumnas; // P 3
     cadena = cadena + "@p";
     cadena = cadena + numFilas; // P 4
+    // *** guarda globales aplicadas
+    // color de fondo global
+    cadena = cadena + "@p";
+    cadena = cadena + fondoAplicado; // P 5
+    // radio global
+    cadena = cadena + "@p";    // P 6
+    cadena = cadena +  radioAplicado.slice(0, radioAplicado.length - 1); // le quita el signo %
     // INDIVIDUALES
     cadena = cadena + "@g";
 
@@ -5198,7 +5205,7 @@ function aplicarCadenaImportar(cadena) {
             if (encontrado == false) {
                 return false; // num columnas no válido
             }
-        numColumnas = i;
+        numColumnas = i; // validado
         // num filas
         encontrado = false;
             // valida
@@ -5211,7 +5218,26 @@ function aplicarCadenaImportar(cadena) {
             if (encontrado == false) {
                 return false; // num filas no válido
             }
-        numFilas = i;
+        numFilas = i; // validado
+        // ** recupera globales aplicadas
+        // color de fondo global
+            // valida
+            if (validarHex(temp[5]) == false) {
+                return false; // color hex no válido
+            }
+        fondoAplicado = temp[5]; // validado
+        // radio global
+            // valida
+            nuevo = temp[6];
+            nuevo = Number(nuevo);
+            pos = decValues.indexOf(nuevo);
+            if (pos == -1 || pos > 50) {
+                return false; // radio no válido
+            } else {
+                nuevo = decValues[pos];
+            }            
+        radioAplicado = nuevo + "%"; // validado
+            
         // *** APLICA desde variables del archivo al dibujo  
             // el filtro
             getFiltro.selectedIndex = actualIndexFiltro;
