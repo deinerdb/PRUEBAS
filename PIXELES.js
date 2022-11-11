@@ -5133,6 +5133,10 @@ function generarCadenaExportar() {
     // radio global
     cadena = cadena + "@p";    // P 6
     cadena = cadena +  radioAplicado.slice(0, radioAplicado.length - 1); // le quita el signo %
+    // color bordes global
+    cadena = cadena + "@p";    // P 7
+    cadena = cadena + colorBordesAplicado;
+
     // INDIVIDUALES
     cadena = cadena + "@g";
 
@@ -5237,6 +5241,12 @@ function aplicarCadenaImportar(cadena) {
                 nuevo = decValues[pos];
             }            
         radioAplicado = nuevo + "%"; // validado
+        // color de bordes global
+            // valida
+            if (validarHex(temp[7]) == false) {
+                return false; // color hex no válido
+            }
+        colorBordesAplicado = temp[7]; // validado
             
         // *** APLICA desde variables del archivo al dibujo  
             // el filtro
