@@ -5136,7 +5136,15 @@ function generarCadenaExportar() {
     // color bordes global
     cadena = cadena + "@p";    // P 7
     cadena = cadena + colorBordesAplicado;
-
+    // opacidad global
+    cadena = cadena + "@p";    // P 8
+    cadena = cadena + opacidadAplicada * 100;    
+    // sombra global
+    cadena = cadena + "@p";    // P 9
+    cadena = cadena + sombrasAplicada;
+    // color lienzo global
+    cadena = cadena + "@p";    // P 10
+    cadena = cadena + colorLienzoAplicado;
     // INDIVIDUALES
     cadena = cadena + "@g";
 
@@ -5247,7 +5255,38 @@ function aplicarCadenaImportar(cadena) {
                 return false; // color hex no válido
             }
         colorBordesAplicado = temp[7]; // validado
-            
+        // opacidad global
+            // valida
+            nuevo = temp[8];
+            nuevo = Number(nuevo);
+            pos = decValues.indexOf(nuevo);
+            if (pos == -1 || pos > 100) {
+                return false; // opacidad no válida
+            } else {
+                nuevo = decValues[pos];
+            }            
+        opacidadAplicada = nuevo / 100; // validado
+        // sombras global
+            // valida            
+            var i;
+            var encontrado = false;
+            for (i = 0; i <= getSelectSombras.length - 1; i++) {
+                if (getSelectSombras.options[i].value == temp[9]) {
+                    // se encontró la clase de sombras
+                    encontrado = true;
+                    break;
+                }
+            }
+            if (encontrado == false) {
+                return false; // sombras no válidas
+            } 
+        sombrasAplicada = temp[9]; // validada
+        // color de lienzo global
+            // valida
+            if (validarHex(temp[10]) == false) {
+                return false; // color hex no válido
+            }
+        colorLienzoAplicado = temp[10]; // validado
         // *** APLICA desde variables del archivo al dibujo  
             // el filtro
             getFiltro.selectedIndex = actualIndexFiltro;
