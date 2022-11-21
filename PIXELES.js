@@ -615,6 +615,8 @@ getBtnZoomPredeterminado.onclick = function () {
 var sliderAnchoBordes = document.getElementById("rangoAnchoBordes");
 // la muestra del ancho de los bordes
 var getMuestraAnchoBordes = document.getElementById("muestraAnchoBordes");
+// btn por defecto
+var getBtnAnchoBordesPredeterminado = document.getElementById("BtnAnchoBordesPredeterminado");
 // para no repetirlo en input y change del slider ancho bordes
 function actualizaAnchoBordes(nuevoValor) {
     var nuevo = nuevoValor;
@@ -638,6 +640,14 @@ sliderAnchoBordes.oninput = function () {
 }
 sliderAnchoBordes.onchange = function () {
     actualizaAnchoBordes(this.value);
+}
+// el btn para colocarlo en predeterminado
+// 4%
+getBtnAnchoBordesPredeterminado.onclick = function () {
+    var miAncho = 4;
+    sliderAnchoBordes.value = miAncho;
+    actualizaAnchoBordes(miAncho);
+    showSnackbar("Ajustado a valor predeterminado: " + miAncho.toLocaleString() + "%");
 }
 //el input range del radio de los bordes y sus botones debajo
 var sliderRadio = document.getElementById("rangoRadioBordes");
@@ -5102,6 +5112,103 @@ getArrowGrupoDimensionar.onclick = function () {
 getBtnAyuda.onclick = function () {
     showSnackbar("En construcción");
 }
+// devuelve -1 si no es un número de columna válido
+function validarNumColumna(valor) { 
+    var i;    
+    for (i = 1; i <= getSelectColumnas.length; i++) {
+        if (i == valor) {
+            // se encontró número col
+            return i;            
+        }
+    }
+    // no lo encontró
+    return -1;
+}
+// devuelve -1 si no es un número de fila válido
+function validarNumFila(valor) { 
+    var i;    
+    for (i = 1; i <= getSelectFilas.length; i++) {
+        if (i == valor) {
+            // se encontró número fila
+            return i;            
+        }
+    }
+    // no lo encontró
+    return -1;
+}
+// devuelve -1 si no es una sombra válida
+function validarSombras(valor) {
+    var i;    
+    for (i = 0; i <= getSelectSombras.length - 1; i++) {
+        if (getSelectSombras.options[i].value == valor) {            
+            return valor; // sombra encontrada
+        }
+    }
+    // no lo encontró
+    return -1;
+}
+
+// devuelve -1 si no es un filtro válido
+function validarFiltro(valor) {
+    var i;    
+    for (i = 0; i < getFiltro.length; i++) {
+        if (valor == i) {            
+            return i; // índice encontrado
+        }
+    }
+    // no lo encontró
+    return -1;
+}
+
+// devuelve false si no es un tipo de bordes válido
+function validarTipoBordes(valor) {    
+    var xCheck = document.getElementsByName("checkTipoBordes");
+    var i;    
+    for (i = 0; i < xCheck.length; i++) {
+        if (xCheck[i].value == valor) {
+            // se encontró el estilo
+            return true;            
+        }
+    }
+    // no lo encontró
+    return false;
+}
+// devuelve -1 si no es un ancho de bordes válido
+function validarAnchoBordes(valor) { 
+    var nuevo = valor;   
+    nuevo = Number(nuevo);
+    //alert("tal cual " + nuevo);    
+    nuevo = nuevo * 100 * 100 / 100; // float corregido
+    //alert("corregido " + nuevo);    
+    var pos = anchoValues.indexOf(nuevo);
+    if (pos == -1) {
+        return -1; // ancho no válido
+    }    
+    // todo bien
+    return anchoValues[pos];
+}
+// devuelve -1 si no es un radio válido
+function validarRadio(valor) { 
+    var nuevo = valor;   
+    nuevo = Number(nuevo);   
+    pos = decValues.indexOf(nuevo);
+    if (pos == -1 || pos > 50) {
+        return -1; // radio no válido
+    }    
+    // todo bien
+    return decValues[pos];
+}
+// devuelve -1 si no es una opacidad válido
+function validarOpacidad(valor) { 
+    var nuevo = valor;   
+    nuevo = Number(nuevo);   
+    pos = decValues.indexOf(nuevo);
+    if (pos == -1 || pos > 100) {
+        return -1; // opacidad no válida
+    }    
+    // todo bien
+    return decValues[pos];
+}
 // devuelve una cadena que representa el dibujo actual
 // separadores:
 //  @m marcadores de archivo
@@ -5138,7 +5245,7 @@ function generarCadenaExportar() {
     cadena = cadena + colorBordesAplicado;
     // opacidad global
     cadena = cadena + "@p";    // P 8
-    cadena = cadena + opacidadAplicada * 100;    
+    cadena = cadena + opacidadAplicada * 100 * 100 / 100; // float corregido   
     // sombra global
     cadena = cadena + "@p";    // P 9
     cadena = cadena + sombrasAplicada;
@@ -5165,72 +5272,40 @@ function aplicarCadenaImportar(cadena) {
         temp = cadena.split("@g"); // separa los globales
         temp = temp[0].split("@p"); // separa los parámetros
         // tipo bordes
-            // valida
-            var xCheck = document.getElementsByName("checkTipoBordes");
-            var i;
-            var encontrado = false;
-            for (i = 0; i < xCheck.length; i++) {
-                if (xCheck[i].value == temp[0]) {
-                    // se encontró el estilo
-                    encontrado = true;
-                    break;
-                }
-            }
-            if (encontrado == false) {
+            // valida            
+            if (validarTipoBordes(temp[0]) == false) {                
                 return false; // tipo no válido
             } 
         tipoBordes = temp[0]; // validado
         // factor y ancho de bordes
             // valida
-            let nuevo = temp[1];
-            nuevo = Number(nuevo);
-            nuevo = nuevo * 100;
-            let pos = anchoValues.indexOf(nuevo);
-            if (pos == -1) {
-                return false; // ancho no válido
-            }
-        nuevo = anchoValues[pos];        
-        factorAnchoBordes = nuevo / 100; // validado               
+            var nuevo = validarAnchoBordes(temp[1]);            
+            if (nuevo == -1) {                 
+                return false; // ancho no válido                
+            }                
+        factorAnchoBordes = nuevo / 100; // validado        
         anchoBordes = tamaño * factorAnchoBordes; // tamaño es global y no se exporta
         // filtro
             // valida
-            encontrado = false;
-            for (i = 0; i < getFiltro.length; i++) {
-                if (temp[2] == i) {
-                    encontrado = true;
-                    break;
-                }
-            }
-            if (encontrado == false) {
+            var nuevo = validarFiltro(temp[2]);
+            if (nuevo == -1) {
                 return false; // índice no válido
             } 
-        actualIndexFiltro = i; // validado
-        // num columnas
-        encontrado = false;
+        actualIndexFiltro = nuevo; // validado
+        // num columnas        
             // valida
-            for (i = 1; i <= getSelectColumnas.length; i++) {
-                if (temp[3] == i) {
-                    encontrado = true;
-                    break;
-                }
-            }
-            if (encontrado == false) {
+            var nuevo = validarNumColumna(temp[3]);
+            if (nuevo == -1) {
                 return false; // num columnas no válido
             }
-        numColumnas = i; // validado
-        // num filas
-        encontrado = false;
+        numColumnas = nuevo; // validado
+        // num filas        
             // valida
-            for (i = 1; i <= getSelectFilas.length; i++) {
-                if (temp[4] == i) {
-                    encontrado = true;
-                    break;
-                }
-            }
-            if (encontrado == false) {
+            var nuevo = validarNumFila(temp[4]);
+            if (nuevo == -1) {
                 return false; // num filas no válido
             }
-        numFilas = i; // validado
+        numFilas = nuevo; // validado
         // ** recupera globales aplicadas
         // color de fondo global
             // valida
@@ -5240,14 +5315,10 @@ function aplicarCadenaImportar(cadena) {
         fondoAplicado = temp[5]; // validado
         // radio global
             // valida
-            nuevo = temp[6];
-            nuevo = Number(nuevo);
-            pos = decValues.indexOf(nuevo);
-            if (pos == -1 || pos > 50) {
+            var nuevo = validarRadio(temp[6]); 
+            if (nuevo == -1) {
                 return false; // radio no válido
-            } else {
-                nuevo = decValues[pos];
-            }            
+            }                                  
         radioAplicado = nuevo + "%"; // validado
         // color de bordes global
             // valida
@@ -5257,30 +5328,18 @@ function aplicarCadenaImportar(cadena) {
         colorBordesAplicado = temp[7]; // validado
         // opacidad global
             // valida
-            nuevo = temp[8];
-            nuevo = Number(nuevo);
-            pos = decValues.indexOf(nuevo);
-            if (pos == -1 || pos > 100) {
-                return false; // opacidad no válida
-            } else {
-                nuevo = decValues[pos];
+            nuevo = validarOpacidad(temp[8]);
+            if (nuevo == -1) {
+                return false; // opacidad no válida            
             }            
         opacidadAplicada = nuevo / 100; // validado
         // sombras global
-            // valida            
-            var i;
-            var encontrado = false;
-            for (i = 0; i <= getSelectSombras.length - 1; i++) {
-                if (getSelectSombras.options[i].value == temp[9]) {
-                    // se encontró la clase de sombras
-                    encontrado = true;
-                    break;
-                }
-            }
-            if (encontrado == false) {
+            // valida  
+            var nuevo = validarSombras(temp[9]);
+            if (nuevo == -1) {
                 return false; // sombras no válidas
             } 
-        sombrasAplicada = temp[9]; // validada
+        sombrasAplicada = nuevo; // validada
         // color de lienzo global
             // valida
             if (validarHex(temp[10]) == false) {
@@ -5348,7 +5407,9 @@ function aplicarCadenaImportar(cadena) {
                 // VISIBILIDAD SEGÚN EL TAMAÑO ESPECIFICADO            
                 if (miFila <= numFilas && miColumna <= numColumnas) {
                     // VISIBLES
-                    miElemDim.style.display = "inline-block";                    
+                    miElemDim.style.display = "inline-block";
+                    // les aplica formato individual guardado
+
                 } else {
                     // NO VISIBLES
                     miElemDim.style.display = "none";
@@ -5372,8 +5433,8 @@ function aplicarCadenaImportar(cadena) {
         // todo bien
         return true;        
     }
-    catch (err) {        
-        return false;
+    catch (err) { 
+        return false;        
     }  
 }
 // click en el botón descargar dibujo
@@ -5398,7 +5459,10 @@ document.getElementById("BtnDescargarDibujo").onclick = function () {
         // oculta el loader
         $(".loader").addClass("oculto");
         // otras tareas
-        showSnackbar("Archivo exportado");
+        // no puede hacer cambios en el dibujo con el modal activo
+        // solo tiene sentido descargar una vez
+        cerrarModal(); // cierra la ventana
+        showSnackbar("Archivo exportado"); // notifica
     }, 0); 
 }
 //se muestra la ventana con opciones para exportar
@@ -5474,7 +5538,7 @@ function readFile(input) {
                 estadoBtnDeshacer(false);
                 // oculta el loader                
                 $(".loader").addClass("oculto");
-                showSnackbar("Error al aplicar la información del archivo");
+                showSnackbar("Error al aplicar la información del archivo");                
                 document.getElementById("myfile").value = "";
                 return;
             }

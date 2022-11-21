@@ -24,7 +24,10 @@ body {
     font-size: 100%;
     -webkit-user-drag: none;
 }
-#BtnZoomPredeterminado, #BtnDescargarDibujo {
+#BtnAnchoBordesPredeterminado {
+    margin-top: 24px !important;
+}
+#BtnZoomPredeterminado, #BtnDescargarDibujo, #BtnAnchoBordesPredeterminado {
     color: purple;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -48,7 +51,7 @@ body {
     user-select: none; /* Standard syntax */
 }
 
-    #BtnZoomPredeterminado:hover, #BtnDescargarDibujo:hover {
+    #BtnZoomPredeterminado:hover, #BtnDescargarDibujo:hover, #BtnAnchoBordesPredeterminado:hover {
         background: #f1daf1;        
         color: indigo;
     }
