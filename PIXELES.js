@@ -5177,10 +5177,11 @@ function validarTipoBordes(valor) {
 function validarAnchoBordes(valor) { 
     var nuevo = valor;   
     nuevo = Number(nuevo);
-    //alert("tal cual " + nuevo);    
-    nuevo = nuevo * 100 * 100 / 100; // float corregido
-    //alert("corregido " + nuevo);    
-    var pos = anchoValues.indexOf(nuevo);
+    //alert("nuevo " + nuevo);    
+    nuevo = nuevo * 100; // bug float corregido
+    //alert("nuevo x 100 = " + nuevo);    
+    // var pos = anchoValues.indexOf(nuevo);
+    var pos = proIndexOf(nuevo, anchoValues, 0.001);
     if (pos == -1) {
         return -1; // ancho no válido
     }    
@@ -5191,7 +5192,8 @@ function validarAnchoBordes(valor) {
 function validarRadio(valor) { 
     var nuevo = valor;   
     nuevo = Number(nuevo);   
-    pos = decValues.indexOf(nuevo);
+    // pos = decValues.indexOf(nuevo);
+    var pos = proIndexOf(nuevo, decValues, 0.001);
     if (pos == -1 || pos > 50) {
         return -1; // radio no válido
     }    
@@ -5202,13 +5204,34 @@ function validarRadio(valor) {
 function validarOpacidad(valor) { 
     var nuevo = valor;   
     nuevo = Number(nuevo);   
-    pos = decValues.indexOf(nuevo);
+    // pos = decValues.indexOf(nuevo);
+    var pos = proIndexOf(nuevo, decValues, 0.001);
     if (pos == -1 || pos > 100) {
         return -1; // opacidad no válida
     }    
     // todo bien
     return decValues[pos];
 }
+// devuelve true si dos valores son cercanos
+function casiIgual(v1, v2, epsilon) {
+    if (epsilon == null) {
+      epsilon = 0.001;
+    }
+    return Math.abs(v1 - v2) < epsilon;
+}
+// busca un elemento en un array, si lo encuentra devuelve el índice, de lo contrario devuelve -1
+// usa casiIgual para la comparación
+function proIndexOf (buscado, array, epsilon) { 
+    var i;    
+    for (i = 0; i < array.length; i++) {
+        if (casiIgual(array[i], buscado, epsilon) == true) {
+            // se encontró
+            return i; // el índice            
+        }
+    }
+    // no lo encontró
+    return -1;
+}  
 // devuelve una cadena que representa el dibujo actual
 // separadores:
 //  @m marcadores de archivo
@@ -5245,7 +5268,7 @@ function generarCadenaExportar() {
     cadena = cadena + colorBordesAplicado;
     // opacidad global
     cadena = cadena + "@p";    // P 8
-    cadena = cadena + opacidadAplicada * 100 * 100 / 100; // float corregido   
+    cadena = cadena + opacidadAplicada * 100; // bug float corregido   
     // sombra global
     cadena = cadena + "@p";    // P 9
     cadena = cadena + sombrasAplicada;
