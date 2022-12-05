@@ -5237,9 +5237,16 @@ function proIndexOf (buscado, array, epsilon) {
 //  @m marcadores de archivo
 //  @g individuales de globales
 //  @p cada parámetro global
+//  @f cada fila
+//  @c cada columna
+//  @v cada parámetro individual
 
 function generarCadenaExportar() {     
     let cadena = "";
+    var miFila;
+    var miColumna;
+    var miID;    
+    var miElemDim;
     // marcador inicial
     cadena = "InicioArchivoPixeles" + "@m";
     // GLOBALES
@@ -5277,7 +5284,28 @@ function generarCadenaExportar() {
     cadena = cadena + colorLienzoAplicado;
     // INDIVIDUALES
     cadena = cadena + "@g";
-
+    //recorre todos los cuadritos VISIBLES
+    for (miFila = 1; miFila <= numFilas; miFila++) {
+        for (miColumna = 1; miColumna <= numColumnas; miColumna++) {
+            //construye el id
+            miID = "f" + miFila + "c" + miColumna;                
+            // referencia al cuadrito para optimizar
+            miElemDim = document.getElementById(miID);
+            // color fondo individual
+            cadena = cadena + convertirRGBaHexadecimal(miElemDim.style.backgroundColor); // v 0
+            // radio individual
+            cadena = cadena + "@v";    // v 1
+            cadena = cadena + miElemDim.dataset.radio.slice(0, miElemDim.dataset.radio.length - 1); // le quita el signo %            
+            // serparador de columna
+            if (miColumna < numColumnas) {
+                cadena = cadena + "@c"; 
+            }
+        }
+        // serparador de fila
+        if (miFila < numFilas) {
+            cadena = cadena + "@f"; 
+        }
+    }
     // marcador final
     cadena = cadena + "@m" + "FinArchivoPixeles";
     return cadena;
@@ -5285,6 +5313,9 @@ function generarCadenaExportar() {
 // aplica la información de una cadena al dibujo actual
 function aplicarCadenaImportar(cadena) {     
     let temp; // array al hacer split
+    let tempFilas; // array filas
+    let tempColumnas; // array columnas
+    let tempValores; // array parámetros individuales
     var miFila;
     var miColumna;
     var miID;    
@@ -5369,19 +5400,51 @@ function aplicarCadenaImportar(cadena) {
                 return false; // color hex no válido
             }
         colorLienzoAplicado = temp[10]; // validado
+        // RECUPERA VALORES DE FORMATOS INDIVIDUALES DEL ARCHIVO Y LOS GUARDA EN LOS VECTORES
+        // resetea los arrays de formatos
+        lastArrayColor.length = 0;
+        lastArrayRadio.length = 0;
+        lastArrayColorBordes.length = 0;
+        lastArrayOpacidad.length = 0;
+        lastArraySombras.length = 0;
+        lastArrayLienzo.length = 0;
+        temp = cadena.split("@g"); // separa globales, vamos por los individuales
+        tempFilas = temp[1].split("@f"); // separa las filas        
+        //recorre todos los cuadritos VISIBLES
+        for (miFila = 1; miFila <= numFilas; miFila++) {
+            tempColumnas = tempFilas[miFila - 1].split("@c"); // separa las columnas
+            for (miColumna = 1; miColumna <= numColumnas; miColumna++) {
+                tempValores = tempColumnas[miColumna - 1].split("@v"); // separa las valores individuales
+                // de la cadena a los vectores
+                // color lienzo
+                    // valida
+                    if (validarHex(tempValores[0]) == false) {
+                        return false; // color hex no válido
+                    }
+                lastArrayColor[lastArrayColor.length] = tempValores[0]; // v 0
+                // radio
+                    //valida
+                    var nuevo = validarRadio(tempValores[1]); 
+                    if (nuevo == -1) {
+                        return false; // radio no válido
+                    } 
+                lastArrayRadio[lastArrayRadio.length] = nuevo + "%"; // v 1
+                // ...
+            }
+        }
         // *** APLICA desde variables del archivo al dibujo  
-            // el filtro
-            getFiltro.selectedIndex = actualIndexFiltro;
-            var xsel = getFiltro.selectedIndex;
-            var y = getFiltro.options;
-            // sintaxis estándar
-            getContenedor.style.filter = y[xsel].value;
-            // Safari 6.0 - 9.0
-            getContenedor.style.WebkitFilter = y[xsel].value;                      
-            // selector de num columnas
-            getSelectColumnas.selectedIndex = numColumnas - 1;
-            // selector de num filas
-            getSelectFilas.selectedIndex = numFilas - 1;
+        // el filtro
+        getFiltro.selectedIndex = actualIndexFiltro;
+        var xsel = getFiltro.selectedIndex;
+        var y = getFiltro.options;
+        // sintaxis estándar
+        getContenedor.style.filter = y[xsel].value;
+        // Safari 6.0 - 9.0
+        getContenedor.style.WebkitFilter = y[xsel].value;                      
+        // selector de num columnas
+        getSelectColumnas.selectedIndex = numColumnas - 1;
+        // selector de num filas
+        getSelectFilas.selectedIndex = numFilas - 1;
         // recorre los rótulos y muestra solo los necesarios
         // los de las filas
         for (miFila = 0; miFila <= MAXNUMFILAS; miFila++) {            
@@ -5414,7 +5477,9 @@ function aplicarCadenaImportar(cadena) {
                 // oculto
                 $(miElemDim).addClass("oculto"); 
             }
-        }    
+        } 
+        var miIndex;
+        miIndex = 0;   
         //recorre todos los cuadritos
         for (miFila = 1; miFila <= MAXNUMFILAS; miFila++) {
             for (miColumna = 1; miColumna <= MAXNUMCOLUMNAS; miColumna++) {
@@ -5432,7 +5497,17 @@ function aplicarCadenaImportar(cadena) {
                     // VISIBLES
                     miElemDim.style.display = "inline-block";
                     // les aplica formato individual guardado
+                    // color pixel
+                    miElemDim.style.backgroundColor = lastArrayColor[miIndex];
+                    // radio
+                    miElemDim.dataset.radio = lastArrayRadio[miIndex];
+                    miElemDim.style.MozBorderRadius = lastArrayRadio[miIndex];
+                    miElemDim.style.webkitBorderRadius = lastArrayRadio[miIndex];
+                    miElemDim.style.borderRadius = lastArrayRadio[miIndex];
 
+            
+                    // incrementa índice de los array
+                    miIndex = 1 + miIndex;
                 } else {
                     // NO VISIBLES
                     miElemDim.style.display = "none";
