@@ -420,11 +420,11 @@ function animarBtnHistorial() {
     idAnimarHistorial = 1 + idAnimarHistorial;
 }
 // ********** IMPORTANTE ***********
-// el tamaño máximo de la matriz es 50x50
+// el tamaño máximo de la matriz es 100x100
 // puede cambiar estos dos parámetros para probar matrices más grandes
 // ESTOS SON LOS VALORES MÁXIMOS QUE PUEDEN SELECCIONARSE PARA EL TAMAÑO DE LA MATRIZ
-var MAXNUMFILAS = 50; // NUNCA DEBE SER MENOR QUE numFilas
-var MAXNUMCOLUMNAS = 50; // NUNCA DEBE SER MENOR QUE numColumnas
+var MAXNUMFILAS = 100; // NUNCA DEBE SER MENOR QUE numFilas
+var MAXNUMCOLUMNAS = 100; // NUNCA DEBE SER MENOR QUE numColumnas
 //el tamaño de la matriz por defecto es 10x10
 // ESTE SERÁ EL TAMAÑO DE LA MATRIZ AL ABRIRLA
 var numColumnas = 10;
