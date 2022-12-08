@@ -5291,11 +5291,23 @@ function generarCadenaExportar() {
             miID = "f" + miFila + "c" + miColumna;                
             // referencia al cuadrito para optimizar
             miElemDim = document.getElementById(miID);
-            // color fondo individual
-            cadena = cadena + convertirRGBaHexadecimal(miElemDim.style.backgroundColor); // v 0
+            // color fondo individual // v 0
+            cadena = cadena + convertirRGBaHexadecimal(miElemDim.style.backgroundColor); 
             // radio individual
             cadena = cadena + "@v";    // v 1
             cadena = cadena + miElemDim.dataset.radio.slice(0, miElemDim.dataset.radio.length - 1); // le quita el signo %            
+            // color borde individual
+            cadena = cadena + "@v";    // v 2
+            cadena = cadena + miElemDim.dataset.colorbordes;
+            // opacidad individual
+            cadena = cadena + "@v"; // v 3
+            cadena = cadena + miElemDim.style.opacity * 100; // bug float corregido
+            // sombras individual
+            cadena = cadena + "@v"; // v 4
+            cadena = cadena + miElemDim.dataset.sombras;
+            // color lienzo
+            cadena = cadena + "@v"; // v 5
+            cadena = cadena + miElemDim.dataset.colorlienzo;
             // serparador de columna
             if (miColumna < numColumnas) {
                 cadena = cadena + "@c"; 
@@ -5416,7 +5428,7 @@ function aplicarCadenaImportar(cadena) {
             for (miColumna = 1; miColumna <= numColumnas; miColumna++) {
                 tempValores = tempColumnas[miColumna - 1].split("@v"); // separa las valores individuales
                 // de la cadena a los vectores
-                // color lienzo
+                // color pixel
                     // valida
                     if (validarHex(tempValores[0]) == false) {
                         return false; // color hex no válido
@@ -5429,7 +5441,32 @@ function aplicarCadenaImportar(cadena) {
                         return false; // radio no válido
                     } 
                 lastArrayRadio[lastArrayRadio.length] = nuevo + "%"; // v 1
-                // ...
+                // color bordes
+                    // valida
+                    if (validarHex(tempValores[2]) == false) {
+                        return false; // color hex no válido
+                    }
+                lastArrayColorBordes[lastArrayColorBordes.length] = tempValores[2]; // v 2
+                // opacidad
+                    // valida
+                        var nuevo = validarOpacidad(tempValores[3]);
+                    if (nuevo == -1) {
+                        return false; // opacidad no válida            
+                    }
+                lastArrayOpacidad[lastArrayOpacidad.length] = nuevo / 100; // validado v 3
+                // sombra
+                    // valida  
+                    var nuevo = validarSombras(tempValores[4]);
+                    if (nuevo == -1) {
+                        return false; // sombras no válidas
+                    } 
+                    lastArraySombras[lastArraySombras.length]  = nuevo; // validada v 4
+                // color lienzo
+                    // valida
+                    if (validarHex(tempValores[5]) == false) {
+                        return false; // color hex no válido
+                    }
+                lastArrayLienzo[lastArrayLienzo.length] = tempValores[5]; // v 5                    
             }
         }
         // *** APLICA desde variables del archivo al dibujo  
@@ -5504,8 +5541,20 @@ function aplicarCadenaImportar(cadena) {
                     miElemDim.style.MozBorderRadius = lastArrayRadio[miIndex];
                     miElemDim.style.webkitBorderRadius = lastArrayRadio[miIndex];
                     miElemDim.style.borderRadius = lastArrayRadio[miIndex];
-
-            
+                    // color bordes
+                    miElemDim.dataset.colorbordes = lastArrayColorBordes[miIndex];
+                    miElemDim.style.borderColor = lastArrayColorBordes[miIndex];
+                    // opacidad
+                    miElemDim.style.opacity = lastArrayOpacidad[miIndex];
+                    // sombras
+                    miElemDim.dataset.sombras = lastArraySombras[miIndex];
+                        // remueve todas las clases de sombras
+                        $(miElemDim).removeClass("s0000 s1000 s0100 s0010 s0001 s1001 s1100 s0110 s0011");
+                        // agrega la clase actual de sombras
+                        $(miElemDim).addClass(lastArraySombras[miIndex]);
+                    // color lienzo
+                    miElemDim.dataset.colorlienzo = lastArrayLienzo[miIndex];
+                    $(miElemDim).parent().css("background-color", lastArrayLienzo[miIndex]);
                     // incrementa índice de los array
                     miIndex = 1 + miIndex;
                 } else {
