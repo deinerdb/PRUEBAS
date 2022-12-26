@@ -802,6 +802,35 @@ tr:nth-child(odd) {
     #valorHex:hover {
         background-color: #dcdcdc;
     }
+    #BtnPegarHex {
+        display: block;
+        margin: 12px auto 12px auto;
+        color: purple;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        padding: 15px 20px;
+        border: none;
+        cursor: pointer;
+        max-width: 100%;
+        text-decoration: none;
+        background:lavender; /* For browsers that do not support gradients */
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;        
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 1.05em;
+        /*no se puede seleccionar el texto*/
+        -webkit-user-select: none; /* Chrome, Opera, Safari */
+        -moz-user-select: none; /* Firefox 2+ */
+        -ms-user-select: none; /* IE 10+ */
+        user-select: none; /* Standard syntax */
+
+    }
+    #BtnPegarHex:hover {
+        background: #f1daf1;        
+        color: indigo;
+    }
 /* para el accordion y galería */
 #contenedorEncontrados {
     /* oculto por defecto */

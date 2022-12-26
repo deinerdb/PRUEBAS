@@ -136,6 +136,7 @@ var getcolorPixel = document.getElementById("colorPixel");
 var getBtnRGB = document.getElementById("BtnRGB");
 var getBtnHSL = document.getElementById("BtnHSL");
 var getBtnHex = document.getElementById("BtnHex");
+var getBtnPegarHex = document.getElementById("BtnPegarHex");
 var getBtnGallery = document.getElementById("BtnGallery");
 var getBtnRnd = document.getElementById("BtnRnd");
 var getBtnOpuesto = document.getElementById("BtnOpuesto");
@@ -341,6 +342,51 @@ function validarHex(hex) {
     }
     //todo bien
     return true;
+}
+function pegarTextoHEX(text) {
+    if (text == undefined) {
+        text = "#000000"; // color hex no válido, asume negro
+        // quizá una imagen u otra cosa en el portapapeles
+    }
+    text = text.toLowerCase(); // siempre en minúsculas
+    if (text.length == 6) {
+        text = "#" + text; // le agrega el signo si tiene 6 caracteres
+        // 7 es lo completo
+    }
+    if (validarHex(text) == false) {
+        text = "#000000"; // color hex no válido, asume negro
+    }    
+    // siempre un color hex válido
+    document.getElementById("valorHex").value = text;
+    procesarEntradaHex(); // reacciona
+}
+// función para pegar texto. Devuelve el texto en el portapapeles
+function pegar() {
+    if (window.clipboardData && window.clipboardData.getData) {
+        // para IE
+        // IE specific code path to prevent textarea being shown while dialog is visible.
+        //alert ("parece ie");
+        pegarTextoHEX( window.clipboardData.getData("Text") );
+        showSnackbar("Color hexadecimal pegado");
+    }
+    else if (navigator.clipboard) { 
+        // otros navegadores, no funciona en Firefox          
+            //sintaxis con => genera error de compilación en ie  
+            navigator.clipboard.readText().then(function (textFromClipboard) {
+                //do stuff with textFromClipboard
+                pegarTextoHEX(textFromClipboard);
+                showSnackbar("Color hexadecimal pegado");
+              });
+    }
+}
+// el botón pegar hex
+getBtnPegarHex.onclick = function () {
+    try {        
+        pegar();                       
+    }
+    catch (err) {
+         showSnackbar("Error al intentar pegar");
+    } 
 }
 // valida una expresión numérica, 
 // retorna false si no está en el rango 0 - 255
@@ -2988,7 +3034,7 @@ function showModal() {
         case "hex":
             $("#marcoHex").css("display", "block");
             // info
-            document.getElementById("spanInfoModal").innerHTML = "Ingrese un color en formato hexadecimal (Ejemplo: #ff00ff). Puede usar mayúsculas o minúsculas. Puede omitir el signo #.";
+            document.getElementById("spanInfoModal").innerHTML = "Ingrese un color en formato hexadecimal (Ejemplo: #ff00ff). Tanto al escribir o pegar, puede usar mayúsculas o minúsculas y omitir el signo #. Cualquier color inválido será reemplazado por negro (#000000).";
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-hashtag'></i> Hexadecimal: <i id = 'icoMuestraHex' class='fas fa-square'></i>";
             // inicialmente hex es el color actual
             hexTemp = colorActual;
