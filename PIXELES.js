@@ -1982,16 +1982,26 @@ function aceptarModal() {
                 cadenaGuardada = generarCadenaExportar();
                 // obtiene la cadena del seleccionado ...
                 var miSel = document.getElementsByClassName("seleccionadoImgGalería")[0]; // solo 1 debería serlo
-                var selCadena = miSel.dataset.cadena;                
-                aplicarCadenaImportar(selCadena);
-                // oculta el loader
-                $(".loader").addClass("oculto");
-                // otras tareas
+                var selCadena = miSel.dataset.cadena; 
+                if (aplicarCadenaImportar(selCadena) == false) {
+                    // error al aplicar, debe restaurar
+                    // restaura...
+                    aplicarCadenaImportar(cadenaGuardada);
+                    // no se puede deshacer
+                    estadoBtnDeshacer(false);
+                    // oculta el loader                
+                    $(".loader").addClass("oculto");
+                    showSnackbar("Error al intentar importar desde galería");                                    
+                } else {
+                    // oculta el loader
+                    $(".loader").addClass("oculto");
+                    // otras tareas                
+                    showSnackbar("Importado desde galería: " + miSel.title);
+                    // puede deshacer
+                    estadoBtnDeshacer(true, "Deshacer Importar desde Galería");
+                }
                 // ajusta todo
                 ajustesResize();
-                showSnackbar("Importado desde galería: " + miSel.title);
-                // puede deshacer
-                estadoBtnDeshacer(true, "Deshacer Importar desde Galería");
             }, 0);  
             break;
         case "columnas":
