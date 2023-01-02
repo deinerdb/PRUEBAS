@@ -230,7 +230,7 @@ getSpanInfoBorrar.innerHTML = formatoBorradoComoTexto(formatoBorrado); //  por d
 var formatoAplicadoAlBorrar = "formatosGlobales"; // formatosIniciales y formatosGlobales
 // las clases de íconos para el btn según la variable anterior
 var claseIcoBorrado = "far fa-trash-alt"; // la otra es: "fas fa-sync-alt";
-// modal: ninguno, radio, rgb, gallery, importar, exportar, filas, columnas, 
+// modal: ninguno, radio, rgb, gallery, importar desde archivo, exportar texto, importar desde galería, filas, columnas, 
 //        lienzo, anchoBordes, zoom, tipoBordes, colorBordes, opacidad, sombras, borrador, info
 var modalActual = "ninguno";
 // recuerda el scroll y lo restaura al cerrar el modal
@@ -1962,9 +1962,38 @@ function aplicarLienzoGlobal() {
     // se procesa el historial
     procesarHistorial(colorActual);    
 }
+// al hacer clic en una imagen de la galería de pixeles
+function cambiarImgGalería(img) {
+    // ninguna seleccionada
+    $(".seleccionadoImgGalería").removeClass("seleccionadoImgGalería");
+    // selecciona la actua
+    $(img).addClass("seleccionadoImgGalería");
+}
 // depende de modalActual/
 function aceptarModal() {
     switch (modalActual) {
+        case "importarGalería":  
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {                
+                // para deshacer     
+                lastAction = "importarGalería";
+                // guarda todo para poder deshacer
+                cadenaGuardada = generarCadenaExportar();
+                // obtiene la cadena del seleccionado ...
+                var miSel = document.getElementsByClassName("seleccionadoImgGalería")[0]; // solo 1 debería serlo
+                var selCadena = miSel.dataset.cadena;                
+                aplicarCadenaImportar(selCadena);
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+                // ajusta todo
+                ajustesResize();
+                showSnackbar("Importado desde galería: " + miSel.title);
+                // puede deshacer
+                estadoBtnDeshacer(true, "Deshacer Importar desde Galería");
+            }, 0);  
+            break;
         case "columnas":
             var msj = "Realizado";
             var mensaje = "Deshacer";
@@ -2607,6 +2636,14 @@ function showModal() {
     // por defecto el botón dice "Aceptar"
     $("#BtnAceptar").html("Aceptar");
     switch (modalActual) {
+        case "importarGalería":
+            $("#marcoImportarGalería").css("display", "block");
+            document.getElementById("modalTitle").innerHTML = "<i class='fas fa-file-image'></i> Importar desde Galería";
+            document.getElementById("spanInfoModal").innerHTML = "En esta ventana puede importar un dibujo desde la creciente galería de Pixeles. Seleccione un dibujo y presione ACEPTAR.";                     
+            // para animarla al cerrar: opacidad ajustada
+            restauraOpacidad = true;
+            $(getContenedor).css("opacity", "0");
+            break;
         case "exportarTexto":
             $("#marcoExportarTexto").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-share-square'></i> Exportar dibujo";
@@ -5775,7 +5812,9 @@ getBtnImportarTexto.onclick = function () {
 }
 //se muestra la ventana con opciones para importar desde galería
 getBtnImportarGallery.onclick = function () {
-    showSnackbar("En construcción");
+    modalActual = "importarGalería";
+    //muestra el modal
+    showModal();
 }
 // se muestra la ventana para agregar o eliminar filas
 getBtnFilas.onclick = function () {
@@ -7762,6 +7801,20 @@ getBtnDeshacer.onclick = function () {
     ocupado = true;
     var mensaje = "¡Hecho!";
     switch (lastAction) {
+        case "importarGalería":
+            // deshace importar desde galería           
+            mensaje = "Se deshizo importar desde galería";
+            // muestra un loader...
+            $(".loader").removeClass("oculto");
+            setTimeout(function () {
+                // código alta exigencia
+                aplicarCadenaImportar(cadenaGuardada);
+                // oculta el loader
+                $(".loader").addClass("oculto");
+                // otras tareas
+                
+            }, 0);  
+            break;
         case "importarArchivo":
             // deshace importar desde archivo           
             mensaje = "Se deshizo importar desde archivo";

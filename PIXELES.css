@@ -55,7 +55,36 @@ body {
         background: #f1daf1;        
         color: indigo;
     }
-
+/* pantallas pequeñas*/
+@media only screen and (max-width: 600px) {
+    /* pantallas pequeñas*/
+    .imgGalería {
+        width: 60px !important;
+        height: 60px !important;                    
+    }
+}
+.seleccionadoImgGalería {
+    border-color: indigo !important;
+    -moz-box-shadow: 5px 5px 3px MediumPurple;
+    -webkit-box-shadow: 5px 5px 3px MediumPurple;
+    box-shadow: 5px 5px 3px MediumPurple;
+}
+.imgGalería:hover {
+    opacity: 0.8;
+}
+.imgGalería {
+    width: 120px;
+    height: 120px;
+    cursor: pointer;
+    margin: 8px 6px 16px 0px;
+    border-style: solid;
+    border-color: white;
+    border-width: 4px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;                
+    
+}
 #spanAyudaModos {
     display: inline-block;    
     font-family: Consolas, 'Courier New', Courier, monospace;      
@@ -716,7 +745,7 @@ tr:nth-child(odd) {
     border: 2px inset gray;
     background-color: #000000;
     color: #ffffff;
-    margin: 8px auto 10px auto;
+    margin: 8px auto 18px auto;
     padding: 4px;
     text-align: center;
     overflow: auto;
