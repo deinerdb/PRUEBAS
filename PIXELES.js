@@ -2822,6 +2822,8 @@ function showModal() {
             $(".contenedor-tabla").scrollTop(0);
             $(".contenedor-tabla").scrollLeft(0);
             // LAS PROPIEDADES SE RECUPERAN Y SE ACTUALIZAN EN LA TABLA AL HACER CLIC EN CELDA EN MODO INFO
+            // el btn dice Cerrar, en lugar de Aceptar
+            $("#BtnAceptar").html("Cerrar");
             // para animarla al cerrar: opacidad ajustada
             restauraOpacidad = true;
             $(getContenedor).css("opacity", "0");
