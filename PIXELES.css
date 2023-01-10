@@ -24,6 +24,17 @@ body {
     font-size: 100%;
     -webkit-user-drag: none;
 }
+/* Ayuda */
+/* span ico en ayuda */
+.IcoAyuda {
+    margin: 4px 10px 8px 4px;
+}
+/* íconos en las filas */
+.IcoAyuda i {
+    font-size: 1.2em;
+}
+/* span con texto en ayuda */
+
 #BtnAnchoBordesPredeterminado {
     margin-top: 24px !important;
 }
@@ -337,7 +348,10 @@ table, th, td {
 
 th, td{
     /* espacio alrededor del texto */
-    padding: 8px 18px;
+    padding: 8px 18px;    
+}
+/* estilo solo para el modo info */
+#marcoInfo th, #marcoInfo td {
     white-space: nowrap; /*solo una línea cada celda */
 }
 caption {

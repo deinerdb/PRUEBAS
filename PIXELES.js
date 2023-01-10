@@ -231,7 +231,7 @@ var formatoAplicadoAlBorrar = "formatosGlobales"; // formatosIniciales y formato
 // las clases de íconos para el btn según la variable anterior
 var claseIcoBorrado = "far fa-trash-alt"; // la otra es: "fas fa-sync-alt";
 // modal: ninguno, radio, rgb, gallery, importar desde archivo, exportar texto, importar desde galería, filas, columnas, 
-//        lienzo, anchoBordes, zoom, tipoBordes, colorBordes, opacidad, sombras, borrador, info
+//        lienzo, anchoBordes, zoom, tipoBordes, colorBordes, opacidad, sombras, borrador, info, Ayuda
 var modalActual = "ninguno";
 // recuerda el scroll y lo restaura al cerrar el modal
 var miBodyScroll;
@@ -2646,6 +2646,20 @@ function showModal() {
     // por defecto el botón dice "Aceptar"
     $("#BtnAceptar").html("Aceptar");
     switch (modalActual) {
+        case "ayuda":
+            $("#marcoAyuda").css("display", "block");
+            document.getElementById("modalTitle").innerHTML = "<i class='far fa-question-circle'></i> Ayuda";
+            document.getElementById("spanInfoModal").innerHTML = "La ventana de ayuda muestra información sobre todas las herramientas de Pixeles. Puede usar el campo de búsqueda para filtrar la tabla.";
+            // scroll ajustado en la tabla para que no recuerde valores de la anterior llamada
+            $(".contenedor-tabla").scrollTop(0);
+            $(".contenedor-tabla").scrollLeft(0);
+            // LA INFORMACIÓN DE LA TABLA DE AYUDA ESTÁ EN EL ARCHIVO HTML
+            // el btn dice Cerrar, en lugar de Aceptar
+            $("#BtnAceptar").html("Cerrar");
+            // para animarla al cerrar: opacidad ajustada
+            restauraOpacidad = true;
+            $(getContenedor).css("opacity", "0");
+            break;
         case "importarGalería":
             $("#marcoImportarGalería").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-file-image'></i> Importar desde Galería";
@@ -5205,7 +5219,9 @@ getArrowGrupoDimensionar.onclick = function () {
 
 //se muestra la ventana de ayuda
 getBtnAyuda.onclick = function () {
-    showSnackbar("En construcción");
+    modalActual = "ayuda";
+    //muestra el modal
+    showModal();
 }
 // devuelve -1 si no es un número de columna válido
 function validarNumColumna(valor) { 
