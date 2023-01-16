@@ -25,15 +25,22 @@ body {
     -webkit-user-drag: none;
 }
 /* Ayuda */
+#marcoAyuda th, #marcoAyuda td {
+    text-align: left;
+}
 /* span ico en ayuda */
-.IcoAyuda {
-    margin: 4px 10px 8px 4px;
+.IcoAyuda { 
+    float: left;
+    margin: 0 12px 6px 0;
+    /* van con texto a la derecha ...*/
+    color: rebeccapurple;
+    text-align: center;
 }
 /* íconos en las filas */
 .IcoAyuda i {
-    font-size: 1.2em;
+    font-size: 1.8em;    
+    margin: 0;
 }
-/* span con texto en ayuda */
 
 #BtnAnchoBordesPredeterminado {
     margin-top: 24px !important;
