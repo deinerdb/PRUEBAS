@@ -2656,6 +2656,8 @@ function showModal() {
             // LA INFORMACIÓN DE LA TABLA DE AYUDA ESTÁ EN EL ARCHIVO HTML
             // el btn dice Cerrar, en lugar de Aceptar
             $("#BtnAceptar").html("Cerrar");
+            // nada que buscar
+            document.getElementById("buscarAyuda").value = "";
             // para animarla al cerrar: opacidad ajustada
             restauraOpacidad = true;
             $(getContenedor).css("opacity", "0");

@@ -25,8 +25,71 @@ body {
     -webkit-user-drag: none;
 }
 /* Ayuda */
+#contBuscarAyuda {
+    text-align: center;
+    margin:4px 4px 8px 6px;
+    padding:0;
+    max-width: 100%;
+    border-width:0;
+    background-color: white;
+}
+#buscarAyuda {
+    background-image: url('searchicon.png');
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    /*background-size: 20px 20px;*/
+    padding: 5px 8px 8px 40px;
+    background-color: white;
+    color: black;
+    width: 92%;
+    min-width: 210px;
+    max-width: 95%;
+    overflow: auto;
+    margin: 4px 0px 6px 0px;
+    font-family: Consolas, 'Courier New', Courier, monospace;
+    font-size: 18px;
+    text-align: left;
+    border: 2px solid #4a048f;
+    border: 2px inset #4a048f;
+    /* BORDE REDONDEADO*/
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    /* animado */
+    -moz-transition: -moz-box-shadow 0.3s;
+    -o-transition: box-shadow 0.3s;
+    -webkit-transition: -webkit-box-shadow 0.3s;
+    transition: box-shadow 0.3s;
+    opacity: 0.75;
+}
+
+    #buscarAyuda:focus {
+        /*background-color: #dcdcdc;*/
+        border-style: outset;        
+        /*SOMBRA*/
+        -moz-box-shadow: 3px 5px 4px #C0C0C0, 6px 9px 7.5px thistle;
+        -webkit-box-shadow: 3px 5px 4px #C0C0C0, 6px 9px 7.5px thistle;
+        box-shadow: 3px 5px 4px #C0C0C0, 6px 9px 7.5px thistle; /* GRIS Y Thistle  */                         
+      
+    }
+
+    #buscarAyuda:hover {
+        /*background-color: #dcdcdc;*/
+        border-style: outset !important;    
+        border-color: indigo !important; 
+        opacity: 1;        
+    }
+
 #marcoAyuda th, #marcoAyuda td {
     text-align: left;
+}
+#marcoAyuda th {
+    background-color: white;
+    padding: 0;
+    text-align: left;
+    border-style: inset;
+    border-color: purple;
+    border-width: 2px;    
 }
 /* span ico en ayuda */
 .IcoAyuda { 
