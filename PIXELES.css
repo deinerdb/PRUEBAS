@@ -25,9 +25,38 @@ body {
     -webkit-user-drag: none;
 }
 /* Ayuda */
+#infoNoEncontradosAyuda {
+    color: #ad00ad;
+    font-family: Consolas, 'Courier New', Courier, monospace;
+    font-size: 1.18em;
+    text-align: center;
+    font-weight: bold;
+    display: none;                    
+}
+/* se gestiona con clases cuando haya filas ocultas */
+/* tr:nth-child(even) { */
+    .par {
+        /*filas pares*/
+        background-color: #e6e6fa; /* tono claro */
+    }
+    /* tr:nth-child(odd) { */
+    .impar {
+        /*filas impares*/
+        background-color: #ffffff; /*blanco*/
+    }
+        /* se gestiona por nth cuando se muestran todas */
+    tr.todas:nth-child(even) {                
+        /*filas pares*/
+        background-color: #e6e6fa; /* tono claro */
+    }
+    tr.todas:nth-child(odd) {            
+        /*filas impares*/
+        background-color: #ffffff; /*blanco*/
+    }
+    
 #contBuscarAyuda {
     text-align: center;
-    margin:4px 4px 8px 6px;
+    margin:10px 4px 8px 6px;
     padding:0;
     max-width: 100%;
     border-width:0;

@@ -64,6 +64,9 @@ var getPie = document.getElementById("pie");
 var getpieAfter = document.getElementById("pieAfter");
 var getBtnHistorialColor = document.getElementById("BtnHistorialColor");
 var getBtnAyuda = document.getElementById("BtnAyuda");
+// info sin resultados
+var getInfoNoEncontrados = document.getElementById("infoNoEncontradosAyuda");
+var getCampoBuscarAyuda = document.getElementById("buscarAyuda");
 var getBtnEtiquetas = document.getElementById("BtnEtiquetas");
 var getIcoEtiquetas = document.getElementById("icoEtiquetas");
 var getBtnRellenar = document.getElementById("BtnRellenar");
@@ -2649,7 +2652,7 @@ function showModal() {
         case "ayuda":
             $("#marcoAyuda").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<i class='far fa-question-circle'></i> Ayuda";
-            document.getElementById("spanInfoModal").innerHTML = "La ventana de ayuda muestra información sobre todas las herramientas de Pixeles. Puede usar el campo de búsqueda para filtrar la tabla.";
+            document.getElementById("spanInfoModal").innerHTML = "La ventana de ayuda muestra información sobre todas las herramientas de Pixeles. Puede usar el campo de búsqueda para filtrar la tabla. Se admite el * como caracter comodín.";
             // scroll ajustado en la tabla para que no recuerde valores de la anterior llamada
             $(".contenedor-tabla").scrollTop(0);
             $(".contenedor-tabla").scrollLeft(0);
@@ -2657,7 +2660,8 @@ function showModal() {
             // el btn dice Cerrar, en lugar de Aceptar
             $("#BtnAceptar").html("Cerrar");
             // nada que buscar
-            document.getElementById("buscarAyuda").value = "";
+            getCampoBuscarAyuda.value = "";            
+            procesarEntradaBuscarAyuda(); // actualiza todo
             // para animarla al cerrar: opacidad ajustada
             restauraOpacidad = true;
             $(getContenedor).css("opacity", "0");
@@ -8756,6 +8760,158 @@ function imprimir() {
 function nowImprime() {
     window.print();
 }
+//obtiene un array con todos los de la clase fila-ayuda
+var arrayFilasAyuda = document.getElementsByClassName("fila-ayuda");
+// aprovechando que son paralelos en relación uno a uno, para iterar
+var arrayFilasAyudaTexto = document.getElementsByClassName("TextoAyuda");
+var cantidadFilasAyuda = arrayFilasAyuda.length;
+
+// La función de búsqueda en la ayuda que admite * como caracter comodín                         
+function buscarPro(buscado, buscarEn) {
+    var arrayBuscado = [];
+    // un array con el separador *                
+    arrayBuscado = buscado.split("*")
+    // para indicar el inicio de cada búsqueda
+    var iniciar = 0;
+    var pos = 0;
+    // el largo de cada cadena buscada
+    var largo = 0;
+    // para iterar
+    var i;
+    // recorre el array de cadenas buscadas
+    for (i = 0; i < arrayBuscado.length; i++) {
+        // según la búsqueda anterior, define el inicio en este ciclo
+        iniciar = 0 + pos + largo;
+        // pos es nuevo en cada ciclo
+        pos = buscarEn.indexOf(arrayBuscado[i], iniciar);
+        if ( pos == -1 ) {
+            // si no encuentra sale inmediatamente y devuelve falso
+            return false;
+        }
+        // largo también se actualiza en cada ciclo
+        largo = arrayBuscado[i].length;                    
+    }
+    // si llega aquí devuelve verdadero
+    return true;
+}
+
+// procesa las entradas en el campo buscarAyuda
+var buscandoAyuda = false;
+var timerBuscarAyuda = 0;
+
+function procesarEntradaBuscarAyuda() {                
+    if (buscandoAyuda == true) {        
+        // cancela el temporizador en curso para la nueva búsqueda
+        clearTimeout(timerBuscarAyuda);
+        // inicia el temporizador para nueva búsqueda
+        timerBuscarAyuda = setTimeout(function () {
+            procesarEntradaBuscarAyuda();
+        }, 500);
+        return;
+    } 
+    buscandoAyuda = true;   
+    // recupera el valor del campo
+    var test = getCampoBuscarAyuda.value;
+    if (test.length <= 0) {                   
+        // si no hay nada, muestra todas las filas
+        // remueve las clases de paridad y oculto
+        $(".fila-ayuda").removeClass("par impar oculto");
+        // agrega la clase todas
+        $(".fila-ayuda").addClass("todas");
+        // oculta el error, todos son visibles
+        $(getInfoNoEncontrados).css("display", "none");        
+        // desocupado y sale
+        buscandoAyuda = false;
+        return;
+    }
+    // en este punto sabemos que no es una cadena vacía    
+    // Nota: es indiferente a las mayúsculas, siempre se almacena en minúsculas    
+    test = test.toLowerCase();
+    // recorre las filas de ayuda    
+    var i;
+    // para obtener la información de la fila en la ayuda            
+    var miInfoFull = "";
+    var cantidadEncontrados = 0;
+    // oculta el error inicialmente
+    $(getInfoNoEncontrados).css("display", "none");                
+    //recorre todo el array y compara su contenido con el ingresado
+    for (i = 0; i < cantidadFilasAyuda; i++) {
+        // recupera la información completa del artículo                     
+        miInfoFull = arrayFilasAyudaTexto[i].innerHTML;        
+        miInfoFull = miInfoFull + "";
+        miInfoFull = miInfoFull.toLowerCase();                                        
+        if ( buscarPro(test, miInfoFull) == false ) {
+            // no coincide, lo oculta
+            $(arrayFilasAyuda[i]).addClass("oculto");                       
+        } else {
+            // coincide, lo muestra
+            $(arrayFilasAyuda[i]).removeClass("oculto");
+            // va contando los que muestra
+            cantidadEncontrados++;
+            // gestiona la paridad por clases
+            if ( cantidadEncontrados % 2 == 0 ) {
+                // par
+                $(arrayFilasAyuda[i]).addClass("par");
+                $(arrayFilasAyuda[i]).removeClass("impar todas");
+            } else {
+                // impar
+                $(arrayFilasAyuda[i]).addClass("impar");
+                $(arrayFilasAyuda[i]).removeClass("par todas");
+            }
+        }
+    }
+    if (cantidadEncontrados > 0) {
+        // oculta el error
+        $(getInfoNoEncontrados).css("display", "none");        
+    } else {
+        // muestra el error
+        $(getInfoNoEncontrados).css("display", "block");        
+    }
+    // al final indica que ya está desocupado
+    buscandoAyuda = false;
+}
+
+ //  eventos al cambiar valor buscarAyuda  
+
+ getCampoBuscarAyuda.addEventListener("input", procesarEntradaBuscarAyuda);
+ getCampoBuscarAyuda.addEventListener("change", procesarEntradaBuscarAyuda);
+
+//capturando pulsación de teclado en campo buscarAyuda...
+
+getCampoBuscarAyuda.onkeydown = function (e) {
+
+    var characterCode;
+    // e.key es la recomendación actual
+    if (e.key != undefined) {
+        if (e.key.toLowerCase() == "enter") {
+            characterCode = 13;
+        }
+        else {
+            characterCode = 0;
+        }
+    } else {
+        /* navegadores antiguos...  */
+        characterCode = e.which || e.charCode || e.keyCode || e.keyIdentifier || 0;
+    }
+
+    // solo si presionó Enter
+    if (characterCode == 13) {
+
+        // da el enfoque al contenedor indicado,
+        // esto permite que se oculte el teclado en algunos móviles
+
+        if (getCampoBuscarAyuda.value.length == 0) {
+            // no hace nada, no hay nada que buscar
+            showSnackbar("Nada que buscar...");                            
+        } else {
+            getCampoBuscarAyuda.blur();
+            document.getElementById("contenedor-tabla-ayuda").focus();
+        }       
+
+    }
+
+}
+
 // PARA EL SNACKBAR
 //****************
 
