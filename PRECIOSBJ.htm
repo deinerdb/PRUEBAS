@@ -7214,11 +7214,11 @@
                 document.documentElement.scrollTop = 0; // For IE and Firefox
             } 
 
-            // array global, para optimizar la búsqueda
+            // array y variable global, para optimizar la búsqueda
             //obtiene un array con todos los de la clase fila
             var arrayFilas = document.getElementsByClassName("fila");
             var cantidadProductos = arrayFilas.length;
-
+            var getCampoBuscarProducto = document.getElementById("buscarProducto");
             // info sin resultados
             var getInfoNoEncontrados = document.getElementById("infoNoEncontrados");
             
@@ -7271,7 +7271,8 @@
                 } 
                 buscandoProducto = true;   
                 // recupera el valor del campo
-                var test = document.getElementById("buscarProducto").value;
+                //var test = document.getElementById("buscarProducto").value;
+                var test = getCampoBuscarProducto.value;
                 if (test.length <= 0) {                   
                     // si no hay nada, muestra todas las filas
                     // remueve las clases de paridad y oculto
@@ -7342,10 +7343,10 @@
         <script>
             //  eventos al cambiar valor buscarProducto  
 
-                document.getElementById("buscarProducto").addEventListener("input", procesarEntradaBuscarProducto);
-                document.getElementById("buscarProducto").addEventListener("change", procesarEntradaBuscarProducto);
+                getCampoBuscarProducto.addEventListener("input", procesarEntradaBuscarProducto);
+                getCampoBuscarProducto.addEventListener("change", procesarEntradaBuscarProducto);
                 //capturando pulsación de teclado en campo buscarProducto...
-                document.getElementById("buscarProducto").onkeydown = function (e) {
+                getCampoBuscarProducto.onkeydown = function (e) {
 
                     var characterCode;
                     // e.key es la recomendación actual
@@ -7367,11 +7368,11 @@
                         // da el enfoque al contenedor indicado,
                         // esto permite que se oculte el teclado en algunos móviles
 
-                        if (document.getElementById("buscarProducto").value.length == 0) {
+                        if (getCampoBuscarProducto.value.length == 0) {
                             // no hace nada, no hay nada que buscar
                             showSnackbar("Nada que buscar...");                            
                         } else {
-                            document.getElementById("buscarProducto").blur();
+                            getCampoBuscarProducto.blur();
                             document.getElementById("contenedor-tabla").focus();
                         }       
 
