@@ -8,6 +8,11 @@ var getRelleno = document.getElementById("relleno");
 var infoTemp = document.getElementById("infoTemporal");
 var getPaletaArriba = document.getElementById("paletaArriba");
 var getPaletaAbajo = document.getElementById("paletaAbajo");
+//temporalmente ocultas
+$(getPaletaAbajo).addClass("oculto");
+$(getPaletaArriba).addClass("oculto");
+var getDivAjuste = document.getElementById("divAjuste");
+$(getDivAjuste).addClass("oculto");
 var getPaletaHistorial = document.getElementById("paletaHistorial");
 var getBtnCerrarHistorial = document.getElementById("BtnCerrarHistorial");
 var getSpanModo = document.getElementById("spanModo");
@@ -1360,10 +1365,16 @@ function ajustesResize() {
         // por un bug en tv LG
         // estoy probando con un pixel adicional
         getContenedor.width = 1 + getContenedor.scrollWidth + "px";
-        getContenedor.height = 1 + getContenedor.scrollHeight + "px";
+        getContenedor.height = 1 + getContenedor.scrollHeight + "px";        
     }
     else {
         alturaModal();
+        // para obtener espacio disponible
+        // cuando está en zoom
+        if (modalActual == "zoom") {
+            getDivAjuste.style.top = 0 + getPaletaArriba.offsetHeight + "px";            
+            getDivAjuste.style.bottom = 0 + getPaletaAbajo.offsetHeight + "px";            
+        }
         // cuando está en galería
         if (modalActual == "gallery") {
             // recorre los paneles
@@ -1794,6 +1805,10 @@ function cerrarModal() {
     // oculta el modal
     modal.style.display = "none";
     // acciones específicas, según el modal que se cierra
+    if (modalActual == "zoom") {
+        // no lo necesito
+        $(getDivAjuste).addClass("oculto");
+    }
     if (modalActual == "hsl") {
         // libera recursos
         dec360Values.length = 0;
@@ -2650,9 +2665,9 @@ function showModal() {
     $("#BtnAceptar").html("Aceptar");
     switch (modalActual) {
         case "ayuda":
-            $("#marcoAyuda").css("display", "block");
+            $("#marcoAyuda").css("display", "block");            
             document.getElementById("modalTitle").innerHTML = "<i class='far fa-question-circle'></i> Ayuda";
-            document.getElementById("spanInfoModal").innerHTML = "La ventana de ayuda muestra información sobre todas las herramientas de Pixeles. Puede usar el campo de búsqueda para filtrar la tabla. Se admite el * como caracter comodín.";
+            document.getElementById("spanInfoModal").innerHTML = "La ventana de ayuda muestra información sobre " + cantidadFilasAyuda + " herramientas de Pixeles. Puede usar el campo de búsqueda para filtrar la tabla. Se admite el * como caracter comodín.";
             // scroll ajustado en la tabla para que no recuerde valores de la anterior llamada
             $(".contenedor-tabla").scrollTop(0);
             $(".contenedor-tabla").scrollLeft(0);
@@ -3021,6 +3036,8 @@ function showModal() {
             break;
         case "zoom":
             $("#marcoZoom").css("display", "block");
+            // lo necesito para obtner tamaño disponible
+            $(getDivAjuste).removeClass("oculto");
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-eye'></i> Ajustar tamaño";
             document.getElementById("spanInfoModal").innerHTML = "Use el control para definir rápidamente el tamaño de la cuadrícula en pixeles. El tamaño preterminado es 24 px.";
             // el rango toma el valor actual
@@ -9180,3 +9197,6 @@ topFunction();
 // dasactiva el botón deshacer, no se ha hecho nada
 // nota que la primera vez que se llama dimensionar se activa, pero aquí se desactiva para que sea su estado inicial
 estadoBtnDeshacer(false);
+//temporalmente ocultas, ahora disponibles
+$(getPaletaAbajo).removeClass("oculto");
+$(getPaletaArriba).removeClass("oculto");

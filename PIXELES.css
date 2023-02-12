@@ -4,6 +4,7 @@ lienzos seleccionados 3
 lienzos resaltados 4
 cuadrito resaltado 5 
 spanModo 80
+divAjuste 90
 paleta 100
 paleta full 150
 hover y active en paletas 180
@@ -24,7 +25,18 @@ body {
     font-size: 100%;
     -webkit-user-drag: none;
 }
+#divAjuste {
+    z-index: 90;
+    border: 1px solid transparent;
+    position: fixed;
+    top: 100px;    
+    width: 88% !important; 
+    pointer-events: none;
+}
 /* Ayuda */
+#icoFlechaLeftAyuda {
+    margin-right: 6px !important;
+}
 #infoNoEncontradosAyuda {
     color: #ad00ad;
     font-family: Consolas, 'Courier New', Courier, monospace;

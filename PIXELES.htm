@@ -97,6 +97,21 @@
                                 </tr> 
                                 <tr class="fila-ayuda todas">                                        
                                     <td><span class="IcoAyuda"><i class="fas fa-search-plus"></i></span><span class="TextoAyuda">Aumentar tamaño: incrementa el tamaño de los pixeles del dibujo en una unidad. El tamaño máximo es 100 px. En el modo 'Pantalla Completa' establece en 'Aumentar' la acción al tocar o hacer clic.</span></td>                                    
+                                </tr>
+                                <tr class="fila-ayuda todas">                                        
+                                    <td><span class="IcoAyuda"><i class="fas fa-expand"></i></span><span class="TextoAyuda">Pantalla Completa: activa el modo pantalla completa. Se ocultan elementos de la aplicación, para poder apreciar solo el dibujo.</span></td>                                    
+                                </tr>
+                                <tr class="fila-ayuda todas">                                        
+                                    <td><span class="IcoAyuda"><i class="fas fa-compress"></i></span><span class="TextoAyuda">Cerrar Modo Pantalla Completa: Sale del modo pantalla completa y vuelve a disponer de todas las herramientas de la página. Mostrado solo en pantalla completa.</span></td>                                    
+                                </tr>
+                                <tr class="fila-ayuda todas">                                        
+                                    <td><span class="IcoAyuda"><i class="fas fa-undo"></i></span><span class="TextoAyuda">Deshacer: deshace la última acción. Tenga en cuenta que solo puede deshacer una única acción. Algunos cambios, como el zoom o el fondo, no se pueden deshacer.</span></td>                                    
+                                </tr>
+                                <tr class="fila-ayuda todas">                                        
+                                    <td><span class="IcoAyuda"><i class="fas fa-tools"></i></span><span class="TextoAyuda">Expandir o contraer el grupo Herramientas: muestra u oculta las herramientas de Pixeles, tales como el Modo Pincel, Borrador, Copiar, Pegar, Cortar, Opacidad, Sombras, entre otras.</span></td>                                    
+                                </tr>
+                                <tr class="fila-ayuda todas">                                        
+                                    <td><span class="IcoAyuda"><i id="icoFlechaLeftAyuda" class="fas fa-angle-double-left"></i><i class="fas fa-angle-double-right"></i></span><span class="TextoAyuda">Expandir o contraer el grupo: estos botones muestran u ocultan las herramientas del grupo que corresponda (Herramientas, Colores, Bordes, Dimensionar, Compartir). Se usan colores para asociar fácilmente cada elemento del grupo. Los botones agrupados permiten tener una interfaz más sencilla y organizada.</span></td>                                    
                                 </tr>                            
                             </tbody>
                         </table>
@@ -1092,6 +1107,7 @@
         </select>        
         <span class="espacioDerecha"> </span>
     </div>
+    <div id="divAjuste"></div>
     <button id="BtnCerrarHistorial" title="Cerrar historial"><i class="fas fa-window-close"></i></button>
     <div class="paleta" id="paletaHistorial">
         <br>
