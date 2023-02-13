@@ -624,6 +624,8 @@ var getMuestraZoom = document.getElementById("muestraZoom");
 var getEtiquetaZoom = document.getElementById("etiquetaZoom");
 // btn por defecto
 var getBtnZoomPredeterminado = document.getElementById("BtnZoomPredeterminado");
+// btn ajustado
+var getBtnZoomAjustado = document.getElementById("BtnZoomAjustado");
 // para no repetirlo en input y change del slider zoom
 function actualizaSliderZoom(nuevoValor) {
     var nuevo = nuevoValor;
@@ -663,7 +665,15 @@ getBtnZoomPredeterminado.onclick = function () {
     var miTamaño = 24;
     sliderZoom.value = miTamaño;
     actualizaSliderZoom(miTamaño);
-    showSnackbar("Ajustado a valor predeterminado: " + miTamaño + " px");
+    showSnackbar("Establecido en valor predeterminado: " + miTamaño + " px");
+}
+// el btn para colocarlo en tamaño ajustado a la pantalla
+getBtnZoomAjustado.onclick = function () {
+    //var miTamaño = 24;
+    //sliderZoom.value = miTamaño;
+    //actualizaSliderZoom(miTamaño);
+    //showSnackbar("Ajustado a valor predeterminado: " + miTamaño + " px");
+    showSnackbar("En construcción...");
 }
 //el input range del ancho de los bordes
 var sliderAnchoBordes = document.getElementById("rangoAnchoBordes");

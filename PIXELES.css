@@ -47,24 +47,24 @@ body {
 }
 /* se gestiona con clases cuando haya filas ocultas */
 /* tr:nth-child(even) { */
-    .par {
-        /*filas pares*/
-        background-color: #e6e6fa; /* tono claro */
-    }
-    /* tr:nth-child(odd) { */
-    .impar {
-        /*filas impares*/
-        background-color: #ffffff; /*blanco*/
-    }
-        /* se gestiona por nth cuando se muestran todas */
-    tr.todas:nth-child(even) {                
-        /*filas pares*/
-        background-color: #e6e6fa; /* tono claro */
-    }
-    tr.todas:nth-child(odd) {            
-        /*filas impares*/
-        background-color: #ffffff; /*blanco*/
-    }
+.par {
+    /*filas pares*/
+    background-color: #e6e6fa; /* tono claro */
+}
+/* tr:nth-child(odd) { */
+.impar {
+    /*filas impares*/
+    background-color: #ffffff; /*blanco*/
+}
+    /* se gestiona por nth cuando se muestran todas */
+tr.todas:nth-child(even) {                
+    /*filas pares*/
+    background-color: #e6e6fa; /* tono claro */
+}
+tr.todas:nth-child(odd) {            
+    /*filas impares*/
+    background-color: #ffffff; /*blanco*/
+}
     
 #contBuscarAyuda {
     text-align: center;
@@ -149,7 +149,10 @@ body {
 #BtnAnchoBordesPredeterminado {
     margin-top: 24px !important;
 }
-#BtnZoomPredeterminado, #BtnDescargarDibujo, #BtnAnchoBordesPredeterminado {
+#BtnZoomAjustado {
+    margin-left: 12px !important;
+}
+#BtnZoomAjustado, #BtnZoomPredeterminado, #BtnDescargarDibujo, #BtnAnchoBordesPredeterminado {
     color: purple;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -173,7 +176,7 @@ body {
     user-select: none; /* Standard syntax */
 }
 
-    #BtnZoomPredeterminado:hover, #BtnDescargarDibujo:hover, #BtnAnchoBordesPredeterminado:hover {
+    #BtnZoomAjustado:hover, #BtnZoomPredeterminado:hover, #BtnDescargarDibujo:hover, #BtnAnchoBordesPredeterminado:hover {
         background: #f1daf1;        
         color: indigo;
     }
@@ -484,12 +487,12 @@ th {
     color: white;
     background-color: #4a048f; /*verde oscuro*/
 }
-tr:nth-child(even) {
+#marcoInfo tr:nth-child(even) {
     /*filas pares*/
     background-color: #e6e6fa; /* verde claro */
 }
 
-tr:nth-child(odd) {
+#marcoInfo tr:nth-child(odd) {
     /*filas impares*/
     background-color: #ffffff; /*blanco*/
 }
