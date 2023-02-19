@@ -4560,11 +4560,13 @@ function crearCuadritos() {
             if (fila == 0 || columna == 0){
                 // crea rótulo
                 miColumna = document.createElement("DIV");
-                miColumna.setAttribute("class", "etiqueta");
+                miColumna.setAttribute("class", "etiqueta");                
                 if (fila == 0 && columna != 0){
                     miColumna.innerHTML = columna;
+                    miColumna.setAttribute("title", "Columna " + columna);
                 } else if (columna == 0 && fila != 0) {
                     miColumna.innerHTML = fila;
+                    miColumna.setAttribute("title", "Fila " + fila);
                 }
                 // llevan id (row and col)
                 miID = "r" + fila + "c" + columna;
