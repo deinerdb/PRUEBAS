@@ -669,11 +669,38 @@ getBtnZoomPredeterminado.onclick = function () {
 }
 // el btn para colocarlo en tamaño ajustado a la pantalla
 getBtnZoomAjustado.onclick = function () {
-    //var miTamaño = 24;
-    //sliderZoom.value = miTamaño;
-    //actualizaSliderZoom(miTamaño);
-    //showSnackbar("Ajustado a valor predeterminado: " + miTamaño + " px");
-    showSnackbar("En construcción...");
+    // inicia con tamaño máximo
+    var miTamaño = 100;
+    var anchoRequerido;
+    var altoRequerido;
+    // ajusta todo
+    ajustesResize();
+    // obtiene las dimensiones del div, el área disponible
+    var altoDisponible = getDivAjuste.offsetHeight;
+    var anchoDisponible = getDivAjuste.offsetWidth;
+    for (miTamaño = 100; miTamaño >= 4; miTamaño--) {
+        // calcula las dimensiones requeridas para cada miTamaño
+        // toma en cuenta la visibilidad de la etiquetas
+        if (mostrarEtiquetas == true) {
+            anchoRequerido = miTamaño * (1 + numColumnas);
+            altoRequerido = miTamaño * (1 + numFilas);
+        } else {
+            anchoRequerido = miTamaño * numColumnas;
+            altoRequerido = miTamaño * numFilas;
+        }
+        if ( anchoRequerido < anchoDisponible && altoRequerido < altoDisponible ) {
+            // si no se desborda, ha encontrado el tamaño ajustado
+            break; // sale del for y conserva miTamaño
+        }
+    }
+    // debido al comportamiento del for
+    if ( miTamaño < 4 ) {
+        miTamaño = 4;
+    }
+    sliderZoom.value = miTamaño;
+    actualizaSliderZoom(miTamaño);
+    showSnackbar("Establecido en valor ajustado: " + miTamaño + " px");
+    
 }
 //el input range del ancho de los bordes
 var sliderAnchoBordes = document.getElementById("rangoAnchoBordes");
@@ -3049,7 +3076,7 @@ function showModal() {
             // lo necesito para obtner tamaño disponible
             $(getDivAjuste).removeClass("oculto");
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-eye'></i> Ajustar tamaño";
-            document.getElementById("spanInfoModal").innerHTML = "Use el control para definir rápidamente el tamaño de la cuadrícula en pixeles. El tamaño preterminado es 24 px.";
+            document.getElementById("spanInfoModal").innerHTML = "Use el control para definir rápidamente el tamaño de la cuadrícula en pixeles. El tamaño 'Predeterminado' es 24 px. El tamaño 'Ajustado' se calcula según las dimensiones de la ventana en ese instante.";
             // el rango toma el valor actual
             sliderZoom.value = tamaño;
             // ajusta la muestra
