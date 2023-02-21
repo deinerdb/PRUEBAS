@@ -145,14 +145,18 @@ tr.todas:nth-child(odd) {
     font-size: 1.8em;    
     margin: 0;
 }
-
+#BtnMostrarAyuda, #BtnMostrarGalería, #BtnMostrarImportarArchivo {
+    width: 80%;
+    margin-top: 16px !important;
+    margin-bottom: 8px !important;
+}
 #BtnAnchoBordesPredeterminado {
     margin-top: 24px !important;
 }
 #BtnZoomAjustado {
     margin-left: 12px !important;
 }
-#BtnZoomAjustado, #BtnZoomPredeterminado, #BtnDescargarDibujo, #BtnAnchoBordesPredeterminado {
+#BtnZoomAjustado, #BtnZoomPredeterminado, #BtnDescargarDibujo, #BtnAnchoBordesPredeterminado, #BtnMostrarAyuda, #BtnMostrarGalería, #BtnMostrarImportarArchivo {
     color: purple;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -176,10 +180,14 @@ tr.todas:nth-child(odd) {
     user-select: none; /* Standard syntax */
 }
 
-    #BtnZoomAjustado:hover, #BtnZoomPredeterminado:hover, #BtnDescargarDibujo:hover, #BtnAnchoBordesPredeterminado:hover {
+#BtnMostrarImportarArchivo:hover, #BtnMostrarGalería:hover, #BtnMostrarAyuda:hover, #BtnZoomAjustado:hover, #BtnZoomPredeterminado:hover, #BtnDescargarDibujo:hover, #BtnAnchoBordesPredeterminado:hover {
         background: #f1daf1;        
         color: indigo;
-    }
+}
+#BtnMostrarImportarArchivo:active, #BtnMostrarGalería:active, #BtnMostrarAyuda:active, #BtnZoomAjustado:active, #BtnZoomPredeterminado:active, #BtnDescargarDibujo:active, #BtnAnchoBordesPredeterminado:active {
+    background: darkred;        
+    color: white;
+}
 /* pantallas pequeñas*/
 @media only screen and (max-width: 600px) {
     /* pantallas pequeñas*/

@@ -239,7 +239,7 @@ var formatoAplicadoAlBorrar = "formatosGlobales"; // formatosIniciales y formato
 // las clases de íconos para el btn según la variable anterior
 var claseIcoBorrado = "far fa-trash-alt"; // la otra es: "fas fa-sync-alt";
 // modal: ninguno, radio, rgb, gallery, importar desde archivo, exportar texto, importar desde galería, filas, columnas, 
-//        lienzo, anchoBordes, zoom, tipoBordes, colorBordes, opacidad, sombras, borrador, info, Ayuda
+//        lienzo, anchoBordes, zoom, tipoBordes, colorBordes, opacidad, sombras, borrador, info, Ayuda, bienvenida
 var modalActual = "ninguno";
 // recuerda el scroll y lo restaura al cerrar el modal
 var miBodyScroll;
@@ -2701,6 +2701,16 @@ function showModal() {
     // por defecto el botón dice "Aceptar"
     $("#BtnAceptar").html("Aceptar");
     switch (modalActual) {
+        case "bienvenida":
+            $("#marcoBienvenida").css("display", "block");            
+            document.getElementById("modalTitle").innerHTML = "<i class='fas fa-door-open'></i> Bienvenida";
+            document.getElementById("spanInfoModal").innerHTML = "Esta es la pantalla de bienvenida a Pixeles. Esta página contiene herramientas para crear, editar y compartir dibujos hechos con pixeles. ¡Que la disfrutes! ...";                       
+            // el btn dice Cerrar, en lugar de Aceptar
+            $("#BtnAceptar").html("Cerrar");            
+            // para animarla al cerrar: opacidad ajustada
+            restauraOpacidad = true;
+            $(getContenedor).css("opacity", "0");
+            break;
         case "ayuda":
             $("#marcoAyuda").css("display", "block");            
             document.getElementById("modalTitle").innerHTML = "<i class='far fa-question-circle'></i> Ayuda";
@@ -7784,6 +7794,35 @@ getBtnRellenar.onclick = function () {
         showSnackbar("Relleno global aplicado");
     }, 0);  
     
+}
+// FUNCIÓN QUE DEFINE LA ACCIÓN EN LA VENTANA DE BIENVENIDA
+function cursoBienvenida(curso) {
+    // siempre cierra la ventana de bienvenida
+    cerrarModal();
+    // dependiendo el btn, decide
+    switch (curso) {
+        case "ayuda":
+            // muestra la ayuda
+            modalActual = "ayuda";
+            //muestra el modal
+            showModal();
+            break;
+        case "importarTexto":
+            // muestra ventana con opciones para importar desde texto
+            modalActual = "importarTexto";
+            //muestra el modal
+            showModal();
+            break
+        case "importarGalería":
+            // muestra ventana con opciones para importar desde galería
+            modalActual = "importarGalería";
+            //muestra el modal
+            showModal();
+            break
+        //case "cerrar":
+            // no hace nada           
+            //break
+    }
 }
 // para ajustar el ANCHO de los bordes
 getBtnAnchoBordes.onclick = function () {    
