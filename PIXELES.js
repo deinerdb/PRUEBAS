@@ -1842,6 +1842,10 @@ function cerrarModal() {
     // oculta el modal
     modal.style.display = "none";
     // acciones específicas, según el modal que se cierra
+    if (modalActual == "bienvenida") {
+        // sin fondo
+        $(getmodalBody).removeClass("modal-body-fondo");
+    }
     if (modalActual == "zoom") {
         // no lo necesito
         $(getDivAjuste).addClass("oculto");
@@ -2702,6 +2706,8 @@ function showModal() {
     $("#BtnAceptar").html("Aceptar");
     switch (modalActual) {
         case "bienvenida":
+            // lleva un fondo gif
+            $(getmodalBody).addClass("modal-body-fondo");
             $("#marcoBienvenida").css("display", "block");            
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-door-open'></i> Bienvenida";
             document.getElementById("spanInfoModal").innerHTML = "Esta es la pantalla de bienvenida a Pixeles. Esta página contiene herramientas para crear, editar y compartir dibujos hechos con pixeles. ¡Que la disfrutes! ...";                       
