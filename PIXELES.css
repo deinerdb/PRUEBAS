@@ -145,9 +145,19 @@ tr.todas:nth-child(odd) {
     font-size: 1.8em;    
     margin: 0;
 }
-#BtnMostrarAyuda, #BtnMostrarGalería, #BtnMostrarImportarArchivo {
-    width: 80%;
-    margin-top: 16px !important;
+.btn-bienvenida {
+    width: 90%;
+    text-align: left;
+}
+.btn-bienvenida i {
+    color: indigo;
+    font-weight: bold;
+    font-size: 1.2em !important;
+    margin-right: 10px;
+    
+}
+#BtnMostrarAyuda, #BtnMostrarGalería, #BtnMostrarImportarArchivo {    
+    margin-top: 14px !important;
     margin-bottom: 8px !important;
 }
 #BtnAnchoBordesPredeterminado {
@@ -166,7 +176,7 @@ tr.todas:nth-child(odd) {
     cursor: pointer;
     max-width: 100%;
     text-decoration: none;
-    background:lavender; /* For browsers that do not support gradients */
+    background-color:lavender;  /* For browsers that do not support gradients */
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -2464,6 +2474,7 @@ th {
     background-repeat: repeat;
     background-size: auto;
 }
+
 /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
