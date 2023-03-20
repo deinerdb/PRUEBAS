@@ -11,7 +11,7 @@
         <title>INICIO - Pruebas HTML5 - CSS - JavaScript</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="estilo.css" />
-        <link href='https://fonts.googleapis.com/css?family=Handlee' rel='stylesheet'>
+        <!-- <link href='https://fonts.googleapis.com/css?family=Handlee' rel='stylesheet'> -->
         <link rel="icon" href="favicon.ico" type="image/x-icon"/>
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
         <!--*jQuery CDN
@@ -20,6 +20,13 @@
     -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
         <style>
+            @font-face {
+                font-family: 'handleeregular';
+                src: url('handlee-regular-webfont.woff2') format('woff2'),
+                    url('handlee-regular-webfont.woff') format('woff');
+                font-weight: normal;
+                font-style: normal;
+            }
             .loader {
                 position: fixed;
                 left: 0px;
@@ -32,7 +39,7 @@
                 filter: Alpha(opacity=80); /* IE8 and earlier */
             }
             .marquee h3 {
-                font-family: Handlee, Tahoma, Arial, sans-serif;
+                font-family: handleeregular, Tahoma, Arial, sans-serif;
             }
         </style>
     </head>
