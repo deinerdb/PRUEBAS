@@ -14,8 +14,8 @@
         <link rel="shortcut icon" href="UtilBJ.ico" type="image/x-icon" />  
         <!-- jquery cargado desde servidor de Google -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-         <!--  una fuente de Google -->
-        <link href='https://fonts.googleapis.com/css?family=Space Mono' rel='stylesheet'>
+         <!--  una fuente de Google, MEJOR EN EL MISMO SERVIDOR, DESCARGADA -->
+        <!-- <link href='https://fonts.googleapis.com/css?family=Space Mono' rel='stylesheet'> -->
 
         <style>    
             /* z-index (niveles de capas)
@@ -24,6 +24,13 @@
             snack 500
             loader 9999
             */
+            @font-face {
+                font-family: 'space_monoregular';
+                src: url('spacemono-regular-webfont.woff2') format('woff2'),
+                    url('spacemono-regular-webfont.woff') format('woff');
+                font-weight: normal;
+                font-style: normal;
+            }
             #h3Info {
                 color: purple;
                 margin: 12px auto 12px auto;
@@ -32,7 +39,7 @@
             }   
             textarea {
                 resize: none;
-                font-family: 'Space Mono', Consolas, Courier New, Courier, monospace;
+                font-family: 'space_monoregular', Consolas, Courier New, Courier, monospace;
             }         
             .copiar-ico {
                 margin-right: 8px;
@@ -91,7 +98,7 @@
                 border-width: 3px;
                 color: purple;
                 background-color: white;
-                font-family: 'Space Mono', Consolas, Courier New, Courier, monospace;
+                font-family: 'space_monoregular', Consolas, Courier New, Courier, monospace;
                 font-size: 18px;
                 width: 260px;
                 max-width: 75% !important;
@@ -126,7 +133,7 @@
             #checkLista1, #checkLista2, #checkLista3 {
                 text-align: left;
                 margin: 22px 4px 10px 22px;
-                font-family: 'Space Mono', Consolas, 'Courier New', Courier, monospace;
+                font-family: 'space_monoregular', Consolas, 'Courier New', Courier, monospace;
             }
             /* el último de cada grupo */
             /* en los marcos el último elemento puede ser un select u otro elemento */
@@ -234,7 +241,7 @@
             }
             #detalles input {
                 font-size: 1.05em;
-                font-family: 'Space Mono', Consolas, Courier New, Courier, monospace;
+                font-family: 'space_monoregular', Consolas, Courier New, Courier, monospace;
             }
             #btnCopiarCódigo, #btnCopiarCompraSin, #btnCopiarLista1Sin, #btnCopiarLista2Sin, #btnCopiarLista3Sin {
                 margin: 12px 8px 10px 0px;
@@ -248,7 +255,7 @@
                 padding: 8px 16px;
                 text-decoration: none;
                 cursor: pointer;
-                font-family: 'Space Mono', Consolas, Courier New, Courier, monospace;
+                font-family: 'space_monoregular', Consolas, Courier New, Courier, monospace;
                 font-size: 20px;
                 /*no se puede seleccionar el texto*/
                 -webkit-user-select: none; /* Chrome, Opera, Safari */
@@ -737,7 +744,7 @@
                 white-space: nowrap; /*solo una línea cada celda */
             }
             tr {
-                font-family: 'Space Mono', Consolas, 'Courier New', Courier, monospace;
+                font-family: 'space_monoregular', Consolas, 'Courier New', Courier, monospace;
             }
             .fila {
                 /* para poder copiar la info debe abrir el modal */
@@ -776,7 +783,7 @@
             .num {
                 /* celdas numéricas */
                 text-align: right;
-                font-family: 'Space Mono', Consolas, 'Courier New', Courier, monospace;
+                font-family: 'space_monoregular', Consolas, 'Courier New', Courier, monospace;
             }
             .compra {
                 color: red;                
@@ -848,7 +855,7 @@
                 color: white; /* White text color */
                 text-align: center; /* Centered text */
                 /*font-family: Verdana, Geneva, Tahoma, sans-serif; fuente*/
-                font-family: 'Space Mono', Consolas, Courier New, Courier, monospace;
+                font-family: 'space_monoregular', Consolas, Courier New, Courier, monospace;
                 -moz-border-radius: 10px; /*borde redondeado*/
                 -webkit-border-radius: 10px; /*borde redondeado*/
                 border-radius: 10px; /*borde redondeado*/
@@ -905,7 +912,7 @@
                     width: 100%;
                     /* color: #e600e6; */
                     color: #330066;
-                    font-family: 'Space Mono', Courier New, Courier, monospace;
+                    font-family: 'space_monoregular', Courier New, Courier, monospace;
                     font-weight: bold;
                     text-shadow: 2px 2px 3px #ffffff;
                     /*no se puede seleccionar el texto*/
@@ -1109,7 +1116,7 @@
                 max-width: 95%;
                 overflow: auto;
                 margin: 6px 0px 6px 0px;
-                font-family: 'Space Mono', Consolas, 'Courier New', Courier, monospace;
+                font-family: 'space_monoregular', Consolas, 'Courier New', Courier, monospace;
                 font-size: 18px;
                 text-align: left;
                 border: 2px solid #4a048f;
@@ -1144,7 +1151,7 @@
                 }
                 #infoNoEncontrados {
                     color: #ad00ad;
-                    font-family: 'Space Mono', Consolas, 'Courier New', Courier, monospace;
+                    font-family: 'space_monoregular', Consolas, 'Courier New', Courier, monospace;
                     font-size: 1.18em;
                     text-align: center;
                     font-weight: bold;
@@ -2367,13 +2374,13 @@
                     <td  class='num'>$3.100</td>
                     <td  class='num'>$3.100</td>
                     </tr>
-                    <tr data-lista1con='1200' data-lista2con='1050' data-lista3con='1000' data-lista3sin='840.34' data-lista2sin='882.35' data-lista1sin='1008.4' data-comprasin='735.29' data-descripción='CAJ X 120 PTES X 25 UNID' data-nombre='VASO PLÁST 7 ONZ TUC' data-nombrepos='VASO PLAS 7 ONZ TUC' data-subgrupo='VASOS PLÁSTICOS' data-grupo='DESECHABLES' data-ref='7 ONZ TUC' data-cod='DES-VP-01' onclick= 'seleccionaProducto(this)' class='fila todas' data-full='DES-VP-01 7 ONZ TUC VASO PLAS 7 ONZ TUC VASO PLÁST 7 ONZ TUC'>
+                    <tr data-lista1con='1400' data-lista2con='1300' data-lista3con='1300' data-lista3sin='1092.44' data-lista2sin='1092.44' data-lista1sin='1176.47' data-comprasin='735.29' data-descripción='CAJ X 120 PTES X 25 UNID' data-nombre='VASO PLÁST 7 ONZ TUC' data-nombrepos='VASO PLAS 7 ONZ TUC' data-subgrupo='VASOS PLÁSTICOS' data-grupo='DESECHABLES' data-ref='7 ONZ TUC' data-cod='DES-VP-01' onclick= 'seleccionaProducto(this)' class='fila todas' data-full='DES-VP-01 7 ONZ TUC VASO PLAS 7 ONZ TUC VASO PLÁST 7 ONZ TUC'>
                     <td class='copiar' onclick= 'clickCopiar(event, this)'><i class='copiar-ico far fa-copy'></i>DES-VP-01</td>
                     <td><span class='campo-nombre'>VASO PLÁST 7 ONZ TUC-CAJ X 120 PTES X 25 UNID</span><span class='campo-pos'>VASO PLAS 7 ONZ TUC</span><span class='campo-ref'>7 ONZ TUC</span></td>
                     <td  class='num compra'>$875</td>
-                    <td  class='num lista1'>$1.200</td>
-                    <td  class='num'>$1.050</td>
-                    <td  class='num'>$1.000</td>
+                    <td  class='num lista1'>$1.400</td>
+                    <td  class='num'>$1.300</td>
+                    <td  class='num'>$1.300</td>
                     </tr>
                     <tr data-lista1con='2800' data-lista2con='2600' data-lista3con='2500' data-lista3sin='2100.84' data-lista2sin='2184.87' data-lista1sin='2352.94' data-comprasin='1728' data-descripción='CAJ X 60 PTES X 50 UNID' data-nombre='VASO PLÁST 3.5 ONZ CARV' data-nombrepos='VASO PL 3.5 OZ CARV' data-subgrupo='VASOS PLÁSTICOS' data-grupo='DESECHABLES' data-ref='3,5 ONZ CARV X 50' data-cod='DES-VP-04' onclick= 'seleccionaProducto(this)' class='fila todas' data-full='DES-VP-04 3,5 ONZ CARV X 50 VASO PL 3.5 OZ CARV VASO PLÁST 3.5 ONZ CARV'>
                     <td class='copiar' onclick= 'clickCopiar(event, this)'><i class='copiar-ico far fa-copy'></i>DES-VP-04</td>
@@ -2599,13 +2606,13 @@
                     <td  class='num'>$1.400</td>
                     <td  class='num'>$1.300</td>
                     </tr>
-                    <tr data-lista1con='2400' data-lista2con='2300' data-lista3con='2200' data-lista3sin='1848.74' data-lista2sin='1932.77' data-lista1sin='2016.81' data-comprasin='1512.61' data-descripción='CAJ X 50 PTES X 50 UNID' data-nombre='VASO PLÁST OPAL 7 ONZ VBC' data-nombrepos='VASO PLAST 7 OZ VBC' data-subgrupo='VASOS PLÁSTICOS' data-grupo='DESECHABLES' data-ref='7 ONZ VBC X50' data-cod='DES-VP-47' onclick= 'seleccionaProducto(this)' class='fila todas' data-full='DES-VP-47 7 ONZ VBC X50 VASO PLAST 7 OZ VBC VASO PLÁST OPAL 7 ONZ VBC'>
+                    <tr data-lista1con='2600' data-lista2con='2500' data-lista3con='2400' data-lista3sin='2016.81' data-lista2sin='2100.84' data-lista1sin='2184.87' data-comprasin='1697.48' data-descripción='CAJ X 50 PTES X 50 UNID' data-nombre='VASO PLÁST OPAL 7 ONZ VBC' data-nombrepos='VASO PLAST 7 OZ VBC' data-subgrupo='VASOS PLÁSTICOS' data-grupo='DESECHABLES' data-ref='7 ONZ VBC X50' data-cod='DES-VP-47' onclick= 'seleccionaProducto(this)' class='fila todas' data-full='DES-VP-47 7 ONZ VBC X50 VASO PLAST 7 OZ VBC VASO PLÁST OPAL 7 ONZ VBC'>
                     <td class='copiar' onclick= 'clickCopiar(event, this)'><i class='copiar-ico far fa-copy'></i>DES-VP-47</td>
                     <td><span class='campo-nombre'>VASO PLÁST OPAL 7 ONZ VBC-CAJ X 50 PTES X 50 UNID</span><span class='campo-pos'>VASO PLAST 7 OZ VBC</span><span class='campo-ref'>7 ONZ VBC X50</span></td>
-                    <td  class='num compra'>$1.800</td>
-                    <td  class='num lista1'>$2.400</td>
-                    <td  class='num'>$2.300</td>
-                    <td  class='num'>$2.200</td>
+                    <td  class='num compra'>$2.020</td>
+                    <td  class='num lista1'>$2.600</td>
+                    <td  class='num'>$2.500</td>
+                    <td  class='num'>$2.400</td>
                     </tr>
                     <tr data-lista1con='2000' data-lista2con='1900' data-lista3con='1800' data-lista3sin='1512.61' data-lista2sin='1596.64' data-lista1sin='1680.67' data-comprasin='1260.5' data-descripción='CAJ X 72/80 PTES X 50 UNID' data-nombre='VASO PLÁST COL 3,3 ONZ CONCHITA' data-nombrepos='VASO COL3.3OZ CONCH' data-subgrupo='VASOS PLÁSTICOS' data-grupo='DESECHABLES' data-ref='3,3 ONZ COL CONCHITA X50' data-cod='DES-VP-48' onclick= 'seleccionaProducto(this)' class='fila todas' data-full='DES-VP-48 3,3 ONZ COL CONCHITA X50 VASO COL3.3OZ CONCH VASO PLÁST COL 3,3 ONZ CONCHITA'>
                     <td class='copiar' onclick= 'clickCopiar(event, this)'><i class='copiar-ico far fa-copy'></i>DES-VP-48</td>
@@ -3879,13 +3886,13 @@
                     <td  class='num'>$6.000</td>
                     <td  class='num'>$5.500</td>
                     </tr>
-                    <tr data-lista1con='10000' data-lista2con='9000' data-lista3con='8800' data-lista3sin='7394.96' data-lista2sin='7563.03' data-lista1sin='8403.36' data-comprasin='6344.54' data-descripción='BTO X 5 PAC X 10 PTE X 70 UNID' data-nombre='BOLSA MANIG 25K UVA PC' data-nombrepos='BOLSA MA 25K UVA PC' data-subgrupo='CON MANIGUETA' data-grupo='BOLSAS' data-ref='25K UVA PC' data-cod='BOL-MAN-50' onclick= 'seleccionaProducto(this)' class='fila todas' data-full='BOL-MAN-50 25K UVA PC BOLSA MA 25K UVA PC BOLSA MANIG 25K UVA PC'>
+                    <tr data-lista1con='10000' data-lista2con='9600' data-lista3con='9400' data-lista3sin='7899.16' data-lista2sin='8067.23' data-lista1sin='8403.36' data-comprasin='6722.69' data-descripción='BTO X 6 PAC X 10 PTE X 70 UNID' data-nombre='BOLSA MANIG 25K UVA PC' data-nombrepos='BOLSA MA 25K UVA PC' data-subgrupo='CON MANIGUETA' data-grupo='BOLSAS' data-ref='25K UVA PC' data-cod='BOL-MAN-50' onclick= 'seleccionaProducto(this)' class='fila todas' data-full='BOL-MAN-50 25K UVA PC BOLSA MA 25K UVA PC BOLSA MANIG 25K UVA PC'>
                     <td class='copiar' onclick= 'clickCopiar(event, this)'><i class='copiar-ico far fa-copy'></i>BOL-MAN-50</td>
-                    <td><span class='campo-nombre'>BOLSA MANIG 25K UVA PC-BTO X 5 PAC X 10 PTE X 70 UNID</span><span class='campo-pos'>BOLSA MA 25K UVA PC</span><span class='campo-ref'>25K UVA PC</span></td>
-                    <td  class='num compra'>$7.550</td>
+                    <td><span class='campo-nombre'>BOLSA MANIG 25K UVA PC-BTO X 6 PAC X 10 PTE X 70 UNID</span><span class='campo-pos'>BOLSA MA 25K UVA PC</span><span class='campo-ref'>25K UVA PC</span></td>
+                    <td  class='num compra'>$8.000</td>
                     <td  class='num lista1'>$10.000</td>
-                    <td  class='num'>$9.000</td>
-                    <td  class='num'>$8.800</td>
+                    <td  class='num'>$9.600</td>
+                    <td  class='num'>$9.400</td>
                     </tr>
                     <tr data-lista1con='8000' data-lista2con='7250' data-lista3con='7150' data-lista3sin='6008.4' data-lista2sin='6092.44' data-lista1sin='6722.69' data-comprasin='5462.18' data-descripción='PAC X 20 PTE X 50 UNID' data-nombre='BOLSA MANIG 25K UVA ZP' data-nombrepos='BOLSA MA 25K UVA ZP' data-subgrupo='CON MANIGUETA' data-grupo='BOLSAS' data-ref='25K UVA ZP' data-cod='BOL-MAN-51' onclick= 'seleccionaProducto(this)' class='fila todas' data-full='BOL-MAN-51 25K UVA ZP BOLSA MA 25K UVA ZP BOLSA MANIG 25K UVA ZP'>
                     <td class='copiar' onclick= 'clickCopiar(event, this)'><i class='copiar-ico far fa-copy'></i>BOL-MAN-51</td>
@@ -6304,8 +6311,9 @@
                     <td  class='num'>$24.000</td>
                     </tr>
                     
-                    <span style='display: none;' id='numVersVBA'>Versión web 892</span>
+                    <span style='display: none;' id='numVersVBA'>Versión web 894</span>
                     </tbody>
+                    
                     
                     
                 <!-- _____________________________ -->
