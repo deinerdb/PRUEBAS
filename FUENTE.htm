@@ -17,7 +17,7 @@
     -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
-        <link href='https://fonts.googleapis.com/css?family=Abel' rel='stylesheet'>
+        <!-- <link href='https://fonts.googleapis.com/css?family=Abel' rel='stylesheet'> -->
         <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=Akronim' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=Amaranth' rel='stylesheet'>
@@ -39,7 +39,7 @@
         <link href='https://fonts.googleapis.com/css?family=Sriracha' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=The Girl Next Door' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=Wallpoet' rel='stylesheet'>
-        <link href='https://fonts.googleapis.com/css?family=Handlee' rel='stylesheet'>
+        <!-- <link href='https://fonts.googleapis.com/css?family=Handlee' rel='stylesheet'> -->
         <link rel="icon" href="favicon.ico" type="image/x-icon" />
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
         <style>
@@ -50,6 +50,21 @@
                 font-weight: normal;
                 font-style: normal;
             }
+            @font-face {
+                font-family: 'handleeregular';
+                src: url('handlee-regular-webfont.woff2') format('woff2'),
+                    url('handlee-regular-webfont.woff') format('woff');
+                font-weight: normal;
+                font-style: normal;
+            }
+            @font-face {
+                font-family: 'abelregular';
+                src: url('abel-regular-webfont.woff2') format('woff2'),
+                    url('abel-regular-webfont.woff') format('woff');
+                font-weight: normal;
+                font-style: normal;
+            }   
+
             .loader {
                 position: fixed;
                 left: 0px;
@@ -109,7 +124,7 @@
                 margin-top: 16px;
                 color: #000000;
                 background-color: #ffffff;
-                font-family: 'Abel';
+                font-family: 'abelregular';
                 font-size: 16px;
                 padding: 12px 10px 12px 10px;
                 font-weight: normal;
@@ -151,7 +166,7 @@
             }
             #pFuente {
                 font-size: 1.2em;
-                font-family: 'Abel';
+                font-family: 'abelregular';
                 padding: 1px 1px 1px 12px;
                 margin: 0px 0px 2px 0px;
                 overflow: auto;
@@ -172,7 +187,7 @@
             /*
             #fuente {
                 font-size:1.2em;
-                font-family: 'Abel';
+                font-family: 'abelregular';
             }
                 */
 
@@ -585,7 +600,7 @@
                     <h2>Elegir fuente</h2>
                 </div>
                 <div class="modal-body" id="modalBody">
-                    <a class="selected" id="abel" onclick="cambiaFuente(this);"  style="font-family:'Abel';">Abel</a>
+                    <a class="selected" id="abel" onclick="cambiaFuente(this);"  style="font-family:'abelregular';">Abel</a>
                     <a id="aclonica" onclick="cambiaFuente(this);" style="font-family:'Aclonica';">Aclonica</a>
                     <a id="akronim" onclick="cambiaFuente(this);"  style="font-family:'Akronim';">Akronim</a>
                     <a id="amaranth" onclick="cambiaFuente(this);"  style="font-family:'Amaranth';">Amaranth</a>
@@ -607,7 +622,7 @@
                     <a id="sriracha" onclick="cambiaFuente(this);"  style="font-family:'Sriracha';">Sriracha</a>
                     <a id="girl" onclick="cambiaFuente(this);"  style="font-family:'The Girl Next Door';">The Girl Next Door</a>
                     <a id="wallpoet" onclick="cambiaFuente(this);"  style="font-family:'Wallpoet';">Wallpoet</a>
-                    <a id="handlee" onclick="cambiaFuente(this);"  style="font-family:'Handlee';">Handlee</a>
+                    <a id="handlee" onclick="cambiaFuente(this);"  style="font-family:'handleeregular';">Handlee</a>
                 </div>
                 <div class="modal-footer" id="modalFooter">
                     <h4>Todas gratis en Google Fonts</h4>
@@ -1121,8 +1136,8 @@
                         //switch (miFuente.options.item(miFuente.options.selectedIndex).value) {
                         switch (actual.id) {
                             case "abel":
-                                miTexto.style.fontFamily = "Abel";
-                                miFuente.style.fontFamily = "Abel";
+                                miTexto.style.fontFamily = "abelregular";
+                                miFuente.style.fontFamily = "abelregular";
                                 break;
                             case "aclonica":
                                 miTexto.style.fontFamily = "Aclonica";
@@ -1209,8 +1224,8 @@
                                 miFuente.style.fontFamily = "Wallpoet";
                                 break;
                             case "handlee":
-                                miTexto.style.fontFamily = "Handlee'";
-                                miFuente.style.fontFamily = "Handlee'";
+                                miTexto.style.fontFamily = "handleeregular";
+                                miFuente.style.fontFamily = "handleeregular";
                                 break;
 
 
