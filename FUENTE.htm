@@ -18,7 +18,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
         <!-- <link href='https://fonts.googleapis.com/css?family=Abel' rel='stylesheet'> -->
-        <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
+        <!-- <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'> -->
         <link href='https://fonts.googleapis.com/css?family=Akronim' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=Amaranth' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=Asset' rel='stylesheet'>
@@ -63,7 +63,14 @@
                     url('abel-regular-webfont.woff') format('woff');
                 font-weight: normal;
                 font-style: normal;
-            }   
+            }            
+            @font-face {
+                font-family: 'aclonicaregular';
+                src: url('aclonica-regular-webfont.woff2') format('woff2'),
+                    url('aclonica-regular-webfont.woff') format('woff');
+                font-weight: normal;
+                font-style: normal;
+            }
 
             .loader {
                 position: fixed;
@@ -601,7 +608,7 @@
                 </div>
                 <div class="modal-body" id="modalBody">
                     <a class="selected" id="abel" onclick="cambiaFuente(this);"  style="font-family:'abelregular';">Abel</a>
-                    <a id="aclonica" onclick="cambiaFuente(this);" style="font-family:'Aclonica';">Aclonica</a>
+                    <a id="aclonica" onclick="cambiaFuente(this);" style="font-family:'aclonicaregular';">Aclonica</a>
                     <a id="akronim" onclick="cambiaFuente(this);"  style="font-family:'Akronim';">Akronim</a>
                     <a id="amaranth" onclick="cambiaFuente(this);"  style="font-family:'Amaranth';">Amaranth</a>
                     <a id="asset" onclick="cambiaFuente(this);"  style="font-family:'Asset';">Asset</a>
@@ -1140,8 +1147,8 @@
                                 miFuente.style.fontFamily = "abelregular";
                                 break;
                             case "aclonica":
-                                miTexto.style.fontFamily = "Aclonica";
-                                miFuente.style.fontFamily = "Aclonica";
+                                miTexto.style.fontFamily = "aclonicaregular";
+                                miFuente.style.fontFamily = "aclonicaregular";
                                 break;
                             case "akronim":
                                 miTexto.style.fontFamily = "Akronim";
