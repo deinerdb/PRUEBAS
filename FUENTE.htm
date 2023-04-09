@@ -19,10 +19,10 @@
 
         <!-- <link href='https://fonts.googleapis.com/css?family=Abel' rel='stylesheet'> -->
         <!-- <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'> -->
-        <link href='https://fonts.googleapis.com/css?family=Akronim' rel='stylesheet'>
-        <link href='https://fonts.googleapis.com/css?family=Amaranth' rel='stylesheet'>
-        <link href='https://fonts.googleapis.com/css?family=Asset' rel='stylesheet'>
-        <link href='https://fonts.googleapis.com/css?family=Bungee Shade' rel='stylesheet'>
+        <!-- <link href='https://fonts.googleapis.com/css?family=Akronim' rel='stylesheet'> -->
+        <!-- <link href='https://fonts.googleapis.com/css?family=Amaranth' rel='stylesheet'> -->
+        <!-- <link href='https://fonts.googleapis.com/css?family=Asset' rel='stylesheet'> -->
+        <!-- <link href='https://fonts.googleapis.com/css?family=Bungee Shade' rel='stylesheet'> -->
         <link href='https://fonts.googleapis.com/css?family=Cedarville Cursive' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=Coming Soon' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=Cookie' rel='stylesheet'>
@@ -68,6 +68,35 @@
                 font-family: 'aclonicaregular';
                 src: url('aclonica-regular-webfont.woff2') format('woff2'),
                     url('aclonica-regular-webfont.woff') format('woff');
+                font-weight: normal;
+                font-style: normal;
+            }                        
+            @font-face {
+                font-family: 'akronimregular';
+                src: url('akronim-regular-webfont.woff2') format('woff2'),
+                    url('akronim-regular-webfont.woff') format('woff');
+                font-weight: normal;
+                font-style: normal;
+
+            }
+            @font-face {
+                font-family: 'amaranthregular';
+                src: url('amaranth-regular-webfont.woff2') format('woff2'),
+                    url('amaranth-regular-webfont.woff') format('woff');
+                font-weight: normal;
+                font-style: normal;
+            }
+            @font-face {
+                font-family: 'assetregular';
+                src: url('asset-regular-webfont.woff2') format('woff2'),
+                    url('asset-regular-webfont.woff') format('woff');
+                font-weight: normal;
+                font-style: normal;
+            }
+            @font-face {
+                font-family: 'bungee_shaderegular';
+                src: url('bungeeshade-regular-webfont.woff2') format('woff2'),
+                    url('bungeeshade-regular-webfont.woff') format('woff');
                 font-weight: normal;
                 font-style: normal;
             }
@@ -609,10 +638,10 @@
                 <div class="modal-body" id="modalBody">
                     <a class="selected" id="abel" onclick="cambiaFuente(this);"  style="font-family:'abelregular';">Abel</a>
                     <a id="aclonica" onclick="cambiaFuente(this);" style="font-family:'aclonicaregular';">Aclonica</a>
-                    <a id="akronim" onclick="cambiaFuente(this);"  style="font-family:'Akronim';">Akronim</a>
-                    <a id="amaranth" onclick="cambiaFuente(this);"  style="font-family:'Amaranth';">Amaranth</a>
-                    <a id="asset" onclick="cambiaFuente(this);"  style="font-family:'Asset';">Asset</a>
-                    <a id="bungee" onclick="cambiaFuente(this);"  style="font-family:'Bungee Shade';">Bungee Shade</a>
+                    <a id="akronim" onclick="cambiaFuente(this);"  style="font-family:'akronimregular';">Akronim</a>
+                    <a id="amaranth" onclick="cambiaFuente(this);"  style="font-family:'amaranthregular';">Amaranth</a>
+                    <a id="asset" onclick="cambiaFuente(this);"  style="font-family:'assetregular';">Asset</a>
+                    <a id="bungee" onclick="cambiaFuente(this);"  style="font-family:'bungee_shaderegular';">Bungee Shade</a>
                     <a id="cedarville" onclick="cambiaFuente(this);"  style="font-family:'Cedarville Cursive';">Cedarville Cursive</a>
                     <a id="coming" onclick="cambiaFuente(this);"  style="font-family: 'Coming Soon';">Coming Soon</a>
                     <a id="cookie" onclick="cambiaFuente(this);"  style="font-family:'Cookie';">Cookie</a>
@@ -1151,20 +1180,20 @@
                                 miFuente.style.fontFamily = "aclonicaregular";
                                 break;
                             case "akronim":
-                                miTexto.style.fontFamily = "Akronim";
-                                miFuente.style.fontFamily = "Akronim";
+                                miTexto.style.fontFamily = "akronimregular";
+                                miFuente.style.fontFamily = "akronimregular";
                                 break;
                             case "amaranth":
-                                miTexto.style.fontFamily = "Amaranth";
-                                miFuente.style.fontFamily = "Amaranth";
+                                miTexto.style.fontFamily = "amaranthregular";
+                                miFuente.style.fontFamily = "amaranthregular";
                                 break;
                             case "asset":
-                                miTexto.style.fontFamily = "Asset";
-                                miFuente.style.fontFamily = "Asset";
+                                miTexto.style.fontFamily = "assetregular";
+                                miFuente.style.fontFamily = "assetregular";
                                 break;
                             case "bungee":
-                                miTexto.style.fontFamily = "'Bungee Shade'";
-                                miFuente.style.fontFamily = "'Bungee Shade'";
+                                miTexto.style.fontFamily = "'bungee_shaderegular'";
+                                miFuente.style.fontFamily = "'bungee_shaderegular'";
                                 break;
                             case "cedarville":
                                 miTexto.style.fontFamily = "'Cedarville Cursive'";

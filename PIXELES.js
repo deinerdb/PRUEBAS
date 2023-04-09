@@ -2709,8 +2709,8 @@ function showModal() {
             // lleva un fondo gif
             $(getmodalBody).addClass("modal-body-fondo");
             $("#marcoBienvenida").css("display", "block");            
-            document.getElementById("modalTitle").innerHTML = "<i class='fas fa-door-open'></i> Bienvenida";
-            document.getElementById("spanInfoModal").innerHTML = "Esta es la pantalla de bienvenida a Pixeles. Esta página contiene herramientas para crear, editar y compartir dibujos hechos con pixeles. ¡Que la disfrutes! ...";                       
+            document.getElementById("modalTitle").innerHTML = "<i class='fas fa-door-open'></i> ¡ Hola !";
+            document.getElementById("spanInfoModal").innerHTML = "Bienvenido a Pixeles. Esta página contiene herramientas para crear, editar y compartir dibujos hechos con pixeles. ¡Que la disfrutes! ...";                       
             // el btn dice Cerrar, en lugar de Aceptar
             $("#BtnAceptar").html("Cerrar");            
             // para animarla al cerrar: opacidad ajustada
