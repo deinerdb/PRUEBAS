@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html lang="es" dir="ltr">
     <head>
         <meta charset="UTF-8">
@@ -23,8 +23,8 @@
         <!-- <link href='https://fonts.googleapis.com/css?family=Amaranth' rel='stylesheet'> -->
         <!-- <link href='https://fonts.googleapis.com/css?family=Asset' rel='stylesheet'> -->
         <!-- <link href='https://fonts.googleapis.com/css?family=Bungee Shade' rel='stylesheet'> -->
-        <link href='https://fonts.googleapis.com/css?family=Cedarville Cursive' rel='stylesheet'>
-        <link href='https://fonts.googleapis.com/css?family=Coming Soon' rel='stylesheet'>
+        <!-- <link href='https://fonts.googleapis.com/css?family=Cedarville Cursive' rel='stylesheet'> -->
+        <!-- <link href='https://fonts.googleapis.com/css?family=Coming Soon' rel='stylesheet'> -->
         <link href='https://fonts.googleapis.com/css?family=Cookie' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=Cutive Mono' rel='stylesheet'>
         <!-- <link href='https://fonts.googleapis.com/css?family=Space Mono' rel='stylesheet'> -->
@@ -100,7 +100,20 @@
                 font-weight: normal;
                 font-style: normal;
             }
-
+            @font-face {
+                font-family: 'cedarville_cursiveregular';
+                src: url('cedarvillecursive-regular-webfont.woff2') format('woff2'),
+                    url('cedarvillecursive-regular-webfont.woff') format('woff');
+                font-weight: normal;
+                font-style: normal;
+            }
+            @font-face {
+                font-family: 'coming_soonregular';
+                src: url('comingsoon-regular-webfont.woff2') format('woff2'),
+                    url('comingsoon-regular-webfont.woff') format('woff');
+                font-weight: normal;
+                font-style: normal;
+            }
             .loader {
                 position: fixed;
                 left: 0px;
@@ -642,8 +655,8 @@
                     <a id="amaranth" onclick="cambiaFuente(this);"  style="font-family:'amaranthregular';">Amaranth</a>
                     <a id="asset" onclick="cambiaFuente(this);"  style="font-family:'assetregular';">Asset</a>
                     <a id="bungee" onclick="cambiaFuente(this);"  style="font-family:'bungee_shaderegular';">Bungee Shade</a>
-                    <a id="cedarville" onclick="cambiaFuente(this);"  style="font-family:'Cedarville Cursive';">Cedarville Cursive</a>
-                    <a id="coming" onclick="cambiaFuente(this);"  style="font-family: 'Coming Soon';">Coming Soon</a>
+                    <a id="cedarville" onclick="cambiaFuente(this);"  style="font-family:'cedarville_cursiveregular';">Cedarville Cursive</a>
+                    <a id="coming" onclick="cambiaFuente(this);"  style="font-family: 'coming_soonregular';">Coming Soon</a>
                     <a id="cookie" onclick="cambiaFuente(this);"  style="font-family:'Cookie';">Cookie</a>
                     <a id="cutive" onclick="cambiaFuente(this);"  style="font-family:'Cutive Mono';">Cutive Mono</a>
                     <a id="space" onclick="cambiaFuente(this);"  style="font-family:'space_monoregular';">Space Mono</a>
@@ -1196,12 +1209,12 @@
                                 miFuente.style.fontFamily = "'bungee_shaderegular'";
                                 break;
                             case "cedarville":
-                                miTexto.style.fontFamily = "'Cedarville Cursive'";
-                                miFuente.style.fontFamily = "'Cedarville Cursive'";
+                                miTexto.style.fontFamily = "'cedarville_cursiveregular'";
+                                miFuente.style.fontFamily = "'cedarville_cursiveregular'";
                                 break;
                             case "coming":
-                                miTexto.style.fontFamily = "'Coming Soon'";
-                                miFuente.style.fontFamily = "'Coming Soon'";
+                                miTexto.style.fontFamily = "'coming_soonregular'";
+                                miFuente.style.fontFamily = "'coming_soonregular'";
                                 break;
                             case "cookie":
                                 miTexto.style.fontFamily = "Cookie";
