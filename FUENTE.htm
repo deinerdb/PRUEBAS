@@ -28,8 +28,8 @@
         <!-- <link href='https://fonts.googleapis.com/css?family=Cookie' rel='stylesheet'> -->
         <!-- <link href='https://fonts.googleapis.com/css?family=Cutive Mono' rel='stylesheet'> -->
         <!-- <link href='https://fonts.googleapis.com/css?family=Space Mono' rel='stylesheet'> -->
-        <link href='https://fonts.googleapis.com/css?family=Diplomata' rel='stylesheet'>
-        <link href='https://fonts.googleapis.com/css?family=Eater' rel='stylesheet'>
+        <!-- <link href='https://fonts.googleapis.com/css?family=Diplomata' rel='stylesheet'> -->
+        <!-- <link href='https://fonts.googleapis.com/css?family=Eater' rel='stylesheet'> -->
         <link href='https://fonts.googleapis.com/css?family=Fascinate Inline' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=Geostar' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=Judson' rel='stylesheet'>
@@ -77,7 +77,6 @@
                     url('akronim-regular-webfont.woff') format('woff');
                 font-weight: normal;
                 font-style: normal;
-
             }
             @font-face {
                 font-family: 'amaranthregular';
@@ -125,6 +124,20 @@
                 font-family: 'cutive_monoregular';
                 src: url('cutivemono-regular-webfont.woff2') format('woff2'),
                     url('cutivemono-regular-webfont.woff') format('woff');
+                font-weight: normal;
+                font-style: normal;
+            }
+            @font-face {
+                font-family: 'diplomataregular';
+                src: url('diplomata-regular.woff2') format('woff2'),
+                    url('diplomata-regular.woff') format('woff');
+                font-weight: normal;
+                font-style: normal;
+            }
+            @font-face {
+                font-family: 'eaterregular';
+                src: url('eater-regular.woff2') format('woff2'),
+                    url('eater-regular.woff') format('woff');
                 font-weight: normal;
                 font-style: normal;
             }
@@ -674,8 +687,8 @@
                     <a id="cookie" onclick="cambiaFuente(this);"  style="font-family:'cookieregular';">Cookie</a>
                     <a id="cutive" onclick="cambiaFuente(this);"  style="font-family:'cutive_monoregular';">Cutive Mono</a>
                     <a id="space" onclick="cambiaFuente(this);"  style="font-family:'space_monoregular';">Space Mono</a>
-                    <a id="diplomata" onclick="cambiaFuente(this);"  style="font-family:'Diplomata';">Diplomata</a>
-                    <a id="eater" onclick="cambiaFuente(this);"  style="font-family:'Eater';">Eater</a>
+                    <a id="diplomata" onclick="cambiaFuente(this);"  style="font-family:'diplomataregular';">Diplomata</a>
+                    <a id="eater" onclick="cambiaFuente(this);"  style="font-family:'eaterregular';">Eater</a>
                     <a id="fascinate" onclick="cambiaFuente(this);"  style="font-family:'Fascinate Inline';">Fascinate Inline</a>
                     <a id="geostar" onclick="cambiaFuente(this);"  style="font-family:'Geostar';">Geostar</a>
                     <a id="judson" onclick="cambiaFuente(this);"  style="font-family:'Judson';">Judson</a>
@@ -1243,12 +1256,12 @@
                                 miFuente.style.fontFamily = "'space_monoregular'";
                                 break;
                             case "diplomata":
-                                miTexto.style.fontFamily = "Diplomata";
-                                miFuente.style.fontFamily = "Diplomata";
+                                miTexto.style.fontFamily = "diplomataregular";
+                                miFuente.style.fontFamily = "diplomataregular";
                                 break;
                             case "eater":
-                                miTexto.style.fontFamily = "Eater";
-                                miFuente.style.fontFamily = "Eater";
+                                miTexto.style.fontFamily = "eaterregular";
+                                miFuente.style.fontFamily = "eaterregular";
                                 break;
                             case "fascinate":
                                 miTexto.style.fontFamily = "'Fascinate Inline'";

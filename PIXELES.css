@@ -2125,7 +2125,7 @@ th {
     /* color inicial es negro */
     color: #000000;
 }
-#icoColorBorde {
+#icoColorBorde, #icoColorBordeAyuda {
     width: 34px !important;
     height: 34px !important;
 }
@@ -2167,10 +2167,16 @@ th {
     display: none;
 }
 
-#icoAnchoBordes, #icoAnchoBordesAyuda {
+#icoAnchoBordes {
     border: none;    
     width: 24px;
     height: 24px;
+    margin: 0;
+}
+#icoAnchoBordesAyuda {
+    border: none;    
+    width: 36px;
+    height: 36px;
     margin: 0;
 }
 #icoAnchoBordesModal {
@@ -2905,7 +2911,7 @@ button, i, a, .columna, .contenedor, .miembroFamiliaColores, input {
         min-width: 72px !important;
         width: 72px !important;
     }
-    #icoColorBorde {
+    #icoColorBorde, #icoColorBordeAyuda {
         border-style: solid;
         border-top-color: #ff3300;
         border-bottom-color: blue;
