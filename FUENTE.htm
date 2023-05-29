@@ -30,8 +30,8 @@
         <!-- <link href='https://fonts.googleapis.com/css?family=Space Mono' rel='stylesheet'> -->
         <!-- <link href='https://fonts.googleapis.com/css?family=Diplomata' rel='stylesheet'> -->
         <!-- <link href='https://fonts.googleapis.com/css?family=Eater' rel='stylesheet'> -->
-        <link href='https://fonts.googleapis.com/css?family=Fascinate Inline' rel='stylesheet'>
-        <link href='https://fonts.googleapis.com/css?family=Geostar' rel='stylesheet'>
+        <!-- <link href='https://fonts.googleapis.com/css?family=Fascinate Inline' rel='stylesheet'> -->
+        <!-- <link href='https://fonts.googleapis.com/css?family=Geostar' rel='stylesheet'> -->
         <link href='https://fonts.googleapis.com/css?family=Judson' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=Kumar One' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
@@ -138,6 +138,20 @@
                 font-family: 'eaterregular';
                 src: url('eater-regular.woff2') format('woff2'),
                     url('eater-regular.woff') format('woff');
+                font-weight: normal;
+                font-style: normal;
+            }
+            @font-face {
+                font-family: 'fascinate_inlineregular';
+                src: url('fascinateinline-regular-webfont.woff2') format('woff2'),
+                    url('fascinateinline-regular-webfont.woff') format('woff');
+                font-weight: normal;
+                font-style: normal;
+            }
+            @font-face {
+                font-family: 'geostarregular';
+                src: url('geostar-regular-webfont.woff2') format('woff2'),
+                    url('geostar-regular-webfont.woff') format('woff');
                 font-weight: normal;
                 font-style: normal;
             }
@@ -689,8 +703,8 @@
                     <a id="space" onclick="cambiaFuente(this);"  style="font-family:'space_monoregular';">Space Mono</a>
                     <a id="diplomata" onclick="cambiaFuente(this);"  style="font-family:'diplomataregular';">Diplomata</a>
                     <a id="eater" onclick="cambiaFuente(this);"  style="font-family:'eaterregular';">Eater</a>
-                    <a id="fascinate" onclick="cambiaFuente(this);"  style="font-family:'Fascinate Inline';">Fascinate Inline</a>
-                    <a id="geostar" onclick="cambiaFuente(this);"  style="font-family:'Geostar';">Geostar</a>
+                    <a id="fascinate" onclick="cambiaFuente(this);"  style="font-family:'fascinate_inlineregular';">Fascinate Inline</a>
+                    <a id="geostar" onclick="cambiaFuente(this);"  style="font-family:'geostarregular';">Geostar</a>
                     <a id="judson" onclick="cambiaFuente(this);"  style="font-family:'Judson';">Judson</a>
                     <a id="kumar" onclick="cambiaFuente(this);"  style="font-family:'Kumar One';">Kumar One</a>
                     <a id="sofia" onclick="cambiaFuente(this);"  style="font-family:'Sofia';">Sofia</a>
@@ -1264,12 +1278,12 @@
                                 miFuente.style.fontFamily = "eaterregular";
                                 break;
                             case "fascinate":
-                                miTexto.style.fontFamily = "'Fascinate Inline'";
-                                miFuente.style.fontFamily = "'Fascinate Inline'";
+                                miTexto.style.fontFamily = "'fascinate_inlineregular'";
+                                miFuente.style.fontFamily = "'fascinate_inlineregular'";
                                 break;
                             case "geostar":
-                                miTexto.style.fontFamily = "Geostar";
-                                miFuente.style.fontFamily = "Geostar";
+                                miTexto.style.fontFamily = "geostarregular";
+                                miFuente.style.fontFamily = "geostarregular";
                                 break;
                             case "judson":
                                 miTexto.style.fontFamily = "Judson";

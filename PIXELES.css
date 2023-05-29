@@ -4524,9 +4524,17 @@ input[type=range] {
 }
 /*/ INICIO css para el checkbox personalizado*/
 /* propios de pixeles */
-#checkRadioGlobal{
+#checkRadioGlobal {
     text-align: left;
     margin: 26px 4px 12px 24px;
+}
+#checkAjustarGalería {
+    text-align: left;
+    margin: 32px 4px 12px 16px;
+}
+#checkAjustarTexto {
+    text-align: left;
+    margin: 32px 4px 12px 16px;
 }
 #checkOpacidadGlobal {
     text-align: left;

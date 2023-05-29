@@ -2737,7 +2737,9 @@ function showModal() {
         case "importarGalería":
             $("#marcoImportarGalería").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-file-image'></i> Importar desde Galería";
-            document.getElementById("spanInfoModal").innerHTML = "En esta ventana puede importar un dibujo desde la creciente galería de Pixeles. Seleccione un dibujo y presione ACEPTAR.";                     
+            document.getElementById("spanInfoModal").innerHTML = "En esta ventana puede importar un dibujo desde la creciente galería de Pixeles. Seleccione un dibujo y presione ACEPTAR. Utilice la casilla de verificación para indicar si el dibujo se ajustará a la pantalla luego de ser importado.";                     
+            // por defecto, se ajusta a la pantalla después de importar
+            document.getElementById("myCheckAjustarGalería").checked = true;
             // para animarla al cerrar: opacidad ajustada
             restauraOpacidad = true;
             $(getContenedor).css("opacity", "0");
@@ -2755,11 +2757,13 @@ function showModal() {
         case "importarTexto":
             $("#marcoImportarTexto").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-file-alt'></i> Importar dibujo";
-            document.getElementById("spanInfoModal").innerHTML = "En esta ventana puede examinar su dispositivo e importar un dibujo guardado como archivo de texto (*.txt). Esta función no está disponible en algunos navegadores. Quizá requiera otorgar algunos permisos.";
+            document.getElementById("spanInfoModal").innerHTML = "En esta ventana puede examinar su dispositivo e importar un dibujo guardado como archivo de texto (*.txt). Utilice la casilla de verificación para indicar si el dibujo se ajustará a la pantalla luego de ser importado. Esta función no está disponible en algunos navegadores. Quizá requiera otorgar algunos permisos.";
             // el btn dice Cerrar, en lugar de Aceptar
             $("#BtnAceptar").html("Cerrar");
             // el input file se resetea
             document.getElementById("myfile").value = "";
+            // por defecto, se ajusta a la pantalla después de importar
+            document.getElementById("myCheckAjustarTexto").checked = true;
             // para animarla al cerrar: opacidad ajustada
             restauraOpacidad = true;
             $(getContenedor).css("opacity", "0");
