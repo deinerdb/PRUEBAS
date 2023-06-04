@@ -12,7 +12,7 @@ var getPaletaAbajo = document.getElementById("paletaAbajo");
 $(getPaletaAbajo).addClass("oculto");
 $(getPaletaArriba).addClass("oculto");
 var getDivAjuste = document.getElementById("divAjuste");
-$(getDivAjuste).addClass("oculto");
+//$(getDivAjuste).addClass("oculto");
 var getPaletaHistorial = document.getElementById("paletaHistorial");
 var getBtnCerrarHistorial = document.getElementById("BtnCerrarHistorial");
 var getSpanModo = document.getElementById("spanModo");
@@ -616,6 +616,7 @@ sliderOpacidad.onchange = function () {
 }
 
 // zoom
+
 //el input range del tamaño de los pixeles, zoom
 var sliderZoom = document.getElementById("rangoZoom");
 // la muestra del tamaño de los pixeles, zoom
@@ -667,8 +668,9 @@ getBtnZoomPredeterminado.onclick = function () {
     actualizaSliderZoom(miTamaño);
     showSnackbar("Establecido en valor predeterminado: " + miTamaño + " px");
 }
-// el btn para colocarlo en tamaño ajustado a la pantalla
-getBtnZoomAjustado.onclick = function () {
+// llamada al ajustar zoom al tamaño de la pantalla
+// devuelve el tamaño ajustado
+function obtenerZoomAjustado () {
     // inicia con tamaño máximo
     var miTamaño = 100;
     var anchoRequerido;
@@ -697,10 +699,16 @@ getBtnZoomAjustado.onclick = function () {
     if ( miTamaño < 4 ) {
         miTamaño = 4;
     }
+    // devuelve el tamaño ajustado
+    return miTamaño;
+}
+// el btn para colocarlo en tamaño ajustado a la pantalla
+getBtnZoomAjustado.onclick = function () {
+    var miTamaño = 24;
+    miTamaño = obtenerZoomAjustado();
     sliderZoom.value = miTamaño;
     actualizaSliderZoom(miTamaño);
-    showSnackbar("Establecido en valor ajustado: " + miTamaño + " px");
-    
+    showSnackbar("Establecido en valor ajustado: " + miTamaño + " px");    
 }
 //el input range del ancho de los bordes
 var sliderAnchoBordes = document.getElementById("rangoAnchoBordes");
@@ -1408,10 +1416,10 @@ function ajustesResize() {
         alturaModal();
         // para obtener espacio disponible
         // cuando está en zoom
-        if (modalActual == "zoom") {
+        //if (modalActual == "zoom") {
             getDivAjuste.style.top = 0 + getPaletaArriba.offsetHeight + "px";            
             getDivAjuste.style.bottom = 0 + getPaletaAbajo.offsetHeight + "px";            
-        }
+        //}
         // cuando está en galería
         if (modalActual == "gallery") {
             // recorre los paneles
@@ -1848,7 +1856,7 @@ function cerrarModal() {
     }
     if (modalActual == "zoom") {
         // no lo necesito
-        $(getDivAjuste).addClass("oculto");
+        //$(getDivAjuste).addClass("oculto");
     }
     if (modalActual == "hsl") {
         // libera recursos
@@ -2052,6 +2060,14 @@ function aceptarModal() {
                     $(".loader").addClass("oculto");
                     showSnackbar("Error al intentar importar desde galería");                                    
                 } else {
+                    // ajusta el tamaño si la opción está seleccionada                    
+                    if (document.getElementById("myCheckAjustarGalería").checked == true) {
+                        // actualiza la variable global de tamaño
+                        tamaño = obtenerZoomAjustado(); 
+                        // llama la rutina para refrescar tamaño de todos los pixeles
+                        // incremento cero y sin loader ni notificación
+                        ajustarTamaño(0, false, false);
+                    }                    
                     // oculta el loader
                     $(".loader").addClass("oculto");
                     // otras tareas                
@@ -3093,8 +3109,8 @@ function showModal() {
             break;
         case "zoom":
             $("#marcoZoom").css("display", "block");
-            // lo necesito para obtner tamaño disponible
-            $(getDivAjuste).removeClass("oculto");
+            // lo necesito para obtener tamaño disponible
+            //$(getDivAjuste).removeClass("oculto");
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-eye'></i> Ajustar tamaño";
             document.getElementById("spanInfoModal").innerHTML = "Use el control para definir rápidamente el tamaño de la cuadrícula en pixeles. El tamaño 'Predeterminado' es 24 px. El tamaño 'Ajustado' se calcula según las dimensiones de la ventana en ese instante.";
             // el rango toma el valor actual
@@ -5882,6 +5898,15 @@ function readFile(input) {
                 document.getElementById("myfile").value = "";
                 return;
             }
+            // ajusta el tamaño si la opción está seleccionada 
+                               
+            if (document.getElementById("myCheckAjustarTexto").checked == true) {
+                // actualiza la variable global de tamaño
+                tamaño = obtenerZoomAjustado(); 
+                // llama la rutina para refrescar tamaño de todos los pixeles
+                // incremento cero y sin loader ni notificación
+                ajustarTamaño(0, false, false);
+            }    
             // oculta el loader
             $(".loader").addClass("oculto");
 

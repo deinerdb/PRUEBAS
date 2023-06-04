@@ -32,8 +32,8 @@
         <!-- <link href='https://fonts.googleapis.com/css?family=Eater' rel='stylesheet'> -->
         <!-- <link href='https://fonts.googleapis.com/css?family=Fascinate Inline' rel='stylesheet'> -->
         <!-- <link href='https://fonts.googleapis.com/css?family=Geostar' rel='stylesheet'> -->
-        <link href='https://fonts.googleapis.com/css?family=Judson' rel='stylesheet'>
-        <link href='https://fonts.googleapis.com/css?family=Kumar One' rel='stylesheet'>
+        <!-- <link href='https://fonts.googleapis.com/css?family=Judson' rel='stylesheet'> -->
+        <!-- <link href='https://fonts.googleapis.com/css?family=Kumar One' rel='stylesheet'> -->
         <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=Sedgwick Ave' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=Sriracha' rel='stylesheet'>
@@ -152,6 +152,20 @@
                 font-family: 'geostarregular';
                 src: url('geostar-regular-webfont.woff2') format('woff2'),
                     url('geostar-regular-webfont.woff') format('woff');
+                font-weight: normal;
+                font-style: normal;
+            }
+            @font-face {
+                font-family: 'judsonregular';
+                src: url('judson-regular-webfont.woff2') format('woff2'),
+                    url('judson-regular-webfont.woff') format('woff');
+                font-weight: normal;
+                font-style: normal;
+            }
+            @font-face {
+                font-family: 'kumar_oneregular';
+                src: url('kumarone-regular-webfont.woff2') format('woff2'),
+                    url('kumarone-regular-webfont.woff') format('woff');
                 font-weight: normal;
                 font-style: normal;
             }
@@ -705,8 +719,8 @@
                     <a id="eater" onclick="cambiaFuente(this);"  style="font-family:'eaterregular';">Eater</a>
                     <a id="fascinate" onclick="cambiaFuente(this);"  style="font-family:'fascinate_inlineregular';">Fascinate Inline</a>
                     <a id="geostar" onclick="cambiaFuente(this);"  style="font-family:'geostarregular';">Geostar</a>
-                    <a id="judson" onclick="cambiaFuente(this);"  style="font-family:'Judson';">Judson</a>
-                    <a id="kumar" onclick="cambiaFuente(this);"  style="font-family:'Kumar One';">Kumar One</a>
+                    <a id="judson" onclick="cambiaFuente(this);"  style="font-family:'judsonregular';">Judson</a>
+                    <a id="kumar" onclick="cambiaFuente(this);"  style="font-family:'kumar_oneregular';">Kumar One</a>
                     <a id="sofia" onclick="cambiaFuente(this);"  style="font-family:'Sofia';">Sofia</a>
                     <a id="sedgwick" onclick="cambiaFuente(this);"  style="font-family:'Sedgwick Ave';">Sedgwick Ave</a>
                     <a id="sriracha" onclick="cambiaFuente(this);"  style="font-family:'Sriracha';">Sriracha</a>
@@ -1286,12 +1300,12 @@
                                 miFuente.style.fontFamily = "geostarregular";
                                 break;
                             case "judson":
-                                miTexto.style.fontFamily = "Judson";
-                                miFuente.style.fontFamily = "Judson";
+                                miTexto.style.fontFamily = "judsonregular";
+                                miFuente.style.fontFamily = "judsonregular";
                                 break;
                             case "kumar":
-                                miTexto.style.fontFamily = "'Kumar One'";
-                                miFuente.style.fontFamily = "'Kumar One'";
+                                miTexto.style.fontFamily = "'kumar_oneregular'";
+                                miFuente.style.fontFamily = "'kumar_oneregular'";
                                 break;
                             case "sofia":
                                 miTexto.style.fontFamily = "Sofia";
