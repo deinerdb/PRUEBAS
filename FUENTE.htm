@@ -34,8 +34,8 @@
         <!-- <link href='https://fonts.googleapis.com/css?family=Geostar' rel='stylesheet'> -->
         <!-- <link href='https://fonts.googleapis.com/css?family=Judson' rel='stylesheet'> -->
         <!-- <link href='https://fonts.googleapis.com/css?family=Kumar One' rel='stylesheet'> -->
-        <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
-        <link href='https://fonts.googleapis.com/css?family=Sedgwick Ave' rel='stylesheet'>
+        <!-- <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'> -->
+        <!-- <link href='https://fonts.googleapis.com/css?family=Sedgwick Ave' rel='stylesheet'> -->
         <link href='https://fonts.googleapis.com/css?family=Sriracha' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=The Girl Next Door' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=Wallpoet' rel='stylesheet'>
@@ -166,6 +166,20 @@
                 font-family: 'kumar_oneregular';
                 src: url('kumarone-regular-webfont.woff2') format('woff2'),
                     url('kumarone-regular-webfont.woff') format('woff');
+                font-weight: normal;
+                font-style: normal;
+            }
+            @font-face {
+                font-family: 'sofiaregular';
+                src: url('sofia-regular-webfont.woff2') format('woff2'),
+                    url('sofia-regular-webfont.woff') format('woff');
+                font-weight: normal;
+                font-style: normal;
+            }
+            @font-face {
+                font-family: 'sedgwick_averegular';
+                src: url('sedgwickave-regular-webfont.woff2') format('woff2'),
+                    url('sedgwickave-regular-webfont.woff') format('woff');
                 font-weight: normal;
                 font-style: normal;
             }
@@ -721,8 +735,8 @@
                     <a id="geostar" onclick="cambiaFuente(this);"  style="font-family:'geostarregular';">Geostar</a>
                     <a id="judson" onclick="cambiaFuente(this);"  style="font-family:'judsonregular';">Judson</a>
                     <a id="kumar" onclick="cambiaFuente(this);"  style="font-family:'kumar_oneregular';">Kumar One</a>
-                    <a id="sofia" onclick="cambiaFuente(this);"  style="font-family:'Sofia';">Sofia</a>
-                    <a id="sedgwick" onclick="cambiaFuente(this);"  style="font-family:'Sedgwick Ave';">Sedgwick Ave</a>
+                    <a id="sofia" onclick="cambiaFuente(this);"  style="font-family:'sofiaregular';">Sofia</a>
+                    <a id="sedgwick" onclick="cambiaFuente(this);"  style="font-family:'sedgwick_averegular';">Sedgwick Ave</a>
                     <a id="sriracha" onclick="cambiaFuente(this);"  style="font-family:'Sriracha';">Sriracha</a>
                     <a id="girl" onclick="cambiaFuente(this);"  style="font-family:'The Girl Next Door';">The Girl Next Door</a>
                     <a id="wallpoet" onclick="cambiaFuente(this);"  style="font-family:'Wallpoet';">Wallpoet</a>
@@ -1308,12 +1322,12 @@
                                 miFuente.style.fontFamily = "'kumar_oneregular'";
                                 break;
                             case "sofia":
-                                miTexto.style.fontFamily = "Sofia";
-                                miFuente.style.fontFamily = "Sofia";
+                                miTexto.style.fontFamily = "sofiaregular";
+                                miFuente.style.fontFamily = "sofiaregular";
                                 break;
                             case "sedgwick":
-                                miTexto.style.fontFamily = "'Sedgwick Ave'";
-                                miFuente.style.fontFamily = "'Sedgwick Ave'";
+                                miTexto.style.fontFamily = "'sedgwick_averegular'";
+                                miFuente.style.fontFamily = "'sedgwick_averegular'";
                                 break;
                             case "sriracha":
                                 miTexto.style.fontFamily = "Sriracha";
