@@ -36,9 +36,9 @@
         <!-- <link href='https://fonts.googleapis.com/css?family=Kumar One' rel='stylesheet'> -->
         <!-- <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'> -->
         <!-- <link href='https://fonts.googleapis.com/css?family=Sedgwick Ave' rel='stylesheet'> -->
-        <link href='https://fonts.googleapis.com/css?family=Sriracha' rel='stylesheet'>
-        <link href='https://fonts.googleapis.com/css?family=The Girl Next Door' rel='stylesheet'>
-        <link href='https://fonts.googleapis.com/css?family=Wallpoet' rel='stylesheet'>
+        <!-- <link href='https://fonts.googleapis.com/css?family=Sriracha' rel='stylesheet'> -->
+        <!-- <link href='https://fonts.googleapis.com/css?family=The Girl Next Door' rel='stylesheet'> -->
+        <!-- <link href='https://fonts.googleapis.com/css?family=Wallpoet' rel='stylesheet'> -->
         <!-- <link href='https://fonts.googleapis.com/css?family=Handlee' rel='stylesheet'> -->
         <link rel="icon" href="favicon.ico" type="image/x-icon" />
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
@@ -180,6 +180,27 @@
                 font-family: 'sedgwick_averegular';
                 src: url('sedgwickave-regular-webfont.woff2') format('woff2'),
                     url('sedgwickave-regular-webfont.woff') format('woff');
+                font-weight: normal;
+                font-style: normal;
+            }
+            @font-face {
+                font-family: 'sriracharegular';
+                src: url('sriracha-regular-webfont.woff2') format('woff2'),
+                    url('sriracha-regular-webfont.woff') format('woff');
+                font-weight: normal;
+                font-style: normal;
+            }
+            @font-face {
+                font-family: 'the_girl_next_doorregular';
+                src: url('thegirlnextdoor-regular-webfont.woff2') format('woff2'),
+                    url('thegirlnextdoor-regular-webfont.woff') format('woff');
+                font-weight: normal;
+                font-style: normal;
+            }
+            @font-face {
+                font-family: 'wallpoetregular';
+                src: url('wallpoet-regular-webfont.woff2') format('woff2'),
+                    url('wallpoet-regular-webfont.woff') format('woff');
                 font-weight: normal;
                 font-style: normal;
             }
@@ -737,9 +758,9 @@
                     <a id="kumar" onclick="cambiaFuente(this);"  style="font-family:'kumar_oneregular';">Kumar One</a>
                     <a id="sofia" onclick="cambiaFuente(this);"  style="font-family:'sofiaregular';">Sofia</a>
                     <a id="sedgwick" onclick="cambiaFuente(this);"  style="font-family:'sedgwick_averegular';">Sedgwick Ave</a>
-                    <a id="sriracha" onclick="cambiaFuente(this);"  style="font-family:'Sriracha';">Sriracha</a>
-                    <a id="girl" onclick="cambiaFuente(this);"  style="font-family:'The Girl Next Door';">The Girl Next Door</a>
-                    <a id="wallpoet" onclick="cambiaFuente(this);"  style="font-family:'Wallpoet';">Wallpoet</a>
+                    <a id="sriracha" onclick="cambiaFuente(this);"  style="font-family:'sriracharegular';">Sriracha</a>
+                    <a id="girl" onclick="cambiaFuente(this);"  style="font-family:'the_girl_next_doorregular';">The Girl Next Door</a>
+                    <a id="wallpoet" onclick="cambiaFuente(this);"  style="font-family:'wallpoetregular';">Wallpoet</a>
                     <a id="handlee" onclick="cambiaFuente(this);"  style="font-family:'handleeregular';">Handlee</a>
                 </div>
                 <div class="modal-footer" id="modalFooter">
@@ -1330,16 +1351,16 @@
                                 miFuente.style.fontFamily = "'sedgwick_averegular'";
                                 break;
                             case "sriracha":
-                                miTexto.style.fontFamily = "Sriracha";
-                                miFuente.style.fontFamily = "Sriracha";
+                                miTexto.style.fontFamily = "sriracharegular";
+                                miFuente.style.fontFamily = "sriracharegular";
                                 break;
                             case "girl":
-                                miTexto.style.fontFamily = "'The Girl Next Door'";
-                                miFuente.style.fontFamily = "'The Girl Next Door'";
+                                miTexto.style.fontFamily = "'the_girl_next_doorregular'";
+                                miFuente.style.fontFamily = "'the_girl_next_doorregular'";
                                 break;
                             case "wallpoet":
-                                miTexto.style.fontFamily = "Wallpoet";
-                                miFuente.style.fontFamily = "Wallpoet";
+                                miTexto.style.fontFamily = "wallpoetregular";
+                                miFuente.style.fontFamily = "wallpoetregular";
                                 break;
                             case "handlee":
                                 miTexto.style.fontFamily = "handleeregular";
