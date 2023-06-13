@@ -30,8 +30,8 @@ body {
     border-style: none;
     position: fixed;
     top: 100px;    
-    width: 88% !important;
-    max-width: 88% !important; 
+    width: 88%;
+    max-width: 88%; 
     pointer-events: none;
 }
 /* Ayuda */
@@ -761,7 +761,7 @@ th {
     margin: 0;
     /* oculto inicialmente */
     display: none;
-    background-color: transparent;
+    background-color: transparent;    
 }
 .oculto {
     /* para ocultar dinámicamente elementos con display con prefijos*/

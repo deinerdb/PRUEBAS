@@ -12,7 +12,8 @@ var getPaletaAbajo = document.getElementById("paletaAbajo");
 $(getPaletaAbajo).addClass("oculto");
 $(getPaletaArriba).addClass("oculto");
 var getDivAjuste = document.getElementById("divAjuste");
-//$(getDivAjuste).addClass("oculto");
+var getBtnAjustarZoomNormal = document.getElementById("BtnAjustarZoomNormal");
+var getBtnAjustarZoomFull = document.getElementById("BtnAjustarZoomFull");
 var getPaletaHistorial = document.getElementById("paletaHistorial");
 var getBtnCerrarHistorial = document.getElementById("BtnCerrarHistorial");
 var getSpanModo = document.getElementById("spanModo");
@@ -702,13 +703,53 @@ function obtenerZoomAjustado () {
     // devuelve el tamaño ajustado
     return miTamaño;
 }
-// el btn para colocarlo en tamaño ajustado a la pantalla
+// el btn para colocarlo en tamaño ajustado a la pantalla en el modal zoom
 getBtnZoomAjustado.onclick = function () {
     var miTamaño = 24;
     miTamaño = obtenerZoomAjustado();
     sliderZoom.value = miTamaño;
     actualizaSliderZoom(miTamaño);
     showSnackbar("Establecido en valor ajustado: " + miTamaño + " px");    
+}
+// el btn para colocarlo en tamaño ajustado a la pantalla en la paleta arriba
+getBtnAjustarZoomNormal.onclick = function () {
+    var miTamaño = 24;
+    // muestra un loader...
+    $(".loader").removeClass("oculto");
+    setTimeout(function () {
+        // código alta exigencia
+        miTamaño = obtenerZoomAjustado();
+        // actualiza la variable global de tamaño
+        tamaño = miTamaño;
+        // llama la rutina para refrescar tamaño de todos los pixeles
+        // incremento cero y sin loader ni notificación
+        ajustarTamaño(0, false, false);
+        // oculta el loader
+        $(".loader").addClass("oculto");
+        // otras tareas
+        showSnackbar("Tamaño ajustado a la pantalla: " + miTamaño + " px");
+    }, 0);
+}
+// el btn para colocarlo en tamaño ajustado a la pantalla completa
+getBtnAjustarZoomFull.onclick = function (event) {
+    var miTamaño = 24;
+    // muestra un loader...
+    $(".loader").removeClass("oculto");
+    setTimeout(function () {
+        // código alta exigencia
+        miTamaño = obtenerZoomAjustado();
+        // actualiza la variable global de tamaño
+        tamaño = miTamaño;
+        // llama la rutina para refrescar tamaño de todos los pixeles
+        // incremento cero y sin loader ni notificación
+        ajustarTamaño(0, false, false);
+        // oculta el loader
+        $(".loader").addClass("oculto");
+        // otras tareas
+        showSnackbar("Tamaño ajustado a la pantalla: " + miTamaño + " px");
+    }, 0);
+    mostrarPuntero();
+    event.stopPropagation();
 }
 //el input range del ancho de los bordes
 var sliderAnchoBordes = document.getElementById("rangoAnchoBordes");
@@ -1377,8 +1418,21 @@ function ajustesResize() {
             margenArribaCont = 0;
         }
         $(getContenedor).css("margin-top", margenArribaCont + "px");
-        $(getContenedor).css("max-width", "98%");        
+        $(getContenedor).css("max-width", "98%");
+        // para obtener espacio disponible        
+        // define la altura
+        getDivAjuste.style.top = "2px";            
+        getDivAjuste.style.bottom = "2px";
+        // define el ancho
+        getDivAjuste.style.width = 0.98 * getPantalla.offsetWidth + "px";        
     } else {
+        // para obtener espacio disponible        
+        // define la altura
+        getDivAjuste.style.top = 0 + getPaletaArriba.offsetHeight + "px";            
+        getDivAjuste.style.bottom = 0 + getPaletaAbajo.offsetHeight + "px";
+        // define el ancho
+        getDivAjuste.style.width = 0.88 * getPantalla.offsetWidth + "px";
+
         // ajusta los paneles horizontales tipo acc
         ajustarCompartir();
         ajustarBordes();
@@ -1405,6 +1459,7 @@ function ajustesResize() {
         //$("#paletaAbajo").attr("title", espacioPie);
         $(getpieAfter).css("height", espacioPie + "px");        
     }
+    // dependiendo del modal visible
     if (modalActual == "ninguno") {
         // ajusta el contenedor a su contendido, sin scroll
         // por un bug en tv LG
@@ -1414,12 +1469,6 @@ function ajustesResize() {
     }
     else {
         alturaModal();
-        // para obtener espacio disponible
-        // cuando está en zoom
-        //if (modalActual == "zoom") {
-            getDivAjuste.style.top = 0 + getPaletaArriba.offsetHeight + "px";            
-            getDivAjuste.style.bottom = 0 + getPaletaAbajo.offsetHeight + "px";            
-        //}
         // cuando está en galería
         if (modalActual == "gallery") {
             // recorre los paneles
@@ -1853,11 +1902,7 @@ function cerrarModal() {
     if (modalActual == "bienvenida") {
         // sin fondo
         $(getmodalBody).removeClass("modal-body-fondo");
-    }
-    if (modalActual == "zoom") {
-        // no lo necesito
-        //$(getDivAjuste).addClass("oculto");
-    }
+    }    
     if (modalActual == "hsl") {
         // libera recursos
         dec360Values.length = 0;
@@ -3110,7 +3155,7 @@ function showModal() {
         case "zoom":
             $("#marcoZoom").css("display", "block");
             // lo necesito para obtener tamaño disponible
-            //$(getDivAjuste).removeClass("oculto");
+            
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-eye'></i> Ajustar tamaño";
             document.getElementById("spanInfoModal").innerHTML = "Use el control para definir rápidamente el tamaño de la cuadrícula en pixeles. El tamaño 'Predeterminado' es 24 px. El tamaño 'Ajustado' se calcula según las dimensiones de la ventana en ese instante.";
             // el rango toma el valor actual
