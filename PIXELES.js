@@ -1433,7 +1433,7 @@ function ajustesResize() {
         getDivAjuste.style.bottom = 0 + getPaletaAbajo.offsetHeight + "px";
         // define el ancho
         getDivAjuste.style.width = 0.88 * getPantalla.offsetWidth + "px";
-
+        getDivAjuste.style.maxWidth = 0.88 * getPantalla.offsetWidth + "px";
         // ajusta los paneles horizontales tipo acc
         ajustarCompartir();
         ajustarBordes();
