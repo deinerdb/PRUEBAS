@@ -733,6 +733,8 @@ getBtnAjustarZoomNormal.onclick = function () {
 // el btn para colocarlo en tamaño ajustado a la pantalla completa
 getBtnAjustarZoomFull.onclick = function (event) {
     var miTamaño = 24;
+    mostrarPuntero();
+    event.stopPropagation();
     // muestra un loader...
     $(".loader").removeClass("oculto");
     setTimeout(function () {
@@ -747,9 +749,7 @@ getBtnAjustarZoomFull.onclick = function (event) {
         $(".loader").addClass("oculto");
         // otras tareas
         showSnackbar("Tamaño ajustado a la pantalla: " + miTamaño + " px");
-    }, 0);
-    mostrarPuntero();
-    event.stopPropagation();
+    }, 0);    
 }
 //el input range del ancho de los bordes
 var sliderAnchoBordes = document.getElementById("rangoAnchoBordes");
@@ -1424,7 +1424,8 @@ function ajustesResize() {
         getDivAjuste.style.top = "2px";            
         getDivAjuste.style.bottom = "2px";
         // define el ancho
-        getDivAjuste.style.width = 0.98 * getPantalla.offsetWidth + "px";        
+        getDivAjuste.style.width = 0.98 * getPantalla.offsetWidth + "px";
+        getDivAjuste.style.maxWidth = 0.98 * getPantalla.offsetWidth + "px";
     } else {
         // para obtener espacio disponible        
         // define la altura
@@ -1464,8 +1465,8 @@ function ajustesResize() {
         // ajusta el contenedor a su contendido, sin scroll
         // por un bug en tv LG
         // estoy probando con un pixel adicional
-        getContenedor.width = 1 + getContenedor.scrollWidth + "px";
-        getContenedor.height = 1 + getContenedor.scrollHeight + "px";        
+        //getContenedor.style.width = 1 + getContenedor.scrollWidth + "px";
+        //getContenedor.style.height = 1 + getContenedor.scrollHeight + "px";        
     }
     else {
         alturaModal();
