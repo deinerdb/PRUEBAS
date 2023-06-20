@@ -826,7 +826,27 @@
                             modal.style.display = "none";
                             funcCambiar();
                         } 
-                        
+                        // el modal se cierra al presionar tecla escape
+                        document.addEventListener("keydown", function (e) {    
+                            var characterCode;
+                            if (e.key != undefined) {
+                                if (e.key.toLowerCase() == "escape") {
+                                    characterCode = 27; // Código de tecla para Escape
+                                } else {
+                                    characterCode = 0;
+                                }
+                            } else {
+                                characterCode = e.which || e.charCode || e.keyCode || e.keyIdentifier || 0;
+                            }
+
+                            if (characterCode == 27) {
+                                // solo si presionó escape
+                                modal.style.display = "none";
+                                funcCambiar();
+                            }
+                        });
+
+
                         //el modal debe ser igual al slide
                         function sincronizar() {
                             switch (slideIndex) {

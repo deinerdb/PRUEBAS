@@ -1895,6 +1895,10 @@ function aplicarFondo() {
 
 // para cerrar el modal y controlar el actual
 function cerrarModal() {
+    if (modalActual == "ninguno") {
+        // no hace nada, no está abierto
+        return;
+    }
     // restaura el pie
     getPie.style.display = "block";
     // oculta el modal
@@ -1930,6 +1934,28 @@ window.onclick = function (event) {
         cerrarModal();
     }
 }
+// el modal se cierra al presionar tecla escape
+document.addEventListener("keydown", function (e) {    
+    var characterCode;
+    if (e.key != undefined) {
+        if (e.key.toLowerCase() == "escape") {
+            characterCode = 27; // Código de tecla para Escape
+        } else {
+            characterCode = 0;
+        }
+    } else {
+        characterCode = e.which || e.charCode || e.keyCode || e.keyIdentifier || 0;
+    }
+
+    if (characterCode == 27) {
+        // solo si presionó escape
+        // si no está ocupado ni se muestra el loader
+        if (ocupado == false && $(".loader").hasClass("oculto")) {
+            cerrarModal();
+        }
+    }
+});
+
 // al hacer click en aceptar o presionar enter en el selector hex
 function aceptarModalHex() {
     // actualiza el color actual según el hex seleccionado
