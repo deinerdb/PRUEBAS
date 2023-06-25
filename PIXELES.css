@@ -2227,6 +2227,11 @@ th {
     min-width: 87px !important;
     width: 87px !important;
 }
+/* para dar cabida a la info del zoom */
+#BtnSetZoom {
+    min-width: 75px !important;
+    width: 75px !important;
+}
 /* para dar cabida a la flechita y la info de las sombras */
 #BtnSombras.seleccionadoBtnModos {
     min-width: 84px !important;
@@ -2265,6 +2270,14 @@ th {
     margin-left: 4px;
     margin-right: 3px;
     display: none;
+    /* texto variable, fuente monoespaciada */
+    font-family: Consolas, 'Courier New', Courier, monospace;
+    font-size: 0.95em;
+}
+/* la info del tamaño zoom */
+#spanInfoZoom {
+    margin-left: 6px;
+    margin-right: 3px;    
     /* texto variable, fuente monoespaciada */
     font-family: Consolas, 'Courier New', Courier, monospace;
     font-size: 0.95em;

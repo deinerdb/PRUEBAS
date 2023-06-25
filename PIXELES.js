@@ -111,6 +111,7 @@ var etapaVoltearV = 1; // es un ciclo
 var etapaCopiar = 1; // es un ciclo
 var etapaCortar = 1; // es un ciclo
 var getSpanInfoSombras = document.getElementById("spanInfoSombras");
+var getSpanInfoZoom = document.getElementById("spanInfoZoom");
 var getSelectSombras = document.getElementById("selectSombras");
 var getBtnDeshacer = document.getElementById("BtnDeshacer");
 var getSpanFilas = document.getElementById("spanFilas");
@@ -1388,7 +1389,7 @@ function alturaModal() {
 function ajustesResize() {    
     // para obtener anchos mínimos de botones al diseñar
     // primer elemento
-    //var testSize = document.getElementById("BtnEtiquetas");
+    //var testSize = document.getElementById("BtnSetZoom");
     //$(testSize).attr("title","w " + testSize.offsetWidth + " h " + testSize.offsetHeight + " m l " + $(testSize).css("marginLeft") );
     // segundo elemento
     //var testSize = document.getElementById("BtnCancelarLibre");
@@ -3183,7 +3184,7 @@ function showModal() {
             $("#marcoZoom").css("display", "block");
             // lo necesito para obtener tamaño disponible
             
-            document.getElementById("modalTitle").innerHTML = "<i class='fas fa-eye'></i> Ajustar tamaño";
+            document.getElementById("modalTitle").innerHTML = "<i class='fas fa-th-large'></i> Ajustar tamaño";
             document.getElementById("spanInfoModal").innerHTML = "Use el control para definir rápidamente el tamaño de la cuadrícula en pixeles. El tamaño 'Predeterminado' es 24 px. El tamaño 'Ajustado' se calcula según las dimensiones de la ventana en ese instante.";
             // el rango toma el valor actual
             sliderZoom.value = tamaño;
@@ -7622,6 +7623,8 @@ function ajustarTamaño(incremento, mostrarLoader, notificar) {
             $(".loader").addClass("oculto");
         }        
         // otras tareas
+        // la info junto al botón zoom
+        getSpanInfoZoom.innerHTML = tamaño;
         //ajusta el contenedor de los cuadritos
         if (mostrarEtiquetas == true) {
             var anchoCont = tamaño * (1 + numColumnas);
