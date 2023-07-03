@@ -329,6 +329,10 @@ tr.todas:nth-child(odd) {
     max-width: 0;
     opacity: 0;
 }
+#panelHVisualización {
+    max-width: 0;
+    opacity: 0;
+}
 #panelHBordes {
     max-width: 0;
     opacity: 0;
@@ -348,6 +352,9 @@ tr.todas:nth-child(odd) {
 #ArrowGrupoCompartir {
     color: #ffff00;
 }
+#ArrowGrupoVisualización {
+    color: #ffffff;
+}
 #ArrowGrupoBordes {
     color: #00ffff;
 }
@@ -362,6 +369,9 @@ tr.todas:nth-child(odd) {
 }
 #BtnGrupoCompartir {
     color: #ffff00;
+}
+#BtnGrupoVisualización {
+    color: #ffffff;
 }
 #BtnGrupoBordes {
     color: #00ffff;
@@ -379,6 +389,11 @@ tr.todas:nth-child(odd) {
     -moz-box-shadow: 0em -3px 8px 0 #ffff00 inset;
     -webkit-box-shadow: 0em -3px 8px 0 #ffff00 inset;
     box-shadow: 0em -3px 8px 0 #ffff00 inset;
+}
+#contGrupoVisualización {     
+    -moz-box-shadow: 0em -3px 8px 0 #ffffff inset;
+    -webkit-box-shadow: 0em -3px 8px 0 #ffffff inset;
+    box-shadow: 0em -3px 8px 0 #ffffff inset;
 }
 #contGrupoBordes {     
     -moz-box-shadow: 0em -3px 8px 0 #00ffff inset;
@@ -2229,8 +2244,8 @@ th {
 }
 /* para dar cabida a la info del zoom */
 #BtnSetZoom {
-    min-width: 75px !important;
-    width: 75px !important;
+    min-width: 76px !important;
+    width: 76px !important;
 }
 /* para dar cabida a la flechita y la info de las sombras */
 #BtnSombras.seleccionadoBtnModos {

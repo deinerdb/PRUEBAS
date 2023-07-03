@@ -27,6 +27,12 @@ var getArrowGrupoCompartir = document.getElementById("ArrowGrupoCompartir");
 var getcontGrupoCompartir = document.getElementById("contGrupoCompartir");
 var getpanelHCompartir = document.getElementById("panelHCompartir");
 var accCompartirAbierta = false; // global para el estado del panel
+// Visualización
+var getBtnGrupoVisualización = document.getElementById("BtnGrupoVisualización");
+var getArrowGrupoVisualización = document.getElementById("ArrowGrupoVisualización");
+var getcontGrupoVisualización = document.getElementById("contGrupoVisualización");
+var getpanelHVisualización = document.getElementById("panelHVisualización");
+var accVisualizaciónAbierta = false; // global para el estado del panel
 // bordes
 var getBtnGrupoBordes = document.getElementById("BtnGrupoBordes");
 var getArrowGrupoBordes = document.getElementById("ArrowGrupoBordes");
@@ -1437,6 +1443,7 @@ function ajustesResize() {
         getDivAjuste.style.maxWidth = 0.88 * getPantalla.offsetWidth + "px";
         // ajusta los paneles horizontales tipo acc
         ajustarCompartir();
+        ajustarVisualización();
         ajustarBordes();
         ajustarHerramientas();
         ajustarDimensionar();
@@ -5140,6 +5147,27 @@ function ajustarCompartir() {
     $(getcontGrupoCompartir).css("min-width", anchoGrupo);
     $(getcontGrupoCompartir).css("width", anchoGrupo);    
 }
+// ajusta el ancho de los contenedores del grupo Visualización
+function ajustarVisualización() { 
+    // 18 porque los cont de grupo tienen padding-left: 8px y padding-right: 10px
+    var anchoMin = 18 + anchoConMargen(getBtnGrupoVisualización) + anchoConMargen(getArrowGrupoVisualización);
+    var anchoGrupo;
+    if ( accVisualizaciónAbierta == true ) {        
+        // panel abierto        
+        getpanelHVisualización.style.maxWidth = getpanelHVisualización.scrollWidth + "px";
+        getpanelHVisualización.style.opacity = "1";
+        $("#IcoArrowVisualización").attr("class", "fas fa-angle-double-left"); 
+        anchoGrupo = 0 + getpanelHVisualización.scrollWidth + anchoMin + "px";      
+    } else {
+        // panel cerrado        
+        getpanelHVisualización.style.maxWidth = null;
+        getpanelHVisualización.style.opacity = "0";
+        $("#IcoArrowVisualización").attr("class", "fas fa-angle-double-right");
+        anchoGrupo = anchoMin + "px";
+    } 
+    $(getcontGrupoVisualización).css("min-width", anchoGrupo);
+    $(getcontGrupoVisualización).css("width", anchoGrupo);    
+}
 // ajusta el ancho de los contenedores del grupo Colores
 function ajustarColores() { 
     // 18 porque los cont de grupo tienen padding-left: 8px y padding-right: 10px
@@ -5246,6 +5274,31 @@ function alternarCompartir() {
         $(getPaletaAbajo).animate({
             //HACE VISIBLE EN LA PALETA EL PANEL ACTUAL         
             scrollLeft: getcontGrupoCompartir.offsetLeft
+        }, 1200);        
+       
+    }, 340);
+}
+// alterna el estado del grupo Visualización
+// y lo ajusta
+var timeVisualización = 0;
+function alternarVisualización() {     
+    if ( accVisualizaciónAbierta == false ) {        
+        // panel abierto
+        accVisualizaciónAbierta = true;        
+    } else {
+        // panel cerrado
+        accVisualizaciónAbierta = false;       
+    }     
+    ajustarVisualización();
+    // unos instantes después
+    // cancela el timeVisualización
+    clearTimeout(timeVisualización);
+    timeVisualización = setTimeout(function () {
+        ajustesResize();
+        // un scroll animado
+        $(getPaletaArriba).animate({
+            //HACE VISIBLE EN LA PALETA EL PANEL ACTUAL         
+            scrollLeft: getcontGrupoVisualización.offsetLeft
         }, 1200);        
        
     }, 340);
@@ -5357,6 +5410,13 @@ getBtnGrupoCompartir.onclick = function () {
 }
 getArrowGrupoCompartir.onclick = function () {
     alternarCompartir();
+}
+// expandir o contraer grupo Visualización
+getBtnGrupoVisualización.onclick = function () {
+    alternarVisualización();
+}
+getArrowGrupoVisualización.onclick = function () {
+    alternarVisualización();
 }
 // expandir o contraer grupo Colores
 getBtnGrupoColores.onclick = function () {
