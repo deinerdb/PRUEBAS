@@ -1878,7 +1878,7 @@ function AplicarFiltro() {
     // Safari 6.0 - 9.0
     getContenedor.style.WebkitFilter = y[xsel].value;
     // activa el botón deshacer
-    estadoBtnDeshacer(true, "Deshacer filtro");
+    estadoBtnDeshacer(true, "Deshacer filtro (Control + Z)");
 }
 // para el fondo de la página
 function aplicarFondo() {
@@ -1943,14 +1943,17 @@ window.onclick = function (event) {
     }
 }
 // el modal se cierra al presionar tecla escape
+// Control + Z permite deshacer
 document.addEventListener("keydown", function (e) {    
     var characterCode;
     if (e.key != undefined) {
         if (e.key.toLowerCase() == "escape") {
             characterCode = 27; // Código de tecla para Escape
+        } else if (e.ctrlKey && e.key.toLowerCase() == "z") {
+            characterCode = 90; // Código de tecla para Z        }
         } else {
             characterCode = 0;
-        }
+        }    
     } else {
         characterCode = e.which || e.charCode || e.keyCode || e.keyIdentifier || 0;
     }
@@ -1960,6 +1963,13 @@ document.addEventListener("keydown", function (e) {
         // si no está ocupado ni se muestra el loader
         if (ocupado == false && $(".loader").hasClass("oculto")) {
             cerrarModal();
+        }
+    } else if (characterCode == 90 && e.ctrlKey) {
+        // solo si presionó  Control + Z
+        // si no está ocupado ni se muestra el loader 
+        // y el btn deshacer está activo y no hay modal visible ni está en pantalla completa
+        if (pantallaCompleta == false && ocupado == false && $(".loader").hasClass("oculto") && getBtnDeshacer.disabled == false && modalActual == "ninguno") {
+            funcDeshacer();
         }
     }
 });
@@ -2153,7 +2163,7 @@ function aceptarModal() {
                     // otras tareas                
                     showSnackbar("Importado desde galería: " + miSel.title);
                     // puede deshacer
-                    estadoBtnDeshacer(true, "Deshacer Importar desde Galería");
+                    estadoBtnDeshacer(true, "Deshacer Importar desde Galería (Control + Z)");
                 }
                 // ajusta todo
                 ajustesResize();
@@ -2209,7 +2219,7 @@ function aceptarModal() {
                     }
                     // configura mensajes
                     msj = "Se ha insertado una columna en la posición " + posInsertarColumna;
-                    mensaje = "Deshacer adición de columna";
+                    mensaje = "Deshacer adición de columna  (Control + Z)";
                 } else {
                     // eliminar
                     lastAction = "eliminarColumna";
@@ -2247,7 +2257,7 @@ function aceptarModal() {
                     getSelectColumnas.selectedIndex = numColumnas - 1; 
                     // configura mensajes                    
                     msj = "Se ha eliminado la columna en la posición " + posEliminarColumna;                    
-                    mensaje = "Deshacer eliminación de columna";
+                    mensaje = "Deshacer eliminación de columna  (Control + Z)";
                 }
                 // oculta el loader
                 $(".loader").addClass("oculto");
@@ -2309,7 +2319,7 @@ function aceptarModal() {
                     }
                     // configura mensajes
                     msj = "Se ha insertado una fila en la posición " + posInsertarFila;
-                    mensaje = "Deshacer adición de fila";
+                    mensaje = "Deshacer adición de fila (Control + Z)";
                 } else {
                     // eliminar
                     lastAction = "eliminarFila";
@@ -2347,7 +2357,7 @@ function aceptarModal() {
                     getSelectFilas.selectedIndex = numFilas - 1; 
                     // configura mensajes                    
                     msj = "Se ha eliminado la fila en la posición " + posEliminarFila;                    
-                    mensaje = "Deshacer eliminación de fila";
+                    mensaje = "Deshacer eliminación de fila (Control + Z)";
                 }
                 // oculta el loader
                 $(".loader").addClass("oculto");
@@ -2437,7 +2447,7 @@ function aceptarModal() {
                 ajustesResize();
                 showSnackbar("Sombra global aplicada: " + getSelectSombras.options[getSelectSombras.selectedIndex].text);
                 // puede deshacer
-                estadoBtnDeshacer(true, "Deshacer cambio global de sombras");
+                estadoBtnDeshacer(true, "Deshacer cambio global de sombras (Control + Z)");
             }, 0); 
             break;
         case "opacidad":
@@ -2490,7 +2500,7 @@ function aceptarModal() {
                 ajustesResize();
                 showSnackbar("Opacidad global aplicada: " + nuevo + "%");
                 // puede deshacer
-                estadoBtnDeshacer(true, "Deshacer cambio global de opacidad");
+                estadoBtnDeshacer(true, "Deshacer cambio global de opacidad (Control + Z)");
             }, 0);  
             break;
         case "colorBordes":            
@@ -2537,7 +2547,7 @@ function aceptarModal() {
                 ajustesResize();
                 showSnackbar("Color aplicado a todos los bordes: " + colorActual);
                 // puede deshacer
-                estadoBtnDeshacer(true, "Deshacer cambio global de color de bordes");
+                estadoBtnDeshacer(true, "Deshacer cambio global de color de bordes (Control + Z)");
                 // anima
                 getContenedor.style.opacity = "1";
             }, 0);  
@@ -2579,7 +2589,7 @@ function aceptarModal() {
                 ajustesResize();
                 showSnackbar("Tipo de bordes: " + tipoBordes.toUpperCase());
                 // puede deshacer
-                estadoBtnDeshacer(true, "Deshacer tipo de bordes");
+                estadoBtnDeshacer(true, "Deshacer tipo de bordes (Control + Z)");
                 // anima
                 getContenedor.style.opacity = "1";
             }, 0);  
@@ -2641,7 +2651,7 @@ function aceptarModal() {
                 // informa
                 showSnackbar("Color aplicado a todos los lienzos: " + colorLienzo);
                 // puede deshacer
-                estadoBtnDeshacer(true, "Deshacer color de lienzo global");
+                estadoBtnDeshacer(true, "Deshacer color de lienzo global (Control + Z)");
                 // anima
                 getContenedor.style.opacity = "1";
             }, 0);                        
@@ -2682,7 +2692,7 @@ function aceptarModal() {
                 ajustesResize();
                 showSnackbar("Ancho de bordes: " + nuevo.toLocaleString() + "%");
                 // puede deshacer
-                estadoBtnDeshacer(true, "Deshacer ancho de los bordes");
+                estadoBtnDeshacer(true, "Deshacer ancho de los bordes (Control + Z)");
                 // anima
                 getContenedor.style.opacity = "1";
             }, 0);  
@@ -2743,7 +2753,7 @@ function aceptarModal() {
                 ajustesResize();
                 showSnackbar("Radio aplicado a todos los bordes: " + radioBorde);
                 // puede deshacer
-                estadoBtnDeshacer(true, "Deshacer cambio global de radios");
+                estadoBtnDeshacer(true, "Deshacer cambio global de radios (Control + Z)");
             }, 0);  
             break;
         case "rgb":
@@ -3883,7 +3893,7 @@ function reemplazarColor(colorViejo, colorNuevo, miID) {
         // historial de colorActual
         procesarHistorial(colorActual);
         // activa el botón deshacer
-        estadoBtnDeshacer(true, "Deshacer reemplazar color");       
+        estadoBtnDeshacer(true, "Deshacer reemplazar color (Control + Z)");       
         // oculta el loader
         $(".loader").addClass("oculto");
         // otras tareas
@@ -4026,7 +4036,7 @@ function rellenarZona(colorViejo, colorNuevo, miID) {
     // colorActual está en hexadecimal
     procesarHistorial(colorActual);
     // activa el botón deshacer
-    estadoBtnDeshacer(true, "Deshacer relleno selectivo");
+    estadoBtnDeshacer(true, "Deshacer relleno selectivo (Control + Z)");
 }
 //procesan los colores usados para el historial de color
 // color usado debe ser hexadecimal
@@ -4111,7 +4121,7 @@ function hacerTrazos(event, miCuadrito) {
     //procesa el historial de colores
     procesarHistorial(colorActual);
     // activa el botón deshacer
-    estadoBtnDeshacer(true, "Deshacer pincelada");
+    estadoBtnDeshacer(true, "Deshacer pincelada (Control + Z)");
     // seguirá agregando al historial los siguientes trazos, hasta que sea uno nuevo
     nuevoTrazo = false;
     ocupado = false;
@@ -4415,7 +4425,7 @@ function hacerClick(celda) {
             // agrega la clase actual de sombras
             $(miCuadrito).addClass(sombras);     
             // activa el botón deshacer
-            estadoBtnDeshacer(true, "Deshacer estilo de sombras");
+            estadoBtnDeshacer(true, "Deshacer estilo de sombras (Control + Z)");
             break;
         case "opacidad":
             // guarda primero
@@ -4425,7 +4435,7 @@ function hacerClick(celda) {
             // cambia la opacidad de la celda
             miCuadrito.style.opacity = opacidad;            
             // activa el botón deshacer
-            estadoBtnDeshacer(true, "Deshacer opacidad");
+            estadoBtnDeshacer(true, "Deshacer opacidad (Control + Z)");
             break;
         case "libre":
             //modo selección libre
@@ -4452,7 +4462,7 @@ function hacerClick(celda) {
             // se procesa el historial
             procesarHistorial(colorActual);
             // activa el botón deshacer
-            estadoBtnDeshacer(true, "Deshacer color de bordes");
+            estadoBtnDeshacer(true, "Deshacer color de bordes (Control + Z)");
             break;
         case "lienzo":            
             // modo lienzo, individual
@@ -4471,7 +4481,7 @@ function hacerClick(celda) {
             // historial actualizado
             procesarHistorial(colorLienzo);
             showSnackbar("Color del lienzo aplicado: " + colorLienzo);
-            estadoBtnDeshacer(true, "Deshacer color de lienzo individual");            
+            estadoBtnDeshacer(true, "Deshacer color de lienzo individual (Control + Z)");            
             break;
         case "radio":
             // modo editor de radio de bordes
@@ -4487,7 +4497,7 @@ function hacerClick(celda) {
             miCuadrito.style.webkitBorderRadius = radioBorde;
             miCuadrito.style.borderRadius = radioBorde;
             // activa el botón deshacer
-            estadoBtnDeshacer(true, "Deshacer radio de los bordes");
+            estadoBtnDeshacer(true, "Deshacer radio de los bordes (Control + Z)");
             break;
         case "borrador":
             //modo borrador
@@ -4633,7 +4643,7 @@ function hacerClick(celda) {
             // informa
             showSnackbar(tempInfo);
             // activa el botón deshacer
-            estadoBtnDeshacer(true, "Deshacer borrado");
+            estadoBtnDeshacer(true, "Deshacer borrado (Control + Z)");
             break;
         case "extraer":
             //modo extraer color según opción ExtraerDesde
@@ -6047,7 +6057,7 @@ function readFile(input) {
             showSnackbar("Dibujo importado desde archivo");
             lastAction = "importarArchivo";
             // activa el botón deshacer
-            estadoBtnDeshacer(true, "Deshacer importar desde archivo");
+            estadoBtnDeshacer(true, "Deshacer importar desde archivo (Control + Z)");
             cerrarModal(); // cierra la ventana, se puede ver el dibujo importado
         }; 
         // si ocurre un error
@@ -6405,7 +6415,7 @@ function dimensionar(mostrarLoader) {
         // posiciona inmediatamente
         ajustesResize();
         // activa el botón deshacer
-        estadoBtnDeshacer(true, "Deshacer dimensionado");
+        estadoBtnDeshacer(true, "Deshacer dimensionado (Control + Z)");
     }, 0);
 }
 
@@ -6946,7 +6956,7 @@ getBtnAceptarLibre.onclick = function () {
         // código alta exigencia
         cambiarModo(lastModo, false);
         lastAction = "libre";
-        estadoBtnDeshacer(true, "Deshacer cambios del modo libre");
+        estadoBtnDeshacer(true, "Deshacer cambios del modo libre (Control + Z)");
         // oculta el loader
         $(".loader").addClass("oculto");
         // otras tareas
@@ -7038,7 +7048,7 @@ getBtnAceptarCortar.onclick = function () {
         
         cambiarModo(lastModo, false);
         lastAction = "cortar";
-        estadoBtnDeshacer(true, "Deshacer Cortar y Pegar");
+        estadoBtnDeshacer(true, "Deshacer Cortar y Pegar (Control + Z)");
         // oculta el loader
         $(".loader").addClass("oculto");
         // otras tareas
@@ -7129,7 +7139,7 @@ getBtnAceptarCopiar.onclick = function () {
         
         cambiarModo(lastModo, false);
         lastAction = "copiar";
-        estadoBtnDeshacer(true, "Deshacer Copiar y Pegar");
+        estadoBtnDeshacer(true, "Deshacer Copiar y Pegar (Control + Z)");
         // oculta el loader
         $(".loader").addClass("oculto");
         // otras tareas
@@ -7192,7 +7202,7 @@ getBtnAceptarVoltearV.onclick = function () {
             }
         }        
         cambiarModo(lastModo, false);        
-        estadoBtnDeshacer(true, "Deshacer Voltear Verticalmente");
+        estadoBtnDeshacer(true, "Deshacer Voltear Verticalmente (Control + Z)");
         // oculta el loader
         $(".loader").addClass("oculto");
         // otras tareas
@@ -7271,7 +7281,7 @@ getBtnAceptarVoltearH.onclick = function () {
             }
         }        
         cambiarModo(lastModo, false);        
-        estadoBtnDeshacer(true, "Deshacer Voltear Horizontalmente");
+        estadoBtnDeshacer(true, "Deshacer Voltear Horizontalmente (Control + Z)");
         // oculta el loader
         $(".loader").addClass("oculto");
         // otras tareas
@@ -7761,7 +7771,7 @@ getBtnTrash.onclick = function () {
             $(getColumnas[i]).parent().css("background-color", colorLienzoAplicado);
         }        
         // activa el botón deshacer
-        estadoBtnDeshacer(true, "Deshacer borrar todo");
+        estadoBtnDeshacer(true, "Deshacer borrar todo (Control + Z)");
         ocupado = false;
         // oculta el loader
         $(".loader").addClass("oculto");
@@ -7864,7 +7874,7 @@ getBtnActualizar.onclick = function () {
         lastFondoAplicado = fondoAplicado;
         fondoAplicado = "#ffffff";
         // activa el botón deshacer
-        estadoBtnDeshacer(true, "Deshacer borrar todo");
+        estadoBtnDeshacer(true, "Deshacer borrar todo (Control + Z)");
         ocupado = false;
         // oculta el loader
         $(".loader").addClass("oculto");
@@ -7916,7 +7926,7 @@ getBtnRellenoAleatorio.onclick = function () {
         }        
         
         // activa el botón deshacer
-        estadoBtnDeshacer(true, "Deshacer relleno de colores aleatorios");
+        estadoBtnDeshacer(true, "Deshacer relleno de colores aleatorios (Control + Z)");
         ocupado = false;
         // oculta el loader
         $(".loader").addClass("oculto");
@@ -7956,7 +7966,7 @@ getBtnRellenar.onclick = function () {
         // historial de colorActual
         procesarHistorial(colorActual);
         // activa el botón deshacer
-        estadoBtnDeshacer(true, "Deshacer relleno global");
+        estadoBtnDeshacer(true, "Deshacer relleno global (Control + Z)");
         ocupado = false;
         // oculta el loader
         $(".loader").addClass("oculto");
@@ -8091,8 +8101,8 @@ getBtnColorLienzo.onclick = function () {
     }    
 }
 
-// deshace la última acción
-getBtnDeshacer.onclick = function () {
+// FUNCIÓN QUE DESHACE LA ÚLTIMA ACCIÓN
+function funcDeshacer() {
     if (ocupado == true) {
         //sale si está ocupado
         return;
@@ -8998,7 +9008,10 @@ getBtnDeshacer.onclick = function () {
     estadoBtnDeshacer(false);
     ocupado = false;
 }
-
+// deshace la última acción
+getBtnDeshacer.onclick = function () {
+    funcDeshacer();
+}
 // aumenta el tamaño de todos los cuadritos
 document.getElementById("BtnAumentar").onclick = function () {
     ajustarTamaño(1, true, true);
