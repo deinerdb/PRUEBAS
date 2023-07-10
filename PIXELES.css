@@ -396,7 +396,7 @@ tr.todas:nth-child(odd) {
     box-shadow: 0em -3px 8px 0 #ff0000 inset;
 }
 #contGrupoBordes {     
-    -moz-box-shadow: 0em -3px 8px 0 #121818 inset;
+    -moz-box-shadow: 0em -3px 8px 0 #00ffff inset;
     -webkit-box-shadow: 0em -3px 8px 0 #00ffff inset;
     box-shadow: 0em -3px 8px 0 #00ffff inset;
 }
