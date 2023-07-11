@@ -1967,8 +1967,9 @@ document.addEventListener("keydown", function (e) {
     } else if (characterCode == 90 && e.ctrlKey) {
         // solo si presionó  Control + Z
         // si no está ocupado ni se muestra el loader 
-        // y el btn deshacer está activo y no hay modal visible ni está en pantalla completa
-        if (pantallaCompleta == false && ocupado == false && $(".loader").hasClass("oculto") && getBtnDeshacer.disabled == false && modalActual == "ninguno") {
+        // y el btn deshacer está activo y no hay modal visible ni está en pantalla completa y
+        // no está en modos que ocultan el btn deshacer        
+        if (modoActual != "libre" && modoActual != "voltearH" && modoActual != "voltearV" && modoActual != "copiar" && modoActual != "cortar" && pantallaCompleta == false && ocupado == false && $(".loader").hasClass("oculto") && getBtnDeshacer.disabled == false && modalActual == "ninguno") {
             funcDeshacer();
         }
     }
