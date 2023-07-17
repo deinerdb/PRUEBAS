@@ -16,6 +16,7 @@ var getBtnAjustarZoomNormal = document.getElementById("BtnAjustarZoomNormal");
 var getBtnAjustarZoomFull = document.getElementById("BtnAjustarZoomFull");
 var getPaletaHistorial = document.getElementById("paletaHistorial");
 var getBtnCerrarHistorial = document.getElementById("BtnCerrarHistorial");
+var getBtnBorrarHistorial = document.getElementById("BtnBorrarHistorial");
 var getSpanModo = document.getElementById("spanModo");
 var getContenedor = document.getElementById("contenedor");
 var getPantalla = document.getElementById("pantalla");
@@ -1407,10 +1408,14 @@ function ajustesResize() {
         infoTemp.style.top = 40 + getPaletaArriba.offsetHeight + "px";
     }
             
-    // el top del historial    
+    // el top del btn cerrar historial    
     getBtnCerrarHistorial.style.top = 0 + getPaletaArriba.offsetHeight + "px";
+    // el bottom del btn borrar historial
+    getBtnBorrarHistorial.style.bottom = 0 + getPaletaAbajo.offsetHeight + "px";
+    // top y bottom de la paleta historial
     getPaletaHistorial.style.top = 0 + getPaletaArriba.offsetHeight + getBtnCerrarHistorial.offsetHeight + "px";
-    getPaletaHistorial.style.bottom = 0 + getPaletaAbajo.offsetHeight + "px";
+    getPaletaHistorial.style.bottom = 0 + getPaletaAbajo.offsetHeight + getBtnBorrarHistorial.offsetHeight + "px";
+
     // el top del infoModo
     getSpanModo.style.top = 4 + getPaletaArriba.offsetHeight + "px";
     // dependiendo del estado de la pantalla
@@ -4858,19 +4863,23 @@ function mostrarHistorial(afectarPreferencia) {
     }
     //oculta este botón
     getBtnHistorialColor.style.display = "none";
-    // la barra se activa y el botón cerrar historial también
+    // la barra se activa y los botones cerrar/borrar historial también
     getPaletaHistorial.style.pointerEvents = "auto";
     getBtnCerrarHistorial.disabled = false;
+    getBtnBorrarHistorial.disabled = false;
     //muestra la paleta de historial de color
     //getPaletaHistorial.style.display = "block";
     getPaletaHistorial.style.left = "0px";
     getPaletaHistorial.style.visibility = "visible";
     getPaletaHistorial.style.opacity = "0.9";
-    //muestra el botón para cerrar historial de color
-    //BtnCerrarHistorial.style.display = "inline-block";
-    BtnCerrarHistorial.style.left = "0px";
-    BtnCerrarHistorial.style.visibility = "visible";
-    BtnCerrarHistorial.style.opacity = "1";
+    //muestra el botón para cerrar historial de color    
+    getBtnCerrarHistorial.style.left = "0px";
+    getBtnCerrarHistorial.style.visibility = "visible";
+    getBtnCerrarHistorial.style.opacity = "1";
+    //muestra el botón para borrar historial de color    
+    getBtnBorrarHistorial.style.left = "0px";
+    getBtnBorrarHistorial.style.visibility = "visible";
+    getBtnBorrarHistorial.style.opacity = "1";
     // para definir sus posiciones y apariencia
     ajustesResize();
     resaltarActual();
@@ -4893,9 +4902,10 @@ function cerrarHistorial(afectarPreferencia) {
     if (modoActual != "borrador" && modoActual != "radio" && modoActual != "opacidad" && modoActual != "sombras" && modoActual != "voltearH" && modoActual != "voltearV" && modoActual != "copiar" && modoActual != "cortar" && afectarPreferencia == true) {
         prefiereHistorial = false;
     }
-    // la barra se desactiva y el botón cerrar historial también
+    // la barra se desactiva y los botones cerrar/borrar historial también
     getPaletaHistorial.style.pointerEvents = "none";
-    BtnCerrarHistorial.disabled = true;
+    getBtnCerrarHistorial.disabled = true;
+    getBtnBorrarHistorial.disabled = true;
     //muestra el botón en la paleta de arriba
     // en caso que quiera esperar comente la siguiente línea
     getBtnHistorialColor.style.display = "inline-block";
@@ -4913,20 +4923,24 @@ function cerrarHistorial(afectarPreferencia) {
         // en caso que quiera esperar quite el comentario en la siguiente línea
         //getBtnHistorialColor.style.display = "inline-block";
         // el botón de cerrar historial
-        //  lo oculta un poco después, para dar tiempo a la transición 
-        BtnCerrarHistorial.style.left = "-300px";
-        BtnCerrarHistorial.style.visibility = "hidden";
-        //oculta la paleta de historial de color
-        //BtnCerrarHistorial.style.display = "none";
+        //  los oculta un poco después, para dar tiempo a la transición 
+        getBtnCerrarHistorial.style.left = "-300px";
+        getBtnCerrarHistorial.style.visibility = "hidden";
+        getBtnBorrarHistorial.style.left = "-300px";
+        getBtnBorrarHistorial.style.visibility = "hidden";                
     }, 2000);
-    getPaletaHistorial.style.opacity = "0";
-    //oculta el botón de cerrar historial de color
-    //BtnCerrarHistorial.style.display = "none";
-    BtnCerrarHistorial.style.opacity = "0";
+    //oculta la paleta y los botones cerrar/borrar historial de color  
+    getPaletaHistorial.style.opacity = "0";      
+    getBtnCerrarHistorial.style.opacity = "0";
+    getBtnBorrarHistorial.style.opacity = "0";
 }
 //se llama la función que cierra el historial de color
-BtnCerrarHistorial.onclick = function () {
+getBtnCerrarHistorial.onclick = function () {
     cerrarHistorial(true);
+}
+//se llama la función que borra el historial de color
+getBtnBorrarHistorial.onclick = function () {
+    showSnackbar("En construcción...");
 }
 function definirPuntero() {
     // si hace zoom +
@@ -4973,6 +4987,7 @@ getBtnPantallaCompleta.onclick = function () {
     $(getPantalla).css("width", "100%");
     $(getPantalla).css("height", "100%");
     $(getBtnCerrarHistorial).addClass("oculto");
+    $(getBtnBorrarHistorial).addClass("oculto");
     $(".paleta").addClass("oculto");
     $(":header").addClass("oculto");
     // por defecto es zoom +
@@ -4998,6 +5013,7 @@ document.getElementById("BtnSalirPantallaCompleta").onclick = function () {
     $(getPantalla).css("width", "auto");
     $(getPantalla).css("height", "auto");
     $(getBtnCerrarHistorial).removeClass("oculto");
+    $(getBtnBorrarHistorial).removeClass("oculto");
     $(".paleta").removeClass("oculto");
     $(":header").removeClass("oculto");
     // puntero
