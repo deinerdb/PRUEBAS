@@ -4052,7 +4052,7 @@ function procesarHistorial(colorUsado) {
     var pos;
     // busca el color usado en el arrayColoresUsados
     if (arrayColoresUsados.indexOf(colorUsado) == -1) {
-        // no está en en el array, lo agrega al array
+        // no está en el array, lo agrega al array
         arrayColoresUsados[arrayColoresUsados.length] = colorUsado;
         // agrega un botón al historial con el nuevo color            
         nuevo = document.createElement("button");
@@ -4064,6 +4064,10 @@ function procesarHistorial(colorUsado) {
         nuevo.style.color = colorUsado; //el botón presenta su respectivo color
         //el evento es agregado a cada uno
         nuevo.addEventListener("click", function () { colorHistorial(this.id); });
+        // si no es blanco ni negro, le agrega la clase para marcarlo como borrable
+        if (colorUsado != "#ffffff" && colorUsado != "#000000"){
+            nuevo.setAttribute("class", "color-borrable");
+        }
         // lo agrega al dom     
         getPaletaHistorial.appendChild(nuevo);
         // corrige un bug
@@ -4940,7 +4944,10 @@ getBtnCerrarHistorial.onclick = function () {
 }
 //se llama la función que borra el historial de color
 getBtnBorrarHistorial.onclick = function () {
-    showSnackbar("En construcción...");
+    // deja las dos primeras casillas en el array: blanco y negro
+    arrayColoresUsados.length = 2;    
+    $(".color-borrable").remove();
+    showSnackbar("Historial borrado");    
 }
 function definirPuntero() {
     // si hace zoom +
