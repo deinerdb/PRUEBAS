@@ -495,6 +495,7 @@ var numFilas = 10;
 //***************************
 var permitirEvento = true;
 var arrayColoresUsados = [];
+var arrayCopiaColoresUsados = [];
 // su estado: inicia oculto
 var historialMostrado = false;
 var prefiereHistorial = false;
@@ -4944,9 +4945,17 @@ getBtnCerrarHistorial.onclick = function () {
 }
 //se llama la función que borra el historial de color
 getBtnBorrarHistorial.onclick = function () {
+    // guarda para poder deshacer
+    var i;    
+    arrayCopiaColoresUsados.length = 0;
+    for (i = 2; i <  arrayColoresUsados.length; i++) {
+        arrayCopiaColoresUsados[arrayCopiaColoresUsados.length] = arrayColoresUsados[i];
+    }
     // deja las dos primeras casillas en el array: blanco y negro
     arrayColoresUsados.length = 2;    
     $(".color-borrable").remove();
+    lastAction = "borrarHistorial";
+    estadoBtnDeshacer(true, "Deshacer borrar historial");
     showSnackbar("Historial borrado");    
 }
 function definirPuntero() {
@@ -9022,8 +9031,17 @@ function funcDeshacer() {
             }
             mensaje = "Se deshizo el relleno selectivo";
             break;
+        case "borrarHistorial":
+            var i;
+            // recorre los colores guardados y los agrega al historial
+            for (i = 0; i < arrayCopiaColoresUsados.length; i++) {
+                procesarHistorial(arrayCopiaColoresUsados[i]);
+            }
+            arrayCopiaColoresUsados.length = 0; // libera recursos
+            mensaje = "Se restauró el historial de colores";
+            break;
         default:
-            mensaje = "No se pudo deshacer";
+            mensaje = "No se pudo deshacer"; 
     }
     // informa
     showSnackbar(mensaje);
