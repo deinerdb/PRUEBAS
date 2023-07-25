@@ -8,6 +8,9 @@ var getRelleno = document.getElementById("relleno");
 var infoTemp = document.getElementById("infoTemporal");
 var getPaletaArriba = document.getElementById("paletaArriba");
 var getPaletaAbajo = document.getElementById("paletaAbajo");
+// del historial
+var arrayColoresUsados = [];
+var arrayCopiaColoresUsados = [];
 //temporalmente ocultas
 $(getPaletaAbajo).addClass("oculto");
 $(getPaletaArriba).addClass("oculto");
@@ -494,8 +497,6 @@ var numColumnas = 10;
 var numFilas = 10;
 //***************************
 var permitirEvento = true;
-var arrayColoresUsados = [];
-var arrayCopiaColoresUsados = [];
 // su estado: inicia oculto
 var historialMostrado = false;
 var prefiereHistorial = false;
@@ -1363,6 +1364,25 @@ function rgbToHsl(r, g, b) {
     }
     s = s;
     return { h: h, s: s, l: l };
+}
+// ajustes según la disponibilidad de btn borrar historial
+// el blanco y el negro son permanentes en el historial
+function estadoBtnBorrarHistorial() {
+    var captionBtn = "";    
+    if (arrayColoresUsados.length > 2) {
+        // activa el botón borrar historial, hay otros colores
+        //getBtnBorrarHistorial.disabled = false;
+        //getBtnBorrarHistorial.style.opacity = "1";
+        getBtnBorrarHistorial.style.cursor = "pointer";
+        captionBtn = "Borrar historial";        
+    } else {
+        // dasactiva el botón borrar historial, solo hay blanco y negro        
+        //getBtnBorrarHistorial.disabled = true;
+        //getBtnBorrarHistorial.style.opacity = "0.5";
+        getBtnBorrarHistorial.style.cursor = "not-allowed";
+        captionBtn = "Blanco y negro son permanentes en el historial de colores";  
+    }
+    getBtnBorrarHistorial.setAttribute("title", captionBtn);
 }
 // ajustes según la disponibilidad de deshacer
 function estadoBtnDeshacer(activar, captionBtn) {    
@@ -4075,6 +4095,7 @@ function procesarHistorial(colorUsado) {
         // mayor ancho para disimularlo.
     }
     resaltarActual();
+    estadoBtnBorrarHistorial();
 }
 // el blanco ya fue usado en el color inicial de los cuadritos y de los lienzos
 procesarHistorial("#ffffff");
@@ -4945,6 +4966,11 @@ getBtnCerrarHistorial.onclick = function () {
 }
 //se llama la función que borra el historial de color
 getBtnBorrarHistorial.onclick = function () {
+    // si solo está el blanco y el negro, no hace nada
+    if (arrayColoresUsados.length <= 2) {
+        showSnackbar("Blanco y negro son permanentes en el historial de colores");
+        return;
+    }
     // guarda para poder deshacer
     var i;    
     arrayCopiaColoresUsados.length = 0;
@@ -4956,6 +4982,7 @@ getBtnBorrarHistorial.onclick = function () {
     $(".color-borrable").remove();
     lastAction = "borrarHistorial";
     estadoBtnDeshacer(true, "Deshacer borrar historial");
+    estadoBtnBorrarHistorial();
     showSnackbar("Historial borrado");    
 }
 function definirPuntero() {
