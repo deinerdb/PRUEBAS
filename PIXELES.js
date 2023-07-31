@@ -2150,10 +2150,26 @@ function aplicarLienzoGlobal() {
 function cambiarImgGalería(img) {
     // ninguna seleccionada
     $(".seleccionadoImgGalería").removeClass("seleccionadoImgGalería");
-    // selecciona la actua
+    // selecciona la actual
     $(img).addClass("seleccionadoImgGalería");
 }
-// depende de modalActual/
+// recorre las imgGalería y les agrega las clases o categorías
+function agregarClasesImgGalería() {
+    // referencia a todas las imágenes
+    var img = document.getElementsByClassName("imgGalería");
+    //recorre todo el array y les agrega sus clases
+    for (i = 0; i < img.length; i++) {
+        switch (img[i].title) {
+            case "Patilla 15x15":
+                $(img[i]).addClass("Plantas");                
+                break;
+
+        }
+    }
+}
+// llamada al cargar
+agregarClasesImgGalería();
+// reacciona al botón dependiendo del modalActual
 function aceptarModal() {
     switch (modalActual) {
         case "importarGalería":  
