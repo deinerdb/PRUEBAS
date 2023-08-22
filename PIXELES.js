@@ -2153,7 +2153,27 @@ function cambiarImgGalería(img) {
     // selecciona la actual
     $(img).addClass("seleccionadoImgGalería");
 }
-// recorre las imgGalería y les agrega las clases o categorías
+
+/* recorre las imgGalería y les agrega las clases o categorías:
+Abstracto
+Animales
+Blanco y Negro
+DC
+Emojis
+Logos
+Looney Tunes
+Marvel
+Minecraft
+Música
+Objetos
+Paisajes
+Personajes
+Plantas
+Pokémon
+Rostros
+Star Wars
+Videojuegos
+*/
 function agregarClasesImgGalería() {
     // referencia a todas las imágenes
     var img = document.getElementsByClassName("imgGalería");
@@ -2163,7 +2183,61 @@ function agregarClasesImgGalería() {
             case "Patilla 15x15":
                 $(img[i]).addClass("Plantas");                
                 break;
-
+            case "Corazón 16X17":
+                $(img[i]).addClass("Emojis");                
+                break;
+            case "Yoda 10x11":
+                $(img[i]).addClass("Star_Wars Personajes");                
+                break;
+            case "R2D2 41x31":
+                $(img[i]).addClass("Star_Wars Personajes");                
+                break;
+            case "PAJARITO 20X24":
+                $(img[i]).addClass("Animales");                
+                break;
+            case "Espada 18X18":
+                $(img[i]).addClass("Minecraft Objetos");                
+                break;
+            case "FOX 47X44":
+                $(img[i]).addClass("Animales Personajes");                
+                break;
+            case "LOGO DETECTIVE MARCIANO 23X23":
+                $(img[i]).addClass("DC Logos");                
+                break;
+            case "LOGO BATMAN 19X31":
+                $(img[i]).addClass("DC Logos");                
+                break;
+            case "LOGO CYBORG 23X23":
+                $(img[i]).addClass("DC Logos");                
+                break;
+            case "LOGO FLASH 24X24":
+                $(img[i]).addClass("DC Logos");                
+                break;
+            case "Logo Linterna Verde 25X29":
+                $(img[i]).addClass("DC Logos");                
+                break;
+            case "LOGO SUPERMAN 17X24":
+                $(img[i]).addClass("DC Logos");                
+                break;
+            case "LOGO WW 23X33":
+                $(img[i]).addClass("DC Logos");                
+                break;
+            case "LOGO AQUAMAN 23X20":
+                $(img[i]).addClass("DC Logos");                
+                break;
+            case "Tigre 50X50":
+                $(img[i]).addClass("Animales");                
+                break;
+            case "CUBO 11X14":
+                $(img[i]).addClass("Abstracto Objetos");                
+                break;
+            case "Deadpool 41X23":
+                $(img[i]).addClass("Marvel Personajes");                
+                break;
+            case "Rosa 45X44":
+                $(img[i]).addClass("Plantas");                
+                break;
+                    
         }
     }
 }
