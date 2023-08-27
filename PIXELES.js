@@ -2187,16 +2187,16 @@ function agregarClasesImgGalería() {
                 $(img[i]).addClass("Emojis");                
                 break;
             case "Yoda 10x11":
-                $(img[i]).addClass("Star_Wars Personajes");                
+                $(img[i]).addClass("Star_Wars Personajes Videojuegos");                
                 break;
             case "R2D2 41x31":
-                $(img[i]).addClass("Star_Wars Personajes");                
+                $(img[i]).addClass("Star_Wars Personajes Videojuegos");                
                 break;
             case "PAJARITO 20X24":
                 $(img[i]).addClass("Animales");                
                 break;
             case "Espada 18X18":
-                $(img[i]).addClass("Minecraft Objetos");                
+                $(img[i]).addClass("Minecraft Objetos Videojuegos");                
                 break;
             case "FOX 47X44":
                 $(img[i]).addClass("Animales Personajes");                
@@ -2232,12 +2232,77 @@ function agregarClasesImgGalería() {
                 $(img[i]).addClass("Abstracto Objetos");                
                 break;
             case "Deadpool 41X23":
-                $(img[i]).addClass("Marvel Personajes");                
+                $(img[i]).addClass("Marvel Personajes Videojuegos");                
                 break;
             case "Rosa 45X44":
                 $(img[i]).addClass("Plantas");                
                 break;
-                    
+            case "SONIC 27X23":
+                $(img[i]).addClass("Animales Personajes Videojuegos");                
+                break;
+            case "MARIO 30X24":
+                $(img[i]).addClass("Personajes Videojuegos");                
+                break;
+            case "SNOOPY 26X19":
+                $(img[i]).addClass("Personajes Animales");                
+                break;
+            case "SMILEY 19X19":
+                $(img[i]).addClass("Emojis");                
+                break;
+            case "ORCAS 55X52":
+                $(img[i]).addClass("Animales");                
+                break;
+            case "LOBO 49X37":
+                $(img[i]).addClass("Animales");                
+                break;
+            case "OCASO 50X50":
+                $(img[i]).addClass("Paisajes");                
+                break;
+            case "PIANO 64X100":
+                $(img[i]).addClass("Objetos Música");                
+                break;
+            case "ROSTRO MUJER 40X34":
+                $(img[i]).addClass("Rostros Blanco_y_Negro");                
+                break;
+            case "PIKACHU 40X37":
+                $(img[i]).addClass("Pokémon Personajes Videojuegos");                
+                break;
+            case "LUCAS 31X25":
+                $(img[i]).addClass("Looney_Tunes Personajes Videojuegos Animales");                
+                break;
+            case "AVE 17X19":
+                $(img[i]).addClass("Animales");                
+                break;
+            case "AVE 19X24":
+                $(img[i]).addClass("Animales");                
+                break;
+            case "AVE 20X23":
+                $(img[i]).addClass("Animales");                
+                break;
+            case "AVE 26X18":
+                $(img[i]).addClass("Animales");                
+                break;
+            case "AVE AMARILLA 19X23":
+                $(img[i]).addClass("Animales");                
+                break;
+            case "CUERVO 22X18":
+                $(img[i]).addClass("Animales");                
+                break;
+            case "FLAMENCO 28X15":
+                $(img[i]).addClass("Animales");                
+                break;
+            case "PATO 20X20":
+                $(img[i]).addClass("Animales");                
+                break;
+            case "LEÓN 33X44":
+                $(img[i]).addClass("Animales");                
+                break;
+            case "MUJER 71X69":
+                $(img[i]).addClass("Rostros Personajes");                
+                break;
+            case "AHSOKA TANO 40X52":
+                $(img[i]).addClass("Star_Wars Personajes Videojuegos");                
+                break;                                                                
         }
     }
 }
