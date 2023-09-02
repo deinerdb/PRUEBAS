@@ -2302,7 +2302,10 @@ function agregarClasesImgGalería() {
                 break;
             case "AHSOKA TANO 40X52":
                 $(img[i]).addClass("Star_Wars Personajes Videojuegos");                
-                break;                                                                
+                break;
+            case "PANDA 29X25":
+                $(img[i]).addClass("Animales Blanco_y_Negro");                
+                break;                                                                    
         }
     }
 }
