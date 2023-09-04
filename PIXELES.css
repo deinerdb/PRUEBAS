@@ -1957,7 +1957,7 @@ th {
     width: 100%;
     text-align:left;
 }
-#selectSombras, #selectFormatoBorrado {
+#selectSombras, #selectFormatoBorrado, #selectFiltrarGalería {
     margin: 12px 2px 24px 2px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
@@ -2006,7 +2006,7 @@ th {
     background-color: #ffe6ff;
     font-size: larger;
 }
-    #selectSombras:focus, #selectFormatoBorrado:focus, #selectAgregarFila:focus, #selectAgregarColumna:focus, #selectEliminarFila:focus, #selectEliminarColumna:focus {
+#selectFiltrarGalería:focus, #selectSombras:focus, #selectFormatoBorrado:focus, #selectAgregarFila:focus, #selectAgregarColumna:focus, #selectEliminarFila:focus, #selectEliminarColumna:focus {
         background-color: lavender !important;
     }
 #contMuestrasOpacidad {

@@ -2309,6 +2309,10 @@ function agregarClasesImgGalería() {
         }
     }
 }
+// cuando cambia la categoría en el filtro de la galería de pixeles
+function actualizaFiltroGalería() {
+    showSnackbar("En construcción...");
+}
 // llamada al cargar
 agregarClasesImgGalería();
 // reacciona al botón dependiendo del modalActual
@@ -3028,7 +3032,7 @@ function showModal() {
         case "importarGalería":
             $("#marcoImportarGalería").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-file-image'></i> Importar desde Galería";
-            document.getElementById("spanInfoModal").innerHTML = "En esta ventana puede importar un dibujo desde la creciente galería de Pixeles. Seleccione un dibujo y presione ACEPTAR. Utilice la casilla de verificación para indicar si el dibujo se ajustará a la pantalla luego de ser importado.";                     
+            document.getElementById("spanInfoModal").innerHTML = "En esta ventana puede importar un dibujo desde la creciente galería de Pixeles. Seleccione un dibujo y presione ACEPTAR. Puede filtrar los dibujos por categorías usando el selector en la parte superior de la ventana. Utilice la casilla de verificación para indicar si el dibujo se ajustará a la pantalla luego de ser importado.";                     
             // por defecto, se ajusta a la pantalla después de importar
             document.getElementById("myCheckAjustarGalería").checked = true;
             // para animarla al cerrar: opacidad ajustada
