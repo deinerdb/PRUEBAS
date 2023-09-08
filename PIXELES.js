@@ -2305,7 +2305,10 @@ function agregarClasesImgGalería() {
                 break;
             case "PANDA 29X25":
                 $(img[i]).addClass("Animales Blanco_y_Negro");                
-                break;                                                                    
+                break;
+            case "MOSAICO 12X12":
+                $(img[i]).addClass("Abstracto");                
+                break;                                                                        
         }
     }
 }
