@@ -130,6 +130,8 @@ var getSpanColumnas = document.getElementById("spanColumnas");
 var getSelectColumnas = document.getElementById("selectColumnas"); // listaColumnas
 var getBtnImportarTexto = document.getElementById("BtnImportarTexto");
 var getBtnImportarGallery = document.getElementById("BtnImportarGallery");
+var getBtnImportarGallery = document.getElementById("BtnImportarGallery");
+var getFiltroGalería = document.getElementById("selectFiltrarGalería");
 var getBtnFilas = document.getElementById("BtnFilas");
 var getBtnColumnas = document.getElementById("BtnColumnas");
 var getSelectAgregarFila = document.getElementById("selectAgregarFila");
@@ -2308,13 +2310,26 @@ function agregarClasesImgGalería() {
                 break;
             case "MOSAICO 12X12":
                 $(img[i]).addClass("Abstracto");                
-                break;                                                                        
+                break;
+            case "SILVESTRE 34X42":
+                $(img[i]).addClass("Personajes Animales Looney_Tunes Videojuegos");                
+                break;                                                                            
         }
     }
 }
 // cuando cambia la categoría en el filtro de la galería de pixeles
 function actualizaFiltroGalería() {
-    showSnackbar("En construcción...");
+    // recupera la clase seleccionada en el filtro
+    var miClase = getFiltroGalería.value;
+    var miSel;
+    // oculta todas las imágenes
+    $(".imgGalería").addClass("oculto");
+    // muestra las de la clase actual
+    $("." + miClase).removeClass("oculto");
+    // obtiene una referencia al primero de la clase actual
+    miSel = document.getElementsByClassName(miClase)[0];
+    // simula la selección de ese elemento
+    cambiarImgGalería(miSel);
 }
 // llamada al cargar
 agregarClasesImgGalería();
@@ -3037,7 +3052,11 @@ function showModal() {
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-file-image'></i> Importar desde Galería";
             document.getElementById("spanInfoModal").innerHTML = "En esta ventana puede importar un dibujo desde la creciente galería de Pixeles. Seleccione un dibujo y presione ACEPTAR. Puede filtrar los dibujos por categorías usando el selector en la parte superior de la ventana. Utilice la casilla de verificación para indicar si el dibujo se ajustará a la pantalla luego de ser importado.";                     
             // por defecto, se ajusta a la pantalla después de importar
-            document.getElementById("myCheckAjustarGalería").checked = true;
+            document.getElementById("myCheckAjustarGalería").checked = true;            
+            // por defecto muestra todas las imágenes
+            getFiltroGalería.value = "imgGalería";
+            // ajusta la visibilidad y selecciona el primero
+            actualizaFiltroGalería();
             // para animarla al cerrar: opacidad ajustada
             restauraOpacidad = true;
             $(getContenedor).css("opacity", "0");
