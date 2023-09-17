@@ -2313,6 +2313,9 @@ function agregarClasesImgGalería() {
                 break;
             case "SILVESTRE 34X42":
                 $(img[i]).addClass("Personajes Animales Looney_Tunes Videojuegos");                
+                break;
+            case "VISIÓN 29X29":
+                $(img[i]).addClass("Personajes Videojuegos Marvel");                
                 break;                                                                            
         }
     }
