@@ -2159,11 +2159,11 @@ function cambiarImgGalería(img) {
 /* recorre las imgGalería y les agrega las clases o categorías:
 Abstracto
 Animales
-Blanco y Negro
+Blanco_y_Negro
 DC
 Emojis
 Logos
-Looney Tunes
+Looney_Tunes
 Marvel
 Minecraft
 Música
@@ -2173,8 +2173,10 @@ Personajes
 Plantas
 Pokémon
 Rostros
-Star Wars
+Star_Wars
+Transformers
 Videojuegos
+
 */
 function agregarClasesImgGalería() {
     // referencia a todas las imágenes
@@ -2316,7 +2318,16 @@ function agregarClasesImgGalería() {
                 break;
             case "VISIÓN 29X29":
                 $(img[i]).addClass("Personajes Videojuegos Marvel");                
-                break;                                                                            
+                break;
+            case "Batman 39X27":
+                $(img[i]).addClass("Personajes Videojuegos DC");                
+                break;
+            case "Logo Autobots 25X24":
+                $(img[i]).addClass("Videojuegos Logos Transformers");                
+                break;
+            case "Logo Decepticons 48X47":
+                $(img[i]).addClass("Videojuegos Logos Transformers");                
+                break;                                                                                        
         }
     }
 }
