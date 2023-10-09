@@ -2154,6 +2154,18 @@ function cambiarImgGalería(img) {
     $(".seleccionadoImgGalería").removeClass("seleccionadoImgGalería");
     // selecciona la actual
     $(img).addClass("seleccionadoImgGalería");
+    // muestra información sobre el seleccionado
+    var cat = img.className; // lista de clases
+    // elimina clases que no son categorías
+    cat = cat.replace(/seleccionadoImgGalería /g, "");
+    cat = cat.replace(/ seleccionadoImgGalería/g, "");
+    cat = cat.replace(/imgGalería /g, "");    
+    cat = cat.replace(/ imgGalería/g, "");
+    cat = cat.replace(/seleccionadoImgGalería/g, "");
+    cat = cat.replace(/imgGalería/g, "");    
+    cat = cat.replace(/ /g, ", "); // reemplaza espacios por coma con espacio
+    cat = cat.replace(/_/g, " "); // reemplaza _ por espacio
+    $("#infoSeleccionadoGalería").html("Nombre: " + img.title + "<br/>" + "Categorías: " + cat);
 }
 
 /* recorre las imgGalería y les agrega las clases o categorías:
@@ -2323,11 +2335,20 @@ function agregarClasesImgGalería() {
                 $(img[i]).addClass("Personajes Videojuegos DC");                
                 break;
             case "Logo Autobots 25X24":
-                $(img[i]).addClass("Videojuegos Logos Transformers");                
+                $(img[i]).addClass("Logos Transformers");                
                 break;
             case "Logo Decepticons 48X47":
-                $(img[i]).addClass("Videojuegos Logos Transformers");                
-                break;                                                                                        
+                $(img[i]).addClass("Logos Transformers");                
+                break;
+            case "STEVE 32X32":
+                $(img[i]).addClass("Videojuegos Minecraft Personajes");                
+                break;
+            case "AMO LA MÚSICA 17X25":
+                $(img[i]).addClass("Música");                
+                break;
+            case "NOTAS 20X30":
+                $(img[i]).addClass("Música Blanco_y_Negro");                
+                break;                                                                                                    
         }
     }
 }
@@ -2347,6 +2368,7 @@ function actualizaFiltroGalería() {
 }
 // llamada al cargar
 agregarClasesImgGalería();
+
 // reacciona al botón dependiendo del modalActual
 function aceptarModal() {
     switch (modalActual) {

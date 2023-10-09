@@ -230,6 +230,15 @@ tr.todas:nth-child(odd) {
     box-sizing: border-box;                
     
 }
+#infoSeleccionadoGalería {
+    color: purple;    
+    background-color: white;
+    font-size: 1.2em;
+    text-align: left;
+    overflow: auto;
+    max-width: 100%;
+    font-family: Consolas, 'Courier New', Courier, monospace;
+}
 #spanAyudaModos {
     display: inline-block;    
     font-family: Consolas, 'Courier New', Courier, monospace;      
