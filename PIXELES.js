@@ -2269,10 +2269,10 @@ function agregarClasesImgGalería() {
                 $(img[i]).addClass("Animales");                
                 break;
             case "LOBO 49X37":
-                $(img[i]).addClass("Animales");                
+                $(img[i]).addClass("Animales Paisajes");                
                 break;
             case "OCASO 50X50":
-                $(img[i]).addClass("Paisajes");                
+                $(img[i]).addClass("Paisajes Plantas");                
                 break;
             case "PIANO 64X100":
                 $(img[i]).addClass("Objetos Música");                
@@ -2348,7 +2348,13 @@ function agregarClasesImgGalería() {
                 break;
             case "NOTAS 20X30":
                 $(img[i]).addClass("Música Blanco_y_Negro");                
-                break;                                                                                                    
+                break;
+            case "Caballo 50X36":
+                $(img[i]).addClass("Animales Paisajes");                
+                break;
+            case "Árbol 37X26":
+                $(img[i]).addClass("Plantas Paisajes Abstracto");                
+                break;                                                                                                            
         }
     }
 }
