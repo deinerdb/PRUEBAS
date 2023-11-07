@@ -2354,7 +2354,16 @@ function agregarClasesImgGalería() {
                 break;
             case "Árbol 37X26":
                 $(img[i]).addClass("Plantas Paisajes Abstracto");                
-                break;                                                                                                            
+                break;
+            case "Poké Ball 20X20":
+                $(img[i]).addClass("Objetos Videojuegos Pokémon");                
+                break;
+            case "SPIDERMAN 31X21":
+                $(img[i]).addClass("Videojuegos Marvel Personajes");                
+                break;
+            case "Baby Bugs 51X39":
+                $(img[i]).addClass("Animales Looney_Tunes Videojuegos Personajes");                
+                break;                                                                                                                        
         }
     }
 }
