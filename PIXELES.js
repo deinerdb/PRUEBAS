@@ -2165,7 +2165,8 @@ function cambiarImgGalería(img) {
     cat = cat.replace(/imgGalería/g, "");    
     cat = cat.replace(/ /g, ", "); // reemplaza espacios por coma con espacio
     cat = cat.replace(/_/g, " "); // reemplaza _ por espacio
-    $("#infoSeleccionadoGalería").html("Nombre: " + img.title + "<br/>" + "Categorías: " + cat);
+    $("#tablaNombreDibujo").html(img.title);
+    $("#tablaCategoríaDibujo").html(cat);
 }
 
 /* recorre las imgGalería y les agrega las clases o categorías:
