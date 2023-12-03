@@ -2364,7 +2364,16 @@ function agregarClasesImgGalería() {
                 break;
             case "Baby Bugs 51X39":
                 $(img[i]).addClass("Animales Looney_Tunes Videojuegos Personajes");                
-                break;                                                                                                                        
+                break;
+            case "OPTIMUS PRIME 27X27":
+                $(img[i]).addClass("Transformers Videojuegos Personajes");                
+                break;
+            case "Carita con gafas 21X21":
+                $(img[i]).addClass("Emojis");                
+                break;
+            case "Minecraft Among Us 25X36":
+                $(img[i]).addClass("Videojuegos Personajes Minecraft");                
+                break;                                                                                                                                    
         }
     }
 }
