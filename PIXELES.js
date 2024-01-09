@@ -160,6 +160,7 @@ var getBtnHSL = document.getElementById("BtnHSL");
 var getBtnHex = document.getElementById("BtnHex");
 var getBtnPegarHex = document.getElementById("BtnPegarHex");
 var getBtnGallery = document.getElementById("BtnGallery");
+var getBtnPegarColor = document.getElementById("BtnPegarColor");
 var getBtnRnd = document.getElementById("BtnRnd");
 var getBtnOpuesto = document.getElementById("BtnOpuesto");
 var getmodalBody = document.getElementById("modalBody");
@@ -5377,6 +5378,94 @@ function procesarZoom() {
         ajustesResize();
     }
 }
+// se extraen los dígitos 0-9 de una cadena
+function extraeDígitos(cadena) {  
+    var Dígitos = "";
+    var char = "";
+    //var contador = 0;    
+    for (var i = 0; i < cadena.length; i++) {
+        char = cadena.charAt(i);
+        if ( "1234567890".indexOf(char) != -1 ) {
+            Dígitos = Dígitos + char;
+            //contador = 1 + contador;
+        }
+    }
+    return Dígitos; 
+}
+// función para pegar color
+function pegarTextoColor(miTXT) {  
+    var miRGB;
+    var miHex;
+    var miHSL;
+    var array;
+    miTXT = miTXT.trim(); // elimina espacios seleccionados accidentalmente al copiar
+    miTXT= miTXT.toLowerCase(); // siempre minúsculas
+    // color RGB
+    if ( miTXT.indexOf("rgb") >= 0 ) {
+        array = miTXT.split(",");
+        miR = extraeDígitos(array[0]); 
+        miG = extraeDígitos(array[1]); 
+        miB = extraeDígitos(array[2]); 
+        miRGB = "rgb(" + miR + ", " + miG + ", " + miB + ")";
+        miHex = convertirRGBaHexadecimal(miRGB);
+    // color HSL
+    } else if ( miTXT.indexOf("hsl") >= 0 ) {
+        array = miTXT.split(",");
+        miH = extraeDígitos(array[0]); 
+        miS = extraeDígitos(array[1]); 
+        miL = extraeDígitos(array[2]); 
+        var tempHSL = hslToRgb(miH, miS / 100, miL / 100);
+        miRGB = "rgb(" + Math.round(tempHSL.r) + ", " + Math.round(tempHSL.g) + ", " + Math.round(tempHSL.b) + ")";
+        miHex = convertirRGBaHexadecimal(miRGB);
+    // color Hexadecimal
+    } else if ( (miTXT.indexOf("#") >= 0 && miTXT.length == 7) || (miTXT.length == 6 && miTXT.indexOf("#") == -1)) {
+        if (miTXT.length == 6) {
+            miTXT = "#" + miTXT; // le agrega el signo si tiene 6 caracteres, 7 es lo completo
+        }
+        miHex = miTXT; // es un hexadecimal, hasta el momento 
+    // otros casos
+    } else {
+        // en cualquier otro caso, asume negro
+        miHex = "#000000";
+    }
+    // valida
+    if (validarHex(miHex) == false) {
+        miHex = "#000000"; // color hex no válido, asume negro
+    }  
+    // asigna el valor hexadecimal al input color
+    getcolorPixel.value = miHex;
+    // para otras actualizaciones
+    colorPixel();
+}
+// función para pegar texto. 
+// Devuelve el texto en el portapapeles
+function pegarColor() {
+    if (window.clipboardData && window.clipboardData.getData) {
+        // para IE
+        // IE specific code path to prevent textarea being shown while dialog is visible.
+        //alert ("parece ie");
+        pegarTextoColor( window.clipboardData.getData("Text") );
+        showSnackbar("Color pegado");
+    }
+    else if (navigator.clipboard) { 
+        // otros navegadores, no funciona en Firefox          
+            //sintaxis con => genera error de compilación en ie  
+            navigator.clipboard.readText().then(function (textFromClipboard) {
+                //do stuff with textFromClipboard
+                pegarTextoColor(textFromClipboard);
+                showSnackbar("Color pegado");
+              });
+    }
+}
+// se obtiene el color desde el portapapels
+getBtnPegarColor.onclick = function () {    
+    try {        
+        pegarColor();                       
+    }
+    catch (err) {
+         showSnackbar("Error al intentar pegar color");
+    } 
+}
 //se selecciona un color aleatorio
 getBtnRnd.onclick = function () {    
     var miRGB;
@@ -7003,6 +7092,7 @@ function cambiarModo(nuevoModo, mostrarLoader) {
                 //getBtnHSL.style.display = "inline-block";
                 //getBtnHex.style.display = "inline-block";
                 //getBtnGallery.style.display = "inline-block";
+                //getBtnPegarColor.style.display = "inline-block";
                 //getBtnRnd.style.display = "inline-block";
                 //getBtnOpuesto.style.display = "inline-block";
                 $(getcontGrupoColores).removeClass("oculto");
@@ -7086,6 +7176,7 @@ function cambiarModo(nuevoModo, mostrarLoader) {
                 //getBtnHSL.style.display = "inline-block";
                 //getBtnHex.style.display = "inline-block";
                 //getBtnGallery.style.display = "inline-block";
+                //getBtnPegarColor.style.display = "inline-block";
                 //getBtnRnd.style.display = "inline-block";
                 //getBtnOpuesto.style.display = "inline-block";
                 $(getcontGrupoColores).removeClass("oculto");
@@ -7103,6 +7194,7 @@ function cambiarModo(nuevoModo, mostrarLoader) {
                 //getBtnHSL.style.display = "inline-block";
                 //getBtnHex.style.display = "inline-block";
                 //getBtnGallery.style.display = "inline-block";
+                //getBtnPegarColor.style.display = "inline-block";
                 //getBtnRnd.style.display = "inline-block";
                 //getBtnOpuesto.style.display = "inline-block";
                 $(getcontGrupoColores).removeClass("oculto");
@@ -7118,6 +7210,7 @@ function cambiarModo(nuevoModo, mostrarLoader) {
                 //getBtnHSL.style.display = "none";
                 //getBtnHex.style.display = "none";
                 //getBtnGallery.style.display = "none";
+                //getBtnPegarColor.style.display = "none";
                 //getBtnRnd.style.display = "none";
                 //getBtnOpuesto.style.display = "none";
                 $(getcontGrupoColores).addClass("oculto");            
@@ -7133,6 +7226,7 @@ function cambiarModo(nuevoModo, mostrarLoader) {
                 //getBtnHSL.style.display = "none";
                 //getBtnHex.style.display = "none";
                 //getBtnGallery.style.display = "none";
+                //getBtnPegarColor.style.display = "none";
                 //getBtnRnd.style.display = "none";
                 //getBtnOpuesto.style.display = "none";
                 $(getcontGrupoColores).addClass("oculto");
@@ -7148,6 +7242,7 @@ function cambiarModo(nuevoModo, mostrarLoader) {
                 //getBtnHSL.style.display = "none";
                 //getBtnHex.style.display = "none";
                 //getBtnGallery.style.display = "none";
+                //getBtnPegarColor.style.display = "none";
                 //getBtnRnd.style.display = "none";
                 //getBtnOpuesto.style.display = "none";
                 $(getcontGrupoColores).addClass("oculto");
@@ -7163,6 +7258,7 @@ function cambiarModo(nuevoModo, mostrarLoader) {
                 //getBtnHSL.style.display = "none";
                 //getBtnHex.style.display = "none";
                 //getBtnGallery.style.display = "none";
+                //getBtnPegarColor.style.display = "none";
                 //getBtnRnd.style.display = "none";
                 //getBtnOpuesto.style.display = "none";
                 $(getcontGrupoColores).addClass("oculto");
@@ -7178,6 +7274,7 @@ function cambiarModo(nuevoModo, mostrarLoader) {
                 //getBtnHSL.style.display = "inline-block";
                 //getBtnHex.style.display = "inline-block";
                 //getBtnGallery.style.display = "inline-block";
+                //getBtnPegarColor.style.display = "inline-block";
                 //getBtnRnd.style.display = "inline-block";
                 //getBtnOpuesto.style.display = "inline-block";
                 $(getcontGrupoColores).removeClass("oculto");
@@ -7193,6 +7290,7 @@ function cambiarModo(nuevoModo, mostrarLoader) {
                 //getBtnHSL.style.display = "inline-block";
                 //getBtnHex.style.display = "inline-block";
                 //getBtnGallery.style.display = "inline-block";
+                //getBtnPegarColor.style.display = "inline-block";
                 //getBtnRnd.style.display = "inline-block";
                 //getBtnOpuesto.style.display = "inline-block";
                 $(getcontGrupoColores).removeClass("oculto");
@@ -7208,6 +7306,7 @@ function cambiarModo(nuevoModo, mostrarLoader) {
                 //getBtnHSL.style.display = "inline-block";
                 //getBtnHex.style.display = "inline-block";
                 //getBtnGallery.style.display = "inline-block";
+                //getBtnPegarColor.style.display = "inline-block";
                 //getBtnRnd.style.display = "inline-block";
                 //getBtnOpuesto.style.display = "inline-block";
                 $(getcontGrupoColores).removeClass("oculto");
@@ -7223,6 +7322,7 @@ function cambiarModo(nuevoModo, mostrarLoader) {
                 //getBtnHSL.style.display = "inline-block";
                 //getBtnHex.style.display = "inline-block";
                 //getBtnGallery.style.display = "inline-block";
+                //getBtnPegarColor.style.display = "inline-block";
                 //getBtnRnd.style.display = "inline-block";
                 //getBtnOpuesto.style.display = "inline-block";
                 $(getcontGrupoColores).removeClass("oculto");
@@ -7238,6 +7338,7 @@ function cambiarModo(nuevoModo, mostrarLoader) {
                 //getBtnHSL.style.display = "inline-block";
                 //getBtnHex.style.display = "inline-block";
                 //getBtnGallery.style.display = "inline-block";
+                //getBtnPegarColor.style.display = "inline-block";
                 //getBtnRnd.style.display = "inline-block";
                 //getBtnOpuesto.style.display = "inline-block";
                 $(getcontGrupoColores).removeClass("oculto");
