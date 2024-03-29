@@ -3371,7 +3371,7 @@ function showModal() {
         case "opacidad":
             $("#marcoOpacidad").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-adjust'></i> Opacidad";
-            document.getElementById("spanInfoModal").innerHTML = "Utilice el control para ajustar la opacidad. Puede aplicar el nivel seleccionado de opacidad individualmente o a todos los pixeles.";
+            document.getElementById("spanInfoModal").innerHTML = "Utilice el control para ajustar la opacidad. Puede aplicar el nivel seleccionado de opacidad individualmente o a todos los pixeles. El valor predeterminado de opacidad es 100%, totalmente visible.";
             // LA MUESTRA INDICA la opacidad actual
             $("#muestraOpacidad").css("opacity", opacidad);
             var opacActual = opacidad * 100;
@@ -3411,7 +3411,7 @@ function showModal() {
         case "borrador":
             $("#marcoBorrador").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-eraser'></i> Configurar Borrador";
-            document.getElementById("spanInfoModal").innerHTML = "Configure el borrador en esta ventana. Elija aplicar el formato inicial o el último global. Indique también a qué elemento se aplicará el formato.";                
+            document.getElementById("spanInfoModal").innerHTML = "Configure el borrador en esta ventana. Elija aplicar el formato inicial o el último global. Indique también a qué elemento se aplicará el formato. Consulte la ayuda para más información sobre el uso del borrador.";                
             // el botón de opción según el valor actual
             var xCheck = document.getElementsByName("checkFormatoAplicado");
             var i;
@@ -3428,7 +3428,7 @@ function showModal() {
         case "colorBordes":
             $("#marcoColorBordes").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-tint'></i> Color de Bordes";
-            document.getElementById("spanInfoModal").innerHTML = "El color del borde de cada pixel se aprecia cuando sus bordes son visibles y gruesos. Puede aplicar el color actual individualmente o a todos los pixeles. El efecto de algunos tipos de borde depende del color.";
+            document.getElementById("spanInfoModal").innerHTML = "El color del borde de cada pixel se aprecia cuando sus bordes son visibles y gruesos. Puede aplicar el color actual individualmente o a todos los pixeles. El efecto de algunos tipos de borde depende del color. El color de bordes predeterminado es negro (#000000).";
             // LA MUESTRA DE COLOR INDICA EL COLOR ACTUAL
             $("#muestraMarcoColorBordes").css("background-color", colorActual);
             // por defecto, será global
@@ -3502,7 +3502,7 @@ function showModal() {
         case "radio":
             $("#marcoRadio").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<i class='far fa-circle'></i> Radio del borde";
-            document.getElementById("spanInfoModal").innerHTML = "Use el control para definir el radio de los bordes que se aplicará";
+            document.getElementById("spanInfoModal").innerHTML = "Use el control para definir el radio de los bordes que se aplicará. El valor predeterminado es 0%, completamente cuadrados.";
             // le quita el signo % a la variable y lo asigna al slider
             sliderRadio.value = radioBorde.slice(0, radioBorde.length - 1);
             // la muestra se ajusta            
@@ -3516,7 +3516,7 @@ function showModal() {
         case "lienzo":
             $("#marcoLienzo").css("display", "block");
             document.getElementById("modalTitle").innerHTML = "<i class='fas fa-paint-roller'></i> Color de Lienzo";
-            document.getElementById("spanInfoModal").innerHTML = "El color del lienzo de cada pixel se aprecia cuando sus bordes son curvos. Puede aplicar el color actual individualmente o a todos los lienzos.";
+            document.getElementById("spanInfoModal").innerHTML = "El color del lienzo de cada pixel se aprecia cuando sus bordes son curvos. Puede aplicar el color actual individualmente o a todos los lienzos. El color del lienzo predeterminado es blanco (#ffffff).";
             // LA MUESTRA DE COLOR INDICA EL COLOR ACTUAL
             $("#muestraMarcoLienzo").css("background-color", colorActual);
             // por defecto, será global

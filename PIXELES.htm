@@ -576,13 +576,13 @@
                             <span class="checkmarkR"></span>
                         </label>
                         <label class="containerR" id="checkFormatosGlobales">
-                            <i class="far fa-trash-alt"></i> Últimos globales
+                            <i class="far fa-trash-alt"></i> Últimos globales (Predeterminado)
                             <input type="radio" name="checkFormatoAplicado" id="miCheckFormatosGlobales" value="formatosGlobales">
                             <span class="checkmarkR"></span>
                         </label>
                         <h3 class="option-title">Aplicar formato a:</h3>                        
                         <select id="selectFormatoBorrado" title="Seleccione a qué se aplicará el formato al borrar">
-                            <option value="colorPixel" selected="">Color Pixel</option>
+                            <option value="colorPixel" selected="">Color Pixel (Predeterminado)</option>
                             <option value="colorLienzo">Color Lienzo</option>
                             <option value="colorBordes">Color Bordes</option>
                             <option value="radioBordes">Radio Bordes</option>
@@ -630,7 +630,7 @@
                     <div id="muestraSombras"></div>
                     <p id="pInfoSombras">Seleccione el estilo de sombras:</p>
                     <select id="selectSombras" title="Estilo de sombras" onchange="actualizaSombras()">
-                        <option value="s0000" selected="">Sin sombras</option>
+                        <option value="s0000" selected="">Sin sombras (Predeterminado)</option>
                         <option value="s1000">Arriba</option>
                         <option value="s0100">Derecha</option>
                         <option value="s0010">Abajo</option>
@@ -667,7 +667,7 @@
                         </div>
                     </div>
                     <label class="containerR" id="checkExtraerDesdePixel">
-                        Extraer del pixel
+                        Extraer del pixel (Predeterminado)
                         <input type="radio" name="checkExtraer" id="micheckExtraerDesdePixel" value="Pixel" onclick="seleccionaExtraerDesde(this.value);">
                         <span class="checkmarkR"></span>
                     </label>
@@ -755,7 +755,7 @@
                         <span class="checkmarkR"></span>
                     </label>
                     <label class="containerR" id="checkSolid">
-                        Solid (Continuo)
+                        Solid (Continuo - Predeterminado)
                         <input type="radio" name="checkTipoBordes" id="miCheckSolid" value="solid" onclick="seleccionaTipoBordes(this.value);">
                         <span class="checkmarkR"></span>
                     </label>
