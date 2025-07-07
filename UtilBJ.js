@@ -6,6 +6,7 @@ var getBtnExtraer = document.getElementById("btnExtraer");
 var getAlert = document.getElementById("alert");
 var getSpanCopiado = document.getElementById("spanCopiado");
 var getFormato = document.getElementById("formato");
+var getOptNatural =document.getElementById("natural");
 var miFormato;
 var timerAlert;
 miFormato= "comapunto";
@@ -491,6 +492,7 @@ window.addEventListener("load", function (event) {
     getDividirEntre.value = 1;
     getFormato.value = "comapunto";
     miFormato = "comapunto";
+    getOptNatural.checked = true;
     var msj;
     msj = "Formato de origen extranjero";        
     getFormato.setAttribute("title", msj);
