@@ -1,12 +1,14 @@
 ﻿// Variables
 var getBtnCopiar = document.getElementById("btnCopiar");
+var getTxtDocumento = document.getElementById("txtDocumento");
+var getBtnCopiarDocumento = document.getElementById("btnCopiarDocumento");
 var getBtnPegar = document.getElementById("btnPegar");
 var getBtnDividir = document.getElementById("btnDividir");
 var getBtnExtraer = document.getElementById("btnExtraer");
 var getAlert = document.getElementById("alert");
 var getSpanCopiado = document.getElementById("spanCopiado");
 var getFormato = document.getElementById("formato");
-var getOptNatural =document.getElementById("natural");
+var getOptNatural =document.getElementById("micheckNatural");
 var miFormato;
 var timerAlert;
 miFormato= "comapunto";
@@ -20,6 +22,9 @@ var getSinIVA = document.getElementById("numberSinIVA");
 var getConIVA = document.getElementById("numberConIVA");
 var getIVA = document.getElementById("numberIVA");
 var getDividirEntre = document.getElementById("dividirEntre");
+// selecciona persona natural o jurídica
+function cambiarNatural() {
+}
 // cambia el formato de origen esperado al pegar
 function cambiarFormato() {
     var x = getFormato.selectedIndex;
@@ -274,13 +279,32 @@ function copiarValorSinIVA() {
     copyToClipboard(copyText);
     showSnackbar("Copiado para Pymes+");
 }
+// copia el valor sin IVA al portapapeles
+function copiarDocumento() {
+    //aquí guarda la cadena a copiar
+    var copyText = "";    
+    // recupera el valor ingresado        
+    copyText = "" + getTxtDocumento.value;
+    if (copyText == "") {
+        // no hay nada escrito
+        showSnackbar("No hay nada que copiar...");
+        return;
+    }
+    //copiamos la cadena
+    copyToClipboard(copyText);
+    showSnackbar("Documento copiado al portapapeles");
+}
 // el botón dividir
 getBtnDividir.onclick = function () {
     dividir();    
 }
-// el botón copiar
+// el botón copiar valor sin IVA
 getBtnCopiar.onclick = function () {
     copiarValorSinIVA();    
+}
+// el botón copiar número de documento
+getBtnCopiarDocumento.onclick = function () {
+    copiarDocumento();    
 }
 // el botón pegar
 getBtnPegar.onclick = function () {
