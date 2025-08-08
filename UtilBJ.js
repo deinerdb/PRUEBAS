@@ -1,7 +1,9 @@
 ﻿// Variables
 var getBtnCopiar = document.getElementById("btnCopiar");
 var getTxtDocumento = document.getElementById("txtDocumento");
+var getTxtCorreo = document.getElementById("txtCorreo");
 var getBtnCopiarDocumento = document.getElementById("btnCopiarDocumento");
+var getBtnCopiarCorreo = document.getElementById("btnCopiarCorreo");
 var getBtnPegar = document.getElementById("btnPegar");
 var getBtnDividir = document.getElementById("btnDividir");
 var getBtnExtraer = document.getElementById("btnExtraer");
@@ -279,7 +281,7 @@ function copiarValorSinIVA() {
     copyToClipboard(copyText);
     showSnackbar("Copiado para Pymes+");
 }
-// copia el valor sin IVA al portapapeles
+// copia el número de documento al portapapeles
 function copiarDocumento() {
     //aquí guarda la cadena a copiar
     var copyText = "";    
@@ -294,6 +296,21 @@ function copiarDocumento() {
     copyToClipboard(copyText);
     showSnackbar("Documento copiado al portapapeles");
 }
+// copia el correo electrónico al portapapeles
+function copiarCorreo() {
+    //aquí guarda la cadena a copiar
+    var copyText = "";    
+    // recupera el valor ingresado        
+    copyText = "" + getTxtCorreo.value;
+    if (copyText == "") {
+        // no hay nada escrito
+        showSnackbar("No hay nada que copiar...");
+        return;
+    }
+    //copiamos la cadena
+    copyToClipboard(copyText);
+    showSnackbar("Correo copiado al portapapeles");
+}
 // el botón dividir
 getBtnDividir.onclick = function () {
     dividir();    
@@ -305,6 +322,10 @@ getBtnCopiar.onclick = function () {
 // el botón copiar número de documento
 getBtnCopiarDocumento.onclick = function () {
     copiarDocumento();    
+}
+// el botón copiar correo electrónico
+getBtnCopiarCorreo.onclick = function () {
+    copiarCorreo();    
 }
 // el botón pegar
 getBtnPegar.onclick = function () {
@@ -516,6 +537,8 @@ window.addEventListener("load", function (event) {
     getDividirEntre.value = 1;
     getFormato.value = "comapunto";
     miFormato = "comapunto";
+    getTxtDocumento.value = "";
+    getTxtCorreo.value = "";
     getOptNatural.checked = true;
     var msj;
     msj = "Formato de origen extranjero";        
