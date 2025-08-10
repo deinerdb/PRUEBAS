@@ -2,8 +2,10 @@
 var getBtnCopiar = document.getElementById("btnCopiar");
 var getTxtDocumento = document.getElementById("txtDocumento");
 var getTxtCorreo = document.getElementById("txtCorreo");
+var getTxtTel = document.getElementById("txtTel");
 var getBtnCopiarDocumento = document.getElementById("btnCopiarDocumento");
 var getBtnCopiarCorreo = document.getElementById("btnCopiarCorreo");
+var getBtnCopiarTel = document.getElementById("btnCopiarTel");
 var getBtnPegar = document.getElementById("btnPegar");
 var getBtnDividir = document.getElementById("btnDividir");
 var getBtnExtraer = document.getElementById("btnExtraer");
@@ -311,6 +313,21 @@ function copiarCorreo() {
     copyToClipboard(copyText);
     showSnackbar("Correo copiado al portapapeles");
 }
+// copia el teléfono al portapapeles
+function copiarTel() {
+    //aquí guarda la cadena a copiar
+    var copyText = "";    
+    // recupera el valor ingresado        
+    copyText = "" + getTxtTel.value;
+    if (copyText == "") {
+        // no hay nada escrito
+        showSnackbar("No hay nada que copiar...");
+        return;
+    }
+    //copiamos la cadena
+    copyToClipboard(copyText);
+    showSnackbar("Teléfono copiado al portapapeles");
+}
 // el botón dividir
 getBtnDividir.onclick = function () {
     dividir();    
@@ -326,6 +343,10 @@ getBtnCopiarDocumento.onclick = function () {
 // el botón copiar correo electrónico
 getBtnCopiarCorreo.onclick = function () {
     copiarCorreo();    
+}
+// el botón copiar teléfono
+getBtnCopiarTel.onclick = function () {
+    copiarTel();    
 }
 // el botón pegar
 getBtnPegar.onclick = function () {
@@ -539,6 +560,7 @@ window.addEventListener("load", function (event) {
     miFormato = "comapunto";
     getTxtDocumento.value = "";
     getTxtCorreo.value = "";
+    getTxtTel.value = "";
     getOptNatural.checked = true;
     var msj;
     msj = "Formato de origen extranjero";        

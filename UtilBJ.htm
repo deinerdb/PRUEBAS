@@ -119,14 +119,19 @@
             </label>
             <fieldset>
                 <legend>Número de documento: </legend>
-                <input class="util-number" id="txtDocumento" type="text" maxlength="24" placeholder="1234567890" autocomplete="off" spellcheck="false"> 
+                <input class="util-number" id="txtDocumento" type="number" step="1" min="0" max="999999999999999999999999" maxlength="24" placeholder="1234567890" autocomplete="off" spellcheck="false"> 
                 <button type="button" id="btnCopiarDocumento" title="Copiar el número de documento al portapapeles"><i class="fa fa-copy" aria-hidden="true"></i> Copiar</button>                                
             </fieldset>      
             <fieldset>
                 <legend>Correo electrónico: </legend>
-                <input class="util-number" id="txtCorreo" type="text" maxlength="320" placeholder="abc@tal.com" autocomplete="off" spellcheck="false"> 
+                <input class="util-number" id="txtCorreo" type="email" maxlength="320" placeholder="abc@tal.com" autocomplete="off" spellcheck="false"> 
                 <button type="button" id="btnCopiarCorreo" title="Copiar el correo electrónico al portapapeles"><i class="fa fa-copy" aria-hidden="true"></i> Copiar</button>                                
             </fieldset> 
+            <fieldset>
+                <legend>Número telefónico: </legend>
+                <input class="util-number" id="txtTel" type="tel" maxlength="24" placeholder="6053316118" autocomplete="off" spellcheck="false"> 
+                <button type="button" id="btnCopiarTel" title="Copiar el teléfono al portapapeles"><i class="fa fa-copy" aria-hidden="true"></i> Copiar</button>                                
+            </fieldset>
             
         </details>
     </div>    
