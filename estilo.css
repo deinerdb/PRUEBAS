@@ -697,10 +697,14 @@ footer .fa-facebook {
   background: #3B5998;
   color: white;
 }
-
+/* Ícono de correo */
+footer .fa-envelope {
+    background: #0072C6; /* azul moderno, similar a Outlook */
+    color: white;
+}
 footer .fa-twitter {
-  background: #55ACEE;
-  color: white;
+    background: #000000; /* negro oficial de X */
+    color: white;
 }
 
 footer .fa-instagram {
