@@ -333,12 +333,18 @@
                 background: linear-gradient(#0d0d0d,#1a1a1a) !important; /* Standard syntax (must be last) */
             }
 
-                footer img {
+                footer .foto-pie {
                     /*sombra a mi foto*/
                     -webkit-box-shadow: 0 4px 8px 0 white, 0 6px 20px 0 #1a1a1a !important;
                     -moz-box-shadow: 0 4px 8px 0 white, 0 6px 20px 0 #1a1a1a !important;
                     box-shadow: 0 4px 8px 0 white, 0 6px 20px 0 #1a1a1a !important;
                 }
+                footer .fa-x {                    
+                    background-color: white !important;
+                    color: black !important;  
+                    border-color: silver !important;
+                }
+           
 
             /*para el modal*/
             /*--------------*/
@@ -1168,16 +1174,18 @@
                     </article>
                     <hr />
                 </section>
-                <footer>
+               <footer>
                     <p>Coded by @deiner_db</p>
-                    <img id="miFoto" title="Deiner Domínguez" alt="Foto Deiner Domínguez" src="miFoto.jpg" width="1280" height="893" />
+                    <img class="foto-pie" id="miFoto" title="Deiner Domínguez" alt="Foto Deiner Domínguez" src="miFoto.jpg" width="1280" height="893" />
                     <br />
-                    <a href="https://www.facebook.com/deinerdb" target="_blank" class="fa fa-facebook"></a>
-                    <a href="https://twitter.com/deiner_db" target="_blank" class="fa fa-twitter"></a>
-                    <a href="https://www.instagram.com/deiner_db/" target="_blank" class="fa fa-instagram"></a>
-                    
+                    <a href="https://www.facebook.com/deinerdb" target="_blank" class="fa fa-facebook"></a>                    
+                    <!-- X (Twitter actual) -->
+                    <a href="https://x.com/deiner_db" target="_blank">
+                        <img src="x.svg" alt="X" class="fa fa-x">
+                    </a>
+                    <a href="https://www.instagram.com/deiner_db/" target="_blank" class="fa fa-instagram"></a>                    
                     <a href="https://www.youtube.com/user/deinerdominguez" target="_blank" class="fa fa-youtube"></a>
-                    <a href="skype:live:deiner_db?call" class="fa fa-skype"></a>
+                    <a href="mailto:deiner_db@hotmail.com?subject=Contacto&body=Hola%20Deiner" class="fa fa-envelope"></a>                                        
                 </footer>
             </div>
             <button onclick="topFunction()" id="BtnTop" title="Subir">⇧</button>

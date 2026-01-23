@@ -684,6 +684,19 @@ footer .fa {
   -moz-border-radius: 7%;
   -webkit-border-radius: 7%;
   border-radius: 7%;
+  display: inline-block;
+  vertical-align: middle; /* asegura alineación con FA */
+}
+footer .fa-x {
+  width: 30px;
+  height: 30px;
+  border-radius: 7%;
+  padding: 14px;
+  border-style: solid;
+  border-color: black;
+  border-width: 0.5px;
+  display: inline-block;
+  vertical-align: middle; /* asegura alineación con FA */
 }
 footer a:last-child{
     /*no queremos el último pegado al borde*/
@@ -702,10 +715,6 @@ footer .fa-envelope {
     background: #0072C6; /* azul moderno, similar a Outlook */
     color: white;
 }
-footer .fa-twitter {
-    background: #000000; /* negro oficial de X */
-    color: white;
-}
 
 footer .fa-instagram {
     background: #cc2366; /*para los que no soporten el gradiente*/
@@ -715,18 +724,12 @@ footer .fa-instagram {
     background: radial-gradient(circle at 33% 100%, #fed373 4%, #f15245 30%, #d92e7f 62%, #9b36b7 85%, #515ecf);
     color: white;
 }
-footer .fa-google-plus {
-  background: #dd4b39;
-  color: white;
-}
+
 footer .fa-youtube {
   background: #bb0000;
   color: white;
 }
-footer .fa-skype {
-  background: #00aff0;
-  color: white;  
-}
+
 /*fin redes*/
 
 #BtnTop {
@@ -1707,7 +1710,7 @@ footer{
         font-size: 1.3em;
         font-family: Courier New, Courier, monospace, Tahoma;        
     }
-    footer img {
+    footer .foto-pie {
         width: 30%;
         height: auto;
         /*espacio para sombra y redes*/
@@ -1721,7 +1724,7 @@ footer{
     }
 /* On smaller screens, foto más grande  */
 @media only screen and (max-width: 400px) {
-    footer img {
+    footer .foto-pie {
         width:60%;
     }
 }
