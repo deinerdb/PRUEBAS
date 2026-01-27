@@ -70,7 +70,7 @@ html, body {
         border: solid 1px black;
     }
     .clasehumo {
-        /*fondo */
+        /* fondo */
         background-color: transparent !important;
     }
 
@@ -687,22 +687,46 @@ footer .fa {
   display: inline-block;
   vertical-align: middle; /* asegura alineación con FA */
 }
-footer .fa-x {
-  width: 30px;
-  height: 30px;
-  border-radius: 7%;
-  padding: 14px;
-  border-style: solid;
-  border-color: black;
-  border-width: 0.5px;
-  display: inline-block;
-  vertical-align: middle; /* asegura alineación con FA */
+footer .icox {
+    width: 30px;
+    height: 30px;
+    font-size: 2em;
+    -moz-border-radius: 7%;
+    -webkit-border-radius: 7%;
+    border-radius: 7%;
+    text-align: center;
+    text-decoration: none;
+    margin: 2px 2px;
+    padding: 14px;
+    border-style: solid;
+    border-color: black;
+    border-width: 2px;
+    display: inline-block;
+    vertical-align: middle; /* asegura alineación con FA */
 }
+footer .icothreads {
+    width: 30px;
+    height: 30px;
+    font-size: 2em;
+    -moz-border-radius: 7%;
+    -webkit-border-radius: 7%;
+    border-radius: 7%;
+    padding: 14px;
+    text-align: center;
+    text-decoration: none;
+    margin: 2px 2px;        
+    display: inline-block;    
+    vertical-align: middle; /* asegura alineación con FA */    
+    border-style: solid;
+    border-color: black;
+    border-width: 2px;   
+}
+
 footer a:last-child{
     /*no queremos el último pegado al borde*/
   margin-right:8px;   
 }
-footer .fa:hover {
+footer .fa:hover, .icox:hover, .icothreads:hover {
     opacity: 0.7;
     filter: Alpha(opacity=70);/* IE8 and earlier */
 }
