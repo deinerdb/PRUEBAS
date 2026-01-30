@@ -2377,7 +2377,10 @@ function agregarClasesImgGalería() {
                 break;
             case "Minecraft Among Us 25X36":
                 $(img[i]).addClass("Videojuegos Personajes Minecraft");                
-                break;                                                                                                                                    
+                break;
+            case "Hulkbuster 44x47":
+                $(img[i]).addClass("Marvel Personajes Videojuegos");                
+                break;
         }
     }
 }
