@@ -6351,13 +6351,22 @@ document.getElementById("BtnDescargarDibujo").onclick = function () {
     setTimeout(function () {
         // código alta exigencia
         let link = document.createElement('a');
-        link.download = 'Pixeles.txt';
+        const d = new Date();
+        let hour = d.getHours();
+        let minutes = d.getMinutes();
+        let seconds = d.getSeconds();
+        let day = d.getDate();
+        let month = 1 + d.getMonth();
+        let year = d.getFullYear();
+        let ahora = " " + day + "-"  + month + "-" + year + " " + hour + "h " +  minutes + "m " + seconds + "s";
+        let miNombre = 'Pixeles' + ahora + '.txt';
+        link.download = miNombre;
         // obtiene la cadena que representa el dibujo actual
         let str = generarCadenaExportar();
         let blob = new Blob([str], {type: 'text/plain'});
         if (window.navigator && window.navigator.msSaveBlob) {
             // Internet Explorer            
-            window.navigator.msSaveBlob(blob, "Pixeles.txt");    
+            window.navigator.msSaveBlob(blob, miNombre);    
         } else {
             link.href = URL.createObjectURL(blob);
             link.click();
