@@ -3,9 +3,11 @@ var getBtnCopiar = document.getElementById("btnCopiar");
 var getTxtDocumento = document.getElementById("txtDocumento");
 var getTxtCorreo = document.getElementById("txtCorreo");
 var getTxtTel = document.getElementById("txtTel");
+var getTxtRazónSocial = document.getElementById("txtRazónSocial");
 var getBtnCopiarDocumento = document.getElementById("btnCopiarDocumento");
 var getBtnCopiarCorreo = document.getElementById("btnCopiarCorreo");
 var getBtnCopiarTel = document.getElementById("btnCopiarTel");
+var getBtnCopiarRazónSocial = document.getElementById("btnCopiarRazónSocial");
 var getBtnPegar = document.getElementById("btnPegar");
 var getBtnDividir = document.getElementById("btnDividir");
 var getBtnExtraer = document.getElementById("btnExtraer");
@@ -26,8 +28,15 @@ var getSinIVA = document.getElementById("numberSinIVA");
 var getConIVA = document.getElementById("numberConIVA");
 var getIVA = document.getElementById("numberIVA");
 var getDividirEntre = document.getElementById("dividirEntre");
-// selecciona persona natural o jurídica
+// FUNCIÓN para controlar la visibilidad de los campos según sea persona natural o jurídica
 function cambiarNatural() {
+    if (getOptNatural.checked == true) {
+        // persona natural
+        $("#camposRazónSocial").addClass("oculto");
+    } else {
+        // persona jurídica
+        $("#camposRazónSocial").removeClass("oculto");
+    }
 }
 // cambia el formato de origen esperado al pegar
 function cambiarFormato() {
@@ -328,6 +337,21 @@ function copiarTel() {
     copyToClipboard(copyText);
     showSnackbar("Teléfono copiado al portapapeles");
 }
+// copia la razón social al portapapeles
+function copiarRazónSocial() {
+    //aquí guarda la cadena a copiar
+    var copyText = "";    
+    // recupera el valor ingresado        
+    copyText = "" + getTxtRazónSocial.value;
+    if (copyText == "") {
+        // no hay nada escrito
+        showSnackbar("No hay nada que copiar...");
+        return;
+    }
+    //copiamos la cadena
+    copyToClipboard(copyText);
+    showSnackbar("Razón social copiada al portapapeles");
+}
 // el botón dividir
 getBtnDividir.onclick = function () {
     dividir();    
@@ -347,6 +371,10 @@ getBtnCopiarCorreo.onclick = function () {
 // el botón copiar teléfono
 getBtnCopiarTel.onclick = function () {
     copiarTel();    
+}
+// el botón copiar razón social
+getBtnCopiarRazónSocial.onclick = function () {
+    copiarRazónSocial();    
 }
 // el botón pegar
 getBtnPegar.onclick = function () {
@@ -545,6 +573,7 @@ function copyToClipboard(text) {
         }
     }
 }
+
 // al cargar la página
 window.addEventListener("load", function (event) {
     // inicializar campos, algunos navegadores recuerdan valores previos
@@ -561,7 +590,9 @@ window.addEventListener("load", function (event) {
     getTxtDocumento.value = "";
     getTxtCorreo.value = "";
     getTxtTel.value = "";
+    getTxtRazónSocial.value = "";
     getOptNatural.checked = true;
+    cambiarNatural();
     var msj;
     msj = "Formato de origen extranjero";        
     getFormato.setAttribute("title", msj);
