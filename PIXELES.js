@@ -2381,6 +2381,9 @@ function agregarClasesImgGalería() {
             case "Hulkbuster 44x47":
                 $(img[i]).addClass("Marvel Personajes Videojuegos");                
                 break;
+            case "LOGO RESISTENCIA 29X43":
+                $(img[i]).addClass("Blanco_y_Negro Videojuegos Logos Star_Wars");                
+                break;
         }
     }
 }
