@@ -2384,6 +2384,9 @@ function agregarClasesImgGalería() {
             case "LOGO RESISTENCIA 29X43":
                 $(img[i]).addClass("Blanco_y_Negro Videojuegos Logos Star_Wars");                
                 break;
+            case "Darth Vader 24X27":
+                $(img[i]).addClass("Videojuegos Personajes Star_Wars");                
+                break;
         }
     }
 }
