@@ -2387,6 +2387,9 @@ function agregarClasesImgGalería() {
             case "Darth Vader 24X27":
                 $(img[i]).addClass("Videojuegos Personajes Star_Wars");                
                 break;
+            case "Logo Star Wars 29X44":
+                $(img[i]).addClass("Videojuegos Star_Wars Logos");                
+                break;    
         }
     }
 }
