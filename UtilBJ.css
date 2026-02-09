@@ -132,7 +132,7 @@ summary {
     .util-number:hover {
        background-color: #f2f2f2;
     }
-#numberSinIVA, #numberCm, #numberPulg, #numberConIVA, #txtDocumento, #txtCorreo, #txtTel, #txtRazónSocial {
+#numberSinIVA, #numberCm, #numberPulg, #numberConIVA, #txtDocumento, #txtCorreo, #txtTel, #txtRazónSocial, #txtNombre, #txtPrimerApellido, #txtSegundoApellido {
     margin-right: 16px;
 }
 #numberCm, #numberPulg {
@@ -155,7 +155,7 @@ summary {
     box-shadow: 4px 4px 3px coral;
 }
 
-#btnCopiar, #btnDividir, #btnPegar, #btnExtraer, #btnCopiarDocumento, #btnCopiarCorreo, #btnCopiarTel, #btnCopiarRazónSocial {
+#btnCopiar, #btnDividir, #btnPegar, #btnExtraer, #btnCopiarDocumento, #btnCopiarCorreo, #btnCopiarTel, #btnCopiarRazónSocial, #btnCopiarNombre, #btnCopiarPrimerApellido, #btnCopiarSegundoApellido, #btnBorrarCampos {
     margin: 12px 8px 10px 0px;
     border: 2px solid darkred;
     -webkit-border-radius: 4px;
@@ -175,13 +175,13 @@ summary {
     -ms-user-select: none; /* IE 10+ */
     user-select: none; /* Standard syntax */
 }
-    #btnCopiar:active, #btnDividir:active, #btnPegar:active, #formato:active, #btnExtraer:active, #btnCopiarDocumento:active, #btnCopiarCorreo:active, #btnCopiarTel:active, #btnCopiarRazónSocial:active {
+    #btnCopiar:active, #btnDividir:active, #btnPegar:active, #formato:active, #btnExtraer:active, #btnCopiarDocumento:active, #btnCopiarCorreo:active, #btnCopiarTel:active, #btnCopiarNombre:active, #btnCopiarRazónSocial:active, #btnCopiarPrimerApellido:active, #btnCopiarSegundoApellido:active, #btnBorrarCampos:active {
         background-color: #ccf2ff !important;
     }
-    #btnCopiar:hover, #btnDividir:hover, #btnPegar:hover, #formato:hover, #btnExtraer:hover, #btnCopiarDocumento:hover, #btnCopiarCorreo:hover, #btnCopiarTel:hover, #btnCopiarRazónSocial:hover {
+    #btnCopiar:hover, #btnDividir:hover, #btnPegar:hover, #formato:hover, #btnExtraer:hover, #btnCopiarDocumento:hover, #btnCopiarCorreo:hover, #btnCopiarTel:hover, #btnCopiarRazónSocial:hover, #btnCopiarNombre:hover, #btnCopiarPrimerApellido:hover, #btnCopiarSegundoApellido:hover, #btnBorrarCampos:hover {
         background-color: #f2f2f2;
     }
-    #btnCopiar:focus, #btnDividir:focus, #btnPegar:focus, #formato:focus, #btnExtraer:focus, #btnCopiarDocumento:focus, #btnCopiarCorreo:focus, #btnCopiarTel:focus, #btnCopiarRazónSocial:focus {
+    #btnCopiar:focus, #btnDividir:focus, #btnPegar:focus, #formato:focus, #btnExtraer:focus, #btnCopiarDocumento:focus, #btnCopiarCorreo:focus, #btnCopiarTel:focus, #btnCopiarRazónSocial:focus, #btnCopiarNombre:focus, #btnCopiarPrimerApellido:focus, #btnCopiarSegundoApellido:focus, #btnBorrarCampos:focus {
         /*SOMBRA*/
         -moz-box-shadow: 4px 4px 3px #C0C0C0;
         -webkit-box-shadow: 4px 4px 3px #C0C0C0;

@@ -4,10 +4,17 @@ var getTxtDocumento = document.getElementById("txtDocumento");
 var getTxtCorreo = document.getElementById("txtCorreo");
 var getTxtTel = document.getElementById("txtTel");
 var getTxtRazónSocial = document.getElementById("txtRazónSocial");
+var getTxtNombre = document.getElementById("txtNombre");
+var getTxtPrimerApellido = document.getElementById("txtPrimerApellido");
+var getTxtSegundoApellido = document.getElementById("txtSegundoApellido");
 var getBtnCopiarDocumento = document.getElementById("btnCopiarDocumento");
 var getBtnCopiarCorreo = document.getElementById("btnCopiarCorreo");
 var getBtnCopiarTel = document.getElementById("btnCopiarTel");
 var getBtnCopiarRazónSocial = document.getElementById("btnCopiarRazónSocial");
+var getBtnCopiarNombre = document.getElementById("btnCopiarNombre");
+var getBtnCopiarPrimerApellido = document.getElementById("btnCopiarPrimerApellido");
+var getBtnCopiarSegundoApellido = document.getElementById("btnCopiarSegundoApellido");
+var getBtnBorrarCampos = document.getElementById("btnBorrarCampos");
 var getBtnPegar = document.getElementById("btnPegar");
 var getBtnDividir = document.getElementById("btnDividir");
 var getBtnExtraer = document.getElementById("btnExtraer");
@@ -32,10 +39,12 @@ var getDividirEntre = document.getElementById("dividirEntre");
 function cambiarNatural() {
     if (getOptNatural.checked == true) {
         // persona natural
-        $("#camposRazónSocial").addClass("oculto");
+        $(".campos-jurídica").addClass("oculto");
+        $(".campos-natural").removeClass("oculto");
     } else {
         // persona jurídica
-        $("#camposRazónSocial").removeClass("oculto");
+        $(".campos-jurídica").removeClass("oculto");
+        $(".campos-natural").addClass("oculto");
     }
 }
 // cambia el formato de origen esperado al pegar
@@ -352,6 +361,51 @@ function copiarRazónSocial() {
     copyToClipboard(copyText);
     showSnackbar("Razón social copiada al portapapeles");
 }
+// copia el nombre al portapapeles
+function copiarNombre() {
+    //aquí guarda la cadena a copiar
+    var copyText = "";    
+    // recupera el valor ingresado        
+    copyText = "" + getTxtNombre.value;
+    if (copyText == "") {
+        // no hay nada escrito
+        showSnackbar("No hay nada que copiar...");
+        return;
+    }
+    //copiamos la cadena
+    copyToClipboard(copyText);
+    showSnackbar("Nombre copiado al portapapeles");
+}
+// copia el primer apellido al portapapeles
+function copiarPrimerApellido() {
+    //aquí guarda la cadena a copiar
+    var copyText = "";    
+    // recupera el valor ingresado        
+    copyText = "" + getTxtPrimerApellido.value;    
+    if (copyText == "") {
+        // no hay nada escrito
+        showSnackbar("No hay nada que copiar...");
+        return;
+    }
+    //copiamos la cadena
+    copyToClipboard(copyText);
+    showSnackbar("Primer apellido copiado al portapapeles");
+}
+// copia el segundo apellido al portapapeles
+function copiarSegundoApellido() {
+    //aquí guarda la cadena a copiar
+    var copyText = "";    
+    // recupera el valor ingresado        
+    copyText = "" + getTxtSegundoApellido.value;
+    if (copyText == "") {
+        // no hay nada escrito
+        showSnackbar("No hay nada que copiar...");
+        return;
+    }
+    //copiamos la cadena
+    copyToClipboard(copyText);
+    showSnackbar("Segundo apellido copiado al portapapeles");
+}
 // el botón dividir
 getBtnDividir.onclick = function () {
     dividir();    
@@ -375,6 +429,23 @@ getBtnCopiarTel.onclick = function () {
 // el botón copiar razón social
 getBtnCopiarRazónSocial.onclick = function () {
     copiarRazónSocial();    
+}
+// el botón copiar nombre
+getBtnCopiarNombre.onclick = function () {
+    copiarNombre();    
+}
+// el botón copiar primer apellido
+getBtnCopiarPrimerApellido.onclick = function () {
+    copiarPrimerApellido();    
+}
+// el botón copiar segundo apellido
+getBtnCopiarSegundoApellido.onclick = function () {
+    copiarSegundoApellido();    
+}
+// el botón borrar los campos del cliente
+getBtnBorrarCampos.onclick = function () {
+    borrarCamposCliente();
+    showSnackbar("Datos del cliente borrados");    
 }
 // el botón pegar
 getBtnPegar.onclick = function () {
@@ -573,7 +644,16 @@ function copyToClipboard(text) {
         }
     }
 }
-
+// limpia los campos del cliente
+function borrarCamposCliente() {
+    getTxtDocumento.value = "";
+    getTxtCorreo.value = "";
+    getTxtTel.value = "";
+    getTxtRazónSocial.value = "";
+    getTxtNombre.value = "";
+    getTxtPrimerApellido.value = "";
+    getTxtSegundoApellido.value = "";
+}
 // al cargar la página
 window.addEventListener("load", function (event) {
     // inicializar campos, algunos navegadores recuerdan valores previos
@@ -587,10 +667,8 @@ window.addEventListener("load", function (event) {
     getDividirEntre.value = 1;
     getFormato.value = "comapunto";
     miFormato = "comapunto";
-    getTxtDocumento.value = "";
-    getTxtCorreo.value = "";
-    getTxtTel.value = "";
-    getTxtRazónSocial.value = "";
+    // borra los campos clientes, usada también en un botón dedicado
+    borrarCamposCliente();
     getOptNatural.checked = true;
     cambiarNatural();
     var msj;
