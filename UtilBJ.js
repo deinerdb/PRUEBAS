@@ -724,6 +724,34 @@ function manejador(e, miId) {
             // si es el último input, vuelve al primero, es un ciclo
             getSinIVA.focus();
         }
+        // DATOS CLIENTE
+        else if (miId == "txtDocumento") {
+            getTxtCorreo.focus();
+        }
+        else if (miId == "txtCorreo") {
+            getTxtTel.focus();
+        }
+        else if (miId == "txtTel") {            
+            if (getOptNatural.checked == true){
+                getTxtNombre.focus();
+            } else {
+                getTxtRazónSocial.focus();
+            }            
+        }
+        else if (miId == "txtNombre") {
+            getTxtPrimerApellido.focus();
+        }
+        else if (miId == "txtPrimerApellido") {
+            getTxtSegundoApellido.focus();
+        }
+        else if (miId == "txtSegundoApellido") {
+            // si es el último input, vuelve al primero, es un ciclo
+            getTxtDocumento.focus();
+        }
+         else if (miId == "txtRazónSocial") {
+            // si es el último input, vuelve al primero, es un ciclo
+            getTxtDocumento.focus();
+        }
     }
 }
 // PARA EL SNACKBAR
