@@ -15,6 +15,8 @@ var getBtnCopiarNombre = document.getElementById("btnCopiarNombre");
 var getBtnCopiarPrimerApellido = document.getElementById("btnCopiarPrimerApellido");
 var getBtnCopiarSegundoApellido = document.getElementById("btnCopiarSegundoApellido");
 var getBtnBorrarCampos = document.getElementById("btnBorrarCampos");
+var getBtnCargar = document.getElementById("btnCargar");
+var getBtnGuardar = document.getElementById("btnGuardar");
 var getBtnPegar = document.getElementById("btnPegar");
 var getBtnDividir = document.getElementById("btnDividir");
 var getBtnExtraer = document.getElementById("btnExtraer");
@@ -446,6 +448,16 @@ getBtnCopiarSegundoApellido.onclick = function () {
 getBtnBorrarCampos.onclick = function () {
     borrarCamposCliente();
     showSnackbar("Datos del cliente borrados");    
+}
+// el botón guardar datos cliente
+getBtnGuardar.onclick = function () {
+    
+    showSnackbar("En desarrollo...");    
+}
+// el botón cargar datos cliente
+getBtnCargar.onclick = function () {
+    
+    showSnackbar("En desarrollo...");    
 }
 // el botón pegar
 getBtnPegar.onclick = function () {
