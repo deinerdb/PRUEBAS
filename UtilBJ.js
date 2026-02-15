@@ -454,11 +454,21 @@ getBtnGuardar.onclick = function () {
     
     showSnackbar("En desarrollo...");    
 }
-// el botón cargar datos cliente
-getBtnCargar.onclick = function () {
-    
-    showSnackbar("En desarrollo...");    
+
+// el FILE se oculta 15 segundos después de presionar el botón CARGAR
+
+function ocultarFile() {
+  $("#contenedorFile").addClass("oculto");
 }
+var timerFile;
+// el botón cargar datos cliente
+getBtnCargar.onclick = function () {    
+    clearTimeout(timerFile);
+    showSnackbar("Seleccione un archivo...");
+    $("#contenedorFile").removeClass("oculto");    
+    timerFile = setTimeout(ocultarFile, 20000);   
+}
+
 // el botón pegar
 getBtnPegar.onclick = function () {
     try {        
@@ -683,6 +693,7 @@ window.addEventListener("load", function (event) {
     borrarCamposCliente();
     getOptNatural.checked = true;
     cambiarNatural();
+    $("#contenedorFile").addClass("oculto");
     var msj;
     msj = "Formato de origen extranjero";        
     getFormato.setAttribute("title", msj);
