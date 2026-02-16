@@ -24,6 +24,7 @@ var getAlert = document.getElementById("alert");
 var getSpanCopiado = document.getElementById("spanCopiado");
 var getFormato = document.getElementById("formato");
 var getOptNatural =document.getElementById("micheckNatural");
+var getOptjurídica =document.getElementById("micheckJurídica");
 var miFormato;
 var timerAlert;
 miFormato= "comapunto";
@@ -468,6 +469,146 @@ getBtnCargar.onclick = function () {
     $("#contenedorFile").removeClass("oculto");    
     timerFile = setTimeout(ocultarFile, 20000);   
 }
+// aplica la información de una cadena a los campos del cliente
+function aplicarCadenaImportar(cadena) {     
+    let temp; // array al hacer split    
+    let tempValores; // parámetros individuales   
+    let natural; // boolean para definir si es persona natural o jurídica
+    try {
+        temp = cadena.split("@sep@");        
+        // valida que haya 8 parámetros, si no, el formato es incorrecto
+        if (temp.length != 8) {
+            return false;
+        }
+        // valida el tipo de cliente, si es natural o jurídica
+        if (temp[0] == "N") {
+            natural = true;
+        } else if (temp[0] == "J") {
+            natural = false;
+        } else {
+            // el primer parámetro no es válido
+            return false;
+        }
+        // asigna los valores a cada campo
+        getTxtDocumento.value = temp[1];
+        getTxtCorreo.value = temp[2];
+        getTxtTel.value = temp[3];
+        if (natural == true) {
+            getOptNatural.checked = true;
+            getOptjurídica.checked = false;
+            cambiarNatural();
+            getTxtNombre.value = temp[5];
+            getTxtPrimerApellido.value = temp[6];
+            getTxtSegundoApellido.value = temp[7];
+            getTxtRazónSocial.value = "";
+        } else {
+            getOptNatural.checked = false;
+            getOptjurídica.checked = true;
+            cambiarNatural();
+            getTxtRazónSocial.value = temp[4];
+            getTxtNombre.value = "";
+            getTxtPrimerApellido.value = "";
+            getTxtSegundoApellido.value = "";
+        }        
+        // todo bien
+        return true;        
+    }
+    catch (err) { 
+        return false;        
+    }  
+}
+// función que lee un archivo de texto, para importar
+function readFile(input) {    
+    if (document.getElementById("myfile").value == "") {
+        // si no hay nada seleccionado, simplemente sale
+        return;
+    }
+    // muestra un loader...
+    //$(".loader").removeClass("oculto");
+    //setTimeout(function () {
+        // código alta exigencia
+        let file = input.files[0];        
+        // valida el tipo de archivo
+        let miNombre = file.name;
+        let miExt = miNombre.substring(miNombre.length - 4);        
+        if (miExt.toLowerCase() != ".txt") {
+            // oculta el loader
+            //$(".loader").addClass("oculto");
+            showSnackbar("Seleccione un archivo de texto.");
+            document.getElementById("myfile").value = "";            
+            return;
+        }
+        // valida el tamaño
+        if (file.size >= 1000000) {
+            // oculta el loader
+            //$(".loader").addClass("oculto");
+            showSnackbar("El archivo es demasiado grande para ser información de cliente.");
+            document.getElementById("myfile").value = "";
+            return;
+        }
+        let fileReader = new FileReader(); 
+        fileReader.readAsText(file); 
+        // al cargar el archivo
+        fileReader.onload = function() {            
+            // valida la correcta recuperación de la cadena de texto
+            let cadenaImportada = "";
+            try {
+                // intenta recuperar el texto
+                cadenaImportada = fileReader.result;
+            }
+            catch (err) {
+                // error al leer
+                // oculta el loader
+                //$(".loader").addClass("oculto");
+                showSnackbar("Error al recuperar el texto del archivo");
+                document.getElementById("myfile").value = "";
+                return;
+            }  
+            // una validación rápida para descartar txt que no son archivos de cliente
+            if (cadenaImportada.indexOf("@sep@") == -1) {
+                // no es un archivo delimitado como archivo de cliente
+                // oculta el loader
+                //$(".loader").addClass("oculto");
+                showSnackbar("El archivo de texto no es un archivo de cliente válido");
+                document.getElementById("myfile").value = "";
+                return;
+            }
+            
+            // aquí importa...
+            if (aplicarCadenaImportar(cadenaImportada) == false) {
+                // error al aplicar, debe restaurar
+                // restaura...
+                borrarCamposCliente();               
+                // oculta el loader                
+                //$(".loader").addClass("oculto");
+                showSnackbar("Error al aplicar la información del archivo");                
+                document.getElementById("myfile").value = "";
+                return;
+            }
+           
+            // oculta el loader
+            //$(".loader").addClass("oculto");
+
+            // muestra mensaje de éxito
+            showSnackbar("Información de cliente importada desde archivo");            
+            
+        }; 
+        // si ocurre un error
+        fileReader.onerror = function() {
+            // oculta el loader
+            //$(".loader").addClass("oculto");
+            // informa del error
+            showSnackbar("Error al intentar leer el archivo. Detalle del error: " + fileReader.error);
+            // limpia, podría importar otro archivo
+            document.getElementById("myfile").value = "";
+            borrarCamposCliente();
+        };         
+}
+
+// el evento al seleccionar archivo en el input
+document.getElementById("myfile").onchange = function () {
+    readFile(this);
+}
 
 // el botón pegar
 getBtnPegar.onclick = function () {
@@ -692,8 +833,11 @@ window.addEventListener("load", function (event) {
     // borra los campos clientes, usada también en un botón dedicado
     borrarCamposCliente();
     getOptNatural.checked = true;
+    getOptjurídica.checked = false;
     cambiarNatural();
     $("#contenedorFile").addClass("oculto");
+    // el input file se resetea
+    document.getElementById("myfile").value = "";
     var msj;
     msj = "Formato de origen extranjero";        
     getFormato.setAttribute("title", msj);

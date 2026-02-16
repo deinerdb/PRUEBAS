@@ -107,6 +107,7 @@ summary {
     font-family: Consolas, Courier New, Courier, monospace;
     font-size: 20px;
     width: 270px;
+    min-width: 33%;
     max-width: 90%;
     padding: 8px 6px;
     margin: 0;
