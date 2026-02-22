@@ -450,13 +450,69 @@ getBtnBorrarCampos.onclick = function () {
     borrarCamposCliente();
     showSnackbar("Datos del cliente borrados");    
 }
-// el botón guardar datos cliente
-getBtnGuardar.onclick = function () {
-    
-    showSnackbar("En desarrollo...");    
+// obtiene la cadena que representa la información del cliente, 
+        // delimitada por @sep@ para cada campo, 
+        // y con un indicador al inicio para definir si es persona natural o jurídica
+function generarCadenaExportar() {
+    let str = "";
+    if (getOptNatural.checked == true) {
+        // persona natural
+        str = "N@sep@" + getTxtDocumento.value + "@sep@" + getTxtCorreo.value + "@sep@" + getTxtTel.value + "@sep@" + "@sep@" + getTxtNombre.value + "@sep@" + getTxtPrimerApellido.value + "@sep@" + getTxtSegundoApellido.value;
+    } else {
+        // persona jurídica
+        str = "J@sep@" + getTxtDocumento.value + "@sep@" + getTxtCorreo.value + "@sep@" + getTxtTel.value + "@sep@" + getTxtRazónSocial.value + "@sep@" + "@sep@" + "@sep@";
+    }
+    return str;
+}
+// el botón guardar datos cliente,
+// valida que los datos estén completos y luego genera un archivo de texto con la información del cliente, para descargarlo
+getBtnGuardar.onclick = function () { 
+        // valida que los campos no estén vacíos, según el tipo de cliente
+        if (getOptNatural.checked == true) {
+            // persona natural
+            if (getTxtDocumento.value == "" || getTxtCorreo.value == "" || getTxtTel.value == "" || getTxtNombre.value == "" || getTxtPrimerApellido.value == "" || getTxtSegundoApellido.value == "") {
+                showSnackbar("Faltan datos del cliente. No se puede guardar.");
+                return;
+            }
+        } else {
+            // persona jurídica
+            if (getTxtDocumento.value == "" || getTxtCorreo.value == "" || getTxtTel.value == "" || getTxtRazónSocial.value == "") {
+                showSnackbar("Faltan datos del cliente. No se puede guardar.");
+                return;
+            }
+        }
+        // si todo está bien, genera el archivo de texto para descargarlo, 
+        // con un nombre que incluye la fecha y hora de generación, para evitar confusiones con archivos anteriores
+        let link = document.createElement('a');
+        const d = new Date();
+        let hour = d.getHours();
+        let minutes = d.getMinutes();
+        let seconds = d.getSeconds();
+        let day = d.getDate();
+        let month = 1 + d.getMonth();
+        let year = d.getFullYear();
+        let ahora = " " + day + "-"  + month + "-" + year + " " + hour + "h " +  minutes + "m " + seconds + "s";
+        let miNombre = 'Cliente' + ahora + '.txt';
+        link.download = miNombre;
+        // obtiene la cadena que representa la información del cliente, 
+        // delimitada por @sep@ para cada campo, 
+        // y con un indicador al inicio para definir si es persona natural o jurídica
+        let str = generarCadenaExportar();
+        //let blob = new Blob([str], {type: 'text/plain'});
+        let blob = new Blob([str], { type: 'text/plain;charset=utf-8' });
+
+        if (window.navigator && window.navigator.msSaveBlob) {
+            // Internet Explorer            
+            window.navigator.msSaveBlob(blob, miNombre);    
+        } else {
+            link.href = URL.createObjectURL(blob);
+            link.click();
+            URL.revokeObjectURL(link.href);
+        }                  
+        showSnackbar("Archivo de clientes descargado"); // notifica    
 }
 
-// el FILE se oculta 15 segundos después de presionar el botón CARGAR
+// el FILE se oculta 20 segundos después de presionar el botón CARGAR
 
 function ocultarFile() {
   $("#contenedorFile").addClass("oculto");
@@ -471,8 +527,7 @@ getBtnCargar.onclick = function () {
 }
 // aplica la información de una cadena a los campos del cliente
 function aplicarCadenaImportar(cadena) {     
-    let temp; // array al hacer split    
-    let tempValores; // parámetros individuales   
+    let temp; // array al hacer split     
     let natural; // boolean para definir si es persona natural o jurídica
     try {
         temp = cadena.split("@sep@");        
