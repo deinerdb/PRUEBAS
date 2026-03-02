@@ -48,6 +48,58 @@
                 filter: Alpha(opacity=80); /* IE8 and earlier */
             }
             /*de esta página, adicional al archivo CSS*/
+           .animación {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  margin-left: 10px; /* separación respecto a los botones */
+  margin-right: 10px; /* separación respecto a los botones */
+}
+
+.animación span {
+  width: 6px;
+  height: 16px;
+  background: #ffcc00; /* amarillo fuerte para contraste */
+  border-radius: 2px;
+
+   -webkit-animation: subirBajar 0.6s infinite ease-in-out;
+  -moz-animation: subirBajar 0.6s infinite ease-in-out;
+  -o-animation: subirBajar 0.6s infinite ease-in-out;
+  animation: subirBajar 0.6s infinite ease-in-out;
+
+}
+
+.animación span:nth-child(2) {
+  -webkit-animation-delay: 0.2s;
+  -moz-animation-delay: 0.2s;
+  -o-animation-delay: 0.2s;
+  animation-delay: 0.2s;
+}
+
+.animación span:nth-child(3) {
+  -webkit-animation-delay: 0.4s;
+  -moz-animation-delay: 0.4s;
+  -o-animation-delay: 0.4s;
+  animation-delay: 0.4s;
+}
+
+@-webkit-keyframes subirBajar {
+  0%, 100% { height: 16px; background: #ffcc00; } /* amarillo */
+  50% { height: 28px; background: #ff9900; }      /* naranja */
+}
+@-moz-keyframes subirBajar {
+  0%, 100% { height: 16px; background: #ffcc00; }
+  50% { height: 28px; background: #ff9900; }
+}
+@-o-keyframes subirBajar {
+  0%, 100% { height: 16px; background: #ffcc00; }
+  50% { height: 28px; background: #ff9900; }
+}
+@keyframes subirBajar {
+  0%, 100% { height: 16px; background: #ffcc00; }
+  50% { height: 28px; background: #ff9900; }
+}
+                        
             /* ESPACIO EN EL PIE AJUSTADO */
             footer::after {        
                 height: 100px !important; /*padding-bottom: ESTO PARA QUE SE VEA EN IE Y FIREFOX*/
@@ -2117,6 +2169,12 @@ DefinirModoBuscar(true);
                     <button id="BtnEnlace" title="Copiar enlace a frase actual"><i class="fa fa-link" aria-hidden="true"></i></button>
                     <button id="BtnPDF" title="Abrir colección en PDF"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
                     <button id="BtnHistorial" title="Ver historial"><i class="fa fa-history" aria-hidden="true"></i></button>                                        
+                    <button id="BtnPlayPausa" title="Reproducir/Pausar"><i class="fa fa-play" aria-hidden="true"></i></button>                                        
+                    <button id="BtnStop" title="Detener reproducción"><i class="fa fa-stop" aria-hidden="true"></i></button>
+                    <!-- Animación sencilla -->
+                    <div id="animación" class="animación oculto">
+                    <span></span><span></span><span></span>
+                    </div>
                     <button id="BtnAyuda" title="Información sobre estos botones"><i class="fa fa-question" aria-hidden="true"></i></button>                                        
                     <span class="espacioDerecha"> </span>
                 </div>
@@ -2141,6 +2199,95 @@ DefinirModoBuscar(true);
                     var arrayNumEncontradas = [];
                     // vector frases encontradas, para poder restaurar los párrafos
                     var arrayFrasesEncontradas = [];
+                    // inicio texto a voz
+                    
+                    var btnPlayPausa = document.getElementById("BtnPlayPausa");
+                    var btnStop = document.getElementById("BtnStop");
+                    var animación = document.getElementById("animación"); // id en minúsculas
+
+                    var utterance = null;
+                    var isPlaying = false;
+                    var isPaused = false;
+                    var vozSeleccionada = null;
+
+                    // Selección de voz: Colombia → España → predeterminada
+                    speechSynthesis.onvoiceschanged = function() {
+                    var voces = speechSynthesis.getVoices();
+                    var vozColombia = null;
+                    var vozEspaña = null;
+
+                    for (var i = 0; i < voces.length; i++) {
+                        if (voces[i].lang === "es-CO") { vozColombia = voces[i]; break; }
+                    }
+                    if (!vozColombia) {
+                        for (var j = 0; j < voces.length; j++) {
+                        if (voces[j].lang === "es-ES") { vozEspaña = voces[j]; break; }
+                        }
+                    }
+
+                    if (vozColombia) vozSeleccionada = vozColombia;
+                    else if (vozEspaña) vozSeleccionada = vozEspaña;
+                    else vozSeleccionada = null;
+                    };
+
+                    function iniciarLectura(texto) {
+                    if (!('speechSynthesis' in window)) {
+                        showSnackbar("El texto a voz no está disponible en este navegador.");
+                        return;
+                    }
+
+                    utterance = new SpeechSynthesisUtterance(texto);
+                    if (vozSeleccionada) utterance.voice = vozSeleccionada;
+                    utterance.rate = 1.0;
+                    utterance.volume = 1.2;
+
+                    utterance.onstart = function() {
+                        $(animación).removeClass("oculto");
+                    };
+                    utterance.onend = function() {
+                        $(animación).addClass("oculto");
+                        resetBoton();
+                    };
+
+                    speechSynthesis.speak(utterance);
+                    }
+
+                    function resetBoton() {
+                    btnPlayPausa.innerHTML = '<i class="fa fa-play" aria-hidden="true"></i>';
+                    isPlaying = false;
+                    isPaused = false;
+                    }
+
+                    btnPlayPausa.addEventListener("click", function() {
+                    if (!isPlaying) {
+                        // No está reproduciendo → iniciar o reanudar
+                        if (isPaused) {
+                        speechSynthesis.resume();
+                        isPaused = false;
+                        $(animación).removeClass("oculto");
+                        } else {
+                        var texto = document.getElementById("f" + fraseActual).innerHTML;
+                        iniciarLectura(texto);
+                        }
+                        btnPlayPausa.innerHTML = '<i class="fa fa-pause" aria-hidden="true"></i>';
+                        isPlaying = true;
+                    } else {
+                        // Está reproduciendo → pausar
+                        speechSynthesis.pause();
+                        btnPlayPausa.innerHTML = '<i class="fa fa-play" aria-hidden="true"></i>';
+                        isPlaying = false;
+                        isPaused = true;
+                        $(animación).addClass("oculto");
+                    }
+                    });
+
+                    btnStop.addEventListener("click", function() {
+                    speechSynthesis.cancel();
+                    $(animación).addClass("oculto");
+                    resetBoton();
+                    });
+
+                    // fin texto a voz
 
                     //para el modal
                     // Get the modal , input frase
@@ -2362,6 +2509,13 @@ DefinirModoBuscar(true);
                             document.getElementById("BtnHistorial").style.display = "none";
                             document.getElementById("icoPen").style.display = "none";
                             document.getElementById("BtnEnlace").style.display = "none";
+                            // oculta los botones de reproducción
+                            document.getElementById("BtnPlayPausa").style.display = "none";
+                            document.getElementById("BtnStop").style.display = "none";
+                            // detiene cualquier reproducción en curso                           
+                            speechSynthesis.cancel();
+                            $(animación).addClass("oculto");
+                            resetBoton();
                             document.getElementById("infoEncontradas").style.display = "block";
                             document.getElementById("txtBuscar").style.display = "block";
                             //ESTO TIENE TRANSICIÓN -----
@@ -2426,7 +2580,11 @@ DefinirModoBuscar(true);
                                 document.getElementById("ingresando").style.display = "none";
                                 document.getElementById("contFrases").style.display = "block";
                                 document.getElementById("contFrases").style.fontSize = "7vh";
-                                
+                                // muestra los botones de reproducción
+                                document.getElementById("BtnPlayPausa").style.display = "block";
+                                document.getElementById("BtnStop").style.display = "block";
+
+
 
                             }, 500);     
                                       

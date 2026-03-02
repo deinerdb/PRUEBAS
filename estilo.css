@@ -25,6 +25,10 @@ html, body {
     height: 100% !important;
     min-height: 100%;    
 }
+/*para ocultar elementos, sin importar si son inline o flex... */
+.oculto {
+  display: none !important;
+}
 /*lo que se oculta al imprimir*/
 @media print {
     * {
