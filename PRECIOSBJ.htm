@@ -211,6 +211,33 @@
                 background: white;
             }
             /* FIN RADIOS PERSONALIZADOS */
+            
+            #divRelacionados {
+                margin: 10px 0px 8px 0px;
+                padding: 4px 8px 4px 8px;
+                border: 2px solid purple;
+                -webkit-border-radius: 4px;
+                -moz-border-radius: 4px;
+                border-radius: 4px;
+                outline: none;
+                max-height: 200px;
+                overflow-y: auto;                
+            }
+            /* estiliza los li de los productos relacionados */
+            #divRelacionados li {
+                margin: 5px 0px 11px 0px;
+                padding: 10px 5px 10px 5px;
+                border: 1px solid #a9a9a9; /* gris oscuro */
+                border-radius: 4px;
+                list-style-type: none;
+                font-family: 'space_monoregular', Consolas, 'Courier New', Courier, monospace;
+                cursor: pointer;
+            }
+            #divRelacionados li:hover {
+                /* los resalta en negrita y cambia el fondo notablemente*/
+                background-color:  #e4d3e4; /* Thistle clareado  */ 
+                font-weight: bold;
+            }
 
             .formulario {
                 font-size: 1.05em;
@@ -6723,34 +6750,34 @@
                                 <details id="detailsGenerales" open="open">
                                     <summary>GENERALES</summary><br />
                                     <button type="button" id="btnCopiarCódigo" title="Copiar código del artículo"><i class="far fa-copy" aria-hidden="true"></i></button>
-                                    <label>Código:</label> <br />
+                                    <label for="txtCódigo">Código:</label> <br />
                                     <input type="text" id="txtCódigo" readonly /><br />
-                                    <label>Referencia:</label> <br />
+                                    <label for="txtReferencia">Referencia:</label> <br />
                                     <input type="text" id="txtReferencia" readonly /><br />
-                                    <label>Grupo:</label> <br />
+                                    <label for="txtGrupo">Grupo:</label> <br />
                                     <input type="text" id="txtGrupo" readonly /><br />
-                                    <label>Subgrupo:</label> <br />
+                                    <label for="txtSubgrupo">Subgrupo:</label> <br />
                                     <input type="text" id="txtSubgrupo" readonly /><br />
-                                    <label>Nombre POS:</label> <br />
+                                    <label for="txtNombrePOS">Nombre POS:</label> <br />
                                     <input type="text" id="txtNombrePOS" readonly /><br />
-                                    <label>Nombre:</label> <br />
+                                    <label for="txtNombre">Nombre:</label> <br />
                                     <input type="text" id="txtNombre" readonly /><br />
-                                    <label>Descripción (Presentación):</label> <br />
+                                    <label for="txtDescripción">Descripción (Presentación):</label> <br />
                                     <input type="text" id="txtDescripción" readonly /><br />
                                 </details>
                                 <details id="detailsPrecios" open="open">
                                     <summary>PRECIOS</summary><br />
                                     <button type="button" id="btnCopiarCompraSin" title="Copiar precio de compra sin IVA"><i class="far fa-copy" aria-hidden="true"></i></button>
-                                    <label>Precio compra sin IVA:</label> <br />
+                                    <label for="txtCompraSin">Precio compra sin IVA:</label> <br />
                                     <input type="text" id="txtCompraSin" readonly /><br />
                                     <button type="button" id="btnCopiarLista1Sin" title="Copiar precio Lista 1 sin IVA"><i class="far fa-copy" aria-hidden="true"></i></button>
-                                    <label>Precio Lista 1 sin IVA:</label> <br />
+                                    <label for="txtLista1Sin">Precio Lista 1 sin IVA:</label> <br />
                                     <input type="text" id="txtLista1Sin" readonly /><br />
                                     <button type="button" id="btnCopiarLista2Sin" title="Copiar precio Lista 2 sin IVA"><i class="far fa-copy" aria-hidden="true"></i></button>
-                                    <label>Precio Lista 2 sin IVA:</label> <br />
+                                    <label for="txtLista2Sin">Precio Lista 2 sin IVA:</label> <br />
                                     <input type="text" id="txtLista2Sin" readonly /><br />
                                     <button type="button" id="btnCopiarLista3Sin" title="Copiar precio Lista 3 sin IVA"><i class="far fa-copy" aria-hidden="true"></i></button>
-                                    <label>Precio Lista 3 sin IVA:</label> <br />
+                                    <label for="txtLista3Sin">Precio Lista 3 sin IVA:</label> <br />
                                     <input type="text" id="txtLista3Sin" readonly /><br />
                                 </details>
         
@@ -6772,6 +6799,11 @@
                         <input type="text" name="códigoInfo" id="códigoInfo" readonly value=""/><br />
                         <label for="infoPrecioCompraConIVA">Precio Compra Con IVA:</label><br />
                         <input type="text" name="infoPrecioCompraConIVA" id="infoPrecioCompraConIVA" readonly value=""/><br />
+                        <label for="divRelacionados">Productos relacionados:</label><br />
+                        <div id="divRelacionados">
+                            <ul id="listaRelacionados">                                    
+                            </ul>
+                        </div>
                     </form>
                     <!-- un relleno inferior -->
                     <p id="rellenoModal"></p>
@@ -6782,12 +6814,22 @@
             </div>
         </div>
         <!-- termina aquí la ventana modal para múltiples usos -->
-        <script>            
+        <script> 
+            // función llamada al hacer click en algún li hijos de #listaRelacionados
+            function clickRelacionado(event, li) {
+                //showSnackbar("El código es " + li.dataset.cod);
+                // cierra el modal
+                cerrarModal();
+                // busca el producto, escribiendo el código en el input de búsqueda y llamando a la función que procesa el cambio
+                getCampoBuscarProducto.value = li.dataset.cod;
+                // llama a la función
+                procesarEntradaBuscarProducto();
+            }   
             // al cargar la página
             window.addEventListener("load", function (event) {
                 // inicializar campos, algunos navegadores recuerdan valores previos
                 // nada que buscar
-                document.getElementById("buscarProducto").value = "";
+                getCampoBuscarProducto.value = "";
                 // no se ha buscado
                 $("#infoNoEncontrados").css("display", "none");
                 // por defecto NO muestra precios de compra
@@ -6984,7 +7026,38 @@
                         infoArt = $(globalFila).children("td:nth-child(3)").html();
                         document.getElementById("infoPrecioCompraConIVA").value = infoArt;
                         //document.getElementById("spanInfoModal").innerHTML = infoArt;
-
+                        
+                        // actualiza la lista de productos relacionados
+                        infoArt = globalFila.dataset.rel;
+                        var listaRel = document.getElementById("listaRelacionados");
+                        // limpia la lista
+                        while (listaRel.firstChild) {
+                            listaRel.removeChild(listaRel.firstChild);
+                        }   
+                        // agreguemos los productos relacionados, si los hay
+                        // los productos están separados por @sep y cada producto tendrá la forma: código - nombre
+                        // el código y el nombre están separados en el dataset por @cn                        
+                        if (infoArt.length > 0) {
+                            var arrRel = infoArt.split("@sep");
+                            for (var i = 0; i < arrRel.length; i++) {
+                                var li = document.createElement("li");
+                                var producto = arrRel[i].split("@cn");
+                                // ahora el producto tiene la forma: código - nombre
+                                li.textContent = producto[0] + " - " + producto[1];
+                                // agrega al li un dataset que contiene el código del producto relacionado
+                                li.dataset.cod = producto[0];
+                                // agrega un evento click al li para llamar la función clickRelacionado
+                                li.addEventListener("click", function (event) {
+                                    clickRelacionado(event, this);
+                                });
+                                listaRel.appendChild(li);
+                            }
+                        } else {
+                            var li = document.createElement("li");
+                            li.textContent = "No hay productos relacionados";
+                            // este li no tiene dataset ni evento click
+                            listaRel.appendChild(li);
+                        }
                         // cantidad vacía inicialmente
                         getCantidadCalcular.value = "";
                         // valor inicial no muestra nada
